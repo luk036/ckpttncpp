@@ -1,17 +1,20 @@
 #define CATCH_CONFIG_MAIN
 #include <catch.hpp>
-#include <ckpttncpp/dllist.hpp> // import  dllist, dllink
-#include <ckpttncpp/bpqueue.hpp> // import  bpqueue
+#include <ckpttncpp/dllist.hpp>  // import dllink
+#include <ckpttncpp/bpqueue.hpp> // import bpqueue
 
-TEST_CASE("Test BPQueue", "[bpqueue]") {
+TEST_CASE("Test BPQueue", "[bpqueue]")
+{
     auto bpq1 = bpqueue(-10, 10);
     auto bpq2 = bpqueue(-10, 10);
 
-    CHECK (bpq1.is_empty());
+    CHECK(bpq1.is_empty());
 
     auto d = dllink();
     auto e = dllink();
     auto f = dllink();
+
+    CHECK(d._key == 0);
 
     bpq1.append(e, 3);
     bpq1.append(f, -10);
@@ -21,18 +24,25 @@ TEST_CASE("Test BPQueue", "[bpqueue]") {
     bpq2.append(bpq1.popleft(), 3);
     bpq2.append(bpq1.popleft(), 0);
 
-    bpq2.increase_key(d, 15);
-    bpq2.decrease_key(d, 3);
-    CHECK (bpq1.is_empty());
-    CHECK (bpq2.get_max() == 6);
+    bpq2.modify_key(d, 15);
+    bpq2.modify_key(d, -3);
+    CHECK(bpq1.is_empty());
+    CHECK(bpq2.get_max() == 6);
 
     auto nodelist = std::vector<dllink>(10);
-    auto gainlist = std::vector<int>{-3, -5, 4, 0, 7, 4, 7, -2, 4, 6};
-    bpq1.appendfrom(nodelist, gainlist);
-    
+
+    auto i = 0u;
+    for (auto &it : nodelist)
+    {
+        it._key = 2 * i - 10;
+        i += 1;
+    }
+    bpq1.appendfrom(nodelist);
+
     auto count = 0u;
-    for (auto& node : bpq1) {
+    for (auto &node : bpq1)
+    {
         count += 1;
     }
-    CHECK (count == 10);
+    CHECK(count == 10);
 }

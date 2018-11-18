@@ -10,9 +10,9 @@ struct dll_iterator;
  */
 struct dllink
 {
-    int _key;
-    dllink *_next;
-    dllink *_prev;
+    int key;
+    dllink *next;
+    dllink *prev;
 
     /**
      * @brief Construct a new dllink object
@@ -22,9 +22,9 @@ struct dllink
      * @param prev 
      */
     dllink(int key = 0)
-        : _key{key},
-          _next{this},
-          _prev{this} {}
+        : key{key},
+          next{this},
+          prev{this} {}
 
     /**
      * @brief 
@@ -32,10 +32,10 @@ struct dllink
      */
     void detach()
     {
-        auto n = this->_next;
-        auto p = this->_prev;
-        p->_next = n;
-        p->_prev = p;
+        auto n = this->next;
+        auto p = this->prev;
+        p->next = n;
+        p->prev = p;
     }
 
     /**
@@ -46,7 +46,7 @@ struct dllink
      */
     auto is_empty() const noexcept -> bool
     {
-        return this->_next == this;
+        return this->next == this;
     }
 
     /**
@@ -56,7 +56,7 @@ struct dllink
      */
     auto clear()
     {
-        this->_next = this->_prev = this;
+        this->next = this->prev = this;
     }
 
     /**
@@ -66,10 +66,10 @@ struct dllink
      */
     auto appendleft(dllink &node) -> void
     {
-        node._next = this->_next;
-        this->_next->_prev = &node;
-        this->_next = &node;
-        node._prev = this;
+        node.next = this->next;
+        this->next->prev = &node;
+        this->next = &node;
+        node.prev = this;
     }
 
     /**
@@ -79,10 +79,10 @@ struct dllink
      */
     auto append(dllink &node) -> void
     {
-        node._prev = this->_prev;
-        this->_prev->_next = &node;
-        this->_prev = &node;
-        node._next = this;
+        node.prev = this->prev;
+        this->prev->next = &node;
+        this->prev = &node;
+        node.next = this;
     }
 
     /**
@@ -92,9 +92,9 @@ struct dllink
      */
     auto popleft() -> dllink &
     {
-        auto res = this->_next;
-        this->_next = res->_next;
-        this->_next->_prev = this;
+        auto res = this->next;
+        this->next = res->next;
+        this->next->prev = this;
         return *res;
     }
 
@@ -105,9 +105,9 @@ struct dllink
      */
     auto pop() -> dllink &
     {
-        auto res = this->_prev;
-        this->_prev = res->_prev;
-        this->_prev->_next = this;
+        auto res = this->prev;
+        this->prev = res->prev;
+        this->prev->next = this;
         return *res;
     }
 
@@ -130,10 +130,10 @@ struct dllink
 
 struct dll_iterator
 {
-    dllink *_cur;
+    dllink *cur;
 
     explicit dll_iterator(dllink *cur)
-        : _cur{cur} {}
+        : cur{cur} {}
 
     // For forward iterator
 
@@ -144,7 +144,7 @@ struct dll_iterator
      */
     auto operator++() -> dll_iterator &
     {
-        this->_cur = this->_cur->_next;
+        this->cur = this->cur->next;
         return *this;
     }
 
@@ -155,7 +155,7 @@ struct dll_iterator
      */
     auto operator*() -> dllink &
     {
-        return *this->_cur;
+        return *this->cur;
     }
 
     /**
@@ -167,7 +167,7 @@ struct dll_iterator
      */
     auto operator==(const dll_iterator &rhs) -> bool
     {
-        return this->_cur == rhs._cur;
+        return this->cur == rhs.cur;
     }
 
     /**
@@ -190,7 +190,7 @@ struct dll_iterator
  */
 inline auto dllink::begin() -> dll_iterator
 {
-    return dll_iterator{this->_next};
+    return dll_iterator{this->next};
 }
 
 /**

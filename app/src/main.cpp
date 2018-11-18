@@ -14,7 +14,7 @@ TEST_CASE("Test BPQueue for main", "[bpqueue]")
     auto e = dllink();
     auto f = dllink();
 
-    CHECK(d._key == 0);
+    CHECK(d.key == 0);
 
     bpq1.append(e, 3);
     bpq1.append(f, -10);
@@ -34,7 +34,7 @@ TEST_CASE("Test BPQueue for main", "[bpqueue]")
     auto i = 0u;
     for (auto &it : nodelist)
     {
-        it._key = 2 * i - 10;
+        it.key = 2 * i - 10;
         i += 1;
     }
     bpq1.appendfrom(nodelist);

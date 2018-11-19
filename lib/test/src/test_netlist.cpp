@@ -14,7 +14,7 @@ using graph_t =
 using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
 using edge_t = typename boost::graph_traits<graph_t>::edge_iterator;
 
-static auto create_test_netlist()
+auto create_test_netlist() -> Netlist
 {
     using Edge = std::pair<int, int>;
     const int num_nodes = 6;
@@ -67,10 +67,10 @@ TEST_CASE("Test Netlist", "[test_netlist]")
 {
     auto H = create_test_netlist();
 
-    CHECK( H.number_of_cells() == 3 );
-    CHECK( H.number_of_nets() == 3 );
-    CHECK( H.number_of_pins() == 6 );
-    CHECK( H.get_max_degree() == 3 );
-    CHECK( H.get_max_net_degree() == 3 );
-    CHECK( !H.has_fixed_cells );
+    CHECK(H.number_of_cells() == 3);
+    CHECK(H.number_of_nets() == 3);
+    CHECK(H.number_of_pins() == 6);
+    CHECK(H.get_max_degree() == 3);
+    CHECK(H.get_max_net_degree() == 3);
+    CHECK(!H.has_fixed_cells);
 }

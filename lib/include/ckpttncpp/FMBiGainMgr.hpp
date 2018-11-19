@@ -7,6 +7,11 @@
 #include <cassert>
 #include <iterator>
 
+/* linux-2.6.38.8/include/linux/compiler.h */
+#include <stdio.h>
+#define likely(x) __builtin_expect(!!(x), 1)
+#define unlikely(x) __builtin_expect(!!(x), 0)
+
 struct FMBiGainMgr
 {
     Netlist &H;
@@ -47,7 +52,7 @@ struct FMBiGainMgr
         {
             this->init_gain_2pin_net(net, part);
         }
-        else if (this->H.G.degree(net) < 2)
+        else if (unlikely(this->H.G.degree(net) < 2))
         {           // unlikely, self-loop, etc.
             return; // does not provide any gain when move
         }
@@ -67,7 +72,8 @@ struct FMBiGainMgr
         auto i_v = this->H.cell_dict[v];
         auto part_w = part[i_w];
         auto part_v = part[i_v];
-        auto weight = this->H.G[net].get('weight', 1);
+        // auto weight = this->H.G[net].get('weight', 1);
+        auto weight = 1;
         auto g = (part_w == part_v) ? -weight : weight;
         this->vertex_list[i_w].key += g;
         this->vertex_list[i_v].key += g;
@@ -85,7 +91,8 @@ struct FMBiGainMgr
             IdVec.push_back(i_w);
         }
 
-        auto weight = this->H.G[net].get('weight', 1);
+        // auto weight = this->H.G[net].get('weight', 1);
+        auto weight = 1;
         for (auto &&k : {0, 1})
         {
             if (this->num[k] == 0)
@@ -121,7 +128,7 @@ struct FMBiGainMgr
             {
                 this->update_move_2pin_net(net, part, fromPart, v);
             }
-            else if (this->H.G.degree(net) < 2)
+            else if (unlikely(this->H.G.degree(net) < 2))
             {          // unlikely, self-loop, etc.
                 break; // does not provide any gain change when move
             }
@@ -140,14 +147,11 @@ struct FMBiGainMgr
     {
         assert(this->H.G.degree(net) == 2);
         auto netCur = this->H.G[net].begin();
-        node_t w = *netCur;
-        if (w == v)
-        {
-            w = *++netCur;
-        }
+        node_t w = (*netCur != v)? *netCur : *++netCur;
         auto i_w = this->H.cell_dict[w];
         auto part_w = part[i_w];
-        auto weight = this->H.G[net].get('weight', 1);
+        // auto weight = this->H.G[net].get('weight', 1);
+        auto weight = 1;
         auto deltaGainW = (part_w == fromPart) ? 2 * weight : -2 * weight;
         this->gainbucket.modify_key(this->vertex_list[i_w], deltaGainW);
     }
@@ -160,15 +164,13 @@ struct FMBiGainMgr
         auto deltaGain = std::vector<int>{};
         for (const auto &w : this->H.G[net])
         {
-            if (w == v)
-            {
-                continue;
-            }
+            if (w == v) continue;
             IdVec.push_back(this->H.cell_dict[w]);
             deltaGain.push_back(0);
         }
         auto degree = std::size(IdVec);
-        auto m = this->H.G[net].get('weight', 1);
+        // auto m = this->H.G[net].get('weight', 1);
+        auto m = 1;
         auto weight = (fromPart == 0) ? m : -m;
         for (auto &&k : {0, 1})
         {

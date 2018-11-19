@@ -12,6 +12,10 @@ using graph_t = boost::adjacency_list<boost::vecS, boost::vecS,
 using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
 // using edge_t = typename boost::graph_traits<graph_t>::edge_iterator;
 
+/**
+ * @brief Netlist
+ * 
+ */
 struct Netlist
 {
     using nodevec_t = std::vector<node_t>;

@@ -10,7 +10,7 @@ namespace xn
 {
 
 /**
- * @brief 
+ * @brief VertexView
  * 
  * @tparam Graph 
  */
@@ -26,7 +26,7 @@ class VertexView : public Graph
     explicit VertexView(Graph &G) : Graph(G) {}
 
     /**
-     * @brief 
+     * @brief begin()
      * 
      * @return auto 
      */
@@ -37,7 +37,7 @@ class VertexView : public Graph
     }
 
     /**
-     * @brief 
+     * @brief end()
      * 
      * @return auto 
      */
@@ -48,7 +48,7 @@ class VertexView : public Graph
     }
 
     /**
-     * @brief 
+     * @brief cbegin()
      * 
      * @return auto 
      */
@@ -59,7 +59,7 @@ class VertexView : public Graph
     }
 
     /**
-     * @brief 
+     * @brief cend()
      * 
      * @return auto 
      */
@@ -71,7 +71,7 @@ class VertexView : public Graph
 };
 
 /**
- * @brief 
+ * @brief EdgeView
  * 
  * @tparam Graph 
  */
@@ -90,7 +90,7 @@ class EdgeView
     explicit EdgeView(const Graph &G) : _G{G} {}
 
     /**
-     * @brief 
+     * @brief begin()
      * 
      * @return auto 
      */
@@ -101,7 +101,7 @@ class EdgeView
     }
 
     /**
-     * @brief 
+     * @brief end()
      * 
      * @return auto 
      */
@@ -112,7 +112,7 @@ class EdgeView
     }
 
     /**
-     * @brief 
+     * @brief cbegin()
      * 
      * @return auto 
      */
@@ -123,7 +123,7 @@ class EdgeView
     }
 
     /**
-     * @brief 
+     * @brief cend()
      * 
      * @return auto 
      */
@@ -135,7 +135,7 @@ class EdgeView
 };
 
 /**
- * @brief 
+ * @brief AtlasView
  * 
  * @tparam Vertex 
  * @tparam Graph 
@@ -157,7 +157,7 @@ class AtlasView
     explicit AtlasView(Vertex v, const Graph &G) : _v{v}, _G{G} {}
 
     /**
-     * @brief 
+     * @brief begin()
      * 
      * @return auto 
      */
@@ -168,7 +168,7 @@ class AtlasView
     }
 
     /**
-     * @brief 
+     * @brief end()
      * 
      * @return auto 
      */
@@ -179,7 +179,7 @@ class AtlasView
     }
 
     /**
-     * @brief 
+     * @brief cbegin()
      * 
      * @return auto 
      */
@@ -190,7 +190,7 @@ class AtlasView
     }
 
     /**
-     * @brief 
+     * @brief cend()
      * 
      * @return auto 
      */
@@ -202,7 +202,7 @@ class AtlasView
 };
 
 /**
- * @brief 
+ * @brief grAdaptor
  * 
  * @tparam Graph 
  */
@@ -211,7 +211,6 @@ class grAdaptor : public VertexView<Graph>
 {
   public:
     using Vertex = typename boost::graph_traits<Graph>::vertex_descriptor;
-    //using edge_wt_t = decltype( boost::get(boost::edge_weight, std::declval<Graph>()) );
 
     /**
      * @brief Construct a new gr Adaptor object
@@ -227,11 +226,11 @@ class grAdaptor : public VertexView<Graph>
     explicit grAdaptor(Graph &G) : VertexView<Graph>(G) {}
 
     /**
-     * @brief 
+     * @brief number of edges
      * 
-     * @return auto 
+     * @return size_t
      */
-    auto number_of_edges() const { return boost::num_edges(*this); }
+    auto number_of_edges() const -> size_t { return boost::num_edges(*this); }
 
     /**
      * @brief 

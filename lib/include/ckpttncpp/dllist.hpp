@@ -132,6 +132,11 @@ struct dll_iterator
 {
     dllink *cur;
 
+    /**
+     * @brief Construct a new dll iterator object
+     * 
+     * @param cur 
+     */
     explicit dll_iterator(dllink *cur)
         : cur{cur} {}
 

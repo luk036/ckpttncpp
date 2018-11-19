@@ -6,7 +6,8 @@
 #include <initializer_list>
 #include <utility>
 
-namespace py {
+namespace py
+{
 
 /**
  * @brief 
@@ -14,23 +15,22 @@ namespace py {
  * @tparam Key 
  */
 template <typename Key>
-struct set : std::unordered_set<Key> {
+struct set : std::unordered_set<Key>
+{
     using _Self = set<Key>;
 
     /**
      * @brief Construct a new set object
      * 
      */
-    explicit set() : 
-        std::unordered_set<Key>{} {}
+    explicit set() : std::unordered_set<Key>{} {}
 
     /**
      * @brief Construct a new set object
      * 
      * @param init 
      */
-    explicit set(std::initializer_list<Key> init) : 
-        std::unordered_set<Key>{init} {}
+    explicit set(std::initializer_list<Key> init) : std::unordered_set<Key>{init} {}
 
     /**
      * @brief 
@@ -39,7 +39,8 @@ struct set : std::unordered_set<Key> {
      * @return true 
      * @return false 
      */
-    bool contains(const Key& key) const {
+    bool contains(const Key &key) const
+    {
         return this->find(key) != this->end();
     }
 
@@ -55,21 +56,21 @@ struct set : std::unordered_set<Key> {
      * 
      * @return _Self& 
      */
-    _Self& operator=(const _Self& ) = delete;
+    _Self &operator=(const _Self &) = delete;
 
     /**
      * @brief 
      * 
      * @return _Self& 
      */
-    _Self& operator=(_Self&& ) = delete;
+    _Self &operator=(_Self &&) = delete;
 
-private:
+  private:
     /**
      * @brief Construct a new set object
      * 
      */
-    set(const _Self& ) = default;
+    set(const _Self &) = default;
 };
 
 /**
@@ -82,7 +83,8 @@ private:
  * @return false 
  */
 template <typename Key>
-inline bool operator<(const Key& key, const set<Key>& m) {
+inline bool operator<(const Key &key, const set<Key> &m)
+{
     return m.contains(key);
 }
 
@@ -94,7 +96,8 @@ inline bool operator<(const Key& key, const set<Key>& m) {
  * @return size_t 
  */
 template <typename Key>
-inline size_t len(const set<Key>& m) {
+inline size_t len(const set<Key> &m)
+{
     return m.size();
 }
 
@@ -104,7 +107,7 @@ inline size_t len(const set<Key>& m) {
  * @tparam Key 
  */
 template <typename Key>
-set(std::initializer_list<Key> ) -> set<Key>;
+set(std::initializer_list<Key>)->set<Key>;
 
 // template <typename Key>
 // set(std::initializer_list<const char*> ) -> set<std::string>;
@@ -116,7 +119,8 @@ set(std::initializer_list<Key> ) -> set<Key>;
  * @tparam T 
  */
 template <typename Key, typename T>
-struct dict : std::unordered_map<Key, T> {
+struct dict : std::unordered_map<Key, T>
+{
     using value_type = std::pair<const Key, T>;
     using _Self = dict<Key, T>;
 
@@ -124,16 +128,14 @@ struct dict : std::unordered_map<Key, T> {
      * @brief Construct a new dict object
      * 
      */
-    explicit dict() : 
-        std::unordered_map<Key, T>{} {}
+    explicit dict() : std::unordered_map<Key, T>{} {}
 
     /**
      * @brief Construct a new dict object
      * 
      * @param init 
      */
-    explicit dict(std::initializer_list<value_type> init) : 
-        std::unordered_map<Key, T>{init} {}
+    explicit dict(std::initializer_list<value_type> init) : std::unordered_map<Key, T>{init} {}
 
     /**
      * @brief 
@@ -142,7 +144,8 @@ struct dict : std::unordered_map<Key, T> {
      * @return true 
      * @return false 
      */
-    bool contains(const Key& key) const {
+    bool contains(const Key &key) const
+    {
         return this->find(key) != this->end();
     }
 
@@ -153,8 +156,10 @@ struct dict : std::unordered_map<Key, T> {
      * @param default_value 
      * @return T 
      */
-    T get(const Key& key, const T& default_value) {
-        if (!contains(key)) return default_value;
+    T get(const Key &key, const T &default_value)
+    {
+        if (!contains(key))
+            return default_value;
         return (*this)[key];
     }
 
@@ -170,21 +175,21 @@ struct dict : std::unordered_map<Key, T> {
      * 
      * @return _Self& 
      */
-    _Self& operator=(const _Self& ) = delete;
+    _Self &operator=(const _Self &) = delete;
 
     /**
      * @brief 
      * 
      * @return _Self& 
      */
-    _Self& operator=(_Self&& ) = delete;
+    _Self &operator=(_Self &&) = delete;
 
-private:
+  private:
     /**
      * @brief Construct a new dict object
      * 
      */
-    dict(const _Self& ) = default;
+    dict(const _Self &) = default;
 };
 
 /**
@@ -198,7 +203,8 @@ private:
  * @return false 
  */
 template <typename Key, typename T>
-inline bool operator<(const Key& key, const dict<Key, T>& m) {
+inline bool operator<(const Key &key, const dict<Key, T> &m)
+{
     return m.contains(key);
 }
 
@@ -211,7 +217,8 @@ inline bool operator<(const Key& key, const dict<Key, T>& m) {
  * @return size_t 
  */
 template <typename Key, typename T>
-inline size_t len(const dict<Key, T>& m) {
+inline size_t len(const dict<Key, T> &m)
+{
     return m.size();
 }
 
@@ -222,9 +229,8 @@ inline size_t len(const dict<Key, T>& m) {
  * @tparam T 
  */
 template <typename Key, typename T>
-dict(std::initializer_list<std::pair<const Key, T>> ) -> dict<Key, T>;
+dict(std::initializer_list<std::pair<const Key, T>>)->dict<Key, T>;
 
-
-}
+} // namespace py
 
 #endif

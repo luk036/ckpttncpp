@@ -85,9 +85,8 @@ struct bpqueue
      * 
      * @param it 
      * @param k 
-     * @return auto 
      */
-    auto append(dllink &it, int k)
+    auto append(dllink &it, int k) -> void
     {
         auto key = k - this->offset;
         if (this->max < key)
@@ -103,9 +102,8 @@ struct bpqueue
      * 
      * @param nodes 
      * @param keys 
-     * @return auto 
      */
-    auto appendfrom(std::vector<dllink> &nodes)
+    auto appendfrom(std::vector<dllink> &nodes) -> void
     {
         for (auto &it : nodes)
         {
@@ -179,9 +177,8 @@ struct bpqueue
      * 
      * @param it 
      * @param delta 
-     * @return auto 
      */
-    auto modify_key(dllink &it, int delta)
+    auto modify_key(dllink &it, int delta) -> void
     {
         if (delta > 0)
         {
@@ -247,6 +244,11 @@ struct bpq_iterator
     {
     }
 
+    /**
+     * @brief 
+     * 
+     * @return dllink& 
+     */
     auto curlist() -> dllink &
     {
         return this->bpq.bucket[this->curkey];
@@ -306,11 +308,21 @@ struct bpq_iterator
     }
 };
 
+/**
+ * @brief 
+ * 
+ * @return bpq_iterator 
+ */
 inline auto bpqueue::begin() -> bpq_iterator
 {
     return bpq_iterator(*this, this->max);
 }
 
+/**
+ * @brief 
+ * 
+ * @return bpq_iterator 
+ */
 inline auto bpqueue::end() -> bpq_iterator
 {
     return bpq_iterator(*this, 0);

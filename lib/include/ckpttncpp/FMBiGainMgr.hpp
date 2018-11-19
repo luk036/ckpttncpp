@@ -12,6 +12,10 @@
 #define likely(x) __builtin_expect(!!(x), 1)
 #define unlikely(x) __builtin_expect(!!(x), 0)
 
+/**
+ * @brief FMBiGainMgr
+ * 
+ */
 struct FMBiGainMgr
 {
     Netlist &H;
@@ -21,6 +25,11 @@ struct FMBiGainMgr
     size_t num_cells;
     std::vector<dllink> vertex_list;
 
+    /**
+     * @brief Construct a new FMBiGainMgr object
+     * 
+     * @param H 
+     */
     explicit FMBiGainMgr(Netlist &H)
         : H{H},
           pmax{H.get_max_degree()},
@@ -29,6 +38,11 @@ struct FMBiGainMgr
           num_cells{H.number_of_cells()},
           vertex_list(num_cells) {}
 
+    /**
+     * @brief 
+     * 
+     * @param part 
+     */
     auto init(std::vector<size_t> &part) -> void
     {
         for (auto &net : this->H.net_list)
@@ -46,6 +60,12 @@ struct FMBiGainMgr
         this->gainbucket.appendfrom(this->vertex_list);
     }
 
+    /**
+     * @brief 
+     * 
+     * @param net 
+     * @param part 
+     */
     auto init_gain(node_t &net, std::vector<size_t> &part) -> void
     {
         if (this->H.G.degree(net) == 2)
@@ -62,6 +82,12 @@ struct FMBiGainMgr
         }
     }
 
+    /**
+     * @brief 
+     * 
+     * @param net 
+     * @param part 
+     */
     auto init_gain_2pin_net(node_t &net, std::vector<size_t> &part) -> void
     {
         assert(this->H.G.degree(net) == 2);
@@ -79,6 +105,12 @@ struct FMBiGainMgr
         this->vertex_list[i_v].key += g;
     }
 
+    /**
+     * @brief 
+     * 
+     * @param net 
+     * @param part 
+     */
     auto init_gain_general_net(node_t &net, std::vector<size_t> &part) -> void
     {
         this->num[0] = 0;
@@ -117,6 +149,12 @@ struct FMBiGainMgr
         }
     }
 
+    /**
+     * @brief 
+     * 
+     * @param part 
+     * @param v 
+     */
     auto update_move(std::vector<size_t> &part, node_t &v) -> void
     {
         auto i_v = this->H.cell_dict[v];
@@ -143,6 +181,14 @@ struct FMBiGainMgr
         part[i_v] = 1 - fromPart;
     }
 
+    /**
+     * @brief 
+     * 
+     * @param net 
+     * @param part 
+     * @param fromPart 
+     * @param v 
+     */
     auto update_move_2pin_net(node_t &net, std::vector<size_t> &part, size_t fromPart, node_t &v) -> void
     {
         assert(this->H.G.degree(net) == 2);
@@ -156,6 +202,14 @@ struct FMBiGainMgr
         this->gainbucket.modify_key(this->vertex_list[i_w], deltaGainW);
     }
 
+    /**
+     * @brief 
+     * 
+     * @param net 
+     * @param part 
+     * @param fromPart 
+     * @param v 
+     */
     auto update_move_general_net(node_t &net, std::vector<size_t> &part, size_t fromPart, node_t &v) -> void
     {
         assert(this->H.G.degree(net) > 2);

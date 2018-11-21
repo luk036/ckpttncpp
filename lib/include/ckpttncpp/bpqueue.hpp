@@ -196,15 +196,15 @@ struct bpqueue
      * @param it 
      * @return auto 
      */
-    auto detach(dllink &it)
-    {
-        // this->bucket[it.key].detach(it)
-        it.detach();
-        while (this->bucket[this->max].is_empty())
-        {
-            this->max -= 1;
-        }
-    }
+    // auto detach(dllink &it)
+    // {
+    //     // this->bucket[it.key].detach(it)
+    //     it.detach();
+    //     while (this->bucket[this->max].is_empty())
+    //     {
+    //         this->max -= 1;
+    //     }
+    // }
 
     /**
      * @brief iterator point to begin

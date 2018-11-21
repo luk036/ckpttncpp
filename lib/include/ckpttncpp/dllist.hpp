@@ -27,6 +27,12 @@ struct dllink
           prev{this} {}
 
     /**
+     * @brief Construct a new dllink object
+     * 
+     */
+    dllink(dllink& ) = delete;
+
+    /**
      * @brief 
      * 
      */
@@ -35,7 +41,7 @@ struct dllink
         auto n = this->next;
         auto p = this->prev;
         p->next = n;
-        p->prev = p;
+        n->prev = p;
     }
 
     /**

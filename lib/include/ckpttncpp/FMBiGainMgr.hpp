@@ -21,7 +21,7 @@ struct FMBiGainMgr
     Netlist &H;
     size_t pmax;
     bpqueue gainbucket;
-    size_t num[2];
+    // size_t num[2];
     size_t num_cells;
     std::vector<dllink> vertex_list;
 
@@ -34,9 +34,14 @@ struct FMBiGainMgr
         : H{H},
           pmax{H.get_max_degree()},
           gainbucket(-pmax, pmax),
-          num{0, 0},
+          // num{0, 0},
           num_cells{H.number_of_cells()},
           vertex_list(num_cells) {}
+
+    size_t get_vertex_id(const dllink& v) const
+    {
+        return &v - &vertex_list[0];
+    }
 
     /**
      * @brief 
@@ -113,13 +118,12 @@ struct FMBiGainMgr
      */
     auto init_gain_general_net(node_t &net, std::vector<size_t> &part) -> void
     {
-        this->num[0] = 0;
-        this->num[1] = 0;
+	    size_t num[2] = {0, 0};
         auto IdVec = std::vector<size_t>();
         for (const auto &w : this->H.G[net])
         {
             auto i_w = this->H.cell_dict[w];
-            this->num[part[i_w]] += 1;
+            num[part[i_w]] += 1;
             IdVec.push_back(i_w);
         }
 
@@ -127,14 +131,14 @@ struct FMBiGainMgr
         auto weight = 1;
         for (auto &&k : {0, 1})
         {
-            if (this->num[k] == 0)
+            if (num[k] == 0)
             {
                 for (auto &i_w : IdVec)
                 {
                     this->vertex_list[i_w].key -= weight;
                 }
             }
-            else if (this->num[k] == 1)
+            else if (num[k] == 1)
             {
                 for (auto &i_w : IdVec)
                 {
@@ -155,10 +159,10 @@ struct FMBiGainMgr
      * @param part 
      * @param v 
      */
-    auto update_move(std::vector<size_t> &part, node_t &v) -> void
+    auto update_move(std::vector<size_t> &part, size_t fromPart, node_t &v) -> void
     {
         auto i_v = this->H.cell_dict[v];
-        auto fromPart = part[i_v];
+        // auto fromPart = part[i_v];
 
         for (auto net : this->H.G[v])
         {
@@ -178,7 +182,6 @@ struct FMBiGainMgr
 
         auto gain = this->gainbucket.get_key(this->vertex_list[i_v]);
         this->gainbucket.modify_key(this->vertex_list[i_v], -2 * gain);
-        part[i_v] = 1 - fromPart;
     }
 
     /**
@@ -214,12 +217,15 @@ struct FMBiGainMgr
     {
         assert(this->H.G.degree(net) > 2);
 
+	    size_t num[2] = {0, 0};
         auto IdVec = std::vector<size_t>{};
         auto deltaGain = std::vector<int>{};
         for (const auto &w : this->H.G[net])
         {
             if (w == v) continue;
-            IdVec.push_back(this->H.cell_dict[w]);
+            auto i_w = this->H.cell_dict[w];
+            num[part[i_w]] += 1;
+            IdVec.push_back(i_w);
             deltaGain.push_back(0);
         }
         auto degree = std::size(IdVec);
@@ -228,14 +234,14 @@ struct FMBiGainMgr
         auto weight = (fromPart == 0) ? m : -m;
         for (auto &&k : {0, 1})
         {
-            if (this->num[k] == 0)
+            if (num[k] == 0)
             {
                 for (auto idx = 0u; idx < degree; ++idx)
                 {
                     deltaGain[idx] -= weight;
                 }
             }
-            else if (this->num[k] == 1)
+            else if (num[k] == 1)
             {
                 for (auto idx = 0u; idx < degree; ++idx)
                 {
@@ -252,6 +258,7 @@ struct FMBiGainMgr
 
         for (auto idx = 0u; idx < degree; ++idx)
         {
+            if (deltaGain[idx] == 0) continue;
             this->gainbucket.modify_key(
                 this->vertex_list[IdVec[idx]], deltaGain[idx]);
         }

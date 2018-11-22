@@ -14,6 +14,11 @@ using graph_t =
 using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
 using edge_t = typename boost::graph_traits<graph_t>::edge_iterator;
 
+/**
+ * @brief Create a test netlist object
+ * 
+ * @return Netlist 
+ */
 auto create_test_netlist() -> Netlist
 {
     using Edge = std::pair<int, int>;

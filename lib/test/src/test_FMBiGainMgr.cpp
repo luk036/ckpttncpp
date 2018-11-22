@@ -16,12 +16,12 @@ TEST_CASE("Test FMBiGainMgr", "[test_FMBiGainMgr]")
     // CHECK(gain_before == 1);
     CHECK(part == part_test);
     // for (auto &v : H.cell_list)
-    for (auto i_v = 0u; i_v < H.cell_list.size(); ++i_v)
+    for (auto v = 0u; v < H.cell_list.size(); ++v)
     {
-        auto &v = H.cell_list[i_v];
-        auto fromPart = part[i_v]; 
+        // auto &v = H.cell_list[i_v];
+        auto fromPart = part[v]; 
         mgr.update_move(part, fromPart, v);
-        part[i_v] = 1 - fromPart;
+        part[v] = 1 - fromPart;
     }
     auto gain_after = mgr.gainbucket.get_key(mgr.vertex_list[0]);
     auto part_result = std::vector<size_t>{1, 0, 1};
@@ -36,10 +36,10 @@ TEST_CASE("Test FMBiGainMgr", "[test_FMBiGainMgr]")
         auto gainmax = mgr.gainbucket.get_max();
         auto& vlink = mgr.gainbucket.popleft();
         waitinglist.append(vlink);
-        auto i_v = mgr.get_vertex_id(vlink);
-        CHECK(i_v >= 0);
-        CHECK(i_v < 3);
-        auto& v = H.cell_list[i_v];
+        auto v = mgr.get_vertex_id(vlink);
+        CHECK(v >= 0);
+        CHECK(v < 3);
+        // auto& v = H.cell_list[i_v];
     }
 
 }

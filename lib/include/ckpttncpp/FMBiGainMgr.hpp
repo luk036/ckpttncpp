@@ -57,9 +57,9 @@ struct FMBiGainMgr
 
         for (auto &v : this->H.cell_fixed)
         {
-            auto i_v = this->H.cell_dict[v];
+            // auto i_v = this->H.cell_dict[v];
             // force to the lowest gain
-            this->vertex_list[i_v].key = -this->pmax;
+            this->vertex_list[v].key = -this->pmax;
         }
 
         this->gainbucket.appendfrom(this->vertex_list);
@@ -99,15 +99,15 @@ struct FMBiGainMgr
         auto netCur = this->H.G[net].begin();
         auto w = *netCur;
         auto v = *++netCur;
-        auto i_w = this->H.cell_dict[w];
-        auto i_v = this->H.cell_dict[v];
-        auto part_w = part[i_w];
-        auto part_v = part[i_v];
+        // auto i_w = this->H.cell_dict[w];
+        // auto i_v = this->H.cell_dict[v];
+        auto part_w = part[w];
+        auto part_v = part[v];
         // auto weight = this->H.G[net].get('weight', 1);
         auto weight = 1;
         auto g = (part_w == part_v) ? -weight : weight;
-        this->vertex_list[i_w].key += g;
-        this->vertex_list[i_v].key += g;
+        this->vertex_list[w].key += g;
+        this->vertex_list[v].key += g;
     }
 
     /**
@@ -159,9 +159,9 @@ struct FMBiGainMgr
      * @param part 
      * @param v 
      */
-    auto update_move(std::vector<size_t> &part, size_t fromPart, node_t &v) -> void
+    auto update_move(std::vector<size_t> &part, size_t fromPart, node_t v) -> void
     {
-        auto i_v = this->H.cell_dict[v];
+        // auto i_v = this->H.cell_dict[v];
         // auto fromPart = part[i_v];
 
         for (auto net : this->H.G[v])
@@ -180,8 +180,8 @@ struct FMBiGainMgr
             }
         }
 
-        auto gain = this->gainbucket.get_key(this->vertex_list[i_v]);
-        this->gainbucket.modify_key(this->vertex_list[i_v], -2 * gain);
+        auto gain = this->gainbucket.get_key(this->vertex_list[v]);
+        this->gainbucket.modify_key(this->vertex_list[v], -2 * gain);
     }
 
     /**
@@ -192,7 +192,7 @@ struct FMBiGainMgr
      * @param fromPart 
      * @param v 
      */
-    auto update_move_2pin_net(node_t &net, std::vector<size_t> &part, size_t fromPart, node_t &v) -> void
+    auto update_move_2pin_net(node_t &net, std::vector<size_t> &part, size_t fromPart, node_t v) -> void
     {
         assert(this->H.G.degree(net) == 2);
         auto netCur = this->H.G[net].begin();
@@ -213,7 +213,7 @@ struct FMBiGainMgr
      * @param fromPart 
      * @param v 
      */
-    auto update_move_general_net(node_t &net, std::vector<size_t> &part, size_t fromPart, node_t &v) -> void
+    auto update_move_general_net(node_t &net, std::vector<size_t> &part, size_t fromPart, node_t v) -> void
     {
         assert(this->H.G.degree(net) > 2);
 

@@ -6,38 +6,33 @@ struct dll_iterator;
 
 /**
  * @brief doubly linked node
- * 
+ *
  */
-struct dllink
-{
+struct dllink {
     int key;
     dllink *next;
     dllink *prev;
 
     /**
      * @brief Construct a new dllink object
-     * 
-     * @param key 
-     * @param next 
-     * @param prev 
+     *
+     * @param key
+     * @param next
+     * @param prev
      */
-    dllink(int key = 0)
-        : key{key},
-          next{this},
-          prev{this} {}
+    dllink(int key = 0) : key{key}, next{this}, prev{this} {}
 
     /**
      * @brief Construct a new dllink object
-     * 
+     *
      */
-    dllink(dllink& ) = delete;
+    dllink(dllink &) = delete;
 
     /**
-     * @brief 
-     * 
+     * @brief
+     *
      */
-    void detach()
-    {
+    void detach() {
         auto n = this->next;
         auto p = this->prev;
         p->next = n;
@@ -45,33 +40,26 @@ struct dllink
     }
 
     /**
-     * @brief 
-     * 
-     * @return true 
-     * @return false 
+     * @brief
+     *
+     * @return true
+     * @return false
      */
-    auto is_empty() const noexcept -> bool
-    {
-        return this->next == this;
-    }
+    auto is_empty() const noexcept -> bool { return this->next == this; }
 
     /**
-     * @brief 
-     * 
-     * @return auto 
+     * @brief
+     *
+     * @return auto
      */
-    auto clear()
-    {
-        this->next = this->prev = this;
-    }
+    auto clear() { this->next = this->prev = this; }
 
     /**
-     * @brief 
-     * 
-     * @param node 
+     * @brief
+     *
+     * @param node
      */
-    auto appendleft(dllink &node) -> void
-    {
+    auto appendleft(dllink &node) -> void {
         node.next = this->next;
         this->next->prev = &node;
         this->next = &node;
@@ -79,12 +67,11 @@ struct dllink
     }
 
     /**
-     * @brief 
-     * 
-     * @param node 
+     * @brief
+     *
+     * @param node
      */
-    auto append(dllink &node) -> void
-    {
+    auto append(dllink &node) -> void {
         node.prev = this->prev;
         this->prev->next = &node;
         this->prev = &node;
@@ -92,12 +79,11 @@ struct dllink
     }
 
     /**
-     * @brief 
-     * 
-     * @return dllink& 
+     * @brief
+     *
+     * @return dllink&
      */
-    auto popleft() -> dllink &
-    {
+    auto popleft() -> dllink & {
         auto res = this->next;
         this->next = res->next;
         this->next->prev = this;
@@ -105,12 +91,11 @@ struct dllink
     }
 
     /**
-     * @brief 
-     * 
-     * @return dllink& 
+     * @brief
+     *
+     * @return dllink&
      */
-    auto pop() -> dllink &
-    {
+    auto pop() -> dllink & {
         auto res = this->prev;
         this->prev = res->prev;
         this->prev->next = this;
@@ -120,98 +105,82 @@ struct dllink
     // For iterator
 
     /**
-     * @brief 
-     * 
-     * @return dll_iterator 
+     * @brief
+     *
+     * @return dll_iterator
      */
     auto begin() -> dll_iterator;
 
     /**
-     * @brief 
-     * 
+     * @brief
+     *
      * @return dll_iterator
      */
     auto end() -> dll_iterator;
 };
 
-struct dll_iterator
-{
+struct dll_iterator {
     dllink *cur;
 
     /**
      * @brief Construct a new dll iterator object
-     * 
-     * @param cur 
+     *
+     * @param cur
      */
-    explicit dll_iterator(dllink *cur)
-        : cur{cur} {}
+    explicit dll_iterator(dllink *cur) : cur{cur} {}
 
     // For forward iterator
 
     /**
-     * @brief 
-     * 
-     * @return dllink& 
+     * @brief
+     *
+     * @return dllink&
      */
-    auto operator++() -> dll_iterator &
-    {
+    auto operator++() -> dll_iterator & {
         this->cur = this->cur->next;
         return *this;
     }
 
     /**
-     * @brief 
-     * 
-     * @return dllink& 
+     * @brief
+     *
+     * @return dllink&
      */
-    auto operator*() -> dllink &
-    {
-        return *this->cur;
-    }
+    auto operator*() -> dllink & { return *this->cur; }
 
     /**
-     * @brief 
-     * 
-     * @param rhs 
-     * @return true 
-     * @return false 
+     * @brief
+     *
+     * @param rhs
+     * @return true
+     * @return false
      */
-    auto operator==(const dll_iterator &rhs) -> bool
-    {
+    auto operator==(const dll_iterator &rhs) -> bool {
         return this->cur == rhs.cur;
     }
 
     /**
-     * @brief 
-     * 
-     * @param rhs 
-     * @return true 
-     * @return false 
+     * @brief
+     *
+     * @param rhs
+     * @return true
+     * @return false
      */
-    auto operator!=(const dll_iterator &rhs) -> bool
-    {
-        return !(*this == rhs);
-    }
+    auto operator!=(const dll_iterator &rhs) -> bool { return !(*this == rhs); }
 };
 
 /**
- * @brief 
- * 
- * @return dll_iterator 
- */
-inline auto dllink::begin() -> dll_iterator
-{
-    return dll_iterator{this->next};
-}
-
-/**
- * @brief 
- * 
+ * @brief
+ *
  * @return dll_iterator
  */
-inline auto dllink::end() -> dll_iterator
-{
-    return dll_iterator{this};
-}
+inline auto dllink::begin() -> dll_iterator { return dll_iterator{this->next}; }
+
+/**
+ * @brief
+ *
+ * @return dll_iterator
+ */
+inline auto dllink::end() -> dll_iterator { return dll_iterator{this}; }
 
 #endif

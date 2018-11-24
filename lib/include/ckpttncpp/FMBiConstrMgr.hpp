@@ -5,106 +5,86 @@
 
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
 
-struct FMBiConstrMgr
-{
+struct FMBiConstrMgr {
     Netlist &H;
     double ratio;
     size_t diff[2];
     size_t upperbound;
-    size_t lowerbound;
+    // size_t lowerbound;
+    size_t weight; // cache value
 
     /**
      * @brief Construct a new FMBiConstrMgr object
-     * 
-     * @param H 
-     * @param ratio 
+     *
+     * @param H
+     * @param ratio
      */
     FMBiConstrMgr(Netlist &H, double ratio)
-        : H{H},
-          ratio{ratio},
-          diff{0, 0},
-          upperbound{0},
-          lowerbound{0} {}
+        : H{H}, ratio{ratio}, diff{0, 0}, upperbound{0},
+          // lowerbound{0},
+          weight{0} {}
 
     /**
-     * @brief 
-     * 
-     * @param part 
-     * @return auto 
+     * @brief
+     *
+     * @param part
+     * @return auto
      */
-    auto init(std::vector<size_t> &part)
-    {
+    auto init(std::vector<size_t> &part) {
         auto totalweight = 0;
-        for (auto &v : this->H.cell_list)
-        {
+        for (auto &v : this->H.cell_list) {
             // auto weight = this->H.G.nodes[v].get('weight', 1);
             auto weight = 10;
             this->diff[part[v]] += weight;
             totalweight += weight;
         }
-        this->lowerbound = std::round(totalweight * this->ratio);
-        this->upperbound = totalweight - this->lowerbound;
+        this->upperbound = std::round(totalweight * this->ratio);
+        //this->lowerbound = totalweight - this->upperbound;
     }
 
     /**
-     * @brief 
-     * 
-     * @param fromPart 
-     * @param v 
-     * @return auto 
+     * @brief
+     *
+     * @param fromPart
+     * @param v
+     * @return auto
      */
-    auto check_legal(size_t fromPart, node_t v, size_t weight)
-    {
+    auto check_legal(size_t fromPart, node_t v) {
         // auto weight = this->H.G.nodes[v].get('weight', 1);
-        // auto weight = 10;
+        this->weight = 10;
         auto toPart = 1 - fromPart;
-        auto diffToBefore = this->diff[toPart];
-        auto diffToAfter = diffToBefore + weight;
-        auto diffFromBefore = this->diff[fromPart];
-        auto diffFromAfter = diffFromBefore - weight;
-        if (diffToAfter <= this->upperbound &&
-            diffFromAfter >= this->lowerbound)
-        {
-            return 2; // constraints satisfied
-        }
-        if (std::labs(diffFromAfter - diffToAfter) <
-            std::labs(diffFromBefore - diffToBefore))
-        {
-            return 1; // get better
-        }
-        return 0; // not ok
+        auto diffTo = this->diff[toPart] + this->weight;
+        if (diffTo > this->upperbound) return 0;
+        auto diffFrom = this->diff[fromPart] - this->weight;
+        if (diffFrom > this->upperbound) return 1;
+        return 2;
     }
 
     /**
-     * @brief 
-     * 
-     * @param fromPart 
-     * @param v 
-     * @return true 
-     * @return false 
+     * @brief
+     *
+     * @param fromPart
+     * @param v
+     * @return true
+     * @return false
      */
-    auto check_constraints(size_t fromPart, node_t v, size_t weight) -> bool
-    {
+    auto check_constraints(size_t fromPart, node_t v) -> bool {
         // auto weight = this->H.G.nodes[v].get('weight', 1);
-        // auto weight = 10;
+        this->weight = 10;
         auto toPart = 1 - fromPart;
-        return (this->diff[toPart] + weight <= this->upperbound &&
-                this->diff[fromPart] - weight >= this->lowerbound);
+        return this->diff[toPart] + this->weight <= this->upperbound;
     }
 
     /**
-     * @brief 
-     * 
-     * @param fromPart 
-     * @param v 
+     * @brief
+     *
+     * @param fromPart
+     * @param v
      */
-    auto update_move(size_t fromPart, node_t v, size_t weight) -> void
-    {
-        // auto weight = this->H.G.nodes[v].get('weight', 1);
-        // auto weight = 10;
+    auto update_move(size_t fromPart, node_t v) -> void {
         auto toPart = 1 - fromPart;
-        this->diff[toPart] += weight;
-        this->diff[fromPart] -= weight;
+        this->diff[toPart] += this->weight;
+        this->diff[fromPart] -= this->weight;
     }
 };
 

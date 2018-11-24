@@ -10,10 +10,9 @@ struct bpq_iterator;
 
 /**
  * @brief bounded priority queue
- * 
+ *
  */
-struct bpqueue
-{
+struct bpqueue {
     int offset;
     int high;
     int max;
@@ -22,75 +21,58 @@ struct bpqueue
 
     /**
      * @brief Construct a new bpqueue object
-     * 
-     * @param a 
-     * @param b 
+     *
+     * @param a
+     * @param b
      */
     bpqueue(int a, int b)
-        : offset{a - 1},
-          high{b - offset},
-          max{0},
-          sentinel{8963},
-          bucket(high + 1)
-    {
+        : offset{a - 1}, high{b - offset}, max{0}, sentinel{8963},
+          bucket(high + 1) {
         bucket[0].append(sentinel); // sentinel
     }
 
     /**
      * @brief Get the key value
-     * 
-     * @param it 
+     *
+     * @param it
      * @return int
      */
-    auto get_key(dllink &it) const -> int
-    {
-        return it.key + this->offset;
-    }
+    auto get_key(dllink &it) const -> int { return it.key + this->offset; }
 
     /**
      * @brief Get the max value
-     * 
+     *
      * @return int -- maximum value
      */
-    auto get_max() const -> int
-    {
-        return this->max + this->offset;
-    }
+    auto get_max() const -> int { return this->max + this->offset; }
 
     /**
-     * @brief whether empty 
-     * 
-     * @return true 
-     * @return false 
+     * @brief whether empty
+     *
+     * @return true
+     * @return false
      */
-    auto is_empty() const -> bool
-    {
-        return this->max == 0;
-    }
+    auto is_empty() const -> bool { return this->max == 0; }
 
     /**
      * @brief clear
      */
-    auto clear() -> void
-    {
-        while (this->max > 0)
-        {
+    auto clear() -> void {
+        while (this->max > 0) {
             this->bucket[this->max].clear();
             this->max -= 1;
         }
     }
 
     /**
-     * @brief 
-     * 
-     * @param it 
-     * @param k 
+     * @brief
+     *
+     * @param it
+     * @param k
      */
-    auto append(dllink &it, int k) -> void
-    {
+    auto append(dllink &it, int k) -> void {
         auto key = k - this->offset;
-        if (this->max < key)
-        {
+        if (this->max < key) {
             this->max = key;
         }
         it.key = key;
@@ -99,34 +81,29 @@ struct bpqueue
 
     /**
      * @brief append from list
-     * 
-     * @param nodes 
-     * @param keys 
+     *
+     * @param nodes
+     * @param keys
      */
-    auto appendfrom(std::vector<dllink> &nodes) -> void
-    {
-        for (auto &it : nodes)
-        {
+    auto appendfrom(std::vector<dllink> &nodes) -> void {
+        for (auto &it : nodes) {
             it.key -= this->offset;
             this->bucket[it.key].append(it);
         }
         this->max = this->high;
-        while (this->bucket[this->max].is_empty())
-        {
+        while (this->bucket[this->max].is_empty()) {
             this->max -= 1;
         }
     }
 
     /**
      * @brief pop node with maximum key
-     * 
-     * @return dllink& 
+     *
+     * @return dllink&
      */
-    auto popleft() -> dllink &
-    {
+    auto popleft() -> dllink & {
         dllink &res = this->bucket[this->max].popleft();
-        while (this->bucket[this->max].is_empty())
-        {
+        while (this->bucket[this->max].is_empty()) {
             this->max -= 1;
         }
         return res;
@@ -134,67 +111,59 @@ struct bpqueue
 
     /**
      * @brief decrease key
-     * 
-     * @param it 
-     * @param delta 
+     *
+     * @param it
+     * @param delta
      */
-    auto decrease_key(dllink &it, int delta) -> void
-    {
+    auto decrease_key(dllink &it, int delta) -> void {
         // this->bucket[it.key].detach(it)
         it.detach();
         it.key += delta;
         assert(it.key > 0);
         assert(it.key <= this->high);
         this->bucket[it.key].append(it); // FIFO
-        while (this->bucket[this->max].is_empty())
-        {
+        while (this->bucket[this->max].is_empty()) {
             this->max -= 1;
         }
     }
 
     /**
      * @brief increase key
-     * 
-     * @param it 
-     * @param delta 
+     *
+     * @param it
+     * @param delta
      */
-    auto increase_key(dllink &it, int delta) -> void
-    {
+    auto increase_key(dllink &it, int delta) -> void {
         // this->bucket[it.key].detach(it)
         it.detach();
         it.key += delta;
         assert(it.key > 0);
         assert(it.key <= this->high);
         this->bucket[it.key].appendleft(it); // LIFO
-        if (this->max < it.key)
-        {
+        if (this->max < it.key) {
             this->max = it.key;
         }
     }
 
     /**
      * @brief modify key
-     * 
-     * @param it 
-     * @param delta 
+     *
+     * @param it
+     * @param delta
      */
-    auto modify_key(dllink &it, int delta) -> void
-    {
-        if (delta > 0)
-        {
+    auto modify_key(dllink &it, int delta) -> void {
+        if (delta > 0) {
             this->increase_key(it, delta);
-        }
-        else if (delta < 0)
-        {
+        } else if (delta < 0) {
             this->decrease_key(it, delta);
         }
     }
 
     /**
      * @brief detach a node from bpqueue
-     * 
-     * @param it 
-     * @return auto 
+     *
+     * @param it
+     * @return auto
      */
     // auto detach(dllink &it)
     // {
@@ -208,64 +177,53 @@ struct bpqueue
 
     /**
      * @brief iterator point to begin
-     * 
-     * @return bpq_iterator 
+     *
+     * @return bpq_iterator
      */
     auto begin() -> bpq_iterator;
 
     /**
      * @brief iterator point to end
-     * 
-     * @return bpq_iterator 
+     *
+     * @return bpq_iterator
      */
     auto end() -> bpq_iterator;
 };
 
 /**
  * @brief doubly linked node
- * 
+ *
  */
-struct bpq_iterator
-{
+struct bpq_iterator {
     bpqueue &bpq;
     int curkey;
     dll_iterator curitem;
 
     /**
      * @brief Construct a new bpq iterator object
-     * 
-     * @param bpq 
-     * @param curkey 
+     *
+     * @param bpq
+     * @param curkey
      */
     bpq_iterator(bpqueue &bpq, int curkey)
-        : bpq{bpq},
-          curkey{curkey},
-          curitem{bpq.bucket[curkey].begin()}
-    {
-    }
+        : bpq{bpq}, curkey{curkey}, curitem{bpq.bucket[curkey].begin()} {}
 
     /**
-     * @brief 
-     * 
-     * @return dllink& 
+     * @brief
+     *
+     * @return dllink&
      */
-    auto curlist() -> dllink &
-    {
-        return this->bpq.bucket[this->curkey];
-    }
+    auto curlist() -> dllink & { return this->bpq.bucket[this->curkey]; }
 
     /**
-     * @brief 
-     * 
-     * @return bpq_iterator& 
+     * @brief
+     *
+     * @return bpq_iterator&
      */
-    auto operator++() -> bpq_iterator &
-    {
+    auto operator++() -> bpq_iterator & {
         ++this->curitem;
-        if (this->curitem == this->curlist().end())
-        {
-            do
-            {
+        if (this->curitem == this->curlist().end()) {
+            do {
                 this->curkey -= 1;
             } while (this->curlist().is_empty());
             this->curitem = this->curlist().begin();
@@ -274,58 +232,47 @@ struct bpq_iterator
     }
 
     /**
-     * @brief 
-     * 
-     * @return bpq_iterator& 
+     * @brief
+     *
+     * @return bpq_iterator&
      */
-    auto operator*() -> dllink &
-    {
-        return *this->curitem;
-    }
+    auto operator*() -> dllink & { return *this->curitem; }
 
     /**
      * @brief eq operator
-     * 
-     * @param rhs 
-     * @return true 
-     * @return false 
+     *
+     * @param rhs
+     * @return true
+     * @return false
      */
-    auto operator==(const bpq_iterator &rhs) -> bool
-    {
+    auto operator==(const bpq_iterator &rhs) -> bool {
         return this->curitem == rhs.curitem;
     }
 
     /**
      * @brief neq operator
-     * 
-     * @param rhs 
-     * @return true 
-     * @return false 
+     *
+     * @param rhs
+     * @return true
+     * @return false
      */
-    auto operator!=(const bpq_iterator &rhs) -> bool
-    {
-        return !(*this == rhs);
-    }
+    auto operator!=(const bpq_iterator &rhs) -> bool { return !(*this == rhs); }
 };
 
 /**
- * @brief 
- * 
- * @return bpq_iterator 
+ * @brief
+ *
+ * @return bpq_iterator
  */
-inline auto bpqueue::begin() -> bpq_iterator
-{
+inline auto bpqueue::begin() -> bpq_iterator {
     return bpq_iterator(*this, this->max);
 }
 
 /**
- * @brief 
- * 
- * @return bpq_iterator 
+ * @brief
+ *
+ * @return bpq_iterator
  */
-inline auto bpqueue::end() -> bpq_iterator
-{
-    return bpq_iterator(*this, 0);
-}
+inline auto bpqueue::end() -> bpq_iterator { return bpq_iterator(*this, 0); }
 
 #endif

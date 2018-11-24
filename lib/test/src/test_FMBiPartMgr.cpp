@@ -9,7 +9,7 @@ TEST_CASE("Test FMBiPartMgr", "[test_FMBiPartMgr]")
 {
     auto H = create_test_netlist();
     auto gainMgr = FMBiGainMgr(H);
-    auto constrMgr = FMBiConstrMgr(H, 0.3);
+    auto constrMgr = FMBiConstrMgr(H, 0.7);
     // CHECK(H.G.nodes[0].get('weight', 1) == 5844);
     auto partMgr = FMBiPartMgr(H, gainMgr, constrMgr);
     partMgr.init();

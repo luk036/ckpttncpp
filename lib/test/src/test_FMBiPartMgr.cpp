@@ -4,10 +4,9 @@
 #include <ckpttncpp/FMBiPart.hpp>      // import FMBiPartMgr
 
 extern Netlist create_test_netlist(); // import create_test_netlist
+extern Netlist create_drawf(); // import create_drawf
 
-TEST_CASE("Test FMBiPartMgr", "[test_FMBiPartMgr]")
-{
-    auto H = create_test_netlist();
+void run_FMBiPartMgr(Netlist& H) {
     auto gainMgr = FMBiGainMgr(H);
     auto constrMgr = FMBiConstrMgr(H, 0.7);
     // CHECK(H.G.nodes[0].get('weight', 1) == 5844);
@@ -17,4 +16,14 @@ TEST_CASE("Test FMBiPartMgr", "[test_FMBiPartMgr]")
     partMgr.optimize();
     CHECK(partMgr.totalcost <= totalcostbefore);
     // print(partMgr.snapshot);
+}
+
+TEST_CASE("Test FMBiPartMgr", "[test_FMBiPartMgr]") {
+    auto H = create_test_netlist();
+    run_FMBiPartMgr(H);
+}
+
+TEST_CASE("Test FMBiPartMgr 2", "[test_FMBiPartMgr_2]") {
+    auto H = create_drawf();
+    run_FMBiPartMgr(H);
 }

@@ -41,7 +41,7 @@ class FMBiPartMgr {
 
         auto totalgain = 0;
 
-        while (!this->gainMgr.gainbucket.is_empty()) {
+        while (!this->gainMgr.is_empty()) {
             // Take the gainmax with v from gainbucket
             // auto gainmax = this->gainMgr.gainbucket.get_max();
             auto [v, gainmax] = this->gainMgr.popleft();
@@ -78,7 +78,7 @@ class FMBiPartMgr {
         auto totalgain = 0;
         auto deferredsnapshot = true;
 
-        while (!this->gainMgr.gainbucket.is_empty()) {
+        while (!this->gainMgr.is_empty()) {
             // Take the gainmax with v from gainbucket
             // auto gainmax = this->gainMgr.gainbucket.get_max();
             auto [v, gainmax] = this->gainMgr.popleft();

@@ -30,7 +30,7 @@ struct FMBiConstrMgr {
      * @param part
      * @return auto
      */
-    auto init(std::vector<size_t> &part) {
+    auto init(std::vector<size_t> &part) -> void {
         auto totalweight = 0;
         for (auto &v : this->H.cell_list) {
             // auto weight = this->H.G.nodes[v].get('weight', 1);
@@ -42,6 +42,10 @@ struct FMBiConstrMgr {
         //this->lowerbound = totalweight - this->upperbound;
     }
 
+    auto pick_move() const -> size_t {
+        return this->diff[0] < this->diff[1] ? 0 : 1;
+    }
+
     /**
      * @brief
      *
@@ -51,7 +55,7 @@ struct FMBiConstrMgr {
      */
     auto check_legal(size_t fromPart, node_t v) {
         // auto weight = this->H.G.nodes[v].get('weight', 1);
-        this->weight = 10;
+        this->weight = this->H.node_weight[v];
         auto toPart = 1 - fromPart;
         auto diffTo = this->diff[toPart] + this->weight;
         if (diffTo > this->upperbound) return 0;
@@ -70,7 +74,7 @@ struct FMBiConstrMgr {
      */
     auto check_constraints(size_t fromPart, node_t v) -> bool {
         // auto weight = this->H.G.nodes[v].get('weight', 1);
-        this->weight = 10;
+        this->weight = this->H.node_weight[v];
         auto toPart = 1 - fromPart;
         return this->diff[toPart] + this->weight <= this->upperbound;
     }

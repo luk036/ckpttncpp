@@ -29,8 +29,7 @@ struct Netlist {
     size_t max_degree;
     size_t max_net_degree;
     int cost_model = 0;
-    std::vector<int> net_weight;
-    std::vector<int> cell_weight;
+    std::vector<size_t> node_weight;
 
     /**
      * @brief Construct a new Netlist object

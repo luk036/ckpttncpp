@@ -114,4 +114,12 @@ struct Netlist {
     auto get_max_net_degree() const -> size_t { return this->max_net_degree; }
 };
 
+struct MoveInfo
+{
+    node_t net;
+    size_t fromPart;
+    size_t toPart;
+    node_t v;
+};
+
 #endif

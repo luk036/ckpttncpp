@@ -127,8 +127,9 @@ struct FMKWayGainCalc {
      * @param fromPart
      * @param v
      */
-    auto update_move_2pin_net(node_t &net, std::vector<size_t> &part,
-                              size_t fromPart, size_t toPart, node_t v) {
+    auto update_move_2pin_net(std::vector<size_t> &part,
+                              const MoveInfo& move_info) {
+        const auto& [net, fromPart, toPart, v] = move_info;
         assert(this->H.G.degree(net) == 2);
         auto netCur = this->H.G[net].begin();
         node_t w = (*netCur != v) ? *netCur : *++netCur;
@@ -158,10 +159,11 @@ struct FMKWayGainCalc {
      * @param fromPart
      * @param v
      */
-    auto update_move_general_net(node_t &net, std::vector<size_t> &part,
-                                 size_t fromPart, size_t toPart, node_t v) {
-        assert(this->H.G.degree(net) > 2);
+    auto update_move_general_net(std::vector<size_t> &part,
+                                 const MoveInfo& move_info) {
+        const auto& [net, fromPart, toPart, v] = move_info;
 
+        assert(this->H.G.degree(net) > 2);
         std::vector<size_t> num(this->K, 0);
         auto IdVec = std::vector<size_t>{};
         for (const auto &w : this->H.G[net]) {

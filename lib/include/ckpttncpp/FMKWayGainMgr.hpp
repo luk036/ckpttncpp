@@ -108,12 +108,13 @@ struct FMKWayGainMgr {
     auto update_move(std::vector<size_t> &part, size_t fromPart, size_t toPart,
                      node_t v, int gain) -> void {
         for (auto net : this->H.G[v]) {
+            auto move_info = MoveInfo{net, fromPart, toPart, v};
             if (this->H.G.degree(net) == 2) {
-                this->update_move_2pin_net(net, part, fromPart, toPart, v);
+                this->update_move_2pin_net(part, move_info);
             } else if (unlikely(this->H.G.degree(net) < 2)) {
                 break; // does not provide any gain change when move
             } else {
-                this->update_move_general_net(net, part, fromPart, toPart, v);
+                this->update_move_general_net(part, move_info);
             }
         }
         this->set_key(fromPart, v, -gain);
@@ -134,11 +135,11 @@ struct FMKWayGainMgr {
      * @param fromPart
      * @param v
      */
-    auto update_move_2pin_net(node_t &net, std::vector<size_t> &part,
-                              size_t fromPart, size_t toPart, node_t v)
-        -> void {
+    auto update_move_2pin_net(std::vector<size_t> &part,
+                              const MoveInfo& move_info) -> void {
         auto [w, deltaGainW] =
-            this->gainCalc.update_move_2pin_net(net, part, fromPart, toPart, v);
+            this->gainCalc.update_move_2pin_net(part, move_info);
+
         this->modify_key(w, deltaGainW);
     }
 
@@ -150,11 +151,11 @@ struct FMKWayGainMgr {
      * @param fromPart
      * @param v
      */
-    auto update_move_general_net(node_t &net, std::vector<size_t> &part,
-                                 size_t fromPart, size_t toPart, node_t v)
-        -> void {
+    auto update_move_general_net(std::vector<size_t> &part,
+                                 const MoveInfo& move_info) -> void {
         auto [IdVec, deltaGain] = this->gainCalc.update_move_general_net(
-            net, part, fromPart, toPart, v);
+            part, move_info);
+
         auto degree = std::size(IdVec);
         for (auto idx = 0u; idx < degree; ++idx) {
             this->modify_key(IdVec[idx], deltaGain[idx]);

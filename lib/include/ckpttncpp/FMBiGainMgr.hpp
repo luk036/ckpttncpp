@@ -88,12 +88,13 @@ struct FMBiGainMgr {
     auto update_move(std::vector<size_t> &part, size_t fromPart, node_t v,
                      int gain) -> void {
         for (auto net : this->H.G[v]) {
+            auto move_info = MoveInfo{net, fromPart, 1 - fromPart, v};
             if (this->H.G.degree(net) == 2) {
-                this->update_move_2pin_net(net, part, fromPart, v);
+                this->update_move_2pin_net(part, move_info);
             } else if (unlikely(this->H.G.degree(net) < 2)) {
                 break; // does not provide any gain change when move
             } else {
-                this->update_move_general_net(net, part, fromPart, v);
+                this->update_move_general_net(part, move_info);
             }
         }
         this->vertex_list[v].key -= 2 * gain;
@@ -107,10 +108,10 @@ struct FMBiGainMgr {
      * @param fromPart
      * @param v
      */
-    auto update_move_2pin_net(node_t &net, std::vector<size_t> &part,
-                              size_t fromPart, node_t v) -> void {
+    auto update_move_2pin_net(std::vector<size_t> &part,
+                              const MoveInfo& move_info) -> void {
         auto [w, deltaGainW] =
-            this->gainCalc.update_move_2pin_net(net, part, fromPart, v);
+            this->gainCalc.update_move_2pin_net(part, move_info);
         this->gainbucket.modify_key(this->vertex_list[w], deltaGainW);
     }
 
@@ -122,10 +123,10 @@ struct FMBiGainMgr {
      * @param fromPart
      * @param v
      */
-    auto update_move_general_net(node_t &net, std::vector<size_t> &part,
-                                 size_t fromPart, node_t v) -> void {
+    auto update_move_general_net(std::vector<size_t> &part,
+                                 const MoveInfo& move_info) -> void {
         auto [IdVec, deltaGain] =
-            this->gainCalc.update_move_general_net(net, part, fromPart, v);
+            this->gainCalc.update_move_general_net(part, move_info);
         auto degree = std::size(IdVec);
         for (auto idx = 0u; idx < degree; ++idx) {
             this->gainbucket.modify_key(this->vertex_list[IdVec[idx]],

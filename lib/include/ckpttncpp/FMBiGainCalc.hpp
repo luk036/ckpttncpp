@@ -119,8 +119,9 @@ struct FMBiGainCalc {
      * @param fromPart
      * @param v
      */
-    auto update_move_2pin_net(node_t &net, std::vector<size_t> &part,
-                              size_t fromPart, node_t v) {
+    auto update_move_2pin_net(std::vector<size_t> &part,
+                              const MoveInfo& move_info) {
+        const auto& [net, fromPart, toPart, v] = move_info;
         assert(this->H.G.degree(net) == 2);
         auto netCur = this->H.G[net].begin();
         node_t w = (*netCur != v) ? *netCur : *++netCur;
@@ -139,8 +140,9 @@ struct FMBiGainCalc {
      * @param fromPart
      * @param v
      */
-    auto update_move_general_net(node_t &net, std::vector<size_t> &part,
-                                 size_t fromPart, node_t v) {
+    auto update_move_general_net(std::vector<size_t> &part,
+                                 const MoveInfo& move_info) {
+        const auto& [net, fromPart, toPart, v] = move_info;
         assert(this->H.G.degree(net) > 2);
 
         size_t num[2] = {0, 0};
@@ -157,7 +159,6 @@ struct FMBiGainCalc {
         // auto m = this->H.G[net].get('weight', 1);
         auto weight = this->H.node_weight[net];
         // auto weight = (fromPart == 0) ? m : -m;
-        auto toPart = 1 - fromPart;
         for (auto &&l : {fromPart, toPart}) {
             if (num[l] == 0) {
                 for (auto idx = 0u; idx < degree; ++idx) {

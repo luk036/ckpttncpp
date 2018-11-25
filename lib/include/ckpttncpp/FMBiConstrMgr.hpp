@@ -39,10 +39,10 @@ struct FMBiConstrMgr {
             totalweight += weight;
         }
         this->upperbound = std::round(totalweight * this->ratio);
-        //this->lowerbound = totalweight - this->upperbound;
+        // this->lowerbound = totalweight - this->upperbound;
     }
 
-    auto pick_move() const -> size_t {
+    auto select() const -> size_t {
         return this->diff[0] < this->diff[1] ? 0 : 1;
     }
 
@@ -58,9 +58,11 @@ struct FMBiConstrMgr {
         this->weight = this->H.node_weight[v];
         auto toPart = 1 - fromPart;
         auto diffTo = this->diff[toPart] + this->weight;
-        if (diffTo > this->upperbound) return 0;
+        if (diffTo > this->upperbound)
+            return 0;
         auto diffFrom = this->diff[fromPart] - this->weight;
-        if (diffFrom > this->upperbound) return 1;
+        if (diffFrom > this->upperbound)
+            return 1;
         return 2;
     }
 

@@ -1,5 +1,5 @@
-#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMBIGAINCALC_HPP
-#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMBIGAINCALC_HPP 1
+#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMKWayGAINCALC_HPP
+#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMKWayGAINCALC_HPP 1
 
 // #include "bpqueue.hpp" // import bpqueue
 #include "dllist.hpp"  // import dllink
@@ -14,26 +14,26 @@
 #define unlikely(x) __builtin_expect(!!(x), 0)
 
 /**
- * @brief FMBiGainCalc
+ * @brief FMKWayGainCalc
  *
  */
-struct FMBiGainCalc {
+struct FMKWayGainCalc {
     Netlist &H;
-
+    size_t K;
     /**
-     * @brief Construct a new FMBiGainCalc object
+     * @brief Construct a new FMKWayGainCalc object
      *
      * @param H
      */
-    explicit FMBiGainCalc(Netlist &H) : H{H} {}
+    explicit FMKWayGainCalc(Netlist &H, size_t K) : H{H}, K{K} {}
 
     /**
      * @brief
      *
      * @param part
      */
-    auto init(std::vector<size_t> &part, std::vector<dllink> &vertex_list)
-        -> void {
+    auto init(std::vector<size_t> &part,
+              std::vector<std::vector<dllink>> &vertex_list) -> void {
         for (auto &net : this->H.net_list) {
             this->init_gain(net, part, vertex_list);
         }
@@ -46,7 +46,7 @@ struct FMBiGainCalc {
      * @param part
      */
     auto init_gain(node_t &net, std::vector<size_t> &part,
-                   std::vector<dllink> &vertex_list) -> void {
+                   std::vector<std::vector<dllink>> &vertex_list) -> void {
         if (this->H.G.degree(net) == 2) {
             this->init_gain_2pin_net(net, part, vertex_list);
         } else if (unlikely(this->H.G.degree(net) < 2)) {
@@ -63,20 +63,23 @@ struct FMBiGainCalc {
      * @param part
      */
     auto init_gain_2pin_net(node_t &net, std::vector<size_t> &part,
-                            std::vector<dllink> &vertex_list) -> void {
+                            std::vector<std::vector<dllink>> &vertex_list)
+        -> void {
         assert(this->H.G.degree(net) == 2);
         auto netCur = this->H.G[net].begin();
         auto w = *netCur;
         auto v = *++netCur;
-        // auto i_w = this->H.cell_dict[w];
-        // auto i_v = this->H.cell_dict[v];
         auto part_w = part[w];
         auto part_v = part[v];
-        // auto weight = this->H.G[net].get('weight', 1);
         auto weight = this->H.node_weight[net];
-        auto g = (part_w == part_v) ? -weight : weight;
-        vertex_list[w].key += g;
-        vertex_list[v].key += g;
+        if (part_v == part_w) {
+            for (auto k = 0u; k < this->K; ++k) {
+                vertex_list[k][w].key -= weight;
+                vertex_list[k][v].key -= weight;
+            }
+        }
+        vertex_list[part_v][w].key += weight;
+        vertex_list[part_w][v].key += weight;
     }
 
     /**
@@ -84,10 +87,12 @@ struct FMBiGainCalc {
      *
      * @param net
      * @param part
+     * @param vertex_list
      */
     auto init_gain_general_net(node_t &net, std::vector<size_t> &part,
-                               std::vector<dllink> &vertex_list) -> void {
-        size_t num[2] = {0, 0};
+                               std::vector<std::vector<dllink>> &vertex_list)
+        -> void {
+        std::vector<size_t> num(this->K, 0);
         auto IdVec = std::vector<size_t>();
         for (const auto &w : this->H.G[net]) {
             num[part[w]] += 1;
@@ -95,15 +100,18 @@ struct FMBiGainCalc {
         }
 
         auto weight = this->H.node_weight[net];
-        for (auto &&k : {0, 1}) {
+
+        for (auto k = 0u; k < this->K; ++k) {
             if (num[k] == 0) {
                 for (auto &w : IdVec) {
-                    vertex_list[w].key -= weight;
+                    vertex_list[k][w].key -= weight;
                 }
             } else if (num[k] == 1) {
                 for (auto &w : IdVec) {
                     if (part[w] == k) {
-                        vertex_list[w].key += weight;
+                        for (auto k2 = 0u; k2 < this->K; ++k) {
+                            vertex_list[k2][w].key += weight;
+                        }
                         break;
                     }
                 }
@@ -120,15 +128,26 @@ struct FMBiGainCalc {
      * @param v
      */
     auto update_move_2pin_net(node_t &net, std::vector<size_t> &part,
-                              size_t fromPart, node_t v) {
+                              size_t fromPart, size_t toPart, node_t v) {
         assert(this->H.G.degree(net) == 2);
         auto netCur = this->H.G[net].begin();
         node_t w = (*netCur != v) ? *netCur : *++netCur;
         auto part_w = part[w];
         // auto weight = this->H.G[net].get('weight', 1);
         auto weight = this->H.node_weight[net];
-        auto deltaGainW = (part_w == fromPart) ? 2 * weight : -2 * weight;
-        return std::tuple{w, deltaGainW};
+        auto deltaGainW = std::vector<int>(this->K, 0);
+        if (part_w == fromPart) {
+            for (auto k = 0u; k < this->K; ++k) {
+                deltaGainW[k] += weight;
+            }
+        } else if (part_w == toPart) {
+            for (auto k = 0u; k < this->K; ++k) {
+                deltaGainW[k] -= weight;
+            }
+        }
+        deltaGainW[fromPart] -= weight;
+        deltaGainW[toPart] += weight;
+        return std::tuple{w, std::move(deltaGainW)};
     }
 
     /**
@@ -140,34 +159,36 @@ struct FMBiGainCalc {
      * @param v
      */
     auto update_move_general_net(node_t &net, std::vector<size_t> &part,
-                                 size_t fromPart, node_t v) {
+                                 size_t fromPart, size_t toPart, node_t v) {
         assert(this->H.G.degree(net) > 2);
 
-        size_t num[2] = {0, 0};
+        std::vector<size_t> num(this->K, 0);
         auto IdVec = std::vector<size_t>{};
-        auto deltaGain = std::vector<int>{};
         for (const auto &w : this->H.G[net]) {
             if (w == v)
                 continue;
             num[part[w]] += 1;
             IdVec.push_back(w);
-            deltaGain.push_back(0);
         }
         auto degree = std::size(IdVec);
+        auto deltaGain =
+            std::vector<std::vector<int>>(degree, std::vector<int>(this->K, 0));
+
         // auto m = this->H.G[net].get('weight', 1);
         auto weight = this->H.node_weight[net];
         // auto weight = (fromPart == 0) ? m : -m;
-        auto toPart = 1 - fromPart;
         for (auto &&l : {fromPart, toPart}) {
             if (num[l] == 0) {
                 for (auto idx = 0u; idx < degree; ++idx) {
-                    deltaGain[idx] -= weight;
+                    deltaGain[idx][l] -= weight;
                 }
             } else if (num[l] == 1) {
                 for (auto idx = 0u; idx < degree; ++idx) {
                     auto part_w = part[IdVec[idx]];
                     if (part_w == l) {
-                        deltaGain[idx] += weight;
+                        for (auto k = 0u; k < this->K; ++k) {
+                            deltaGain[idx][k] += weight;
+                        }
                         break;
                     }
                 }

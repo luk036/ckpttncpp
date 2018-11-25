@@ -1,17 +1,12 @@
 #ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMBIGAINMGR_HPP
 #define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMBIGAINMGR_HPP 1
 
+#include "FMBiGainCalc.hpp"
 #include "bpqueue.hpp" // import bpqueue
 #include "dllist.hpp"  // import dllink
 #include "netlist.hpp" // import Netlist
-#include "FMBiGainCalc.hpp"
 #include <cassert>
 #include <iterator>
-
-/* linux-2.6.38.8/include/linux/compiler.h */
-#include <stdio.h>
-#define likely(x) __builtin_expect(!!(x), 1)
-#define unlikely(x) __builtin_expect(!!(x), 0)
 
 /**
  * @brief FMBiGainMgr
@@ -33,29 +28,25 @@ struct FMBiGainMgr {
      * @param H
      */
     explicit FMBiGainMgr(Netlist &H)
-        : H{H},
-          gainCalc{H}, 
-          pmax{H.get_max_degree()}, gainbucket(-pmax, pmax),
+        : H{H}, gainCalc{H}, pmax{H.get_max_degree()}, gainbucket(-pmax, pmax),
           // num{0, 0},
           num_cells{H.number_of_cells()},
           vertex_list(num_cells), waitinglist{} {}
 
     /**
-     * @brief 
-     * 
-     * @return true 
-     * @return false 
+     * @brief
+     *
+     * @return true
+     * @return false
      */
-    auto is_empty() const -> bool {
-        return this->gainbucket.is_empty();
-    }
+    auto is_empty() const -> bool { return this->gainbucket.is_empty(); }
 
     /**
-     * @brief 
-     * 
-     * @return std::tuple<size_t, int> 
+     * @brief
+     *
+     * @return std::tuple<size_t, int>
      */
-    auto popleft() -> std::tuple<size_t, int> {
+    auto select() -> std::tuple<size_t, int> {
         auto gainmax = this->gainbucket.get_max();
         auto &vlink = this->gainbucket.popleft();
         this->waitinglist.append(vlink);
@@ -99,7 +90,7 @@ struct FMBiGainMgr {
         for (auto net : this->H.G[v]) {
             if (this->H.G.degree(net) == 2) {
                 this->update_move_2pin_net(net, part, fromPart, v);
-            } else if (unlikely(this->H.G.degree(net) < 2)) { 
+            } else if (unlikely(this->H.G.degree(net) < 2)) {
                 break; // does not provide any gain change when move
             } else {
                 this->update_move_general_net(net, part, fromPart, v);
@@ -118,7 +109,7 @@ struct FMBiGainMgr {
      */
     auto update_move_2pin_net(node_t &net, std::vector<size_t> &part,
                               size_t fromPart, node_t v) -> void {
-        auto [w, deltaGainW] = 
+        auto [w, deltaGainW] =
             this->gainCalc.update_move_2pin_net(net, part, fromPart, v);
         this->gainbucket.modify_key(this->vertex_list[w], deltaGainW);
     }
@@ -133,12 +124,10 @@ struct FMBiGainMgr {
      */
     auto update_move_general_net(node_t &net, std::vector<size_t> &part,
                                  size_t fromPart, node_t v) -> void {
-        auto [IdVec, deltaGain] = 
+        auto [IdVec, deltaGain] =
             this->gainCalc.update_move_general_net(net, part, fromPart, v);
         auto degree = std::size(IdVec);
         for (auto idx = 0u; idx < degree; ++idx) {
-            if (deltaGain[idx] == 0)
-                continue;
             this->gainbucket.modify_key(this->vertex_list[IdVec[idx]],
                                         deltaGain[idx]);
         }

@@ -40,6 +40,14 @@ struct bpqueue {
     auto get_key(dllink &it) const -> int { return it.key + this->offset; }
 
     /**
+     * @brief Set the key object
+     *
+     * @param it
+     * @param gain
+     */
+    auto set_key(dllink &it, int gain) -> void { it.key = gain - this->offset; }
+
+    /**
      * @brief Get the max value
      *
      * @return int -- maximum value

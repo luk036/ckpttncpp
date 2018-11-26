@@ -14,7 +14,9 @@ void run_FMBiGainMgr(Netlist& H, std::vector<size_t>& part_test) {
         auto [v, gainmax] = mgr.select();
         if (gainmax <= 0) continue;
         auto fromPart = part[v]; 
-        mgr.update_move(part, fromPart, v, gainmax);
+        auto toPart = 1 - fromPart;
+        auto move_info_v = MoveInfoV{fromPart, toPart, v};
+        mgr.update_move(part, move_info_v, gainmax);
         part[v] = 1 - fromPart;
         CHECK(v >= 0);
     }

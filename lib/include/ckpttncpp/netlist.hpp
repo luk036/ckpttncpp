@@ -122,4 +122,11 @@ struct MoveInfo
     node_t v;
 };
 
+struct MoveInfoV
+{
+    size_t fromPart;
+    size_t toPart;
+    node_t v;
+};
+
 #endif

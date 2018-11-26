@@ -50,18 +50,17 @@ class FMKWayPartMgr {
             }
             auto [v, gainmax] = this->gainMgr.select_togo(toPart);
             auto fromPart = this->part[v];
+            auto move_info_v = MoveInfoV{fromPart, toPart, v};
             // Check if the move of v can notsatisfied, makebetter, or satisfied
-            // auto weight = this->H.G.nodes[v].get('weight', 1);
-            // auto weight = 10u;
-            auto legalcheck = this->validator.check_legal(fromPart, toPart, v);
+            auto legalcheck = this->validator.check_legal(move_info_v);
             if (legalcheck == 0) { // notsatisfied
                 continue;
             }
 
             // Update v and its neigbours (even they are in waitinglist);
             // Put neigbours to bucket
-            this->gainMgr.update_move(this->part, fromPart, toPart, v, gainmax);
-            this->validator.update_move(fromPart, toPart, v);
+            this->gainMgr.update_move(this->part, move_info_v, gainmax);
+            this->validator.update_move(move_info_v);
             this->part[v] = toPart;
             totalgain += gainmax;
 
@@ -89,9 +88,10 @@ class FMKWayPartMgr {
             }
             auto [v, gainmax] = this->gainMgr.select_togo(toPart);
             auto fromPart = this->part[v];
+            auto move_info_v = MoveInfoV{fromPart, toPart, v};
             // Check if the move of v can satisfied or notsatisfied
             auto satisfiedOK =
-                this->validator.check_constraints(fromPart, toPart, v);
+                this->validator.check_constraints(move_info_v);
 
             if (!satisfiedOK)
                 continue;
@@ -112,8 +112,8 @@ class FMKWayPartMgr {
 
             // Update v and its neigbours (even they are in waitinglist);
             // Put neigbours to bucket
-            this->gainMgr.update_move(this->part, fromPart, toPart, v, gainmax);
-            this->validator.update_move(fromPart, toPart, v);
+            this->gainMgr.update_move(this->part, move_info_v, gainmax);
+            this->validator.update_move(move_info_v);
             totalgain += gainmax;
 
             if (totalgain > 0) {

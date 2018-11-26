@@ -85,10 +85,11 @@ struct FMBiGainMgr {
      * @param part
      * @param v
      */
-    auto update_move(std::vector<size_t> &part, size_t fromPart, node_t v,
+    auto update_move(std::vector<size_t> &part, const MoveInfoV& move_info_v,
                      int gain) -> void {
+        auto [fromPart, toPart, v] = move_info_v;
         for (auto net : this->H.G[v]) {
-            auto move_info = MoveInfo{net, fromPart, 1 - fromPart, v};
+            auto move_info = MoveInfo{net, fromPart, toPart, v};
             if (this->H.G.degree(net) == 2) {
                 this->update_move_2pin_net(part, move_info);
             } else if (unlikely(this->H.G.degree(net) < 2)) {

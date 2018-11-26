@@ -40,25 +40,24 @@ class FMBiPartMgr {
         this->validator.init(this->part);
 
         auto totalgain = 0;
-
         while (!this->gainMgr.is_empty()) {
             // Take the gainmax with v from gainbucket
-            // auto gainmax = this->gainMgr.gainbucket.get_max();
             auto [v, gainmax] = this->gainMgr.select();
             auto fromPart = this->part[v];
+            auto toPart = size_t{1 - fromPart};
+            auto move_info_v = MoveInfoV{fromPart, toPart, v}; 
             // Check if the move of v can notsatisfied, makebetter, or satisfied
-            // auto weight = this->H.G.nodes[v].get('weight', 1);
-            // auto weight = 10u;
-            auto legalcheck = this->validator.check_legal(fromPart, v);
+            auto legalcheck = this->validator.check_legal(move_info_v);
+
             if (legalcheck == 0) { // notsatisfied
                 continue;
             }
 
             // Update v and its neigbours (even they are in waitinglist);
             // Put neigbours to bucket
-            this->gainMgr.update_move(this->part, fromPart, v, gainmax);
-            this->validator.update_move(fromPart, v);
-            this->part[v] = 1 - fromPart;
+            this->gainMgr.update_move(this->part, move_info_v, gainmax);
+            this->validator.update_move(move_info_v);
+            this->part[v] = toPart;
             totalgain += gainmax;
 
             if (legalcheck == 2) { // satisfied
@@ -67,7 +66,6 @@ class FMBiPartMgr {
                 break;
             }
         }
-        // assert(!this->gainMgr.gainbucket.is_empty());
     }
 
     /**
@@ -80,16 +78,13 @@ class FMBiPartMgr {
 
         while (!this->gainMgr.is_empty()) {
             // Take the gainmax with v from gainbucket
-            // auto gainmax = this->gainMgr.gainbucket.get_max();
             auto [v, gainmax] = this->gainMgr.select();
 
-            // v = this->H.cell_list[i_v];
             auto fromPart = this->part[v];
+            auto toPart = size_t{1 - fromPart};
+            auto move_info_v = MoveInfoV{fromPart, toPart, v}; 
             // Check if the move of v can satisfied or notsatisfied
-            // auto weight = this->H.G.nodes[v].get('weight', 1);
-            // auto weight = 10u;
-
-            auto satisfiedOK = this->validator.check_constraints(fromPart, v);
+            auto satisfiedOK = this->validator.check_constraints(move_info_v);
 
             if (!satisfiedOK)
                 continue;
@@ -101,7 +96,8 @@ class FMBiPartMgr {
                     this->snapshot = this->part;
                     deferredsnapshot = false;
                 }
-            } else {                // totalgain < 0;
+            }
+            else {                // totalgain < 0;
                 if (gainmax <= 0) { // ???
                     continue;
                 }
@@ -109,8 +105,8 @@ class FMBiPartMgr {
 
             // Update v and its neigbours (even they are in waitinglist);
             // Put neigbours to bucket
-            this->gainMgr.update_move(this->part, fromPart, v, gainmax);
-            this->validator.update_move(fromPart, v);
+            this->gainMgr.update_move(this->part, move_info_v, gainmax);
+            this->validator.update_move(move_info_v);
             totalgain += gainmax;
 
             if (totalgain > 0) {
@@ -118,7 +114,7 @@ class FMBiPartMgr {
                 totalgain = 0; // reset to zero
                 deferredsnapshot = true;
             }
-            this->part[v] = 1 - fromPart;
+            this->part[v] = toPart;
         }
         if (deferredsnapshot) {
             // Take a snapshot

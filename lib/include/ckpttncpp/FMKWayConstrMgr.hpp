@@ -60,8 +60,8 @@ struct FMKWayConstrMgr {
      * @param v
      * @return auto
      */
-    auto check_legal(size_t fromPart, size_t toPart, node_t v) {
-        // auto weight = this->H.G.nodes[v].get('weight', 1);
+    auto check_legal(const MoveInfoV& move_info_v) {
+        auto [fromPart, toPart, v] = move_info_v;
         this->weight = this->H.node_weight[v];
         auto diffTo = this->diff[toPart] + this->weight;
         auto diffFrom = this->diff[fromPart] - this->weight;
@@ -87,8 +87,8 @@ struct FMKWayConstrMgr {
      * @return true
      * @return false
      */
-    auto check_constraints(size_t fromPart, size_t toPart, node_t v) -> bool {
-        // auto weight = this->H.G.nodes[v].get('weight', 1);
+    auto check_constraints(const MoveInfoV& move_info_v) -> bool {
+        auto [fromPart, toPart, v] = move_info_v;
         this->weight = this->H.node_weight[v];
         auto diffTo = this->diff[toPart] + this->weight;
         auto diffFrom = this->diff[fromPart] - this->weight;
@@ -101,7 +101,8 @@ struct FMKWayConstrMgr {
      * @param fromPart
      * @param v
      */
-    auto update_move(size_t fromPart, size_t toPart, node_t v) -> void {
+    auto update_move(const MoveInfoV& move_info_v) -> void {
+        auto [fromPart, toPart, v] = move_info_v;
         this->diff[toPart] += this->weight;
         this->diff[fromPart] -= this->weight;
     }

@@ -33,8 +33,7 @@ struct FMBiConstrMgr {
     auto init(std::vector<size_t> &part) -> void {
         auto totalweight = 0;
         for (auto &v : this->H.cell_list) {
-            // auto weight = this->H.G.nodes[v].get('weight', 1);
-            auto weight = 10;
+            auto weight = this->H.node_weight[v];
             this->diff[part[v]] += weight;
             totalweight += weight;
         }
@@ -53,10 +52,9 @@ struct FMBiConstrMgr {
      * @param v
      * @return auto
      */
-    auto check_legal(size_t fromPart, node_t v) {
-        // auto weight = this->H.G.nodes[v].get('weight', 1);
+    auto check_legal(const MoveInfoV& move_info_v) {
+        auto [fromPart, toPart, v] = move_info_v;
         this->weight = this->H.node_weight[v];
-        auto toPart = 1 - fromPart;
         auto diffTo = this->diff[toPart] + this->weight;
         if (diffTo > this->upperbound)
             return 0;
@@ -74,10 +72,9 @@ struct FMBiConstrMgr {
      * @return true
      * @return false
      */
-    auto check_constraints(size_t fromPart, node_t v) -> bool {
-        // auto weight = this->H.G.nodes[v].get('weight', 1);
+    auto check_constraints(const MoveInfoV& move_info_v) -> bool {
+        auto [fromPart, toPart, v] = move_info_v;
         this->weight = this->H.node_weight[v];
-        auto toPart = 1 - fromPart;
         return this->diff[toPart] + this->weight <= this->upperbound;
     }
 
@@ -87,8 +84,8 @@ struct FMBiConstrMgr {
      * @param fromPart
      * @param v
      */
-    auto update_move(size_t fromPart, node_t v) -> void {
-        auto toPart = 1 - fromPart;
+    auto update_move(const MoveInfoV& move_info_v) -> void {
+        auto [fromPart, toPart, v] = move_info_v;
         this->diff[toPart] += this->weight;
         this->diff[fromPart] -= this->weight;
     }

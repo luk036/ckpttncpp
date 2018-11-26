@@ -95,8 +95,8 @@ struct FMKWayGainMgr {
      * @param key
      */
     auto set_key(size_t whichPart, size_t v, int key) -> void {
-        this->gainbucket[whichPart]->set_key(this->vertex_list[whichPart][v],
-                                             key);
+        this->gainbucket[whichPart]->set_key(
+            this->vertex_list[whichPart][v], key);
     }
 
     /**
@@ -105,8 +105,9 @@ struct FMKWayGainMgr {
      * @param part
      * @param v
      */
-    auto update_move(std::vector<size_t> &part, size_t fromPart, size_t toPart,
-                     node_t v, int gain) -> void {
+    auto update_move(std::vector<size_t> &part,
+                     const MoveInfoV& move_info_v, int gain) -> void {
+        auto [fromPart, toPart, v] = move_info_v;
         for (auto net : this->H.G[v]) {
             auto move_info = MoveInfo{net, fromPart, toPart, v};
             if (this->H.G.degree(net) == 2) {
@@ -121,7 +122,7 @@ struct FMKWayGainMgr {
         this->set_key(toPart, v, 0); // actually don't care
     }
 
-    auto modify_key(size_t w, std::vector<int> &keys) {
+    auto modify_key(size_t w, std::vector<int> &keys) -> void {
         for (auto k = 0u; k < this->K; ++k) {
             this->gainbucket[k]->modify_key(this->vertex_list[k][w], keys[k]);
         }
@@ -139,7 +140,6 @@ struct FMKWayGainMgr {
                               const MoveInfo& move_info) -> void {
         auto [w, deltaGainW] =
             this->gainCalc.update_move_2pin_net(part, move_info);
-
         this->modify_key(w, deltaGainW);
     }
 
@@ -155,7 +155,6 @@ struct FMKWayGainMgr {
                                  const MoveInfo& move_info) -> void {
         auto [IdVec, deltaGain] = this->gainCalc.update_move_general_net(
             part, move_info);
-
         auto degree = std::size(IdVec);
         for (auto idx = 0u; idx < degree; ++idx) {
             this->modify_key(IdVec[idx], deltaGain[idx]);

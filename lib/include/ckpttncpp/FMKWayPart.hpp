@@ -31,7 +31,7 @@ class FMKWayPartMgr {
     FMKWayPartMgr(Netlist &H, size_t K, FMKWayGainMgr &gainMgr,
                   FMKWayConstrMgr &constrMgr)
         : H{H}, K{K}, gainMgr{gainMgr}, validator{constrMgr}, snapshot{},
-          part(this->H.number_of_cells(), 0), totalcost{0} {}
+          part(this->H.number_of_modules(), 0), totalcost{0} {}
 
     /**
      * @brief

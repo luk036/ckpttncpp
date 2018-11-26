@@ -68,12 +68,12 @@ struct FMBiGainCalc {
         auto netCur = this->H.G[net].begin();
         auto w = *netCur;
         auto v = *++netCur;
-        // auto i_w = this->H.cell_dict[w];
-        // auto i_v = this->H.cell_dict[v];
+        // auto i_w = this->H.module_dict[w];
+        // auto i_v = this->H.module_dict[v];
         auto part_w = part[w];
         auto part_v = part[v];
         // auto weight = this->H.G[net].get('weight', 1);
-        auto weight = this->H.node_weight[net];
+        auto weight = this->H.get_net_weight(net);
         auto g = (part_w == part_v) ? -weight : weight;
         vertex_list[w].key += g;
         vertex_list[v].key += g;
@@ -94,7 +94,7 @@ struct FMBiGainCalc {
             IdVec.push_back(w);
         }
 
-        auto weight = this->H.node_weight[net];
+        auto weight = this->H.get_net_weight(net);
         for (auto &&k : {0, 1}) {
             if (num[k] == 0) {
                 for (auto &w : IdVec) {
@@ -127,7 +127,7 @@ struct FMBiGainCalc {
         node_t w = (*netCur != v) ? *netCur : *++netCur;
         auto part_w = part[w];
         // auto weight = this->H.G[net].get('weight', 1);
-        auto weight = this->H.node_weight[net];
+        auto weight = this->H.get_net_weight(net);
         auto deltaGainW = (part_w == fromPart) ? 2 * weight : -2 * weight;
         return std::tuple{w, deltaGainW};
     }
@@ -157,7 +157,7 @@ struct FMBiGainCalc {
         }
         auto degree = std::size(IdVec);
         // auto m = this->H.G[net].get('weight', 1);
-        auto weight = this->H.node_weight[net];
+        auto weight = this->H.get_net_weight(net);
         // auto weight = (fromPart == 0) ? m : -m;
         for (auto &&l : {fromPart, toPart}) {
             if (num[l] == 0) {

@@ -19,7 +19,7 @@ struct FMKWayGainMgr {
     size_t pmax;
     std::vector<std::unique_ptr<bpqueue>> gainbucket;
     // size_t num[2];
-    size_t num_cells;
+    size_t num_modules;
     std::vector<std::vector<dllink>> vertex_list;
     dllink waitinglist;
 
@@ -31,12 +31,12 @@ struct FMKWayGainMgr {
     explicit FMKWayGainMgr(Netlist &H, size_t K)
         : H{H}, K{K}, gainCalc{H, K}, pmax{H.get_max_degree()},
           // num{0, 0},
-          num_cells{H.number_of_cells()}, waitinglist{} {
+          num_modules{H.number_of_modules()}, waitinglist{} {
         for (auto k = 0u; k < this->K; ++k) {
             this->gainbucket.push_back(
                 std::make_unique<bpqueue>(-this->pmax, this->pmax));
             this->vertex_list.emplace_back(
-                std::vector<dllink>(this->num_cells));
+                std::vector<dllink>(this->num_modules));
         }
     }
 
@@ -48,12 +48,12 @@ struct FMKWayGainMgr {
     auto init(std::vector<size_t> &part) -> void {
         this->gainCalc.init(part, this->vertex_list);
 
-        for (auto v : this->H.cell_fixed) {
+        for (auto v : this->H.module_fixed) {
             for (auto k = 0u; k < this->K; ++k) {
                 this->vertex_list[k][v].key = -this->pmax;
             }
         }
-        for (auto v : this->H.cell_list) {
+        for (auto v : this->H.module_list) {
             for (auto k = 0u; k < this->K; ++k) {
                 auto &vlink = this->vertex_list[k][v];
                 if (part[v] == k) {

@@ -29,7 +29,7 @@ class FMBiPartMgr {
      */
     FMBiPartMgr(Netlist &H, FMBiGainMgr &gainMgr, FMBiConstrMgr &constrMgr)
         : H{H}, gainMgr{gainMgr}, validator{constrMgr}, snapshot{},
-          part(this->H.number_of_cells(), 0), totalcost{0} {}
+          part(this->H.number_of_modules(), 0), totalcost{0} {}
 
     /**
      * @brief

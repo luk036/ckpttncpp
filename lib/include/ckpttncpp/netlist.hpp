@@ -20,49 +20,43 @@ struct Netlist {
     using nodevec_t = std::vector<node_t>;
 
     xn::grAdaptor<graph_t> &G;
-    nodevec_t &cell_list;
+    nodevec_t &module_list;
     nodevec_t &net_list;
-    nodevec_t cell_fixed;
-    std::unordered_map<node_t, size_t> cell_dict;
-    std::unordered_map<node_t, size_t> net_dict;
-    bool has_fixed_cells;
+    nodevec_t module_fixed;
+    bool has_fixed_modules;
+    size_t num_modules;
+    size_t num_nets;
+    size_t num_pads = 0;
     size_t max_degree;
     size_t max_net_degree;
     int cost_model = 0;
-    std::vector<size_t> node_weight;
+    // std::vector<size_t> node_weight;
+    std::vector<size_t> module_weight;
+    std::vector<size_t> net_weight;
 
     /**
      * @brief Construct a new Netlist object
      *
      * @param G
-     * @param cell_list
+     * @param module_list
      * @param net_list
-     * @param cell_fixed
+     * @param module_fixed
      */
-    Netlist(xn::grAdaptor<graph_t> &G, nodevec_t &cell_list,
-            nodevec_t &net_list, nodevec_t cell_fixed = nodevec_t{})
-        : G{G}, cell_list{cell_list}, net_list{net_list}, cell_fixed{
-                                                              cell_fixed} {
-        node_t *vptr = &this->cell_list[0];
-        for (auto &v : this->cell_list) {
-            node_t *v_ptr = &v;
-            this->cell_dict[v] = v_ptr - vptr;
-        }
-
-        node_t *nptr = &this->net_list[0];
-        for (auto &n : this->net_list) {
-            node_t *n_ptr = &n;
-            this->net_dict[n] = n_ptr - nptr;
-        }
-
-        this->has_fixed_cells = (!this->cell_fixed.empty());
+    Netlist(xn::grAdaptor<graph_t> &G, nodevec_t &module_list,
+            nodevec_t &net_list, nodevec_t module_fixed = nodevec_t{})
+        : G{G}, module_list{module_list}, net_list{net_list}, 
+          module_fixed{module_fixed},
+          num_modules{std::size(module_list)}, 
+          num_nets{std::size(net_list)}
+    {
+        this->has_fixed_modules = (!this->module_fixed.empty());
 
         auto deg_cmp = [this](const node_t &v, const node_t &w) -> size_t {
             return this->G.degree(v) < this->G.degree(w);
         };
 
-        auto result1 = std::max_element(this->cell_list.begin(),
-                                        this->cell_list.end(), deg_cmp);
+        auto result1 = std::max_element(this->module_list.begin(),
+                                        this->module_list.end(), deg_cmp);
 
         this->max_degree = this->G.degree(*result1);
 
@@ -71,7 +65,7 @@ struct Netlist {
 
         this->max_net_degree = this->G.degree(*result2);
 
-        //                       for cell in this->cell_list);
+        //                       for module in this->module_list);
         // this->max_net_degree = max(this->G.degree[net]
         //                       for net in this->net_list);
     }
@@ -81,8 +75,8 @@ struct Netlist {
      *
      * @return size_t
      */
-    auto number_of_cells() const -> size_t {
-        return std::size(this->cell_list);
+    auto number_of_modules() const -> size_t {
+        return std::size(this->module_list);
     }
 
     /**
@@ -112,6 +106,14 @@ struct Netlist {
      * @return size_t
      */
     auto get_max_net_degree() const -> size_t { return this->max_net_degree; }
+
+    auto get_module_weight(node_t v) const -> size_t {
+        return this->module_weight.empty() ? 1 : this->module_weight[v];
+    }
+
+    auto get_net_weight(node_t net) const -> size_t {
+        return this->net_weight.empty() ? 1 : this->net_weight[net];
+    }
 };
 
 struct MoveInfo

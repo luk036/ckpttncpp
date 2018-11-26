@@ -38,7 +38,7 @@ auto create_drawf() -> Netlist
         n4,
         n5
     };
-    // static std::vector<nodes> cell_name_list = {a1, a2, a3};
+    // static std::vector<nodes> module_name_list = {a1, a2, a3};
     // static std::vector<nodes> net__name_list = {n1, n2, n3};
 
     // char name[] = "ABCDE";
@@ -64,25 +64,26 @@ auto create_drawf() -> Netlist
     using IndexMap = typename boost::property_map<graph_t, boost::vertex_index_t>::type;
     IndexMap index = boost::get(boost::vertex_index, g);
     static auto G = xn::grAdaptor<graph_t>(g);
-    static std::vector<node_t> cell_list(7);
+    static std::vector<node_t> module_list(7);
     static std::vector<node_t> net_list(5);
-    static std::vector<node_t> node_weight = 
-        {1, 3, 4, 2, 0, 0, 0, 1, 1, 1, 1, 1};
+    static std::vector<node_t> module_weight = 
+        {1, 3, 4, 2, 0, 0, 0};
   
     for (node_t v : G)
     {
         size_t i = index[v];
         if (i < 7)
         {
-            cell_list[i] = v;
+            module_list[i] = v;
         }
         else
         {
             net_list[i - 7] = v;
         }
     }
-    auto H = Netlist(G, cell_list, net_list);
-    H.node_weight = node_weight;
+    auto H = Netlist(G, module_list, net_list);
+    H.module_weight = module_weight;
+    H.num_pads = 3;
     return H;
 }
 
@@ -104,7 +105,7 @@ auto create_test_netlist() -> Netlist
         n2,
         n3
     };
-    static std::vector<nodes> cell_name_list = {a1, a2, a3};
+    static std::vector<nodes> module_name_list = {a1, a2, a3};
     static std::vector<nodes> net__name_list = {n1, n2, n3};
 
     // char name[] = "ABCDE";
@@ -122,23 +123,23 @@ auto create_test_netlist() -> Netlist
     using IndexMap = typename boost::property_map<graph_t, boost::vertex_index_t>::type;
     IndexMap index = boost::get(boost::vertex_index, g);
     static auto G = xn::grAdaptor<graph_t>(g);
-    static std::vector<node_t> cell_list(3);
+    static std::vector<node_t> module_list(3);
     static std::vector<node_t> net_list(3);
-    static std::vector<node_t> node_weight = {3, 4, 2, 1, 1, 1};
+    static std::vector<node_t> module_weight = {3, 4, 2};
     for (node_t v : G)
     {
         size_t i = index[v];
         if (i < 3)
         {
-            cell_list[i] = v;
+            module_list[i] = v;
         }
         else
         {
             net_list[i - 3] = v;
         }
     }
-    auto H = Netlist(G, cell_list, net_list);
-    H.node_weight = node_weight;
+    auto H = Netlist(G, module_list, net_list);
+    H.module_weight = module_weight;
     return H;
 }
 
@@ -146,23 +147,23 @@ TEST_CASE("Test Netlist", "[test_netlist]")
 {
     auto H = create_test_netlist();
 
-    CHECK(H.number_of_cells() == 3);
+    CHECK(H.number_of_modules() == 3);
     CHECK(H.number_of_nets() == 3);
     CHECK(H.number_of_pins() == 6);
     CHECK(H.get_max_degree() == 3);
     CHECK(H.get_max_net_degree() == 3);
-    CHECK(!H.has_fixed_cells);
+    CHECK(!H.has_fixed_modules);
 }
 
 TEST_CASE("Test Drawf", "[test_drawf]")
 {
     auto H = create_drawf();
 
-    CHECK(H.number_of_cells() == 7);
+    CHECK(H.number_of_modules() == 7);
     CHECK(H.number_of_nets() == 5);
     CHECK(H.number_of_pins() == 13);
     CHECK(H.get_max_degree() == 3);
     CHECK(H.get_max_net_degree() == 3);
-    CHECK(!H.has_fixed_cells);
-    CHECK(H.node_weight[1] == 3);
+    CHECK(!H.has_fixed_modules);
+    CHECK(H.get_module_weight(1) == 3);
 }

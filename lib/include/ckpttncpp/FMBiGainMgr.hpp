@@ -18,7 +18,7 @@ struct FMBiGainMgr {
     size_t pmax;
     bpqueue gainbucket;
     // size_t num[2];
-    size_t num_cells;
+    size_t num_modules;
     std::vector<dllink> vertex_list;
     dllink waitinglist;
 
@@ -30,8 +30,8 @@ struct FMBiGainMgr {
     explicit FMBiGainMgr(Netlist &H)
         : H{H}, gainCalc{H}, pmax{H.get_max_degree()}, gainbucket(-pmax, pmax),
           // num{0, 0},
-          num_cells{H.number_of_cells()},
-          vertex_list(num_cells), waitinglist{} {}
+          num_modules{H.number_of_modules()},
+          vertex_list(num_modules), waitinglist{} {}
 
     /**
      * @brief
@@ -71,8 +71,8 @@ struct FMBiGainMgr {
     auto init(std::vector<size_t> &part) -> void {
         this->gainCalc.init(part, this->vertex_list);
 
-        for (auto &v : this->H.cell_fixed) {
-            // auto i_v = this->H.cell_dict[v];
+        for (auto &v : this->H.module_fixed) {
+            // auto i_v = this->H.module_dict[v];
             // force to the lowest gain
             this->vertex_list[v].key = -this->pmax;
         }

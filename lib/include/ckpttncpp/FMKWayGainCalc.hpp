@@ -71,7 +71,7 @@ struct FMKWayGainCalc {
         auto v = *++netCur;
         auto part_w = part[w];
         auto part_v = part[v];
-        auto weight = this->H.node_weight[net];
+        auto weight = this->H.get_net_weight(net);
         if (part_v == part_w) {
             for (auto k = 0u; k < this->K; ++k) {
                 vertex_list[k][w].key -= weight;
@@ -99,7 +99,7 @@ struct FMKWayGainCalc {
             IdVec.push_back(w);
         }
 
-        auto weight = this->H.node_weight[net];
+        auto weight = this->H.get_net_weight(net);
 
         for (auto k = 0u; k < this->K; ++k) {
             if (num[k] == 0) {
@@ -135,7 +135,7 @@ struct FMKWayGainCalc {
         node_t w = (*netCur != v) ? *netCur : *++netCur;
         auto part_w = part[w];
         // auto weight = this->H.G[net].get('weight', 1);
-        auto weight = this->H.node_weight[net];
+        auto weight = this->H.get_net_weight(net);
         auto deltaGainW = std::vector<int>(this->K, 0);
         if (part_w == fromPart) {
             for (auto k = 0u; k < this->K; ++k) {
@@ -177,7 +177,7 @@ struct FMKWayGainCalc {
             std::vector<std::vector<int>>(degree, std::vector<int>(this->K, 0));
 
         // auto m = this->H.G[net].get('weight', 1);
-        auto weight = this->H.node_weight[net];
+        auto weight = this->H.get_net_weight(net);
         // auto weight = (fromPart == 0) ? m : -m;
         for (auto &&l : {fromPart, toPart}) {
             if (num[l] == 0) {

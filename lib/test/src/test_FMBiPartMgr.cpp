@@ -4,7 +4,8 @@
 #include <ckpttncpp/FMBiPart.hpp>      // import FMBiPartMgr
 
 extern Netlist create_test_netlist(); // import create_test_netlist
-extern Netlist create_drawf(); // import create_drawf
+extern Netlist create_dwarf(); // import create_dwarf
+extern Netlist readNetD(const char *netDFileName);
 
 void run_FMBiPartMgr(Netlist& H) {
     auto gainMgr = FMBiGainMgr(H);
@@ -23,7 +24,12 @@ TEST_CASE("Test FMBiPartMgr", "[test_FMBiPartMgr]") {
     run_FMBiPartMgr(H);
 }
 
-TEST_CASE("Test FMBiPartMgr 2", "[test_FMBiPartMgr_2]") {
-    auto H = create_drawf();
+TEST_CASE("Test FMBiPartMgr dwarf", "[test_FMBiPartMgr]") {
+    auto H = create_dwarf();
+    run_FMBiPartMgr(H);
+}
+
+TEST_CASE("Test FMBiPartMgr p1", "[test_FMBiPartMgr]") {
+    auto H = readNetD("../../testcases/p1.net");
     run_FMBiPartMgr(H);
 }

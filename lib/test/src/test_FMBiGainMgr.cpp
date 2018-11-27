@@ -3,7 +3,7 @@
 #include <ckpttncpp/FMBiGainMgr.hpp> // import FMBiGainMgr
 
 extern Netlist create_test_netlist(); // import create_test_netlist
-extern Netlist create_drawf(); // import create_drawf
+extern Netlist create_dwarf(); // import create_dwarf
 
 void run_FMBiGainMgr(Netlist& H, std::vector<size_t>& part_test) {
     FMBiGainMgr mgr{H};
@@ -30,7 +30,7 @@ TEST_CASE("Test FMBiGainMgr", "[test_FMBiGainMgr]") {
 }
 
 TEST_CASE("Test FMBiGainMgr 2", "[test_FMBiGainMgr2]") {
-    auto H = create_drawf();
+    auto H = create_dwarf();
     auto part_test = std::vector<size_t>{0, 0, 0, 0, 1, 1, 1};
     run_FMBiGainMgr(H, part_test);
 }

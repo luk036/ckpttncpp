@@ -114,62 +114,63 @@ auto readNetD(const char *netDFileName) -> Netlist {
         }
     }
     auto H = Netlist(std::move(G), std::move(module_list), std::move(net_list));
+    H.num_pads = numModules - padOffset - 1;
     return H;
 }
 
 // Read the IBM .are format
-// void readAre(const char *areFileName) {
-//     ifstream are(areFileName);
-//     if (are.fail()) {
-//         std::cerr << " Could not open " << areFileName << std::endl;
-//         return;
-//     }
+void readAre(Netlist& H, const char *areFileName) {
+    ifstream are(areFileName);
+    if (are.fail()) {
+        std::cerr << " Could not open " << areFileName << std::endl;
+        exit(1);
+    }
 
-//     const size_t bufferSize = 100;
-//     char lineBuffer[bufferSize];
+    const size_t bufferSize = 100;
+    char lineBuffer[bufferSize];
 
-//     char c;
-//     size_t w;
-//     size_t weight;
-//     size_t totalWeight = 0;
-//     // xxx size_t smallestWeight = UINT_MAX;
+    char c;
+    size_t w;
+    size_t weight;
+    size_t totalWeight = 0;
+    // xxx size_t smallestWeight = UINT_MAX;
+    auto numModules = H.number_of_modules();
+    auto padOffset = numModules - H.num_pads - 1;
+    std::vector<size_t> module_weight(numModules);
 
-//     size_t lineno = 1;
-//     for (size_t i = 0; i < _numModules; i++) {
-//         if (are.eof())
-//             break;
-//         do
-//             are.get(c);
-//         while (isspace(c) && c != EOF);
-//         if (c == '\n') {
-//             lineno++;
-//             continue;
-//         }
-//         if (c == 'a') {
-//             are >> w;
-//         } else if (c == 'p') {
-//             are >> w;
-//             w += _padOffset;
-//         } else {
-//             std::cerr << "Syntax error in line " << lineno << ":"
-//                       << "expect keyword \"a\" or \"p\"" << std::endl;
-//             exit(0);
-//         }
+    size_t lineno = 1;
+    for (size_t i = 0; i < numModules; i++) {
+        if (are.eof())
+            break;
+        do {
+            are.get(c);
+        } while (isspace(c) && c != EOF);
+        if (c == '\n') {
+            lineno++;
+            continue;
+        }
+        if (c == 'a') {
+            are >> w;
+        } else if (c == 'p') {
+            are >> w;
+            w += padOffset;
+        } else {
+            std::cerr << "Syntax error in line " << lineno << ":"
+                      << "expect keyword \"a\" or \"p\"" << std::endl;
+            exit(0);
+        }
 
-//         Module &aModule = _moduleList[w];
-//         do
-//             are.get(c);
-//         while (isspace(c) && c != EOF);
-//         if (isdigit(c)) {
-//             are.putback(c);
-//             are >> weight;
-//             aModule.setWeight(weight);
-//             totalWeight += weight;
-//         }
-//         are.getline(lineBuffer, bufferSize);
-//         lineno++;
-//     }
+        do {
+            are.get(c);
+        } while (isspace(c) && c != EOF);
+        if (isdigit(c)) {
+            are.putback(c);
+            are >> weight;
+            module_weight[w] = weight;
+        }
+        are.getline(lineBuffer, bufferSize);
+        lineno++;
+    }
 
-//     // Update after the reading was sucessful
-//     _totalWeight = totalWeight;
-// }
+    H.module_weight = module_weight;
+}

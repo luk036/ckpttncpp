@@ -19,7 +19,7 @@ using edge_t = typename boost::graph_traits<graph_t>::edge_iterator;
  * 
  * @return Netlist 
  */
-auto create_drawf() -> Netlist
+auto create_dwarf() -> Netlist
 {
     using Edge = std::pair<int, int>;
     const int num_nodes = 12;
@@ -156,9 +156,9 @@ TEST_CASE("Test Netlist", "[test_netlist]")
     CHECK(!H.has_fixed_modules);
 }
 
-TEST_CASE("Test Drawf", "[test_drawf]")
+TEST_CASE("Test dwarf", "[test_dwarf]")
 {
-    auto H = create_drawf();
+    auto H = create_dwarf();
 
     CHECK(H.number_of_modules() == 7);
     CHECK(H.number_of_nets() == 5);

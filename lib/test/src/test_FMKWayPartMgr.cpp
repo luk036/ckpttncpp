@@ -4,7 +4,8 @@
 #include <ckpttncpp/FMKWayPart.hpp>      // import FMKWayPartMgr
 
 extern Netlist create_test_netlist(); // import create_test_netlist
-extern Netlist create_drawf(); // import create_drawf
+extern Netlist create_dwarf(); // import create_dwarf
+extern Netlist readNetD(const char *netDFileName);
 
 void run_FMKWayPartMgr(Netlist& H, size_t K) {
     auto gainMgr = FMKWayGainMgr(H, K);
@@ -18,7 +19,12 @@ void run_FMKWayPartMgr(Netlist& H, size_t K) {
     // print(partMgr.snapshot);
 }
 
-TEST_CASE("Test FMKWayPartMgr 2", "[test_FMKWayPartMgr_2]") {
-    auto H = create_drawf();
+TEST_CASE("Test FMKWayPartMgr", "[test_FMKWayPartMgr]") {
+    auto H = create_dwarf();
     run_FMKWayPartMgr(H, 3);
+}
+
+TEST_CASE("Test FMKWayPartMgr p1", "[test_FMKWayPartMgr]") {
+    auto H = readNetD("../../testcases/p1.net");
+    run_FMKWayPartMgr(H, 4);
 }

@@ -19,7 +19,7 @@ extern Netlist readNetD(const char *netDFileName);
 
 TEST_CASE("Test Read Dwarf", "[test_readwrite]")
 {
-    auto H = readNetD("testcases/dwarf1.netD");
+    auto H = readNetD("../../testcases/dwarf1.netD");
 
     CHECK(H.number_of_modules() == 7);
     CHECK(H.number_of_nets() == 5);

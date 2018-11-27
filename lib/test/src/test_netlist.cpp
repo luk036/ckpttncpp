@@ -42,7 +42,7 @@ auto create_drawf() -> Netlist
     // static std::vector<nodes> net__name_list = {n1, n2, n3};
 
     // char name[] = "ABCDE";
-    static Edge edge_array[] = {
+    Edge edge_array[] = {
         Edge(p1, n1),
         Edge(a0, n1),
         Edge(a1, n1),
@@ -59,14 +59,15 @@ auto create_drawf() -> Netlist
     };
     // std::size_t indices[] = {0, 1, 2, 3, 4, 5};
     int num_arcs = sizeof(edge_array) / sizeof(Edge);
-    static graph_t g(edge_array, edge_array + num_arcs, num_nodes);
+    graph_t g(edge_array, edge_array + num_arcs, num_nodes);
     using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
     using IndexMap = typename boost::property_map<graph_t, boost::vertex_index_t>::type;
     IndexMap index = boost::get(boost::vertex_index, g);
-    static auto G = xn::grAdaptor<graph_t>(g);
-    static std::vector<node_t> module_list(7);
-    static std::vector<node_t> net_list(5);
-    static std::vector<node_t> module_weight = 
+    auto G = xn::grAdaptor<graph_t>(std::move(g));
+
+    std::vector<node_t> module_list(7);
+    std::vector<node_t> net_list(5);
+    std::vector<node_t> module_weight = 
         {1, 3, 4, 2, 0, 0, 0};
   
     for (node_t v : G)
@@ -81,7 +82,7 @@ auto create_drawf() -> Netlist
             net_list[i - 7] = v;
         }
     }
-    auto H = Netlist(G, module_list, net_list);
+    auto H = Netlist(std::move(G), std::move(module_list), std::move(net_list));
     H.module_weight = module_weight;
     H.num_pads = 3;
     return H;
@@ -105,11 +106,11 @@ auto create_test_netlist() -> Netlist
         n2,
         n3
     };
-    static std::vector<nodes> module_name_list = {a1, a2, a3};
-    static std::vector<nodes> net__name_list = {n1, n2, n3};
+    std::vector<nodes> module_name_list = {a1, a2, a3};
+    std::vector<nodes> net__name_list = {n1, n2, n3};
 
     // char name[] = "ABCDE";
-    static Edge edge_array[] = {
+    Edge edge_array[] = {
         Edge(a1, n1),
         Edge(a1, n2),
         Edge(a2, n1),
@@ -118,14 +119,14 @@ auto create_test_netlist() -> Netlist
         Edge(a1, n3)};
     // std::size_t indices[] = {0, 1, 2, 3, 4, 5};
     int num_arcs = sizeof(edge_array) / sizeof(Edge);
-    static graph_t g(edge_array, edge_array + num_arcs, num_nodes);
+    graph_t g(edge_array, edge_array + num_arcs, num_nodes);
     using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
     using IndexMap = typename boost::property_map<graph_t, boost::vertex_index_t>::type;
     IndexMap index = boost::get(boost::vertex_index, g);
-    static auto G = xn::grAdaptor<graph_t>(g);
-    static std::vector<node_t> module_list(3);
-    static std::vector<node_t> net_list(3);
-    static std::vector<node_t> module_weight = {3, 4, 2};
+    auto G = xn::grAdaptor<graph_t>(std::move(g));
+    std::vector<node_t> module_list(3);
+    std::vector<node_t> net_list(3);
+    std::vector<node_t> module_weight = {3, 4, 2};
     for (node_t v : G)
     {
         size_t i = index[v];
@@ -138,7 +139,7 @@ auto create_test_netlist() -> Netlist
             net_list[i - 3] = v;
         }
     }
-    auto H = Netlist(G, module_list, net_list);
+    auto H = Netlist(std::move(G), std::move(module_list), std::move(net_list));
     H.module_weight = module_weight;
     return H;
 }

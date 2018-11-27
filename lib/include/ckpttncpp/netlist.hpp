@@ -19,13 +19,11 @@ using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
 struct Netlist {
     using nodevec_t = std::vector<node_t>;
 
-    xn::grAdaptor<graph_t> &G;
-    nodevec_t &module_list;
-    nodevec_t &net_list;
+    xn::grAdaptor<graph_t> G;
+    nodevec_t module_list;
+    nodevec_t net_list;
     nodevec_t module_fixed;
     bool has_fixed_modules;
-    size_t num_modules;
-    size_t num_nets;
     size_t num_pads = 0;
     size_t max_degree;
     size_t max_net_degree;
@@ -42,12 +40,10 @@ struct Netlist {
      * @param net_list
      * @param module_fixed
      */
-    Netlist(xn::grAdaptor<graph_t> &G, nodevec_t &module_list,
-            nodevec_t &net_list, nodevec_t module_fixed = nodevec_t{})
-        : G{G}, module_list{module_list}, net_list{net_list}, 
-          module_fixed{module_fixed},
-          num_modules{std::size(module_list)}, 
-          num_nets{std::size(net_list)}
+    Netlist(xn::grAdaptor<graph_t> &&G, nodevec_t &&module_list,
+            nodevec_t &&net_list, nodevec_t module_fixed = nodevec_t{})
+        : G{std::move(G)}, module_list{std::move(module_list)}, net_list{std::move(net_list)}, 
+          module_fixed{module_fixed}
     {
         this->has_fixed_modules = (!this->module_fixed.empty());
 
@@ -112,7 +108,8 @@ struct Netlist {
     }
 
     auto get_net_weight(node_t net) const -> size_t {
-        return this->net_weight.empty() ? 1 : this->net_weight[net];
+        return this->net_weight.empty() ? 1 : 
+            this->net_weight[net - number_of_modules()];
     }
 };
 

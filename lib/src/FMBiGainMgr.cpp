@@ -1,1 +1,1 @@
-#include <ckpttncpp/FMBiGainMgr.hpp> 
+#include <ckpttncpp/FMBiGainMgr.hpp>

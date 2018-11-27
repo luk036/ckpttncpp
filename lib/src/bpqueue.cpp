@@ -1,2 +1,1 @@
-#include <ckpttncpp/bpqueue.hpp> 
-
+#include <ckpttncpp/bpqueue.hpp>

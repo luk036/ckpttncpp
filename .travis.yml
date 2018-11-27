@@ -75,6 +75,7 @@ install:
       fi
     - make -j2
 script:
+    - ln -s ../testcases .
     - ctest -V -j 2
 notifications:
   email: false

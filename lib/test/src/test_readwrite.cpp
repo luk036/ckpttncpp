@@ -7,8 +7,8 @@ void readAre(Netlist& H, const char *areFileName);
 
 TEST_CASE("Test Read Dwarf", "[test_readwrite]")
 {
-    auto H = readNetD("/home/ubuntu/github/testcases/dwarf1.netD");
-    readAre(H, "/home/ubuntu/github/testcases/dwarf1.are");
+    auto H = readNetD("../../testcases/dwarf1.netD");
+    readAre(H, "../../testcases/dwarf1.are");
 
     CHECK(H.number_of_modules() == 7);
     CHECK(H.number_of_nets() == 5);
@@ -21,7 +21,7 @@ TEST_CASE("Test Read Dwarf", "[test_readwrite]")
 
 TEST_CASE("Test Read p1", "[test_readwrite]")
 {
-    auto H = readNetD("/home/ubuntu/github/testcases/p1.net");
+    auto H = readNetD("../../testcases/p1.net");
 
     CHECK(H.number_of_modules() == 833);
     CHECK(H.number_of_nets() == 902);

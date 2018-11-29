@@ -73,8 +73,9 @@ struct FMKWayConstrMgr {
         }
         this->illegal[fromPart] = this->illegal[toPart] = false;
         for (auto b : this->illegal) {
-            if (b)
+            if (b) {
                 return 1; // get better, but still illegal
+            }
         }
         return 2; // all satisfied
     }

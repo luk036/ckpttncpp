@@ -1,5 +1,31 @@
 #include <ckpttncpp/FMKWayGainCalc.hpp>
 
+/* linux-2.6.38.8/include/linux/compiler.h */
+#include <stdio.h>
+#define likely(x) __builtin_expect(!!(x), 1)
+#define unlikely(x) __builtin_expect(!!(x), 0)
+
+/**
+ * @brief 
+ * 
+ * @param net 
+ * @param part 
+ * @param vertex_list 
+ */
+auto FMKWayGainCalc::
+init_gain(node_t &net, std::vector<size_t> &part,
+          std::vector<std::vector<dllink>> &vertex_list) -> void
+{
+    if (this->H.G.degree(net) == 2) {
+        this->init_gain_2pin_net(net, part, vertex_list);
+    } else if (unlikely(this->H.G.degree(net) < 2)) {
+        return; // does not provide any gain when move
+    } else {
+        this->init_gain_general_net(net, part, vertex_list);
+    }
+}
+  
+
 auto FMKWayGainCalc::
 init_gain_2pin_net(node_t &net, std::vector<size_t> &part,
                    std::vector<std::vector<dllink>> &vertex_list) -> void 

@@ -8,11 +8,6 @@
 #include <iterator>
 #include <tuple>
 
-/* linux-2.6.38.8/include/linux/compiler.h */
-#include <stdio.h>
-#define likely(x) __builtin_expect(!!(x), 1)
-#define unlikely(x) __builtin_expect(!!(x), 0)
-
 /**
  * @brief FMKWayGainCalc
  *
@@ -23,17 +18,20 @@ class FMKWayGainCalc {
     size_t K;
 
   public:
+
     /**
      * @brief Construct a new FMKWayGainCalc object
-     *
-     * @param H
+     * 
+     * @param H Netlist
+     * @param K number of partitions
      */
     explicit FMKWayGainCalc(Netlist &H, size_t K) : H{H}, K{K} {}
 
     /**
-     * @brief
-     *
-     * @param part
+     * @brief 
+     * 
+     * @param part 
+     * @param vertex_list 
      */
     auto init(std::vector<size_t> &part,
               std::vector<std::vector<dllink>> &vertex_list) -> void {
@@ -45,12 +43,11 @@ class FMKWayGainCalc {
     using ret_2pin_info = std::tuple<size_t, std::vector<int>, std::vector<int>>; 
 
     /**
-     * @brief
-     *
-     * @param net
-     * @param part
-     * @param fromPart
-     * @param v
+     * @brief 
+     * 
+     * @param part 
+     * @param move_info 
+     * @return ret_2pin_info 
      */
     auto update_move_2pin_net(std::vector<size_t> &part,
                               const MoveInfo& move_info) -> ret_2pin_info;
@@ -58,13 +55,13 @@ class FMKWayGainCalc {
     using ret_info = std::tuple<std::vector<size_t>,
                                 std::vector<std::vector<int>>,
                                 std::vector<int>>; 
+
     /**
-     * @brief
-     *
-     * @param net
-     * @param part
-     * @param fromPart
-     * @param v
+     * @brief 
+     * 
+     * @param part 
+     * @param move_info 
+     * @return ret_info 
      */
     auto update_move_general_net(std::vector<size_t> &part,
                                  const MoveInfo& move_info) -> ret_info;
@@ -78,15 +75,7 @@ class FMKWayGainCalc {
      * @param part
      */
     auto init_gain(node_t &net, std::vector<size_t> &part,
-                   std::vector<std::vector<dllink>> &vertex_list) -> void {
-        if (this->H.G.degree(net) == 2) {
-            this->init_gain_2pin_net(net, part, vertex_list);
-        } else if (unlikely(this->H.G.degree(net) < 2)) {
-            return; // does not provide any gain when move
-        } else {
-            this->init_gain_general_net(net, part, vertex_list);
-        }
-    }
+                   std::vector<std::vector<dllink>> &vertex_list) -> void;
   
     /**
      * @brief

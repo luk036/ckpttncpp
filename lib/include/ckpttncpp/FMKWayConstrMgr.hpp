@@ -35,7 +35,7 @@ struct FMKWayConstrMgr {
         auto totalweight = 0;
         for (auto &v : this->H.module_list) {
             // auto weight = this->H.G.nodes[v].get('weight', 1);
-            auto weight = 10;
+            weight = this->H.get_module_weight(v);
             this->diff[part[v]] += weight;
             totalweight += weight;
         }

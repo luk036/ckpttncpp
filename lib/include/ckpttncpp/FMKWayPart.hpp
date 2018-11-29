@@ -41,7 +41,7 @@ class FMKWayPartMgr {
         this->gainMgr.init(this->part);
         this->validator.init(this->part);
 
-        auto totalgain = 0;
+        // auto totalgain = 0;
 
         while (true) {
             auto toPart = this->validator.select_togo();
@@ -50,6 +50,7 @@ class FMKWayPartMgr {
             }
             auto [v, gainmax] = this->gainMgr.select_togo(toPart);
             auto fromPart = this->part[v];
+            assert(fromPart != toPart);
             auto move_info_v = MoveInfoV{fromPart, toPart, v};
             // Check if the move of v can notsatisfied, makebetter, or satisfied
             auto legalcheck = this->validator.check_legal(move_info_v);
@@ -62,10 +63,11 @@ class FMKWayPartMgr {
             this->gainMgr.update_move(this->part, move_info_v, gainmax);
             this->validator.update_move(move_info_v);
             this->part[v] = toPart;
-            totalgain += gainmax;
+            // totalgain += gainmax;
+            this->totalcost -= gainmax;
 
             if (legalcheck == 2) { // satisfied
-                this->totalcost -= totalgain;
+                // this->totalcost -= totalgain;
                 // totalgain = 0; // reset to zero
                 break;
             }
@@ -88,6 +90,7 @@ class FMKWayPartMgr {
             }
             auto [v, gainmax] = this->gainMgr.select_togo(toPart);
             auto fromPart = this->part[v];
+            assert(fromPart != toPart);
             auto move_info_v = MoveInfoV{fromPart, toPart, v};
             // Check if the move of v can satisfied or notsatisfied
             auto satisfiedOK =

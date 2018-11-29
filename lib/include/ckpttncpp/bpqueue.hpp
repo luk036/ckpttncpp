@@ -130,6 +130,10 @@ struct bpqueue {
         assert(it.key > 0);
         assert(it.key <= this->high);
         this->bucket[it.key].append(it); // FIFO
+        if (this->max < it.key) {
+            this->max = it.key;
+            return;
+        }
         while (this->bucket[this->max].is_empty()) {
             this->max -= 1;
         }

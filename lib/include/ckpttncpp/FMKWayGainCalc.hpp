@@ -134,21 +134,23 @@ struct FMKWayGainCalc {
         auto netCur = this->H.G[net].begin();
         node_t w = (*netCur != v) ? *netCur : *++netCur;
         auto part_w = part[w];
-        // auto weight = this->H.G[net].get('weight', 1);
         auto weight = this->H.get_net_weight(net);
         auto deltaGainW = std::vector<int>(this->K, 0);
+        auto deltaGainV = std::vector<int>(this->K, 0);
         if (part_w == fromPart) {
             for (auto k = 0u; k < this->K; ++k) {
                 deltaGainW[k] += weight;
+                deltaGainV[k] += weight;
             }
         } else if (part_w == toPart) {
             for (auto k = 0u; k < this->K; ++k) {
                 deltaGainW[k] -= weight;
+                deltaGainV[k] -= weight;
             }
         }
         deltaGainW[fromPart] -= weight;
         deltaGainW[toPart] += weight;
-        return std::tuple{w, std::move(deltaGainW)};
+        return std::tuple{w, std::move(deltaGainW), std::move(deltaGainV)};
     }
 
     /**
@@ -173,21 +175,35 @@ struct FMKWayGainCalc {
             IdVec.push_back(w);
         }
         auto degree = std::size(IdVec);
-        auto deltaGain =
-            std::vector<std::vector<int>>(degree, std::vector<int>(this->K, 0));
+        auto deltaGain = std::vector<std::vector<int>>(degree,
+                                     std::vector<int>(this->K, 0));
+        auto deltaGainV = std::vector<int>(this->K, 0);
 
         // auto m = this->H.G[net].get('weight', 1);
         auto weight = this->H.get_net_weight(net);
-        // auto weight = (fromPart == 0) ? m : -m;
-        for (auto &&l : {fromPart, toPart}) {
-            if (num[l] == 0) {
+	    if (num[fromPart] == 0) {
+	        if (num[toPart] > 0) {
                 for (auto idx = 0u; idx < degree; ++idx) {
-                    deltaGain[idx][l] -= weight;
+                    deltaGain[idx][fromPart] -= weight;
                 }
-            } else if (num[l] == 1) {
+	            for (auto k = 0u; k < this->K; ++k) {
+		            deltaGainV[k] -= weight;
+		        }
+            }
+        } else { // num[fromPart] > 0
+	        if (num[toPart] == 0) {
                 for (auto idx = 0u; idx < degree; ++idx) {
-                    auto part_w = part[IdVec[idx]];
-                    if (part_w == l) {
+                    deltaGain[idx][toPart] += weight;
+                }
+	            for (auto k = 0u; k < this->K; ++k) {
+		            deltaGainV[k] += weight;
+		        }
+	        }
+	    }
+        for (auto &&l : {fromPart, toPart}) {
+            if (num[l] == 1) {
+                for (auto idx = 0u; idx < degree; ++idx) {
+                    if (part[IdVec[idx]] == l) {
                         for (auto k = 0u; k < this->K; ++k) {
                             deltaGain[idx][k] += weight;
                         }
@@ -197,7 +213,7 @@ struct FMKWayGainCalc {
             }
             weight = -weight;
         }
-        return std::tuple{std::move(IdVec), std::move(deltaGain)};
+        return std::tuple{std::move(IdVec), std::move(deltaGain), std::move(deltaGainV)};
     }
 };
 

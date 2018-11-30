@@ -19,7 +19,9 @@ void FMPartMgr<FMGainMgr, FMConstrMgr>::init()
         }
         auto [v, gainmax] = this->gainMgr.select_togo(toPart);
         auto fromPart = this->part[v];
-        assert(fromPart != toPart);
+        if (fromPart == toPart) {
+            toPart = 1-fromPart;
+        }
         auto move_info_v = MoveInfoV{fromPart, toPart, v};
         // Check if the move of v can notsatisfied, makebetter, or satisfied
         auto legalcheck = this->validator.check_legal(move_info_v);

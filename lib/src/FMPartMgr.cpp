@@ -1,19 +1,20 @@
-#include <ckpttncpp/FMKWayPart.hpp>
-#include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr
-#include <ckpttncpp/FMKWayGainMgr.hpp>   // import FMKWayGainMgr
+#include <ckpttncpp/FMPartMgr.hpp>
 
 /**
- * @brief
- *
+ * @brief 
+ * 
+ * @tparam FMGainMgr 
+ * @tparam FMConstrMgr 
  */
-void FMKWayPartMgr::init()
+template <typename FMGainMgr, typename FMConstrMgr>
+void FMPartMgr<FMGainMgr, FMConstrMgr>::init()
 {
     this->gainMgr.init(this->part);
     this->validator.init(this->part);
     // auto totalgain = 0;
     while (true) {
         auto toPart = this->validator.select_togo();
-        if (this->gainMgr.is_empty(toPart)) {
+        if (this->gainMgr.is_empty_togo(toPart)) {
             break;
         }
         auto [v, gainmax] = this->gainMgr.select_togo(toPart);
@@ -42,22 +43,19 @@ void FMKWayPartMgr::init()
 }
 
 /**
- * @brief
- *
+ * @brief 
+ * 
+ * @tparam FMGainMgr 
+ * @tparam FMConstrMgr 
  */
-void FMKWayPartMgr::optimize()
+template <typename FMGainMgr, typename FMConstrMgr>
+void FMPartMgr<FMGainMgr, FMConstrMgr>::optimize()
 {
     auto totalgain = 0;
     auto deferredsnapshot = true;
-    while (true) {
-        auto toPart = this->validator.select_togo();
-        if (this->gainMgr.is_empty(toPart)) {
-            break;
-        }
-        auto [v, gainmax] = this->gainMgr.select_togo(toPart);
-        auto fromPart = this->part[v];
-        assert(fromPart != toPart);
-        auto move_info_v = MoveInfoV{fromPart, toPart, v};
+    while (!this->gainMgr.is_empty()) {
+        // Take the gainmax with v from gainbucket
+        auto [move_info_v, gainmax] = this->gainMgr.select(part);
         // Check if the move of v can satisfied or notsatisfied
         auto satisfiedOK =
             this->validator.check_constraints(move_info_v);
@@ -86,6 +84,7 @@ void FMKWayPartMgr::optimize()
             totalgain = 0; // reset to zero
             deferredsnapshot = true;
         }
+        auto const &[fromPart, toPart, v] = move_info_v;
         this->part[v] = toPart;
     }
     if (deferredsnapshot) {
@@ -93,3 +92,15 @@ void FMKWayPartMgr::optimize()
         this->snapshot = this->part;
     }
 }
+
+#include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr
+#include <ckpttncpp/FMKWayGainMgr.hpp>   // import FMKWayGainMgr
+
+template void FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>::init();
+template void FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>::optimize();
+
+#include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
+#include <ckpttncpp/FMBiGainMgr.hpp>   // import FMBiGainMgr
+
+template void FMPartMgr<FMBiGainMgr, FMBiConstrMgr>::init();
+template void FMPartMgr<FMBiGainMgr, FMBiConstrMgr>::optimize();

@@ -11,13 +11,11 @@ void run_FMBiGainMgr(Netlist& H, std::vector<size_t>& part_test) {
     mgr.init(part);
     while (!mgr.is_empty()) {
         // Take the gainmax with v from gainbucket
-        auto [v, gainmax] = mgr.select();
+        auto [move_info_v, gainmax] = mgr.select(part);
         if (gainmax <= 0) continue;
-        auto fromPart = part[v]; 
-        auto toPart = 1 - fromPart;
-        auto move_info_v = MoveInfoV{fromPart, toPart, v};
         mgr.update_move(part, move_info_v, gainmax);
-        part[v] = 1 - fromPart;
+        auto const &[fromPart, toPart, v] = move_info_v;
+        part[v] = toPart;
         CHECK(v >= 0);
     }
 

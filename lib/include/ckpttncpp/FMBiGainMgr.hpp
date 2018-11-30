@@ -7,18 +7,20 @@
 #include <cassert>
 #include <iterator>
 
+#include "FMBiGainCalc.hpp"
+
 /**
  * @brief FMBiGainMgr
  *
  */
 struct FMBiGainMgr {
     Netlist &H;
-    // FMBiGainCalc gainCalc;
+    FMBiGainCalc gainCalc;
     size_t pmax;
-    bpqueue gainbucket;
     size_t num_modules;
     std::vector<dllink> vertex_list;
     dllink waitinglist;
+    bpqueue gainbucket;
 
     /**
      * @brief Construct a new FMBiGainMgr object
@@ -27,10 +29,21 @@ struct FMBiGainMgr {
      */
     explicit FMBiGainMgr(Netlist &H)
         : H{H},
-          // gainCalc{H},
-          pmax{H.get_max_degree()}, gainbucket(-pmax, pmax),
+          gainCalc{H},
+          pmax{H.get_max_degree()},
           num_modules{H.number_of_modules()},
-          vertex_list(num_modules), waitinglist{} {}
+          vertex_list(num_modules), waitinglist{},
+          gainbucket(-pmax, pmax) {}
+
+    /**
+     * @brief
+     *
+     * @return true
+     * @return false
+     */
+    auto is_empty_togo(size_t toPart) const -> bool {
+        return this->gainbucket.is_empty(); 
+    }
 
     /**
      * @brief
@@ -41,15 +54,29 @@ struct FMBiGainMgr {
     auto is_empty() const -> bool { return this->gainbucket.is_empty(); }
 
     /**
-     * @brief
-     *
-     * @return std::tuple<size_t, int>
+     * @brief 
+     * 
+     * @param part 
+     * @return std::tuple<MoveInfoV, int> 
      */
-    auto select() -> std::tuple<size_t, int> {
+    auto select(const std::vector<size_t>& part)
+                        -> std::tuple<MoveInfoV, int> {
         auto gainmax = this->gainbucket.get_max();
         auto &vlink = this->gainbucket.popleft();
         this->waitinglist.append(vlink);
-        return {&vlink - &this->vertex_list[0], gainmax};
+        size_t v = &vlink - &this->vertex_list[0];
+        auto fromPart = part[v];
+        auto move_info_v = MoveInfoV{fromPart, 1-fromPart, v};
+        return std::tuple{std::move(move_info_v), gainmax};
+    }
+
+    auto select_togo(size_t toPart)
+                        -> std::tuple<size_t, int> {
+        auto gainmax = this->gainbucket.get_max();
+        auto &vlink = this->gainbucket.popleft();
+        this->waitinglist.append(vlink);
+        size_t v = &vlink - &this->vertex_list[0];
+        return std::tuple{v, gainmax};
     }
 
     /**

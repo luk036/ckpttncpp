@@ -13,8 +13,7 @@
  */
 auto FMBiGainMgr::init(std::vector<size_t> &part) -> void
 {
-    auto gainCalc = FMBiGainCalc{this->H};
-    gainCalc.init(part, this->vertex_list);
+    this->gainCalc.init(part, this->vertex_list);
     for (auto &v : this->H.module_fixed) {
         // auto i_v = this->H.module_dict[v];
         // force to the lowest gain
@@ -44,7 +43,8 @@ auto FMBiGainMgr::update_move(std::vector<size_t> &part,
             this->update_move_general_net(part, move_info);
         }
     }
-    this->vertex_list[v].key -= 2 * gain;
+    // this->vertex_list[v].key -= 2 * gain;
+    this->gainbucket.set_key(this->vertex_list[v], -gain);
 }
 
 /**
@@ -58,9 +58,8 @@ auto FMBiGainMgr::update_move(std::vector<size_t> &part,
 auto FMBiGainMgr::update_move_2pin_net(std::vector<size_t> &part,
                           const MoveInfo& move_info) -> void
 {
-    auto gainCalc = FMBiGainCalc{this->H};
     auto [w, deltaGainW] =
-        gainCalc.update_move_2pin_net(part, move_info);
+        this->gainCalc.update_move_2pin_net(part, move_info);
     this->gainbucket.modify_key(this->vertex_list[w], deltaGainW);
 }
 
@@ -75,9 +74,8 @@ auto FMBiGainMgr::update_move_2pin_net(std::vector<size_t> &part,
 auto FMBiGainMgr::update_move_general_net(std::vector<size_t> &part,
                              const MoveInfo& move_info) -> void
 {
-    auto gainCalc = FMBiGainCalc{this->H};
     auto [IdVec, deltaGain] =
-        gainCalc.update_move_general_net(part, move_info);
+        this->gainCalc.update_move_general_net(part, move_info);
     auto degree = std::size(IdVec);
     for (auto idx = 0u; idx < degree; ++idx) {
         this->gainbucket.modify_key(this->vertex_list[IdVec[idx]],

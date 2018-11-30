@@ -45,9 +45,48 @@ class FMKWayGainMgr {
      * @return true
      * @return false
      */
-    auto is_empty(size_t toPart) const -> bool {
+    auto is_empty() const -> bool {
+        for (auto k = 0u; k < this->K; ++k) {
+            if (!this->gainbucket[k]->is_empty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    /**
+     * @brief
+     *
+     * @return true
+     * @return false
+     */
+    auto is_empty_togo(size_t toPart) const -> bool {
         return this->gainbucket[toPart]->is_empty();
     }
+
+    /**
+     * @brief 
+     * 
+     * @param part 
+     * @return std::tuple<MoveInfoV, int> 
+     */
+    auto select(const std::vector<size_t>& part)
+                        -> std::tuple<MoveInfoV, int> {
+        auto gainmax = std::vector<int>(this->K);
+        for (auto k = 0u; k < this->K; ++k) {
+            gainmax[k] = this->gainbucket[k]->get_max();
+        }
+        auto it = std::max_element(gainmax.cbegin(), gainmax.cend());
+        size_t toPart = std::distance(gainmax.cbegin(), it);
+        auto &vlink = this->gainbucket[toPart]->popleft();
+        this->waitinglist.append(vlink);
+        size_t v = &vlink - &this->vertex_list[toPart][0];
+        auto fromPart = part[v];
+        auto move_info_v = MoveInfoV{fromPart, toPart, v};
+        return std::tuple{std::move(move_info_v), gainmax[toPart]};
+    }
+
 
     /**
      * @brief
@@ -58,7 +97,8 @@ class FMKWayGainMgr {
         auto gainmax = this->gainbucket[toPart]->get_max();
         auto &vlink = this->gainbucket[toPart]->popleft();
         this->waitinglist.append(vlink);
-        return {&vlink - &this->vertex_list[toPart][0], gainmax};
+        size_t v = &vlink - &this->vertex_list[toPart][0];
+        return {v, gainmax};
     }
 
     /**

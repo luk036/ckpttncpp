@@ -1,4 +1,4 @@
-#include <ckpttncpp/FMKWayConstrMgr.hpp>
+#include <ckpttncpp/FMConstrMgr.hpp>
 #include <ckpttncpp/netlist.hpp> // import Netlist
 
 /**
@@ -6,7 +6,7 @@
  * 
  * @param part 
  */
-auto FMKWayConstrMgr::init(const std::vector<size_t> &part) -> void
+auto FMConstrMgr::init(const std::vector<size_t> &part) -> void
 {
     auto totalweight = 0;
     for (auto &v : this->H.module_list) {
@@ -15,12 +15,8 @@ auto FMKWayConstrMgr::init(const std::vector<size_t> &part) -> void
         this->diff[part[v]] += weight;
         totalweight += weight;
     }
-    auto totalweightK = totalweight * 2. / this->K;
+    auto totalweightK = totalweight * (2. / this->K);
     this->lowerbound = std::round(totalweightK * this->ratio);
-    // this->upperbound = std::round(totalweight - (this->K - 1) * this->lowerbound);
-    for (auto k = 0u; k < this->K; ++k) {
-        this->illegal[k] = (this->diff[k] < this->lowerbound);
-    }
 }
 
 /**
@@ -29,7 +25,7 @@ auto FMKWayConstrMgr::init(const std::vector<size_t> &part) -> void
  * @param move_info_v 
  * @return size_t 
  */
-auto FMKWayConstrMgr::check_legal(const MoveInfoV& move_info_v) -> size_t
+auto FMConstrMgr::check_legal(const MoveInfoV& move_info_v) -> size_t
 {
     auto const &[fromPart, toPart, v] = move_info_v;
     this->weight = this->H.get_module_weight(v);
@@ -39,16 +35,7 @@ auto FMKWayConstrMgr::check_legal(const MoveInfoV& move_info_v) -> size_t
     }
     auto diffTo = this->diff[toPart] + this->weight;
     if (diffTo < this->lowerbound) {
-        // if (this->weight == 0) {
-        //     return 0; // can't make better, don't move
-        // }
         return 1; // get better, but still illegal
-    }
-    this->illegal[fromPart] = this->illegal[toPart] = false;
-    for (auto b : this->illegal) {
-        if (b) {
-            return 1; // get better, but still illegal
-        }
     }
     return 2; // all satisfied
 }
@@ -60,7 +47,7 @@ auto FMKWayConstrMgr::check_legal(const MoveInfoV& move_info_v) -> size_t
  * @return true 
  * @return false 
  */
-auto FMKWayConstrMgr::check_constraints(const MoveInfoV& move_info_v) -> bool 
+auto FMConstrMgr::check_constraints(const MoveInfoV& move_info_v) -> bool 
 {
     auto const &[fromPart, toPart, v] = move_info_v;
     this->weight = this->H.get_module_weight(v);
@@ -75,7 +62,7 @@ auto FMKWayConstrMgr::check_constraints(const MoveInfoV& move_info_v) -> bool
  * 
  * @param move_info_v 
  */
-auto FMKWayConstrMgr::update_move(const MoveInfoV& move_info_v) -> void {
+auto FMConstrMgr::update_move(const MoveInfoV& move_info_v) -> void {
     auto const& [fromPart, toPart, v] = move_info_v;
     this->diff[toPart] += this->weight;
     this->diff[fromPart] -= this->weight;

@@ -3,21 +3,15 @@
 
 #include <vector>
 #include <algorithm>
+#include "FMConstrMgr.hpp"
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
 
 class Netlist;
 class MoveInfoV;
 
-class FMKWayConstrMgr {
+class FMKWayConstrMgr : public FMConstrMgr {
   private:
-    Netlist &H;
-    size_t K;
-    double ratio;
-    std::vector<size_t> diff;
     std::vector<bool> illegal;
-    // size_t upperbound;
-    size_t lowerbound;
-    size_t weight; // cache value
 
   public:
     /**
@@ -27,10 +21,15 @@ class FMKWayConstrMgr {
      * @param K 
      * @param ratio 
      */
-    FMKWayConstrMgr(Netlist &H, size_t K, double ratio)
-        : H{H}, K{K}, ratio{ratio}, diff(K, 0),
-          illegal(K, true), lowerbound{0}, weight{0} {}
+    FMKWayConstrMgr(Netlist &H, double ratio, size_t K)
+        : FMConstrMgr(H, ratio, K),
+          illegal(K, true) {}
 
+    /**
+     * @brief 
+     * 
+     * @return size_t 
+     */
     auto select_togo() const -> size_t {
         auto it = std::min_element(this->diff.cbegin(), this->diff.cend());
         return std::distance(this->diff.cbegin(), it);
@@ -41,7 +40,12 @@ class FMKWayConstrMgr {
      * 
      * @param part 
      */
-    auto init(const std::vector<size_t> &part) -> void;
+    auto init(const std::vector<size_t> &part) -> void {
+        FMConstrMgr::init(part);
+        for (auto k = 0u; k < this->K; ++k) {
+            this->illegal[k] = (this->diff[k] < this->lowerbound);
+        }
+    }
 
     /**
      * @brief 
@@ -49,23 +53,20 @@ class FMKWayConstrMgr {
      * @param move_info_v 
      * @return size_t 
      */
-    auto check_legal(const MoveInfoV& move_info_v) -> size_t;
-
-    /**
-     * @brief 
-     * 
-     * @param move_info_v 
-     * @return true 
-     * @return false 
-     */
-    auto check_constraints(const MoveInfoV& move_info_v) -> bool;
-
-    /**
-     * @brief 
-     * 
-     * @param move_info_v 
-     */
-    auto update_move(const MoveInfoV& move_info_v) -> void;
+    auto check_legal(const MoveInfoV& move_info_v) -> size_t {
+        auto status = FMConstrMgr::check_legal(move_info_v);
+        if (status != 2) {
+            return status;
+        }
+        auto const &[fromPart, toPart, v] = move_info_v;
+        this->illegal[fromPart] = this->illegal[toPart] = false;
+        for (auto b : this->illegal) {
+            if (b) {
+                return 1; // get better, but still illegal
+            }
+        }
+        return 2; // all satisfied
+    }
 };
 
 #endif

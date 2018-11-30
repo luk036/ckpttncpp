@@ -79,16 +79,17 @@ init_gain_general_net(node_t &net, std::vector<size_t> &part,
 
 auto FMKWayGainCalc::
 update_move_2pin_net(std::vector<size_t> &part,
-                          const MoveInfo& move_info) -> ret_2pin_info
+                          const MoveInfo& move_info,
+                          std::vector<int>& deltaGainV) -> ret_2pin_info
 {
-    const auto& [net, fromPart, toPart, v] = move_info;
+    auto const &[net, fromPart, toPart, v] = move_info;
     assert(this->H.G.degree(net) == 2);
     auto netCur = this->H.G[net].begin();
     node_t w = (*netCur != v) ? *netCur : *++netCur;
     auto part_w = part[w];
     auto weight = this->H.get_net_weight(net);
     auto deltaGainW = std::vector<int>(this->K, 0);
-    auto deltaGainV = std::vector<int>(this->K, 0);
+    // auto deltaGainV = std::vector<int>(this->K, 0);
     if (part_w == fromPart) {
         for (auto k = 0u; k < this->K; ++k) {
             deltaGainW[k] += weight;
@@ -102,15 +103,16 @@ update_move_2pin_net(std::vector<size_t> &part,
     }
     deltaGainW[fromPart] -= weight;
     deltaGainW[toPart] += weight;
-    return std::tuple{w, std::move(deltaGainW), std::move(deltaGainV)};
+    return std::tuple{w, std::move(deltaGainW)};
 }
 
 
 auto FMKWayGainCalc::
 update_move_general_net(std::vector<size_t> &part,
-                        const MoveInfo& move_info) -> ret_info
+                        const MoveInfo& move_info,
+                        std::vector<int>& deltaGainV) -> ret_info
 {
-    const auto& [net, fromPart, toPart, v] = move_info;
+    auto const &[net, fromPart, toPart, v] = move_info;
     assert(this->H.G.degree(net) > 2);
     std::vector<size_t> num(this->K, 0);
     auto IdVec = std::vector<size_t>{};
@@ -123,7 +125,7 @@ update_move_general_net(std::vector<size_t> &part,
     auto degree = std::size(IdVec);
     auto deltaGain = std::vector<std::vector<int>>(degree,
                                  std::vector<int>(this->K, 0));
-    auto deltaGainV = std::vector<int>(this->K, 0);
+    // auto deltaGainV = std::vector<int>(this->K, 0);
     // auto m = this->H.G[net].get('weight', 1);
     auto weight = this->H.get_net_weight(net);
     if (num[fromPart] == 0) {
@@ -159,6 +161,5 @@ update_move_general_net(std::vector<size_t> &part,
         weight = -weight;
     }
     return std::tuple{std::move(IdVec),
-                      std::move(deltaGain),
-                      std::move(deltaGainV)};
+                      std::move(deltaGain)};
 }

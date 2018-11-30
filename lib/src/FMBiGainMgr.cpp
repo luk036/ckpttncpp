@@ -33,7 +33,7 @@ auto FMBiGainMgr::update_move(std::vector<size_t> &part,
                               const MoveInfoV& move_info_v,
                               int gain) -> void
 {
-    auto [fromPart, toPart, v] = move_info_v;
+    auto const &[fromPart, toPart, v] = move_info_v;
     for (auto net : this->H.G[v]) {
         auto move_info = MoveInfo{net, fromPart, toPart, v};
         if (this->H.G.degree(net) == 2) {

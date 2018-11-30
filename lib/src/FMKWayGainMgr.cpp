@@ -62,7 +62,7 @@ auto FMKWayGainMgr::init(std::vector<size_t> &part) -> void
 auto FMKWayGainMgr::update_move(std::vector<size_t> &part,
             const MoveInfoV& move_info_v, int gain) -> void
 {
-    auto [fromPart, toPart, v] = move_info_v;
+    auto const &[fromPart, toPart, v] = move_info_v;
     std::fill_n(this->deltaGainV.begin(), this->K, 0);
     for (auto net : this->H.G[v]) {
         auto move_info = MoveInfo{net, fromPart, toPart, v};
@@ -80,6 +80,8 @@ auto FMKWayGainMgr::update_move(std::vector<size_t> &part,
         }
         this->gainbucket[k]->modify_key(this->vertex_list[k][v],
                                         this->deltaGainV[k]);
+        // this->gainbucket[k]->detach(this->vertex_list[k][v]);
+        // this->waitinglist.append(this->vertex_list[k][v]);
     }
     this->set_key(fromPart, v, -gain);
     this->set_key(toPart, v, 0); // actually don't care
@@ -95,12 +97,9 @@ auto FMKWayGainMgr::update_move_2pin_net(std::vector<size_t> &part,
                           const MoveInfo& move_info) -> void
 {
     auto gainCalc = FMKWayGainCalc{this->H, this->K};
-    auto [w, deltaGainW, deltaGainV] =
-        gainCalc.update_move_2pin_net(part, move_info);
+    auto [w, deltaGainW] =
+        gainCalc.update_move_2pin_net(part, move_info, this->deltaGainV);
     this->modify_key(part, w, deltaGainW);
-    for (auto k = 0u; k < this->K; ++k) {
-        this->deltaGainV[k] += deltaGainV[k];
-    }
 }
 
 /**
@@ -113,13 +112,10 @@ auto FMKWayGainMgr::update_move_general_net(std::vector<size_t> &part,
                              const MoveInfo& move_info) -> void
 {
     auto gainCalc = FMKWayGainCalc{this->H, this->K};
-    auto [IdVec, deltaGain, deltaGainV] = 
-        gainCalc.update_move_general_net(part, move_info);
+    auto [IdVec, deltaGain] = 
+        gainCalc.update_move_general_net(part, move_info, this->deltaGainV);
     auto degree = std::size(IdVec);
     for (auto idx = 0u; idx < degree; ++idx) {
         this->modify_key(part, IdVec[idx], deltaGain[idx]);
-    }
-    for (auto k = 0u; k < this->K; ++k) {
-        this->deltaGainV[k] += deltaGainV[k];
     }
 }

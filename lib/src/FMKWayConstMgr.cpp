@@ -16,11 +16,10 @@ auto FMKWayConstrMgr::init(const std::vector<size_t> &part) -> void
         totalweight += weight;
     }
     auto totalweightK = totalweight * 2. / this->K;
-    this->upperbound = std::round(totalweightK * this->ratio);
-    this->lowerbound = std::round(totalweightK - this->upperbound);
+    this->lowerbound = std::round(totalweightK * this->ratio);
+    // this->upperbound = std::round(totalweight - (this->K - 1) * this->lowerbound);
     for (auto k = 0u; k < this->K; ++k) {
-        this->illegal[k] = (this->diff[k] < this->lowerbound ||
-                            this->diff[k] > this->upperbound);
+        this->illegal[k] = (this->diff[k] < this->lowerbound);
     }
 }
 
@@ -32,14 +31,17 @@ auto FMKWayConstrMgr::init(const std::vector<size_t> &part) -> void
  */
 auto FMKWayConstrMgr::check_legal(const MoveInfoV& move_info_v) -> size_t
 {
-    auto const& [fromPart, toPart, v] = move_info_v;
+    auto const &[fromPart, toPart, v] = move_info_v;
     this->weight = this->H.get_module_weight(v);
-    auto diffTo = this->diff[toPart] + this->weight;
     auto diffFrom = this->diff[fromPart] - this->weight;
-    if (diffTo > this->upperbound || diffFrom < this->lowerbound) {
+    if (diffFrom < this->lowerbound) {
         return 0; // not ok, don't move
     }
-    if (diffFrom > this->upperbound || diffTo < this->lowerbound) {
+    auto diffTo = this->diff[toPart] + this->weight;
+    if (diffTo < this->lowerbound) {
+        // if (this->weight == 0) {
+        //     return 0; // can't make better, don't move
+        // }
         return 1; // get better, but still illegal
     }
     this->illegal[fromPart] = this->illegal[toPart] = false;
@@ -60,11 +62,11 @@ auto FMKWayConstrMgr::check_legal(const MoveInfoV& move_info_v) -> size_t
  */
 auto FMKWayConstrMgr::check_constraints(const MoveInfoV& move_info_v) -> bool 
 {
-    auto const& [fromPart, toPart, v] = move_info_v;
+    auto const &[fromPart, toPart, v] = move_info_v;
     this->weight = this->H.get_module_weight(v);
-    auto diffTo = this->diff[toPart] + this->weight;
+    // auto diffTo = this->diff[toPart] + this->weight;
     auto diffFrom = this->diff[fromPart] - this->weight;
-    return diffTo <= this->upperbound && diffFrom >= this->lowerbound;
+    return diffFrom >= this->lowerbound;
 }
 
 

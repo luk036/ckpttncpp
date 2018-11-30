@@ -10,8 +10,8 @@ class FMBiConstrMgr {
     Netlist &H;
     double ratio;
     size_t diff[2];
-    size_t upperbound;
-    // size_t lowerbound;
+    // size_t upperbound;
+    size_t lowerbound;
     size_t weight; // cache value
 
   public:
@@ -22,8 +22,9 @@ class FMBiConstrMgr {
      * @param ratio
      */
     FMBiConstrMgr(Netlist &H, double ratio)
-        : H{H}, ratio{ratio}, diff{0, 0}, upperbound{0},
-          // lowerbound{0},
+        : H{H}, ratio{ratio}, diff{0, 0},
+          // upperbound{0},
+          lowerbound{0},
           weight{0} {}
 
     /**
@@ -38,7 +39,7 @@ class FMBiConstrMgr {
             this->diff[part[v]] += weight;
             totalweight += weight;
         }
-        this->upperbound = std::round(totalweight * this->ratio);
+        this->lowerbound = std::round(totalweight * this->ratio);
         // this->lowerbound = totalweight - this->upperbound;
     }
 
@@ -53,14 +54,14 @@ class FMBiConstrMgr {
      * @return size_t 
      */
     auto check_legal(const MoveInfoV& move_info_v) -> size_t {
-        auto const& [fromPart, toPart, v] = move_info_v;
+        auto const &[fromPart, toPart, v] = move_info_v;
         this->weight = this->H.get_module_weight(v);
-        auto diffTo = this->diff[toPart] + this->weight;
-        if (diffTo > this->upperbound) {
+        auto diffFrom = this->diff[fromPart] - this->weight;
+        if (diffFrom < this->lowerbound) {
             return 0;
         }
-        auto diffFrom = this->diff[fromPart] - this->weight;
-        if (diffFrom > this->upperbound) {
+        auto diffTo = this->diff[toPart] + this->weight;
+        if (diffTo < this->lowerbound) {
             return 1;
         }
         return 2;
@@ -74,9 +75,9 @@ class FMBiConstrMgr {
      * @return false 
      */
     auto check_constraints(const MoveInfoV& move_info_v) -> bool {
-        auto const& [fromPart, toPart, v] = move_info_v;
+        auto const &[fromPart, toPart, v] = move_info_v;
         this->weight = this->H.get_module_weight(v);
-        return this->diff[toPart] + this->weight <= this->upperbound;
+        return this->diff[fromPart] - this->weight >= this->lowerbound;
     }
 
     /**
@@ -86,7 +87,7 @@ class FMBiConstrMgr {
      * @param v
      */
     auto update_move(const MoveInfoV& move_info_v) -> void {
-        auto const& [fromPart, toPart, v] = move_info_v;
+        auto const &[fromPart, toPart, v] = move_info_v;
         this->diff[toPart] += this->weight;
         this->diff[fromPart] -= this->weight;
     }

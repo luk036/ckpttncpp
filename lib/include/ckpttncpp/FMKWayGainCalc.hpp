@@ -40,7 +40,7 @@ class FMKWayGainCalc {
         }
     }
 
-    using ret_2pin_info = std::tuple<size_t, std::vector<int>, std::vector<int>>; 
+    using ret_2pin_info = std::tuple<size_t, std::vector<int>>; 
 
     /**
      * @brief 
@@ -50,11 +50,11 @@ class FMKWayGainCalc {
      * @return ret_2pin_info 
      */
     auto update_move_2pin_net(std::vector<size_t> &part,
-                              const MoveInfo& move_info) -> ret_2pin_info;
+                              const MoveInfo& move_info,
+                              std::vector<int>& deltaGainV) -> ret_2pin_info;
 
     using ret_info = std::tuple<std::vector<size_t>,
-                                std::vector<std::vector<int>>,
-                                std::vector<int>>; 
+                                std::vector<std::vector<int>>>; 
 
     /**
      * @brief 
@@ -64,7 +64,8 @@ class FMKWayGainCalc {
      * @return ret_info 
      */
     auto update_move_general_net(std::vector<size_t> &part,
-                                 const MoveInfo& move_info) -> ret_info;
+                                 const MoveInfo& move_info,
+                                 std::vector<int>& deltaGainV) -> ret_info;
 
   private:
 

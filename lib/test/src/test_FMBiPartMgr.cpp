@@ -10,7 +10,7 @@ void readAre(Netlist& H, const char *areFileName);
 
 void run_FMBiPartMgr(Netlist& H) {
     auto gainMgr = FMBiGainMgr(H);
-    auto constrMgr = FMBiConstrMgr(H, 0.7);
+    auto constrMgr = FMBiConstrMgr(H, 0.3);
     // CHECK(H.G.nodes[0].get('weight', 1) == 5844);
     auto partMgr = FMBiPartMgr(H, gainMgr, constrMgr);
     partMgr.init();

@@ -15,7 +15,7 @@ class FMKWayConstrMgr {
     double ratio;
     std::vector<size_t> diff;
     std::vector<bool> illegal;
-    size_t upperbound;
+    // size_t upperbound;
     size_t lowerbound;
     size_t weight; // cache value
 
@@ -29,7 +29,7 @@ class FMKWayConstrMgr {
      */
     FMKWayConstrMgr(Netlist &H, size_t K, double ratio)
         : H{H}, K{K}, ratio{ratio}, diff(K, 0),
-          illegal(K, true), upperbound{0}, lowerbound{0}, weight{0} {}
+          illegal(K, true), lowerbound{0}, weight{0} {}
 
     auto select_togo() const -> size_t {
         auto it = std::min_element(this->diff.cbegin(), this->diff.cend());

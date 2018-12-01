@@ -17,11 +17,11 @@ class FMKWayGainMgr {
     size_t K;
     // FMKWayGainCalc gainCalc;
     size_t pmax;
-    std::vector<std::unique_ptr<bpqueue>> gainbucket;
     // size_t num[2];
     size_t num_modules;
-    std::vector<std::vector<dllink>> vertex_list;
     dllink waitinglist;
+    std::vector<std::vector<dllink>> vertex_list;
+    std::vector<std::unique_ptr<bpqueue>> gainbucket;
     std::vector<int> deltaGainV;
 
   public:
@@ -37,7 +37,7 @@ class FMKWayGainMgr {
      *
      * @param part
      */
-    auto init(std::vector<size_t> &part) -> void;
+    auto init(const std::vector<size_t> &part) -> void;
 
     /**
      * @brief
@@ -108,7 +108,7 @@ class FMKWayGainMgr {
      * @param move_info_v 
      * @param gain 
      */
-    auto update_move(std::vector<size_t> &part,
+    auto update_move(const std::vector<size_t> &part,
                      const MoveInfoV& move_info_v, int gain) -> void;
 
   private:
@@ -132,7 +132,7 @@ class FMKWayGainMgr {
      * @param w 
      * @param keys 
      */
-    auto modify_key(std::vector<size_t> &part,
+    auto modify_key(const std::vector<size_t> &part,
                     size_t w, std::vector<int> &keys) -> void {
         for (auto k = 0u; k < this->K; ++k) {
             if (part[w] == k) {
@@ -148,7 +148,7 @@ class FMKWayGainMgr {
      * @param part 
      * @param move_info 
      */
-    auto update_move_2pin_net(std::vector<size_t> &part,
+    auto update_move_2pin_net(const std::vector<size_t> &part,
                               const MoveInfo& move_info) -> void;
 
     /**
@@ -157,7 +157,7 @@ class FMKWayGainMgr {
      * @param part 
      * @param move_info 
      */
-    auto update_move_general_net(std::vector<size_t> &part,
+    auto update_move_general_net(const std::vector<size_t> &part,
                                  const MoveInfo& move_info) -> void;
 };
 

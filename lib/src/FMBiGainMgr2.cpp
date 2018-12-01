@@ -1,4 +1,4 @@
-#include <ckpttncpp/FMBiGainMgr.hpp>
+#include <ckpttncpp/FMBiGainMgr2.hpp>
 #include <ckpttncpp/FMBiGainCalc.hpp>
 
 /* linux-2.6.38.8/include/linux/compiler.h */
@@ -11,7 +11,7 @@
  *
  * @param part
  */
-auto FMBiGainMgr::init(std::vector<size_t> &part) -> void
+auto FMBiGainMgr::init(const std::vector<size_t> &part) -> void
 {
     this->gainCalc.init(part, this->vertex_list);
     for (auto &v : this->H.module_fixed) {
@@ -19,7 +19,11 @@ auto FMBiGainMgr::init(std::vector<size_t> &part) -> void
         // force to the lowest gain
         this->vertex_list[v].key = -this->pmax;
     }
-    this->gainbucket.appendfrom(this->vertex_list);
+    for (auto v : this->H.module_list) {
+        auto &vlink = this->vertex_list[v];
+        auto toPart = 1 - part[v];
+        this->gainbucket[toPart]->append(vlink, vlink.key);
+    }
 }
 
 /**
@@ -28,7 +32,7 @@ auto FMBiGainMgr::init(std::vector<size_t> &part) -> void
  * @param part
  * @param v
  */
-auto FMBiGainMgr::update_move(std::vector<size_t> &part,
+auto FMBiGainMgr::update_move(const std::vector<size_t> &part,
                               const MoveInfoV& move_info_v,
                               int gain) -> void
 {
@@ -44,7 +48,7 @@ auto FMBiGainMgr::update_move(std::vector<size_t> &part,
         }
     }
     // this->vertex_list[v].key -= 2 * gain;
-    this->gainbucket.set_key(this->vertex_list[v], -gain);
+    this->gainbucket[fromPart]->set_key(this->vertex_list[v], -gain);
 }
 
 /**
@@ -55,12 +59,12 @@ auto FMBiGainMgr::update_move(std::vector<size_t> &part,
  * @param fromPart
  * @param v
  */
-auto FMBiGainMgr::update_move_2pin_net(std::vector<size_t> &part,
+auto FMBiGainMgr::update_move_2pin_net(const std::vector<size_t> &part,
                           const MoveInfo& move_info) -> void
 {
     auto [w, deltaGainW] =
         this->gainCalc.update_move_2pin_net(part, move_info);
-    this->gainbucket.modify_key(this->vertex_list[w], deltaGainW);
+    this->modify_key(part, w, deltaGainW);
 }
 
 /**
@@ -71,14 +75,13 @@ auto FMBiGainMgr::update_move_2pin_net(std::vector<size_t> &part,
  * @param fromPart
  * @param v
  */
-auto FMBiGainMgr::update_move_general_net(std::vector<size_t> &part,
+auto FMBiGainMgr::update_move_general_net(const std::vector<size_t> &part,
                              const MoveInfo& move_info) -> void
 {
     auto [IdVec, deltaGain] =
         this->gainCalc.update_move_general_net(part, move_info);
     auto degree = std::size(IdVec);
     for (auto idx = 0u; idx < degree; ++idx) {
-        this->gainbucket.modify_key(this->vertex_list[IdVec[idx]],
-                                    deltaGain[idx]);
+        this->modify_key(part, IdVec[idx], deltaGain[idx]);
     }
 }

@@ -1,6 +1,6 @@
 #include <catch.hpp>
 #include <ckpttncpp/netlist.hpp>     // import Netlist
-#include <ckpttncpp/FMBiGainMgr.hpp> // import FMBiGainMgr
+#include <ckpttncpp/FMBiGainMgr2.hpp> // import FMBiGainMgr
 
 extern Netlist create_test_netlist(); // import create_test_netlist
 extern Netlist create_dwarf(); // import create_dwarf

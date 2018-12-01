@@ -19,9 +19,7 @@ void FMPartMgr<FMGainMgr, FMConstrMgr>::init()
         }
         auto [v, gainmax] = this->gainMgr.select_togo(toPart);
         auto fromPart = this->part[v];
-        if (fromPart == toPart) {
-            toPart = 1-fromPart;
-        }
+        assert (fromPart != toPart);
         auto move_info_v = MoveInfoV{fromPart, toPart, v};
         // Check if the move of v can notsatisfied, makebetter, or satisfied
         auto legalcheck = this->validator.check_legal(move_info_v);
@@ -102,7 +100,7 @@ template void FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>::init();
 template void FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>::optimize();
 
 #include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
-#include <ckpttncpp/FMBiGainMgr.hpp>   // import FMBiGainMgr
+#include <ckpttncpp/FMBiGainMgr2.hpp>   // import FMBiGainMgr
 
 template void FMPartMgr<FMBiGainMgr, FMBiConstrMgr>::init();
 template void FMPartMgr<FMBiGainMgr, FMBiConstrMgr>::optimize();

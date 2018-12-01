@@ -1,5 +1,5 @@
 #include <catch.hpp>
-#include <ckpttncpp/FMBiGainMgr.hpp>   // import FMBiGainMgr
+#include <ckpttncpp/FMBiGainMgr2.hpp>   // import FMBiGainMgr
 #include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
 #include <ckpttncpp/FMPartMgr.hpp>      // import FMBiPartMgr
 

@@ -29,7 +29,7 @@ class FMBiGainCalc {
      *
      * @param part
      */
-    auto init(std::vector<size_t> &part, std::vector<dllink> &vertex_list)
+    auto init(const std::vector<size_t> &part, std::vector<dllink> &vertex_list)
         -> void {
         for (auto &net : this->H.net_list) {
             this->init_gain(net, part, vertex_list);
@@ -46,7 +46,7 @@ class FMBiGainCalc {
      * @param fromPart
      * @param v
      */
-    auto update_move_2pin_net(std::vector<size_t> &part,
+    auto update_move_2pin_net(const std::vector<size_t> &part,
                               const MoveInfo& move_info) -> ret_2pin_info;
 
     using ret_info = std::tuple<std::vector<size_t>, std::vector<int>>; 
@@ -59,7 +59,7 @@ class FMBiGainCalc {
      * @param fromPart
      * @param v
      */
-    auto update_move_general_net(std::vector<size_t> &part,
+    auto update_move_general_net(const std::vector<size_t> &part,
                                  const MoveInfo& move_info) -> ret_info;
 
   private:
@@ -70,7 +70,7 @@ class FMBiGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain(node_t &net, std::vector<size_t> &part,
+    auto init_gain(node_t &net, const std::vector<size_t> &part,
                    std::vector<dllink> &vertex_list) -> void;
 
     /**
@@ -79,7 +79,7 @@ class FMBiGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain_2pin_net(node_t &net, std::vector<size_t> &part,
+    auto init_gain_2pin_net(node_t &net, const std::vector<size_t> &part,
                             std::vector<dllink> &vertex_list) -> void;
 
     /**
@@ -88,7 +88,7 @@ class FMBiGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain_general_net(node_t &net, std::vector<size_t> &part,
+    auto init_gain_general_net(node_t &net, const std::vector<size_t> &part,
                                std::vector<dllink> &vertex_list) -> void;
 };
 

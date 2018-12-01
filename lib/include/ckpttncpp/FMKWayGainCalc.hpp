@@ -33,7 +33,7 @@ class FMKWayGainCalc {
      * @param part 
      * @param vertex_list 
      */
-    auto init(std::vector<size_t> &part,
+    auto init(const std::vector<size_t> &part,
               std::vector<std::vector<dllink>> &vertex_list) -> void {
         for (auto &net : this->H.net_list) {
             this->init_gain(net, part, vertex_list);
@@ -49,7 +49,7 @@ class FMKWayGainCalc {
      * @param move_info 
      * @return ret_2pin_info 
      */
-    auto update_move_2pin_net(std::vector<size_t> &part,
+    auto update_move_2pin_net(const std::vector<size_t> &part,
                               const MoveInfo& move_info,
                               std::vector<int>& deltaGainV) -> ret_2pin_info;
 
@@ -63,7 +63,7 @@ class FMKWayGainCalc {
      * @param move_info 
      * @return ret_info 
      */
-    auto update_move_general_net(std::vector<size_t> &part,
+    auto update_move_general_net(const std::vector<size_t> &part,
                                  const MoveInfo& move_info,
                                  std::vector<int>& deltaGainV) -> ret_info;
 
@@ -75,7 +75,7 @@ class FMKWayGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain(node_t &net, std::vector<size_t> &part,
+    auto init_gain(node_t &net, const std::vector<size_t> &part,
                    std::vector<std::vector<dllink>> &vertex_list) -> void;
   
     /**
@@ -84,7 +84,7 @@ class FMKWayGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain_2pin_net(node_t &net, std::vector<size_t> &part,
+    auto init_gain_2pin_net(node_t &net, const std::vector<size_t> &part,
                             std::vector<std::vector<dllink>> &vertex_list) -> void;
 
     /**
@@ -94,7 +94,7 @@ class FMKWayGainCalc {
      * @param part
      * @param vertex_list
      */
-    auto init_gain_general_net(node_t &net, std::vector<size_t> &part,
+    auto init_gain_general_net(node_t &net, const std::vector<size_t> &part,
                                std::vector<std::vector<dllink>> &vertex_list) -> void;
 };
 

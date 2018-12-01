@@ -18,9 +18,9 @@ struct FMBiGainMgr {
     FMBiGainCalc gainCalc;
     size_t pmax;
     size_t num_modules;
-    std::vector<dllink> vertex_list;
     dllink waitinglist;
-    bpqueue gainbucket;
+    std::vector<dllink> vertex_list;
+    std::vector<std::unique_ptr<bpqueue>> gainbucket;
 
     /**
      * @brief Construct a new FMBiGainMgr object
@@ -32,17 +32,13 @@ struct FMBiGainMgr {
           gainCalc{H},
           pmax{H.get_max_degree()},
           num_modules{H.number_of_modules()},
-          vertex_list(num_modules), waitinglist{},
-          gainbucket(-pmax, pmax) {}
-
-    /**
-     * @brief
-     *
-     * @return true
-     * @return false
-     */
-    auto is_empty_togo(size_t toPart) const -> bool {
-        return this->gainbucket.is_empty(); 
+          waitinglist{},
+          vertex_list(num_modules)
+    {
+        for (auto&& k : {0, 1}) {
+            this->gainbucket.push_back(
+                std::make_unique<bpqueue>(-this->pmax, this->pmax));
+        }
     }
 
     /**
@@ -51,7 +47,24 @@ struct FMBiGainMgr {
      * @return true
      * @return false
      */
-    auto is_empty() const -> bool { return this->gainbucket.is_empty(); }
+    auto is_empty_togo(size_t toPart) const -> bool {
+        return this->gainbucket[toPart]->is_empty(); 
+    }
+
+    /**
+     * @brief
+     *
+     * @return true
+     * @return false
+     */
+    auto is_empty() const -> bool {
+        for (auto&& k : {0, 1}) {
+            if (this->gainbucket[k]->is_empty()) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * @brief 
@@ -61,19 +74,23 @@ struct FMBiGainMgr {
      */
     auto select(const std::vector<size_t>& part)
                         -> std::tuple<MoveInfoV, int> {
-        auto gainmax = this->gainbucket.get_max();
-        auto &vlink = this->gainbucket.popleft();
+        auto gainmax = std::vector<int>(2);
+        for (auto&& k : {0, 1}) {
+            gainmax[k] = this->gainbucket[k]->get_max();
+        }
+        size_t toPart = (gainmax[0] > gainmax[1])? 0 : 1;
+        auto &vlink = this->gainbucket[toPart]->popleft();
         this->waitinglist.append(vlink);
         size_t v = &vlink - &this->vertex_list[0];
         auto fromPart = part[v];
-        auto move_info_v = MoveInfoV{fromPart, 1-fromPart, v};
-        return std::tuple{std::move(move_info_v), gainmax};
+        auto move_info_v = MoveInfoV{fromPart, toPart, v};
+        return std::tuple{std::move(move_info_v), gainmax[toPart]};
     }
 
     auto select_togo(size_t toPart)
                         -> std::tuple<size_t, int> {
-        auto gainmax = this->gainbucket.get_max();
-        auto &vlink = this->gainbucket.popleft();
+        auto gainmax = this->gainbucket[toPart]->get_max();
+        auto &vlink = this->gainbucket[toPart]->popleft();
         this->waitinglist.append(vlink);
         size_t v = &vlink - &this->vertex_list[0];
         return std::tuple{v, gainmax};
@@ -84,8 +101,15 @@ struct FMBiGainMgr {
      *
      * @param part
      */
-    auto init(std::vector<size_t> &part) -> void;
+    auto init(const std::vector<size_t> &part) -> void;
 
+    auto modify_key(const std::vector<size_t> &part,
+            size_t w, int key) -> void {
+        auto part_w = part[w];
+        this->gainbucket[1-part_w]->modify_key(
+                this->vertex_list[w], key);
+    }
+                    
     /**
      * @brief 
      * 
@@ -93,7 +117,7 @@ struct FMBiGainMgr {
      * @param move_info_v 
      * @param gain 
      */
-    auto update_move(std::vector<size_t> &part,
+    auto update_move(const std::vector<size_t> &part,
                      const MoveInfoV& move_info_v,
                      int gain) -> void;
 
@@ -105,7 +129,7 @@ struct FMBiGainMgr {
      * @param fromPart
      * @param v
      */
-    auto update_move_2pin_net(std::vector<size_t> &part,
+    auto update_move_2pin_net(const std::vector<size_t> &part,
                               const MoveInfo& move_info) -> void;
 
     /**
@@ -116,7 +140,7 @@ struct FMBiGainMgr {
      * @param fromPart
      * @param v
      */
-    auto update_move_general_net(std::vector<size_t> &part,
+    auto update_move_general_net(const std::vector<size_t> &part,
                                  const MoveInfo& move_info) -> void;
 };
 

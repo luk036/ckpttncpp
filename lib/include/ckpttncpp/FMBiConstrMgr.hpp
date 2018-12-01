@@ -20,9 +20,9 @@ class FMBiConstrMgr : public FMConstrMgr {
     /**
      * @brief 
      * 
-     * @return size_t 
+     * @return std::uint8_t
      */
-    auto select_togo() const -> size_t {
+    auto select_togo() const -> std::uint8_t {
         return this->diff[0] < this->diff[1] ? 0 : 1;
     }
 };

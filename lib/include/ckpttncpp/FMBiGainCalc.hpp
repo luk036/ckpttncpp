@@ -7,6 +7,7 @@
 #include <cassert>
 #include <iterator>
 #include <tuple>
+#include <cinttypes>
 
 /**
  * @brief FMBiGainCalc
@@ -29,14 +30,14 @@ class FMBiGainCalc {
      *
      * @param part
      */
-    auto init(const std::vector<size_t> &part, std::vector<dllink> &vertex_list)
+    auto init(const std::vector<std::uint8_t> &part, std::vector<dllink> &vertex_list)
         -> void {
         for (auto &net : this->H.net_list) {
             this->init_gain(net, part, vertex_list);
         }
     }
 
-    using ret_2pin_info = std::tuple<size_t, int>; 
+    using ret_2pin_info = std::tuple<node_t, int>; 
 
     /**
      * @brief
@@ -46,10 +47,10 @@ class FMBiGainCalc {
      * @param fromPart
      * @param v
      */
-    auto update_move_2pin_net(const std::vector<size_t> &part,
+    auto update_move_2pin_net(const std::vector<std::uint8_t> &part,
                               const MoveInfo& move_info) -> ret_2pin_info;
 
-    using ret_info = std::tuple<std::vector<size_t>, std::vector<int>>; 
+    using ret_info = std::tuple<std::vector<node_t>, std::vector<int>>; 
 
     /**
      * @brief
@@ -59,7 +60,7 @@ class FMBiGainCalc {
      * @param fromPart
      * @param v
      */
-    auto update_move_general_net(const std::vector<size_t> &part,
+    auto update_move_general_net(const std::vector<std::uint8_t> &part,
                                  const MoveInfo& move_info) -> ret_info;
 
   private:
@@ -70,7 +71,7 @@ class FMBiGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain(node_t &net, const std::vector<size_t> &part,
+    auto init_gain(node_t &net, const std::vector<std::uint8_t> &part,
                    std::vector<dllink> &vertex_list) -> void;
 
     /**
@@ -79,7 +80,7 @@ class FMBiGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain_2pin_net(node_t &net, const std::vector<size_t> &part,
+    auto init_gain_2pin_net(node_t &net, const std::vector<std::uint8_t> &part,
                             std::vector<dllink> &vertex_list) -> void;
 
     /**
@@ -88,7 +89,7 @@ class FMBiGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain_general_net(node_t &net, const std::vector<size_t> &part,
+    auto init_gain_general_net(node_t &net, const std::vector<std::uint8_t> &part,
                                std::vector<dllink> &vertex_list) -> void;
 };
 

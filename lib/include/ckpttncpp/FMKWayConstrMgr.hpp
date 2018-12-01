@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <cinttypes>
 #include "FMConstrMgr.hpp"
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
 
@@ -21,7 +22,7 @@ class FMKWayConstrMgr : public FMConstrMgr {
      * @param K 
      * @param ratio 
      */
-    FMKWayConstrMgr(Netlist &H, double ratio, size_t K)
+    FMKWayConstrMgr(Netlist &H, double ratio, std::uint8_t K)
         : FMConstrMgr(H, ratio, K),
           illegal(K, true) {}
 
@@ -30,7 +31,7 @@ class FMKWayConstrMgr : public FMConstrMgr {
      * 
      * @return size_t 
      */
-    auto select_togo() const -> size_t {
+    auto select_togo() const -> std::uint8_t {
         auto it = std::min_element(this->diff.cbegin(), this->diff.cend());
         return std::distance(this->diff.cbegin(), it);
     }
@@ -40,7 +41,7 @@ class FMKWayConstrMgr : public FMConstrMgr {
      * 
      * @param part 
      */
-    auto init(const std::vector<size_t> &part) -> void {
+    auto init(const std::vector<std::uint8_t> &part) -> void {
         FMConstrMgr::init(part);
         for (auto k = 0u; k < this->K; ++k) {
             this->illegal[k] = (this->diff[k] < this->lowerbound);

@@ -7,6 +7,7 @@
 #include <cassert>
 #include <iterator>
 #include <tuple>
+#include <cinttypes>
 
 /**
  * @brief FMKWayGainCalc
@@ -15,7 +16,7 @@
 class FMKWayGainCalc {
   private:
     Netlist &H;
-    size_t K;
+    std::uint8_t K;
 
   public:
 
@@ -25,7 +26,7 @@ class FMKWayGainCalc {
      * @param H Netlist
      * @param K number of partitions
      */
-    explicit FMKWayGainCalc(Netlist &H, size_t K) : H{H}, K{K} {}
+    explicit FMKWayGainCalc(Netlist &H, std::uint8_t K) : H{H}, K{K} {}
 
     /**
      * @brief 
@@ -33,7 +34,7 @@ class FMKWayGainCalc {
      * @param part 
      * @param vertex_list 
      */
-    auto init(const std::vector<size_t> &part,
+    auto init(const std::vector<std::uint8_t> &part,
               std::vector<std::vector<dllink>> &vertex_list) -> void {
         for (auto &net : this->H.net_list) {
             this->init_gain(net, part, vertex_list);
@@ -49,7 +50,7 @@ class FMKWayGainCalc {
      * @param move_info 
      * @return ret_2pin_info 
      */
-    auto update_move_2pin_net(const std::vector<size_t> &part,
+    auto update_move_2pin_net(const std::vector<std::uint8_t> &part,
                               const MoveInfo& move_info,
                               std::vector<int>& deltaGainV) -> ret_2pin_info;
 
@@ -63,7 +64,7 @@ class FMKWayGainCalc {
      * @param move_info 
      * @return ret_info 
      */
-    auto update_move_general_net(const std::vector<size_t> &part,
+    auto update_move_general_net(const std::vector<std::uint8_t> &part,
                                  const MoveInfo& move_info,
                                  std::vector<int>& deltaGainV) -> ret_info;
 
@@ -75,7 +76,7 @@ class FMKWayGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain(node_t &net, const std::vector<size_t> &part,
+    auto init_gain(node_t &net, const std::vector<std::uint8_t> &part,
                    std::vector<std::vector<dllink>> &vertex_list) -> void;
   
     /**
@@ -84,7 +85,7 @@ class FMKWayGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain_2pin_net(node_t &net, const std::vector<size_t> &part,
+    auto init_gain_2pin_net(node_t &net, const std::vector<std::uint8_t> &part,
                             std::vector<std::vector<dllink>> &vertex_list) -> void;
 
     /**
@@ -94,7 +95,7 @@ class FMKWayGainCalc {
      * @param part
      * @param vertex_list
      */
-    auto init_gain_general_net(node_t &net, const std::vector<size_t> &part,
+    auto init_gain_general_net(node_t &net, const std::vector<std::uint8_t> &part,
                                std::vector<std::vector<dllink>> &vertex_list) -> void;
 };
 

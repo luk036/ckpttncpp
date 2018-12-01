@@ -11,7 +11,7 @@
  *
  * @param part
  */
-auto FMBiGainMgr::init(const std::vector<size_t> &part) -> void
+auto FMBiGainMgr::init(const std::vector<std::uint8_t> &part) -> void
 {
     this->gainCalc.init(part, this->vertex_list);
     for (auto &v : this->H.module_fixed) {
@@ -28,7 +28,7 @@ auto FMBiGainMgr::init(const std::vector<size_t> &part) -> void
  * @param part
  * @param v
  */
-auto FMBiGainMgr::update_move(const std::vector<size_t> &part,
+auto FMBiGainMgr::update_move(const std::vector<std::uint8_t> &part,
                               const MoveInfoV& move_info_v,
                               int gain) -> void
 {
@@ -55,7 +55,7 @@ auto FMBiGainMgr::update_move(const std::vector<size_t> &part,
  * @param fromPart
  * @param v
  */
-auto FMBiGainMgr::update_move_2pin_net(const std::vector<size_t> &part,
+auto FMBiGainMgr::update_move_2pin_net(const std::vector<std::uint8_t> &part,
                           const MoveInfo& move_info) -> void
 {
     auto [w, deltaGainW] =
@@ -71,7 +71,7 @@ auto FMBiGainMgr::update_move_2pin_net(const std::vector<size_t> &part,
  * @param fromPart
  * @param v
  */
-auto FMBiGainMgr::update_move_general_net(const std::vector<size_t> &part,
+auto FMBiGainMgr::update_move_general_net(const std::vector<std::uint8_t> &part,
                              const MoveInfo& move_info) -> void
 {
     auto [IdVec, deltaGain] =

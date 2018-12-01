@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <cinttypes>
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
 
 class Netlist;
@@ -12,7 +13,7 @@ class FMConstrMgr {
   protected:
     Netlist &H;
     double ratio;
-    size_t K;
+    std::uint8_t K;
     std::vector<size_t> diff;
     size_t lowerbound;
     size_t weight; // cache value
@@ -24,7 +25,7 @@ class FMConstrMgr {
      * @param K 
      * @param ratio 
      */
-    FMConstrMgr(Netlist &H, double ratio, size_t K=2)
+    FMConstrMgr(Netlist &H, double ratio, std::uint8_t K=2)
         : H{H}, ratio{ratio}, K{K}, diff(K, 0),
           lowerbound{0}, weight{0} {}
 
@@ -34,7 +35,7 @@ class FMConstrMgr {
      * 
      * @param part 
      */
-    auto init(const std::vector<size_t> &part) -> void;
+    auto init(const std::vector<std::uint8_t> &part) -> void;
 
     /**
      * @brief 

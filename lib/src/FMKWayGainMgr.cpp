@@ -12,7 +12,7 @@
  * @param H 
  * @param K 
  */
-FMKWayGainMgr::FMKWayGainMgr(Netlist &H, size_t K)
+FMKWayGainMgr::FMKWayGainMgr(Netlist &H, std::uint8_t K)
     : H{H}, K{K}, pmax{H.get_max_degree()},
       num_modules{H.number_of_modules()}, waitinglist{}, deltaGainV(K, 0)
 {
@@ -29,7 +29,7 @@ FMKWayGainMgr::FMKWayGainMgr(Netlist &H, size_t K)
  *
  * @param part
  */
-auto FMKWayGainMgr::init(const std::vector<size_t> &part) -> void
+auto FMKWayGainMgr::init(const std::vector<std::uint8_t> &part) -> void
 {
     auto gainCalc = FMKWayGainCalc{this->H, this->K};
     gainCalc.init(part, this->vertex_list);
@@ -59,7 +59,7 @@ auto FMKWayGainMgr::init(const std::vector<size_t> &part) -> void
  * @param move_info_v 
  * @param gain 
  */
-auto FMKWayGainMgr::update_move(const std::vector<size_t> &part,
+auto FMKWayGainMgr::update_move(const std::vector<std::uint8_t> &part,
             const MoveInfoV& move_info_v, int gain) -> void
 {
     auto const &[fromPart, toPart, v] = move_info_v;
@@ -93,7 +93,7 @@ auto FMKWayGainMgr::update_move(const std::vector<size_t> &part,
  * @param part 
  * @param move_info 
  */
-auto FMKWayGainMgr::update_move_2pin_net(const std::vector<size_t> &part,
+auto FMKWayGainMgr::update_move_2pin_net(const std::vector<std::uint8_t> &part,
                           const MoveInfo& move_info) -> void
 {
     auto gainCalc = FMKWayGainCalc{this->H, this->K};
@@ -108,7 +108,7 @@ auto FMKWayGainMgr::update_move_2pin_net(const std::vector<size_t> &part,
  * @param part 
  * @param move_info 
  */
-auto FMKWayGainMgr::update_move_general_net(const std::vector<size_t> &part,
+auto FMKWayGainMgr::update_move_general_net(const std::vector<std::uint8_t> &part,
                              const MoveInfo& move_info) -> void
 {
     auto gainCalc = FMKWayGainCalc{this->H, this->K};

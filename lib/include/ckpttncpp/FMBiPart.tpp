@@ -16,8 +16,8 @@ class FMBiPartMgr {
     Netlist &H;
     FMBiGainMgr &gainMgr;
     FMBiConstrMgr &validator;
-    std::vector<size_t> snapshot;
-    std::vector<size_t> part;
+    std::vector<std::uint8_t> snapshot;
+    std::vector<std::uint8_t> part;
 
   public:
     int totalcost;

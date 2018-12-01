@@ -6,7 +6,7 @@
  * 
  * @param part 
  */
-auto FMConstrMgr::init(const std::vector<size_t> &part) -> void
+auto FMConstrMgr::init(const std::vector<std::uint8_t> &part) -> void
 {
     auto totalweight = 0;
     for (auto &v : this->H.module_list) {

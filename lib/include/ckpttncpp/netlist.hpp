@@ -116,15 +116,15 @@ struct Netlist {
 struct MoveInfo
 {
     node_t net;
-    size_t fromPart;
-    size_t toPart;
+    std::uint8_t fromPart;
+    std::uint8_t toPart;
     node_t v;
 };
 
 struct MoveInfoV
 {
-    size_t fromPart;
-    size_t toPart;
+    std::uint8_t fromPart;
+    std::uint8_t toPart;
     node_t v;
 };
 

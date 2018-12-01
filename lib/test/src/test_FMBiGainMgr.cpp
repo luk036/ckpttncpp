@@ -5,7 +5,7 @@
 extern Netlist create_test_netlist(); // import create_test_netlist
 extern Netlist create_dwarf(); // import create_dwarf
 
-void run_FMBiGainMgr(Netlist& H, std::vector<size_t>& part_test) {
+void run_FMBiGainMgr(Netlist& H, std::vector<std::uint8_t>& part_test) {
     FMBiGainMgr mgr{H};
     auto part = part_test;
     mgr.init(part);
@@ -23,12 +23,12 @@ void run_FMBiGainMgr(Netlist& H, std::vector<size_t>& part_test) {
 
 TEST_CASE("Test FMBiGainMgr", "[test_FMBiGainMgr]") {
     auto H = create_test_netlist();
-    auto part_test = std::vector<size_t>{0, 1, 0};
+    auto part_test = std::vector<std::uint8_t>{0, 1, 0};
     run_FMBiGainMgr(H, part_test);
 }
 
 TEST_CASE("Test FMBiGainMgr 2", "[test_FMBiGainMgr2]") {
     auto H = create_dwarf();
-    auto part_test = std::vector<size_t>{0, 0, 0, 0, 1, 1, 1};
+    auto part_test = std::vector<std::uint8_t>{0, 0, 0, 0, 1, 1, 1};
     run_FMBiGainMgr(H, part_test);
 }

@@ -17,8 +17,8 @@ class FMPartMgr {
     Netlist &H;
     FMGainMgr &gainMgr;
     FMConstrMgr &validator;
-    std::vector<size_t> snapshot;
-    std::vector<size_t> part;
+    std::vector<std::uint8_t> snapshot;
+    std::vector<std::uint8_t> part;
 
   public:
     int totalcost;

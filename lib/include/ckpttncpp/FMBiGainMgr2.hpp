@@ -6,6 +6,7 @@
 #include "netlist.hpp" // import Netlist
 #include <cassert>
 #include <iterator>
+#include <cinttypes>
 
 #include "FMBiGainCalc.hpp"
 
@@ -47,7 +48,7 @@ struct FMBiGainMgr {
      * @return true
      * @return false
      */
-    auto is_empty_togo(size_t toPart) const -> bool {
+    auto is_empty_togo(std::uint8_t toPart) const -> bool {
         return this->gainbucket[toPart]->is_empty(); 
     }
 
@@ -72,27 +73,27 @@ struct FMBiGainMgr {
      * @param part 
      * @return std::tuple<MoveInfoV, int> 
      */
-    auto select(const std::vector<size_t>& part)
+    auto select(const std::vector<std::uint8_t> &part)
                         -> std::tuple<MoveInfoV, int> {
         auto gainmax = std::vector<int>(2);
         for (auto&& k : {0, 1}) {
             gainmax[k] = this->gainbucket[k]->get_max();
         }
-        size_t toPart = (gainmax[0] > gainmax[1])? 0 : 1;
+        std::uint8_t toPart = (gainmax[0] > gainmax[1])? 0 : 1;
         auto &vlink = this->gainbucket[toPart]->popleft();
         this->waitinglist.append(vlink);
-        size_t v = &vlink - &this->vertex_list[0];
+        node_t v = &vlink - &this->vertex_list[0];
         auto fromPart = part[v];
         auto move_info_v = MoveInfoV{fromPart, toPart, v};
         return std::tuple{std::move(move_info_v), gainmax[toPart]};
     }
 
-    auto select_togo(size_t toPart)
-                        -> std::tuple<size_t, int> {
+    auto select_togo(std::uint8_t toPart)
+                        -> std::tuple<node_t, int> {
         auto gainmax = this->gainbucket[toPart]->get_max();
         auto &vlink = this->gainbucket[toPart]->popleft();
         this->waitinglist.append(vlink);
-        size_t v = &vlink - &this->vertex_list[0];
+        node_t v = &vlink - &this->vertex_list[0];
         return std::tuple{v, gainmax};
     }
 
@@ -101,10 +102,10 @@ struct FMBiGainMgr {
      *
      * @param part
      */
-    auto init(const std::vector<size_t> &part) -> void;
+    auto init(const std::vector<std::uint8_t> &part) -> void;
 
-    auto modify_key(const std::vector<size_t> &part,
-            size_t w, int key) -> void {
+    auto modify_key(const std::vector<std::uint8_t> &part,
+            node_t w, int key) -> void {
         auto part_w = part[w];
         this->gainbucket[1-part_w]->modify_key(
                 this->vertex_list[w], key);
@@ -117,7 +118,7 @@ struct FMBiGainMgr {
      * @param move_info_v 
      * @param gain 
      */
-    auto update_move(const std::vector<size_t> &part,
+    auto update_move(const std::vector<std::uint8_t> &part,
                      const MoveInfoV& move_info_v,
                      int gain) -> void;
 
@@ -129,7 +130,7 @@ struct FMBiGainMgr {
      * @param fromPart
      * @param v
      */
-    auto update_move_2pin_net(const std::vector<size_t> &part,
+    auto update_move_2pin_net(const std::vector<std::uint8_t> &part,
                               const MoveInfo& move_info) -> void;
 
     /**
@@ -140,7 +141,7 @@ struct FMBiGainMgr {
      * @param fromPart
      * @param v
      */
-    auto update_move_general_net(const std::vector<size_t> &part,
+    auto update_move_general_net(const std::vector<std::uint8_t> &part,
                                  const MoveInfo& move_info) -> void;
 };
 

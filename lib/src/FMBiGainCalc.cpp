@@ -12,7 +12,7 @@
  * @param vertex_list 
  */
 auto FMBiGainCalc::
-init_gain(node_t &net, const std::vector<size_t> &part,
+init_gain(node_t &net, const std::vector<std::uint8_t> &part,
                std::vector<dllink> &vertex_list) -> void
 {
     if (this->H.G.degree(net) == 2) {
@@ -31,7 +31,7 @@ init_gain(node_t &net, const std::vector<size_t> &part,
  * @param part
  */
 auto FMBiGainCalc::
-init_gain_2pin_net(node_t &net, const std::vector<size_t> &part,
+init_gain_2pin_net(node_t &net, const std::vector<std::uint8_t> &part,
                         std::vector<dllink> &vertex_list) -> void
 {
     assert(this->H.G.degree(net) == 2);
@@ -53,7 +53,7 @@ init_gain_2pin_net(node_t &net, const std::vector<size_t> &part,
  * @param part
  */
 auto FMBiGainCalc::
-init_gain_general_net(node_t &net, const std::vector<size_t> &part,
+init_gain_general_net(node_t &net, const std::vector<std::uint8_t> &part,
                            std::vector<dllink> &vertex_list) -> void 
 {
     size_t num[2] = {0, 0};
@@ -88,7 +88,7 @@ init_gain_general_net(node_t &net, const std::vector<size_t> &part,
  * @param v
  */
 auto FMBiGainCalc::
-update_move_2pin_net(const std::vector<size_t> &part,
+update_move_2pin_net(const std::vector<std::uint8_t> &part,
                           const MoveInfo& move_info) -> ret_2pin_info
 {
     auto const &[net, fromPart, toPart, v] = move_info;
@@ -111,7 +111,7 @@ update_move_2pin_net(const std::vector<size_t> &part,
  * @param v
  */
 auto FMBiGainCalc::
-update_move_general_net(const std::vector<size_t> &part,
+update_move_general_net(const std::vector<std::uint8_t> &part,
                              const MoveInfo& move_info) -> ret_info
 {
     auto const &[net, fromPart, toPart, v] = move_info;

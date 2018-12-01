@@ -41,7 +41,7 @@ struct FMBiGainMgr {
      * @return true
      * @return false
      */
-    auto is_empty_togo(size_t toPart) const -> bool {
+    auto is_empty_togo(std::uint8_t toPart) const -> bool {
         return this->gainbucket.is_empty(); 
     }
 
@@ -59,23 +59,23 @@ struct FMBiGainMgr {
      * @param part 
      * @return std::tuple<MoveInfoV, int> 
      */
-    auto select(const std::vector<size_t>& part)
+    auto select(const std::vector<std::uint8_t>& part)
                         -> std::tuple<MoveInfoV, int> {
         auto gainmax = this->gainbucket.get_max();
         auto &vlink = this->gainbucket.popleft();
         this->waitinglist.append(vlink);
-        size_t v = &vlink - &this->vertex_list[0];
+        node_t v = &vlink - &this->vertex_list[0];
         auto fromPart = part[v];
         auto move_info_v = MoveInfoV{fromPart, 1-fromPart, v};
         return std::tuple{std::move(move_info_v), gainmax};
     }
 
-    auto select_togo(size_t toPart)
-                        -> std::tuple<size_t, int> {
+    auto select_togo(std::uint8_t toPart)
+                        -> std::tuple<node_t, int> {
         auto gainmax = this->gainbucket.get_max();
         auto &vlink = this->gainbucket.popleft();
         this->waitinglist.append(vlink);
-        size_t v = &vlink - &this->vertex_list[0];
+        node_t v = &vlink - &this->vertex_list[0];
         return std::tuple{v, gainmax};
     }
 
@@ -84,7 +84,7 @@ struct FMBiGainMgr {
      *
      * @param part
      */
-    auto init(const std::vector<size_t> &part) -> void;
+    auto init(const std::vector<std::uint8_t> &part) -> void;
 
     /**
      * @brief 
@@ -93,7 +93,7 @@ struct FMBiGainMgr {
      * @param move_info_v 
      * @param gain 
      */
-    auto update_move(const std::vector<size_t> &part,
+    auto update_move(const std::vector<std::uint8_t> &part,
                      const MoveInfoV& move_info_v,
                      int gain) -> void;
 
@@ -105,7 +105,7 @@ struct FMBiGainMgr {
      * @param fromPart
      * @param v
      */
-    auto update_move_2pin_net(const std::vector<size_t> &part,
+    auto update_move_2pin_net(const std::vector<std::uint8_t> &part,
                               const MoveInfo& move_info) -> void;
 
     /**
@@ -116,7 +116,7 @@ struct FMBiGainMgr {
      * @param fromPart
      * @param v
      */
-    auto update_move_general_net(const std::vector<size_t> &part,
+    auto update_move_general_net(const std::vector<std::uint8_t> &part,
                                  const MoveInfo& move_info) -> void;
 };
 

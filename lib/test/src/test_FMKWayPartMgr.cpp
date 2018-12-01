@@ -8,7 +8,7 @@ extern Netlist create_dwarf(); // import create_dwarf
 extern Netlist readNetD(const char *netDFileName);
 void readAre(Netlist& H, const char *areFileName);
 
-void run_FMKWayPartMgr(Netlist& H, size_t K) {
+void run_FMKWayPartMgr(Netlist& H, std::uint8_t K) {
     auto gainMgr = FMKWayGainMgr{H, K};
     auto constrMgr = FMKWayConstrMgr{H, 0.45, K};
     // CHECK(H.G.nodes[0].get('weight', 1) == 5844);

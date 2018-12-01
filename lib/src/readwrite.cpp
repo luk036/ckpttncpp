@@ -43,7 +43,7 @@ auto readNetD(const char *netDFileName) -> Netlist {
     char lineBuffer[bufferSize]; // Does it work for other compiler?
     netD.getline(lineBuffer, bufferSize);
 
-    size_t w;
+    node_t w;
     size_t e = numModules - 1;
     char c;
     auto i = 0u;
@@ -130,7 +130,7 @@ void readAre(Netlist& H, const char *areFileName) {
     char lineBuffer[bufferSize];
 
     char c;
-    size_t w;
+    node_t w;
     size_t weight;
     size_t totalWeight = 0;
     // xxx size_t smallestWeight = UINT_MAX;

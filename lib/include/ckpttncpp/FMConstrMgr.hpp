@@ -1,9 +1,9 @@
 #ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMCONSTRMGR_HPP
 #define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMCONSTRMGR_HPP 1
 
-#include <vector>
 #include <algorithm>
 #include <cinttypes>
+#include <vector>
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
 
 class Netlist;
@@ -20,46 +20,45 @@ class FMConstrMgr {
 
     /**
      * @brief Construct a new FMConstrMgr object
-     * 
-     * @param H 
-     * @param K 
-     * @param ratio 
+     *
+     * @param H
+     * @param K
+     * @param ratio
      */
-    FMConstrMgr(Netlist &H, double ratio, std::uint8_t K=2)
-        : H{H}, ratio{ratio}, K{K}, diff(K, 0),
-          lowerbound{0}, weight{0} {}
+    FMConstrMgr(Netlist &H, double ratio, std::uint8_t K = 2)
+        : H{H}, ratio{ratio}, K{K}, diff(K, 0), lowerbound{0}, weight{0} {}
 
   public:
     /**
-     * @brief 
-     * 
-     * @param part 
+     * @brief
+     *
+     * @param part
      */
     auto init(const std::vector<std::uint8_t> &part) -> void;
 
     /**
-     * @brief 
-     * 
-     * @param move_info_v 
-     * @return size_t 
+     * @brief
+     *
+     * @param move_info_v
+     * @return size_t
      */
-    auto check_legal(const MoveInfoV& move_info_v) -> size_t;
+    auto check_legal(const MoveInfoV &move_info_v) -> size_t;
 
     /**
-     * @brief 
-     * 
-     * @param move_info_v 
-     * @return true 
-     * @return false 
+     * @brief
+     *
+     * @param move_info_v
+     * @return true
+     * @return false
      */
-    auto check_constraints(const MoveInfoV& move_info_v) -> bool;
+    auto check_constraints(const MoveInfoV &move_info_v) -> bool;
 
     /**
-     * @brief 
-     * 
-     * @param move_info_v 
+     * @brief
+     *
+     * @param move_info_v
      */
-    auto update_move(const MoveInfoV& move_info_v) -> void;
+    auto update_move(const MoveInfoV &move_info_v) -> void;
 };
 
 #endif

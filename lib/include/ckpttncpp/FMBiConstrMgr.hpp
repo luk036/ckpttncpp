@@ -1,8 +1,8 @@
 #ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMBICONSTRMGR_HPP
 #define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMBICONSTRMGR_HPP 1
 
-#include "netlist.hpp" // import Netlist
 #include "FMConstrMgr.hpp" // import FMConstrMgr
+#include "netlist.hpp"     // import Netlist
 
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
 
@@ -14,12 +14,11 @@ class FMBiConstrMgr : public FMConstrMgr {
      * @param H
      * @param ratio
      */
-    FMBiConstrMgr(Netlist &H, double ratio)
-        : FMConstrMgr(H, ratio, 2) {}
+    FMBiConstrMgr(Netlist &H, double ratio) : FMConstrMgr(H, ratio, 2) {}
 
     /**
-     * @brief 
-     * 
+     * @brief
+     *
      * @return std::uint8_t
      */
     auto select_togo() const -> std::uint8_t {

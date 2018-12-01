@@ -4,15 +4,14 @@
 // **Special code for two-pin nets**
 // Take a snapshot when a move make **negative** gain.
 // Snapshot in the form of "interface"???
+#include "netlist.hpp"
 #include <cassert>
 #include <vector>
-#include "netlist.hpp"
 
 // class FMGainMgr;
 // class FMConstrMgr;
 
-template <typename FMGainMgr, typename FMConstrMgr>
-class FMPartMgr {
+template <typename FMGainMgr, typename FMConstrMgr> class FMPartMgr {
   private:
     Netlist &H;
     FMGainMgr &gainMgr;
@@ -30,8 +29,7 @@ class FMPartMgr {
      * @param gainMgr
      * @param constrMgr
      */
-    FMPartMgr(Netlist &H, FMGainMgr &gainMgr,
-                  FMConstrMgr &constrMgr)
+    FMPartMgr(Netlist &H, FMGainMgr &gainMgr, FMConstrMgr &constrMgr)
         : H{H}, gainMgr{gainMgr}, validator{constrMgr}, snapshot{},
           part(this->H.number_of_modules(), 0), totalcost{0} {}
 

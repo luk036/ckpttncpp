@@ -12,15 +12,15 @@
  * @param vertex_list 
  */
 auto FMBiGainCalc::
-init_gain(node_t &net, const std::vector<std::uint8_t> &part,
-               std::vector<dllink> &vertex_list) -> void
+init_gain(node_t &net,
+            const std::vector<std::uint8_t> &part) -> void
 {
     if (this->H.G.degree(net) == 2) {
-        this->init_gain_2pin_net(net, part, vertex_list);
+        this->init_gain_2pin_net(net, part);
     } else if (unlikely(this->H.G.degree(net) < 2)) {
         return; // does not provide any gain when move
     } else {
-        this->init_gain_general_net(net, part, vertex_list);
+        this->init_gain_general_net(net, part);
     }
 }
 
@@ -31,8 +31,8 @@ init_gain(node_t &net, const std::vector<std::uint8_t> &part,
  * @param part
  */
 auto FMBiGainCalc::
-init_gain_2pin_net(node_t &net, const std::vector<std::uint8_t> &part,
-                        std::vector<dllink> &vertex_list) -> void
+init_gain_2pin_net(node_t &net,
+                const std::vector<std::uint8_t> &part) -> void
 {
     assert(this->H.G.degree(net) == 2);
     auto netCur = this->H.G[net].begin();
@@ -42,8 +42,8 @@ init_gain_2pin_net(node_t &net, const std::vector<std::uint8_t> &part,
     auto part_v = part[v];
     auto weight = this->H.get_net_weight(net);
     auto g = (part_w == part_v) ? -weight : weight;
-    vertex_list[w].key += g;
-    vertex_list[v].key += g;
+    this->vertex_list[w].key += g;
+    this->vertex_list[v].key += g;
 }
 
 /**
@@ -53,8 +53,8 @@ init_gain_2pin_net(node_t &net, const std::vector<std::uint8_t> &part,
  * @param part
  */
 auto FMBiGainCalc::
-init_gain_general_net(node_t &net, const std::vector<std::uint8_t> &part,
-                           std::vector<dllink> &vertex_list) -> void 
+init_gain_general_net(node_t &net,
+        const std::vector<std::uint8_t> &part) -> void 
 {
     size_t num[2] = {0, 0};
     auto IdVec = std::vector<size_t>();
@@ -66,12 +66,12 @@ init_gain_general_net(node_t &net, const std::vector<std::uint8_t> &part,
     for (auto &&k : {0, 1}) {
         if (num[k] == 0) {
             for (auto &w : IdVec) {
-                vertex_list[w].key -= weight;
+                this->vertex_list[w].key -= weight;
             }
         } else if (num[k] == 1) {
             for (auto &w : IdVec) {
                 if (part[w] == k) {
-                    vertex_list[w].key += weight;
+                    this->vertex_list[w].key += weight;
                     break;
                 }
             }

@@ -42,9 +42,8 @@ struct Netlist {
      */
     Netlist(xn::grAdaptor<graph_t> &&G, nodevec_t &&module_list,
             nodevec_t &&net_list, nodevec_t module_fixed = nodevec_t{})
-        : G{std::move(G)}, module_list{std::move(module_list)}, net_list{std::move(net_list)}, 
-          module_fixed{module_fixed}
-    {
+        : G{std::move(G)}, module_list{std::move(module_list)},
+          net_list{std::move(net_list)}, module_fixed{module_fixed} {
         this->has_fixed_modules = (!this->module_fixed.empty());
 
         auto deg_cmp = [this](const node_t &v, const node_t &w) -> size_t {
@@ -108,21 +107,20 @@ struct Netlist {
     }
 
     auto get_net_weight(node_t net) const -> size_t {
-        return this->net_weight.empty() ? 1 : 
-            this->net_weight[net - number_of_modules()];
+        return this->net_weight.empty()
+                   ? 1
+                   : this->net_weight[net - number_of_modules()];
     }
 };
 
-struct MoveInfo
-{
+struct MoveInfo {
     node_t net;
     std::uint8_t fromPart;
     std::uint8_t toPart;
     node_t v;
 };
 
-struct MoveInfoV
-{
+struct MoveInfoV {
     std::uint8_t fromPart;
     std::uint8_t toPart;
     node_t v;

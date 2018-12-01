@@ -28,7 +28,8 @@ void FMPartMgr<FMGainMgr, FMConstrMgr>::init()
         }
         // Update v and its neigbours (even they are in waitinglist);
         // Put neigbours to bucket
-        this->gainMgr.update_move(this->part, move_info_v, gainmax);
+        this->gainMgr.update_move(this->part, move_info_v);
+        this->gainMgr.update_move_v(this->part, move_info_v, gainmax);
         this->validator.update_move(move_info_v);
         this->part[v] = toPart;
         // totalgain += gainmax;
@@ -76,7 +77,8 @@ void FMPartMgr<FMGainMgr, FMConstrMgr>::optimize()
         }
         // Update v and its neigbours (even they are in waitinglist);
         // Put neigbours to bucket
-        this->gainMgr.update_move(this->part, move_info_v, gainmax);
+        this->gainMgr.update_move(this->part, move_info_v);
+        this->gainMgr.update_move_v(this->part, move_info_v, gainmax);
         this->validator.update_move(move_info_v);
         totalgain += gainmax;
         if (totalgain > 0) {
@@ -96,11 +98,15 @@ void FMPartMgr<FMGainMgr, FMConstrMgr>::optimize()
 #include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr
 #include <ckpttncpp/FMKWayGainMgr.hpp>   // import FMKWayGainMgr
 
-template void FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>::init();
-template void FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>::optimize();
+template class FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>;
+
+// template void FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>::init();
+// template void FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>::optimize();
 
 #include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
 #include <ckpttncpp/FMBiGainMgr2.hpp>   // import FMBiGainMgr
 
-template void FMPartMgr<FMBiGainMgr, FMBiConstrMgr>::init();
-template void FMPartMgr<FMBiGainMgr, FMBiConstrMgr>::optimize();
+template class FMPartMgr<FMBiGainMgr, FMBiConstrMgr>;
+
+// template void FMPartMgr<FMBiGainMgr, FMBiConstrMgr>::init();
+// template void FMPartMgr<FMBiGainMgr, FMBiConstrMgr>::optimize();

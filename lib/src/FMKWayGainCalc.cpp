@@ -13,22 +13,20 @@
  * @param vertex_list 
  */
 auto FMKWayGainCalc::
-init_gain(node_t &net, const std::vector<std::uint8_t> &part,
-          std::vector<std::vector<dllink>> &vertex_list) -> void
+init_gain(node_t &net, const std::vector<std::uint8_t> &part) -> void
 {
     if (this->H.G.degree(net) == 2) {
-        this->init_gain_2pin_net(net, part, vertex_list);
+        this->init_gain_2pin_net(net, part);
     } else if (unlikely(this->H.G.degree(net) < 2)) {
         return; // does not provide any gain when move
     } else {
-        this->init_gain_general_net(net, part, vertex_list);
+        this->init_gain_general_net(net, part);
     }
 }
   
 
 auto FMKWayGainCalc::
-init_gain_2pin_net(node_t &net, const std::vector<std::uint8_t> &part,
-                   std::vector<std::vector<dllink>> &vertex_list) -> void 
+init_gain_2pin_net(node_t &net, const std::vector<std::uint8_t> &part) -> void 
 {
     assert(this->H.G.degree(net) == 2);
     auto netCur = this->H.G[net].begin();
@@ -38,19 +36,16 @@ init_gain_2pin_net(node_t &net, const std::vector<std::uint8_t> &part,
     auto part_v = part[v];
     auto weight = this->H.get_net_weight(net);
     if (part_v == part_w) {
-        for (auto k = 0u; k < this->K; ++k) {
-            vertex_list[k][w].key -= weight;
-            vertex_list[k][v].key -= weight;
-        }
+        this->modify_gain(w, -weight);
+        this->modify_gain(v, -weight);
     }
-    vertex_list[part_v][w].key += weight;
-    vertex_list[part_w][v].key += weight;
+    this->vertex_list[part_v][w].key += weight;
+    this->vertex_list[part_w][v].key += weight;
 }
 
 
 auto FMKWayGainCalc::
-init_gain_general_net(node_t &net, const std::vector<std::uint8_t> &part,
-                      std::vector<std::vector<dllink>> &vertex_list) -> void 
+init_gain_general_net(node_t &net, const std::vector<std::uint8_t> &part) -> void 
 {
     std::vector<size_t> num(this->K, 0);
     auto IdVec = std::vector<size_t>();
@@ -67,9 +62,7 @@ init_gain_general_net(node_t &net, const std::vector<std::uint8_t> &part,
         } else if (num[k] == 1) {
             for (auto &w : IdVec) {
                 if (part[w] == k) {
-                    for (auto k2 = 0u; k2 < this->K; ++k) {
-                        vertex_list[k2][w].key += weight;
-                    }
+                    this->modify_gain(w, weight);
                     break;
                 }
             }
@@ -79,8 +72,7 @@ init_gain_general_net(node_t &net, const std::vector<std::uint8_t> &part,
 
 auto FMKWayGainCalc::
 update_move_2pin_net(const std::vector<std::uint8_t> &part,
-                          const MoveInfo& move_info,
-                          std::vector<int>& deltaGainV) -> ret_2pin_info
+                          const MoveInfo& move_info) -> ret_2pin_info
 {
     auto const &[net, fromPart, toPart, v] = move_info;
     assert(this->H.G.degree(net) == 2);
@@ -93,12 +85,12 @@ update_move_2pin_net(const std::vector<std::uint8_t> &part,
     if (part_w == fromPart) {
         for (auto k = 0u; k < this->K; ++k) {
             deltaGainW[k] += weight;
-            deltaGainV[k] += weight;
+            this->deltaGainV[k] += weight;
         }
     } else if (part_w == toPart) {
         for (auto k = 0u; k < this->K; ++k) {
             deltaGainW[k] -= weight;
-            deltaGainV[k] -= weight;
+            this->deltaGainV[k] -= weight;
         }
     }
     deltaGainW[fromPart] -= weight;
@@ -109,8 +101,7 @@ update_move_2pin_net(const std::vector<std::uint8_t> &part,
 
 auto FMKWayGainCalc::
 update_move_general_net(const std::vector<std::uint8_t> &part,
-                        const MoveInfo& move_info,
-                        std::vector<int>& deltaGainV) -> ret_info
+                        const MoveInfo& move_info) -> ret_info
 {
     auto const &[net, fromPart, toPart, v] = move_info;
     assert(this->H.G.degree(net) > 2);
@@ -134,7 +125,7 @@ update_move_general_net(const std::vector<std::uint8_t> &part,
                 deltaGain[idx][fromPart] -= weight;
             }
             for (auto k = 0u; k < this->K; ++k) {
-	            deltaGainV[k] -= weight;
+	            this->deltaGainV[k] -= weight;
 	        }
         }
     } else { // num[fromPart] > 0
@@ -143,7 +134,7 @@ update_move_general_net(const std::vector<std::uint8_t> &part,
                 deltaGain[idx][toPart] += weight;
             }
             for (auto k = 0u; k < this->K; ++k) {
-	            deltaGainV[k] += weight;
+	            this->deltaGainV[k] += weight;
 	        }
         }
     }

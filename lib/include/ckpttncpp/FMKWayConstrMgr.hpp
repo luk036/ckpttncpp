@@ -1,10 +1,10 @@
 #ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMKWayCONSTRMGR_HPP
 #define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMKWayCONSTRMGR_HPP 1
 
-#include <vector>
+#include "FMConstrMgr.hpp"
 #include <algorithm>
 #include <cinttypes>
-#include "FMConstrMgr.hpp"
+#include <vector>
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
 
 class Netlist;
@@ -17,19 +17,18 @@ class FMKWayConstrMgr : public FMConstrMgr {
   public:
     /**
      * @brief Construct a new FMKWayConstrMgr object
-     * 
-     * @param H 
-     * @param K 
-     * @param ratio 
+     *
+     * @param H
+     * @param K
+     * @param ratio
      */
     FMKWayConstrMgr(Netlist &H, double ratio, std::uint8_t K)
-        : FMConstrMgr(H, ratio, K),
-          illegal(K, true) {}
+        : FMConstrMgr(H, ratio, K), illegal(K, true) {}
 
     /**
-     * @brief 
-     * 
-     * @return size_t 
+     * @brief
+     *
+     * @return size_t
      */
     auto select_togo() const -> std::uint8_t {
         auto it = std::min_element(this->diff.cbegin(), this->diff.cend());
@@ -37,9 +36,9 @@ class FMKWayConstrMgr : public FMConstrMgr {
     }
 
     /**
-     * @brief 
-     * 
-     * @param part 
+     * @brief
+     *
+     * @param part
      */
     auto init(const std::vector<std::uint8_t> &part) -> void {
         FMConstrMgr::init(part);
@@ -49,12 +48,12 @@ class FMKWayConstrMgr : public FMConstrMgr {
     }
 
     /**
-     * @brief 
-     * 
-     * @param move_info_v 
-     * @return size_t 
+     * @brief
+     *
+     * @param move_info_v
+     * @return size_t
      */
-    auto check_legal(const MoveInfoV& move_info_v) -> size_t {
+    auto check_legal(const MoveInfoV &move_info_v) -> size_t {
         auto status = FMConstrMgr::check_legal(move_info_v);
         if (status != 2) {
             return status;

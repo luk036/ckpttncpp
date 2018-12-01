@@ -6,23 +6,6 @@
 #define likely(x) __builtin_expect(!!(x), 1)
 #define unlikely(x) __builtin_expect(!!(x), 0)
 
-/**
- * @brief Construct a new FMKWayGainMgr object
- * 
- * @param H 
- * @param K 
- */
-FMKWayGainMgr::FMKWayGainMgr(Netlist &H, std::uint8_t K)
-    : H{H}, K{K}, pmax{H.get_max_degree()},
-      num_modules{H.number_of_modules()}, waitinglist{}, deltaGainV(K, 0)
-{
-    for (auto k = 0u; k < this->K; ++k) {
-        this->gainbucket.push_back(
-            std::make_unique<bpqueue>(-this->pmax, this->pmax));
-        this->vertex_list.emplace_back(
-            std::vector<dllink>(this->num_modules));
-    }
-}
 
 /**
  * @brief
@@ -31,16 +14,11 @@ FMKWayGainMgr::FMKWayGainMgr(Netlist &H, std::uint8_t K)
  */
 auto FMKWayGainMgr::init(const std::vector<std::uint8_t> &part) -> void
 {
-    auto gainCalc = FMKWayGainCalc{this->H, this->K};
-    gainCalc.init(part, this->vertex_list);
-    for (auto v : this->H.module_fixed) {
-        for (auto k = 0u; k < this->K; ++k) {
-            this->vertex_list[k][v].key = -this->pmax;
-        }
-    }
+    Base::init(part);
+
     for (auto v : this->H.module_list) {
         for (auto k = 0u; k < this->K; ++k) {
-            auto &vlink = this->vertex_list[k][v];
+            auto &vlink = this->gainCalc.vertex_list[k][v];
             if (part[v] == k) {
                 assert(vlink.key == 0);
                 this->gainbucket[k]->set_key(vlink, 0);
@@ -52,6 +30,7 @@ auto FMKWayGainMgr::init(const std::vector<std::uint8_t> &part) -> void
     }
 }
 
+
 /**
  * @brief 
  * 
@@ -59,63 +38,20 @@ auto FMKWayGainMgr::init(const std::vector<std::uint8_t> &part) -> void
  * @param move_info_v 
  * @param gain 
  */
-auto FMKWayGainMgr::update_move(const std::vector<std::uint8_t> &part,
+auto FMKWayGainMgr::update_move_v(const std::vector<std::uint8_t> &part,
             const MoveInfoV& move_info_v, int gain) -> void
 {
     auto const &[fromPart, toPart, v] = move_info_v;
-    std::fill_n(this->deltaGainV.begin(), this->K, 0);
-    for (auto net : this->H.G[v]) {
-        auto move_info = MoveInfo{net, fromPart, toPart, v};
-        if (this->H.G.degree(net) == 2) {
-            this->update_move_2pin_net(part, move_info);
-        } else if (unlikely(this->H.G.degree(net) < 2)) {
-            break; // does not provide any gain change when move
-        } else {
-            this->update_move_general_net(part, move_info);
-        }
-    }
+
     for (auto k = 0u; k < this->K; ++k) {
         if (fromPart == k || toPart == k) {
             continue;
         }
-        this->gainbucket[k]->modify_key(this->vertex_list[k][v],
-                                        this->deltaGainV[k]);
+        this->gainbucket[k]->modify_key(this->gainCalc.vertex_list[k][v],
+                                        this->gainCalc.deltaGainV[k]);
         // this->gainbucket[k]->detach(this->vertex_list[k][v]);
         // this->waitinglist.append(this->vertex_list[k][v]);
     }
     this->set_key(fromPart, v, -gain);
     this->set_key(toPart, v, 0); // actually don't care
-}
-
-/**
- * @brief 
- * 
- * @param part 
- * @param move_info 
- */
-auto FMKWayGainMgr::update_move_2pin_net(const std::vector<std::uint8_t> &part,
-                          const MoveInfo& move_info) -> void
-{
-    auto gainCalc = FMKWayGainCalc{this->H, this->K};
-    auto [w, deltaGainW] =
-        gainCalc.update_move_2pin_net(part, move_info, this->deltaGainV);
-    this->modify_key(part, w, deltaGainW);
-}
-
-/**
- * @brief 
- * 
- * @param part 
- * @param move_info 
- */
-auto FMKWayGainMgr::update_move_general_net(const std::vector<std::uint8_t> &part,
-                             const MoveInfo& move_info) -> void
-{
-    auto gainCalc = FMKWayGainCalc{this->H, this->K};
-    auto [IdVec, deltaGain] = 
-        gainCalc.update_move_general_net(part, move_info, this->deltaGainV);
-    auto degree = std::size(IdVec);
-    for (auto idx = 0u; idx < degree; ++idx) {
-        this->modify_key(part, IdVec[idx], deltaGain[idx]);
-    }
 }

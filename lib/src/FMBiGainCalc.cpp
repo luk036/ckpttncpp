@@ -9,12 +9,9 @@
  * 
  * @param net 
  * @param part 
- * @param vertex_list 
  */
-auto FMBiGainCalc::
-init_gain(node_t &net,
-            const std::vector<std::uint8_t> &part) -> void
-{
+void FMBiGainCalc::init_gain( //
+    node_t &net, const std::vector<std::uint8_t> &part) {
     if (this->H.G.degree(net) == 2) {
         this->init_gain_2pin_net(net, part);
     } else if (unlikely(this->H.G.degree(net) < 2)) {
@@ -30,10 +27,8 @@ init_gain(node_t &net,
  * @param net
  * @param part
  */
-auto FMBiGainCalc::
-init_gain_2pin_net(node_t &net,
-                const std::vector<std::uint8_t> &part) -> void
-{
+void FMBiGainCalc::init_gain_2pin_net( //
+    node_t &net, const std::vector<std::uint8_t> &part) {
     assert(this->H.G.degree(net) == 2);
     auto netCur = this->H.G[net].begin();
     auto w = *netCur;
@@ -52,10 +47,8 @@ init_gain_2pin_net(node_t &net,
  * @param net
  * @param part
  */
-auto FMBiGainCalc::
-init_gain_general_net(node_t &net,
-        const std::vector<std::uint8_t> &part) -> void 
-{
+void FMBiGainCalc::init_gain_general_net(
+    node_t &net, const std::vector<std::uint8_t> &part) {
     size_t num[2] = {0, 0};
     auto IdVec = std::vector<size_t>();
     for (const auto &w : this->H.G[net]) {
@@ -82,21 +75,18 @@ init_gain_general_net(node_t &net,
 /**
  * @brief
  *
- * @param net
  * @param part
- * @param fromPart
- * @param v
+ * @param move_info
+ * @return ret_2pin_info
  */
-auto FMBiGainCalc::
-update_move_2pin_net(const std::vector<std::uint8_t> &part,
-                          const MoveInfo& move_info) -> ret_2pin_info
-{
+auto
+FMBiGainCalc::update_move_2pin_net(const std::vector<std::uint8_t> &part,
+                                   const MoveInfo &move_info) -> ret_2pin_info {
     auto const &[net, fromPart, toPart, v] = move_info;
     assert(this->H.G.degree(net) == 2);
     auto netCur = this->H.G[net].begin();
     node_t w = (*netCur != v) ? *netCur : *++netCur;
     auto part_w = part[w];
-    // auto weight = this->H.G[net].get('weight', 1);
     auto weight = this->H.get_net_weight(net);
     auto deltaGainW = (part_w == fromPart) ? 2 * weight : -2 * weight;
     return std::tuple{w, deltaGainW};
@@ -105,15 +95,13 @@ update_move_2pin_net(const std::vector<std::uint8_t> &part,
 /**
  * @brief
  *
- * @param net
  * @param part
- * @param fromPart
- * @param v
+ * @param move_info
+ * @return ret_info
  */
-auto FMBiGainCalc::
-update_move_general_net(const std::vector<std::uint8_t> &part,
-                             const MoveInfo& move_info) -> ret_info
-{
+auto
+FMBiGainCalc::update_move_general_net(const std::vector<std::uint8_t> &part,
+                                      const MoveInfo &move_info) -> ret_info {
     auto const &[net, fromPart, toPart, v] = move_info;
     assert(this->H.G.degree(net) > 2);
     size_t num[2] = {0, 0};

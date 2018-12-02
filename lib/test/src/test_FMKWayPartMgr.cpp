@@ -8,14 +8,21 @@ extern Netlist create_dwarf(); // import create_dwarf
 extern Netlist readNetD(const char *netDFileName);
 void readAre(Netlist& H, const char *areFileName);
 
+/**
+ * @brief Run test cases
+ * 
+ * @param H 
+ * @param K 
+ */
 void run_FMKWayPartMgr(Netlist& H, std::uint8_t K) {
     auto gainMgr = FMKWayGainMgr{H, K};
     auto constrMgr = FMKWayConstrMgr{H, 0.45, K};
     // CHECK(H.G.nodes[0].get('weight', 1) == 5844);
     auto partMgr = FMPartMgr{H, gainMgr, constrMgr};
-    partMgr.init();
+    auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
+    partMgr.init(part);
     auto totalcostbefore = partMgr.totalcost;
-    partMgr.optimize();
+    partMgr.optimize(part);
     CHECK(partMgr.totalcost <= totalcostbefore);
     // print(partMgr.snapshot);
 }

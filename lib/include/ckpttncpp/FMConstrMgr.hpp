@@ -1,6 +1,7 @@
 #ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMCONSTRMGR_HPP
 #define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMCONSTRMGR_HPP 1
 
+#include "netlist.hpp"
 #include <algorithm>
 #include <cinttypes>
 #include <vector>

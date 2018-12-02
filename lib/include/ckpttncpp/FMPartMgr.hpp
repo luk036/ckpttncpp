@@ -4,20 +4,28 @@
 // **Special code for two-pin nets**
 // Take a snapshot when a move make **negative** gain.
 // Snapshot in the form of "interface"???
-#include "netlist.hpp"
 #include <cassert>
+#include <cinttypes>
+#include <iterator>
+#include <type_traits>
 #include <vector>
 
-// class FMGainMgr;
-// class FMConstrMgr;
+class Netlist;
 
-template <typename FMGainMgr, typename FMConstrMgr> class FMPartMgr {
+/**
+ * @brief FM Partition Manager
+ * 
+ * @tparam FMGainMgr 
+ * @tparam FMConstrMgr 
+ */
+template <typename FMGainMgr, typename FMConstrMgr> //
+class FMPartMgr {
   private:
     Netlist &H;
     FMGainMgr &gainMgr;
     FMConstrMgr &validator;
     std::vector<std::uint8_t> snapshot;
-    std::vector<std::uint8_t> part;
+    // std::vector<std::uint8_t> part;
 
   public:
     int totalcost;
@@ -31,19 +39,22 @@ template <typename FMGainMgr, typename FMConstrMgr> class FMPartMgr {
      */
     FMPartMgr(Netlist &H, FMGainMgr &gainMgr, FMConstrMgr &constrMgr)
         : H{H}, gainMgr{gainMgr}, validator{constrMgr}, snapshot{},
-          part(this->H.number_of_modules(), 0), totalcost{0} {}
+          //part(this->H.number_of_modules(), 0), 
+          totalcost{0} {}
+
+    /**
+     * @brief 
+     * 
+     * @param part 
+     */
+    void init(std::vector<std::uint8_t> &part);
 
     /**
      * @brief
      *
+     * @param part 
      */
-    void init();
-
-    /**
-     * @brief
-     *
-     */
-    void optimize();
+    void optimize(std::vector<std::uint8_t> &part);
 };
 
 #endif

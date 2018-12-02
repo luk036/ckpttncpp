@@ -1,19 +1,17 @@
-#include <ckpttncpp/FMKWayGainMgr.hpp>
 #include <ckpttncpp/FMKWayGainCalc.hpp>
+#include <ckpttncpp/FMKWayGainMgr.hpp>
 
 /* linux-2.6.38.8/include/linux/compiler.h */
 #include <stdio.h>
 #define likely(x) __builtin_expect(!!(x), 1)
 #define unlikely(x) __builtin_expect(!!(x), 0)
 
-
 /**
  * @brief
  *
  * @param part
  */
-auto FMKWayGainMgr::init(const std::vector<std::uint8_t> &part) -> void
-{
+auto FMKWayGainMgr::init(const std::vector<std::uint8_t> &part) -> void {
     Base::init(part);
 
     for (auto v : this->H.module_list) {
@@ -30,17 +28,16 @@ auto FMKWayGainMgr::init(const std::vector<std::uint8_t> &part) -> void
     }
 }
 
-
 /**
- * @brief 
- * 
- * @param part 
- * @param move_info_v 
- * @param gain 
+ * @brief
+ *
+ * @param part
+ * @param move_info_v
+ * @param gain
  */
 auto FMKWayGainMgr::update_move_v(const std::vector<std::uint8_t> &part,
-            const MoveInfoV& move_info_v, int gain) -> void
-{
+                                  const MoveInfoV &move_info_v, int gain)
+    -> void {
     auto const &[fromPart, toPart, v] = move_info_v;
 
     for (auto k = 0u; k < this->K; ++k) {
@@ -49,8 +46,6 @@ auto FMKWayGainMgr::update_move_v(const std::vector<std::uint8_t> &part,
         }
         this->gainbucket[k]->modify_key(this->gainCalc.vertex_list[k][v],
                                         this->gainCalc.deltaGainV[k]);
-        // this->gainbucket[k]->detach(this->vertex_list[k][v]);
-        // this->waitinglist.append(this->vertex_list[k][v]);
     }
     this->set_key(fromPart, v, -gain);
     this->set_key(toPart, v, 0); // actually don't care

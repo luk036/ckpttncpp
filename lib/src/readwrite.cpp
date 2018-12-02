@@ -69,10 +69,10 @@ auto readNetD(const char *netDFileName) -> Netlist {
         if (c == 's') {
             ++e;
         }
-    
+
         // edge_array[i] = Edge(w, e);
         boost::add_edge(w, e, g);
-    
+
         do {
             netD.get(c);
         } while (isspace(c) && c != '\n' && c != EOF);
@@ -99,7 +99,8 @@ auto readNetD(const char *netDFileName) -> Netlist {
         exit(1);
     }
 
-    using IndexMap = typename boost::property_map<graph_t, boost::vertex_index_t>::type;
+    using IndexMap =
+        typename boost::property_map<graph_t, boost::vertex_index_t>::type;
     IndexMap index = boost::get(boost::vertex_index, g);
     std::vector<node_t> module_list(numModules);
     std::vector<node_t> net_list(numNets);
@@ -108,8 +109,7 @@ auto readNetD(const char *netDFileName) -> Netlist {
         size_t i = index[v];
         if (i < numModules) {
             module_list[i] = v;
-        }
-        else {
+        } else {
             net_list[i - numModules] = v;
         }
     }
@@ -119,7 +119,7 @@ auto readNetD(const char *netDFileName) -> Netlist {
 }
 
 // Read the IBM .are format
-void readAre(Netlist& H, const char *areFileName) {
+void readAre(Netlist &H, const char *areFileName) {
     ifstream are(areFileName);
     if (are.fail()) {
         std::cerr << " Could not open " << areFileName << std::endl;

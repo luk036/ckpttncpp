@@ -1,16 +1,18 @@
 #include <ckpttncpp/FMPartMgr.hpp>
+#include <ckpttncpp/netlist.hpp>
 
 /**
- * @brief 
- * 
- * @tparam FMGainMgr 
- * @tparam FMConstrMgr 
+ * @brief
+ *
+ * @tparam FMGainMgr
+ * @tparam FMConstrMgr
+ * @param part
  */
 template <typename FMGainMgr, typename FMConstrMgr>
-void FMPartMgr<FMGainMgr, FMConstrMgr>::init()
-{
-    this->gainMgr.init(this->part);
-    this->validator.init(this->part);
+auto FMPartMgr<FMGainMgr, FMConstrMgr>::init(std::vector<std::uint8_t> &part)
+    -> void {
+    this->gainMgr.init(part);
+    this->validator.init(part);
     // auto totalgain = 0;
     while (true) {
         auto toPart = this->validator.select_togo();
@@ -18,8 +20,8 @@ void FMPartMgr<FMGainMgr, FMConstrMgr>::init()
             break;
         }
         auto [v, gainmax] = this->gainMgr.select_togo(toPart);
-        auto fromPart = this->part[v];
-        assert (fromPart != toPart);
+        auto fromPart = part[v];
+        assert(fromPart != toPart);
         auto move_info_v = MoveInfoV{fromPart, toPart, v};
         // Check if the move of v can notsatisfied, makebetter, or satisfied
         auto legalcheck = this->validator.check_legal(move_info_v);
@@ -28,10 +30,10 @@ void FMPartMgr<FMGainMgr, FMConstrMgr>::init()
         }
         // Update v and its neigbours (even they are in waitinglist);
         // Put neigbours to bucket
-        this->gainMgr.update_move(this->part, move_info_v);
-        this->gainMgr.update_move_v(this->part, move_info_v, gainmax);
+        this->gainMgr.update_move(part, move_info_v);
+        this->gainMgr.update_move_v(part, move_info_v, gainmax);
         this->validator.update_move(move_info_v);
-        this->part[v] = toPart;
+        part[v] = toPart;
         // totalgain += gainmax;
         this->totalcost -= gainmax;
         if (legalcheck == 2) { // satisfied
@@ -40,45 +42,43 @@ void FMPartMgr<FMGainMgr, FMConstrMgr>::init()
             break;
         }
     }
-    // assert(!this->gainMgr.gainbucket.is_empty());
 }
 
 /**
- * @brief 
- * 
- * @tparam FMGainMgr 
- * @tparam FMConstrMgr 
+ * @brief
+ *
+ * @tparam FMGainMgr
+ * @tparam FMConstrMgr
+ * @param part
  */
 template <typename FMGainMgr, typename FMConstrMgr>
-void FMPartMgr<FMGainMgr, FMConstrMgr>::optimize()
-{
+auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize(
+    std::vector<std::uint8_t> &part) -> void {
     auto totalgain = 0;
     auto deferredsnapshot = true;
     while (!this->gainMgr.is_empty()) {
         // Take the gainmax with v from gainbucket
         auto [move_info_v, gainmax] = this->gainMgr.select(part);
         // Check if the move of v can satisfied or notsatisfied
-        auto satisfiedOK =
-            this->validator.check_constraints(move_info_v);
+        auto satisfiedOK = this->validator.check_constraints(move_info_v);
         if (!satisfiedOK)
             continue;
         if (totalgain >= 0) {
             if (totalgain + gainmax < 0) {
                 // become down turn
                 // Take a snapshot before move
-                this->snapshot = this->part;
+                this->snapshot = part;
                 deferredsnapshot = false;
             }
-        }
-        else {  // totalgain < 0;
+        } else {                // totalgain < 0;
             if (gainmax <= 0) { // ???
                 continue;
             }
         }
         // Update v and its neigbours (even they are in waitinglist);
         // Put neigbours to bucket
-        this->gainMgr.update_move(this->part, move_info_v);
-        this->gainMgr.update_move_v(this->part, move_info_v, gainmax);
+        this->gainMgr.update_move(part, move_info_v);
+        this->gainMgr.update_move_v(part, move_info_v, gainmax);
         this->validator.update_move(move_info_v);
         totalgain += gainmax;
         if (totalgain > 0) {
@@ -87,26 +87,18 @@ void FMPartMgr<FMGainMgr, FMConstrMgr>::optimize()
             deferredsnapshot = true;
         }
         auto const &[fromPart, toPart, v] = move_info_v;
-        this->part[v] = toPart;
+        part[v] = toPart;
     }
     if (deferredsnapshot) {
         // Take a snapshot
-        this->snapshot = this->part;
+        this->snapshot = part;
     }
 }
 
 #include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr
 #include <ckpttncpp/FMKWayGainMgr.hpp>   // import FMKWayGainMgr
-
 template class FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>;
 
-// template void FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>::init();
-// template void FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>::optimize();
-
 #include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
-#include <ckpttncpp/FMBiGainMgr2.hpp>   // import FMBiGainMgr
-
+#include <ckpttncpp/FMBiGainMgr2.hpp>  // import FMBiGainMgr
 template class FMPartMgr<FMBiGainMgr, FMBiConstrMgr>;
-
-// template void FMPartMgr<FMBiGainMgr, FMBiConstrMgr>::init();
-// template void FMPartMgr<FMBiGainMgr, FMBiConstrMgr>::optimize();

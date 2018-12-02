@@ -2,14 +2,15 @@
 #define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMKWayCONSTRMGR_HPP 1
 
 #include "FMConstrMgr.hpp"
-#include <algorithm>
-#include <cinttypes>
-#include <vector>
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
 
 class Netlist;
 class MoveInfoV;
 
+/**
+ * @brief FM K-Way Partition Constraint Manager
+ * 
+ */
 class FMKWayConstrMgr : public FMConstrMgr {
   private:
     std::vector<bool> illegal;
@@ -19,16 +20,16 @@ class FMKWayConstrMgr : public FMConstrMgr {
      * @brief Construct a new FMKWayConstrMgr object
      *
      * @param H
-     * @param K
      * @param ratio
+     * @param K
      */
     FMKWayConstrMgr(Netlist &H, double ratio, std::uint8_t K)
         : FMConstrMgr(H, ratio, K), illegal(K, true) {}
 
     /**
-     * @brief
-     *
-     * @return size_t
+     * @brief 
+     * 
+     * @return std::uint8_t 
      */
     auto select_togo() const -> std::uint8_t {
         auto it = std::min_element(this->diff.cbegin(), this->diff.cend());

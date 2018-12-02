@@ -2,7 +2,6 @@
 #define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMBICONSTRMGR_HPP 1
 
 #include "FMConstrMgr.hpp" // import FMConstrMgr
-#include "netlist.hpp"     // import Netlist
 
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
 

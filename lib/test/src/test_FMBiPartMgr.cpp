@@ -8,14 +8,20 @@ extern Netlist create_dwarf(); // import create_dwarf
 extern Netlist readNetD(const char *netDFileName);
 void readAre(Netlist& H, const char *areFileName);
 
+/**
+ * @brief Run test cases
+ * 
+ * @param H 
+ */
 void run_FMBiPartMgr(Netlist& H) {
     auto gainMgr = FMBiGainMgr{H};
     auto constrMgr = FMBiConstrMgr{H, 0.3};
     // CHECK(H.G.nodes[0].get('weight', 1) == 5844);
     auto partMgr = FMPartMgr{H, gainMgr, constrMgr};
-    partMgr.init();
+    auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
+    partMgr.init(part);
     auto totalcostbefore = partMgr.totalcost;
-    partMgr.optimize();
+    partMgr.optimize(part);
     CHECK(partMgr.totalcost <= totalcostbefore);
     // print(partMgr.snapshot);
 }

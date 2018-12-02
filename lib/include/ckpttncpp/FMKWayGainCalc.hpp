@@ -4,10 +4,6 @@
 // #include "bpqueue.hpp" // import bpqueue
 #include "dllist.hpp"  // import dllink
 #include "netlist.hpp" // import Netlist
-#include <cassert>
-#include <cinttypes>
-#include <iterator>
-#include <tuple>
 
 /**
  * @brief FMKWayGainCalc

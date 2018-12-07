@@ -15,6 +15,7 @@
 template <typename GainCalc, class Derived>
 FMGainMgr<GainCalc, Derived>::FMGainMgr(Netlist &H, std::uint8_t K)
     : H{H}, K{K}, gainCalc{H, K}, pmax{H.get_max_degree()}, waitinglist{} {
+    static_assert(std::is_base_of_v<FMGainMgr<GainCalc, Derived>, Derived>);
     for (auto k = 0u; k < this->K; ++k) {
         this->gainbucket.push_back(
             std::make_unique<bpqueue>(-this->pmax, this->pmax));

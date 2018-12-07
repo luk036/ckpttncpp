@@ -102,18 +102,18 @@ auto readNetD(const char *netDFileName) -> Netlist {
     using IndexMap =
         typename boost::property_map<graph_t, boost::vertex_index_t>::type;
     IndexMap index = boost::get(boost::vertex_index, g);
-    std::vector<node_t> module_list(numModules);
-    std::vector<node_t> net_list(numNets);
+    // std::vector<node_t> module_list(numModules);
+    // std::vector<node_t> net_list(numNets);
     auto G = xn::grAdaptor<graph_t>(std::move(g));
-    for (node_t v : G) {
-        size_t i = index[v];
-        if (i < numModules) {
-            module_list[i] = v;
-        } else {
-            net_list[i - numModules] = v;
-        }
-    }
-    auto H = Netlist(std::move(G), std::move(module_list), std::move(net_list));
+    // for (node_t v : G) {
+    //     size_t i = index[v];
+    //     if (i < numModules) {
+    //         module_list[i] = v;
+    //     } else {
+    //         net_list[i - numModules] = v;
+    //     }
+    // }
+    auto H = Netlist(std::move(G), numModules, numNets);
     H.num_pads = numModules - padOffset - 1;
     return H;
 }

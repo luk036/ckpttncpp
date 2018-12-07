@@ -1,8 +1,8 @@
 #ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMKWayGAINMGR_HPP
 #define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMKWayGAINMGR_HPP 1
 
-#include "FMKWayGainCalc.hpp"
 #include "FMGainMgr.hpp"
+#include "FMKWayGainCalc.hpp"
 
 /**
  * @brief FMKWayGainMgr
@@ -16,11 +16,11 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
   public:
     /**
      * @brief Construct a new FMKWayGainMgr object
-     *
-     * @param H
+     * 
+     * @param H 
+     * @param K 
      */
     FMKWayGainMgr(Netlist &H, std::uint8_t K) : Base{H, K} {}
-      
 
     /**
      * @brief
@@ -30,17 +30,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
     auto init(const std::vector<std::uint8_t> &part) -> void;
 
     /**
-     * @brief
-     *
-     * @param part
-     * @param move_info_v
-     * @param gain
-     */
-    auto update_move_v(const std::vector<std::uint8_t> &part,
-                       const MoveInfoV &move_info_v, int gain) -> void;
-
-    /**
-     * @brief
+     * @brief (needed by base class)
      *
      * @param part
      * @param w
@@ -52,10 +42,20 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
             if (part[w] == k) {
                 continue;
             }
-            this->gainbucket[k]->modify_key(
-                this->gainCalc.vertex_list[k][w], keys[k]);
+            this->gainbucket[k]->modify_key(this->gainCalc.vertex_list[k][w],
+                                            keys[k]);
         }
     }
+
+    /**
+     * @brief
+     *
+     * @param part
+     * @param move_info_v
+     * @param gain
+     */
+    auto update_move_v(const std::vector<std::uint8_t> &part,
+                       const MoveInfoV &move_info_v, int gain) -> void;
 
   private:
     /**

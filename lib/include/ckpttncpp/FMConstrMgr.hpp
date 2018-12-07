@@ -10,6 +10,10 @@
 class Netlist;
 class MoveInfoV;
 
+/**
+ * @brief FM Partition Constraint Manager
+ * 
+ */
 class FMConstrMgr {
   protected:
     Netlist &H;

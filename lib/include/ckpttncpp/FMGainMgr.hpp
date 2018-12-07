@@ -15,8 +15,7 @@
  * @tparam GainCalc
  * @tparam Derived
  */
-template <typename GainCalc, class Derived>
-class FMGainMgr {
+template <typename GainCalc, class Derived> class FMGainMgr {
     Derived &self = *static_cast<Derived *>(this);
 
   protected:
@@ -31,8 +30,9 @@ class FMGainMgr {
   public:
     /**
      * @brief Construct a new FMGainMgr object
-     *
-     * @param H
+     * 
+     * @param H 
+     * @param K 
      */
     explicit FMGainMgr(Netlist &H, std::uint8_t K = 2);
 
@@ -44,10 +44,11 @@ class FMGainMgr {
     auto init(const std::vector<std::uint8_t> &part) -> void;
 
     /**
-     * @brief
-     *
-     * @return true
-     * @return false
+     * @brief 
+     * 
+     * @param toPart 
+     * @return true 
+     * @return false 
      */
     auto is_empty_togo(std::uint8_t toPart) const -> bool {
         return this->gainbucket[toPart]->is_empty();
@@ -78,18 +79,18 @@ class FMGainMgr {
         -> std::tuple<MoveInfoV, int>;
 
     /**
-     * @brief
-     *
-     * @return std::tuple<size_t, int>
+     * @brief 
+     * 
+     * @param toPart 
+     * @return std::tuple<size_t, int> 
      */
     auto select_togo(std::uint8_t toPart) -> std::tuple<size_t, int>;
-    
+
     /**
      * @brief
      *
      * @param part
      * @param move_info_v
-     * @param gain
      */
     auto update_move(const std::vector<std::uint8_t> &part,
                      const MoveInfoV &move_info_v) -> void;

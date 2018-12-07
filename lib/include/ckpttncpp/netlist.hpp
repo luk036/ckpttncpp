@@ -40,10 +40,13 @@ struct Netlist {
      * @param net_list
      * @param module_fixed
      */
-    Netlist(xn::grAdaptor<graph_t> &&G, nodevec_t &&module_list,
+    Netlist(xn::grAdaptor<graph_t> &&G,
+            nodevec_t &&module_list,
             nodevec_t &&net_list, nodevec_t module_fixed = nodevec_t{})
-        : G{std::move(G)}, module_list{std::move(module_list)},
-          net_list{std::move(net_list)}, module_fixed{module_fixed} {
+        : G{std::move(G)},
+          module_list{std::move(module_list)},
+          net_list{std::move(net_list)},
+          module_fixed{module_fixed} {
         this->has_fixed_modules = (!this->module_fixed.empty());
 
         auto deg_cmp = [this](const node_t &v, const node_t &w) -> size_t {

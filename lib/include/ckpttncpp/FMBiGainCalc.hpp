@@ -5,22 +5,27 @@
 #include "dllist.hpp"  // import dllink
 #include "netlist.hpp" // import Netlist
 
+class FMBiGainMgr;
+
 /**
  * @brief FMBiGainCalc
  *
  */
 class FMBiGainCalc {
+    friend FMBiGainMgr;
+
   private:
     Netlist &H;
     size_t num_modules;
+    std::vector<dllink> vertex_list;
 
   public:
-    std::vector<dllink> vertex_list;
 
     /**
      * @brief Construct a new FMBiGainCalc object
      *
      * @param H
+     * @param K
      */
     explicit FMBiGainCalc(Netlist &H, std::uint8_t K = 2)
         : H{H}, num_modules{H.number_of_modules()}, vertex_list(num_modules) {}
@@ -36,14 +41,28 @@ class FMBiGainCalc {
         }
     }
 
-    auto start_ptr(std::uint8_t toPart) -> dllink* {
+    /**
+     * @brief
+     *
+     * @param toPart
+     * @return dllink*
+     */
+    auto start_ptr(std::uint8_t toPart) -> dllink * {
         return &this->vertex_list[0];
     }
 
-    auto set_key(node_t v, int key) -> void {
-        this->vertex_list[v].key = key;
-    }
+    /**
+     * @brief Set the key object
+     *
+     * @param v
+     * @param key
+     */
+    auto set_key(node_t v, int key) -> void { this->vertex_list[v].key = key; }
 
+    /**
+     * @brief
+     *
+     */
     auto update_move_init() -> void {
         // nothing to do in 2-way partitioning
     }
@@ -53,10 +72,9 @@ class FMBiGainCalc {
     /**
      * @brief
      *
-     * @param net
      * @param part
-     * @param fromPart
-     * @param v
+     * @param move_info
+     * @return ret_2pin_info
      */
     auto update_move_2pin_net(const std::vector<std::uint8_t> &part,
                               const MoveInfo &move_info) -> ret_2pin_info;

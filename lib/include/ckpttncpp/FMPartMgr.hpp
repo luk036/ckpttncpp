@@ -14,9 +14,9 @@ class Netlist;
 
 /**
  * @brief FM Partition Manager
- * 
- * @tparam FMGainMgr 
- * @tparam FMConstrMgr 
+ *
+ * @tparam FMGainMgr
+ * @tparam FMConstrMgr
  */
 template <typename FMGainMgr, typename FMConstrMgr> //
 class FMPartMgr {
@@ -39,20 +39,20 @@ class FMPartMgr {
      */
     FMPartMgr(Netlist &H, FMGainMgr &gainMgr, FMConstrMgr &constrMgr)
         : H{H}, gainMgr{gainMgr}, validator{constrMgr}, snapshot{},
-          //part(this->H.number_of_modules(), 0), 
+          // part(this->H.number_of_modules(), 0),
           totalcost{0} {}
 
     /**
-     * @brief 
-     * 
-     * @param part 
+     * @brief
+     *
+     * @param part
      */
     void init(std::vector<std::uint8_t> &part);
 
     /**
      * @brief
      *
-     * @param part 
+     * @param part
      */
     void optimize(std::vector<std::uint8_t> &part);
 };

@@ -9,7 +9,7 @@ class MoveInfoV;
 
 /**
  * @brief FM K-Way Partition Constraint Manager
- * 
+ *
  */
 class FMKWayConstrMgr : public FMConstrMgr {
   private:
@@ -27,9 +27,9 @@ class FMKWayConstrMgr : public FMConstrMgr {
         : FMConstrMgr(H, ratio, K), illegal(K, true) {}
 
     /**
-     * @brief 
-     * 
-     * @return std::uint8_t 
+     * @brief
+     *
+     * @return std::uint8_t
      */
     auto select_togo() const -> std::uint8_t {
         auto it = std::min_element(this->diff.cbegin(), this->diff.cend());

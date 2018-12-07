@@ -4,6 +4,7 @@
 // #include "bpqueue.hpp" // import bpqueue
 #include "dllist.hpp"  // import dllink
 #include "netlist.hpp" // import Netlist
+#include <py2cpp/py2cpp.hpp>
 
 class FMBiGainMgr;
 
@@ -36,7 +37,8 @@ class FMBiGainCalc {
      * @param part
      */
     auto init(const std::vector<std::uint8_t> &part) -> void {
-        for (auto &net : this->H.net_list) {
+        //for (auto &net : this->H.net_list) {
+        for (node_t net : py::range2(this->H.number_of_nets(), this->H.number_of_nodes())) {
             this->init_gain(net, part);
         }
     }

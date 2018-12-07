@@ -226,6 +226,13 @@ class grAdaptor : public VertexView<Graph>
     explicit grAdaptor(Graph &&G) : VertexView<Graph>(std::forward<Graph>(G)) {}
 
     /**
+     * @brief number of nodes
+     * 
+     * @return size_t
+     */
+    auto number_of_nodes() const -> size_t { return boost::num_vertices(*this); }
+
+    /**
      * @brief number of edges
      * 
      * @return size_t

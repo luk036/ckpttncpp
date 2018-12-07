@@ -65,24 +65,24 @@ auto create_dwarf() -> Netlist
     IndexMap index = boost::get(boost::vertex_index, g);
     auto G = xn::grAdaptor<graph_t>(std::move(g));
 
-    std::vector<node_t> module_list(7);
-    std::vector<node_t> net_list(5);
+    // std::vector<node_t> module_list(7);
+    // std::vector<node_t> net_list(5);
     std::vector<node_t> module_weight = 
         {1, 3, 4, 2, 0, 0, 0};
   
-    for (node_t v : G)
-    {
-        size_t i = index[v];
-        if (i < 7)
-        {
-            module_list[i] = v;
-        }
-        else
-        {
-            net_list[i - 7] = v;
-        }
-    }
-    auto H = Netlist(std::move(G), std::move(module_list), std::move(net_list));
+    // for (node_t v : G)
+    // {
+    //     size_t i = index[v];
+    //     if (i < 7)
+    //     {
+    //         module_list[i] = v;
+    //     }
+    //     else
+    //     {
+    //         net_list[i - 7] = v;
+    //     }
+    // }
+    auto H = Netlist(std::move(G), 7, 5);
     H.module_weight = module_weight;
     H.num_pads = 3;
     return H;
@@ -124,22 +124,22 @@ auto create_test_netlist() -> Netlist
     using IndexMap = typename boost::property_map<graph_t, boost::vertex_index_t>::type;
     IndexMap index = boost::get(boost::vertex_index, g);
     auto G = xn::grAdaptor<graph_t>(std::move(g));
-    std::vector<node_t> module_list(3);
-    std::vector<node_t> net_list(3);
+    // std::vector<node_t> module_list(3);
+    // std::vector<node_t> net_list(3);
     std::vector<node_t> module_weight = {3, 4, 2};
-    for (node_t v : G)
-    {
-        size_t i = index[v];
-        if (i < 3)
-        {
-            module_list[i] = v;
-        }
-        else
-        {
-            net_list[i - 3] = v;
-        }
-    }
-    auto H = Netlist(std::move(G), std::move(module_list), std::move(net_list));
+    // for (node_t v : G)
+    // {
+    //     size_t i = index[v];
+    //     if (i < 3)
+    //     {
+    //         module_list[i] = v;
+    //     }
+    //     else
+    //     {
+    //         net_list[i - 3] = v;
+    //     }
+    // }
+    auto H = Netlist(std::move(G), 3, 3);
     H.module_weight = module_weight;
     return H;
 }

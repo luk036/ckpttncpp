@@ -1,6 +1,5 @@
 #include <ckpttncpp/FMConstrMgr.hpp>
 #include <ckpttncpp/netlist.hpp> // import Netlist
-#include <py2cpp/py2cpp.hpp>
 
 /**
  * @brief
@@ -9,8 +8,7 @@
  */
 auto FMConstrMgr::init(const std::vector<std::uint8_t> &part) -> void {
     auto totalweight = 0;
-    for (auto v : py::range(this->H.number_of_modules())) {
-        // auto weight = this->H.G.nodes[v].get('weight', 1);
+    for (auto v = 0u; v < this->H.number_of_modules(); ++v) {
         weight = this->H.get_module_weight(v);
         this->diff[part[v]] += weight;
         totalweight += weight;

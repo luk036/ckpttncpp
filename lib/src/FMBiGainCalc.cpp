@@ -5,10 +5,10 @@
 #define unlikely(x) __builtin_expect(!!(x), 0)
 
 /**
- * @brief 
- * 
- * @param net 
- * @param part 
+ * @brief
+ *
+ * @param net
+ * @param part
  */
 void FMBiGainCalc::init_gain( //
     node_t &net, const std::vector<std::uint8_t> &part) {
@@ -79,9 +79,9 @@ void FMBiGainCalc::init_gain_general_net(
  * @param move_info
  * @return ret_2pin_info
  */
-auto
-FMBiGainCalc::update_move_2pin_net(const std::vector<std::uint8_t> &part,
-                                   const MoveInfo &move_info) -> ret_2pin_info {
+auto FMBiGainCalc::update_move_2pin_net(const std::vector<std::uint8_t> &part,
+                                        const MoveInfo &move_info)
+    -> ret_2pin_info {
     auto const &[net, fromPart, toPart, v] = move_info;
     assert(this->H.G.degree(net) == 2);
     auto netCur = this->H.G[net].begin();
@@ -99,9 +99,9 @@ FMBiGainCalc::update_move_2pin_net(const std::vector<std::uint8_t> &part,
  * @param move_info
  * @return ret_info
  */
-auto
-FMBiGainCalc::update_move_general_net(const std::vector<std::uint8_t> &part,
-                                      const MoveInfo &move_info) -> ret_info {
+auto FMBiGainCalc::update_move_general_net(
+    const std::vector<std::uint8_t> &part, const MoveInfo &move_info)
+    -> ret_info {
     auto const &[net, fromPart, toPart, v] = move_info;
     assert(this->H.G.degree(net) > 2);
     size_t num[2] = {0, 0};

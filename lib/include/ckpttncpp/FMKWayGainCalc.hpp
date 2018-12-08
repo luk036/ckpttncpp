@@ -53,7 +53,8 @@ class FMKWayGainCalc {
      * @param part
      */
     auto init(const std::vector<std::uint8_t> &part) -> void {
-        for (node_t net : py::range2(this->H.number_of_nets(), this->H.number_of_nodes())) {
+        node_t net = this->H.number_of_modules();
+        for (; net < this->H.number_of_nodes(); ++net) {
             this->init_gain(net, part);
         }
     }

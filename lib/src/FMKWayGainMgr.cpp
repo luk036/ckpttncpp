@@ -1,6 +1,5 @@
 #include <ckpttncpp/FMKWayGainCalc.hpp>
 #include <ckpttncpp/FMKWayGainMgr.hpp>
-#include <py2cpp/py2cpp.hpp>
 
 /* linux-2.6.38.8/include/linux/compiler.h */
 #include <stdio.h>
@@ -15,7 +14,7 @@
 auto FMKWayGainMgr::init(const std::vector<std::uint8_t> &part) -> void {
     Base::init(part);
 
-    for (auto v : py::range(this->H.number_of_modules())) {
+    for (auto v = 0u; v < this->H.number_of_modules(); ++v) {
         for (auto k = 0u; k < this->K; ++k) {
             auto &vlink = this->gainCalc.vertex_list[k][v];
             if (part[v] == k) {

@@ -1,9 +1,7 @@
-#include <boost/graph/adjacency_list.hpp>
-#include <boost/graph/graph_traits.hpp>
-#include <boost/graph/properties.hpp>
-#include <boost/property_map/property_map.hpp>
-#include <catch.hpp>
+#include <cassert>
 #include <ckpttncpp/netlist.hpp>
+#include <climits>
+#include <fstream>
 #include <py2cpp/nx2bgl.hpp>
 #include <utility> // for std::pair
 #include <vector>
@@ -12,11 +10,6 @@ using graph_t =
     boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS>;
 using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
 using edge_t = typename boost::graph_traits<graph_t>::edge_iterator;
-
-#include <cassert>
-#include <climits>
-#include <fstream>
-#include <vector>
 
 using std::ifstream;
 using std::ofstream;

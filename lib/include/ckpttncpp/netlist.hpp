@@ -4,8 +4,6 @@
 // import networkx as nx
 #include <iterator>
 #include <py2cpp/nx2bgl.hpp>
-#include <py2cpp/py2cpp.hpp>
-#include <unordered_map>
 #include <vector>
 
 using graph_t =
@@ -23,15 +21,12 @@ struct Netlist {
     xn::grAdaptor<graph_t> G;
     size_t num_modules;
     size_t num_nets;
-    // nodevec_t module_list;
-    // nodevec_t net_list;
     nodevec_t module_fixed;
     bool has_fixed_modules;
     size_t num_pads = 0;
     size_t max_degree;
     size_t max_net_degree;
     int cost_model = 0;
-    // std::vector<size_t> node_weight;
     std::vector<size_t> module_weight;
     std::vector<size_t> net_weight;
 
@@ -45,31 +40,7 @@ struct Netlist {
      */
     Netlist(xn::grAdaptor<graph_t> &&G,
             size_t num_modules,
-            size_t num_nets, nodevec_t module_fixed = nodevec_t{})
-        : G{std::move(G)},
-          num_modules{num_modules},
-          num_nets{num_nets},
-          // module_list{std::move(module_list)},
-          // net_list{std::move(net_list)},
-          module_fixed{module_fixed} {
-        this->has_fixed_modules = (!this->module_fixed.empty());
-
-        auto deg_cmp = [this](const size_t v, const size_t w) -> size_t {
-            return this->G.degree(v) < this->G.degree(w);
-        };
-
-        auto rng = py::range(this->number_of_modules());
-        auto result1 = std::max_element(rng.begin(), rng.end(), deg_cmp);
-        this->max_degree = this->G.degree(*result1);
-
-        auto rng_net = py::range2(this->number_of_nets(), this->number_of_nodes());
-        auto result2 = std::max_element(rng_net.begin(), rng_net.end(), deg_cmp);
-        this->max_net_degree = this->G.degree(*result2);
-
-        //                       for module in this->module_list);
-        // this->max_net_degree = max(this->G.degree[net]
-        //                       for net in this->net_list);
-    }
+            size_t num_nets, nodevec_t module_fixed = nodevec_t{});
 
     /**
      * @brief

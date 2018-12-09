@@ -15,15 +15,23 @@ namespace py
  * @tparam Key 
  */
 template <typename Key>
-struct set : std::unordered_set<Key>
+class set : public std::unordered_set<Key>
 {
     using _Self = set<Key>;
 
+  public:
     /**
      * @brief Construct a new set object
      * 
      */
     set() : std::unordered_set<Key>{} {}
+
+    /**
+     * @brief Construct a new set object
+     * 
+     */
+    template <typename FwdIter>
+    set(const FwdIter& start, const FwdIter& stop) : std::unordered_set<Key>(start, stop) {}
 
     /**
      * @brief Construct a new set object
@@ -63,7 +71,7 @@ struct set : std::unordered_set<Key>
      * 
      * @return _Self& 
      */
-    _Self &operator=(_Self &&) = delete;
+    _Self &operator=(_Self &&) = default;
 
     /**
      * @brief Move Constructor (default)
@@ -71,11 +79,13 @@ struct set : std::unordered_set<Key>
      */
     set(_Self &&) = default;
 
+  private:
     /**
      * @brief Copy Constructor (deleted)
      * 
+     * Copy through explicitly the public copy() function!!!
      */
-    set(const _Self &) = delete;
+    set(const _Self &) = default;
 };
 
 /**
@@ -124,11 +134,12 @@ set(std::initializer_list<Key>)->set<Key>;
  * @tparam T 
  */
 template <typename Key, typename T>
-struct dict : std::unordered_map<Key, T>
+class dict : public std::unordered_map<Key, T>
 {
     using value_type = std::pair<const Key, T>;
     using _Self = dict<Key, T>;
 
+  public:
     /**
      * @brief Construct a new dict object
      * 
@@ -195,11 +206,13 @@ struct dict : std::unordered_map<Key, T>
      */
     dict(_Self &&) = default;
 
+  private:
     /**
      * @brief Construct a new dict object
      * 
+     * Copy through explicitly the public copy() function!!!
      */
-    dict(const _Self &) = delete;
+    dict(const _Self &) = default;
 };
 
 /**

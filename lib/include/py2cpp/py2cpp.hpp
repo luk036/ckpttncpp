@@ -23,7 +23,7 @@ struct set : std::unordered_set<Key>
      * @brief Construct a new set object
      * 
      */
-    explicit set() : std::unordered_set<Key>{} {}
+    set() : std::unordered_set<Key>{} {}
 
     /**
      * @brief Construct a new set object
@@ -65,12 +65,17 @@ struct set : std::unordered_set<Key>
      */
     _Self &operator=(_Self &&) = delete;
 
-  private:
     /**
-     * @brief Construct a new set object
+     * @brief Move Constructor (default)
      * 
      */
-    set(const _Self &) = default;
+    set(_Self &&) = default;
+
+    /**
+     * @brief Copy Constructor (deleted)
+     * 
+     */
+    set(const _Self &) = delete;
 };
 
 /**
@@ -128,7 +133,7 @@ struct dict : std::unordered_map<Key, T>
      * @brief Construct a new dict object
      * 
      */
-    explicit dict() : std::unordered_map<Key, T>{} {}
+    dict() : std::unordered_map<Key, T>{} {}
 
     /**
      * @brief Construct a new dict object
@@ -182,14 +187,19 @@ struct dict : std::unordered_map<Key, T>
      * 
      * @return _Self& 
      */
-    _Self &operator=(_Self &&) = delete;
+    _Self &operator=(_Self &&) = default;
 
-  private:
+    /**
+     * @brief Move Constructor (default)
+     * 
+     */
+    dict(_Self &&) = default;
+
     /**
      * @brief Construct a new dict object
      * 
      */
-    dict(const _Self &) = default;
+    dict(const _Self &) = delete;
 };
 
 /**

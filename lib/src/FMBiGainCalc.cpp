@@ -51,7 +51,7 @@ void FMBiGainCalc::init_gain_general_net(
     node_t &net, const std::vector<std::uint8_t> &part) {
     size_t num[2] = {0, 0};
     auto IdVec = std::vector<size_t>();
-    for (const auto &w : this->H.G[net]) {
+    for (auto const &w : this->H.G[net]) {
         num[part[w]] += 1;
         IdVec.push_back(w);
     }
@@ -107,7 +107,7 @@ auto FMBiGainCalc::update_move_general_net(
     size_t num[2] = {0, 0};
     auto IdVec = std::vector<size_t>{};
     auto deltaGain = std::vector<int>{};
-    for (const auto &w : this->H.G[net]) {
+    for (auto const &w : this->H.G[net]) {
         if (w == v)
             continue;
         num[part[w]] += 1;

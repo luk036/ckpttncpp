@@ -45,7 +45,7 @@ auto FMKWayGainCalc::init_gain_general_net(
     node_t &net, const std::vector<std::uint8_t> &part) -> void {
     std::vector<size_t> num(this->K, 0);
     auto IdVec = std::vector<size_t>();
-    for (const auto &w : this->H.G[net]) {
+    for (auto const &w : this->H.G[net]) {
         num[part[w]] += 1;
         IdVec.push_back(w);
     }
@@ -100,7 +100,7 @@ auto FMKWayGainCalc::update_move_general_net(
     assert(this->H.G.degree(net) > 2);
     std::vector<size_t> num(this->K, 0);
     auto IdVec = std::vector<size_t>{};
-    for (const auto &w : this->H.G[net]) {
+    for (auto const &w : this->H.G[net]) {
         if (w == v)
             continue;
         num[part[w]] += 1;

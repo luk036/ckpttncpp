@@ -18,7 +18,7 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
      *
      * @param H
      */
-    explicit FMBiGainMgr(Netlist &H) : Base{H} {}
+    explicit FMBiGainMgr(SimpleNetlist &H) : Base{H} {}
 
     /**
      * @brief
@@ -28,17 +28,17 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
     auto init(const std::vector<std::uint8_t> &part) -> void;
 
     /**
-     * @brief (needed by base class) 
-     * 
-     * @param part 
-     * @param w 
-     * @param key 
+     * @brief (needed by base class)
+     *
+     * @param part
+     * @param w
+     * @param key
      */
     auto modify_key(const std::vector<std::uint8_t> &part, node_t w, int key)
         -> void {
-        auto part_w = part[w];
-        this->gainbucket[1 - part_w]->modify_key(this->gainCalc.vertex_list[w],
-                                                 key);
+        auto part_w = part[this->H.module_map[w]];
+        this->gainbucket[1 - part_w]->modify_key(
+            this->gainCalc.vertex_list[this->H.module_map[w]], key);
     }
 
     /**
@@ -50,7 +50,7 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
      */
     auto update_move_v(const std::vector<std::uint8_t> &part,
                        const MoveInfoV &move_info_v, int gain) -> void {
-        // this->vertex_list[v].key -= 2 * gain;
+        // this->vertex_list[this->H.module_map[v]].key -= 2 * gain;
         auto const &[fromPart, toPart, v] = move_info_v;
         this->set_key(fromPart, v, -gain);
     }
@@ -58,14 +58,14 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
   private:
     /**
      * @brief Set the key object
-     * 
-     * @param whichPart 
-     * @param v 
-     * @param key 
+     *
+     * @param whichPart
+     * @param v
+     * @param key
      */
     auto set_key(std::uint8_t whichPart, node_t v, int key) -> void {
-        this->gainbucket[whichPart]->set_key(this->gainCalc.vertex_list[v],
-                                             key);
+        this->gainbucket[whichPart]->set_key(
+            this->gainCalc.vertex_list[this->H.module_map[v]], key);
     }
 };
 

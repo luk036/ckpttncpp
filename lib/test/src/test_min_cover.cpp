@@ -2,13 +2,13 @@
 #include <py2cpp/py2cpp.hpp>
 #include <catch.hpp>
 
-extern Netlist create_test_netlist(); // import create_test_netlist
-extern Netlist create_dwarf(); // import create_dwarf
-extern Netlist readNetD(const char *netDFileName);
-void readAre(Netlist& H, const char *areFileName);
+extern SimpleNetlist create_test_netlist(); // import create_test_netlist
+extern SimpleNetlist create_dwarf(); // import create_dwarf
+extern SimpleNetlist readNetD(const char *netDFileName);
+void readAre(SimpleNetlist & H, const char *areFileName);
 
-extern std::tuple<py::set<node_t>, size_t>
-min_net_cover_pd(Netlist &, const std::vector<size_t> &);
+extern std::tuple<py::set<node_t>, int>
+min_net_cover_pd(SimpleNetlist &, const std::vector<size_t> &);
 
 //
 // Primal-dual algorithm for minimum vertex cover problem

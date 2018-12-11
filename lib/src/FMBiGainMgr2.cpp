@@ -14,9 +14,9 @@
 auto FMBiGainMgr::init(const std::vector<std::uint8_t> &part) -> void {
     Base::init(part);
 
-    for (auto v = 0u; v < this->H.number_of_modules(); ++v) {
-        auto &vlink = this->gainCalc.vertex_list[v];
-        auto toPart = 1 - part[v];
+    for (auto v : this->H.modules) {
+        auto &vlink = this->gainCalc.vertex_list[this->H.module_map[v]];
+        auto toPart = 1 - part[this->H.module_map[v]];
         this->gainbucket[toPart]->append(vlink, vlink.key);
     }
 }

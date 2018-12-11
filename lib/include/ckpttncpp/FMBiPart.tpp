@@ -13,7 +13,7 @@ class FMBiGainMgr;
 
 class FMBiPartMgr {
   private:
-    Netlist &H;
+    SimpleNetlist &H;
     FMBiGainMgr &gainMgr;
     FMBiConstrMgr &validator;
     std::vector<std::uint8_t> snapshot;
@@ -29,7 +29,7 @@ class FMBiPartMgr {
      * @param gainMgr
      * @param constrMgr
      */
-    FMBiPartMgr(Netlist &H, FMBiGainMgr &gainMgr, FMBiConstrMgr &constrMgr)
+    FMBiPartMgr(SimpleNetlist &H, FMBiGainMgr &gainMgr, FMBiConstrMgr &constrMgr)
         : H{H}, gainMgr{gainMgr}, validator{constrMgr}, snapshot{},
           part(this->H.number_of_modules(), 0), totalcost{0} {}
 

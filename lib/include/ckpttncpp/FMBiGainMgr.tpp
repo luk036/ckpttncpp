@@ -14,7 +14,7 @@
  *
  */
 struct FMBiGainMgr {
-    Netlist &H;
+    SimpleNetlist &H;
     FMBiGainCalc gainCalc;
     size_t pmax;
     size_t num_modules;
@@ -27,7 +27,7 @@ struct FMBiGainMgr {
      *
      * @param H
      */
-    explicit FMBiGainMgr(Netlist &H)
+    explicit FMBiGainMgr(SimpleNetlist &H)
         : H{H},
           gainCalc{H},
           pmax{H.get_max_degree()},
@@ -65,7 +65,7 @@ struct FMBiGainMgr {
         auto &vlink = this->gainbucket.popleft();
         this->waitinglist.append(vlink);
         node_t v = &vlink - &this->vertex_list[0];
-        auto fromPart = part[v];
+        auto fromPart = part[this->H.module_map[v]];
         auto move_info_v = MoveInfoV{fromPart, 1-fromPart, v};
         return std::tuple{std::move(move_info_v), gainmax};
     }

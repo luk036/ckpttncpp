@@ -16,11 +16,11 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
   public:
     /**
      * @brief Construct a new FMKWayGainMgr object
-     * 
-     * @param H 
-     * @param K 
+     *
+     * @param H
+     * @param K
      */
-    FMKWayGainMgr(Netlist &H, std::uint8_t K) : Base{H, K} {}
+    FMKWayGainMgr(SimpleNetlist &H, std::uint8_t K) : Base{H, K} {}
 
     /**
      * @brief
@@ -39,11 +39,11 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
     auto modify_key(const std::vector<std::uint8_t> &part, node_t w,
                     std::vector<int> &keys) -> void {
         for (auto k = 0u; k < this->K; ++k) {
-            if (part[w] == k) {
+            if (part[this->H.module_map[w]] == k) {
                 continue;
             }
-            this->gainbucket[k]->modify_key(this->gainCalc.vertex_list[k][w],
-                                            keys[k]);
+            this->gainbucket[k]->modify_key(
+                this->gainCalc.vertex_list[k][this->H.module_map[w]], keys[k]);
         }
     }
 
@@ -67,7 +67,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
      */
     auto set_key(size_t whichPart, node_t v, int key) -> void {
         this->gainbucket[whichPart]->set_key(
-            this->gainCalc.vertex_list[whichPart][v], key);
+            this->gainCalc.vertex_list[whichPart][this->H.module_map[v]], key);
     }
 };
 

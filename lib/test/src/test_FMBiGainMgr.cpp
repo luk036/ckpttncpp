@@ -2,10 +2,10 @@
 #include <ckpttncpp/netlist.hpp>     // import Netlist
 #include <ckpttncpp/FMBiGainMgr2.hpp> // import FMBiGainMgr
 
-extern Netlist create_test_netlist(); // import create_test_netlist
-extern Netlist create_dwarf(); // import create_dwarf
+extern SimpleNetlist create_test_netlist(); // import create_test_netlist
+extern SimpleNetlist create_dwarf(); // import create_dwarf
 
-void run_FMBiGainMgr(Netlist& H, std::vector<std::uint8_t>& part_test) {
+void run_FMBiGainMgr(SimpleNetlist & H, std::vector<std::uint8_t>& part_test) {
     FMBiGainMgr mgr{H};
     auto part = part_test;
     mgr.init(part);
@@ -16,7 +16,7 @@ void run_FMBiGainMgr(Netlist& H, std::vector<std::uint8_t>& part_test) {
         mgr.update_move(part, move_info_v);
         mgr.update_move_v(part, move_info_v, gainmax);
         auto const &[fromPart, toPart, v] = move_info_v;
-        part[v] = toPart;
+        part[H.module_map[v]] = toPart;
         CHECK(v >= 0);
     }
 

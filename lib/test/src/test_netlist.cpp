@@ -5,6 +5,7 @@
 #include <boost/property_map/property_map.hpp>
 #include <catch.hpp>
 #include <py2cpp/nx2bgl.hpp>
+#include <py2cpp/py2cpp.hpp>
 #include <utility> // for std::pair
 #include <vector>
 #include <ckpttncpp/netlist.hpp>
@@ -19,7 +20,7 @@ using edge_t = typename boost::graph_traits<graph_t>::edge_iterator;
  * 
  * @return Netlist 
  */
-auto create_dwarf() -> Netlist
+auto create_dwarf() -> SimpleNetlist
 {
     using Edge = std::pair<int, int>;
     const int num_nodes = 12;
@@ -70,9 +71,9 @@ auto create_dwarf() -> Netlist
     std::vector<node_t> module_weight = 
         {1, 3, 4, 2, 0, 0, 0};
   
-    // for (node_t v : G)
+    // for (auto v : G)
     // {
-    //     size_t i = index[v];
+    //     size_t i = index[this->H.module_map[v]];
     //     if (i < 7)
     //     {
     //         module_list[i] = v;
@@ -82,7 +83,8 @@ auto create_dwarf() -> Netlist
     //         net_list[i - 7] = v;
     //     }
     // }
-    auto H = Netlist(std::move(G), 7, 5);
+    auto H = Netlist(std::move(G), py::range2(0, 7), py::range2(7, 12),
+                                    py::range2(0, 7), py::range2(-7, 5));
     H.module_weight = module_weight;
     H.num_pads = 3;
     return H;
@@ -93,7 +95,7 @@ auto create_dwarf() -> Netlist
  * 
  * @return Netlist 
  */
-auto create_test_netlist() -> Netlist
+auto create_test_netlist() -> SimpleNetlist
 {
     using Edge = std::pair<int, int>;
     const int num_nodes = 6;
@@ -127,9 +129,9 @@ auto create_test_netlist() -> Netlist
     // std::vector<node_t> module_list(3);
     // std::vector<node_t> net_list(3);
     std::vector<node_t> module_weight = {3, 4, 2};
-    // for (node_t v : G)
+    // for (auto v : G)
     // {
-    //     size_t i = index[v];
+    //     size_t i = index[this->H.module_map[v]];
     //     if (i < 3)
     //     {
     //         module_list[i] = v;
@@ -139,7 +141,8 @@ auto create_test_netlist() -> Netlist
     //         net_list[i - 3] = v;
     //     }
     // }
-    auto H = Netlist(std::move(G), 3, 3);
+    auto H = Netlist(std::move(G), py::range2(0, 3), py::range2(3, 6),
+                                    py::range2(0, 3), py::range2(-3, 3));
     H.module_weight = module_weight;
     return H;
 }

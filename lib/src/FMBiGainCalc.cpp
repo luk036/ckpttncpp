@@ -11,7 +11,7 @@
  * @param part
  */
 void FMBiGainCalc::init_gain( //
-    node_t &net, const std::vector<std::uint8_t> &part) {
+    node_t net, const std::vector<std::uint8_t> &part) {
     if (this->H.G.degree(net) == 2) {
         this->init_gain_2pin_net(net, part);
     } else if (unlikely(this->H.G.degree(net) < 2)) {
@@ -28,17 +28,17 @@ void FMBiGainCalc::init_gain( //
  * @param part
  */
 void FMBiGainCalc::init_gain_2pin_net( //
-    node_t &net, const std::vector<std::uint8_t> &part) {
+    node_t net, const std::vector<std::uint8_t> &part) {
     assert(this->H.G.degree(net) == 2);
     auto netCur = this->H.G[net].begin();
     auto w = *netCur;
     auto v = *++netCur;
-    auto part_w = part[w];
-    auto part_v = part[v];
+    auto part_w = part[this->H.module_map[w]];
+    auto part_v = part[this->H.module_map[v]];
     auto weight = this->H.get_net_weight(net);
     auto g = (part_w == part_v) ? -weight : weight;
-    this->vertex_list[w].key += g;
-    this->vertex_list[v].key += g;
+    this->vertex_list[this->H.module_map[w]].key += g;
+    this->vertex_list[this->H.module_map[v]].key += g;
 }
 
 /**
@@ -48,23 +48,23 @@ void FMBiGainCalc::init_gain_2pin_net( //
  * @param part
  */
 void FMBiGainCalc::init_gain_general_net(
-    node_t &net, const std::vector<std::uint8_t> &part) {
+    node_t net, const std::vector<std::uint8_t> &part) {
     size_t num[2] = {0, 0};
     auto IdVec = std::vector<size_t>();
     for (auto const &w : this->H.G[net]) {
-        num[part[w]] += 1;
+        num[part[this->H.module_map[w]]] += 1;
         IdVec.push_back(w);
     }
     auto weight = this->H.get_net_weight(net);
     for (auto &&k : {0, 1}) {
         if (num[k] == 0) {
             for (auto &w : IdVec) {
-                this->vertex_list[w].key -= weight;
+                this->vertex_list[this->H.module_map[w]].key -= weight;
             }
         } else if (num[k] == 1) {
             for (auto &w : IdVec) {
-                if (part[w] == k) {
-                    this->vertex_list[w].key += weight;
+                if (part[this->H.module_map[w]] == k) {
+                    this->vertex_list[this->H.module_map[w]].key += weight;
                     break;
                 }
             }
@@ -86,7 +86,7 @@ auto FMBiGainCalc::update_move_2pin_net(const std::vector<std::uint8_t> &part,
     assert(this->H.G.degree(net) == 2);
     auto netCur = this->H.G[net].begin();
     node_t w = (*netCur != v) ? *netCur : *++netCur;
-    auto part_w = part[w];
+    auto part_w = part[this->H.module_map[w]];
     auto weight = this->H.get_net_weight(net);
     auto deltaGainW = (part_w == fromPart) ? 2 * weight : -2 * weight;
     return std::tuple{w, deltaGainW};
@@ -110,7 +110,7 @@ auto FMBiGainCalc::update_move_general_net(
     for (auto const &w : this->H.G[net]) {
         if (w == v)
             continue;
-        num[part[w]] += 1;
+        num[part[this->H.module_map[w]]] += 1;
         IdVec.push_back(w);
         deltaGain.push_back(0);
     }

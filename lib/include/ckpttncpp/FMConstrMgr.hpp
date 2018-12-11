@@ -7,16 +7,15 @@
 #include <vector>
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
 
-class Netlist;
 class MoveInfoV;
 
 /**
  * @brief FM Partition Constraint Manager
- * 
+ *
  */
 class FMConstrMgr {
   protected:
-    Netlist &H;
+    SimpleNetlist &H;
     double ratio;
     std::uint8_t K;
     std::vector<size_t> diff;
@@ -30,7 +29,7 @@ class FMConstrMgr {
      * @param K
      * @param ratio
      */
-    FMConstrMgr(Netlist &H, double ratio, std::uint8_t K = 2)
+    FMConstrMgr(SimpleNetlist &H, double ratio, std::uint8_t K = 2)
         : H{H}, ratio{ratio}, K{K}, diff(K, 0), lowerbound{0}, weight{0} {}
 
   public:

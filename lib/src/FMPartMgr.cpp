@@ -13,14 +13,18 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::init(std::vector<std::uint8_t> &part)
     -> void {
     this->gainMgr.init(part);
     this->validator.init(part);
-    // auto totalgain = 0;
+}
+
+template <typename FMGainMgr, typename FMConstrMgr>
+auto FMPartMgr<FMGainMgr, FMConstrMgr>::legalize(std::vector<std::uint8_t> &part)
+    -> void {
     while (true) {
         auto toPart = this->validator.select_togo();
         if (this->gainMgr.is_empty_togo(toPart)) {
             break;
         }
         auto [v, gainmax] = this->gainMgr.select_togo(toPart);
-        auto fromPart = part[v];
+        auto fromPart = part[this->H.module_map[v]];
         assert(fromPart != toPart);
         auto move_info_v = MoveInfoV{fromPart, toPart, v};
         // Check if the move of v can notsatisfied, makebetter, or satisfied
@@ -33,7 +37,7 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::init(std::vector<std::uint8_t> &part)
         this->gainMgr.update_move(part, move_info_v);
         this->gainMgr.update_move_v(part, move_info_v, gainmax);
         this->validator.update_move(move_info_v);
-        part[v] = toPart;
+        part[this->H.module_map[v]] = toPart;
         // totalgain += gainmax;
         this->totalcost -= gainmax;
         if (legalcheck == 2) { // satisfied
@@ -87,7 +91,7 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize(
             deferredsnapshot = true;
         }
         auto const &[fromPart, toPart, v] = move_info_v;
-        part[v] = toPart;
+        part[this->H.module_map[v]] = toPart;
     }
     if (deferredsnapshot) {
         // Take a snapshot

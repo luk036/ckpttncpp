@@ -291,8 +291,10 @@ constexpr auto range(size_t stop)
     struct iterable_wrapper
     {
         size_t stop;
-        auto begin() { return iterator{ 0 }; }
+        auto begin() { return iterator{ 0u }; }
         auto end() { return iterator{ stop }; }
+        auto size() const -> size_t { return stop; }
+        auto operator[](size_t index) const -> size_t { return index; }
     };
     return iterable_wrapper{stop};
 }
@@ -313,6 +315,8 @@ constexpr auto range2(int start, int stop)
         int stop;
         auto begin() { return iterator{ start }; }
         auto end() { return iterator{ stop }; }
+        auto size() const -> size_t { return stop - start; }
+        auto operator[](size_t index) const -> int { return start + index; }
     };
     return iterable_wrapper{start, stop};
 }

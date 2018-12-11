@@ -13,7 +13,7 @@ class FMBiConstrMgr : public FMConstrMgr {
      * @param H
      * @param ratio
      */
-    FMBiConstrMgr(Netlist &H, double ratio) : FMConstrMgr(H, ratio, 2) {}
+    FMBiConstrMgr(SimpleNetlist &H, double ratio) : FMConstrMgr(H, ratio, 2) {}
 
     /**
      * @brief

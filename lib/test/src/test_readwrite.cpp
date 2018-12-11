@@ -2,8 +2,8 @@
 #include <catch.hpp>
 #include <ckpttncpp/netlist.hpp>
 
-extern Netlist readNetD(const char *netDFileName);
-void readAre(Netlist& H, const char *areFileName);
+extern SimpleNetlist readNetD(const char *netDFileName);
+void readAre(SimpleNetlist & H, const char *areFileName);
 
 TEST_CASE("Test Read Dwarf", "[test_readwrite]")
 {

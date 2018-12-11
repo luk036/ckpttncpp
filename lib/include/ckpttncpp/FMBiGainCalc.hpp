@@ -15,19 +15,18 @@ class FMBiGainCalc {
     friend FMBiGainMgr;
 
   private:
-    Netlist &H;
+    SimpleNetlist &H;
     size_t num_modules;
     std::vector<dllink> vertex_list;
 
   public:
-
     /**
      * @brief Construct a new FMBiGainCalc object
      *
      * @param H
      * @param K
      */
-    explicit FMBiGainCalc(Netlist &H, std::uint8_t K = 2)
+    explicit FMBiGainCalc(SimpleNetlist &H, std::uint8_t K = 2)
         : H{H}, num_modules{H.number_of_modules()}, vertex_list(num_modules) {}
 
     /**
@@ -36,9 +35,8 @@ class FMBiGainCalc {
      * @param part
      */
     auto init(const std::vector<std::uint8_t> &part) -> void {
-        //for (auto &net : this->H.net_list) {
-        node_t net = this->H.number_of_modules();
-        for (; net < this->H.number_of_nodes(); ++net) {
+        // for (auto &net : this->H.net_list) {
+        for (auto net : this->H.nets) {
             this->init_gain(net, part);
         }
     }
@@ -59,7 +57,9 @@ class FMBiGainCalc {
      * @param v
      * @param key
      */
-    auto set_key(node_t v, int key) -> void { this->vertex_list[v].key = key; }
+    auto set_key(node_t v, int key) -> void {
+        this->vertex_list[this->H.module_map[v]].key = key;
+    }
 
     /**
      * @brief
@@ -101,7 +101,7 @@ class FMBiGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain(node_t &net, const std::vector<std::uint8_t> &part) -> void;
+    auto init_gain(node_t net, const std::vector<std::uint8_t> &part) -> void;
 
     /**
      * @brief
@@ -109,7 +109,7 @@ class FMBiGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain_2pin_net(node_t &net, const std::vector<std::uint8_t> &part)
+    auto init_gain_2pin_net(node_t net, const std::vector<std::uint8_t> &part)
         -> void;
 
     /**
@@ -118,7 +118,7 @@ class FMBiGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain_general_net(node_t &net,
+    auto init_gain_general_net(node_t net,
                                const std::vector<std::uint8_t> &part) -> void;
 };
 

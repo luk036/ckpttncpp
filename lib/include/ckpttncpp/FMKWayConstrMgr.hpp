@@ -4,7 +4,6 @@
 #include "FMConstrMgr.hpp"
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
 
-class Netlist;
 class MoveInfoV;
 
 /**
@@ -23,7 +22,7 @@ class FMKWayConstrMgr : public FMConstrMgr {
      * @param ratio
      * @param K
      */
-    FMKWayConstrMgr(Netlist &H, double ratio, std::uint8_t K)
+    FMKWayConstrMgr(SimpleNetlist &H, double ratio, std::uint8_t K)
         : FMConstrMgr(H, ratio, K), illegal(K, true) {}
 
     /**

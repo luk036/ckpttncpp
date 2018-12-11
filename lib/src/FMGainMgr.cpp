@@ -13,7 +13,7 @@
  * @param K
  */
 template <typename GainCalc, class Derived>
-FMGainMgr<GainCalc, Derived>::FMGainMgr(Netlist &H, std::uint8_t K)
+FMGainMgr<GainCalc, Derived>::FMGainMgr(SimpleNetlist &H, std::uint8_t K)
     : H{H}, K{K}, gainCalc{H, K}, pmax{H.get_max_degree()}, waitinglist{} {
     static_assert(std::is_base_of_v<FMGainMgr<GainCalc, Derived>, Derived>);
     for (auto k = 0u; k < this->K; ++k) {
@@ -40,7 +40,7 @@ auto FMGainMgr<GainCalc, Derived>::select(const std::vector<std::uint8_t> &part)
     auto &vlink = this->gainbucket[toPart]->popleft();
     this->waitinglist.append(vlink);
     node_t v = &vlink - this->gainCalc.start_ptr(toPart);
-    auto fromPart = part[v];
+    auto fromPart = part[this->H.module_map[v]];
     auto move_info_v = MoveInfoV{fromPart, toPart, v};
     return std::tuple{std::move(move_info_v), gainmax[toPart]};
 }

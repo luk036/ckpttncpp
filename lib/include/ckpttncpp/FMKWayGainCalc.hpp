@@ -13,23 +13,22 @@ class FMKWayGainMgr;
  */
 class FMKWayGainCalc {
     friend FMKWayGainMgr;
-    
+
   private:
-    Netlist &H;
+    SimpleNetlist &H;
     std::uint8_t K;
     size_t num_modules;
     std::vector<std::vector<dllink>> vertex_list;
     std::vector<int> deltaGainV;
 
   public:
-
     /**
      * @brief Construct a new FMKWayGainCalc object
      *
      * @param H Netlist
      * @param K number of partitions
      */
-    FMKWayGainCalc(Netlist &H, std::uint8_t K)
+    FMKWayGainCalc(SimpleNetlist &H, std::uint8_t K)
         : H{H}, K{K}, num_modules{H.number_of_modules()}, deltaGainV(K, 0) {
         for (auto k = 0u; k < this->K; ++k) {
             this->vertex_list.emplace_back(
@@ -38,10 +37,10 @@ class FMKWayGainCalc {
     }
 
     /**
-     * @brief 
-     * 
-     * @param toPart 
-     * @return dllink* 
+     * @brief
+     *
+     * @param toPart
+     * @return dllink*
      */
     auto start_ptr(std::uint8_t toPart) -> dllink * {
         return &this->vertex_list[toPart][0];
@@ -53,8 +52,7 @@ class FMKWayGainCalc {
      * @param part
      */
     auto init(const std::vector<std::uint8_t> &part) -> void {
-        node_t net = this->H.number_of_modules();
-        for (; net < this->H.number_of_nodes(); ++net) {
+        for (auto net : this->H.nets) {
             this->init_gain(net, part);
         }
     }
@@ -67,7 +65,7 @@ class FMKWayGainCalc {
      */
     auto set_key(node_t v, int key) -> void {
         for (auto k = 0u; k < this->K; ++k) {
-            this->vertex_list[k][v].key = key;
+            this->vertex_list[k][this->H.module_map[v]].key = key;
         }
     }
 
@@ -79,13 +77,13 @@ class FMKWayGainCalc {
      */
     auto modify_gain(node_t v, int weight) -> void {
         for (auto k = 0u; k < this->K; ++k) {
-            this->vertex_list[k][v].key += weight;
+            this->vertex_list[k][this->H.module_map[v]].key += weight;
         }
     }
 
     /**
-     * @brief 
-     * 
+     * @brief
+     *
      */
     auto update_move_init() -> void {
         std::fill_n(this->deltaGainV.begin(), this->K, 0);
@@ -123,7 +121,7 @@ class FMKWayGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain(node_t &net, const std::vector<std::uint8_t> &part) -> void;
+    auto init_gain(node_t net, const std::vector<std::uint8_t> &part) -> void;
 
     /**
      * @brief
@@ -131,7 +129,7 @@ class FMKWayGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain_2pin_net(node_t &net, const std::vector<std::uint8_t> &part)
+    auto init_gain_2pin_net(node_t net, const std::vector<std::uint8_t> &part)
         -> void;
 
     /**
@@ -140,7 +138,7 @@ class FMKWayGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain_general_net(node_t &net,
+    auto init_gain_general_net(node_t net,
                                const std::vector<std::uint8_t> &part) -> void;
 };
 

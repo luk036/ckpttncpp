@@ -3,6 +3,7 @@
 #include <climits>
 #include <fstream>
 #include <py2cpp/nx2bgl.hpp>
+#include <py2cpp/py2cpp.hpp>
 #include <utility> // for std::pair
 #include <vector>
 
@@ -15,7 +16,7 @@ using std::ifstream;
 using std::ofstream;
 
 // Read the IBM .netD/.net format. Precondition: Netlist is empty.
-auto readNetD(const char *netDFileName) -> Netlist {
+auto readNetD(const char *netDFileName) -> SimpleNetlist {
     ifstream netD(netDFileName);
     if (netD.fail()) {
         std::cerr << "Error: Can't open file " << netDFileName << ".\n";
@@ -98,21 +99,24 @@ auto readNetD(const char *netDFileName) -> Netlist {
     // std::vector<node_t> module_list(numModules);
     // std::vector<node_t> net_list(numNets);
     auto G = xn::grAdaptor<graph_t>(std::move(g));
-    // for (node_t v : G) {
-    //     size_t i = index[v];
+    // for (auto v : G) {
+    //     size_t i = index[this->H.module_map[v]];
     //     if (i < numModules) {
     //         module_list[i] = v;
     //     } else {
     //         net_list[i - numModules] = v;
     //     }
     // }
-    auto H = Netlist(std::move(G), numModules, numNets);
+    auto H =
+        Netlist(std::move(G), py::range2(0, numModules),
+                py::range2(numModules, num_vertices), py::range2(0, numModules),
+                py::range2(-numModules, num_vertices - numModules));
     H.num_pads = numModules - padOffset - 1;
     return H;
 }
 
 // Read the IBM .are format
-void readAre(Netlist &H, const char *areFileName) {
+void readAre(SimpleNetlist &H, const char *areFileName) {
     ifstream are(areFileName);
     if (are.fail()) {
         std::cerr << " Could not open " << areFileName << std::endl;

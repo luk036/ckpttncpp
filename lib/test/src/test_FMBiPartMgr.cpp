@@ -3,23 +3,24 @@
 #include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
 #include <ckpttncpp/FMPartMgr.hpp>      // import FMBiPartMgr
 
-extern Netlist create_test_netlist(); // import create_test_netlist
-extern Netlist create_dwarf(); // import create_dwarf
-extern Netlist readNetD(const char *netDFileName);
-void readAre(Netlist& H, const char *areFileName);
+extern SimpleNetlist create_test_netlist(); // import create_test_netlist
+extern SimpleNetlist create_dwarf(); // import create_dwarf
+extern SimpleNetlist readNetD(const char *netDFileName);
+void readAre(SimpleNetlist & H, const char *areFileName);
 
 /**
  * @brief Run test cases
  * 
  * @param H 
  */
-void run_FMBiPartMgr(Netlist& H) {
+void run_FMBiPartMgr(SimpleNetlist & H) {
     auto gainMgr = FMBiGainMgr{H};
     auto constrMgr = FMBiConstrMgr{H, 0.3};
     // CHECK(H.G.nodes[0].get('weight', 1) == 5844);
     auto partMgr = FMPartMgr{H, gainMgr, constrMgr};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     partMgr.init(part);
+    partMgr.legalize(part);
     auto totalcostbefore = partMgr.totalcost;
     partMgr.optimize(part);
     CHECK(partMgr.totalcost <= totalcostbefore);

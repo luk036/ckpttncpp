@@ -14,10 +14,10 @@
 auto FMKWayGainMgr::init(const std::vector<std::uint8_t> &part) -> void {
     Base::init(part);
 
-    for (auto v = 0u; v < this->H.number_of_modules(); ++v) {
+    for (auto v : this->H.modules) {
         for (auto k = 0u; k < this->K; ++k) {
-            auto &vlink = this->gainCalc.vertex_list[k][v];
-            if (part[v] == k) {
+            auto &vlink = this->gainCalc.vertex_list[k][this->H.module_map[v]];
+            if (part[this->H.module_map[v]] == k) {
                 assert(vlink.key == 0);
                 this->gainbucket[k]->set_key(vlink, 0);
                 this->waitinglist.append(vlink);
@@ -44,8 +44,9 @@ auto FMKWayGainMgr::update_move_v(const std::vector<std::uint8_t> &part,
         if (fromPart == k || toPart == k) {
             continue;
         }
-        this->gainbucket[k]->modify_key(this->gainCalc.vertex_list[k][v],
-                                        this->gainCalc.deltaGainV[k]);
+        this->gainbucket[k]->modify_key(
+            this->gainCalc.vertex_list[k][this->H.module_map[v]],
+            this->gainCalc.deltaGainV[k]);
     }
     this->set_key(fromPart, v, -gain);
     this->set_key(toPart, v, 0); // actually don't care

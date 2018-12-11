@@ -3,10 +3,10 @@
 #include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr
 #include <ckpttncpp/FMPartMgr.hpp>      // import FMKWayPartMgr
 
-extern Netlist create_test_netlist(); // import create_test_netlist
-extern Netlist create_dwarf(); // import create_dwarf
-extern Netlist readNetD(const char *netDFileName);
-void readAre(Netlist& H, const char *areFileName);
+extern SimpleNetlist create_test_netlist(); // import create_test_netlist
+extern SimpleNetlist create_dwarf(); // import create_dwarf
+extern SimpleNetlist readNetD(const char *netDFileName);
+void readAre(SimpleNetlist & H, const char *areFileName);
 
 /**
  * @brief Run test cases
@@ -14,13 +14,14 @@ void readAre(Netlist& H, const char *areFileName);
  * @param H 
  * @param K 
  */
-void run_FMKWayPartMgr(Netlist& H, std::uint8_t K) {
+void run_FMKWayPartMgr(SimpleNetlist & H, std::uint8_t K) {
     auto gainMgr = FMKWayGainMgr{H, K};
     auto constrMgr = FMKWayConstrMgr{H, 0.45, K};
     // CHECK(H.G.nodes[0].get('weight', 1) == 5844);
     auto partMgr = FMPartMgr{H, gainMgr, constrMgr};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     partMgr.init(part);
+    partMgr.legalize(part);
     auto totalcostbefore = partMgr.totalcost;
     partMgr.optimize(part);
     CHECK(partMgr.totalcost <= totalcostbefore);

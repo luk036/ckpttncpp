@@ -95,11 +95,20 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
         return this->module_weight.empty()
                    ? 1
                    : this->module_weight[this->module_map[v]];
+        // return this->module_weight[this->module_map[v]];
     }
 
+    auto get_module_weight_by_id(size_t i_v) const -> size_t {
+        return this->module_weight.empty()
+                   ? 1
+                   : this->module_weight[i_v];
+    }
+
+
     auto get_net_weight(node_t net) const -> size_t {
-        return this->net_weight.empty() ? 1
-                                        : this->net_weight[this->net_map[net]];
+        // return this->net_weight.empty() ? 1
+        //                                 : this->net_weight[this->net_map[net]];
+        return 1;
     }
 };
 
@@ -149,6 +158,7 @@ struct MoveInfoV {
     std::uint8_t fromPart;
     std::uint8_t toPart;
     node_t v;
+    size_t i_v;
 };
 
 #endif

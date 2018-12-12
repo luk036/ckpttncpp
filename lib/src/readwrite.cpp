@@ -99,14 +99,6 @@ auto readNetD(const char *netDFileName) -> SimpleNetlist {
     // std::vector<node_t> module_list(numModules);
     // std::vector<node_t> net_list(numNets);
     auto G = xn::grAdaptor<graph_t>(std::move(g));
-    // for (auto v : G) {
-    //     size_t i = index[this->H.module_map[v]];
-    //     if (i < numModules) {
-    //         module_list[i] = v;
-    //     } else {
-    //         net_list[i - numModules] = v;
-    //     }
-    // }
     auto H =
         Netlist(std::move(G), py::range2(0, numModules),
                 py::range2(numModules, num_vertices), py::range2(0, numModules),

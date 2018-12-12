@@ -34,11 +34,11 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
      * @param w
      * @param key
      */
-    auto modify_key(const std::vector<std::uint8_t> &part, node_t w, int key)
+    auto modify_key(const std::vector<std::uint8_t> &part, size_t i_w, int key)
         -> void {
-        auto part_w = part[this->H.module_map[w]];
+        auto part_w = part[i_w];
         this->gainbucket[1 - part_w]->modify_key(
-            this->gainCalc.vertex_list[this->H.module_map[w]], key);
+            this->gainCalc.vertex_list[i_w], key);
     }
 
     /**
@@ -50,9 +50,9 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
      */
     auto update_move_v(const std::vector<std::uint8_t> &part,
                        const MoveInfoV &move_info_v, int gain) -> void {
-        // this->vertex_list[this->H.module_map[v]].key -= 2 * gain;
-        auto const &[fromPart, toPart, v] = move_info_v;
-        this->set_key(fromPart, v, -gain);
+        // this->vertex_list[i_v].key -= 2 * gain;
+        auto const &[fromPart, toPart, v, i_v] = move_info_v;
+        this->set_key(fromPart, i_v, -gain);
     }
 
   private:
@@ -63,9 +63,9 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
      * @param v
      * @param key
      */
-    auto set_key(std::uint8_t whichPart, node_t v, int key) -> void {
+    auto set_key(std::uint8_t whichPart, size_t i_v, int key) -> void {
         this->gainbucket[whichPart]->set_key(
-            this->gainCalc.vertex_list[this->H.module_map[v]], key);
+            this->gainCalc.vertex_list[i_v], key);
     }
 };
 

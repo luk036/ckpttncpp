@@ -73,7 +73,7 @@ auto create_dwarf() -> SimpleNetlist
   
     // for (auto v : G)
     // {
-    //     size_t i = index[this->H.module_map[v]];
+    //     size_t i = index[i_v];
     //     if (i < 7)
     //     {
     //         module_list[i] = v;
@@ -131,7 +131,7 @@ auto create_test_netlist() -> SimpleNetlist
     std::vector<node_t> module_weight = {3, 4, 2};
     // for (auto v : G)
     // {
-    //     size_t i = index[this->H.module_map[v]];
+    //     size_t i = index[i_v];
     //     if (i < 3)
     //     {
     //         module_list[i] = v;

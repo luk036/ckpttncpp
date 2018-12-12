@@ -39,20 +39,22 @@ auto FMGainMgr<GainCalc, Derived>::select(const std::vector<std::uint8_t> &part)
     std::uint8_t toPart = std::distance(gainmax.cbegin(), it);
     auto &vlink = this->gainbucket[toPart]->popleft();
     this->waitinglist.append(vlink);
-    node_t v = &vlink - this->gainCalc.start_ptr(toPart);
-    auto fromPart = part[this->H.module_map[v]];
-    auto move_info_v = MoveInfoV{fromPart, toPart, v};
+    size_t i_v = &vlink - this->gainCalc.start_ptr(toPart);
+    node_t v = this->H.modules[i_v];
+    auto fromPart = part[i_v];
+    auto move_info_v = MoveInfoV{fromPart, toPart, v, i_v};
     return std::tuple{std::move(move_info_v), gainmax[toPart]};
 }
 
 template <typename GainCalc, class Derived>
 auto FMGainMgr<GainCalc, Derived>::select_togo(std::uint8_t toPart)
-    -> std::tuple<node_t, int> {
+    -> std::tuple<node_t, size_t, int> {
     auto gainmax = this->gainbucket[toPart]->get_max();
     auto &vlink = this->gainbucket[toPart]->popleft();
     this->waitinglist.append(vlink);
-    node_t v = &vlink - this->gainCalc.start_ptr(toPart);
-    return std::tuple{v, gainmax};
+    size_t i_v = &vlink - this->gainCalc.start_ptr(toPart);
+    node_t v = this->H.modules[i_v];
+    return std::tuple{v, i_v, gainmax};
 }
 
 /**
@@ -83,7 +85,7 @@ auto FMGainMgr<GainCalc, Derived>::update_move(
     // std::fill_n(this->deltaGainV.begin(), this->K, 0);
     this->gainCalc.update_move_init();
 
-    auto const &[fromPart, toPart, v] = move_info_v;
+    auto const &[fromPart, toPart, v, i_v] = move_info_v;
     for (auto net : this->H.G[v]) {
         auto move_info = MoveInfo{net, fromPart, toPart, v};
         if (this->H.G.degree(net) == 2) {
@@ -105,8 +107,8 @@ auto FMGainMgr<GainCalc, Derived>::update_move(
 template <typename GainCalc, class Derived>
 auto FMGainMgr<GainCalc, Derived>::update_move_2pin_net(
     const std::vector<std::uint8_t> &part, const MoveInfo &move_info) -> void {
-    auto [w, deltaGainW] = this->gainCalc.update_move_2pin_net(part, move_info);
-    self.modify_key(part, w, deltaGainW);
+    auto [i_w, deltaGainW] = this->gainCalc.update_move_2pin_net(part, move_info);
+    self.modify_key(part, i_w, deltaGainW);
 }
 
 /**

@@ -36,14 +36,14 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
      * @param w
      * @param keys
      */
-    auto modify_key(const std::vector<std::uint8_t> &part, node_t w,
+    auto modify_key(const std::vector<std::uint8_t> &part, size_t i_w,
                     std::vector<int> &keys) -> void {
         for (auto k = 0u; k < this->K; ++k) {
-            if (part[this->H.module_map[w]] == k) {
+            if (part[i_w] == k) {
                 continue;
             }
             this->gainbucket[k]->modify_key(
-                this->gainCalc.vertex_list[k][this->H.module_map[w]], keys[k]);
+                this->gainCalc.vertex_list[k][i_w], keys[k]);
         }
     }
 
@@ -65,9 +65,9 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
      * @param v
      * @param key
      */
-    auto set_key(size_t whichPart, node_t v, int key) -> void {
+    auto set_key(size_t whichPart, size_t i_v, int key) -> void {
         this->gainbucket[whichPart]->set_key(
-            this->gainCalc.vertex_list[whichPart][this->H.module_map[v]], key);
+            this->gainCalc.vertex_list[whichPart][i_v], key);
     }
 };
 

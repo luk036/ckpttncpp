@@ -58,7 +58,8 @@ class FMBiGainCalc {
      * @param key
      */
     auto set_key(node_t v, int key) -> void {
-        this->vertex_list[this->H.module_map[v]].key = key;
+        auto i_v = this->H.module_map[v];
+        this->vertex_list[i_v].key = key;
     }
 
     /**
@@ -69,7 +70,7 @@ class FMBiGainCalc {
         // nothing to do in 2-way partitioning
     }
 
-    using ret_2pin_info = std::tuple<node_t, int>;
+    using ret_2pin_info = std::tuple<size_t, int>;
 
     /**
      * @brief
@@ -81,7 +82,7 @@ class FMBiGainCalc {
     auto update_move_2pin_net(const std::vector<std::uint8_t> &part,
                               const MoveInfo &move_info) -> ret_2pin_info;
 
-    using ret_info = std::tuple<std::vector<node_t>, std::vector<int>>;
+    using ret_info = std::tuple<std::vector<size_t>, std::vector<int>>;
 
     /**
      * @brief
@@ -93,6 +94,17 @@ class FMBiGainCalc {
      */
     auto update_move_general_net(const std::vector<std::uint8_t> &part,
                                  const MoveInfo &move_info) -> ret_info;
+
+  protected:
+    /**
+     * @brief 
+     * 
+     * @param i_w 
+     * @param weight 
+     */
+    auto modify_gain(size_t i_w, size_t weight) -> void {
+        this->vertex_list[i_w].key += weight;
+    }
 
   private:
     /**

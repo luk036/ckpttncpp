@@ -64,8 +64,9 @@ class FMKWayGainCalc {
      * @param key
      */
     auto set_key(node_t v, int key) -> void {
+        auto i_v = this->H.module_map[v];
         for (auto k = 0u; k < this->K; ++k) {
-            this->vertex_list[k][this->H.module_map[v]].key = key;
+            this->vertex_list[k][i_v].key = key;
         }
     }
 
@@ -75,9 +76,9 @@ class FMKWayGainCalc {
      * @param v
      * @param weight
      */
-    auto modify_gain(node_t v, int weight) -> void {
+    auto modify_gain(size_t i_v, int weight) -> void {
         for (auto k = 0u; k < this->K; ++k) {
-            this->vertex_list[k][this->H.module_map[v]].key += weight;
+            this->vertex_list[k][i_v].key += weight;
         }
     }
 

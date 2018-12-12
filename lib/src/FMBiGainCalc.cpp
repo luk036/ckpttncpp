@@ -33,12 +33,14 @@ void FMBiGainCalc::init_gain_2pin_net( //
     auto netCur = this->H.G[net].begin();
     auto w = *netCur;
     auto v = *++netCur;
-    auto part_w = part[this->H.module_map[w]];
-    auto part_v = part[this->H.module_map[v]];
+    auto i_w = this->H.module_map[w];
+    auto i_v = this->H.module_map[v];
+    auto part_w = part[i_w];
+    auto part_v = part[i_v];
     auto weight = this->H.get_net_weight(net);
     auto g = (part_w == part_v) ? -weight : weight;
-    this->vertex_list[this->H.module_map[w]].key += g;
-    this->vertex_list[this->H.module_map[v]].key += g;
+    this->modify_gain(i_w, g);
+    this->modify_gain(i_v, g);
 }
 
 /**
@@ -52,19 +54,20 @@ void FMBiGainCalc::init_gain_general_net(
     size_t num[2] = {0, 0};
     auto IdVec = std::vector<size_t>();
     for (auto const &w : this->H.G[net]) {
-        num[part[this->H.module_map[w]]] += 1;
-        IdVec.push_back(w);
+        auto i_w = this->H.module_map[w];
+        num[part[i_w]] += 1;
+        IdVec.push_back(i_w);
     }
     auto weight = this->H.get_net_weight(net);
     for (auto &&k : {0, 1}) {
         if (num[k] == 0) {
-            for (auto &w : IdVec) {
-                this->vertex_list[this->H.module_map[w]].key -= weight;
+            for (auto i_w : IdVec) {
+                this->modify_gain(i_w, -weight);
             }
         } else if (num[k] == 1) {
-            for (auto &w : IdVec) {
-                if (part[this->H.module_map[w]] == k) {
-                    this->vertex_list[this->H.module_map[w]].key += weight;
+            for (auto i_w : IdVec) {
+                if (part[i_w] == k) {
+                    this->modify_gain(i_w, weight);
                     break;
                 }
             }
@@ -86,10 +89,11 @@ auto FMBiGainCalc::update_move_2pin_net(const std::vector<std::uint8_t> &part,
     assert(this->H.G.degree(net) == 2);
     auto netCur = this->H.G[net].begin();
     node_t w = (*netCur != v) ? *netCur : *++netCur;
-    auto part_w = part[this->H.module_map[w]];
+    auto i_w = this->H.module_map[w];
+    auto part_w = part[i_w];
     auto weight = this->H.get_net_weight(net);
     auto deltaGainW = (part_w == fromPart) ? 2 * weight : -2 * weight;
-    return std::tuple{w, deltaGainW};
+    return std::tuple{i_w, deltaGainW};
 }
 
 /**
@@ -110,8 +114,9 @@ auto FMBiGainCalc::update_move_general_net(
     for (auto const &w : this->H.G[net]) {
         if (w == v)
             continue;
-        num[part[this->H.module_map[w]]] += 1;
-        IdVec.push_back(w);
+        auto i_w = this->H.module_map[w];
+        num[part[i_w]] += 1;
+        IdVec.push_back(i_w);
         deltaGain.push_back(0);
     }
     auto degree = std::size(IdVec);

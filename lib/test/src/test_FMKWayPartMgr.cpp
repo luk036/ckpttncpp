@@ -33,10 +33,10 @@ TEST_CASE("Test FMKWayPartMgr", "[test_FMKWayPartMgr]") {
     run_FMKWayPartMgr(H, 3);
 }
 
-TEST_CASE("Test FMKWayPartMgr p1", "[test_FMKWayPartMgr]") {
-    auto H = readNetD("../../testcases/p1.net");
-    run_FMKWayPartMgr(H, 3);
-}
+// TEST_CASE("Test FMKWayPartMgr p1", "[test_FMKWayPartMgr]") {
+//     auto H = readNetD("../../testcases/p1.net");
+//     run_FMKWayPartMgr(H, 3);
+// }
 
 TEST_CASE("Test FMKWayPartMgr ibm01", "[test_FMKWayPartMgr]") {
     auto H = readNetD("../../testcases/ibm01.net");

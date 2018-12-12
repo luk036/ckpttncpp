@@ -14,10 +14,10 @@
 auto FMKWayGainMgr::init(const std::vector<std::uint8_t> &part) -> void {
     Base::init(part);
 
-    for (auto v : this->H.modules) {
+    for (auto i_v = 0u; i_v < this->H.number_of_modules(); ++i_v) {
         for (auto k = 0u; k < this->K; ++k) {
-            auto &vlink = this->gainCalc.vertex_list[k][this->H.module_map[v]];
-            if (part[this->H.module_map[v]] == k) {
+            auto &vlink = this->gainCalc.vertex_list[k][i_v];
+            if (part[i_v] == k) {
                 assert(vlink.key == 0);
                 this->gainbucket[k]->set_key(vlink, 0);
                 this->waitinglist.append(vlink);
@@ -38,16 +38,16 @@ auto FMKWayGainMgr::init(const std::vector<std::uint8_t> &part) -> void {
 auto FMKWayGainMgr::update_move_v(const std::vector<std::uint8_t> &part,
                                   const MoveInfoV &move_info_v, int gain)
     -> void {
-    auto const &[fromPart, toPart, v] = move_info_v;
+    auto const &[fromPart, toPart, v, i_v] = move_info_v;
 
     for (auto k = 0u; k < this->K; ++k) {
         if (fromPart == k || toPart == k) {
             continue;
         }
         this->gainbucket[k]->modify_key(
-            this->gainCalc.vertex_list[k][this->H.module_map[v]],
+            this->gainCalc.vertex_list[k][i_v],
             this->gainCalc.deltaGainV[k]);
     }
-    this->set_key(fromPart, v, -gain);
-    this->set_key(toPart, v, 0); // actually don't care
+    this->set_key(fromPart, i_v, -gain);
+    this->set_key(toPart, i_v, 0); // actually don't care
 }

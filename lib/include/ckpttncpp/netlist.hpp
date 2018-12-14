@@ -5,6 +5,7 @@
 #include <iterator>
 #include <py2cpp/nx2bgl.hpp>
 #include <py2cpp/py2cpp.hpp>
+#include <utility>
 #include <vector>
 
 using graph_t =
@@ -35,6 +36,10 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     std::vector<size_t> module_weight;
     std::vector<size_t> net_weight;
 
+    Netlist<nodeview_t, nodemap_t> *parent;
+    py::dict<node_t, node_t> module_up_map;
+    py::dict<node_t, node_t> cluster_map;
+
     /**
      * @brief Construct a new Netlist object
      *
@@ -44,8 +49,8 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
      * @param module_fixed
      */
     Netlist(xn::grAdaptor<graph_t> &&G, const nodeview_t &modules,
-            const nodeview_t &nets, const nodemap_t &module_map,
-            const nodemap_t &net_map,
+            const nodeview_t &nets, nodemap_t &&module_map,
+            nodemap_t &&net_map,
             // size_t num_modules, size_t num_nets,
             nodevec_t module_fixed = nodevec_t{});
 
@@ -99,15 +104,13 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     }
 
     auto get_module_weight_by_id(size_t i_v) const -> size_t {
-        return this->module_weight.empty()
-                   ? 1
-                   : this->module_weight[i_v];
+        return this->module_weight.empty() ? 1 : this->module_weight[i_v];
     }
-
 
     auto get_net_weight(node_t net) const -> size_t {
         // return this->net_weight.empty() ? 1
-        //                                 : this->net_weight[this->net_map[net]];
+        //                                 :
+        //                                 this->net_weight[this->net_map[net]];
         return 1;
     }
 };
@@ -124,12 +127,12 @@ template <typename nodeview_t, typename nodemap_t>
 Netlist<nodeview_t, nodemap_t>::Netlist(xn::grAdaptor<graph_t> &&G,
                                         const nodeview_t &modules,
                                         const nodeview_t &nets,
-                                        const nodemap_t &module_map,
-                                        const nodemap_t &net_map,
+                                        nodemap_t&& module_map,
+                                        nodemap_t&& net_map,
                                         // size_t num_modules, size_t num_nets,
                                         nodevec_t module_fixed)
-    : G{std::move(G)}, modules{modules}, nets{nets}, module_map{module_map},
-      net_map{net_map}, num_modules{modules.size()}, num_nets{nets.size()},
+    : G{std::move(G)}, modules{modules}, nets{nets}, module_map{std::move(module_map)},
+      net_map{std::move(net_map)}, num_modules{modules.size()}, num_nets{nets.size()},
       module_fixed{module_fixed} //
 {
     this->has_fixed_modules = (!this->module_fixed.empty());
@@ -146,6 +149,8 @@ Netlist<nodeview_t, nodemap_t>::Netlist(xn::grAdaptor<graph_t> &&G,
 
 using RngIter = decltype(py::range2(0, 1));
 using SimpleNetlist = Netlist<RngIter, RngIter>;
+using NodeMap = py::dict<node_t, size_t>;
+using ClusterNetlist = Netlist<std::vector<node_t>, NodeMap>;
 
 struct MoveInfo {
     node_t net;

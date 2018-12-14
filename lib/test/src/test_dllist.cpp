@@ -1,8 +1,7 @@
 #include <catch.hpp>
 #include <ckpttncpp/dllist.hpp> // import  dllink
 
-TEST_CASE("Test dllist", "[dllist]")
-{
+TEST_CASE("Test dllist", "[dllist]") {
     auto L1 = dllink();
     auto L2 = dllink();
     auto d = dllink();
@@ -21,8 +20,7 @@ TEST_CASE("Test dllist", "[dllist]")
     CHECK(!L2.is_empty());
 
     auto count = 0u;
-    for (auto &node : L2)
-    {
+    for (auto &node : L2) {
         count += 1;
     }
     CHECK(count == 2);

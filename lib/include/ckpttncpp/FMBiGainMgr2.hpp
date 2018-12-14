@@ -64,8 +64,8 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
      * @param key
      */
     auto set_key(std::uint8_t whichPart, size_t i_v, int key) -> void {
-        this->gainbucket[whichPart]->set_key(
-            this->gainCalc.vertex_list[i_v], key);
+        this->gainbucket[whichPart]->set_key(this->gainCalc.vertex_list[i_v],
+                                             key);
     }
 };
 

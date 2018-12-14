@@ -107,7 +107,8 @@ auto FMGainMgr<GainCalc, Derived>::update_move(
 template <typename GainCalc, class Derived>
 auto FMGainMgr<GainCalc, Derived>::update_move_2pin_net(
     const std::vector<std::uint8_t> &part, const MoveInfo &move_info) -> void {
-    auto [i_w, deltaGainW] = this->gainCalc.update_move_2pin_net(part, move_info);
+    auto [i_w, deltaGainW] =
+        this->gainCalc.update_move_2pin_net(part, move_info);
     self.modify_key(part, i_w, deltaGainW);
 }
 

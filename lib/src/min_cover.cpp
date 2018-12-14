@@ -76,3 +76,90 @@ auto min_net_cover_pd(SimpleNetlist &H, const std::vector<size_t> &weight) {
 
     return std::tuple{std::move(S), total_primal_cost};
 }
+
+/**
+ * @brief Create a contraction subgraph object
+ *
+ * @param H
+ * @return auto
+ */
+auto create_contraction_subgraph(SimpleNetlist &H) {
+    auto [S, total_cost] = min_net_cover_pd(H, H.module_weight);
+
+    auto module_up_map = py::dict<node_t, size_t>();
+    for (auto v : H.modules) {
+        module_up_map[v] = v;
+    }
+
+    auto C = py::set<node_t>();
+    auto nets = std::vector<node_t>();
+    auto clusters = std::vector<node_t>();
+    auto cluster_map = py::dict<node_t, size_t>{};
+    for (auto net : H.nets) {
+        if (S.contains(net)) {
+            nets.push_back(net);
+        } else {
+            auto netCur = H.G[net].begin();
+            auto master = *netCur;
+            clusters.push_back(master);
+            for (auto v : H.G[net]) {
+                module_up_map[v] = master;
+                C.insert(v);
+            }
+            cluster_map[master] = net;
+        }
+    }
+
+    auto modules = std::vector<node_t>();
+    for (auto v : H.modules) {
+        if (C.contains(v))
+            continue;
+        modules.push_back(v);
+    }
+    modules.insert(modules.end(), clusters.begin(), clusters.end());
+    auto nodes = std::vector<node_t>(modules.size() + nets.size());
+    nodes.insert(nodes.end(), modules.begin(), modules.end());
+    nodes.insert(nodes.end(), nets.begin(), nets.end());
+
+    graph_t g(nodes.size());
+    auto G = xn::grAdaptor<graph_t>(std::move(g));
+
+    // G.add_nodes_from(nodes);
+    for (auto v : H.modules) {
+        for (auto net : H.G[v]) {
+            boost::add_edge(module_up_map[v], net, g);
+        }
+    }
+
+    auto module_map = py::dict<node_t, size_t>{};
+    for (auto [i_v, v] : py::enumerate(modules)) {
+        module_map[v] = i_v;
+    }
+
+    auto net_map = py::dict<node_t, size_t>{};
+    for (auto [i_net, net] : py::enumerate(nets)) {
+        net_map[net] = i_net;
+    }
+
+    auto H2 = Netlist(std::move(G), modules, nets, std::move(module_map), std::move(net_map));
+    H2.module_up_map = std::move(module_up_map);
+    H2.cluster_map = std::move(cluster_map);
+
+    auto module_weight = std::vector<size_t>();
+    for (auto v : modules) {
+        if (cluster_map.contains(v)) {
+            auto net = cluster_map[v];
+            auto cluster_weight = 0u;
+            for (auto v2 : H.G[net]) {
+                cluster_weight += H.get_module_weight(v2);
+            }
+            module_weight.push_back(cluster_weight);
+        } else {
+            module_weight.push_back(H.get_module_weight(v));
+        }
+    }
+
+    H2.module_weight = module_weight;
+    // H2.parent = H;
+    return H2;
+}

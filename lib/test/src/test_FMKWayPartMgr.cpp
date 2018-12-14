@@ -1,20 +1,20 @@
 #include <catch.hpp>
-#include <ckpttncpp/FMKWayGainMgr.hpp>   // import FMKWayGainMgr
 #include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr
-#include <ckpttncpp/FMPartMgr.hpp>      // import FMKWayPartMgr
+#include <ckpttncpp/FMKWayGainMgr.hpp>   // import FMKWayGainMgr
+#include <ckpttncpp/FMPartMgr.hpp>       // import FMKWayPartMgr
 
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
-extern SimpleNetlist create_dwarf(); // import create_dwarf
+extern SimpleNetlist create_dwarf();        // import create_dwarf
 extern SimpleNetlist readNetD(const char *netDFileName);
-void readAre(SimpleNetlist & H, const char *areFileName);
+void readAre(SimpleNetlist &H, const char *areFileName);
 
 /**
  * @brief Run test cases
- * 
- * @param H 
- * @param K 
+ *
+ * @param H
+ * @param K
  */
-void run_FMKWayPartMgr(SimpleNetlist & H, std::uint8_t K) {
+void run_FMKWayPartMgr(SimpleNetlist &H, std::uint8_t K) {
     auto gainMgr = FMKWayGainMgr{H, K};
     auto constrMgr = FMKWayConstrMgr{H, 0.45, K};
     // CHECK(H.G.nodes[0].get('weight', 1) == 5844);

@@ -97,10 +97,10 @@ class FMBiGainCalc {
 
   protected:
     /**
-     * @brief 
-     * 
-     * @param i_w 
-     * @param weight 
+     * @brief
+     *
+     * @param i_w
+     * @param weight
      */
     auto modify_gain(size_t i_w, size_t weight) -> void {
         this->vertex_list[i_w].key += weight;

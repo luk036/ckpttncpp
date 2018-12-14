@@ -16,8 +16,8 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::init(std::vector<std::uint8_t> &part)
 }
 
 template <typename FMGainMgr, typename FMConstrMgr>
-auto FMPartMgr<FMGainMgr, FMConstrMgr>::legalize(std::vector<std::uint8_t> &part)
-    -> void {
+auto FMPartMgr<FMGainMgr, FMConstrMgr>::legalize(
+    std::vector<std::uint8_t> &part) -> void {
     while (true) {
         auto toPart = this->validator.select_togo();
         if (this->gainMgr.is_empty_togo(toPart)) {

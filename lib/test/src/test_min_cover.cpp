@@ -1,11 +1,11 @@
+#include <catch.hpp>
 #include <ckpttncpp/netlist.hpp> // import Netlist
 #include <py2cpp/py2cpp.hpp>
-#include <catch.hpp>
 
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
-extern SimpleNetlist create_dwarf(); // import create_dwarf
+extern SimpleNetlist create_dwarf();        // import create_dwarf
 extern SimpleNetlist readNetD(const char *netDFileName);
-void readAre(SimpleNetlist & H, const char *areFileName);
+void readAre(SimpleNetlist &H, const char *areFileName);
 
 extern std::tuple<py::set<node_t>, int>
 min_net_cover_pd(SimpleNetlist &, const std::vector<size_t> &);

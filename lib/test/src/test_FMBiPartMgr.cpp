@@ -1,19 +1,19 @@
 #include <catch.hpp>
-#include <ckpttncpp/FMBiGainMgr2.hpp>   // import FMBiGainMgr
 #include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
-#include <ckpttncpp/FMPartMgr.hpp>      // import FMBiPartMgr
+#include <ckpttncpp/FMBiGainMgr2.hpp>  // import FMBiGainMgr
+#include <ckpttncpp/FMPartMgr.hpp>     // import FMBiPartMgr
 
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
-extern SimpleNetlist create_dwarf(); // import create_dwarf
+extern SimpleNetlist create_dwarf();        // import create_dwarf
 extern SimpleNetlist readNetD(const char *netDFileName);
-void readAre(SimpleNetlist & H, const char *areFileName);
+void readAre(SimpleNetlist &H, const char *areFileName);
 
 /**
  * @brief Run test cases
- * 
- * @param H 
+ *
+ * @param H
  */
-void run_FMBiPartMgr(SimpleNetlist & H) {
+void run_FMBiPartMgr(SimpleNetlist &H) {
     auto gainMgr = FMBiGainMgr{H};
     auto constrMgr = FMBiConstrMgr{H, 0.3};
     // CHECK(H.G.nodes[0].get('weight', 1) == 5844);
@@ -47,4 +47,3 @@ TEST_CASE("Test FMBiPartMgr ibm01", "[test_FMBiPartMgr]") {
     readAre(H, "../../testcases/ibm01.are");
     run_FMBiPartMgr(H);
 }
-

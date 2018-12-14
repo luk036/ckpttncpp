@@ -42,8 +42,8 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
             if (part[i_w] == k) {
                 continue;
             }
-            this->gainbucket[k]->modify_key(
-                this->gainCalc.vertex_list[k][i_w], keys[k]);
+            this->gainbucket[k]->modify_key(this->gainCalc.vertex_list[k][i_w],
+                                            keys[k]);
         }
     }
 

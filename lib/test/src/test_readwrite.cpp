@@ -3,10 +3,9 @@
 #include <ckpttncpp/netlist.hpp>
 
 extern SimpleNetlist readNetD(const char *netDFileName);
-void readAre(SimpleNetlist & H, const char *areFileName);
+void readAre(SimpleNetlist &H, const char *areFileName);
 
-TEST_CASE("Test Read Dwarf", "[test_readwrite]")
-{
+TEST_CASE("Test Read Dwarf", "[test_readwrite]") {
     auto H = readNetD("../../testcases/dwarf1.netD");
     readAre(H, "../../testcases/dwarf1.are");
 
@@ -19,8 +18,7 @@ TEST_CASE("Test Read Dwarf", "[test_readwrite]")
     CHECK(H.get_module_weight(1) == 2);
 }
 
-TEST_CASE("Test Read p1", "[test_readwrite]")
-{
+TEST_CASE("Test Read p1", "[test_readwrite]") {
     auto H = readNetD("../../testcases/p1.net");
 
     CHECK(H.number_of_modules() == 833);

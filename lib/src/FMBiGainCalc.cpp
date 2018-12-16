@@ -38,6 +38,9 @@ void FMBiGainCalc::init_gain_2pin_net( //
     auto part_w = part[i_w];
     auto part_v = part[i_v];
     auto weight = this->H.get_net_weight(net);
+    if (part_w != part_v) {
+        this->totalcost += weight;
+    }
     auto g = (part_w == part_v) ? -weight : weight;
     this->modify_gain(i_w, g);
     this->modify_gain(i_v, g);
@@ -59,6 +62,11 @@ void FMBiGainCalc::init_gain_general_net(
         IdVec.push_back(i_w);
     }
     auto weight = this->H.get_net_weight(net);
+
+    if (num[0] > 0 && num[1] > 0) {
+        this->totalcost += weight;
+    }
+
     for (auto &&k : {0, 1}) {
         if (num[k] == 0) {
             for (auto i_w : IdVec) {

@@ -12,12 +12,14 @@ template <typename FMGainMgr, typename FMConstrMgr>
 auto FMPartMgr<FMGainMgr, FMConstrMgr>::init(std::vector<std::uint8_t> &part)
     -> void {
     this->gainMgr.init(part);
+    this->totalcost = this->gainMgr.totalcost;
     this->validator.init(part);
 }
 
 template <typename FMGainMgr, typename FMConstrMgr>
 auto FMPartMgr<FMGainMgr, FMConstrMgr>::legalize(
-    std::vector<std::uint8_t> &part) -> void {
+    std::vector<std::uint8_t> &part) -> size_t {
+    size_t legalcheck = 0;
     while (true) {
         auto toPart = this->validator.select_togo();
         if (this->gainMgr.is_empty_togo(toPart)) {
@@ -28,7 +30,7 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::legalize(
         assert(fromPart != toPart);
         auto move_info_v = MoveInfoV{fromPart, toPart, v, i_v};
         // Check if the move of v can notsatisfied, makebetter, or satisfied
-        auto legalcheck = this->validator.check_legal(move_info_v);
+        legalcheck = this->validator.check_legal(move_info_v);
         if (legalcheck == 0) { // notsatisfied
             continue;
         }
@@ -46,6 +48,7 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::legalize(
             break;
         }
     }
+    return legalcheck;
 }
 
 /**

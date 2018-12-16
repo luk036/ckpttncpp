@@ -54,7 +54,7 @@ class FMPartMgr {
      *
      * @param part
      */
-    void legalize(std::vector<std::uint8_t> &part);
+    size_t legalize(std::vector<std::uint8_t> &part);
 
     /**
      * @brief

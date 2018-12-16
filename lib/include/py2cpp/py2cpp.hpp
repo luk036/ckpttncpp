@@ -268,6 +268,7 @@ constexpr auto enumerate(T && iterable)
         bool operator != (const iterator & other) const { return iter != other.iter; }
         void operator ++ () { ++i; ++iter; }
         auto operator * () const { return std::tie(i, *iter); }
+        auto operator * () { return std::tie(i, *iter); }
     };
     struct iterable_wrapper
     {
@@ -286,7 +287,7 @@ constexpr auto range(size_t stop)
         bool operator != (const iterator & other) const { return i != other.i; }
         bool operator == (const iterator & other) const { return i == other.i; }
         iterator& operator ++ () { ++i; return *this; }
-        auto operator * () const { return i; }
+        size_t operator * () const { return i; }
     };
     struct iterable_wrapper
     {
@@ -307,7 +308,7 @@ constexpr auto range2(int start, int stop)
         bool operator != (const iterator & other) const { return i != other.i; }
         bool operator == (const iterator & other) const { return i == other.i; }
         iterator& operator ++ () { ++i; return *this; }
-        auto operator * () const { return i; }
+        int operator * () const { return i; }
     };
     struct iterable_wrapper
     {

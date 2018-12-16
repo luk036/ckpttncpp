@@ -37,8 +37,9 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     std::vector<size_t> net_weight;
 
     Netlist<nodeview_t, nodemap_t> *parent;
-    py::dict<node_t, node_t> module_up_map;
-    py::dict<node_t, node_t> cluster_map;
+    py::dict<node_t, node_t> node_up_map;
+    py::dict<node_t, node_t> node_down_map;
+    py::dict<node_t, node_t> cluster_down_map;
 
     /**
      * @brief Construct a new Netlist object
@@ -96,6 +97,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
      */
     auto get_max_net_degree() const -> size_t { return this->max_net_degree; }
 
+
     auto get_module_weight(node_t v) const -> size_t {
         return this->module_weight.empty()
                    ? 1
@@ -113,6 +115,36 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
         //                                 this->net_weight[this->net_map[net]];
         return 1;
     }
+
+    auto project_down(const std::vector<std::uint8_t> &part, std::vector<std::uint8_t> &part_down) -> void {
+        auto &H = *this->parent;
+        // for (auto [i_v, v] : py::enumerate(this->modules)) {
+        for (auto i_v = 0u; i_v < this->modules.size(); ++i_v) {
+            auto v = this->modules[i_v];
+            if (this->cluster_down_map.contains(v)) {
+                auto net = this->cluster_down_map[v];
+                for (auto v2 : H.G[net]) {
+                    auto i_v2 = H.module_map[v2];
+                    part_down[i_v2] = part[i_v];
+                }
+            }
+            else {
+                auto v2 = this->node_down_map[v];
+                auto i_v2 = H.module_map[v];
+                part_down[i_v2] = part[i_v];
+            }
+        }
+    }
+
+    auto project_up(const std::vector<std::uint8_t> &part, std::vector<std::uint8_t> &part_up) -> void {
+        auto &H = *this->parent;
+        // for (auto [i_v, v] : py::enumerate(H.modules)) {
+        for (auto i_v = 0u; i_v < H.modules.size(); ++i_v) {
+            auto v = H.modules[i_v];
+            part_up[this->node_up_map[v]] = part[i_v];
+        }
+    }
+
 };
 
 /**

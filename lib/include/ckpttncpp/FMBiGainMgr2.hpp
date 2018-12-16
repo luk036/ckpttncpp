@@ -18,7 +18,7 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
      *
      * @param H
      */
-    explicit FMBiGainMgr(SimpleNetlist &H) : Base{H} {}
+    explicit FMBiGainMgr(SimpleNetlist &H, std::uint8_t K=2) : Base{H} {}
 
     /**
      * @brief

@@ -28,6 +28,8 @@ template <typename GainCalc, class Derived> class FMGainMgr {
     std::vector<std::unique_ptr<bpqueue>> gainbucket;
 
   public:
+    int totalcost;
+
     /**
      * @brief Construct a new FMGainMgr object
      *

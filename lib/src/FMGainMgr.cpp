@@ -14,7 +14,9 @@
  */
 template <typename GainCalc, class Derived>
 FMGainMgr<GainCalc, Derived>::FMGainMgr(SimpleNetlist &H, std::uint8_t K)
-    : H{H}, K{K}, gainCalc{H, K}, pmax{H.get_max_degree()}, waitinglist{} {
+    : H{H}, K{K}, gainCalc{H, K}, pmax{H.get_max_degree()}, waitinglist{},
+      totalcost{0}
+{
     static_assert(std::is_base_of_v<FMGainMgr<GainCalc, Derived>, Derived>);
     for (auto k = 0u; k < this->K; ++k) {
         this->gainbucket.push_back(
@@ -66,6 +68,9 @@ template <typename GainCalc, class Derived>
 auto FMGainMgr<GainCalc, Derived>::init(const std::vector<std::uint8_t> &part)
     -> void {
     this->gainCalc.init(part);
+    this->totalcost = this->gainCalc.totalcost;
+    this->waitinglist.clear();
+    
     for (auto v : this->H.module_fixed) {
         this->gainCalc.set_key(v, -this->pmax);
     }

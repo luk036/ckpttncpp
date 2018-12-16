@@ -20,8 +20,10 @@ class FMKWayGainCalc {
     size_t num_modules;
     std::vector<std::vector<dllink>> vertex_list;
     std::vector<int> deltaGainV;
-
+    
   public:
+    int totalcost;
+
     /**
      * @brief Construct a new FMKWayGainCalc object
      *
@@ -29,7 +31,9 @@ class FMKWayGainCalc {
      * @param K number of partitions
      */
     FMKWayGainCalc(SimpleNetlist &H, std::uint8_t K)
-        : H{H}, K{K}, num_modules{H.number_of_modules()}, deltaGainV(K, 0) {
+        : H{H}, K{K}, num_modules{H.number_of_modules()},
+          deltaGainV(K, 0), totalcost{0} 
+    {
         for (auto k = 0u; k < this->K; ++k) {
             this->vertex_list.emplace_back(
                 std::vector<dllink>(this->num_modules));
@@ -52,6 +56,11 @@ class FMKWayGainCalc {
      * @param part
      */
     auto init(const std::vector<std::uint8_t> &part) -> void {
+        for (auto k = 0u; k < this->K; ++k) {
+            for (auto& vlink : this->vertex_list[k]) {
+                vlink.key = 0;
+            }
+        }
         for (auto net : this->H.nets) {
             this->init_gain(net, part);
         }

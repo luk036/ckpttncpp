@@ -14,11 +14,15 @@
 auto FMKWayGainMgr::init(const std::vector<std::uint8_t> &part) -> void {
     Base::init(part);
 
+    for (auto k = 0u; k < this->K; ++k) {
+        this->gainbucket[k]->clear();
+    }
+
     for (auto i_v = 0u; i_v < this->H.number_of_modules(); ++i_v) {
         for (auto k = 0u; k < this->K; ++k) {
             auto &vlink = this->gainCalc.vertex_list[k][i_v];
             if (part[i_v] == k) {
-                assert(vlink.key == 0);
+                // assert(vlink.key == 0);
                 this->gainbucket[k]->set_key(vlink, 0);
                 this->waitinglist.append(vlink);
             } else {

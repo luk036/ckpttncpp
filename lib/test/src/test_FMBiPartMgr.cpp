@@ -21,16 +21,20 @@ void run_FMBiPartMgr(SimpleNetlist &H) {
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     partMgr.init(part);
     partMgr.legalize(part);
+    // partMgr.init(part);
+    // partMgr.legalize(part);
     auto totalcostbefore = partMgr.totalcost;
+    CHECK(totalcostbefore >= 0);
     partMgr.optimize(part);
     CHECK(partMgr.totalcost <= totalcostbefore);
+    CHECK(partMgr.totalcost >= 0);
     // print(partMgr.snapshot);
 }
 
-TEST_CASE("Test FMBiPartMgr", "[test_FMBiPartMgr]") {
-    auto H = create_test_netlist();
-    run_FMBiPartMgr(H);
-}
+// TEST_CASE("Test FMBiPartMgr", "[test_FMBiPartMgr]") {
+//     auto H = create_test_netlist();
+//     run_FMBiPartMgr(H);
+// }
 
 TEST_CASE("Test FMBiPartMgr dwarf", "[test_FMBiPartMgr]") {
     auto H = create_dwarf();
@@ -42,8 +46,8 @@ TEST_CASE("Test FMBiPartMgr dwarf", "[test_FMBiPartMgr]") {
 //     run_FMBiPartMgr(H);
 // }
 
-TEST_CASE("Test FMBiPartMgr ibm01", "[test_FMBiPartMgr]") {
-    auto H = readNetD("../../testcases/ibm01.net");
-    readAre(H, "../../testcases/ibm01.are");
-    run_FMBiPartMgr(H);
-}
+// TEST_CASE("Test FMBiPartMgr ibm01", "[test_FMBiPartMgr]") {
+//     auto H = readNetD("../../testcases/ibm01.net");
+//     readAre(H, "../../testcases/ibm01.are");
+//     run_FMBiPartMgr(H);
+// }

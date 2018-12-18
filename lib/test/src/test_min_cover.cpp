@@ -45,6 +45,7 @@ TEST_CASE("Test max_independent_net ibm01", "[test_max_independent_net]") {
 TEST_CASE("Test contraction subgraph dwarf", "[test_contractio_subgraph]") {
     auto H = create_dwarf();
     auto H2 = create_contraction_subgraph(H);
+    auto H3 = create_contraction_subgraph(H2);
     CHECK(H2.number_of_modules() < 7);
     CHECK(H2.number_of_nets() == 2);
     CHECK(H2.number_of_pins() < 13);

@@ -1,6 +1,8 @@
 #include <catch.hpp>
 #include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
 #include <ckpttncpp/FMBiGainMgr2.hpp>  // import FMBiGainMgr
+#include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr
+#include <ckpttncpp/FMKWayGainMgr.hpp>  // import FMKWayGainMgr
 #include <ckpttncpp/FMPartMgr.hpp>     // import FMBiPartMgr
 #include <ckpttncpp/MLPartMgr.hpp>     // import MLBiPartMgr
 
@@ -12,15 +14,26 @@ extern void readAre(SimpleNetlist &H, const char *areFileName);
 
 TEST_CASE("Test MLBiPartMgr dwarf", "[test_MLBiPartMgr]") {
     auto H = create_dwarf();
-    auto partMgr = MLPartMgr{0.3};
+    auto partMgr = MLPartMgr{0.2};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     partMgr.run_Partition<FMBiGainMgr, FMBiConstrMgr>(H, part);
     CHECK(partMgr.totalcost == 2);
 }
 
+TEST_CASE("Test MLKWayPartMgr dwarf", "[test_MLKWayPartMgr]") {
+    auto H = create_dwarf();
+    auto partMgr = MLPartMgr{0.45, 3};
+    auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
+    partMgr.run_Partition<FMKWayGainMgr, FMKWayConstrMgr>(H, part);
+    CHECK(partMgr.totalcost == 6);
+}
+
 // TEST_CASE("Test MLBiPartMgr p1", "[test_MLBiPartMgr]") {
 //     auto H = readNetD("../../testcases/p1.net");
-//     run_MLBiPartMgr(H);
+//     auto partMgr = MLPartMgr{0.45};
+//     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
+//     partMgr.run_Partition<FMBiGainMgr, FMBiConstrMgr>(H, part);
+//     CHECK(partMgr.totalcost == 2);
 // }
 
 // TEST_CASE("Test MLBiPartMgr ibm01", "[test_MLBiPartMgr]") {

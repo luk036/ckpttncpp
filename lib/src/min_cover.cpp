@@ -137,7 +137,7 @@ auto create_contraction_subgraph(SimpleNetlist &H) {
         modules.push_back(v);
     }
     modules.insert(modules.end(), clusters.begin(), clusters.end());
-    auto nodes = std::vector<node_t>(modules.size() + nets.size());
+    auto nodes = std::vector<node_t>{};
     nodes.insert(nodes.end(), modules.begin(), modules.end());
     nodes.insert(nodes.end(), nets.begin(), nets.end());
     auto numModules = std::size(modules);
@@ -166,8 +166,6 @@ auto create_contraction_subgraph(SimpleNetlist &H) {
     }
 
     graph_t g(nodes.size());
-    auto G = xn::grAdaptor<graph_t>(std::move(g));
-
     // G.add_nodes_from(nodes);
     for (auto v : H.modules) {
         for (auto net : H.G[v]) {
@@ -177,26 +175,21 @@ auto create_contraction_subgraph(SimpleNetlist &H) {
             boost::add_edge(node_up_map[v], node_up_map[net], g);
         }
     }
+    auto G = xn::grAdaptor<graph_t>(std::move(g));
 
     auto H2 =
         Netlist(std::move(G), py::range2(0, numModules),
                 py::range2(numModules, num_vertices), py::range2(0, numModules),
-                py::range2(-numModules, num_vertices - numModules));
-
-    H2.node_up_map = std::move(node_up_map);
-
+                py::range2(-numModules, numNets));
 
     auto node_down_map = py::dict<node_t, node_t>{};
     for (auto [v1, v2] : node_up_map) {
         node_down_map[v2] = v1;
     }
-    H2.node_down_map = std::move(node_down_map);
-
     auto cluster_down_map = py::dict<node_t, node_t>{};
     for (auto [v, net] : cluster_map) {
         cluster_down_map[node_up_map[v]] = net;
     }
-    H2.cluster_down_map = std::move(cluster_down_map);
 
     auto module_weight = std::vector<size_t>();
     for (auto i_v = 0u; i_v < modules.size(); ++i_v) {
@@ -215,6 +208,9 @@ auto create_contraction_subgraph(SimpleNetlist &H) {
         }
     }
 
+    H2.node_up_map = std::move(node_up_map);
+    H2.node_down_map = std::move(node_down_map);
+    H2.cluster_down_map = std::move(cluster_down_map);
     H2.module_weight = module_weight;
     H2.parent = &H;
     return H2;

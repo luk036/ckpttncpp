@@ -37,9 +37,11 @@ class MLPartMgr {
             partMgr.init(part);
             if (legalcheck != 2) {
                 legalcheck = partMgr.legalize(part);
+                assert(partMgr.totalcost >= 0);
             }
         }
         partMgr.optimize(part);
+        assert(partMgr.totalcost >= 0);
         this->totalcost = partMgr.totalcost;
         return legalcheck;
     }

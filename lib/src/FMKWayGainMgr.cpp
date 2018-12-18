@@ -1,11 +1,6 @@
 #include <ckpttncpp/FMKWayGainCalc.hpp>
 #include <ckpttncpp/FMKWayGainMgr.hpp>
 
-/* linux-2.6.38.8/include/linux/compiler.h */
-#include <stdio.h>
-#define likely(x) __builtin_expect(!!(x), 1)
-#define unlikely(x) __builtin_expect(!!(x), 0)
-
 /**
  * @brief
  *

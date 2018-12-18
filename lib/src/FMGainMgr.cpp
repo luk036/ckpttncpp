@@ -28,6 +28,23 @@ FMGainMgr<GainCalc, Derived>::FMGainMgr(SimpleNetlist &H, std::uint8_t K)
  * @brief
  *
  * @param part
+ */
+template <typename GainCalc, class Derived>
+auto FMGainMgr<GainCalc, Derived>::init(const std::vector<std::uint8_t> &part)
+    -> void {
+    this->gainCalc.init(part);
+    this->totalcost = this->gainCalc.totalcost;
+    this->waitinglist.clear();
+    
+    for (auto v : this->H.module_fixed) {
+        this->gainCalc.set_key(v, -this->pmax);
+    }
+}
+
+/**
+ * @brief
+ *
+ * @param part
  * @return std::tuple<MoveInfoV, int>
  */
 template <typename GainCalc, class Derived>
@@ -41,7 +58,8 @@ auto FMGainMgr<GainCalc, Derived>::select(const std::vector<std::uint8_t> &part)
     std::uint8_t toPart = std::distance(gainmax.cbegin(), it);
     auto &vlink = this->gainbucket[toPart]->popleft();
     this->waitinglist.append(vlink);
-    size_t i_v = &vlink - this->gainCalc.start_ptr(toPart);
+    // size_t i_v = &vlink - this->gainCalc.start_ptr(toPart);
+    size_t i_v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);
     node_t v = this->H.modules[i_v];
     auto fromPart = part[i_v];
     auto move_info_v = MoveInfoV{fromPart, toPart, v, i_v};
@@ -54,26 +72,10 @@ auto FMGainMgr<GainCalc, Derived>::select_togo(std::uint8_t toPart)
     auto gainmax = this->gainbucket[toPart]->get_max();
     auto &vlink = this->gainbucket[toPart]->popleft();
     this->waitinglist.append(vlink);
-    size_t i_v = &vlink - this->gainCalc.start_ptr(toPart);
+    // size_t i_v = &vlink - this->gainCalc.start_ptr(toPart);
+    size_t i_v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);
     node_t v = this->H.modules[i_v];
     return std::tuple{v, i_v, gainmax};
-}
-
-/**
- * @brief
- *
- * @param part
- */
-template <typename GainCalc, class Derived>
-auto FMGainMgr<GainCalc, Derived>::init(const std::vector<std::uint8_t> &part)
-    -> void {
-    this->gainCalc.init(part);
-    this->totalcost = this->gainCalc.totalcost;
-    this->waitinglist.clear();
-    
-    for (auto v : this->H.module_fixed) {
-        this->gainCalc.set_key(v, -this->pmax);
-    }
 }
 
 /**
@@ -96,7 +98,7 @@ auto FMGainMgr<GainCalc, Derived>::update_move(
         if (this->H.G.degree(net) == 2) {
             this->update_move_2pin_net(part, move_info);
         } else if (unlikely(this->H.G.degree(net) < 2)) {
-            break; // does not provide any gain change when move
+            continue; // does not provide any gain change when move
         } else {
             this->update_move_general_net(part, move_info);
         }

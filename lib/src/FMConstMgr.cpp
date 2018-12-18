@@ -9,7 +9,7 @@
 auto FMConstrMgr::init(const std::vector<std::uint8_t> &part) -> void {
     std::fill_n(this->diff.begin(), this->K, 0);
     for (auto i_v = 0u; i_v < this->H.number_of_modules(); ++i_v) {
-        weight = this->H.get_module_weight_by_id(i_v);
+        auto weight = this->H.get_module_weight_by_id(i_v);
         this->diff[part[i_v]] += weight;
     }
     auto totalweightK = this->totalweight * (2. / this->K);

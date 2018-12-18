@@ -29,8 +29,8 @@ class FMBiGainCalc {
      * @param K
      */
     explicit FMBiGainCalc(SimpleNetlist &H, std::uint8_t K = 2)
-        : H{H}, num_modules{H.number_of_modules()},
-          vertex_list(num_modules), totalcost{0} {}
+        : H{H}, vertex_list(H.number_of_modules()),
+          totalcost{0} {}
 
     /**
      * @brief

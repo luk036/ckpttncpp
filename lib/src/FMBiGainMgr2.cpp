@@ -14,7 +14,6 @@
 auto FMBiGainMgr::init(const std::vector<std::uint8_t> &part) -> void
 {
     Base::init(part);
-
     for (auto k = 0u; k < this->K; ++k) {
         this->gainbucket[k]->clear();
     }

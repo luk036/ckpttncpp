@@ -118,16 +118,15 @@ auto FMBiGainCalc::update_move_general_net(
     assert(this->H.G.degree(net) > 2);
     size_t num[2] = {0, 0};
     auto IdVec = std::vector<size_t>{};
-    auto deltaGain = std::vector<int>{};
     for (auto const &w : this->H.G[net]) {
         if (w == v)
             continue;
         auto i_w = this->H.module_map[w];
         num[part[i_w]] += 1;
         IdVec.push_back(i_w);
-        deltaGain.push_back(0);
     }
     auto degree = std::size(IdVec);
+    auto deltaGain = std::vector<int>(degree, 0);
     auto weight = this->H.get_net_weight(net);
     for (auto &&l : {fromPart, toPart}) {
         if (num[l] == 0) {

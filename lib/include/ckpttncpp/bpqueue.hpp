@@ -26,7 +26,7 @@ struct bpqueue {
      * @param b
      */
     bpqueue(int a, int b)
-        : offset{a - 1}, high{b - offset}, max{0}, sentinel{8963},
+        : offset{a - 1}, high{b - offset}, max{0}, sentinel{0},
           bucket(high + 1) {
         bucket[0].append(sentinel); // sentinel
     }

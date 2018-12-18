@@ -130,7 +130,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
             }
             else {
                 auto v2 = this->node_down_map[v];
-                auto i_v2 = H.module_map[v];
+                auto i_v2 = H.module_map[v2];
                 part_down[i_v2] = part[i_v];
             }
         }

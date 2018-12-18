@@ -56,6 +56,7 @@ class FMKWayGainCalc {
      * @param part
      */
     auto init(const std::vector<std::uint8_t> &part) -> void {
+        this->totalcost = 0;
         for (auto k = 0u; k < this->K; ++k) {
             for (auto& vlink : this->vertex_list[k]) {
                 vlink.key = 0;

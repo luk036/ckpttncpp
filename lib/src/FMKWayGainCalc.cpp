@@ -14,10 +14,11 @@
  */
 auto FMKWayGainCalc::init_gain(node_t net,
                                const std::vector<std::uint8_t> &part) -> void {
-    if (this->H.G.degree(net) == 2) {
-        this->init_gain_2pin_net(net, part);
-    } else if (unlikely(this->H.G.degree(net) < 2)) {
+    auto degree = this->H.G.degree(net);
+    if (unlikely(degree < 2)) {
         return; // does not provide any gain when move
+    } else if (degree == 2) {
+        this->init_gain_2pin_net(net, part);
     } else {
         this->init_gain_general_net(net, part);
     }

@@ -19,10 +19,10 @@ void run_FMBiPartMgr(SimpleNetlist &H) {
     // CHECK(H.G.nodes[0].get('weight', 1) == 5844);
     auto partMgr = FMPartMgr{H, gainMgr, constrMgr};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-    partMgr.init(part);
-    partMgr.legalize(part);
     // partMgr.init(part);
     // partMgr.legalize(part);
+    partMgr.init(part);
+    partMgr.legalize(part);
     auto totalcostbefore = partMgr.totalcost;
     CHECK(totalcostbefore >= 0);
     partMgr.optimize(part);

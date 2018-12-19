@@ -37,7 +37,7 @@ auto FMGainMgr<GainCalc, Derived>::init(const std::vector<std::uint8_t> &part)
     this->waitinglist.clear();
     
     for (auto v : this->H.module_fixed) {
-        this->gainCalc.set_key(v, -this->pmax);
+        this->gainCalc.set_key(v, -2*this->pmax);
     }
 }
 

@@ -78,13 +78,25 @@ struct bpqueue {
      * @param it
      * @param k
      */
-    auto append(dllink &it, int k) -> void {
-        auto key = k - this->offset;
-        if (this->max < key) {
-            this->max = key;
+    auto append_direct(dllink &it) -> void {
+        if (it.key <= this->offset) {
+            return;
         }
-        it.key = key;
-        this->bucket[key].append(it);
+        this->append(it, it.key);
+    }
+
+    /**
+     * @brief
+     *
+     * @param it
+     * @param k
+     */
+    auto append(dllink &it, int k) -> void {
+        it.key = k - this->offset;
+        if (this->max < it.key) {
+            this->max = it.key;
+        }
+        this->bucket[it.key].append(it);
     }
 
     /**
@@ -96,6 +108,9 @@ struct bpqueue {
     auto appendfrom(std::vector<dllink> &nodes) -> void {
         for (auto &it : nodes) {
             it.key -= this->offset;
+            if (it.key <= 0) {
+                continue;
+            }
             this->bucket[it.key].append(it);
         }
         this->max = this->high;
@@ -164,6 +179,9 @@ struct bpqueue {
      * @param delta
      */
     auto modify_key(dllink &it, int delta) -> void {
+        if (it.key <= 0) {
+            return;
+        }
         if (delta > 0) {
             this->increase_key(it, delta);
         } else if (delta < 0) {

@@ -101,7 +101,7 @@ auto readNetD(const char *netDFileName) -> SimpleNetlist {
     auto G = xn::grAdaptor<graph_t>(std::move(g));
     auto H =
         Netlist(std::move(G), py::range2(0, numModules),
-                py::range2(numModules, num_vertices), py::range2(0, numModules),
+                py::range2(numModules, num_vertices),
                 py::range2(-numModules, num_vertices - numModules));
     H.num_pads = numModules - padOffset - 1;
     return H;

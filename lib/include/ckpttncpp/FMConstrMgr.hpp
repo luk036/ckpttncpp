@@ -33,8 +33,8 @@ class FMConstrMgr {
         : H{H}, ratio{ratio}, K{K}, diff(K, 0), lowerbound{0}, 
           weight{0}, totalweight{0}
     {
-        for (auto i_v = 0u; i_v < this->H.number_of_modules(); ++i_v) {
-            weight = this->H.get_module_weight_by_id(i_v);
+        for (auto v = 0u; v < this->H.number_of_modules(); ++v) {
+            weight = this->H.get_module_weight_by_id(v);
             this->totalweight += weight;
         }
     }

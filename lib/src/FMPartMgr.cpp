@@ -25,11 +25,11 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::legalize(
         if (this->gainMgr.is_empty_togo(toPart)) {
             break;
         }
-        auto [v, i_v, gainmax] = this->gainMgr.select_togo(toPart);
-        auto fromPart = part[i_v];
-        assert(v == i_v);
+        auto [v, gainmax] = this->gainMgr.select_togo(toPart);
+        auto fromPart = part[v];
+        assert(v == v);
         assert(fromPart != toPart);
-        auto move_info_v = MoveInfoV{fromPart, toPart, v, i_v};
+        auto move_info_v = MoveInfoV{fromPart, toPart, v};
         // Check if the move of v can notsatisfied, makebetter, or satisfied
         legalcheck = this->validator.check_legal(move_info_v);
         if (legalcheck == 0) { // notsatisfied
@@ -40,7 +40,7 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::legalize(
         this->gainMgr.update_move(part, move_info_v);
         this->gainMgr.update_move_v(part, move_info_v, gainmax);
         this->validator.update_move(move_info_v);
-        part[i_v] = toPart;
+        part[v] = toPart;
         // totalgain += gainmax;
         this->totalcost -= gainmax;
         assert(this->totalcost >= 0);
@@ -100,8 +100,8 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize(
             totalgain = 0; // reset to zero
             // deferredsnapshot = true;
         }
-        auto const &[fromPart, toPart, v, i_v] = move_info_v;
-        part[i_v] = toPart;
+        auto const &[fromPart, toPart, v] = move_info_v;
+        part[v] = toPart;
     }
     if (deferredsnapshot) {
         // restore the previous best solution

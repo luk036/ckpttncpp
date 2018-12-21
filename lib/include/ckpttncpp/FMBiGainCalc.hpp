@@ -65,9 +65,9 @@ class FMBiGainCalc {
      * @param key
      */
     auto set_key(node_t v, int key) -> void {
-        auto i_v = this->H.module_map[v];
-        assert(i_v == v);
-        this->vertex_list[i_v].key = key;
+        // auto v = this->H.module_map[v];
+        // assert(v == v);
+        this->vertex_list[v].key = key;
     }
 
     /**
@@ -107,11 +107,11 @@ class FMBiGainCalc {
     /**
      * @brief
      *
-     * @param i_w
+     * @param w
      * @param weight
      */
-    auto modify_gain(size_t i_w, size_t weight) -> void {
-        this->vertex_list[i_w].key += weight;
+    auto modify_gain(node_t w, size_t weight) -> void {
+        this->vertex_list[w].key += weight;
     }
 
   private:

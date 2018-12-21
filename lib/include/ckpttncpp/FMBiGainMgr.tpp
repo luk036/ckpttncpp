@@ -65,7 +65,7 @@ struct FMBiGainMgr {
         auto &vlink = this->gainbucket.popleft();
         this->waitinglist.append(vlink);
         node_t v = &vlink - &this->vertex_list[0];
-        auto fromPart = part[i_v];
+        auto fromPart = part[v];
         auto move_info_v = MoveInfoV{fromPart, 1-fromPart, v};
         return std::tuple{std::move(move_info_v), gainmax};
     }

@@ -47,7 +47,7 @@ auto create_dwarf() -> SimpleNetlist {
 
     // for (auto v : G)
     // {
-    //     size_t i = index[i_v];
+    //     size_t i = index[v];
     //     if (i < 7)
     //     {
     //         module_list[i] = v;
@@ -58,7 +58,7 @@ auto create_dwarf() -> SimpleNetlist {
     //     }
     // }
     auto H = Netlist(std::move(G), py::range2(0, 7), py::range2(7, 12),
-                     py::range2(0, 7), py::range2(-7, 5));
+                     py::range2(-7, 5));
     H.module_weight = module_weight;
     H.num_pads = 3;
     return H;
@@ -92,7 +92,7 @@ auto create_test_netlist() -> SimpleNetlist {
     std::vector<node_t> module_weight = {3, 4, 2};
     // for (auto v : G)
     // {
-    //     size_t i = index[i_v];
+    //     size_t i = index[v];
     //     if (i < 3)
     //     {
     //         module_list[i] = v;
@@ -103,7 +103,7 @@ auto create_test_netlist() -> SimpleNetlist {
     //     }
     // }
     auto H = Netlist(std::move(G), py::range2(0, 3), py::range2(3, 6),
-                     py::range2(0, 3), py::range2(-3, 3));
+                     py::range2(-3, 3));
     H.module_weight = module_weight;
     return H;
 }

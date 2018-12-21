@@ -179,7 +179,7 @@ auto create_contraction_subgraph(SimpleNetlist &H) {
 
     auto H2 =
         Netlist(std::move(G), py::range2(0, numModules),
-                py::range2(numModules, num_vertices), py::range2(0, numModules),
+                py::range2(numModules, num_vertices),
                 py::range2(-numModules, numNets));
 
     auto node_down_map = py::dict<node_t, node_t>{};
@@ -192,8 +192,8 @@ auto create_contraction_subgraph(SimpleNetlist &H) {
     }
 
     auto module_weight = std::vector<size_t>();
-    for (auto i_v = 0u; i_v < modules.size(); ++i_v) {
-        auto v = modules[i_v];
+    for (auto v : py::range2(0, numModules)) {
+        // auto v = modules[v];
         if (cluster_down_map.contains(v)) {
             auto net = cluster_down_map[v];
             auto cluster_weight = 0u;

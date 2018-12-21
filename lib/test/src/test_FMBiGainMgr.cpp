@@ -16,8 +16,8 @@ void run_FMBiGainMgr(SimpleNetlist &H, std::vector<std::uint8_t> &part_test) {
             continue;
         mgr.update_move(part, move_info_v);
         mgr.update_move_v(part, move_info_v, gainmax);
-        auto const &[fromPart, toPart, v, i_v] = move_info_v;
-        part[i_v] = toPart;
+        auto const &[fromPart, toPart, v] = move_info_v;
+        part[v] = toPart;
         CHECK(v >= 0);
     }
 }

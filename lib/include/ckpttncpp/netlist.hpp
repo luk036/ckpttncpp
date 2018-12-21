@@ -23,7 +23,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     xn::grAdaptor<graph_t> G;
     nodeview_t modules;
     nodeview_t nets;
-    nodemap_t module_map;
+    // nodemap_t module_map;
     nodemap_t net_map;
     size_t num_modules;
     size_t num_nets;
@@ -50,8 +50,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
      * @param module_fixed
      */
     Netlist(xn::grAdaptor<graph_t> &&G, const nodeview_t &modules,
-            const nodeview_t &nets, nodemap_t &&module_map,
-            nodemap_t &&net_map,
+            const nodeview_t &nets, nodemap_t &&net_map,
             // size_t num_modules, size_t num_nets,
             nodevec_t module_fixed = nodevec_t{});
 
@@ -101,12 +100,12 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     auto get_module_weight(node_t v) const -> size_t {
         return this->module_weight.empty()
                    ? 1
-                   : this->module_weight[this->module_map[v]];
+                   : this->module_weight[v];
         // return this->module_weight[this->module_map[v]];
     }
 
-    auto get_module_weight_by_id(size_t i_v) const -> size_t {
-        return this->module_weight.empty() ? 1 : this->module_weight[i_v];
+    auto get_module_weight_by_id(node_t v) const -> size_t {
+        return this->module_weight.empty() ? 1 : this->module_weight[v];
     }
 
     auto get_net_weight(node_t net) const -> size_t {
@@ -118,30 +117,30 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
 
     auto project_down(const std::vector<std::uint8_t> &part, std::vector<std::uint8_t> &part_down) -> void {
         auto &H = *this->parent;
-        // for (auto [i_v, v] : py::enumerate(this->modules)) {
-        for (auto i_v = 0u; i_v < this->modules.size(); ++i_v) {
-            auto v = this->modules[i_v];
+        // for (auto [v] : py::enumerate(this->modules)) {
+        for (auto v = 0u; v < this->modules.size(); ++v) {
+            // auto v = this->modules[v];
             if (this->cluster_down_map.contains(v)) {
                 auto net = this->cluster_down_map[v];
                 for (auto v2 : H.G[net]) {
-                    auto i_v2 = H.module_map[v2];
-                    part_down[i_v2] = part[i_v];
+                    // auto v2 = H.module_map[v2];
+                    part_down[v2] = part[v];
                 }
             }
             else {
                 auto v2 = this->node_down_map[v];
-                auto i_v2 = H.module_map[v2];
-                part_down[i_v2] = part[i_v];
+                // auto v2 = H.module_map[v2];
+                part_down[v2] = part[v];
             }
         }
     }
 
     auto project_up(const std::vector<std::uint8_t> &part, std::vector<std::uint8_t> &part_up) -> void {
         auto &H = *this->parent;
-        // for (auto [i_v, v] : py::enumerate(H.modules)) {
-        for (auto i_v = 0u; i_v < H.modules.size(); ++i_v) {
-            auto v = H.modules[i_v];
-            part_up[this->node_up_map[v]] = part[i_v];
+        // for (auto [v] : py::enumerate(H.modules)) {
+        for (auto v = 0u; v < H.modules.size(); ++v) {
+            // auto v = H.modules[v];
+            part_up[this->node_up_map[v]] = part[v];
         }
     }
 
@@ -159,16 +158,17 @@ template <typename nodeview_t, typename nodemap_t>
 Netlist<nodeview_t, nodemap_t>::Netlist(xn::grAdaptor<graph_t> &&G,
                                         const nodeview_t &modules,
                                         const nodeview_t &nets,
-                                        nodemap_t&& module_map,
+                                        // nodemap_t&& module_map,
                                         nodemap_t&& net_map,
                                         // size_t num_modules, size_t num_nets,
                                         nodevec_t module_fixed)
-    : G{std::move(G)}, modules{modules}, nets{nets}, module_map{std::move(module_map)},
+    : G{std::move(G)}, modules{modules}, nets{nets}, 
+      // module_map{std::move(module_map)},
       net_map{std::move(net_map)}, num_modules{modules.size()}, num_nets{nets.size()},
       module_fixed{module_fixed} //
 {
     this->has_fixed_modules = (!this->module_fixed.empty());
-    auto deg_cmp = [this](size_t v, size_t w) -> size_t {
+    auto deg_cmp = [this](node_t v, node_t w) -> size_t {
         return this->G.degree(v) < this->G.degree(w);
     };
     auto result1 =
@@ -195,7 +195,7 @@ struct MoveInfoV {
     std::uint8_t fromPart;
     std::uint8_t toPart;
     node_t v;
-    size_t i_v;
+    // size_t i_v;
 };
 
 #endif

@@ -2,11 +2,11 @@
 #include <ckpttncpp/dllist.hpp> // import  dllink
 
 TEST_CASE("Test dllist", "[dllist]") {
-    auto L1 = dllink();
-    auto L2 = dllink();
-    auto d = dllink();
-    auto e = dllink();
-    auto f = dllink();
+    auto L1 = dllink{};
+    auto L2 = dllink{};
+    auto d = dllink{};
+    auto e = dllink{};
+    auto f = dllink{};
     CHECK(L1.is_empty());
 
     L1.appendleft(e);

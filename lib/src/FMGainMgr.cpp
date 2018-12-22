@@ -136,7 +136,7 @@ auto FMGainMgr<GainCalc, Derived>::update_move_general_net(
     }
 }
 
-#include <ckpttncpp/FMBiGainMgr2.hpp> // import FMBiGainMgr
+#include <ckpttncpp/FMBiGainMgr.hpp> // import FMBiGainMgr
 template class FMGainMgr<FMBiGainCalc, FMBiGainMgr>;
 
 #include <ckpttncpp/FMKWayGainMgr.hpp> // import FMKWayGainMgr

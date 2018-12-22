@@ -23,7 +23,7 @@ class VertexView : public Graph
      * 
      * @param G 
      */
-    explicit VertexView(Graph &&G) : Graph(std::move(G)) {}
+    explicit VertexView(Graph &&G) : Graph{std::move(G)} {}
 
     /**
      * @brief begin()
@@ -223,7 +223,7 @@ class grAdaptor : public VertexView<Graph>
      * 
      * @param G 
      */
-    explicit grAdaptor(Graph &&G) : VertexView<Graph>(std::forward<Graph>(G)) {}
+    explicit grAdaptor(Graph &&G) : VertexView<Graph>{std::forward<Graph>(G)} {}
 
     /**
      * @brief number of nodes

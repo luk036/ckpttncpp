@@ -71,40 +71,26 @@ auto create_dwarf() -> SimpleNetlist {
  */
 auto create_test_netlist() -> SimpleNetlist {
     using Edge = std::pair<int, int>;
-    const int num_nodes = 6;
+    auto const num_nodes = 6;
     enum nodes { a1, a2, a3, n1, n2, n3 };
-    std::vector<nodes> module_name_list = {a1, a2, a3};
-    std::vector<nodes> net__name_list = {n1, n2, n3};
 
     // char name[] = "ABCDE";
     Edge edge_array[] = {Edge(a1, n1), Edge(a1, n2), Edge(a2, n1),
                          Edge(a2, n2), Edge(a3, n2), Edge(a1, n3)};
     // std::size_t indices[] = {0, 1, 2, 3, 4, 5};
-    int num_arcs = sizeof(edge_array) / sizeof(Edge);
-    graph_t g(edge_array, edge_array + num_arcs, num_nodes);
-    using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
-    using IndexMap =
-        typename boost::property_map<graph_t, boost::vertex_index_t>::type;
-    IndexMap index = boost::get(boost::vertex_index, g);
-    auto G = xn::grAdaptor<graph_t>(std::move(g));
+    auto num_arcs = sizeof(edge_array) / sizeof(Edge);
+    auto g = graph_t{edge_array, edge_array + num_arcs, num_nodes};
+    // using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
+    // using IndexMap =
+    //     typename boost::property_map<graph_t, boost::vertex_index_t>::type;
+    auto index = boost::get(boost::vertex_index, g);
+    auto G = xn::grAdaptor<graph_t>{std::move(g)};
     // std::vector<node_t> module_list(3);
     // std::vector<node_t> net_list(3);
-    std::vector<node_t> module_weight = {3, 4, 2};
-    // for (auto v : G)
-    // {
-    //     size_t i = index[v];
-    //     if (i < 3)
-    //     {
-    //         module_list[i] = v;
-    //     }
-    //     else
-    //     {
-    //         net_list[i - 3] = v;
-    //     }
-    // }
-    auto H = Netlist(std::move(G), py::range2(0, 3), py::range2(3, 6),
-                     py::range2(-3, 3));
-    H.module_weight = module_weight;
+    auto module_weight = std::vector<node_t>{3, 4, 2};
+    auto H = Netlist{std::move(G), py::range2(0, 3), py::range2(3, 6),
+                     py::range2(-3, 3)};
+    H.module_weight = std::move(module_weight);
     return H;
 }
 

@@ -4,14 +4,14 @@
 #include <ckpttncpp/dllist.hpp>  // import dllink
 
 TEST_CASE("Test BPQueue", "[bpqueue]") {
-    auto bpq1 = bpqueue(-10, 10);
-    auto bpq2 = bpqueue(-10, 10);
+    auto bpq1 = bpqueue{-10, 10};
+    auto bpq2 = bpqueue{-10, 10};
 
     CHECK(bpq1.is_empty());
 
-    auto d = dllink();
-    auto e = dllink();
-    auto f = dllink();
+    auto d = dllink{};
+    auto e = dllink{};
+    auto f = dllink{};
 
     CHECK(d.key == 0);
 

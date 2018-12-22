@@ -1,5 +1,5 @@
 #include <ckpttncpp/FMBiGainCalc.hpp>
-#include <ckpttncpp/FMBiGainMgr2.hpp>
+#include <ckpttncpp/FMBiGainMgr.hpp>
 
 /* linux-2.6.38.8/include/linux/compiler.h */
 #include <stdio.h>

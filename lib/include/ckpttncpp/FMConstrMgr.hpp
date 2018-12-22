@@ -16,7 +16,7 @@ class MoveInfoV;
 class FMConstrMgr {
   protected:
     SimpleNetlist &H;
-    double ratio;
+    double BalTol;
     std::uint8_t K;
     std::vector<size_t> diff;
     size_t lowerbound;
@@ -27,10 +27,10 @@ class FMConstrMgr {
      *
      * @param H
      * @param K
-     * @param ratio
+     * @param BalTol
      */
-    FMConstrMgr(SimpleNetlist &H, double ratio, std::uint8_t K = 2)
-        : H{H}, ratio{ratio}, K{K}, diff(K, 0), lowerbound{0}, 
+    FMConstrMgr(SimpleNetlist &H, double BalTol, std::uint8_t K = 2)
+        : H{H}, BalTol{BalTol}, K{K}, diff(K, 0), lowerbound{0}, 
           weight{0}, totalweight{0}
     {
         for (auto v = 0u; v < this->H.number_of_modules(); ++v) {

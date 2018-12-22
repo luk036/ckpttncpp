@@ -11,9 +11,9 @@ class FMBiConstrMgr : public FMConstrMgr {
      * @brief Construct a new FMBiConstrMgr object
      *
      * @param H
-     * @param ratio
+     * @param BalTol
      */
-    FMBiConstrMgr(SimpleNetlist &H, double ratio, std::uint8_t K=2) : FMConstrMgr(H, ratio, 2) {}
+    FMBiConstrMgr(SimpleNetlist &H, double BalTol, std::uint8_t K=2) : FMConstrMgr{H, BalTol, 2} {}
 
     /**
      * @brief

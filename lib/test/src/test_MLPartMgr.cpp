@@ -1,6 +1,6 @@
 #include <catch.hpp>
 #include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
-#include <ckpttncpp/FMBiGainMgr2.hpp>  // import FMBiGainMgr
+#include <ckpttncpp/FMBiGainMgr.hpp>  // import FMBiGainMgr
 #include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr
 #include <ckpttncpp/FMKWayGainMgr.hpp>  // import FMKWayGainMgr
 #include <ckpttncpp/FMPartMgr.hpp>     // import FMBiPartMgr

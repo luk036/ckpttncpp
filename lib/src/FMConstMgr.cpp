@@ -13,7 +13,7 @@ auto FMConstrMgr::init(const std::vector<std::uint8_t> &part) -> void {
         this->diff[part[v]] += weight;
     }
     auto totalweightK = this->totalweight * (2. / this->K);
-    this->lowerbound = std::round(totalweightK * this->ratio);
+    this->lowerbound = std::round(totalweightK * this->BalTol);
 }
 
 /**

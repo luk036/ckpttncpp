@@ -129,5 +129,5 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize(
 template class FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>;
 
 #include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
-#include <ckpttncpp/FMBiGainMgr2.hpp>  // import FMBiGainMgr
+#include <ckpttncpp/FMBiGainMgr.hpp>  // import FMBiGainMgr
 template class FMPartMgr<FMBiGainMgr, FMBiConstrMgr>;

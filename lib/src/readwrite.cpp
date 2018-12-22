@@ -17,7 +17,7 @@ using std::ofstream;
 
 // Read the IBM .netD/.net format. Precondition: Netlist is empty.
 auto readNetD(const char *netDFileName) -> SimpleNetlist {
-    ifstream netD(netDFileName);
+    auto netD = ifstream{netDFileName};
     if (netD.fail()) {
         std::cerr << "Error: Can't open file " << netDFileName << ".\n";
         exit(1);
@@ -30,8 +30,8 @@ auto readNetD(const char *netDFileName) -> SimpleNetlist {
     netD >> numPins >> numNets >> numModules >> padOffset;
 
     using Edge = std::pair<int, int>;
-    const int num_vertices = numModules + numNets;
-    graph_t g(num_vertices);
+    auto const num_vertices = numModules + numNets;
+    graph_t g{num_vertices};
 
     const size_t bufferSize = 100;
     char lineBuffer[bufferSize]; // Does it work for other compiler?
@@ -93,23 +93,21 @@ auto readNetD(const char *netDFileName) -> SimpleNetlist {
         exit(1);
     }
 
-    using IndexMap =
-        typename boost::property_map<graph_t, boost::vertex_index_t>::type;
-    IndexMap index = boost::get(boost::vertex_index, g);
-    // std::vector<node_t> module_list(numModules);
-    // std::vector<node_t> net_list(numNets);
-    auto G = xn::grAdaptor<graph_t>(std::move(g));
+    // using IndexMap =
+    //     typename boost::property_map<graph_t, boost::vertex_index_t>::type;
+    auto index = boost::get(boost::vertex_index, g);
+    auto G = xn::grAdaptor<graph_t>{std::move(g)};
     auto H =
-        Netlist(std::move(G), py::range2(0, numModules),
+        Netlist{std::move(G), py::range2(0, numModules),
                 py::range2(numModules, num_vertices),
-                py::range2(-numModules, num_vertices - numModules));
+                py::range2(-numModules, num_vertices - numModules)};
     H.num_pads = numModules - padOffset - 1;
-    return H;
+    return std::move(H);
 }
 
 // Read the IBM .are format
 void readAre(SimpleNetlist &H, const char *areFileName) {
-    ifstream are(areFileName);
+    auto are = ifstream{areFileName};
     if (are.fail()) {
         std::cerr << " Could not open " << areFileName << std::endl;
         exit(1);
@@ -125,7 +123,7 @@ void readAre(SimpleNetlist &H, const char *areFileName) {
     // xxx size_t smallestWeight = UINT_MAX;
     auto numModules = H.number_of_modules();
     auto padOffset = numModules - H.num_pads - 1;
-    std::vector<size_t> module_weight(numModules);
+    auto module_weight = std::vector<size_t>(numModules);
 
     size_t lineno = 1;
     for (size_t i = 0; i < numModules; i++) {
@@ -161,5 +159,5 @@ void readAre(SimpleNetlist &H, const char *areFileName) {
         lineno++;
     }
 
-    H.module_weight = module_weight;
+    H.module_weight = std::move(module_weight);
 }

@@ -1,12 +1,18 @@
 #include <catch.hpp>
-#include <ckpttncpp/FMBiGainMgr2.hpp> // import FMBiGainMgr
+#include <ckpttncpp/FMBiGainMgr.hpp> // import FMBiGainMgr
 #include <ckpttncpp/netlist.hpp>      // import Netlist
 
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
 extern SimpleNetlist create_dwarf();        // import create_dwarf
 
+/**
+ * @brief 
+ * 
+ * @param H 
+ * @param part_test 
+ */
 void run_FMBiGainMgr(SimpleNetlist &H, std::vector<std::uint8_t> &part_test) {
-    FMBiGainMgr mgr{H};
+    auto mgr = FMBiGainMgr{H};
     auto part = part_test;
     mgr.init(part);
     while (!mgr.is_empty()) {

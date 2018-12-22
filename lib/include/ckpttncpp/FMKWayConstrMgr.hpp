@@ -19,11 +19,11 @@ class FMKWayConstrMgr : public FMConstrMgr {
      * @brief Construct a new FMKWayConstrMgr object
      *
      * @param H
-     * @param ratio
+     * @param BalTol
      * @param K
      */
-    FMKWayConstrMgr(SimpleNetlist &H, double ratio, std::uint8_t K)
-        : FMConstrMgr(H, ratio, K), illegal(K, true) {}
+    FMKWayConstrMgr(SimpleNetlist &H, double BalTol, std::uint8_t K)
+        : FMConstrMgr{H, BalTol, K}, illegal(K, true) {}
 
     /**
      * @brief

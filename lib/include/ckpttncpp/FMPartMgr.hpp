@@ -62,6 +62,15 @@ class FMPartMgr {
      * @param part
      */
     void optimize(std::vector<std::uint8_t> &part);
+
+  private:
+    /**
+     * @brief
+     *
+     * @param part
+     */
+    void optimize_1pass(std::vector<std::uint8_t> &part);
+
 };
 
 #endif

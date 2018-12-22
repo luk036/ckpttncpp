@@ -22,7 +22,7 @@ TEST_CASE("Test MLBiPartMgr dwarf", "[test_MLBiPartMgr]") {
 
 TEST_CASE("Test MLKWayPartMgr dwarf", "[test_MLKWayPartMgr]") {
     auto H = create_dwarf();
-    auto partMgr = MLPartMgr{0.45, 3};
+    auto partMgr = MLPartMgr{0.3, 3}; // 0.3???
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     partMgr.run_Partition<FMKWayGainMgr, FMKWayConstrMgr>(H, part);
     CHECK(partMgr.totalcost == 4);

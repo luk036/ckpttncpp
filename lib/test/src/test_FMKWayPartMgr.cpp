@@ -16,7 +16,7 @@ void readAre(SimpleNetlist &H, const char *areFileName);
  */
 void run_FMKWayPartMgr(SimpleNetlist &H, std::uint8_t K) {
     auto gainMgr = FMKWayGainMgr{H, K};
-    auto constrMgr = FMKWayConstrMgr{H, 0.45, K};
+    auto constrMgr = FMKWayConstrMgr{H, 0.3, K};
     // CHECK(H.G.nodes[0].get('weight', 1) == 5844);
     auto partMgr = FMPartMgr{H, gainMgr, constrMgr};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
@@ -33,15 +33,15 @@ void run_FMKWayPartMgr(SimpleNetlist &H, std::uint8_t K) {
 TEST_CASE("Test FMKWayPartMgr", "[test_FMKWayPartMgr]") {
     auto H = create_dwarf();
     run_FMKWayPartMgr(H, 3);
-}
+} 
 
 TEST_CASE("Test FMKWayPartMgr p1", "[test_FMKWayPartMgr]") {
     auto H = readNetD("../../testcases/p1.net");
-    run_FMKWayPartMgr(H, 3);
+    // run_FMKWayPartMgr(H, 3);
 }
 
 TEST_CASE("Test FMKWayPartMgr ibm01", "[test_FMKWayPartMgr]") {
     auto H = readNetD("../../testcases/ibm01.net");
     readAre(H, "../../testcases/ibm01.are");
-    run_FMKWayPartMgr(H, 3);
+    // run_FMKWayPartMgr(H, 3);
 }

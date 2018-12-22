@@ -14,7 +14,7 @@ extern void readAre(SimpleNetlist &H, const char *areFileName);
 
 TEST_CASE("Test MLBiPartMgr dwarf", "[test_MLBiPartMgr]") {
     auto H = create_dwarf();
-    auto partMgr = MLPartMgr{0.4};
+    auto partMgr = MLPartMgr{0.3};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     partMgr.run_Partition<FMBiGainMgr, FMBiConstrMgr>(H, part);
     CHECK(partMgr.totalcost == 2);
@@ -32,8 +32,8 @@ TEST_CASE("Test MLKWayPartMgr dwarf", "[test_MLKWayPartMgr]") {
 //     auto H = readNetD("../../testcases/p1.net");
 //     auto partMgr = MLPartMgr{0.45};
 //     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-//     partMgr.run_Partition<FMBiGainMgr, FMBiConstrMgr>(H, part);
-//     CHECK(partMgr.totalcost == 2);
+//     partMgr.run_Partition<FMBiGainMgr, FMBiConstrMgr>(H, part, 10000);
+//     CHECK(partMgr.totalcost == 106);
 // }
 
 // TEST_CASE("Test MLBiPartMgr ibm01", "[test_MLBiPartMgr]") {
@@ -41,6 +41,6 @@ TEST_CASE("Test MLKWayPartMgr dwarf", "[test_MLKWayPartMgr]") {
 //     readAre(H, "../../testcases/ibm01.are");
 //     auto partMgr = MLPartMgr{0.45};
 //     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-//     partMgr.run_Partition<FMBiGainMgr, FMBiConstrMgr>(H, part);
-//     CHECK(partMgr.totalcost == 200);
+//     partMgr.run_Partition<FMBiGainMgr, FMBiConstrMgr>(H, part, 100000);
+//     CHECK(partMgr.totalcost == 287);
 // }

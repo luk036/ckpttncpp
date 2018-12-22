@@ -130,25 +130,24 @@ auto FMKWayGainCalc::update_move_general_net(
     auto weight = this->H.get_net_weight(net);
     if (num[fromPart] == 0) {
         if (num[toPart] > 0) {
-            for (auto idx = 0u; idx < degree; ++idx) {
-                deltaGain[idx][fromPart] -= weight;
-            }
             for (auto k = 0u; k < this->K; ++k) {
                 this->deltaGainV[k] -= weight;
             }
         }
     } else { // num[fromPart] > 0
         if (num[toPart] == 0) {
-            for (auto idx = 0u; idx < degree; ++idx) {
-                deltaGain[idx][toPart] += weight;
-            }
             for (auto k = 0u; k < this->K; ++k) {
                 this->deltaGainV[k] += weight;
             }
         }
     }
     for (auto &&l : {fromPart, toPart}) {
-        if (num[l] == 1) {
+        if (num[l] == 0) {
+            for (auto idx = 0u; idx < degree; ++idx) {
+                deltaGain[idx][l] -= weight;
+            }
+        }
+        else if (num[l] == 1) {
             for (auto idx = 0u; idx < degree; ++idx) {
                 if (part[IdVec[idx]] == l) {
                     for (auto k = 0u; k < this->K; ++k) {

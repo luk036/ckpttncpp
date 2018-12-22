@@ -22,13 +22,14 @@ class MLPartMgr {
       : BalTol{BalTol}, K{K}, totalcost{0} {}
 
     template <typename GainMgr, typename ConstrMgr>  
-    auto run_Partition(SimpleNetlist &H, std::vector<std::uint8_t> &part) -> size_t {
+    auto run_Partition(SimpleNetlist &H, std::vector<std::uint8_t> &part,
+                        size_t limitsize = 7) -> size_t {
         auto gainMgr = GainMgr(H, this->K);
         auto constrMgr = ConstrMgr(H, this->BalTol, this->K);
         auto partMgr = FMPartMgr(H, gainMgr, constrMgr);
         partMgr.init(part);
         auto legalcheck = partMgr.legalize(part);
-        if (legalcheck == 2 && H.number_of_modules() >= 7) { // OK
+        if (legalcheck == 2 && H.number_of_modules() >= limitsize) { // OK
             auto H2 = create_contraction_subgraph(H);
             auto part2 = std::vector<std::uint8_t>(H2.number_of_modules(), 0);
             H2.project_up(part, part2);

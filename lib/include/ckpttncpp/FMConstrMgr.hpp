@@ -37,6 +37,8 @@ class FMConstrMgr {
             weight = this->H.get_module_weight_by_id(v);
             this->totalweight += weight;
         }
+        auto totalweightK = this->totalweight * (2. / this->K);
+        this->lowerbound = std::round(totalweightK * this->BalTol);
     }
 
   public:

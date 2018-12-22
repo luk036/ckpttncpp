@@ -37,7 +37,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
      * @param keys
      */
     auto modify_key(const std::vector<std::uint8_t> &part, node_t w,
-                    std::vector<int> &keys) -> void {
+                    const std::vector<int> &keys) -> void {
         for (auto k = 0u; k < this->K; ++k) {
             if (part[w] == k) {
                 continue;

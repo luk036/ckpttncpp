@@ -1,35 +1,35 @@
-#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMKWayGAINMGR_HPP
-#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMKWayGAINMGR_HPP 1
+#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FDKWayGAINMGR_HPP
+#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FDKWayGAINMGR_HPP 1
 
-#include "FMGainMgr.hpp"
-#include "FMKWayGainCalc.hpp"
+#include "FDGainMgr.hpp"
+#include "FDKWayGainCalc.hpp"
 
 /**
- * @brief FMKWayGainMgr
+ * @brief FDKWayGainMgr
  *
  */
-class FMKWayGainMgr;
+class FDKWayGainMgr;
 
-class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
-    using Base = FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>;
+class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
+    using Base = FDGainMgr<FDKWayGainCalc, FDKWayGainMgr>;
   private:
     robin RR;
 
   public:
     /**
-     * @brief Construct a new FMKWayGainMgr object
+     * @brief Construct a new FDKWayGainMgr object
      *
      * @param H
      * @param K
      */
-    FMKWayGainMgr(SimpleNetlist &H, std::uint8_t K) : Base{H, K}, RR{K} {}
+    FDKWayGainMgr(SimpleNetlist &H, std::uint8_t K) : Base{H, K}, RR{K} {}
 
     /**
      * @brief
      *
      * @param part
      */
-    auto init(const std::vector<std::uint8_t> &part) -> int;
+    auto init(const PartInfo &part_info) -> int;
 
     /**
      * @brief (needed by base class)

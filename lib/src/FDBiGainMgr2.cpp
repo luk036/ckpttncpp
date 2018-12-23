@@ -1,14 +1,16 @@
-#include <ckpttncpp/FMBiGainCalc.hpp>
-#include <ckpttncpp/FMBiGainMgr.hpp>
+#include <ckpttncpp/FDBiGainCalc.hpp>
+#include <ckpttncpp/FDBiGainMgr.hpp>
 
 /**
  * @brief
  *
  * @param part
  */
-auto FMBiGainMgr::init(const std::vector<std::uint8_t> &part) -> int
+auto FDBiGainMgr::init(const PartInfo &part_info) -> int
 {
-    auto totalcost = Base::init(part);
+    auto totalcost = Base::init(part_info);
+    auto const& [part, extern_nets] = part_info;
+
     for (auto k = 0u; k < this->K; ++k) {
         this->gainbucket[k]->clear();
     }

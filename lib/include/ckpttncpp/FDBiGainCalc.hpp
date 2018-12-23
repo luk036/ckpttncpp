@@ -1,18 +1,18 @@
-#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMBIGAINCALC_HPP
-#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMBIGAINCALC_HPP 1
+#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FDBIGAINCALC_HPP
+#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FDBIGAINCALC_HPP 1
 
 // #include "bpqueue.hpp" // import bpqueue
 #include "dllist.hpp"  // import dllink
 #include "netlist.hpp" // import Netlist
 
-class FMBiGainMgr;
+class FDBiGainMgr;
 
 /**
- * @brief FMBiGainCalc
+ * @brief FDBiGainCalc
  *
  */
-class FMBiGainCalc {
-    friend FMBiGainMgr;
+class FDBiGainCalc {
+    friend FDBiGainMgr;
 
   private:
     SimpleNetlist &H;
@@ -23,12 +23,12 @@ class FMBiGainCalc {
     int totalcost;
 
     /**
-     * @brief Construct a new FMBiGainCalc object
+     * @brief Construct a new FDBiGainCalc object
      *
      * @param H
      * @param K
      */
-    explicit FMBiGainCalc(SimpleNetlist &H, std::uint8_t K = 2)
+    explicit FDBiGainCalc(SimpleNetlist &H, std::uint8_t K = 2)
         : H{H}, vertex_list(H.number_of_modules()),
           totalcost{0} {}
 
@@ -37,14 +37,14 @@ class FMBiGainCalc {
      *
      * @param part
      */
-    auto init(const std::vector<std::uint8_t> &part) -> int {
+    auto init(const PartInfo &part_info) -> int {
         // for (auto &net : this->H.net_list) {
         this->totalcost = 0;
         for (auto& vlink : this->vertex_list) {
             vlink.key = 0;
         }
         for (auto net : this->H.nets) {
-            this->init_gain(net, part);
+            this->init_gain(net, part_info);
         }
         return this->totalcost;
     }
@@ -88,7 +88,7 @@ class FMBiGainCalc {
      * @param move_info
      * @return ret_2pin_info
      */
-    auto update_move_2pin_net(const std::vector<std::uint8_t> &part,
+    auto update_move_2pin_net(PartInfo &part_info,
                               const MoveInfo &move_info) -> ret_2pin_info;
 
     using ret_info = std::tuple<std::vector<size_t>, std::vector<int>>;
@@ -101,7 +101,7 @@ class FMBiGainCalc {
      * @param fromPart
      * @param v
      */
-    auto update_move_general_net(const std::vector<std::uint8_t> &part,
+    auto update_move_general_net(PartInfo &part_info,
                                  const MoveInfo &move_info) -> ret_info;
 
   protected:
@@ -122,7 +122,7 @@ class FMBiGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain(node_t net, const std::vector<std::uint8_t> &part) -> void;
+    auto init_gain(node_t net, const PartInfo &part_info) -> void;
 
     /**
      * @brief

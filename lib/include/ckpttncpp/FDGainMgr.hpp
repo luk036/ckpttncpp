@@ -1,5 +1,5 @@
-#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMGAINMGR_HPP
-#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMGAINMGR_HPP 1
+#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FDGAINMGR_HPP
+#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FDGAINMGR_HPP 1
 
 #include "bpqueue.hpp" // import bpqueue
 #include "dllist.hpp"  // import dllink
@@ -15,7 +15,7 @@
  * @tparam GainCalc
  * @tparam Derived
  */
-template <typename GainCalc, class Derived> class FMGainMgr {
+template <typename GainCalc, class Derived> class FDGainMgr {
     Derived &self = *static_cast<Derived *>(this);
 
   protected:
@@ -31,19 +31,19 @@ template <typename GainCalc, class Derived> class FMGainMgr {
     // int totalcost;
 
     /**
-     * @brief Construct a new FMGainMgr object
+     * @brief Construct a new FDGainMgr object
      *
      * @param H
      * @param K
      */
-    explicit FMGainMgr(SimpleNetlist &H, std::uint8_t K = 2);
+    explicit FDGainMgr(SimpleNetlist &H, std::uint8_t K = 2);
 
     /**
      * @brief
      *
      * @param part
      */
-    auto init(const std::vector<std::uint8_t> &part) -> int;
+    auto init(const PartInfo &part_info) -> int;
 
 
     auto get_pmax() const -> size_t { return this->pmax; }
@@ -97,7 +97,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      * @param part
      * @param move_info_v
      */
-    auto update_move(const std::vector<std::uint8_t> &part,
+    auto update_move(PartInfo &part_info,
                      const MoveInfoV &move_info_v) -> void;
 
   private:
@@ -107,7 +107,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      * @param part
      * @param move_info
      */
-    auto update_move_2pin_net(const std::vector<std::uint8_t> &part,
+    auto update_move_2pin_net(PartInfo &part_info,
                               const MoveInfo &move_info) -> void;
 
     /**
@@ -116,7 +116,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      * @param part
      * @param move_info
      */
-    auto update_move_general_net(const std::vector<std::uint8_t> &part,
+    auto update_move_general_net(PartInfo &part_info,
                                  const MoveInfo &move_info) -> void;
 };
 

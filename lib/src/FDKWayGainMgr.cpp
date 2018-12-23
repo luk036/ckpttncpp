@@ -1,13 +1,14 @@
-#include <ckpttncpp/FMKWayGainCalc.hpp>
-#include <ckpttncpp/FMKWayGainMgr.hpp>
+#include <ckpttncpp/FDKWayGainCalc.hpp>
+#include <ckpttncpp/FDKWayGainMgr.hpp>
 
 /**
  * @brief
  *
  * @param part
  */
-auto FMKWayGainMgr::init(const std::vector<std::uint8_t> &part) -> int {
-    auto totalcost = Base::init(part);
+auto FDKWayGainMgr::init(const PartInfo &part_info) -> int {
+    auto totalcost = Base::init(part_info);
+    auto const& [part, extern_nets] = part_info;
 
     for (auto k = 0u; k < this->K; ++k) {
         this->gainbucket[k]->clear();
@@ -33,7 +34,7 @@ auto FMKWayGainMgr::init(const std::vector<std::uint8_t> &part) -> int {
  * @param move_info_v
  * @param gain
  */
-auto FMKWayGainMgr::update_move_v(const std::vector<std::uint8_t> &part,
+auto FDKWayGainMgr::update_move_v(const std::vector<std::uint8_t> &part,
                                   const MoveInfoV &move_info_v, int gain)
     -> void {
     auto const &[fromPart, toPart, v] = move_info_v;

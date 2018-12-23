@@ -1,26 +1,28 @@
-#include <ckpttncpp/FMPartMgr.hpp>
+#include <ckpttncpp/FDPartMgr.hpp>
 #include <ckpttncpp/netlist.hpp>
 
 /**
  * @brief
  *
- * @tparam FMGainMgr
- * @tparam FMConstrMgr
+ * @tparam FDGainMgr
+ * @tparam FDConstrMgr
  * @param part
  */
-template <typename FMGainMgr, typename FMConstrMgr>
-auto FMPartMgr<FMGainMgr, FMConstrMgr>::init(std::vector<std::uint8_t> &part)
+template <typename FDGainMgr, typename FDConstrMgr>
+auto FDPartMgr<FDGainMgr, FDConstrMgr>::init(PartInfo &part_info)
     -> void {
-    this->totalcost = this->gainMgr.init(part);
+    this->totalcost = this->gainMgr.init(part_info);
     // this->totalcost = this->gainMgr.totalcost;
+    auto const &[part, extern_nets] = part_info;
     this->validator.init(part);
 }
 
-template <typename FMGainMgr, typename FMConstrMgr>
-auto FMPartMgr<FMGainMgr, FMConstrMgr>::legalize(
-    std::vector<std::uint8_t> &part) -> size_t {
-    this->init(part);
+template <typename FDGainMgr, typename FDConstrMgr>
+auto FDPartMgr<FDGainMgr, FDConstrMgr>::legalize(
+    PartInfo &part_info) -> size_t {
     size_t legalcheck = 0;
+    this->init(part_info);
+    auto &[part, extern_nets] = part_info;
     while (true) {
         auto toPart = this->validator.select_togo();
         if (this->gainMgr.is_empty_togo(toPart)) {
@@ -38,7 +40,7 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::legalize(
         }
         // Update v and its neigbours (even they are in waitinglist);
         // Put neigbours to bucket
-        this->gainMgr.update_move(part, move_info_v);
+        this->gainMgr.update_move(part_info, move_info_v);
         this->gainMgr.update_move_v(part, move_info_v, gainmax);
         this->validator.update_move(move_info_v);
         part[v] = toPart;
@@ -57,13 +59,14 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::legalize(
 /**
  * @brief
  *
- * @tparam FMGainMgr
- * @tparam FMConstrMgr
+ * @tparam FDGainMgr
+ * @tparam FDConstrMgr
  * @param part
  */
-template <typename FMGainMgr, typename FMConstrMgr>
-auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize_1pass(
-    std::vector<std::uint8_t> &part) -> void {
+template <typename FDGainMgr, typename FDConstrMgr>
+auto FDPartMgr<FDGainMgr, FDConstrMgr>::optimize_1pass(
+    PartInfo &part_info) -> void {
+    auto &[part, extern_nets] = part_info;
     auto totalgain = 0;
     auto deferredsnapshot = false;
     auto snapeshot = part;
@@ -89,7 +92,7 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize_1pass(
         }
         // Update v and its neigbours (even they are in waitinglist);
         // Put neigbours to bucket
-        this->gainMgr.update_move(part, move_info_v);
+        this->gainMgr.update_move(part_info, move_info_v);
         this->gainMgr.update_move_v(part, move_info_v, 2*this->gainMgr.get_pmax());
         this->validator.update_move(move_info_v);
         totalgain += gainmax;
@@ -107,17 +110,17 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize_1pass(
 /**
  * @brief
  *
- * @tparam FMGainMgr
- * @tparam FMConstrMgr
+ * @tparam FDGainMgr
+ * @tparam FDConstrMgr
  * @param part
  */
-template <typename FMGainMgr, typename FMConstrMgr>
-auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize(
-    std::vector<std::uint8_t> &part) -> void {
+template <typename FDGainMgr, typename FDConstrMgr>
+auto FDPartMgr<FDGainMgr, FDConstrMgr>::optimize(
+    PartInfo &part_info) -> void {
     while (true) {
-        this->init(part);
+        this->init(part_info);
         auto totalcostbefore = this->totalcost;
-        this->optimize_1pass(part);
+        this->optimize_1pass(part_info);
         assert(this->totalcost <= totalcostbefore);
         if (this->totalcost == totalcostbefore) {
             break;
@@ -126,9 +129,9 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize(
 }
 
 #include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr
-#include <ckpttncpp/FMKWayGainMgr.hpp>   // import FMKWayGainMgr
-template class FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>;
+#include <ckpttncpp/FDKWayGainMgr.hpp>   // import FDKWayGainMgr
+template class FDPartMgr<FDKWayGainMgr, FMKWayConstrMgr>;
 
 #include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
-#include <ckpttncpp/FMBiGainMgr.hpp>  // import FMBiGainMgr
-template class FMPartMgr<FMBiGainMgr, FMBiConstrMgr>;
+#include <ckpttncpp/FDBiGainMgr.hpp>  // import FDBiGainMgr
+template class FDPartMgr<FDBiGainMgr, FMBiConstrMgr>;

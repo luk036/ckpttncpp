@@ -198,4 +198,9 @@ struct MoveInfoV {
     // size_t i_v;
 };
 
+struct PartInfo {
+    std::vector<std::uint8_t> part;
+    py::set<size_t> extern_nets;
+};
+
 #endif

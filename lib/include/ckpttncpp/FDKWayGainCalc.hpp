@@ -1,19 +1,19 @@
-#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMKWayGAINCALC_HPP
-#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMKWayGAINCALC_HPP 1
+#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FDKWayGAINCALC_HPP
+#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FDKWayGAINCALC_HPP 1
 
 // #include "bpqueue.hpp" // import bpqueue
 #include "dllist.hpp"  // import dllink
 #include "netlist.hpp" // import Netlist
 #include "robin.hpp" // import robin
 
-class FMKWayGainMgr;
+class FDKWayGainMgr;
 
 /**
- * @brief FMKWayGainCalc
+ * @brief FDKWayGainCalc
  *
  */
-class FMKWayGainCalc {
-    friend FMKWayGainMgr;
+class FDKWayGainCalc {
+    friend FDKWayGainMgr;
 
   private:
     SimpleNetlist &H;
@@ -27,12 +27,12 @@ class FMKWayGainCalc {
     int totalcost;
 
     /**
-     * @brief Construct a new FMKWayGainCalc object
+     * @brief Construct a new FDKWayGainCalc object
      *
      * @param H Netlist
      * @param K number of partitions
      */
-    FMKWayGainCalc(SimpleNetlist &H, std::uint8_t K)
+    FDKWayGainCalc(SimpleNetlist &H, std::uint8_t K)
         : H{H}, K{K}, RR{K}, num_modules{H.number_of_modules()},
           deltaGainV(K, 0), totalcost{0} 
     {
@@ -57,7 +57,7 @@ class FMKWayGainCalc {
      *
      * @param part
      */
-    auto init(const std::vector<std::uint8_t> &part) -> int {
+    auto init(const PartInfo &part_info) -> int {
         this->totalcost = 0;
         for (auto k = 0u; k < this->K; ++k) {
             for (auto& vlink : this->vertex_list[k]) {
@@ -65,8 +65,9 @@ class FMKWayGainCalc {
             }
         }
         for (auto net : this->H.nets) {
-            this->init_gain(net, part);
+            this->init_gain(net, part_info);
         }
+
         return this->totalcost;
     }
 
@@ -112,7 +113,7 @@ class FMKWayGainCalc {
      * @param move_info
      * @return ret_2pin_info
      */
-    auto update_move_2pin_net(const std::vector<std::uint8_t> &part,
+    auto update_move_2pin_net(PartInfo &part_info,
                               const MoveInfo &move_info) -> ret_2pin_info;
 
     using ret_info =
@@ -125,7 +126,7 @@ class FMKWayGainCalc {
      * @param move_info
      * @return ret_info
      */
-    auto update_move_general_net(const std::vector<std::uint8_t> &part,
+    auto update_move_general_net(PartInfo &part_info,
                                  const MoveInfo &move_info) -> ret_info;
 
   private:
@@ -135,7 +136,7 @@ class FMKWayGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain(node_t net, const std::vector<std::uint8_t> &part) -> void;
+    auto init_gain(node_t net, const PartInfo &part_info) -> void;
 
     /**
      * @brief

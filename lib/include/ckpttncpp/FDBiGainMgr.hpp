@@ -1,31 +1,31 @@
-#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMBIGAINMGR_HPP
-#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMBIGAINMGR_HPP 1
+#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FDBIGAINMGR_HPP
+#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FDBIGAINMGR_HPP 1
 
-#include "FMBiGainCalc.hpp"
-#include "FMGainMgr.hpp"
+#include "FDBiGainCalc.hpp"
+#include "FDGainMgr.hpp"
 
-struct FMBiGainMgr;
+struct FDBiGainMgr;
 
 /**
- * @brief FMBiGainMgr
+ * @brief FDBiGainMgr
  *
  */
-struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
-    using Base = FMGainMgr<FMBiGainCalc, FMBiGainMgr>;
+struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
+    using Base = FDGainMgr<FDBiGainCalc, FDBiGainMgr>;
 
     /**
-     * @brief Construct a new FMBiGainMgr object
+     * @brief Construct a new FDBiGainMgr object
      *
      * @param H
      */
-    explicit FMBiGainMgr(SimpleNetlist &H, std::uint8_t K=2) : Base{H} {}
+    explicit FDBiGainMgr(SimpleNetlist &H, std::uint8_t K=2) : Base{H} {}
 
     /**
      * @brief
      *
      * @param part
      */
-    auto init(const std::vector<std::uint8_t> &part) -> int;
+    auto init(const PartInfo &part_info) -> int;
 
     /**
      * @brief (needed by base class)

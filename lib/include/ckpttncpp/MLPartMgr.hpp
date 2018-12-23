@@ -27,7 +27,7 @@ class MLPartMgr {
         auto gainMgr = GainMgr(H, this->K);
         auto constrMgr = ConstrMgr(H, this->BalTol, this->K);
         auto partMgr = FMPartMgr(H, gainMgr, constrMgr);
-        partMgr.init(part);
+        // partMgr.init(part);
         auto legalcheck = partMgr.legalize(part);
         if (legalcheck == 2 && H.number_of_modules() >= limitsize) { // OK
             auto H2 = create_contraction_subgraph(H);
@@ -35,7 +35,7 @@ class MLPartMgr {
             H2.project_up(part, part2);
             auto legalcheck = this->run_Partition<GainMgr, ConstrMgr>(H2, part2);
             H2.project_down(part2, part);
-            partMgr.init(part);
+            // partMgr.init(part);
             if (legalcheck != 2) {
                 legalcheck = partMgr.legalize(part);
                 assert(partMgr.totalcost >= 0);

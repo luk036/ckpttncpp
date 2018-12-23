@@ -34,9 +34,8 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
      * @param w
      * @param key
      */
-    auto modify_key(const std::vector<std::uint8_t> &part, node_t w, int key)
+    auto modify_key(node_t w, std::uint8_t part_w, int key)
         -> void {
-        auto part_w = part[w];
         this->gainbucket[1 - part_w]->modify_key(
             this->gainCalc.vertex_list[w], key);
     }

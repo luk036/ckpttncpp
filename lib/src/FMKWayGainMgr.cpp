@@ -13,17 +13,15 @@ auto FMKWayGainMgr::init(const std::vector<std::uint8_t> &part) -> void {
         this->gainbucket[k]->clear();
     }
 
-    for (auto k = 0u; k < this->K; ++k) {
-        for (auto v = 0u; v < this->H.number_of_modules(); ++v) {
+    for (auto v = 0u; v < this->H.number_of_modules(); ++v) {
+        auto pv = part[v];
+        for (auto k : this->RR.exclude(pv)) {
             auto &vlink = this->gainCalc.vertex_list[k][v];
-            if (part[v] == k) {
-                // assert(vlink.key == 0);
-                this->gainbucket[k]->set_key(vlink, -2*this->pmax);
-                this->waitinglist.append(vlink);
-            } else {
-                this->gainbucket[k]->append_direct(vlink);
-            }
+            this->gainbucket[k]->append_direct(vlink);
         }
+        auto &vlink = this->gainCalc.vertex_list[pv][v];
+        this->gainbucket[pv]->set_key(vlink, -2*this->pmax);
+        this->waitinglist.append(vlink);
     }
 }
 

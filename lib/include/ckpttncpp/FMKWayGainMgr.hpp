@@ -12,6 +12,8 @@ class FMKWayGainMgr;
 
 class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
     using Base = FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>;
+  private:
+    robin RR;
 
   public:
     /**
@@ -20,7 +22,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
      * @param H
      * @param K
      */
-    FMKWayGainMgr(SimpleNetlist &H, std::uint8_t K) : Base{H, K} {}
+    FMKWayGainMgr(SimpleNetlist &H, std::uint8_t K) : Base{H, K}, RR{K} {}
 
     /**
      * @brief
@@ -36,12 +38,9 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
      * @param w
      * @param keys
      */
-    auto modify_key(const std::vector<std::uint8_t> &part, node_t w,
+    auto modify_key(node_t w, std::uint8_t part_w,
                     const std::vector<int> &keys) -> void {
-        for (auto k = 0u; k < this->K; ++k) {
-            if (part[w] == k) {
-                continue;
-            }
+        for (auto k : this->RR.exclude(part_w)) {
             this->gainbucket[k]->modify_key(this->gainCalc.vertex_list[k][w],
                                             keys[k]);
         }

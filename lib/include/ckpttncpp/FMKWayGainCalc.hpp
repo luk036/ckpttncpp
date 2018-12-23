@@ -4,6 +4,7 @@
 // #include "bpqueue.hpp" // import bpqueue
 #include "dllist.hpp"  // import dllink
 #include "netlist.hpp" // import Netlist
+#include "robin.hpp" // import robin
 
 class FMKWayGainMgr;
 
@@ -17,6 +18,7 @@ class FMKWayGainCalc {
   private:
     SimpleNetlist &H;
     std::uint8_t K;
+    robin RR;
     size_t num_modules;
     std::vector<std::vector<dllink>> vertex_list;
     std::vector<int> deltaGainV;
@@ -31,7 +33,7 @@ class FMKWayGainCalc {
      * @param K number of partitions
      */
     FMKWayGainCalc(SimpleNetlist &H, std::uint8_t K)
-        : H{H}, K{K}, num_modules{H.number_of_modules()},
+        : H{H}, K{K}, RR{K}, num_modules{H.number_of_modules()},
           deltaGainV(K, 0), totalcost{0} 
     {
         for (auto k = 0u; k < this->K; ++k) {
@@ -86,8 +88,8 @@ class FMKWayGainCalc {
      * @param v
      * @param weight
      */
-    auto modify_gain(node_t v, int weight) -> void {
-        for (auto k = 0u; k < this->K; ++k) {
+    auto modify_gain(node_t v, std::uint8_t part_v, int weight) -> void {
+        for (auto k : this->RR.exclude(part_v)) {
             this->vertex_list[k][v].key += weight;
         }
     }

@@ -38,13 +38,13 @@ auto FMKWayGainCalc::init_gain_2pin_net(node_t net,
     auto weight = this->H.get_net_weight(net);
     if (part_w != part_v) {
         this->totalcost += weight;
+        this->vertex_list[part_v][w].key += weight;
+        this->vertex_list[part_w][v].key += weight;
     }
     if (part_v == part_w) {
-        this->modify_gain(w, -weight);
-        this->modify_gain(v, -weight);
+        this->modify_gain(w, part_w, -weight);
+        this->modify_gain(v, part_v, -weight);
     }
-    this->vertex_list[part_v][w].key += weight;
-    this->vertex_list[part_w][v].key += weight;
 }
 
 auto FMKWayGainCalc::init_gain_general_net(
@@ -72,7 +72,7 @@ auto FMKWayGainCalc::init_gain_general_net(
         } else if (num[k] == 1) {
             for (auto w : IdVec) {
                 if (part[w] == k) {
-                    this->modify_gain(w, weight);
+                    this->modify_gain(w, part[w], weight);
                     break;
                 }
             }

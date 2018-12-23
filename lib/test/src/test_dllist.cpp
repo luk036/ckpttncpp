@@ -1,5 +1,6 @@
 #include <catch.hpp>
 #include <ckpttncpp/dllist.hpp> // import  dllink
+#include <ckpttncpp/robin.hpp> // import  dllink
 
 TEST_CASE("Test dllist", "[dllist]") {
     auto L1 = dllink{};
@@ -24,4 +25,13 @@ TEST_CASE("Test dllist", "[dllist]") {
         count += 1;
     }
     CHECK(count == 2);
+}
+
+TEST_CASE("Test robin", "[robin]") {
+    auto RR = robin(6);
+    auto count = 0u;
+    for (auto k : RR.exclude(2)) {
+        count += 1;
+    }
+    CHECK(count == 5);
 }

@@ -14,7 +14,7 @@
  */
 template <typename GainCalc, class Derived>
 FDGainMgr<GainCalc, Derived>::FDGainMgr(SimpleNetlist &H, std::uint8_t K)
-    : H{H}, K{K}, gainCalc{H, K}, pmax{H.get_max_degree()}, waitinglist{}
+    : H{H}, gainCalc{H, K}, pmax{H.get_max_degree()}, waitinglist{}, K{K}
 {
     static_assert(std::is_base_of_v<FDGainMgr<GainCalc, Derived>, Derived>);
     for (auto k = 0u; k < this->K; ++k) {
@@ -96,9 +96,10 @@ auto FDGainMgr<GainCalc, Derived>::update_move(
     auto const &[fromPart, toPart, v] = move_info_v;
     for (auto net : this->H.G[v]) {
         auto move_info = MoveInfo{net, fromPart, toPart, v};
-        if (this->H.G.degree(net) == 2) {
+        auto degree = this->H.G.degree(net);
+        if (degree == 2) {
             this->update_move_2pin_net(part_info, move_info);
-        } else if (unlikely(this->H.G.degree(net) < 2)) {
+        } else if (unlikely(degree < 2)) {
             continue; // does not provide any gain change when move
         } else {
             this->update_move_general_net(part_info, move_info);

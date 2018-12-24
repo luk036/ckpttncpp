@@ -12,6 +12,9 @@ auto max_independent_net(SimpleNetlist &H, const std::vector<size_t> &weight) {
             continue;
         }
         auto net = H.nets[i_net];
+        if (H.G.degree(net) < 2) {
+            continue;
+        }
         S.insert(net);
         total_cost += H.get_net_weight(net);
         for (auto v : H.G[net]) {

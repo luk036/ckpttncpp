@@ -16,39 +16,24 @@ void FDBiGainCalc::init_gain( //
     if (unlikely(degree < 2)) {
         return; // does not provide any gain when move
     }
-    
     auto const &[part, extern_nets] = part_info;
-    if (degree == 2) {
-        this->init_gain_2pin_net(net, part);
-    } else {
-        this->init_gain_general_net(net, part);
+    auto weight = this->H.get_net_weight(net);
+    if (extern_nets.contains(net)) {
+        this->totalcost += weight;
+        if (degree == 2) {
+            for (auto w : this->H.G[net]) {
+                this->modify_gain(w, weight);
+            }
+        } else {
+            this->init_gain_general_net(net, part, weight);
+        }
+    } else { // 90%
+        for (auto w : this->H.G[net]) {
+            this->modify_gain(w, -weight);
+        }
     }
 }
 
-/**
- * @brief
- *
- * @param net
- * @param part
- */
-void FDBiGainCalc::init_gain_2pin_net( //
-    node_t net, const std::vector<std::uint8_t> &part) {
-    assert(this->H.G.degree(net) == 2);
-    auto netCur = this->H.G[net].begin();
-    auto w = *netCur;
-    auto v = *++netCur;
-    // auto w = this->H.module_map[w];
-    // auto v = this->H.module_map[v];
-    auto part_w = part[w];
-    auto part_v = part[v];
-    auto weight = this->H.get_net_weight(net);
-    if (part_w != part_v) {
-        this->totalcost += weight;
-    }
-    auto g = (part_w == part_v) ? -weight : weight;
-    this->modify_gain(w, g);
-    this->modify_gain(v, g);
-}
 
 /**
  * @brief
@@ -57,7 +42,9 @@ void FDBiGainCalc::init_gain_2pin_net( //
  * @param part
  */
 void FDBiGainCalc::init_gain_general_net(
-    node_t net, const std::vector<std::uint8_t> &part) {
+    node_t net, const std::vector<std::uint8_t> &part,
+    size_t weight)
+{
     size_t num[2] = {0, 0};
     auto IdVec = std::vector<size_t>();
     for (auto const &w : this->H.G[net]) {
@@ -65,18 +52,9 @@ void FDBiGainCalc::init_gain_general_net(
         num[part[w]] += 1;
         IdVec.push_back(w);
     }
-    auto weight = this->H.get_net_weight(net);
-
-    if (num[0] > 0 && num[1] > 0) {
-        this->totalcost += weight;
-    }
 
     for (auto &&k : {0, 1}) {
-        if (num[k] == 0) {
-            for (auto w : IdVec) {
-                this->modify_gain(w, -weight);
-            }
-        } else if (num[k] == 1) {
+        if (num[k] == 1) {
             for (auto w : IdVec) {
                 if (part[w] == k) {
                     this->modify_gain(w, weight);
@@ -99,13 +77,20 @@ auto FDBiGainCalc::update_move_2pin_net(PartInfo &part_info,
     -> ret_2pin_info {
     auto const &[net, fromPart, toPart, v] = move_info;
     auto &[part, extern_nets] = part_info;
-    assert(this->H.G.degree(net) == 2);
     auto netCur = this->H.G[net].begin();
     node_t w = (*netCur != v) ? *netCur : *++netCur;
     // auto w = this->H.module_map[w];
     auto part_w = part[w];
     auto weight = this->H.get_net_weight(net);
-    auto deltaGainW = (part_w == fromPart) ? 2 * weight : -2 * weight;
+    // auto deltaGainW = (part_w == fromPart) ? 2 * weight : -2 * weight;
+    int deltaGainW;
+    if (part_w == fromPart) {
+        deltaGainW = 2*weight;
+        extern_nets.insert(net);
+    } else {
+        deltaGainW = -2*weight;
+        extern_nets.erase(net);
+    }
     return std::tuple{w, deltaGainW};
 }
 
@@ -121,7 +106,6 @@ auto FDBiGainCalc::update_move_general_net(
     -> ret_info {
     auto const &[net, fromPart, toPart, v] = move_info;
     auto &[part, extern_nets] = part_info;
-    assert(this->H.G.degree(net) > 2);
     size_t num[2] = {0, 0};
     auto IdVec = std::vector<size_t>{};
     for (auto const &w : this->H.G[net]) {
@@ -134,12 +118,23 @@ auto FDBiGainCalc::update_move_general_net(
     auto degree = std::size(IdVec);
     auto deltaGain = std::vector<int>(degree, 0);
     auto weight = this->H.get_net_weight(net);
+
+    if (num[fromPart] == 0) {
+        extern_nets.erase(net);
+        for (auto idx = 0u; idx < degree; ++idx) {
+            deltaGain[idx] -= weight;
+        }
+        return std::tuple{std::move(IdVec), std::move(deltaGain)};
+    }   
+    if (num[toPart] == 0) {
+        extern_nets.insert(net);
+        for (auto idx = 0u; idx < degree; ++idx) {
+            deltaGain[idx] += weight;
+        }
+        return std::tuple{std::move(IdVec), std::move(deltaGain)};
+    }
     for (auto &&l : {fromPart, toPart}) {
-        if (num[l] == 0) {
-            for (auto idx = 0u; idx < degree; ++idx) {
-                deltaGain[idx] -= weight;
-            }
-        } else if (num[l] == 1) {
+        if (num[l] == 1) {
             for (auto idx = 0u; idx < degree; ++idx) {
                 auto part_w = part[IdVec[idx]];
                 if (part_w == l) {

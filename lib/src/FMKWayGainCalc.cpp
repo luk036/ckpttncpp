@@ -27,7 +27,6 @@ auto FMKWayGainCalc::init_gain(node_t net,
 auto FMKWayGainCalc::init_gain_2pin_net(node_t net,
                                         const std::vector<std::uint8_t> &part)
     -> void {
-    assert(this->H.G.degree(net) == 2);
     auto netCur = this->H.G[net].begin();
     auto w = *netCur;
     auto v = *++netCur;
@@ -84,7 +83,6 @@ auto FMKWayGainCalc::update_move_2pin_net(const std::vector<std::uint8_t> &part,
                                           const MoveInfo &move_info)
     -> ret_2pin_info {
     auto const &[net, fromPart, toPart, v] = move_info;
-    assert(this->H.G.degree(net) == 2);
     auto netCur = this->H.G[net].begin();
     node_t w = (*netCur != v) ? *netCur : *++netCur;
     // auto w = this->H.module_map[w];
@@ -112,7 +110,6 @@ auto FMKWayGainCalc::update_move_general_net(
     const std::vector<std::uint8_t> &part, const MoveInfo &move_info)
     -> ret_info {
     auto const &[net, fromPart, toPart, v] = move_info;
-    assert(this->H.G.degree(net) > 2);
     std::vector<size_t> num(this->K, 0);
     auto IdVec = std::vector<size_t>{};
     for (auto const &w : this->H.G[net]) {

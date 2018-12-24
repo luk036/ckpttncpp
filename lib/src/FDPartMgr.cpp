@@ -1,5 +1,6 @@
 #include <ckpttncpp/FDPartMgr.hpp>
 #include <ckpttncpp/netlist.hpp>
+#include <deque>
 
 /**
  * @brief
@@ -66,11 +67,12 @@ auto FDPartMgr<FDGainMgr, FDConstrMgr>::legalize(
 template <typename FDGainMgr, typename FDConstrMgr>
 auto FDPartMgr<FDGainMgr, FDConstrMgr>::optimize_1pass(
     PartInfo &part_info) -> void {
-    auto &[part, extern_nets] = part_info;
     auto totalgain = 0;
     auto deferredsnapshot = false;
-    auto snapeshot = part;
-    auto besttotalgain = 0;
+    // auto snapshot = part;
+    auto snapshot = Snapshot{};
+    auto besttotalgain = -1;
+    auto &[part, extern_nets] = part_info;
 
     while (!this->gainMgr.is_empty()) {
         // Take the gainmax with v from gainbucket
@@ -83,7 +85,8 @@ auto FDPartMgr<FDGainMgr, FDConstrMgr>::optimize_1pass(
             // become down turn
             if (totalgain > besttotalgain) {
                 // Take a snapshot before move
-                snapshot = part;
+                // snapshot = part;
+                snapshot = this->take_snapshot(part_info);
                 besttotalgain = totalgain;
             }
             deferredsnapshot = true;
@@ -101,7 +104,8 @@ auto FDPartMgr<FDGainMgr, FDConstrMgr>::optimize_1pass(
     }
     if (deferredsnapshot) {
         // restore the previous best solution
-        part = snapshot;
+        // part = snapshot;
+        part_info = this->restore_part_info(snapshot);
         totalgain = besttotalgain;
     }
     this->totalcost -= totalgain;
@@ -126,6 +130,64 @@ auto FDPartMgr<FDGainMgr, FDConstrMgr>::optimize(
             break;
         }
     }
+}
+
+template <typename FDGainMgr, typename FDConstrMgr>
+auto FDPartMgr<FDGainMgr, FDConstrMgr>::take_snapshot(
+    const PartInfo &part_info) -> Snapshot {
+    auto const &[part, extern_nets] = part_info;
+    auto extern_nets_ss = extern_nets.copy();
+    auto extern_modules_ss = py::dict<size_t, std::uint8_t>();
+    for (auto net : extern_nets) {
+        for (auto v : this->H.G[net]) {
+            extern_modules_ss[v] = part[v];
+        }
+    }
+    return Snapshot{std::move(extern_nets_ss), std::move(extern_modules_ss)};
+}
+
+template <typename FDGainMgr, typename FDConstrMgr>
+auto FDPartMgr<FDGainMgr, FDConstrMgr>::restore_part_info(
+    Snapshot &snapshot) -> PartInfo 
+{
+    auto &[extern_nets_ss, extern_modules_ss] = snapshot;
+    auto part = std::vector<std::uint8_t>(this->H.number_of_modules(), this->K);
+    auto Q = std::deque<node_t>();
+    // (v for v, _ in extern_modules_ss.items())
+    for (auto const &[v, part_v] : extern_modules_ss) {
+        Q.push_back(v);
+    }
+    while (!Q.empty()) {
+        auto v = Q.front();
+        Q.pop_front();
+        if (part[v] < this->K) {
+            continue;
+        }
+        std::uint8_t part_v = extern_modules_ss[v];
+        part[v] = part_v;
+        auto Q2 = std::deque<node_t>();
+        Q2.push_back(v);
+        while (!Q2.empty()) {
+            auto v2 = Q2.front();
+            Q2.pop_front();
+            // if (part[v2] < this->K) {
+            //     continue;
+            for (auto net : this->H.G[v2]) {
+                if (extern_nets_ss.contains(net)) {
+                    continue;
+                }
+                for (auto v3 : this->H.G[net]) {
+                    if (part[v3] < this->K) {
+                        continue;
+                    }
+                    part[v3] = part_v;
+                    Q2.push_back(v3);
+                }
+            }
+        }
+    }
+    auto extern_nets = extern_nets_ss.copy();
+    return PartInfo{std::move(part), std::move(extern_nets)};
 }
 
 #include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr

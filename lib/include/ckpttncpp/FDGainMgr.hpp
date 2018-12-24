@@ -20,7 +20,6 @@ template <typename GainCalc, class Derived> class FDGainMgr {
 
   protected:
     SimpleNetlist &H;
-    std::uint8_t K;
     GainCalc gainCalc;
     size_t pmax;
     // size_t num[2];
@@ -28,6 +27,7 @@ template <typename GainCalc, class Derived> class FDGainMgr {
     std::vector<std::unique_ptr<bpqueue>> gainbucket;
 
   public:
+    std::uint8_t K;
     // int totalcost;
 
     /**

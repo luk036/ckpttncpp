@@ -24,7 +24,8 @@ class FDPartMgr {
     SimpleNetlist &H;
     FDGainMgr &gainMgr;
     FDConstrMgr &validator;
-    std::vector<std::uint8_t> snapshot;
+    std::uint8_t K;
+    // std::vector<std::uint8_t> snapshot;
     // std::vector<std::uint8_t> part;
 
   public:
@@ -38,7 +39,7 @@ class FDPartMgr {
      * @param constrMgr
      */
     FDPartMgr(SimpleNetlist &H, FDGainMgr &gainMgr, FDConstrMgr &constrMgr)
-        : H{H}, gainMgr{gainMgr}, validator{constrMgr}, snapshot{},
+        : H{H}, gainMgr{gainMgr}, validator{constrMgr}, K{gainMgr.K},
           // part(this->H.number_of_modules(), 0),
           totalcost{0} {}
 
@@ -71,6 +72,19 @@ class FDPartMgr {
      */
     void optimize_1pass(PartInfo &part_info);
 
+    /**
+     * @brief
+     *
+     * @param part
+     */
+    auto take_snapshot(const PartInfo &part_info) -> Snapshot;
+
+    /**
+     * @brief
+     *
+     * @param part
+     */
+    auto restore_part_info(Snapshot &snapshot) -> PartInfo;
 };
 
 #endif

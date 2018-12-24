@@ -203,4 +203,9 @@ struct PartInfo {
     py::set<size_t> extern_nets;
 };
 
+struct Snapshot {
+    py::set<size_t> extern_nets;
+    py::dict<size_t, std::uint8_t> extern_modules;
+};
+
 #endif

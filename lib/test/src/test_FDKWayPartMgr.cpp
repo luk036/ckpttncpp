@@ -20,7 +20,7 @@ void run_FDKWayPartMgr(SimpleNetlist &H, std::uint8_t K) {
     // CHECK(H.G.nodes[0].get('weight', 1) == 5844);
     auto partMgr = FDPartMgr{H, gainMgr, constrMgr};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-    auto part_info = PartInfo{part, py::set<size_t>()};
+    auto part_info = PartInfo{std::move(part), py::set<size_t>()};
     // partMgr.init(part_info);
     partMgr.legalize(part_info);
     auto totalcostbefore = partMgr.totalcost;
@@ -33,15 +33,15 @@ void run_FDKWayPartMgr(SimpleNetlist &H, std::uint8_t K) {
     // print(partMgr.snapshot);
 }
 
-TEST_CASE("Test FDKWayPartMgr", "[test_FDKWayPartMgr]") {
-    auto H = create_dwarf();
-    run_FDKWayPartMgr(H, 3);
-} 
+// TEST_CASE("Test FDKWayPartMgr", "[test_FDKWayPartMgr]") {
+//     auto H = create_dwarf();
+//     run_FDKWayPartMgr(H, 3);
+// } 
 
-TEST_CASE("Test FDKWayPartMgr p1", "[test_FDKWayPartMgr]") {
-    auto H = readNetD("../../testcases/p1.net");
-    run_FDKWayPartMgr(H, 3);
-}
+// TEST_CASE("Test FDKWayPartMgr p1", "[test_FDKWayPartMgr]") {
+//     auto H = readNetD("../../testcases/p1.net");
+//     run_FDKWayPartMgr(H, 3);
+// }
 
 // TEST_CASE("Test FDKWayPartMgr ibm01", "[test_FDKWayPartMgr]") {
 //     auto H = readNetD("../../testcases/ibm01.net");

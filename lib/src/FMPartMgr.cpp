@@ -116,14 +116,18 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize_1pass(
 template <typename FMGainMgr, typename FMConstrMgr>
 auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize(
     std::vector<std::uint8_t> &part) -> void {
+    this->init(part);
+    auto totalcostafter = this->totalcost;
     while (true) {
         this->init(part);
         auto totalcostbefore = this->totalcost;
+        assert(totalcostbefore = totalcostbefore);
         this->optimize_1pass(part);
         assert(this->totalcost <= totalcostbefore);
         if (this->totalcost == totalcostbefore) {
             break;
         }
+        totalcostafter = this->totalcost;
     }
 }
 

@@ -66,7 +66,7 @@ class MLPartMgr {
             auto extern_nets = py::set<size_t>();
             auto part2_info = PartInfo{std::move(part2), std::move(extern_nets)};
             H2.projection_up(part_info, part2_info);
-            legalcheck = this->run_Partition<GainMgr, ConstrMgr>(H2, part2_info, limitsize);
+            legalcheck = this->run_FDPartition<GainMgr, ConstrMgr>(H2, part2_info, limitsize);
             if (legalcheck == 2) {
                 H2.projection_down(part2_info, part_info);
             }

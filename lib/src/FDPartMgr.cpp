@@ -121,14 +121,18 @@ auto FDPartMgr<FDGainMgr, FDConstrMgr>::optimize_1pass(
 template <typename FDGainMgr, typename FDConstrMgr>
 auto FDPartMgr<FDGainMgr, FDConstrMgr>::optimize(
     PartInfo &part_info) -> void {
+    this->init(part_info);
+    auto totalcostafter = this->totalcost;
     while (true) {
         this->init(part_info);
         auto totalcostbefore = this->totalcost;
+        assert(totalcostafter == totalcostbefore);
         this->optimize_1pass(part_info);
         assert(this->totalcost <= totalcostbefore);
         if (this->totalcost == totalcostbefore) {
             break;
         }
+        totalcostafter == this->totalcost;
     }
 }
 

@@ -22,7 +22,7 @@ TEST_CASE("Test MLBiPartMgr dwarf", "[test_MLBiPartMgr]") {
 
 TEST_CASE("Test MLKWayPartMgr dwarf", "[test_MLKWayPartMgr]") {
     auto H = create_dwarf();
-    auto partMgr = MLPartMgr{0.3, 3}; // 0.3???
+    auto partMgr = MLPartMgr{0.4, 3}; // 0.3???
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     partMgr.run_Partition<FMKWayGainMgr, FMKWayConstrMgr>(H, part);
     CHECK(partMgr.totalcost == 4);
@@ -30,10 +30,10 @@ TEST_CASE("Test MLKWayPartMgr dwarf", "[test_MLKWayPartMgr]") {
 
 // TEST_CASE("Test MLBiPartMgr p1", "[test_MLBiPartMgr]") {
 //     auto H = readNetD("../../testcases/p1.net");
-//     auto partMgr = MLPartMgr{0.45};
+//     auto partMgr = MLPartMgr{0.3};
 //     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-//     partMgr.run_Partition<FMBiGainMgr, FMBiConstrMgr>(H, part, 100);
-//     CHECK(partMgr.totalcost == 106);
+//     partMgr.run_Partition<FMBiGainMgr, FMBiConstrMgr>(H, part, 400);
+//     CHECK(partMgr.totalcost == 69);
 // }
 
 // TEST_CASE("Test MLBiPartMgr ibm01", "[test_MLBiPartMgr]") {
@@ -41,6 +41,6 @@ TEST_CASE("Test MLKWayPartMgr dwarf", "[test_MLKWayPartMgr]") {
 //     readAre(H, "../../testcases/ibm01.are");
 //     auto partMgr = MLPartMgr{0.45};
 //     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-//     partMgr.run_Partition<FMBiGainMgr, FMBiConstrMgr>(H, part, 1000);
-//     CHECK(partMgr.totalcost == 287);
+//     partMgr.run_Partition<FMBiGainMgr, FMBiConstrMgr>(H, part, 3000);
+//     CHECK(partMgr.totalcost == 259);
 // }

@@ -46,21 +46,21 @@ class FDPartMgr {
     /**
      * @brief
      *
-     * @param part
+     * @param part_info
      */
     void init(PartInfo &part_info);
 
     /**
      * @brief
      *
-     * @param part
+     * @param part_info
      */
     size_t legalize(PartInfo &part_info);
 
     /**
      * @brief
      *
-     * @param part
+     * @param part_info
      */
     void optimize(PartInfo &part_info);
 
@@ -68,21 +68,23 @@ class FDPartMgr {
     /**
      * @brief
      *
-     * @param part
+     * @param part_info
      */
     void optimize_1pass(PartInfo &part_info);
 
     /**
-     * @brief
-     *
-     * @param part
+     * @brief 
+     * 
+     * @param part_info 
+     * @return Snapshot 
      */
     auto take_snapshot(const PartInfo &part_info) -> Snapshot;
 
     /**
-     * @brief
-     *
-     * @param part
+     * @brief 
+     * 
+     * @param snapshot 
+     * @return PartInfo 
      */
     auto restore_part_info(Snapshot &snapshot) -> PartInfo;
 };

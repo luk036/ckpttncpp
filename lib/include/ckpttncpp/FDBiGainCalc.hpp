@@ -33,9 +33,10 @@ class FDBiGainCalc {
           totalcost{0} {}
 
     /**
-     * @brief
-     *
-     * @param part
+     * @brief 
+     * 
+     * @param part_info 
+     * @return int 
      */
     auto init(const PartInfo &part_info) -> int {
         // for (auto &net : this->H.net_list) {
@@ -84,7 +85,7 @@ class FDBiGainCalc {
     /**
      * @brief
      *
-     * @param part
+     * @param part_info
      * @param move_info
      * @return ret_2pin_info
      */
@@ -96,10 +97,8 @@ class FDBiGainCalc {
     /**
      * @brief
      *
-     * @param net
-     * @param part
-     * @param fromPart
-     * @param v
+     * @param part_info
+     * @param move_info
      */
     auto update_move_general_net(PartInfo &part_info,
                                  const MoveInfo &move_info) -> ret_info;
@@ -120,7 +119,7 @@ class FDBiGainCalc {
      * @brief
      *
      * @param net
-     * @param part
+     * @param part_info
      */
     auto init_gain(node_t net, const PartInfo &part_info) -> void;
 
@@ -129,6 +128,7 @@ class FDBiGainCalc {
      *
      * @param net
      * @param part
+     * @param weight
      */
     auto init_gain_general_net(node_t net,
                                const std::vector<std::uint8_t> &part,

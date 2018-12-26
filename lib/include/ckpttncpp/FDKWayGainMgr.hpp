@@ -8,10 +8,9 @@
  * @brief FDKWayGainMgr
  *
  */
-class FDKWayGainMgr;
-
 class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
     using Base = FDGainMgr<FDKWayGainCalc, FDKWayGainMgr>;
+
   private:
     robin RR;
 

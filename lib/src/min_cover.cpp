@@ -3,7 +3,7 @@
 #include <tuple>
 #include <vector>
 
-auto max_independent_net(SimpleNetlist &H, const std::vector<size_t> &weight) {
+auto max_independent_net(SimpleNetlist &H, const std::vector<size_t> &weight, const py::set<node_t>& DontSelect) {
     auto visited = std::vector<bool>(H.nets.size(), false);
     auto S = py::set<node_t>{};
     auto total_cost = 0u;
@@ -13,6 +13,9 @@ auto max_independent_net(SimpleNetlist &H, const std::vector<size_t> &weight) {
         }
         auto net = H.nets[i_net];
         if (H.G.degree(net) < 2) {
+            continue;
+        }
+        if (DontSelect.contains(net)) {
             continue;
         }
         S.insert(net);
@@ -106,8 +109,8 @@ auto min_net_cover_pd(SimpleNetlist &H, const std::vector<size_t> &weight) {
  * @param H
  * @return auto
  */
-auto create_contraction_subgraph(SimpleNetlist &H) {
-    auto [S, total_cost] = max_independent_net(H, H.module_weight);
+auto create_contraction_subgraph(SimpleNetlist &H, const py::set<node_t> &DontSelect) {
+    auto [S, total_cost] = max_independent_net(H, H.module_weight, DontSelect);
 
     auto module_up_map = py::dict<node_t, size_t>();
     for (auto v : H.modules) {

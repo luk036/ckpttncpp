@@ -41,11 +41,15 @@ template <typename GainCalc, class Derived> class FDGainMgr {
     /**
      * @brief
      *
-     * @param part
+     * @param part_info
      */
     auto init(const PartInfo &part_info) -> int;
 
-
+    /**
+     * @brief Get the pmax object
+     * 
+     * @return size_t 
+     */
     auto get_pmax() const -> size_t { return this->pmax; }
 
     /**
@@ -104,7 +108,7 @@ template <typename GainCalc, class Derived> class FDGainMgr {
     /**
      * @brief
      *
-     * @param part
+     * @param part_info
      * @param move_info
      */
     auto update_move_2pin_net(PartInfo &part_info,
@@ -113,7 +117,7 @@ template <typename GainCalc, class Derived> class FDGainMgr {
     /**
      * @brief
      *
-     * @param part
+     * @param part_info
      * @param move_info
      */
     auto update_move_general_net(PartInfo &part_info,

@@ -15,7 +15,7 @@ void readAre(SimpleNetlist &H, const char *areFileName);
  */
 void run_FMBiPartMgr(SimpleNetlist &H) {
     auto gainMgr = FMBiGainMgr{H};
-    auto constrMgr = FMBiConstrMgr{H, 0.3};
+    auto constrMgr = FMBiConstrMgr{H, 0.2};
     // CHECK(H.G.nodes[0].get('weight', 1) == 5844);
     auto partMgr = FMPartMgr{H, gainMgr, constrMgr};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
@@ -26,6 +26,9 @@ void run_FMBiPartMgr(SimpleNetlist &H) {
     partMgr.optimize(part);
     CHECK(partMgr.totalcost <= totalcostbefore);
     CHECK(partMgr.totalcost >= 0);
+    totalcostbefore = partMgr.totalcost;
+    partMgr.init(part);
+    CHECK(partMgr.totalcost == totalcostbefore);
     // print(partMgr.snapshot);
 }
 
@@ -44,8 +47,8 @@ TEST_CASE("Test FMBiPartMgr p1", "[test_FMBiPartMgr]") {
     run_FMBiPartMgr(H);
 }
 
-TEST_CASE("Test FMBiPartMgr ibm01", "[test_FMBiPartMgr]") {
-    auto H = readNetD("../../testcases/ibm01.net");
-    readAre(H, "../../testcases/ibm01.are");
-    run_FMBiPartMgr(H);
-}
+// TEST_CASE("Test FMBiPartMgr ibm01", "[test_FMBiPartMgr]") {
+//     auto H = readNetD("../../testcases/ibm01.net");
+//     readAre(H, "../../testcases/ibm01.are");
+//     run_FMBiPartMgr(H);
+// }

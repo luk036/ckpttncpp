@@ -66,8 +66,8 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize_1pass(
     std::vector<std::uint8_t> &part) -> void {
     auto totalgain = 0;
     auto deferredsnapshot = false;
-    auto snapeshot = part;
-    auto besttotalgain = 0;
+    std::vector<uint8_t> snapshot;
+    auto besttotalgain = -1;
 
     while (!this->gainMgr.is_empty()) {
         // Take the gainmax with v from gainbucket
@@ -81,6 +81,7 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize_1pass(
             if (totalgain > besttotalgain) {
                 // Take a snapshot before move
                 snapshot = part;
+                // std::copy(part.begin(), part.end(), snapshot.begin());
                 besttotalgain = totalgain;
             }
             deferredsnapshot = true;
@@ -98,7 +99,8 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize_1pass(
     }
     if (deferredsnapshot) {
         // restore the previous best solution
-        part = snapshot;
+        part = snapshot; // ???
+        // std::copy(snapshot.begin(), snapshot.end(), part.begin());
         totalgain = besttotalgain;
     }
     this->totalcost -= totalgain;

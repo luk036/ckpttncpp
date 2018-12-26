@@ -16,7 +16,7 @@ void readAre(SimpleNetlist &H, const char *areFileName);
  */
 void run_FMKWayPartMgr(SimpleNetlist &H, std::uint8_t K) {
     auto gainMgr = FMKWayGainMgr{H, K};
-    auto constrMgr = FMKWayConstrMgr{H, 0.4, K};
+    auto constrMgr = FMKWayConstrMgr{H, 0.2, K};
     // CHECK(H.G.nodes[0].get('weight', 1) == 5844);
     auto partMgr = FMPartMgr{H, gainMgr, constrMgr};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);

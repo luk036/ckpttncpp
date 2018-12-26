@@ -4,8 +4,6 @@
 #include "FDBiGainCalc.hpp"
 #include "FDGainMgr.hpp"
 
-struct FDBiGainMgr;
-
 /**
  * @brief FDBiGainMgr
  *
@@ -15,24 +13,26 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
 
     /**
      * @brief Construct a new FDBiGainMgr object
-     *
-     * @param H
+     * 
+     * @param H 
+     * @param K 
      */
     explicit FDBiGainMgr(SimpleNetlist &H, std::uint8_t K=2) : Base{H} {}
 
     /**
-     * @brief
-     *
-     * @param part
+     * @brief 
+     * 
+     * @param part_info 
+     * @return int 
      */
     auto init(const PartInfo &part_info) -> int;
 
     /**
      * @brief (needed by base class)
-     *
-     * @param part
-     * @param w
-     * @param key
+     * 
+     * @param w 
+     * @param part_w 
+     * @param key 
      */
     auto modify_key(node_t w, std::uint8_t part_w, int key)
         -> void {
@@ -49,7 +49,6 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
      */
     auto update_move_v(const std::vector<std::uint8_t> &part,
                        const MoveInfoV &move_info_v, int gain) -> void {
-        // this->vertex_list[v].key -= 2 * gain;
         auto const &[fromPart, toPart, v] = move_info_v;
         this->set_key(fromPart, v, -gain);
     }

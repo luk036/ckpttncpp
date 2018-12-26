@@ -176,6 +176,9 @@ auto FDPartMgr<FDGainMgr, FDConstrMgr>::restore_part_info(
                 if (extern_nets_ss.contains(net)) {
                     continue;
                 }
+                if (this->H.G.degree(net) < 2) {
+                    continue;
+                }
                 for (auto v3 : this->H.G[net]) {
                     if (part[v3] < this->K) {
                         continue;

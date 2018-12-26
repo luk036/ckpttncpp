@@ -55,7 +55,7 @@ class FDKWayGainCalc {
     /**
      * @brief
      *
-     * @param part
+     * @param part_info
      */
     auto init(const PartInfo &part_info) -> int {
         this->totalcost = 0;
@@ -85,10 +85,11 @@ class FDKWayGainCalc {
     }
 
     /**
-     * @brief
-     *
-     * @param v
-     * @param weight
+     * @brief 
+     * 
+     * @param v 
+     * @param part_v 
+     * @param weight 
      */
     auto modify_gain(node_t v, std::uint8_t part_v, int weight) -> void {
         for (auto k : this->RR.exclude(part_v)) {
@@ -109,7 +110,7 @@ class FDKWayGainCalc {
     /**
      * @brief
      *
-     * @param part
+     * @param part_info
      * @param move_info
      * @return ret_2pin_info
      */
@@ -122,7 +123,7 @@ class FDKWayGainCalc {
     /**
      * @brief
      *
-     * @param part
+     * @param part_info
      * @param move_info
      * @return ret_info
      */
@@ -134,7 +135,7 @@ class FDKWayGainCalc {
      * @brief
      *
      * @param net
-     * @param part
+     * @param part_info
      */
     auto init_gain(node_t net, const PartInfo &part_info) -> void;
 

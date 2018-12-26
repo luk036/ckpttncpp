@@ -13,6 +13,12 @@ using graph_t =
 using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
 // using edge_t = typename boost::graph_traits<graph_t>::edge_iterator;
 
+struct PartInfo {
+    std::vector<std::uint8_t> part;
+    py::set<size_t> extern_nets;
+};
+
+
 /**
  * @brief Netlist
  *
@@ -117,7 +123,6 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
 
     auto project_down(const std::vector<std::uint8_t> &part, std::vector<std::uint8_t> &part_down) -> void {
         auto &H = *this->parent;
-        // for (auto [v] : py::enumerate(this->modules)) {
         for (auto v = 0u; v < this->modules.size(); ++v) {
             // auto v = this->modules[v];
             if (this->cluster_down_map.contains(v)) {
@@ -144,6 +149,49 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
         }
     }
 
+    auto projection_down(const PartInfo &part_info, PartInfo &part_info_down) -> void {
+        auto &H = *this->parent;
+        auto const &[part, extern_nets] = part_info;
+        auto &[part_down, extern_nets_down] = part_info_down;
+
+        extern_nets_down.clear();
+        for (auto net : extern_nets) {
+            extern_nets_down.insert(this->node_down_map[net]);
+        }
+
+        for (auto v = 0u; v < this->modules.size(); ++v) {
+            // auto v = this->modules[v];
+            if (this->cluster_down_map.contains(v)) {
+                auto net = this->cluster_down_map[v];
+                for (auto v2 : H.G[net]) {
+                    // auto v2 = H.module_map[v2];
+                    part_down[v2] = part[v];
+                }
+            }
+            else {
+                auto v2 = this->node_down_map[v];
+                // auto v2 = H.module_map[v2];
+                part_down[v2] = part[v];
+            }
+        }
+    }
+
+    auto projection_up(const PartInfo &part_info, PartInfo &part_info_up) -> void {
+        auto &H = *this->parent;
+        auto const &[part, extern_nets] = part_info;
+        auto &[part_up, extern_nets_up] = part_info_up;
+
+        extern_nets_up.clear();
+        for (auto net : extern_nets) {
+            extern_nets_up.insert(this->node_up_map[net]);
+        }
+
+        // for (auto [v] : py::enumerate(H.modules)) {
+        for (auto v = 0u; v < H.modules.size(); ++v) {
+            // auto v = H.modules[v];
+            part_up[this->node_up_map[v]] = part[v];
+        }
+    }
 };
 
 /**
@@ -196,11 +244,6 @@ struct MoveInfoV {
     std::uint8_t toPart;
     node_t v;
     // size_t i_v;
-};
-
-struct PartInfo {
-    std::vector<std::uint8_t> part;
-    py::set<size_t> extern_nets;
 };
 
 struct Snapshot {

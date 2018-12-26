@@ -24,7 +24,6 @@ class FMPartMgr {
     SimpleNetlist &H;
     FMGainMgr &gainMgr;
     FMConstrMgr &validator;
-    std::vector<std::uint8_t> snapshot;
     // std::vector<std::uint8_t> part;
 
   public:
@@ -38,7 +37,7 @@ class FMPartMgr {
      * @param constrMgr
      */
     FMPartMgr(SimpleNetlist &H, FMGainMgr &gainMgr, FMConstrMgr &constrMgr)
-        : H{H}, gainMgr{gainMgr}, validator{constrMgr}, snapshot{},
+        : H{H}, gainMgr{gainMgr}, validator{constrMgr},
           // part(this->H.number_of_modules(), 0),
           totalcost{0} {}
 

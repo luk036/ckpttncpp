@@ -83,7 +83,7 @@ auto FDPartMgr<FDGainMgr, FDConstrMgr>::optimize_1pass(
             continue;
         if (gainmax < 0) {
             // become down turn
-            if (totalgain > besttotalgain) {
+            if (!deferredsnapshot || totalgain > besttotalgain) {
                 // Take a snapshot before move
                 // snapshot = part;
                 snapshot = this->take_snapshot(part_info);
@@ -91,6 +91,7 @@ auto FDPartMgr<FDGainMgr, FDConstrMgr>::optimize_1pass(
             }
             deferredsnapshot = true;
         } else if (totalgain + gainmax > besttotalgain) {
+            besttotalgain = totalgain + gainmax;
             deferredsnapshot = false;
         }
         // Update v and its neigbours (even they are in waitinglist);
@@ -132,7 +133,7 @@ auto FDPartMgr<FDGainMgr, FDConstrMgr>::optimize(
         if (this->totalcost == totalcostbefore) {
             break;
         }
-        totalcostafter == this->totalcost;
+        totalcostafter = this->totalcost;
     }
 }
 

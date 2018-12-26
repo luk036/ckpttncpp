@@ -12,23 +12,23 @@ extern SimpleNetlist readNetD(const char *netDFileName);
 extern void readAre(SimpleNetlist &H, const char *areFileName);
 
 
-// TEST_CASE("Test MLFDBiPartMgr dwarf", "[test_MLFDBiPartMgr]") {
-//     auto H = create_dwarf();
-//     auto partMgr = MLPartMgr{0.3};
-//     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-//     auto part_info = PartInfo{std::move(part), py::set<size_t>()};
-//     partMgr.run_FDPartition<FDBiGainMgr, FMBiConstrMgr>(H, part_info);
-//     CHECK(partMgr.totalcost == 2);
-// }
+TEST_CASE("Test MLFDBiPartMgr dwarf", "[test_MLFDBiPartMgr]") {
+    auto H = create_dwarf();
+    auto partMgr = MLPartMgr{0.3};
+    auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
+    auto part_info = PartInfo{std::move(part), py::set<size_t>()};
+    partMgr.run_FDPartition<FDBiGainMgr, FMBiConstrMgr>(H, part_info);
+    CHECK(partMgr.totalcost == 2);
+}
 
-// TEST_CASE("Test MLFDKWayPartMgr dwarf", "[test_MLFDKWayPartMgr]") {
-//     auto H = create_dwarf();
-//     auto partMgr = MLPartMgr{0.4, 3}; // 0.3???
-//     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-//     auto part_info = PartInfo{std::move(part), py::set<size_t>()};
-//     partMgr.run_FDPartition<FDKWayGainMgr, FMKWayConstrMgr>(H, part_info);
-//     CHECK(partMgr.totalcost == 4);
-// }
+TEST_CASE("Test MLFDKWayPartMgr dwarf", "[test_MLFDKWayPartMgr]") {
+    auto H = create_dwarf();
+    auto partMgr = MLPartMgr{0.4, 3}; // 0.3???
+    auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
+    auto part_info = PartInfo{std::move(part), py::set<size_t>()};
+    partMgr.run_FDPartition<FDKWayGainMgr, FMKWayConstrMgr>(H, part_info);
+    CHECK(partMgr.totalcost == 4);
+}
 
 // TEST_CASE("Test MLFDBiPartMgr p1", "[test_MLFDBiPartMgr]") {
 //     auto H = readNetD("../../testcases/p1.net");

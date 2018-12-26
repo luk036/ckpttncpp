@@ -78,7 +78,7 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize_1pass(
             continue;
         if (gainmax < 0) {
             // become down turn
-            if (totalgain > besttotalgain) {
+            if (!deferredsnapshot || totalgain > besttotalgain) {
                 // Take a snapshot before move
                 snapshot = part;
                 // std::copy(part.begin(), part.end(), snapshot.begin());
@@ -86,6 +86,7 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize_1pass(
             }
             deferredsnapshot = true;
         } else if (totalgain + gainmax > besttotalgain) {
+            besttotalgain = totalgain + gainmax;
             deferredsnapshot = false;
         }
         // Update v and its neigbours (even they are in waitinglist);
@@ -121,7 +122,7 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize(
     while (true) {
         this->init(part);
         auto totalcostbefore = this->totalcost;
-        assert(totalcostbefore = totalcostbefore);
+        assert(totalcostafter == totalcostbefore);
         this->optimize_1pass(part);
         assert(this->totalcost <= totalcostbefore);
         if (this->totalcost == totalcostbefore) {

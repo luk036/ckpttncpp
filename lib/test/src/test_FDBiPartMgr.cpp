@@ -40,10 +40,10 @@ TEST_CASE("Test FDBiPartMgr dwarf", "[test_FDBiPartMgr]") {
     run_FDBiPartMgr(H);
 }
 
-// TEST_CASE("Test FDBiPartMgr p1", "[test_FDBiPartMgr]") {
-//     auto H = readNetD("../../testcases/p1.net");
-//     run_FDBiPartMgr(H);
-// }
+TEST_CASE("Test FDBiPartMgr p1", "[test_FDBiPartMgr]") {
+    auto H = readNetD("../../testcases/p1.net");
+    run_FDBiPartMgr(H);
+}
 
 // TEST_CASE("Test FDBiPartMgr ibm01", "[test_FDBiPartMgr]") {
 //     auto H = readNetD("../../testcases/ibm01.net");

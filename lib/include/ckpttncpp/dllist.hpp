@@ -1,6 +1,8 @@
 #ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_DLLIST_HPP
 #define _HOME_UBUNTU_GITHUB_CKPTTNCPP_DLLIST_HPP 1
 
+#include <cassert>
+
 // forward declare
 struct dll_iterator;
 
@@ -33,11 +35,16 @@ struct dllink {
      *
      */
     void detach() {
+        assert(!this->is_locked());
         auto n = this->next;
         auto p = this->prev;
         p->next = n;
         n->prev = p;
     }
+
+    void lock() { this->next = nullptr; }
+
+    bool is_locked() const { return this->next == nullptr; }
 
     /**
      * @brief

@@ -19,5 +19,9 @@ auto FDBiGainMgr::init(const PartInfo &part_info) -> int
         auto toPart = 1 - part[v];
         this->gainbucket[toPart]->append_direct(vlink);
     }
+    for (auto v : this->H.module_fixed) {
+        this->lock_all(part[v], v);
+    }
+
     return totalcost;
 }

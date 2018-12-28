@@ -21,9 +21,21 @@ auto FDPartMgr<FDGainMgr, FDConstrMgr>::init(PartInfo &part_info)
 template <typename FDGainMgr, typename FDConstrMgr>
 auto FDPartMgr<FDGainMgr, FDConstrMgr>::legalize(
     PartInfo &part_info) -> size_t {
-    size_t legalcheck = 0;
     this->init(part_info);
     auto &[part, extern_nets] = part_info;
+
+    // Zero-weighted modules does not contribute legalization
+    for (auto v = 0u; v < this->H.number_of_modules(); ++v) {
+        if (this->H.get_module_weight(v) != 0) {
+            continue;
+        }
+        if (this->H.module_fixed.contains(v)) {
+            continue;
+        }
+        this->gainMgr.lock_all(part[v], v);
+    }
+
+    size_t legalcheck = 0;
     while (true) {
         auto toPart = this->validator.select_togo();
         if (this->gainMgr.is_empty_togo(toPart)) {
@@ -71,7 +83,7 @@ auto FDPartMgr<FDGainMgr, FDConstrMgr>::optimize_1pass(
     auto deferredsnapshot = false;
     // auto snapshot = part;
     auto snapshot = Snapshot{};
-    auto besttotalgain = -1;
+    auto besttotalgain = 0;
     auto &[part, extern_nets] = part_info;
 
     while (!this->gainMgr.is_empty()) {
@@ -90,17 +102,18 @@ auto FDPartMgr<FDGainMgr, FDConstrMgr>::optimize_1pass(
                 besttotalgain = totalgain;
             }
             deferredsnapshot = true;
-        } else if (totalgain + gainmax > besttotalgain) {
+        } else if (totalgain + gainmax >= besttotalgain) {
             besttotalgain = totalgain + gainmax;
             deferredsnapshot = false;
         }
         // Update v and its neigbours (even they are in waitinglist);
         // Put neigbours to bucket
+        auto const &[fromPart, toPart, v] = move_info_v;
         this->gainMgr.update_move(part_info, move_info_v);
-        this->gainMgr.update_move_v(part, move_info_v, 2*this->gainMgr.get_pmax());
+        this->gainMgr.update_move_v(part, move_info_v, gainmax);
+        this->gainMgr.lock(toPart, v);
         this->validator.update_move(move_info_v);
         totalgain += gainmax;
-        auto const &[fromPart, toPart, v] = move_info_v;
         part[v] = toPart;
     }
     if (deferredsnapshot) {

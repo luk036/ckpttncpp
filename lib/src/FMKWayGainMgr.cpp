@@ -12,7 +12,6 @@ auto FMKWayGainMgr::init(const std::vector<std::uint8_t> &part) -> int {
     for (auto k = 0u; k < this->K; ++k) {
         this->gainbucket[k]->clear();
     }
-
     for (auto v = 0u; v < this->H.number_of_modules(); ++v) {
         auto pv = part[v];
         for (auto k : this->RR.exclude(pv)) {
@@ -22,6 +21,9 @@ auto FMKWayGainMgr::init(const std::vector<std::uint8_t> &part) -> int {
         auto &vlink = this->gainCalc.vertex_list[pv][v];
         this->gainbucket[pv]->set_key(vlink, -2*this->pmax);
         this->waitinglist.append(vlink);
+    }
+    for (auto v : this->H.module_fixed) {
+        this->lock_all(part[v], v);
     }
     return totalcost;
 }
@@ -46,5 +48,5 @@ auto FMKWayGainMgr::update_move_v(const std::vector<std::uint8_t> &part,
                                         this->gainCalc.deltaGainV[k]);
     }
     this->set_key(fromPart, v, -gain);
-    this->set_key(toPart, v, -2*this->pmax);
+    // this->set_key(toPart, v, -2*this->pmax);
 }

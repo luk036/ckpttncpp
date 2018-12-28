@@ -20,7 +20,11 @@ template <typename GainCalc, class Derived> class FDGainMgr {
 
   protected:
     SimpleNetlist &H;
+
+  public:
     GainCalc gainCalc;
+
+  protected:
     size_t pmax;
     // size_t num[2];
     dllink waitinglist;

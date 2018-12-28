@@ -21,8 +21,11 @@ auto FDKWayGainMgr::init(const PartInfo &part_info) -> int {
             this->gainbucket[k]->append_direct(vlink);
         }
         auto &vlink = this->gainCalc.vertex_list[pv][v];
-        this->gainbucket[pv]->set_key(vlink, -2*this->pmax);
+        this->gainbucket[pv]->set_key(vlink, 0);
         this->waitinglist.append(vlink);
+    }
+    for (auto v : this->H.module_fixed) {
+        this->lock_all(part[v], v);
     }
     return totalcost;
 }
@@ -47,5 +50,5 @@ auto FDKWayGainMgr::update_move_v(const std::vector<std::uint8_t> &part,
                                         this->gainCalc.deltaGainV[k]);
     }
     this->set_key(fromPart, v, -gain);
-    this->set_key(toPart, v, -2*this->pmax);
+    // this->set_key(toPart, v, -2*this->pmax);
 }

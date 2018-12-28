@@ -34,11 +34,6 @@ auto FDGainMgr<GainCalc, Derived>::init(const PartInfo &part_info)
     auto totalcost = this->gainCalc.init(part_info);
     // this->totalcost = this->gainCalc.totalcost;
     this->waitinglist.clear();
-    
-    for (auto v : this->H.module_fixed) {
-        this->gainCalc.set_key(v, -2*this->pmax);
-    }
-
     return totalcost;
 }
 

@@ -79,9 +79,7 @@ struct bpqueue {
      * @param k
      */
     auto append_direct(dllink &it) -> void {
-        if (it.key <= this->offset) {
-            return;
-        }
+        assert(it.key > this->offset);
         this->append(it, it.key);
     }
 
@@ -92,6 +90,7 @@ struct bpqueue {
      * @param k
      */
     auto append(dllink &it, int k) -> void {
+        assert (k > this->offset);
         it.key = k - this->offset;
         if (this->max < it.key) {
             this->max = it.key;
@@ -108,9 +107,7 @@ struct bpqueue {
     auto appendfrom(std::vector<dllink> &nodes) -> void {
         for (auto &it : nodes) {
             it.key -= this->offset;
-            if (it.key <= 0) {
-                continue;
-            }
+            assert(it.key > 0);
             this->bucket[it.key].append(it);
         }
         this->max = this->high;
@@ -179,7 +176,7 @@ struct bpqueue {
      * @param delta
      */
     auto modify_key(dllink &it, int delta) -> void {
-        if (it.key <= 0) {
+        if (it.is_locked()) {
             return;
         }
         if (delta > 0) {
@@ -195,15 +192,13 @@ struct bpqueue {
      * @param it
      * @return auto
      */
-    // auto detach(dllink &it)
-    // {
-    //     // this->bucket[it.key].detach(it)
-    //     it.detach();
-    //     while (this->bucket[this->max].is_empty())
-    //     {
-    //         this->max -= 1;
-    //     }
-    // }
+    auto detach(dllink &it) -> void {
+        // this->bucket[it.key].detach(it)
+        it.detach();
+        while (this->bucket[this->max].is_empty()) {
+            this->max -= 1;
+        }
+    }
 
     /**
      * @brief iterator point to begin

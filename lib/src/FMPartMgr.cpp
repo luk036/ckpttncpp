@@ -20,6 +20,18 @@ template <typename FMGainMgr, typename FMConstrMgr>
 auto FMPartMgr<FMGainMgr, FMConstrMgr>::legalize(
     std::vector<std::uint8_t> &part) -> size_t {
     this->init(part);
+
+    // Zero-weighted modules does not contribute legalization
+    for (auto v = 0u; v < this->H.number_of_modules(); ++v) {
+        if (this->H.get_module_weight(v) != 0) {
+            continue;
+        }
+        if (this->H.module_fixed.contains(v)) {
+            continue;
+        }
+        this->gainMgr.lock_all(part[v], v);
+    }
+
     size_t legalcheck = 0;
     while (true) {
         auto toPart = this->validator.select_togo();
@@ -67,7 +79,7 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize_1pass(
     auto totalgain = 0;
     auto deferredsnapshot = false;
     std::vector<uint8_t> snapshot;
-    auto besttotalgain = -1;
+    auto besttotalgain = 0;
 
     while (!this->gainMgr.is_empty()) {
         // Take the gainmax with v from gainbucket
@@ -85,17 +97,18 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize_1pass(
                 besttotalgain = totalgain;
             }
             deferredsnapshot = true;
-        } else if (totalgain + gainmax > besttotalgain) {
+        } else if (totalgain + gainmax >= besttotalgain) {
             besttotalgain = totalgain + gainmax;
             deferredsnapshot = false;
         }
         // Update v and its neigbours (even they are in waitinglist);
         // Put neigbours to bucket
+        auto const &[fromPart, toPart, v] = move_info_v;
         this->gainMgr.update_move(part, move_info_v);
-        this->gainMgr.update_move_v(part, move_info_v, 2*this->gainMgr.get_pmax());
+        this->gainMgr.update_move_v(part, move_info_v, gainmax);
+        this->gainMgr.lock(toPart, v);
         this->validator.update_move(move_info_v);
         totalgain += gainmax;
-        auto const &[fromPart, toPart, v] = move_info_v;
         part[v] = toPart;
     }
     if (deferredsnapshot) {

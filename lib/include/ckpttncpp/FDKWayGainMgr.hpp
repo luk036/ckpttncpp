@@ -55,6 +55,18 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
     auto update_move_v(const std::vector<std::uint8_t> &part,
                        const MoveInfoV &move_info_v, int gain) -> void;
 
+    auto lock(size_t whichPart, node_t v) -> void {
+        auto &vlink = this->gainCalc.vertex_list[whichPart][v];
+        this->gainbucket[whichPart]->detach(vlink);
+        vlink.lock();
+    }
+
+    auto lock_all(size_t fromPart, node_t v) -> void {
+        for (auto k = 0u; k < this->K; ++k) {
+            this->lock(k, v);
+        }
+    }
+
   private:
     /**
      * @brief Set the key object

@@ -33,7 +33,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     nodemap_t net_map;
     size_t num_modules;
     size_t num_nets;
-    nodevec_t module_fixed;
+    py::set<node_t> module_fixed;
     bool has_fixed_modules;
     size_t num_pads = 0;
     size_t max_degree;
@@ -56,9 +56,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
      * @param module_fixed
      */
     Netlist(xn::grAdaptor<graph_t> &&G, const nodeview_t &modules,
-            const nodeview_t &nets, nodemap_t &&net_map,
-            // size_t num_modules, size_t num_nets,
-            nodevec_t module_fixed = nodevec_t{});
+            const nodeview_t &nets, nodemap_t &&net_map);
 
     /**
      * @brief
@@ -207,13 +205,11 @@ Netlist<nodeview_t, nodemap_t>::Netlist(xn::grAdaptor<graph_t> &&G,
                                         const nodeview_t &modules,
                                         const nodeview_t &nets,
                                         // nodemap_t&& module_map,
-                                        nodemap_t&& net_map,
-                                        // size_t num_modules, size_t num_nets,
-                                        nodevec_t module_fixed)
+                                        nodemap_t&& net_map)
     : G{std::move(G)}, modules{modules}, nets{nets}, 
       // module_map{std::move(module_map)},
       net_map{std::move(net_map)}, num_modules{modules.size()}, num_nets{nets.size()},
-      module_fixed{module_fixed} //
+      module_fixed{} //
 {
     this->has_fixed_modules = (!this->module_fixed.empty());
     auto deg_cmp = [this](node_t v, node_t w) -> size_t {

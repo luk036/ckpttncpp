@@ -4,12 +4,13 @@
 // **Special code for two-pin nets**
 // Take a snapshot when a move make **negative** gain.
 // Snapshot in the form of "interface"???
-#include "FMPartMgr.hpp" // import FMPartMgr
 #include "FDPartMgr.hpp" // import FDPartMgr
+#include "FMPartMgr.hpp" // import FMPartMgr
 #include "netlist.hpp"
 #include <vector>
 
-extern SimpleNetlist create_contraction_subgraph(SimpleNetlist &, const py::set<node_t> &);
+extern SimpleNetlist create_contraction_subgraph(SimpleNetlist &,
+                                                 const py::set<node_t> &);
 
 class MLPartMgr {
   private:
@@ -19,12 +20,12 @@ class MLPartMgr {
   public:
     int totalcost;
 
-    MLPartMgr(double BalTol, std::uint8_t K=2) 
-      : BalTol{BalTol}, K{K}, totalcost{0} {}
+    MLPartMgr(double BalTol, std::uint8_t K = 2)
+        : BalTol{BalTol}, K{K}, totalcost{0} {}
 
-    template <typename GainMgr, typename ConstrMgr>  
+    template <typename GainMgr, typename ConstrMgr>
     auto run_Partition(SimpleNetlist &H, std::vector<std::uint8_t> &part,
-                        size_t limitsize = 7) -> size_t {
+                       size_t limitsize = 7) -> size_t {
         auto gainMgr = GainMgr(H, this->K);
         auto constrMgr = ConstrMgr(H, this->BalTol, this->K);
         auto partMgr = FMPartMgr(H, gainMgr, constrMgr);
@@ -37,7 +38,8 @@ class MLPartMgr {
             auto H2 = create_contraction_subgraph(H, py::set<node_t>{});
             auto part2 = std::vector<std::uint8_t>(H2.number_of_modules(), 0);
             H2.project_up(part, part2);
-            legalcheck = this->run_Partition<GainMgr, ConstrMgr>(H2, part2, limitsize);
+            legalcheck =
+                this->run_Partition<GainMgr, ConstrMgr>(H2, part2, limitsize);
             if (legalcheck == 2) {
                 H2.project_down(part2, part);
             }
@@ -48,9 +50,9 @@ class MLPartMgr {
         return legalcheck;
     }
 
-    template <typename GainMgr, typename ConstrMgr>  
+    template <typename GainMgr, typename ConstrMgr>
     auto run_FDPartition(SimpleNetlist &H, PartInfo &part_info,
-                        size_t limitsize = 7) -> size_t {
+                         size_t limitsize = 7) -> size_t {
         auto gainMgr = GainMgr(H, this->K);
         auto constrMgr = ConstrMgr(H, this->BalTol, this->K);
         auto partMgr = FDPartMgr(H, gainMgr, constrMgr);
@@ -64,9 +66,11 @@ class MLPartMgr {
             auto H2 = create_contraction_subgraph(H, extern_nets);
             auto part2 = std::vector<std::uint8_t>(H2.number_of_modules(), 0);
             auto extern_nets = py::set<size_t>();
-            auto part2_info = PartInfo{std::move(part2), std::move(extern_nets)};
+            auto part2_info =
+                PartInfo{std::move(part2), std::move(extern_nets)};
             H2.projection_up(part_info, part2_info);
-            legalcheck = this->run_FDPartition<GainMgr, ConstrMgr>(H2, part2_info, limitsize);
+            legalcheck = this->run_FDPartition<GainMgr, ConstrMgr>(
+                H2, part2_info, limitsize);
             if (legalcheck == 2) {
                 H2.projection_down(part2_info, part_info);
             }
@@ -76,7 +80,6 @@ class MLPartMgr {
         this->totalcost = partMgr.totalcost;
         return legalcheck;
     }
-
 };
 
 #endif

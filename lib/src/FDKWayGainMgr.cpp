@@ -8,7 +8,7 @@
  */
 auto FDKWayGainMgr::init(const PartInfo &part_info) -> int {
     auto totalcost = Base::init(part_info);
-    auto const& [part, extern_nets] = part_info;
+    auto const &[part, extern_nets] = part_info;
 
     for (auto k = 0u; k < this->K; ++k) {
         this->gainbucket[k]->clear();

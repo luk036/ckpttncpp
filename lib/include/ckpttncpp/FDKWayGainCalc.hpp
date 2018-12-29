@@ -4,7 +4,7 @@
 // #include "bpqueue.hpp" // import bpqueue
 #include "dllist.hpp"  // import dllink
 #include "netlist.hpp" // import Netlist
-#include "robin.hpp" // import robin
+#include "robin.hpp"   // import robin
 
 class FDKWayGainMgr;
 
@@ -22,7 +22,7 @@ class FDKWayGainCalc {
     size_t num_modules;
     std::vector<std::vector<dllink>> vertex_list;
     std::vector<int> deltaGainV;
-    
+
   public:
     int totalcost;
 
@@ -34,8 +34,7 @@ class FDKWayGainCalc {
      */
     FDKWayGainCalc(SimpleNetlist &H, std::uint8_t K)
         : H{H}, K{K}, RR{K}, num_modules{H.number_of_modules()},
-          deltaGainV(K, 0), totalcost{0} 
-    {
+          deltaGainV(K, 0), totalcost{0} {
         for (auto k = 0u; k < this->K; ++k) {
             this->vertex_list.emplace_back(
                 std::vector<dllink>(this->num_modules));
@@ -60,7 +59,7 @@ class FDKWayGainCalc {
     auto init(const PartInfo &part_info) -> int {
         this->totalcost = 0;
         for (auto k = 0u; k < this->K; ++k) {
-            for (auto& vlink : this->vertex_list[k]) {
+            for (auto &vlink : this->vertex_list[k]) {
                 vlink.key = 0;
             }
         }
@@ -72,24 +71,11 @@ class FDKWayGainCalc {
     }
 
     /**
-     * @brief Set the key object
+     * @brief
      *
      * @param v
-     * @param key
-     */
-    auto set_key(node_t v, int key) -> void {
-        // auto v = this->H.module_map[v];
-        for (auto k = 0u; k < this->K; ++k) {
-            this->vertex_list[k][v].key = key;
-        }
-    }
-
-    /**
-     * @brief 
-     * 
-     * @param v 
-     * @param part_v 
-     * @param weight 
+     * @param part_v
+     * @param weight
      */
     auto modify_gain(node_t v, std::uint8_t part_v, int weight) -> void {
         for (auto k : this->RR.exclude(part_v)) {
@@ -114,8 +100,8 @@ class FDKWayGainCalc {
      * @param move_info
      * @return ret_2pin_info
      */
-    auto update_move_2pin_net(PartInfo &part_info,
-                              const MoveInfo &move_info) -> ret_2pin_info;
+    auto update_move_2pin_net(PartInfo &part_info, const MoveInfo &move_info)
+        -> ret_2pin_info;
 
     using ret_info =
         std::tuple<std::vector<size_t>, std::vector<std::vector<int>>>;
@@ -127,8 +113,8 @@ class FDKWayGainCalc {
      * @param move_info
      * @return ret_info
      */
-    auto update_move_general_net(PartInfo &part_info,
-                                 const MoveInfo &move_info) -> ret_info;
+    auto update_move_general_net(PartInfo &part_info, const MoveInfo &move_info)
+        -> ret_info;
 
   private:
     /**

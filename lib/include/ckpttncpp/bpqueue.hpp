@@ -90,7 +90,7 @@ struct bpqueue {
      * @param k
      */
     auto append(dllink &it, int k) -> void {
-        assert (k > this->offset);
+        assert(k > this->offset);
         it.key = k - this->offset;
         if (this->max < it.key) {
             this->max = it.key;

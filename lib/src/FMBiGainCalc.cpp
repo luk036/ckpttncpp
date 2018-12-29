@@ -12,7 +12,7 @@
  */
 void FMBiGainCalc::init_gain( //
     node_t net, const std::vector<std::uint8_t> &part) {
-    auto degree = this->H.G.degree(net); 
+    auto degree = this->H.G.degree(net);
     if (unlikely(degree < 2)) {
         return; // does not provide any gain when move
     } else if (degree == 2) {

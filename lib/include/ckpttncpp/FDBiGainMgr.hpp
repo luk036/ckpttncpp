@@ -13,31 +13,30 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
 
     /**
      * @brief Construct a new FDBiGainMgr object
-     * 
-     * @param H 
-     * @param K 
+     *
+     * @param H
+     * @param K
      */
-    explicit FDBiGainMgr(SimpleNetlist &H, std::uint8_t K=2) : Base{H} {}
+    explicit FDBiGainMgr(SimpleNetlist &H, std::uint8_t K = 2) : Base{H} {}
 
     /**
-     * @brief 
-     * 
-     * @param part_info 
-     * @return int 
+     * @brief
+     *
+     * @param part_info
+     * @return int
      */
     auto init(const PartInfo &part_info) -> int;
 
     /**
      * @brief (needed by base class)
-     * 
-     * @param w 
-     * @param part_w 
-     * @param key 
+     *
+     * @param w
+     * @param part_w
+     * @param key
      */
-    auto modify_key(node_t w, std::uint8_t part_w, int key)
-        -> void {
-        this->gainbucket[1 - part_w]->modify_key(
-            this->gainCalc.vertex_list[w], key);
+    auto modify_key(node_t w, std::uint8_t part_w, int key) -> void {
+        this->gainbucket[1 - part_w]->modify_key(this->gainCalc.vertex_list[w],
+                                                 key);
     }
 
     /**

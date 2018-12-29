@@ -9,8 +9,10 @@ extern void readAre(SimpleNetlist &H, const char *areFileName);
 extern std::tuple<py::set<node_t>, int>
 min_net_cover_pd(SimpleNetlist &, const std::vector<size_t> &);
 extern std::tuple<py::set<node_t>, int>
-max_independent_net(SimpleNetlist &, const std::vector<size_t> &, const py::set<node_t> &);
-extern SimpleNetlist create_contraction_subgraph(SimpleNetlist &, const py::set<node_t> &);
+max_independent_net(SimpleNetlist &, const std::vector<size_t> &,
+                    const py::set<node_t> &);
+extern SimpleNetlist create_contraction_subgraph(SimpleNetlist &,
+                                                 const py::set<node_t> &);
 
 //
 // Primal-dual algorithm for minimum vertex cover problem

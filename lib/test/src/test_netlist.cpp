@@ -10,10 +10,10 @@
 #include <utility> // for std::pair
 #include <vector>
 
-using graph_t =
-    boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS>;
-using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
-using edge_t = typename boost::graph_traits<graph_t>::edge_iterator;
+// using graph_t =
+//     boost::adjacency_list<boost::hash_setS, boost::vecS, boost::undirectedS>;
+// using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
+// using edge_t = typename boost::graph_traits<graph_t>::edge_iterator;
 
 /**
  * @brief Create a test netlist object

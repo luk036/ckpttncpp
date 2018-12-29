@@ -1,4 +1,5 @@
 #include <ckpttncpp/FDBiGainCalc.hpp>
+
 /* linux-2.6.38.8/include/linux/compiler.h */
 #include <stdio.h>
 #define likely(x) __builtin_expect(!!(x), 1)
@@ -8,11 +9,11 @@
  * @brief
  *
  * @param net
- * @param part
+ * @param part_info
  */
 void FDBiGainCalc::init_gain( //
     node_t net, const PartInfo &part_info) {
-    auto degree = this->H.G.degree(net); 
+    auto degree = this->H.G.degree(net);
     if (unlikely(degree < 2)) {
         return; // does not provide any gain when move
     }
@@ -34,17 +35,16 @@ void FDBiGainCalc::init_gain( //
     }
 }
 
-
 /**
  * @brief
  *
  * @param net
  * @param part
+ * @param weight
  */
-void FDBiGainCalc::init_gain_general_net(
-    node_t net, const std::vector<std::uint8_t> &part,
-    size_t weight)
-{
+void FDBiGainCalc::init_gain_general_net(node_t net,
+                                         const std::vector<std::uint8_t> &part,
+                                         size_t weight) {
     size_t num[2] = {0, 0};
     auto IdVec = std::vector<size_t>();
     for (auto const &w : this->H.G[net]) {
@@ -52,7 +52,6 @@ void FDBiGainCalc::init_gain_general_net(
         num[part[w]] += 1;
         IdVec.push_back(w);
     }
-
     for (auto &&k : {0, 1}) {
         if (num[k] == 1) {
             for (auto w : IdVec) {
@@ -82,35 +81,35 @@ auto FDBiGainCalc::update_move_2pin_net(PartInfo &part_info,
     // auto w = this->H.module_map[w];
     auto part_w = part[w];
     auto weight = this->H.get_net_weight(net);
-    // auto deltaGainW = (part_w == fromPart) ? 2 * weight : -2 * weight;
     int deltaGainW;
     if (part_w == fromPart) {
-        deltaGainW = 2*weight;
+        deltaGainW = 2 * weight;
         extern_nets.insert(net);
     } else {
-        deltaGainW = -2*weight;
+        deltaGainW = -2 * weight;
         extern_nets.erase(net);
     }
     return std::tuple{w, deltaGainW};
 }
 
 /**
- * @brief
+ * @brief Update move for general nets
  *
  * @param part
  * @param move_info
  * @return ret_info
  */
-auto FDBiGainCalc::update_move_general_net(
-    PartInfo &part_info, const MoveInfo &move_info)
+auto FDBiGainCalc::update_move_general_net(PartInfo &part_info,
+                                           const MoveInfo &move_info)
     -> ret_info {
     auto const &[net, fromPart, toPart, v] = move_info;
     auto &[part, extern_nets] = part_info;
     size_t num[2] = {0, 0};
     auto IdVec = std::vector<size_t>{};
     for (auto const &w : this->H.G[net]) {
-        if (w == v)
+        if (w == v) {
             continue;
+        }
         // auto w = this->H.module_map[w];
         num[part[w]] += 1;
         IdVec.push_back(w);
@@ -125,7 +124,7 @@ auto FDBiGainCalc::update_move_general_net(
             deltaGain[idx] -= weight;
         }
         return std::tuple{std::move(IdVec), std::move(deltaGain)};
-    }   
+    }
     if (num[toPart] == 0) {
         extern_nets.insert(net);
         for (auto idx = 0u; idx < degree; ++idx) {

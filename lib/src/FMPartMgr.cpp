@@ -58,8 +58,6 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::legalize(
         this->totalcost -= gainmax;
         assert(this->totalcost >= 0);
         if (legalcheck == 2) { // satisfied
-            // this->totalcost -= totalgain;
-            // totalgain = 0; // reset to zero
             break;
         }
     }
@@ -113,7 +111,7 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize_1pass(
     }
     if (deferredsnapshot) {
         // restore the previous best solution
-        part = snapshot; // ???
+        part.swap(snapshot); // ???
         // std::copy(snapshot.begin(), snapshot.end(), part.begin());
         totalgain = besttotalgain;
     }
@@ -130,18 +128,18 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize_1pass(
 template <typename FMGainMgr, typename FMConstrMgr>
 auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize(
     std::vector<std::uint8_t> &part) -> void {
-    this->init(part);
-    auto totalcostafter = this->totalcost;
+    // this->init(part);
+    // auto totalcostafter = this->totalcost;
     while (true) {
         this->init(part);
         auto totalcostbefore = this->totalcost;
-        assert(totalcostafter == totalcostbefore);
+        // assert(totalcostafter == totalcostbefore);
         this->optimize_1pass(part);
         assert(this->totalcost <= totalcostbefore);
         if (this->totalcost == totalcostbefore) {
             break;
         }
-        totalcostafter = this->totalcost;
+        // totalcostafter = this->totalcost;
     }
 }
 
@@ -150,5 +148,5 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize(
 template class FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>;
 
 #include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
-#include <ckpttncpp/FMBiGainMgr.hpp>  // import FMBiGainMgr
+#include <ckpttncpp/FMBiGainMgr.hpp>   // import FMBiGainMgr
 template class FMPartMgr<FMBiGainMgr, FMBiConstrMgr>;

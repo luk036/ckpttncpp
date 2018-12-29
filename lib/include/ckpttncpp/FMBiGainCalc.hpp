@@ -29,8 +29,7 @@ class FMBiGainCalc {
      * @param K
      */
     explicit FMBiGainCalc(SimpleNetlist &H, std::uint8_t K = 2)
-        : H{H}, vertex_list(H.number_of_modules()),
-          totalcost{0} {}
+        : H{H}, vertex_list(H.number_of_modules()), totalcost{0} {}
 
     /**
      * @brief
@@ -40,7 +39,7 @@ class FMBiGainCalc {
     auto init(const std::vector<std::uint8_t> &part) -> int {
         // for (auto &net : this->H.net_list) {
         this->totalcost = 0;
-        for (auto& vlink : this->vertex_list) {
+        for (auto &vlink : this->vertex_list) {
             vlink.key = 0;
         }
         for (auto net : this->H.nets) {
@@ -57,18 +56,6 @@ class FMBiGainCalc {
      */
     auto start_ptr(std::uint8_t toPart) -> dllink * {
         return &this->vertex_list[0];
-    }
-
-    /**
-     * @brief Set the key object
-     *
-     * @param v
-     * @param key
-     */
-    auto set_key(node_t v, int key) -> void {
-        // auto v = this->H.module_map[v];
-        // assert(v == v);
-        this->vertex_list[v].key = key;
     }
 
     /**

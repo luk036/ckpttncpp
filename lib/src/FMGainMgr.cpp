@@ -14,8 +14,7 @@
  */
 template <typename GainCalc, class Derived>
 FMGainMgr<GainCalc, Derived>::FMGainMgr(SimpleNetlist &H, std::uint8_t K)
-    : H{H}, K{K}, gainCalc{H, K}, pmax{H.get_max_degree()}, waitinglist{}
-{
+    : H{H}, K{K}, gainCalc{H, K}, pmax{H.get_max_degree()}, waitinglist{} {
     static_assert(std::is_base_of_v<FMGainMgr<GainCalc, Derived>, Derived>);
     for (auto k = 0u; k < this->K; ++k) {
         this->gainbucket.push_back(
@@ -111,8 +110,7 @@ auto FMGainMgr<GainCalc, Derived>::update_move(
 template <typename GainCalc, class Derived>
 auto FMGainMgr<GainCalc, Derived>::update_move_2pin_net(
     const std::vector<std::uint8_t> &part, const MoveInfo &move_info) -> void {
-    auto [w, deltaGainW] =
-        this->gainCalc.update_move_2pin_net(part, move_info);
+    auto [w, deltaGainW] = this->gainCalc.update_move_2pin_net(part, move_info);
     self.modify_key(w, part[w], deltaGainW);
 }
 

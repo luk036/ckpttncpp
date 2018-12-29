@@ -12,13 +12,12 @@
  * @param part
  * @param vertex_list
  */
-auto FDKWayGainCalc::init_gain(node_t net,
-                               const PartInfo &part_info) -> void {
+auto FDKWayGainCalc::init_gain(node_t net, const PartInfo &part_info) -> void {
     auto degree = this->H.G.degree(net);
     if (unlikely(degree < 2)) {
         return; // does not provide any gain when move
     }
-    auto const &[part, extern_nets] = part_info;    
+    auto const &[part, extern_nets] = part_info;
     if (extern_nets.contains(net)) {
         if (degree == 2) {
             this->init_gain_2pin_net(net, part);
@@ -109,8 +108,8 @@ auto FDKWayGainCalc::update_move_2pin_net(PartInfo &part_info,
     return std::tuple{w, std::move(deltaGainW)};
 }
 
-auto FDKWayGainCalc::update_move_general_net(
-    PartInfo &part_info, const MoveInfo &move_info)
+auto FDKWayGainCalc::update_move_general_net(PartInfo &part_info,
+                                             const MoveInfo &move_info)
     -> ret_info {
     auto const &[net, fromPart, toPart, v] = move_info;
     auto &[part, extern_nets] = part_info;
@@ -160,8 +159,7 @@ auto FDKWayGainCalc::update_move_general_net(
             for (auto idx = 0u; idx < degree; ++idx) {
                 deltaGain[idx][l] -= weight;
             }
-        }
-        else if (num[l] == 1) {
+        } else if (num[l] == 1) {
             for (auto idx = 0u; idx < degree; ++idx) {
                 if (part[IdVec[idx]] == l) {
                     for (auto k = 0u; k < this->K; ++k) {

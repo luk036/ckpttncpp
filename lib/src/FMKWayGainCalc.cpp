@@ -143,8 +143,7 @@ auto FMKWayGainCalc::update_move_general_net(
             for (auto idx = 0u; idx < degree; ++idx) {
                 deltaGain[idx][l] -= weight;
             }
-        }
-        else if (num[l] == 1) {
+        } else if (num[l] == 1) {
             for (auto idx = 0u; idx < degree; ++idx) {
                 if (part[IdVec[idx]] == l) {
                     for (auto k = 0u; k < this->K; ++k) {

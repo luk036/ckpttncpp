@@ -73,18 +73,18 @@ class FDPartMgr {
     void optimize_1pass(PartInfo &part_info);
 
     /**
-     * @brief 
-     * 
-     * @param part_info 
-     * @return Snapshot 
+     * @brief
+     *
+     * @param part_info
+     * @return Snapshot
      */
     auto take_snapshot(const PartInfo &part_info) -> Snapshot;
 
     /**
-     * @brief 
-     * 
-     * @param snapshot 
-     * @return PartInfo 
+     * @brief
+     *
+     * @param snapshot
+     * @return PartInfo
      */
     auto restore_part_info(Snapshot &snapshot) -> PartInfo;
 };

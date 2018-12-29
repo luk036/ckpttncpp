@@ -45,7 +45,6 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      */
     auto init(const std::vector<std::uint8_t> &part) -> int;
 
-
     auto get_pmax() const -> size_t { return this->pmax; }
 
     /**

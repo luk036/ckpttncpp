@@ -3,7 +3,8 @@
 #include <tuple>
 #include <vector>
 
-auto max_independent_net(SimpleNetlist &H, const std::vector<size_t> &weight, const py::set<node_t>& DontSelect) {
+auto max_independent_net(SimpleNetlist &H, const std::vector<size_t> &weight,
+                         const py::set<node_t> &DontSelect) {
     auto visited = std::vector<bool>(H.nets.size(), false);
     auto S = py::set<node_t>{};
     auto total_cost = 0u;
@@ -109,7 +110,8 @@ auto min_net_cover_pd(SimpleNetlist &H, const std::vector<size_t> &weight) {
  * @param H
  * @return auto
  */
-auto create_contraction_subgraph(SimpleNetlist &H, const py::set<node_t> &DontSelect) {
+auto create_contraction_subgraph(SimpleNetlist &H,
+                                 const py::set<node_t> &DontSelect) {
     auto [S, total_cost] = max_independent_net(H, H.module_weight, DontSelect);
 
     auto module_up_map = py::dict<node_t, size_t>();
@@ -183,10 +185,9 @@ auto create_contraction_subgraph(SimpleNetlist &H, const py::set<node_t> &DontSe
     }
     auto G = xn::grAdaptor<graph_t>(std::move(g));
 
-    auto H2 =
-        Netlist(std::move(G), py::range2(0, numModules),
-                py::range2(numModules, num_vertices),
-                py::range2(-numModules, numNets));
+    auto H2 = Netlist(std::move(G), py::range2(0, numModules),
+                      py::range2(numModules, num_vertices),
+                      py::range2(-numModules, numNets));
 
     auto node_down_map = py::dict<node_t, node_t>{};
     for (auto [v1, v2] : node_up_map) {
@@ -207,8 +208,7 @@ auto create_contraction_subgraph(SimpleNetlist &H, const py::set<node_t> &DontSe
                 cluster_weight += H.get_module_weight(v2);
             }
             module_weight.push_back(cluster_weight);
-        }
-        else {
+        } else {
             auto v2 = node_down_map[v];
             module_weight.push_back(H.get_module_weight(v2));
         }

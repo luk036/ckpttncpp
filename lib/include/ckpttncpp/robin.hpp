@@ -10,20 +10,25 @@ class robin {
   private:
     std::vector<dllink> cycle;
 
-    struct iterator
-    {
-        dllink* cur;
-        bool operator != (const iterator & other) const { return cur != other.cur; }
-        bool operator == (const iterator & other) const { return cur == other.cur; }
-        iterator& operator ++ () { cur = cur->next; return *this; }
-        int operator * () const { return cur->key; }
+    struct iterator {
+        dllink *cur;
+        bool operator!=(const iterator &other) const {
+            return cur != other.cur;
+        }
+        bool operator==(const iterator &other) const {
+            return cur == other.cur;
+        }
+        iterator &operator++() {
+            cur = cur->next;
+            return *this;
+        }
+        int operator*() const { return cur->key; }
     };
-    struct iterable_wrapper
-    {
-        robin* rr;
+    struct iterable_wrapper {
+        robin *rr;
         size_t fromPart;
-        auto begin() { return iterator{ rr->cycle[fromPart].next }; }
-        auto end() { return iterator{ &rr->cycle[fromPart] }; }
+        auto begin() { return iterator{rr->cycle[fromPart].next}; }
+        auto end() { return iterator{&rr->cycle[fromPart]}; }
         auto size() const -> size_t { return rr->cycle.size() - 1; }
     };
 
@@ -37,9 +42,7 @@ class robin {
         this->cycle[K - 1].key = K - 1;
     }
 
-    auto exclude(size_t fromPart) {
-        return iterable_wrapper{this, fromPart};
-    }
+    auto exclude(size_t fromPart) { return iterable_wrapper{this, fromPart}; }
 };
 
 #endif

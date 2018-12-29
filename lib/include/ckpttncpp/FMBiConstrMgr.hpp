@@ -13,7 +13,8 @@ class FMBiConstrMgr : public FMConstrMgr {
      * @param H
      * @param BalTol
      */
-    FMBiConstrMgr(SimpleNetlist &H, double BalTol, std::uint8_t K=2) : FMConstrMgr{H, BalTol, 2} {}
+    FMBiConstrMgr(SimpleNetlist &H, double BalTol, std::uint8_t K = 2)
+        : FMConstrMgr{H, BalTol, 2} {}
 
     /**
      * @brief

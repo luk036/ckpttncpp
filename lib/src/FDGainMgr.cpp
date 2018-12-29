@@ -14,8 +14,7 @@
  */
 template <typename GainCalc, class Derived>
 FDGainMgr<GainCalc, Derived>::FDGainMgr(SimpleNetlist &H, std::uint8_t K)
-    : H{H}, gainCalc{H, K}, pmax{H.get_max_degree()}, waitinglist{}, K{K}
-{
+    : H{H}, gainCalc{H, K}, pmax{H.get_max_degree()}, waitinglist{}, K{K} {
     static_assert(std::is_base_of_v<FDGainMgr<GainCalc, Derived>, Derived>);
     for (auto k = 0u; k < this->K; ++k) {
         this->gainbucket.push_back(
@@ -29,10 +28,8 @@ FDGainMgr<GainCalc, Derived>::FDGainMgr(SimpleNetlist &H, std::uint8_t K)
  * @param part
  */
 template <typename GainCalc, class Derived>
-auto FDGainMgr<GainCalc, Derived>::init(const PartInfo &part_info)
-    -> int {
+auto FDGainMgr<GainCalc, Derived>::init(const PartInfo &part_info) -> int {
     auto totalcost = this->gainCalc.init(part_info);
-    // this->totalcost = this->gainCalc.totalcost;
     this->waitinglist.clear();
     return totalcost;
 }
@@ -44,7 +41,7 @@ auto FDGainMgr<GainCalc, Derived>::init(const PartInfo &part_info)
  * @return std::tuple<MoveInfoV, int>
  */
 template <typename GainCalc, class Derived>
-auto FDGainMgr<GainCalc, Derived>::select(const std::vector<std::uint8_t> & part)
+auto FDGainMgr<GainCalc, Derived>::select(const std::vector<std::uint8_t> &part)
     -> std::tuple<MoveInfoV, int> {
     auto gainmax = std::vector<int>(this->K);
     for (auto k = 0u; k < this->K; ++k) {
@@ -54,7 +51,6 @@ auto FDGainMgr<GainCalc, Derived>::select(const std::vector<std::uint8_t> & part
     std::uint8_t toPart = std::distance(gainmax.cbegin(), it);
     auto &vlink = this->gainbucket[toPart]->popleft();
     this->waitinglist.append(vlink);
-    // node_t v = &vlink - this->gainCalc.start_ptr(toPart);
     node_t v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);
     // node_t v = this->H.modules[v];
     auto fromPart = part[v];
@@ -68,7 +64,6 @@ auto FDGainMgr<GainCalc, Derived>::select_togo(std::uint8_t toPart)
     auto gainmax = this->gainbucket[toPart]->get_max();
     auto &vlink = this->gainbucket[toPart]->popleft();
     this->waitinglist.append(vlink);
-    // node_t v = &vlink - this->gainCalc.start_ptr(toPart);
     node_t v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);
     // node_t v = this->H.modules[v];
     return std::tuple{v, gainmax};
@@ -82,10 +77,9 @@ auto FDGainMgr<GainCalc, Derived>::select_togo(std::uint8_t toPart)
  * @param gain
  */
 template <typename GainCalc, class Derived>
-auto FDGainMgr<GainCalc, Derived>::update_move(
-    PartInfo &part_info, const MoveInfoV &move_info_v)
+auto FDGainMgr<GainCalc, Derived>::update_move(PartInfo &part_info,
+                                               const MoveInfoV &move_info_v)
     -> void {
-    // std::fill_n(this->deltaGainV.begin(), this->K, 0);
     this->gainCalc.update_move_init();
 
     auto const &[fromPart, toPart, v] = move_info_v;

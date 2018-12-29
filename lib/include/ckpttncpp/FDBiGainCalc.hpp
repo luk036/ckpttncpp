@@ -29,19 +29,18 @@ class FDBiGainCalc {
      * @param K
      */
     explicit FDBiGainCalc(SimpleNetlist &H, std::uint8_t K = 2)
-        : H{H}, vertex_list(H.number_of_modules()),
-          totalcost{0} {}
+        : H{H}, vertex_list(H.number_of_modules()), totalcost{0} {}
 
     /**
-     * @brief 
-     * 
-     * @param part_info 
-     * @return int 
+     * @brief
+     *
+     * @param part_info
+     * @return int
      */
     auto init(const PartInfo &part_info) -> int {
         // for (auto &net : this->H.net_list) {
         this->totalcost = 0;
-        for (auto& vlink : this->vertex_list) {
+        for (auto &vlink : this->vertex_list) {
             vlink.key = 0;
         }
         for (auto net : this->H.nets) {
@@ -61,18 +60,6 @@ class FDBiGainCalc {
     }
 
     /**
-     * @brief Set the key object
-     *
-     * @param v
-     * @param key
-     */
-    auto set_key(node_t v, int key) -> void {
-        // auto v = this->H.module_map[v];
-        // assert(v == v);
-        this->vertex_list[v].key = key;
-    }
-
-    /**
      * @brief
      *
      */
@@ -89,8 +76,8 @@ class FDBiGainCalc {
      * @param move_info
      * @return ret_2pin_info
      */
-    auto update_move_2pin_net(PartInfo &part_info,
-                              const MoveInfo &move_info) -> ret_2pin_info;
+    auto update_move_2pin_net(PartInfo &part_info, const MoveInfo &move_info)
+        -> ret_2pin_info;
 
     using ret_info = std::tuple<std::vector<size_t>, std::vector<int>>;
 
@@ -100,8 +87,8 @@ class FDBiGainCalc {
      * @param part_info
      * @param move_info
      */
-    auto update_move_general_net(PartInfo &part_info,
-                                 const MoveInfo &move_info) -> ret_info;
+    auto update_move_general_net(PartInfo &part_info, const MoveInfo &move_info)
+        -> ret_info;
 
   protected:
     /**

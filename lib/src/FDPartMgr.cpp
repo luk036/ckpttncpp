@@ -10,8 +10,7 @@
  * @param part
  */
 template <typename FDGainMgr, typename FDConstrMgr>
-auto FDPartMgr<FDGainMgr, FDConstrMgr>::init(PartInfo &part_info)
-    -> void {
+auto FDPartMgr<FDGainMgr, FDConstrMgr>::init(PartInfo &part_info) -> void {
     this->totalcost = this->gainMgr.init(part_info);
     // this->totalcost = this->gainMgr.totalcost;
     auto const &[part, extern_nets] = part_info;
@@ -19,8 +18,8 @@ auto FDPartMgr<FDGainMgr, FDConstrMgr>::init(PartInfo &part_info)
 }
 
 template <typename FDGainMgr, typename FDConstrMgr>
-auto FDPartMgr<FDGainMgr, FDConstrMgr>::legalize(
-    PartInfo &part_info) -> size_t {
+auto FDPartMgr<FDGainMgr, FDConstrMgr>::legalize(PartInfo &part_info)
+    -> size_t {
     this->init(part_info);
     auto &[part, extern_nets] = part_info;
 
@@ -77,8 +76,8 @@ auto FDPartMgr<FDGainMgr, FDConstrMgr>::legalize(
  * @param part
  */
 template <typename FDGainMgr, typename FDConstrMgr>
-auto FDPartMgr<FDGainMgr, FDConstrMgr>::optimize_1pass(
-    PartInfo &part_info) -> void {
+auto FDPartMgr<FDGainMgr, FDConstrMgr>::optimize_1pass(PartInfo &part_info)
+    -> void {
     auto totalgain = 0;
     auto deferredsnapshot = false;
     // auto snapshot = part;
@@ -133,26 +132,25 @@ auto FDPartMgr<FDGainMgr, FDConstrMgr>::optimize_1pass(
  * @param part
  */
 template <typename FDGainMgr, typename FDConstrMgr>
-auto FDPartMgr<FDGainMgr, FDConstrMgr>::optimize(
-    PartInfo &part_info) -> void {
-    this->init(part_info);
-    auto totalcostafter = this->totalcost;
+auto FDPartMgr<FDGainMgr, FDConstrMgr>::optimize(PartInfo &part_info) -> void {
+    // this->init(part_info);
+    // auto totalcostafter = this->totalcost;
     while (true) {
         this->init(part_info);
         auto totalcostbefore = this->totalcost;
-        assert(totalcostafter == totalcostbefore);
+        // assert(totalcostafter == totalcostbefore);
         this->optimize_1pass(part_info);
         assert(this->totalcost <= totalcostbefore);
         if (this->totalcost == totalcostbefore) {
             break;
         }
-        totalcostafter = this->totalcost;
+        // totalcostafter = this->totalcost;
     }
 }
 
 template <typename FDGainMgr, typename FDConstrMgr>
-auto FDPartMgr<FDGainMgr, FDConstrMgr>::take_snapshot(
-    const PartInfo &part_info) -> Snapshot {
+auto FDPartMgr<FDGainMgr, FDConstrMgr>::take_snapshot(const PartInfo &part_info)
+    -> Snapshot {
     auto const &[part, extern_nets] = part_info;
     auto extern_nets_ss = extern_nets.copy();
     auto extern_modules_ss = py::dict<size_t, std::uint8_t>();
@@ -165,9 +163,8 @@ auto FDPartMgr<FDGainMgr, FDConstrMgr>::take_snapshot(
 }
 
 template <typename FDGainMgr, typename FDConstrMgr>
-auto FDPartMgr<FDGainMgr, FDConstrMgr>::restore_part_info(
-    Snapshot &snapshot) -> PartInfo 
-{
+auto FDPartMgr<FDGainMgr, FDConstrMgr>::restore_part_info(Snapshot &snapshot)
+    -> PartInfo {
     auto &[extern_nets_ss, extern_modules_ss] = snapshot;
     auto part = std::vector<std::uint8_t>(this->H.number_of_modules(), this->K);
     auto Q = std::deque<node_t>();
@@ -207,14 +204,15 @@ auto FDPartMgr<FDGainMgr, FDConstrMgr>::restore_part_info(
             }
         }
     }
-    auto extern_nets = extern_nets_ss.copy();
+    py::set<node_t> extern_nets{};
+    extern_nets.swap(extern_nets_ss);
     return PartInfo{std::move(part), std::move(extern_nets)};
 }
 
-#include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr
 #include <ckpttncpp/FDKWayGainMgr.hpp>   // import FDKWayGainMgr
+#include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr
 template class FDPartMgr<FDKWayGainMgr, FMKWayConstrMgr>;
 
+#include <ckpttncpp/FDBiGainMgr.hpp>   // import FDBiGainMgr
 #include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
-#include <ckpttncpp/FDBiGainMgr.hpp>  // import FDBiGainMgr
 template class FDPartMgr<FDBiGainMgr, FMBiConstrMgr>;

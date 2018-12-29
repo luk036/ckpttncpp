@@ -4,7 +4,7 @@
 // #include "bpqueue.hpp" // import bpqueue
 #include "dllist.hpp"  // import dllink
 #include "netlist.hpp" // import Netlist
-#include "robin.hpp" // import robin
+#include "robin.hpp"   // import robin
 
 class FMKWayGainMgr;
 
@@ -22,7 +22,7 @@ class FMKWayGainCalc {
     size_t num_modules;
     std::vector<std::vector<dllink>> vertex_list;
     std::vector<int> deltaGainV;
-    
+
   public:
     int totalcost;
 
@@ -34,8 +34,7 @@ class FMKWayGainCalc {
      */
     FMKWayGainCalc(SimpleNetlist &H, std::uint8_t K)
         : H{H}, K{K}, RR{K}, num_modules{H.number_of_modules()},
-          deltaGainV(K, 0), totalcost{0} 
-    {
+          deltaGainV(K, 0), totalcost{0} {
         for (auto k = 0u; k < this->K; ++k) {
             this->vertex_list.emplace_back(
                 std::vector<dllink>(this->num_modules));
@@ -60,7 +59,7 @@ class FMKWayGainCalc {
     auto init(const std::vector<std::uint8_t> &part) -> int {
         this->totalcost = 0;
         for (auto k = 0u; k < this->K; ++k) {
-            for (auto& vlink : this->vertex_list[k]) {
+            for (auto &vlink : this->vertex_list[k]) {
                 vlink.key = 0;
             }
         }
@@ -68,19 +67,6 @@ class FMKWayGainCalc {
             this->init_gain(net, part);
         }
         return this->totalcost;
-    }
-
-    /**
-     * @brief Set the key object
-     *
-     * @param v
-     * @param key
-     */
-    auto set_key(node_t v, int key) -> void {
-        // auto v = this->H.module_map[v];
-        for (auto k = 0u; k < this->K; ++k) {
-            this->vertex_list[k][v].key = key;
-        }
     }
 
     /**

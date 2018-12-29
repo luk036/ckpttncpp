@@ -18,7 +18,7 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
      *
      * @param H
      */
-    explicit FMBiGainMgr(SimpleNetlist &H, std::uint8_t K=2) : Base{H} {}
+    explicit FMBiGainMgr(SimpleNetlist &H, std::uint8_t K = 2) : Base{H} {}
 
     /**
      * @brief
@@ -34,10 +34,9 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
      * @param w
      * @param key
      */
-    auto modify_key(node_t w, std::uint8_t part_w, int key)
-        -> void {
-        this->gainbucket[1 - part_w]->modify_key(
-            this->gainCalc.vertex_list[w], key);
+    auto modify_key(node_t w, std::uint8_t part_w, int key) -> void {
+        this->gainbucket[1 - part_w]->modify_key(this->gainCalc.vertex_list[w],
+                                                 key);
     }
 
     /**

@@ -7,10 +7,10 @@
 #include <utility> // for std::pair
 #include <vector>
 
-using graph_t =
-    boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS>;
-using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
-using edge_t = typename boost::graph_traits<graph_t>::edge_iterator;
+// using graph_t =
+//     boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS>;
+// using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
+// using edge_t = typename boost::graph_traits<graph_t>::edge_iterator;
 
 using std::ifstream;
 using std::ofstream;
@@ -97,10 +97,9 @@ auto readNetD(const char *netDFileName) -> SimpleNetlist {
     //     typename boost::property_map<graph_t, boost::vertex_index_t>::type;
     auto index = boost::get(boost::vertex_index, g);
     auto G = xn::grAdaptor<graph_t>{std::move(g)};
-    auto H =
-        Netlist{std::move(G), py::range2(0, numModules),
-                py::range2(numModules, num_vertices),
-                py::range2(-numModules, num_vertices - numModules)};
+    auto H = Netlist{std::move(G), py::range2(0, numModules),
+                     py::range2(numModules, num_vertices),
+                     py::range2(-numModules, num_vertices - numModules)};
     H.num_pads = numModules - padOffset - 1;
     return std::move(H);
 }

@@ -51,8 +51,8 @@ template <typename GainCalc, class Derived> class FDGainMgr {
 
     /**
      * @brief Get the pmax object
-     * 
-     * @return size_t 
+     *
+     * @return size_t
      */
     auto get_pmax() const -> size_t { return this->pmax; }
 
@@ -105,8 +105,7 @@ template <typename GainCalc, class Derived> class FDGainMgr {
      * @param part
      * @param move_info_v
      */
-    auto update_move(PartInfo &part_info,
-                     const MoveInfoV &move_info_v) -> void;
+    auto update_move(PartInfo &part_info, const MoveInfoV &move_info_v) -> void;
 
   private:
     /**
@@ -115,8 +114,8 @@ template <typename GainCalc, class Derived> class FDGainMgr {
      * @param part_info
      * @param move_info
      */
-    auto update_move_2pin_net(PartInfo &part_info,
-                              const MoveInfo &move_info) -> void;
+    auto update_move_2pin_net(PartInfo &part_info, const MoveInfo &move_info)
+        -> void;
 
     /**
      * @brief
@@ -124,8 +123,8 @@ template <typename GainCalc, class Derived> class FDGainMgr {
      * @param part_info
      * @param move_info
      */
-    auto update_move_general_net(PartInfo &part_info,
-                                 const MoveInfo &move_info) -> void;
+    auto update_move_general_net(PartInfo &part_info, const MoveInfo &move_info)
+        -> void;
 };
 
 #endif

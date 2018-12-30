@@ -12,6 +12,10 @@
 extern SimpleNetlist create_contraction_subgraph(SimpleNetlist &,
                                                  const py::set<node_t> &);
 
+/**
+ * @brief Multilevel Partition Manager
+ * 
+ */
 class MLPartMgr {
   private:
     double BalTol;
@@ -20,9 +24,25 @@ class MLPartMgr {
   public:
     int totalcost;
 
+    /**
+     * @brief Construct a new MLPartMgr object
+     * 
+     * @param BalTol 
+     * @param K 
+     */
     MLPartMgr(double BalTol, std::uint8_t K = 2)
         : BalTol{BalTol}, K{K}, totalcost{0} {}
 
+    /**
+     * @brief run_Partition
+     * 
+     * @tparam GainMgr 
+     * @tparam ConstrMgr 
+     * @param H 
+     * @param part 
+     * @param limitsize 
+     * @return size_t 
+     */
     template <typename GainMgr, typename ConstrMgr>
     auto run_Partition(SimpleNetlist &H, std::vector<std::uint8_t> &part,
                        size_t limitsize = 7) -> size_t {
@@ -50,6 +70,16 @@ class MLPartMgr {
         return legalcheck;
     }
 
+    /**
+     * @brief run_FDPartition
+     * 
+     * @tparam GainMgr 
+     * @tparam ConstrMgr 
+     * @param H 
+     * @param part_info 
+     * @param limitsize 
+     * @return size_t 
+     */
     template <typename GainMgr, typename ConstrMgr>
     auto run_FDPartition(SimpleNetlist &H, PartInfo &part_info,
                          size_t limitsize = 7) -> size_t {

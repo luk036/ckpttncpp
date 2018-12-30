@@ -6,7 +6,7 @@
 #define unlikely(x) __builtin_expect(!!(x), 0)
 
 /**
- * @brief
+ * @brief init_gain
  *
  * @param net
  * @param part_info

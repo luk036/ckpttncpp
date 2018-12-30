@@ -22,6 +22,7 @@ class FMConstrMgr {
     size_t lowerbound;
     size_t weight; // cache value
     size_t totalweight;
+
     /**
      * @brief Construct a new FMConstrMgr object
      *

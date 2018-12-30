@@ -53,12 +53,24 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
         this->set_key(fromPart, v, -gain);
     }
 
+    /**
+     * @brief lock
+     * 
+     * @param whichPart 
+     * @param v 
+     */
     auto lock(std::uint8_t whichPart, node_t v) -> void {
         auto &vlink = this->gainCalc.vertex_list[v];
         this->gainbucket[whichPart]->detach(vlink);
         vlink.lock();
     }
 
+    /**
+     * @brief lock_all
+     * 
+     * @param fromPart 
+     * @param v 
+     */
     auto lock_all(std::uint8_t fromPart, node_t v) -> void {
         auto toPart = 1 - fromPart;
         this->lock(toPart, v);

@@ -32,14 +32,6 @@ struct bpqueue {
     }
 
     /**
-     * @brief Get the key value
-     *
-     * @param it
-     * @return int
-     */
-    auto get_key(dllink &it) const -> int { return it.key + this->offset; }
-
-    /**
      * @brief Set the key object
      *
      * @param it

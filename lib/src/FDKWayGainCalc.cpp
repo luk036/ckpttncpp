@@ -34,6 +34,12 @@ auto FDKWayGainCalc::init_gain(node_t net, const PartInfo &part_info) -> void {
     }
 }
 
+/**
+ * @brief init_gain_2pin_net
+ * 
+ * @param net 
+ * @param part 
+ */
 auto FDKWayGainCalc::init_gain_2pin_net(node_t net,
                                         const std::vector<std::uint8_t> &part)
     -> void {

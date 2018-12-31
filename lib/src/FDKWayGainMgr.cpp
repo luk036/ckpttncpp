@@ -37,8 +37,7 @@ auto FDKWayGainMgr::init(const PartInfo &part_info) -> int {
  * @param move_info_v
  * @param gain
  */
-auto FDKWayGainMgr::update_move_v(const std::vector<std::uint8_t> &part,
-                                  const MoveInfoV &move_info_v, int gain)
+auto FDKWayGainMgr::update_move_v(const MoveInfoV &move_info_v, int gain)
     -> void {
     auto const &[fromPart, toPart, v] = move_info_v;
 

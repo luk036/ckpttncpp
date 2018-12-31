@@ -51,7 +51,7 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::legalize(
         // Update v and its neigbours (even they are in waitinglist);
         // Put neigbours to bucket
         this->gainMgr.update_move(part, move_info_v);
-        this->gainMgr.update_move_v(part, move_info_v, gainmax);
+        this->gainMgr.update_move_v(move_info_v, gainmax);
         this->validator.update_move(move_info_v);
         part[v] = toPart;
         // totalgain += gainmax;
@@ -103,7 +103,7 @@ auto FMPartMgr<FMGainMgr, FMConstrMgr>::optimize_1pass(
         // Put neigbours to bucket
         auto const &[fromPart, toPart, v] = move_info_v;
         this->gainMgr.update_move(part, move_info_v);
-        this->gainMgr.update_move_v(part, move_info_v, gainmax);
+        this->gainMgr.update_move_v(move_info_v, gainmax);
         this->gainMgr.lock(toPart, v);
         this->validator.update_move(move_info_v);
         totalgain += gainmax;

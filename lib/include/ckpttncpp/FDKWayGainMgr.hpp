@@ -52,8 +52,7 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
      * @param move_info_v
      * @param gain
      */
-    auto update_move_v(const std::vector<std::uint8_t> &part,
-                       const MoveInfoV &move_info_v, int gain) -> void;
+    auto update_move_v(const MoveInfoV &move_info_v, int gain) -> void;
 
     /**
      * @brief lock

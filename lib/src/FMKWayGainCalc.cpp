@@ -13,11 +13,13 @@
  * @param vertex_list
  */
 auto FMKWayGainCalc::init_gain(node_t net,
-                               const std::vector<std::uint8_t> &part) -> void {
+                               const PartInfo &part_info) -> void {
     auto degree = this->H.G.degree(net);
     if (unlikely(degree < 2)) {
         return; // does not provide any gain when move
-    } else if (degree == 2) {
+    }
+    auto const &[part, extern_nets] = part_info;
+    if (degree == 2) {
         this->init_gain_2pin_net(net, part);
     } else {
         this->init_gain_general_net(net, part);
@@ -79,10 +81,11 @@ auto FMKWayGainCalc::init_gain_general_net(
     }
 }
 
-auto FMKWayGainCalc::update_move_2pin_net(const std::vector<std::uint8_t> &part,
+auto FMKWayGainCalc::update_move_2pin_net(const PartInfo &part_info,
                                           const MoveInfo &move_info)
     -> ret_2pin_info {
     auto const &[net, fromPart, toPart, v] = move_info;
+    auto const &[part, extern_nets] = part_info;
     auto netCur = this->H.G[net].begin();
     node_t w = (*netCur != v) ? *netCur : *++netCur;
     // auto w = this->H.module_map[w];
@@ -107,9 +110,10 @@ auto FMKWayGainCalc::update_move_2pin_net(const std::vector<std::uint8_t> &part,
 }
 
 auto FMKWayGainCalc::update_move_general_net(
-    const std::vector<std::uint8_t> &part, const MoveInfo &move_info)
+    const PartInfo &part_info, const MoveInfo &move_info)
     -> ret_info {
     auto const &[net, fromPart, toPart, v] = move_info;
+    auto const &[part, extern_nets] = part_info;
     std::vector<size_t> num(this->K, 0);
     auto IdVec = std::vector<size_t>{};
     for (auto const &w : this->H.G[net]) {

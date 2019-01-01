@@ -6,13 +6,15 @@
  *
  * @param part
  */
-auto FMKWayGainMgr::init(const std::vector<std::uint8_t> &part) -> int {
-    auto totalcost = Base::init(part);
+auto FMKWayGainMgr::init(const PartInfo &part_info) -> int {
+    auto totalcost = Base::init(part_info);
 
     for (auto k = 0u; k < this->K; ++k) {
         this->gainbucket[k]->clear();
     }
-    for (auto v = 0u; v < this->H.number_of_modules(); ++v) {
+    auto const &[part, extern_nets] = part_info;
+
+    for (auto v : this->H.modules) {
         auto pv = part[v];
         for (auto k : this->RR.exclude(pv)) {
             auto &vlink = this->gainCalc.vertex_list[k][v];

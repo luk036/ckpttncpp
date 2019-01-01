@@ -15,7 +15,8 @@ TEST_CASE("Test MLBiPartMgr dwarf", "[test_MLBiPartMgr]") {
     auto H = create_dwarf();
     auto partMgr = MLPartMgr{0.3};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-    partMgr.run_Partition<FMBiGainMgr, FMBiConstrMgr>(H, part);
+    auto part_info = PartInfo{std::move(part), py::set<size_t>()};
+    partMgr.run_Partition<FMBiGainMgr, FMBiConstrMgr, FMPartMgr<FMBiGainMgr, FMBiConstrMgr> >(H, part_info);
     CHECK(partMgr.totalcost == 2);
 }
 
@@ -23,7 +24,8 @@ TEST_CASE("Test MLKWayPartMgr dwarf", "[test_MLKWayPartMgr]") {
     auto H = create_dwarf();
     auto partMgr = MLPartMgr{0.4, 3}; // 0.3???
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-    partMgr.run_Partition<FMKWayGainMgr, FMKWayConstrMgr>(H, part);
+    auto part_info = PartInfo{std::move(part), py::set<size_t>()};
+    partMgr.run_Partition<FMKWayGainMgr, FMKWayConstrMgr, FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr> >(H, part_info);
     CHECK(partMgr.totalcost == 4);
 }
 
@@ -31,7 +33,8 @@ TEST_CASE("Test MLBiPartMgr p1", "[test_MLBiPartMgr]") {
     auto H = readNetD("../../testcases/p1.net");
     auto partMgr = MLPartMgr{0.3};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-    partMgr.run_Partition<FMBiGainMgr, FMBiConstrMgr>(H, part, 200);
+    auto part_info = PartInfo{std::move(part), py::set<size_t>()};
+    partMgr.run_Partition<FMBiGainMgr, FMBiConstrMgr, FMPartMgr<FMBiGainMgr, FMBiConstrMgr> >(H, part_info, 200);
     CHECK(partMgr.totalcost == 54);
 }
 

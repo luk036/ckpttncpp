@@ -56,7 +56,7 @@ class FMKWayGainCalc {
      *
      * @param part
      */
-    auto init(const std::vector<std::uint8_t> &part) -> int {
+    auto init(const PartInfo &part_info) -> int {
         this->totalcost = 0;
         for (auto k = 0u; k < this->K; ++k) {
             for (auto &vlink : this->vertex_list[k]) {
@@ -64,7 +64,7 @@ class FMKWayGainCalc {
             }
         }
         for (auto net : this->H.nets) {
-            this->init_gain(net, part);
+            this->init_gain(net, part_info);
         }
         return this->totalcost;
     }
@@ -98,7 +98,7 @@ class FMKWayGainCalc {
      * @param move_info
      * @return ret_2pin_info
      */
-    auto update_move_2pin_net(const std::vector<std::uint8_t> &part,
+    auto update_move_2pin_net(const PartInfo &part_info,
                               const MoveInfo &move_info) -> ret_2pin_info;
 
     using ret_info =
@@ -111,7 +111,7 @@ class FMKWayGainCalc {
      * @param move_info
      * @return ret_info
      */
-    auto update_move_general_net(const std::vector<std::uint8_t> &part,
+    auto update_move_general_net(const PartInfo &part_info,
                                  const MoveInfo &move_info) -> ret_info;
 
   private:
@@ -121,7 +121,7 @@ class FMKWayGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain(node_t net, const std::vector<std::uint8_t> &part) -> void;
+    auto init_gain(node_t net, const PartInfo &part_info) -> void;
 
     /**
      * @brief

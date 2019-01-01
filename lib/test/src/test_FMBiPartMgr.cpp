@@ -18,10 +18,11 @@ void run_FMBiPartMgr(SimpleNetlist &H) {
     auto constrMgr = FMBiConstrMgr{H, 0.3};
     auto partMgr = FMPartMgr{H, gainMgr, constrMgr};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-    partMgr.legalize(part);
+    auto part_info = PartInfo{std::move(part), py::set<node_t>{}};
+    partMgr.legalize(part_info);
     auto totalcostbefore = partMgr.totalcost;
     CHECK(totalcostbefore >= 0);
-    partMgr.optimize(part);
+    partMgr.optimize(part_info);
     CHECK(partMgr.totalcost <= totalcostbefore);
     CHECK(partMgr.totalcost >= 0);
 }

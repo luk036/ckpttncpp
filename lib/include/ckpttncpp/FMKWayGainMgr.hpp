@@ -30,7 +30,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
      *
      * @param part
      */
-    auto init(const std::vector<std::uint8_t> &part) -> int;
+    auto init(const PartInfo &part_info) -> int;
 
     /**
      * @brief (needed by base class)

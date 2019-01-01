@@ -16,6 +16,7 @@
  * @tparam Derived
  */
 template <typename GainCalc, class Derived> class FDGainMgr {
+
     Derived &self = *static_cast<Derived *>(this);
 
   protected:

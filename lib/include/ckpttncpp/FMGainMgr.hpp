@@ -20,7 +20,6 @@ template <typename GainCalc, class Derived> class FMGainMgr {
 
   protected:
     SimpleNetlist &H;
-    std::uint8_t K;
     GainCalc gainCalc;
     size_t pmax;
     // size_t num[2];
@@ -28,6 +27,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
     std::vector<std::unique_ptr<bpqueue>> gainbucket;
 
   public:
+    std::uint8_t K;
     // int totalcost;
 
     /**
@@ -43,7 +43,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      *
      * @param part
      */
-    auto init(const std::vector<std::uint8_t> &part) -> int;
+    auto init(const PartInfo &part_info) -> int;
 
     /**
      * @brief
@@ -94,7 +94,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      * @param part
      * @param move_info_v
      */
-    auto update_move(const std::vector<std::uint8_t> &part,
+    auto update_move(const PartInfo &part_info,
                      const MoveInfoV &move_info_v) -> void;
 
   private:
@@ -104,7 +104,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      * @param part
      * @param move_info
      */
-    auto update_move_2pin_net(const std::vector<std::uint8_t> &part,
+    auto update_move_2pin_net(const PartInfo &part_info,
                               const MoveInfo &move_info) -> void;
 
     /**
@@ -113,7 +113,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      * @param part
      * @param move_info
      */
-    auto update_move_general_net(const std::vector<std::uint8_t> &part,
+    auto update_move_general_net(const PartInfo &part_info,
                                  const MoveInfo &move_info) -> void;
 };
 

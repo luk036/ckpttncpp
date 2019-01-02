@@ -15,7 +15,7 @@ void readAre(SimpleNetlist &H, const char *areFileName);
  */
 void run_FDBiPartMgr(SimpleNetlist &H) {
     auto gainMgr = FDBiGainMgr{H};
-    auto constrMgr = FMBiConstrMgr{H, 0.3};
+    auto constrMgr = FMBiConstrMgr{H, 0.4};
     auto partMgr = FDPartMgr{H, gainMgr, constrMgr};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     auto part_info = PartInfo{std::move(part), py::set<size_t>()};
@@ -42,8 +42,8 @@ TEST_CASE("Test FDBiPartMgr p1", "[test_FDBiPartMgr]") {
     run_FDBiPartMgr(H);
 }
 
-// TEST_CASE("Test FDBiPartMgr ibm01", "[test_FDBiPartMgr]") {
-//     auto H = readNetD("../../testcases/ibm01.net");
-//     readAre(H, "../../testcases/ibm01.are");
-//     run_FDBiPartMgr(H);
-// }
+TEST_CASE("Test FDBiPartMgr ibm01", "[test_FDBiPartMgr]") {
+    auto H = readNetD("../../testcases/ibm01.net");
+    readAre(H, "../../testcases/ibm01.are");
+    run_FDBiPartMgr(H);
+}

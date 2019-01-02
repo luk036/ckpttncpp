@@ -43,12 +43,15 @@ class MLPartMgr {
      * @param limitsize 
      * @return size_t self.take_snapshot(part_info)
      */
-    template <typename GainMgr, typename ConstrMgr, typename PartMgr>
+    template <typename PartMgr>
     auto run_Partition(SimpleNetlist &H, PartInfo &part_info,
                        size_t limitsize = 7) -> size_t {
-        auto gainMgr = GainMgr(H, this->K);
-        auto constrMgr = ConstrMgr(H, this->BalTol, this->K);
-        auto partMgr = PartMgr(H, gainMgr, constrMgr);
+        using GainMgr = typename PartMgr::GainMgr_;
+        using ConstrMgr = typename PartMgr::ConstrMgr_;
+
+        auto gainMgr = GainMgr{H, this->K};
+        auto constrMgr = ConstrMgr{H, this->BalTol, this->K};
+        auto partMgr = PartMgr{H, gainMgr, constrMgr};
         // partMgr.init(part);
         auto legalcheck = partMgr.legalize(part_info);
         if (legalcheck != 2) {
@@ -58,12 +61,12 @@ class MLPartMgr {
         if (H.number_of_modules() >= limitsize) { // OK
             auto H2 = create_contraction_subgraph(H, extern_nets);
             auto part2 = std::vector<std::uint8_t>(H2.number_of_modules(), 0);
-            auto extern_nets_ss = py::set<size_t>();
+            auto extern_nets_ss = py::set<size_t>{};
             auto part2_info =
                 PartInfo{std::move(part2), std::move(extern_nets_ss)};
             H2.projection_up(part_info, part2_info);
             legalcheck =
-                this->run_Partition<GainMgr, ConstrMgr, PartMgr>(H2, part2_info, limitsize);
+                this->run_Partition<PartMgr>(H2, part2_info, limitsize);
             if (legalcheck == 2) {
                 H2.projection_down(part2_info, part_info);
             }
@@ -99,7 +102,7 @@ class MLPartMgr {
     //     if (H.number_of_modules() >= limitsize) { // OK
     //         auto H2 = create_contraction_subgraph(H, extern_nets);
     //         auto part2 = std::vector<std::uint8_t>(H2.number_of_modules(), 0);
-    //         auto extern_nets = py::set<size_t>();
+    //         auto extern_nets = py::set<size_t>{};
     //         auto part2_info =
     //             PartInfo{std::move(part2), std::move(extern_nets)};
     //         H2.projection_up(part_info, part2_info);

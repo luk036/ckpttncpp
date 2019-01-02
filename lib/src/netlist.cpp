@@ -14,8 +14,9 @@ projection_up(const PartInfo &part_info, PartInfo &part_info_up)
     }
     if (extern_nets.empty()) {
         return;
-    } 
+    }
     extern_nets_up.clear();
+    extern_nets_up.reserve(extern_nets.size());
     for (auto net : extern_nets) {
         extern_nets_up.insert(this->node_up_map[net]);
     }
@@ -46,6 +47,7 @@ projection_down(const PartInfo &part_info, PartInfo &part_info_down)
         return;
     } 
     extern_nets_down.clear();
+    extern_nets_down.reserve(extern_nets.size());
     for (auto net : extern_nets) {
         extern_nets_down.insert(this->node_down_map[net]);
     }

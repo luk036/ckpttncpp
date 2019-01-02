@@ -11,12 +11,14 @@
 class FMKWayGainMgr;
 
 class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
-    using Base = FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>;
 
   private:
     robin RR;
 
   public:
+    using Base = FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>;
+    using GainCalc_ = FMKWayGainCalc;
+
     /**
      * @brief Construct a new FMKWayGainMgr object
      *
@@ -41,7 +43,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
      */
     auto modify_key(node_t w, std::uint8_t part_w, const std::vector<int> &keys)
         -> void {
-        for (auto k : this->RR.exclude(part_w)) {
+        for (auto &&k : this->RR.exclude(part_w)) {
             this->gainbucket[k]->modify_key(this->gainCalc.vertex_list[k][w],
                                             keys[k]);
         }

@@ -16,7 +16,7 @@ auto FMKWayGainMgr::init(const PartInfo &part_info) -> int {
 
     for (auto v : this->H.modules) {
         auto pv = part[v];
-        for (auto k : this->RR.exclude(pv)) {
+        for (auto &&k : this->RR.exclude(pv)) {
             auto &vlink = this->gainCalc.vertex_list[k][v];
             this->gainbucket[k]->append_direct(vlink);
         }

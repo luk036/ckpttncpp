@@ -76,7 +76,7 @@ class FMKWayGainCalc {
      * @param weight
      */
     auto modify_gain(node_t v, std::uint8_t part_v, int weight) -> void {
-        for (auto k : this->RR.exclude(part_v)) {
+        for (auto &&k : this->RR.exclude(part_v)) {
             this->vertex_list[k][v].key += weight;
         }
     }

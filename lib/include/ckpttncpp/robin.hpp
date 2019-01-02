@@ -22,14 +22,14 @@ class robin {
             cur = cur->next;
             return *this;
         }
-        int operator*() const { return cur->key; }
+        const int& operator*() const { return cur->key; }
     };
     struct iterable_wrapper {
         robin *rr;
         size_t fromPart;
         auto begin() { return iterator{rr->cycle[fromPart].next}; }
         auto end() { return iterator{&rr->cycle[fromPart]}; }
-        auto size() const -> size_t { return rr->cycle.size() - 1; }
+        // auto size() const -> size_t { return rr->cycle.size() - 1; }
     };
 
   public:

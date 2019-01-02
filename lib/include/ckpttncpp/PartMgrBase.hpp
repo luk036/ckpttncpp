@@ -23,6 +23,11 @@ template <typename GainMgr, typename ConstrMgr, template
           <typename _GainMgr, typename _ConstrMgr> class Derived> //
 class PartMgrBase {
 
+public:
+    using GainCalc_ = typename GainMgr::GainCalc_;
+    using GainMgr_ = GainMgr;
+    using ConstrMgr_ = ConstrMgr;
+
     using Der = Derived<GainMgr, ConstrMgr>;
     Der &self = *static_cast<Der *>(this);
 
@@ -92,7 +97,7 @@ class PartMgrBase {
      * @param snapshot
      * @return PartInfo
      */
-    auto restore_part_info(Snapshot &snapshot) -> PartInfo;
+    auto restore_part_info(Snapshot &snapshot, PartInfo& part_info) -> void;
 };
 
 #endif

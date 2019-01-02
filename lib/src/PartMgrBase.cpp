@@ -111,9 +111,9 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize_1pass(PartInfo &part_inf
         // Update v and its neigbours (even they are in waitinglist);
         // Put neigbours to bucket
         auto const &[fromPart, toPart, v] = move_info_v;
+        this->gainMgr.lock(toPart, v);
         this->gainMgr.update_move(part_info, move_info_v);
         this->gainMgr.update_move_v(move_info_v, gainmax);
-        this->gainMgr.lock(toPart, v);
         this->validator.update_move(move_info_v);
         totalgain += gainmax;
         part[v] = toPart;
@@ -121,7 +121,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize_1pass(PartInfo &part_inf
     if (deferredsnapshot) {
         // restore the previous best solution
         // part = snapshot;
-        part_info = self.restore_part_info(snapshot);
+        self.restore_part_info(snapshot, part_info);
         totalgain = besttotalgain;
     }
     this->totalcost -= totalgain;

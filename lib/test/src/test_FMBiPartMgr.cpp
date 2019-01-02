@@ -15,7 +15,7 @@ void readAre(SimpleNetlist &H, const char *areFileName);
  */
 void run_FMBiPartMgr(SimpleNetlist &H) {
     auto gainMgr = FMBiGainMgr{H};
-    auto constrMgr = FMBiConstrMgr{H, 0.3};
+    auto constrMgr = FMBiConstrMgr{H, 0.4};
     auto partMgr = FMPartMgr{H, gainMgr, constrMgr};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     auto part_info = PartInfo{std::move(part), py::set<node_t>{}};

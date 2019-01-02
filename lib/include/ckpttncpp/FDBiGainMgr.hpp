@@ -10,6 +10,7 @@
  */
 struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
     using Base = FDGainMgr<FDBiGainCalc, FDBiGainMgr>;
+    using GainCalc_ = FDBiGainCalc;
 
     /**
      * @brief Construct a new FDBiGainMgr object

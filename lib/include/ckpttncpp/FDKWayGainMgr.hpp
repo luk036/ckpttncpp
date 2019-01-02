@@ -9,12 +9,14 @@
  *
  */
 class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
-    using Base = FDGainMgr<FDKWayGainCalc, FDKWayGainMgr>;
-
   private:
     robin RR;
 
   public:
+
+    using Base = FDGainMgr<FDKWayGainCalc, FDKWayGainMgr>;
+    using GainCalc_ = FDKWayGainCalc;
+
     /**
      * @brief Construct a new FDKWayGainMgr object
      *
@@ -39,7 +41,7 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
      */
     auto modify_key(node_t w, std::uint8_t part_w, const std::vector<int> &keys)
         -> void {
-        for (auto k : this->RR.exclude(part_w)) {
+        for (auto &&k : this->RR.exclude(part_w)) {
             this->gainbucket[k]->modify_key(this->gainCalc.vertex_list[k][w],
                                             keys[k]);
         }

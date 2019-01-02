@@ -113,67 +113,87 @@ auto min_net_cover_pd(SimpleNetlist &H, const std::vector<size_t> &weight) {
 auto create_contraction_subgraph(SimpleNetlist &H,
                                  const py::set<node_t> &DontSelect) {
     auto [S, total_cost] = max_independent_net(H, H.module_weight, DontSelect);
+    auto module_up_map = py::dict<node_t, size_t>{};
+    module_up_map.reserve(H.number_of_modules());
 
-    auto module_up_map = py::dict<node_t, size_t>();
     for (auto v : H.modules) {
         module_up_map[v] = v;
     }
-
-    auto C = py::set<node_t>();
-    auto nets = std::vector<node_t>();
-    auto clusters = std::vector<node_t>();
     auto cluster_map = py::dict<node_t, size_t>{};
-    for (auto net : H.nets) {
-        if (S.contains(net)) {
-            auto netCur = H.G[net].begin();
-            auto master = *netCur;
-            clusters.push_back(master);
-            for (auto v : H.G[net]) {
-                module_up_map[v] = master;
-                C.insert(v);
-            }
-            cluster_map[master] = net;
-        } else {
-            nets.push_back(net);
-        }
-    }
-
-    auto modules = std::vector<node_t>();
-    for (auto v : H.modules) {
-        if (C.contains(v))
-            continue;
-        modules.push_back(v);
-    }
-    modules.insert(modules.end(), clusters.begin(), clusters.end());
-    auto nodes = std::vector<node_t>{};
-    nodes.insert(nodes.end(), modules.begin(), modules.end());
-    nodes.insert(nodes.end(), nets.begin(), nets.end());
-    auto numModules = std::size(modules);
-    auto numNets = std::size(nets);
-    auto num_vertices = numModules + numNets;
-
-    auto module_map = py::dict<node_t, size_t>{};
-    for (auto [i_v, v] : py::enumerate(modules)) {
-        module_map[v] = i_v;
-    }
-
-    auto net_map = py::dict<node_t, size_t>{};
-    for (auto [i_net, net] : py::enumerate(nets)) {
-        net_map[net] = i_net;
-    }
-
+    cluster_map.reserve(S.size());
     auto node_up_map = py::dict<node_t, node_t>{};
-    for (auto v : H.modules) {
-        node_up_map[v] = module_map[module_up_map[v]];
-    }
-    for (auto net : H.nets) {
-        if (S.contains(net)) {
-            continue;
+    size_t numModules;
+    size_t numNets;
+
+    { // localize modules and nets
+        auto modules = std::vector<node_t>{};
+        auto nets = std::vector<node_t>{};
+        nets.reserve(H.nets.size() - S.size());
+
+        { // localize C and clusters
+            auto C = py::set<node_t>{};
+            auto clusters = std::vector<node_t>{};
+            C.reserve(2*S.size()); // ???
+            clusters.reserve(S.size());
+
+            for (auto net : H.nets) {
+                if (S.contains(net)) {
+                    auto netCur = H.G[net].begin();
+                    auto master = *netCur;
+                    clusters.push_back(master);
+                    for (auto v : H.G[net]) {
+                        module_up_map[v] = master;
+                        C.insert(v);
+                    }
+                    cluster_map[master] = net;
+                }
+                else {
+                    nets.push_back(net);
+                }
+            }
+            modules.reserve(H.modules.size() - C.size() + clusters.size());
+            for (auto v : H.modules) {
+                if (C.contains(v)) {
+                    continue;
+                }
+                modules.push_back(v);
+            }
+            modules.insert(modules.end(), clusters.begin(), clusters.end());
         }
-        node_up_map[net] = net_map[net] + numModules;
+        //auto nodes = std::vector<node_t>{};
+        //nodes.reserve(modules.size() + nets.size());
+
+        //nodes.insert(nodes.end(), modules.begin(), modules.end());
+        //nodes.insert(nodes.end(), nets.begin(), nets.end());
+        numModules = std::size(modules);
+        numNets = std::size(nets);
+
+        { // localize module_map and net_map
+            auto module_map = py::dict<node_t, size_t>{};
+            module_map.reserve(numModules);
+            for (auto [i_v, v] : py::enumerate(modules)) {
+                module_map[v] = i_v;
+            }
+
+            auto net_map = py::dict<node_t, size_t>{};
+            net_map.reserve(numNets);
+            for (auto [i_net, net] : py::enumerate(nets)) {
+                net_map[net] = i_net;
+            }
+
+            node_up_map.reserve(H.number_of_modules() + nets.size());
+
+            for (auto v : H.modules) {
+                node_up_map[v] = module_map[module_up_map[v]];
+            }
+            for (auto net : nets) {
+                node_up_map[net] = net_map[net] + numModules;
+            }
+        }
     }
 
-    graph_t g(nodes.size());
+    auto num_vertices = numModules + numNets;
+    graph_t g(num_vertices);
     // G.add_nodes_from(nodes);
     for (auto v : H.modules) {
         for (auto net : H.G[v]) {
@@ -190,15 +210,18 @@ auto create_contraction_subgraph(SimpleNetlist &H,
                       py::range2(-numModules, numNets));
 
     auto node_down_map = py::dict<node_t, node_t>{};
+    node_down_map.reserve(num_vertices);
     for (auto [v1, v2] : node_up_map) {
         node_down_map[v2] = v1;
     }
     auto cluster_down_map = py::dict<node_t, node_t>{};
+    cluster_down_map.reserve(cluster_map.size()); // ???
     for (auto [v, net] : cluster_map) {
         cluster_down_map[node_up_map[v]] = net;
     }
 
-    auto module_weight = std::vector<size_t>();
+    auto module_weight = std::vector<size_t>{};
+    module_weight.reserve(numModules);
     for (auto v : py::range2(0, numModules)) {
         // auto v = modules[v];
         if (cluster_down_map.contains(v)) {
@@ -217,7 +240,7 @@ auto create_contraction_subgraph(SimpleNetlist &H,
     H2.node_up_map = std::move(node_up_map);
     H2.node_down_map = std::move(node_down_map);
     H2.cluster_down_map = std::move(cluster_down_map);
-    H2.module_weight = module_weight;
+    H2.module_weight = std::move(module_weight);
     H2.parent = &H;
     return H2;
 }

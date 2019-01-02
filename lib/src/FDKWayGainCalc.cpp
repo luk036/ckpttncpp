@@ -27,7 +27,7 @@ auto FDKWayGainCalc::init_gain(node_t net, const PartInfo &part_info) -> void {
     } else { // 90%
         auto weight = this->H.get_net_weight(net);
         for (auto const &w : this->H.G[net]) {
-            for (auto k : this->RR.exclude(part[w])) {
+            for (auto &&k : this->RR.exclude(part[w])) {
                 this->vertex_list[k][w].key -= weight;
             }
         }
@@ -57,7 +57,7 @@ auto FDKWayGainCalc::init_gain_2pin_net(node_t net,
 auto FDKWayGainCalc::init_gain_general_net(
     node_t net, const std::vector<std::uint8_t> &part) -> void {
     std::vector<size_t> num(this->K, 0);
-    auto IdVec = std::vector<size_t>();
+    auto IdVec = std::vector<size_t>{};
     for (auto const &w : this->H.G[net]) {
         // auto w = this->H.module_map[w];
         num[part[w]] += 1;

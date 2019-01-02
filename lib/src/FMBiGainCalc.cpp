@@ -57,7 +57,7 @@ void FMBiGainCalc::init_gain_2pin_net( //
 void FMBiGainCalc::init_gain_general_net(
     node_t net, const std::vector<std::uint8_t> &part) {
     size_t num[2] = {0, 0};
-    auto IdVec = std::vector<size_t>();
+    auto IdVec = std::vector<size_t>{};
     for (auto const &w : this->H.G[net]) {
         // auto w = this->H.module_map[w];
         num[part[w]] += 1;

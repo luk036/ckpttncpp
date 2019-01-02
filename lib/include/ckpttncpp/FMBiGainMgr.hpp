@@ -12,6 +12,8 @@ struct FMBiGainMgr;
  */
 struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
     using Base = FMGainMgr<FMBiGainCalc, FMBiGainMgr>;
+    using GainCalc_ = FMBiGainCalc;
+
 
     /**
      * @brief Construct a new FMBiGainMgr object

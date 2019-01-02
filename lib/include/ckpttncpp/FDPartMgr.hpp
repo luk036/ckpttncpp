@@ -48,7 +48,7 @@ class FDPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FDPartMgr> {
      * @param snapshot
      * @return PartInfo
      */
-    auto restore_part_info(Snapshot &snapshot) -> PartInfo;
+    auto restore_part_info(Snapshot &snapshot, PartInfo& part_info) -> void;
 };
 
 #endif

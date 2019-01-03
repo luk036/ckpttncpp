@@ -44,7 +44,7 @@ class MLPartMgr {
      * @return size_t self.take_snapshot(part_info)
      */
     template <typename PartMgr>
-    auto run_Partition(SimpleNetlist &H, PartInfo &part_info,
+    auto run_FMPartition(SimpleNetlist &H, PartInfo &part_info,
                        size_t limitsize = 7) -> size_t {
         using GainMgr = typename PartMgr::GainMgr_;
         using ConstrMgr = typename PartMgr::ConstrMgr_;
@@ -66,7 +66,7 @@ class MLPartMgr {
                 PartInfo{std::move(part2), std::move(extern_nets_ss)};
             H2.projection_up(part_info, part2_info);
             legalcheck =
-                this->run_Partition<PartMgr>(H2, part2_info, limitsize);
+                this->run_FMPartition<PartMgr>(H2, part2_info, limitsize);
             if (legalcheck == 2) {
                 H2.projection_down(part2_info, part_info);
             }
@@ -75,6 +75,71 @@ class MLPartMgr {
         assert(partMgr.totalcost >= 0);
         this->totalcost = partMgr.totalcost;
         return legalcheck;
+    }
+
+    /**
+     * @brief run_Partition
+     * 
+     * @tparam GainMgr 
+     * @tparam ConstrMgr 
+     * @param H 
+     * @param part 
+     * @param limitsize 
+     * @return size_t self.take_snapshot(part_info)
+     */
+    template <typename PartMgr>
+    auto run_Partition(SimpleNetlist &H, PartInfo &part_info,
+                       size_t limitsize = 7) -> size_t {
+        using GainMgr = typename PartMgr::GainMgr_;
+        using ConstrMgr = typename PartMgr::ConstrMgr_;
+
+        auto gainMgr = GainMgr{H, this->K};
+        auto constrMgr = ConstrMgr{H, this->BalTol, this->K};
+        auto partMgr = PartMgr{H, gainMgr, constrMgr};
+        // partMgr.init(part);
+        auto legalcheck = partMgr.legalize(part_info);
+        if (legalcheck != 2) {
+            this->totalcost = partMgr.totalcost;
+            return legalcheck;
+        }
+        this->run_Partition_recur<PartMgr>(H, part_info, limitsize);
+        return legalcheck;
+    }
+
+    /**
+     * @brief run_Partition_recur
+     * 
+     * @tparam GainMgr 
+     * @tparam ConstrMgr 
+     * @param H 
+     * @param part 
+     * @param limitsize 
+     * @return size_t self.take_snapshot(part_info)
+     */
+    template <typename PartMgr>
+    auto run_Partition_recur(SimpleNetlist &H, PartInfo &part_info,
+                       size_t limitsize) -> void {
+        if (H.number_of_modules() >= limitsize) { // OK
+            auto &[part, extern_nets] = part_info;
+            auto H2 = create_contraction_subgraph(H, extern_nets);
+            auto part2 = std::vector<std::uint8_t>(H2.number_of_modules(), 0);
+            auto extern_nets_ss = py::set<size_t>{};
+            auto part2_info =
+                PartInfo{std::move(part2), std::move(extern_nets_ss)};
+            H2.projection_up(part_info, part2_info);
+            this->run_Partition<PartMgr>(H2, part2_info, limitsize);
+            H2.projection_down(part2_info, part_info);
+        }
+        using GainMgr = typename PartMgr::GainMgr_;
+        using ConstrMgr = typename PartMgr::ConstrMgr_;
+
+        auto gainMgr = GainMgr{H, this->K};
+        auto constrMgr = ConstrMgr{H, this->BalTol, this->K};
+        auto partMgr = PartMgr{H, gainMgr, constrMgr};
+
+        partMgr.optimize(part_info);
+        assert(partMgr.totalcost >= 0);
+        this->totalcost = partMgr.totalcost;
     }
 
     // /**

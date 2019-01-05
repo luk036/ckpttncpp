@@ -115,7 +115,7 @@ auto FDBiGainCalc::update_move_general_net(PartInfo &part_info,
         IdVec.push_back(w);
     }
     auto degree = std::size(IdVec);
-    auto deltaGain = std::vector<int>(degree, 0);
+    auto deltaGain = std::vector(degree, 0);
     auto weight = this->H.get_net_weight(net);
 
     if (num[fromPart] == 0) {

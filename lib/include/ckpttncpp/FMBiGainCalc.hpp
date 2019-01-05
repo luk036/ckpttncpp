@@ -42,7 +42,7 @@ class FMBiGainCalc {
         for (auto &vlink : this->vertex_list) {
             vlink.key = 0;
         }
-        auto &[part, extern_nets] = part_info;
+        // auto &[part, extern_nets] = part_info;
         for (auto net : this->H.nets) {
             this->init_gain(net, part_info);
         }

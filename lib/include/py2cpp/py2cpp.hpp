@@ -5,9 +5,93 @@
 #include <unordered_set>
 #include <initializer_list>
 #include <utility>
+#include <type_traits>
 
 namespace py
 {
+
+#include <tuple>
+
+/**
+ * @brief 
+ * 
+ * @tparam T 
+ * @tparam decltype(std::begin(std::declval<T>())) 
+ * @tparam decltype(std::end(std::declval<T>())) 
+ * @param iterable 
+ * @return constexpr auto 
+ */
+template <typename T,
+          typename TIter = decltype(std::begin(std::declval<T>())),
+          typename = decltype(std::end(std::declval<T>()))>
+constexpr auto enumerate(T && iterable)
+{
+    struct iterator
+    {
+        size_t i;
+        TIter iter;
+        bool operator != (const iterator & other) const { return iter != other.iter; }
+        void operator ++ () { ++i; ++iter; }
+        auto operator * () const { return std::tie(i, *iter); }
+        auto operator * () { return std::tie(i, *iter); }
+    };
+    struct iterable_wrapper
+    {
+        T iterable;
+        auto cbegin() const { return iterator{ 0, std::begin(iterable) }; }
+        auto cend() const { return iterator{ 0, std::end(iterable) }; }
+        auto begin() { return iterator{ 0, std::begin(iterable) }; }
+        auto end() { return iterator{ 0, std::end(iterable) }; }
+    };
+    return iterable_wrapper{ std::forward<T>(iterable) };
+}
+
+constexpr auto range(size_t stop)
+{
+    struct iterator
+    {
+        size_t i;
+        bool operator != (const iterator & other) const { return i != other.i; }
+        bool operator == (const iterator & other) const { return i == other.i; }
+        iterator& operator ++ () { ++i; return *this; }
+        size_t operator * () const { return i; }
+    };
+    struct iterable_wrapper
+    {
+        size_t stop;
+        auto cbegin() const { return iterator{ 0u }; }
+        auto cend() const { return iterator{ stop }; }
+        auto begin() { return iterator{ 0u }; }
+        auto end() { return iterator{ stop }; }
+        auto size() const -> size_t { return stop; }
+        auto operator[](size_t index) const -> size_t { return index; }
+    };
+    return iterable_wrapper{stop};
+}
+
+constexpr auto range2(int start, int stop)
+{
+    struct iterator
+    {
+        int i;
+        bool operator != (const iterator & other) const { return i != other.i; }
+        bool operator == (const iterator & other) const { return i == other.i; }
+        iterator& operator ++ () { ++i; return *this; }
+        int operator * () const { return i; }
+    };
+    struct iterable_wrapper
+    {
+        int start;
+        int stop;
+        auto cbegin() const { return iterator{ start }; }
+        auto cend() const { return iterator{ stop }; }
+        auto begin() { return iterator{ start }; }
+        auto end() { return iterator{ stop }; }
+        auto size() const -> size_t { return stop - start; }
+        auto operator[](size_t index) const -> int { return start + index; }
+    };
+    return iterable_wrapper{start, stop};
+}
 
 /**
  * @brief 
@@ -154,6 +238,20 @@ class dict : public std::unordered_map<Key, T>
     explicit dict(std::initializer_list<value_type> init) : std::unordered_map<Key, T>{init} {}
 
     /**
+     * @brief Construct a new dict object
+     * 
+     * @tparam Sequence 
+     * @param S 
+     */
+    // template <class Sequence>
+    // explicit dict(const Sequence &S) {
+    //     this->reserve(S.size());
+    //     for (auto [i_v, v] : py::enumerate(S)) {
+    //         (*this)[v] = i_v;
+    //     }
+    // }
+
+    /**
      * @brief 
      * 
      * @param key 
@@ -254,73 +352,8 @@ inline size_t len(const dict<Key, T> &m)
 template <typename Key, typename T>
 dict(std::initializer_list<std::pair<const Key, T>>)->dict<Key, T>;
 
-#include <tuple>
-
-template <typename T,
-          typename TIter = decltype(std::begin(std::declval<T>())),
-          typename = decltype(std::end(std::declval<T>()))>
-constexpr auto enumerate(T && iterable)
-{
-    struct iterator
-    {
-        size_t i;
-        TIter iter;
-        bool operator != (const iterator & other) const { return iter != other.iter; }
-        void operator ++ () { ++i; ++iter; }
-        auto operator * () const { return std::tie(i, *iter); }
-        auto operator * () { return std::tie(i, *iter); }
-    };
-    struct iterable_wrapper
-    {
-        T iterable;
-        auto begin() { return iterator{ 0, std::begin(iterable) }; }
-        auto end() { return iterator{ 0, std::end(iterable) }; }
-    };
-    return iterable_wrapper{ std::forward<T>(iterable) };
-}
-
-constexpr auto range(size_t stop)
-{
-    struct iterator
-    {
-        size_t i;
-        bool operator != (const iterator & other) const { return i != other.i; }
-        bool operator == (const iterator & other) const { return i == other.i; }
-        iterator& operator ++ () { ++i; return *this; }
-        size_t operator * () const { return i; }
-    };
-    struct iterable_wrapper
-    {
-        size_t stop;
-        auto begin() { return iterator{ 0u }; }
-        auto end() { return iterator{ stop }; }
-        auto size() const -> size_t { return stop; }
-        auto operator[](size_t index) const -> size_t { return index; }
-    };
-    return iterable_wrapper{stop};
-}
-
-constexpr auto range2(int start, int stop)
-{
-    struct iterator
-    {
-        int i;
-        bool operator != (const iterator & other) const { return i != other.i; }
-        bool operator == (const iterator & other) const { return i == other.i; }
-        iterator& operator ++ () { ++i; return *this; }
-        int operator * () const { return i; }
-    };
-    struct iterable_wrapper
-    {
-        int start;
-        int stop;
-        auto begin() { return iterator{ start }; }
-        auto end() { return iterator{ stop }; }
-        auto size() const -> size_t { return stop - start; }
-        auto operator[](size_t index) const -> int { return start + index; }
-    };
-    return iterable_wrapper{start, stop};
-}
+template <class Sequence>
+dict(const Sequence& S) -> dict<std::remove_cv_t<decltype(*std::begin(S))>, size_t>;
 
 } // namespace py
 

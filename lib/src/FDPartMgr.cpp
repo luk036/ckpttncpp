@@ -22,24 +22,16 @@ auto FDPartMgr<GainMgr, ConstrMgr>::restore_part_info(Snapshot &snapshot, PartIn
     -> void {
     auto &[extern_nets_ss, extern_modules_ss] = snapshot;
     auto &[part, extern_nets] = part_info;
-    // auto part = std::vector<std::uint8_t>(this->H.number_of_modules(), this->K);
     std::fill(part.begin(), part.end(), this->K);
-    // auto Q = std::deque<std::pair<node_t, size_t>>{};
-    // Q.reserve(extern_modules_ss.size())
-    // (v for v, _ in extern_modules_ss.items())
     for (auto const &[v, part_v] : extern_modules_ss) {
         if (part[v] < this->K) {
             continue;
         }
-        // std::uint8_t part_v = extern_modules_ss[v];
         part[v] = part_v;
-        std::deque Q2 = { v };
-        // Q2.push_back(v);
-        while (!Q2.empty()) {
-            auto v2 = Q2.front();
-            Q2.pop_front();
-            // if (part[v2] < this->K) {
-            //     continue;
+        std::deque Q = { v };
+        while (!Q.empty()) {
+            auto v2 = Q.front();
+            Q.pop_front();
             for (auto net : this->H.G[v2]) {
                 if (this->H.G.degree(net) < 2) {
                     continue;
@@ -52,14 +44,12 @@ auto FDPartMgr<GainMgr, ConstrMgr>::restore_part_info(Snapshot &snapshot, PartIn
                         continue;
                     }
                     part[v3] = part_v;
-                    Q2.push_back(v3);
+                    Q.push_back(v3);
                 }
             }
         }
     }
-    // py::set<node_t> extern_nets{};
     extern_nets.swap(extern_nets_ss);
-    // return PartInfo{std::move(part), std::move(extern_nets)};
 }
 
 #include <ckpttncpp/FDKWayGainMgr.hpp>   // import FDKWayGainMgr

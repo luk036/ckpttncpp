@@ -47,5 +47,5 @@ TEST_CASE("Test MLFDBiPartMgr p1", "[test_MLFDBiPartMgr]") {
 //     partMgr.run_Partition<FDPartMgr<FDBiGainMgr, FMBiConstrMgr> >(H, part_info, 300);
 //     auto &[part_s, extern_nets] = part_info;
 //     CHECK(partMgr.totalcost == extern_nets.size());
-//     CHECK(partMgr.totalcost == 310);
+//     CHECK(partMgr.totalcost == 247);
 // }

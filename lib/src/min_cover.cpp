@@ -6,6 +6,9 @@
 auto max_independent_net(SimpleNetlist &H, const std::vector<size_t> &weight,
                          const py::set<node_t> &DontSelect) {
     auto visited = std::vector(H.nets.size(), false);
+    for (auto net : DontSelect) {
+        visited[H.net_map[net]] = true;
+    }
     auto S = py::set<node_t>{};
     auto total_cost = 0u;
     for (auto i_net = 0u; i_net < H.nets.size(); ++i_net) {
@@ -14,9 +17,6 @@ auto max_independent_net(SimpleNetlist &H, const std::vector<size_t> &weight,
         }
         auto net = H.nets[i_net];
         if (H.G.degree(net) < 2) {
-            continue;
-        }
-        if (DontSelect.contains(net)) {
             continue;
         }
         S.insert(net);

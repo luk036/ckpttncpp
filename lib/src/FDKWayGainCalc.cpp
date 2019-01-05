@@ -94,8 +94,8 @@ auto FDKWayGainCalc::update_move_2pin_net(PartInfo &part_info,
     // auto w = this->H.module_map[w];
     auto part_w = part[w];
     auto weight = this->H.get_net_weight(net);
-    auto deltaGainW = std::vector<int>(this->K, 0);
-    // auto deltaGainV = std::vector<int>(this->K, 0);
+    auto deltaGainW = std::vector(this->K, 0);
+    // auto deltaGainV = std::vector(this->K, 0);
     if (part_w == fromPart) {
         extern_nets.insert(net);
         for (auto k = 0u; k < this->K; ++k) {
@@ -130,8 +130,8 @@ auto FDKWayGainCalc::update_move_general_net(PartInfo &part_info,
     }
     auto degree = std::size(IdVec);
     auto deltaGain =
-        std::vector<std::vector<int>>(degree, std::vector<int>(this->K, 0));
-    // auto deltaGainV = std::vector<int>(this->K, 0);
+        std::vector(degree, std::vector(this->K, 0));
+    // auto deltaGainV = std::vector(this->K, 0);
     // auto m = this->H.G[net].get('weight', 1);
     auto weight = this->H.get_net_weight(net);
 

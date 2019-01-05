@@ -18,7 +18,7 @@ find_package (Threads REQUIRED)
 # set(LIBS ${LIBS} "-L${xtensor_INCLUDE_DIRS}/../lib")
 # message(STATUS "Test: ${LIBS}")
 
-add_definitions ( -std=c++1z -g)
+add_definitions ( -std=c++1z )
 # add_subdirectory (third_party EXCLUDE_FROM_ALL)
 
 # add_executable (Main profit_main.cpp)

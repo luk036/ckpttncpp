@@ -128,7 +128,7 @@ auto FMBiGainCalc::update_move_general_net(
         IdVec.push_back(w);
     }
     auto degree = std::size(IdVec);
-    auto deltaGain = std::vector<int>(degree, 0);
+    auto deltaGain = std::vector(degree, 0);
     auto weight = this->H.get_net_weight(net);
     for (auto &&l : {fromPart, toPart}) {
         if (num[l] == 0) {

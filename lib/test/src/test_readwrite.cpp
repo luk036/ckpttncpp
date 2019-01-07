@@ -3,7 +3,8 @@
 #include <ckpttncpp/netlist.hpp>
 
 extern SimpleNetlist readNetD(const char *netDFileName);
-void readAre(SimpleNetlist &H, const char *areFileName);
+extern void readAre(SimpleNetlist &H, const char *areFileName);
+extern void writeJSON(const char *jsonFileName, const SimpleNetlist &H);
 
 TEST_CASE("Test Read Dwarf", "[test_readwrite]") {
     auto H = readNetD("../../testcases/dwarf1.netD");
@@ -28,4 +29,19 @@ TEST_CASE("Test Read p1", "[test_readwrite]") {
     CHECK(H.get_max_net_degree() == 18);
     CHECK(!H.has_fixed_modules);
     CHECK(H.get_module_weight(1) == 1);
+}
+
+TEST_CASE("Test Write Dwarf", "[test_readwrite]") {
+    auto H = readNetD("../../testcases/dwarf1.netD");
+    readAre(H, "../../testcases/dwarf1.are");
+    writeJSON("../../testcases/dwarf1.json", H);
+
+    CHECK(H.number_of_modules() == 7);
+    CHECK(H.number_of_nets() == 5);
+    CHECK(H.number_of_pins() == 13);
+}
+
+TEST_CASE("Test Write p1", "[test_readwrite]") {
+    auto H = readNetD("../../testcases/p1.net");
+    writeJSON("../../testcases/p1.json", H);
 }

@@ -16,6 +16,46 @@ using std::ifstream;
 using std::ofstream;
 
 // Read the IBM .netD/.net format. Precondition: Netlist is empty.
+auto writeJSON(const char *jsonFileName, const SimpleNetlist &H) -> void {
+    auto json = ofstream{jsonFileName};
+    if (json.fail()) {
+        std::cerr << "Error: Can't open file " << jsonFileName << ".\n";
+        exit(1);
+    }
+    json << R"({
+ "directed": false,
+ "multigraph": false,
+ "graph": {
+)";
+
+    json << R"( "num_modules": )" << H.number_of_modules() << ",\n";
+    json << R"( "num_nets": )" << H.number_of_nets() << ",\n";
+    json << R"( "num_pads": )" << H.num_pads << "\n";
+    json << " },\n";
+
+    json << R"( "nodes": [)"
+         << "\n";
+    for (auto node : H.G) {
+        json << "  { \"id\": " << node << " },\n";
+    }
+    json << " ],\n";
+
+    json << R"( "links": [)"
+         << "\n";
+    for (auto v : H.modules) {
+        for (auto net : H.G[v]) {
+            json << "  {\n";
+            json << "   \"source\": " << v << ",\n";
+            json << "   \"target\": " << net << "\n";
+            json << "  },\n";
+        }
+    }
+    json << " ]\n";
+
+    json << "}\n";
+}
+
+// Read the IBM .netD/.net format. Precondition: Netlist is empty.
 auto readNetD(const char *netDFileName) -> SimpleNetlist {
     auto netD = ifstream{netDFileName};
     if (netD.fail()) {

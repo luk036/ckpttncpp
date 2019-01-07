@@ -12,8 +12,7 @@
  * @param part
  * @param vertex_list
  */
-auto FMKWayGainCalc::init_gain(node_t net,
-                               const PartInfo &part_info) -> void {
+auto FMKWayGainCalc::init_gain(node_t net, const PartInfo &part_info) -> void {
     auto degree = this->H.G.degree(net);
     if (unlikely(degree < 2)) {
         return; // does not provide any gain when move
@@ -109,8 +108,8 @@ auto FMKWayGainCalc::update_move_2pin_net(const PartInfo &part_info,
     return std::tuple{w, std::move(deltaGainW)};
 }
 
-auto FMKWayGainCalc::update_move_general_net(
-    const PartInfo &part_info, const MoveInfo &move_info)
+auto FMKWayGainCalc::update_move_general_net(const PartInfo &part_info,
+                                             const MoveInfo &move_info)
     -> ret_info {
     auto const &[net, fromPart, toPart, v] = move_info;
     auto const &[part, extern_nets] = part_info;
@@ -124,8 +123,7 @@ auto FMKWayGainCalc::update_move_general_net(
         IdVec.push_back(w);
     }
     auto degree = std::size(IdVec);
-    auto deltaGain =
-        std::vector(degree, std::vector(this->K, 0));
+    auto deltaGain = std::vector(degree, std::vector(this->K, 0));
     // auto deltaGainV = std::vector(this->K, 0);
     // auto m = this->H.G[net].get('weight', 1);
     auto weight = this->H.get_net_weight(net);

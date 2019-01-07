@@ -61,8 +61,8 @@ constexpr auto range(size_t stop)
         size_t stop;
         auto cbegin() const { return iterator{ 0u }; }
         auto cend() const { return iterator{ stop }; }
-        auto begin() { return iterator{ 0u }; }
-        auto end() { return iterator{ stop }; }
+        auto begin() const { return iterator{ 0u }; }
+        auto end() const { return iterator{ stop }; }
         auto size() const -> size_t { return stop; }
         auto operator[](size_t index) const -> size_t { return index; }
     };
@@ -85,8 +85,8 @@ constexpr auto range2(int start, int stop)
         int stop;
         auto cbegin() const { return iterator{ start }; }
         auto cend() const { return iterator{ stop }; }
-        auto begin() { return iterator{ start }; }
-        auto end() { return iterator{ stop }; }
+        auto begin() const { return iterator{ start }; }
+        auto end() const { return iterator{ stop }; }
         auto size() const -> size_t { return stop - start; }
         auto operator[](size_t index) const -> int { return start + index; }
     };

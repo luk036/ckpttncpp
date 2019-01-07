@@ -133,7 +133,7 @@ auto create_contraction_subgraph(SimpleNetlist &H,
         { // localize C and clusters
             auto C = py::set<node_t>{};
             auto clusters = std::vector<node_t>{};
-            C.reserve(2*S.size()); // ???
+            C.reserve(3 * S.size()); // ???
             clusters.reserve(S.size());
 
             for (auto net : H.nets) {
@@ -146,8 +146,7 @@ auto create_contraction_subgraph(SimpleNetlist &H,
                         C.insert(v);
                     }
                     cluster_map[master] = net;
-                }
-                else {
+                } else {
                     nets.push_back(net);
                 }
             }
@@ -160,11 +159,11 @@ auto create_contraction_subgraph(SimpleNetlist &H,
             }
             modules.insert(modules.end(), clusters.begin(), clusters.end());
         }
-        //auto nodes = std::vector<node_t>{};
-        //nodes.reserve(modules.size() + nets.size());
+        // auto nodes = std::vector<node_t>{};
+        // nodes.reserve(modules.size() + nets.size());
 
-        //nodes.insert(nodes.end(), modules.begin(), modules.end());
-        //nodes.insert(nodes.end(), nets.begin(), nets.end());
+        // nodes.insert(nodes.end(), modules.begin(), modules.end());
+        // nodes.insert(nodes.end(), nets.begin(), nets.end());
         numModules = std::size(modules);
         numNets = std::size(nets);
 

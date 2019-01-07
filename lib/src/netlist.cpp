@@ -2,8 +2,8 @@
 #include <py2cpp/py2cpp.hpp>
 
 template <typename nodeview_t, typename nodemap_t>
-auto Netlist<nodeview_t, nodemap_t>::
-projection_up(const PartInfo &part_info, PartInfo &part_info_up)
+auto Netlist<nodeview_t, nodemap_t>::projection_up(const PartInfo &part_info,
+                                                   PartInfo &part_info_up)
     -> void {
     auto &H = *this->parent;
     auto const &[part, extern_nets] = part_info;
@@ -23,8 +23,8 @@ projection_up(const PartInfo &part_info, PartInfo &part_info_up)
 }
 
 template <typename nodeview_t, typename nodemap_t>
-auto Netlist<nodeview_t, nodemap_t>::
-projection_down(const PartInfo &part_info, PartInfo &part_info_down)
+auto Netlist<nodeview_t, nodemap_t>::projection_down(const PartInfo &part_info,
+                                                     PartInfo &part_info_down)
     -> void {
     auto &H = *this->parent;
     auto const &[part, extern_nets] = part_info;
@@ -45,7 +45,7 @@ projection_down(const PartInfo &part_info, PartInfo &part_info_down)
     }
     if (extern_nets.empty()) {
         return;
-    } 
+    }
     extern_nets_down.clear();
     extern_nets_down.reserve(extern_nets.size());
     for (auto net : extern_nets) {

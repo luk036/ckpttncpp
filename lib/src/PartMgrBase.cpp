@@ -8,17 +8,16 @@
  * @tparam ConstrMgr
  * @param part
  */
-template <typename GainMgr, typename ConstrMgr, template
-          <typename _GainMgr, typename _ConstrMgr> class Derived> //
-auto PartMgrBase<GainMgr, ConstrMgr, Derived>::init(PartInfo &part_info) -> void {
+template <typename GainMgr, typename ConstrMgr, template <typename _GainMgr, typename _ConstrMgr> class Derived> //
+auto PartMgrBase<GainMgr, ConstrMgr, Derived>::init(PartInfo &part_info)
+    -> void {
     this->totalcost = this->gainMgr.init(part_info);
     // this->totalcost = this->gainMgr.totalcost;
     auto const &[part, extern_nets] = part_info;
     this->validator.init(part);
 }
 
-template <typename GainMgr, typename ConstrMgr, template
-          <typename _GainMgr, typename _ConstrMgr> class Derived> //
+template <typename GainMgr, typename ConstrMgr, template <typename _GainMgr, typename _ConstrMgr> class Derived> //
 auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(PartInfo &part_info)
     -> size_t {
     this->init(part_info);
@@ -76,10 +75,9 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(PartInfo &part_info)
  * @tparam ConstrMgr
  * @param part
  */
-template <typename GainMgr, typename ConstrMgr, template
-          <typename _GainMgr, typename _ConstrMgr> class Derived> //
-auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize_1pass(PartInfo &part_info)
-    -> void {
+template <typename GainMgr, typename ConstrMgr, template <typename _GainMgr, typename _ConstrMgr> class Derived> //
+auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize_1pass(
+    PartInfo &part_info) -> void {
     auto totalgain = 0;
     auto deferredsnapshot = false;
     // auto snapshot = part;
@@ -134,9 +132,9 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize_1pass(PartInfo &part_inf
  * @tparam ConstrMgr
  * @param part
  */
-template <typename GainMgr, typename ConstrMgr, template
-          <typename _GainMgr, typename _ConstrMgr> class Derived> //
-auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize(PartInfo &part_info) -> void {
+template <typename GainMgr, typename ConstrMgr, template <typename _GainMgr, typename _ConstrMgr> class Derived> //
+auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize(PartInfo &part_info)
+    -> void {
     // this->init(part_info);
     // auto totalcostafter = this->totalcost;
     while (true) {
@@ -152,23 +150,22 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize(PartInfo &part_info) -> 
     }
 }
 
-#include <ckpttncpp/FDPartMgr.hpp>   // import FDPartMgr
+#include <ckpttncpp/FDPartMgr.hpp> // import FDPartMgr
 
 #include <ckpttncpp/FDKWayGainMgr.hpp>   // import FDKWayGainMgr
 #include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr
-template class PartMgrBase<FDKWayGainMgr, FMKWayConstrMgr, FDPartMgr >;
+template class PartMgrBase<FDKWayGainMgr, FMKWayConstrMgr, FDPartMgr>;
 
 #include <ckpttncpp/FDBiGainMgr.hpp>   // import FDBiGainMgr
 #include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
-template class PartMgrBase<FDBiGainMgr, FMBiConstrMgr, FDPartMgr >;
+template class PartMgrBase<FDBiGainMgr, FMBiConstrMgr, FDPartMgr>;
 
+#include <ckpttncpp/FMPartMgr.hpp> // import FMPartMgr
 
-#include <ckpttncpp/FMPartMgr.hpp>   // import FMPartMgr
-
-#include <ckpttncpp/FMKWayGainMgr.hpp>   // import FMKWayGainMgr
 #include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr
-template class PartMgrBase<FMKWayGainMgr, FMKWayConstrMgr, FMPartMgr >;
+#include <ckpttncpp/FMKWayGainMgr.hpp>   // import FMKWayGainMgr
+template class PartMgrBase<FMKWayGainMgr, FMKWayConstrMgr, FMPartMgr>;
 
-#include <ckpttncpp/FMBiGainMgr.hpp>   // import FMBiGainMgr
 #include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
-template class PartMgrBase<FMBiGainMgr, FMBiConstrMgr, FMPartMgr >;
+#include <ckpttncpp/FMBiGainMgr.hpp>   // import FMBiGainMgr
+template class PartMgrBase<FMBiGainMgr, FMBiConstrMgr, FMPartMgr>;

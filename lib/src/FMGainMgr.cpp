@@ -28,8 +28,7 @@ FMGainMgr<GainCalc, Derived>::FMGainMgr(SimpleNetlist &H, std::uint8_t K)
  * @param part
  */
 template <typename GainCalc, class Derived>
-auto FMGainMgr<GainCalc, Derived>::init(const PartInfo &part_info)
-    -> int {
+auto FMGainMgr<GainCalc, Derived>::init(const PartInfo &part_info) -> int {
     auto totalcost = this->gainCalc.init(part_info);
     // this->totalcost = this->gainCalc.totalcost;
     this->waitinglist.clear();
@@ -81,8 +80,8 @@ auto FMGainMgr<GainCalc, Derived>::select_togo(std::uint8_t toPart)
  * @param gain
  */
 template <typename GainCalc, class Derived>
-auto FMGainMgr<GainCalc, Derived>::update_move(
-    const PartInfo &part_info, const MoveInfoV &move_info_v)
+auto FMGainMgr<GainCalc, Derived>::update_move(const PartInfo &part_info,
+                                               const MoveInfoV &move_info_v)
     -> void {
     // std::fill_n(this->deltaGainV.begin(), this->K, 0);
     this->gainCalc.update_move_init();
@@ -110,7 +109,8 @@ auto FMGainMgr<GainCalc, Derived>::update_move(
 template <typename GainCalc, class Derived>
 auto FMGainMgr<GainCalc, Derived>::update_move_2pin_net(
     const PartInfo &part_info, const MoveInfo &move_info) -> void {
-    auto [w, deltaGainW] = this->gainCalc.update_move_2pin_net(part_info, move_info);
+    auto [w, deltaGainW] =
+        this->gainCalc.update_move_2pin_net(part_info, move_info);
     auto const &[part, extern_nets] = part_info;
     self.modify_key(w, part[w], deltaGainW);
 }

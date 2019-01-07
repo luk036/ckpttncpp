@@ -36,9 +36,9 @@ auto FDKWayGainCalc::init_gain(node_t net, const PartInfo &part_info) -> void {
 
 /**
  * @brief init_gain_2pin_net
- * 
- * @param net 
- * @param part 
+ *
+ * @param net
+ * @param part
  */
 auto FDKWayGainCalc::init_gain_2pin_net(node_t net,
                                         const std::vector<std::uint8_t> &part)
@@ -129,8 +129,7 @@ auto FDKWayGainCalc::update_move_general_net(PartInfo &part_info,
         IdVec.push_back(w);
     }
     auto degree = std::size(IdVec);
-    auto deltaGain =
-        std::vector(degree, std::vector(this->K, 0));
+    auto deltaGain = std::vector(degree, std::vector(this->K, 0));
     // auto deltaGainV = std::vector(this->K, 0);
     // auto m = this->H.G[net].get('weight', 1);
     auto weight = this->H.get_net_weight(net);

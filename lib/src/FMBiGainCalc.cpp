@@ -113,8 +113,8 @@ auto FMBiGainCalc::update_move_2pin_net(const PartInfo &part_info,
  * @param move_info
  * @return ret_info
  */
-auto FMBiGainCalc::update_move_general_net(
-    const PartInfo &part_info, const MoveInfo &move_info)
+auto FMBiGainCalc::update_move_general_net(const PartInfo &part_info,
+                                           const MoveInfo &move_info)
     -> ret_info {
     auto const &[net, fromPart, toPart, v] = move_info;
     auto const &[part, extern_nets] = part_info;

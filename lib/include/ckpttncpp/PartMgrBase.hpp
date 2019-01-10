@@ -14,16 +14,16 @@
 
 /**
  * @brief Partition Manager Base
- * 
- * @tparam GainMgr 
- * @tparam ConstrMgr 
- * @tparam Derived 
+ *
+ * @tparam GainMgr
+ * @tparam ConstrMgr
+ * @tparam Derived
  */
-template <typename GainMgr, typename ConstrMgr, template
-          <typename _GainMgr, typename _ConstrMgr> class Derived> //
+template <typename GainMgr, typename ConstrMgr,
+          template <typename _GainMgr, typename _ConstrMgr> class Derived> //
 class PartMgrBase {
 
-public:
+  public:
     using GainCalc_ = typename GainMgr::GainCalc_;
     using GainMgr_ = GainMgr;
     using ConstrMgr_ = ConstrMgr;
@@ -97,7 +97,7 @@ public:
      * @param snapshot
      * @return PartInfo
      */
-    auto restore_part_info(Snapshot &snapshot, PartInfo& part_info) -> void;
+    auto restore_part_info(Snapshot &snapshot, PartInfo &part_info) -> void;
 };
 
 #endif

@@ -94,8 +94,8 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      * @param part
      * @param move_info_v
      */
-    auto update_move(const PartInfo &part_info,
-                     const MoveInfoV &move_info_v) -> void;
+    auto update_move(const PartInfo &part_info, const MoveInfoV &move_info_v)
+        -> void;
 
   private:
     /**

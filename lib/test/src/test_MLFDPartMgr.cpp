@@ -16,7 +16,7 @@ TEST_CASE("Test MLFDBiPartMgr dwarf", "[test_MLFDBiPartMgr]") {
     auto partMgr = MLPartMgr{0.3};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     auto part_info = PartInfo{std::move(part), py::set<size_t>()};
-    partMgr.run_Partition<FDPartMgr<FDBiGainMgr, FMBiConstrMgr> >(H, part_info);
+    partMgr.run_Partition<FDPartMgr<FDBiGainMgr, FMBiConstrMgr>>(H, part_info);
     CHECK(partMgr.totalcost == 2);
 }
 
@@ -25,7 +25,8 @@ TEST_CASE("Test MLFDKWayPartMgr dwarf", "[test_MLFDKWayPartMgr]") {
     auto partMgr = MLPartMgr{0.4, 3}; // 0.3???
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     auto part_info = PartInfo{std::move(part), py::set<size_t>()};
-    partMgr.run_Partition<FDPartMgr<FDKWayGainMgr, FMKWayConstrMgr> >(H, part_info);
+    partMgr.run_Partition<FDPartMgr<FDKWayGainMgr, FMKWayConstrMgr>>(H,
+                                                                     part_info);
     CHECK(partMgr.totalcost == 4);
 }
 
@@ -34,7 +35,8 @@ TEST_CASE("Test MLFDBiPartMgr p1", "[test_MLFDBiPartMgr]") {
     auto partMgr = MLPartMgr{0.3};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     auto part_info = PartInfo{std::move(part), py::set<size_t>()};
-    partMgr.run_Partition<FDPartMgr<FDBiGainMgr, FMBiConstrMgr> >(H, part_info, 200);
+    partMgr.run_Partition<FDPartMgr<FDBiGainMgr, FMBiConstrMgr>>(H, part_info,
+                                                                 200);
     CHECK(partMgr.totalcost == 34);
 }
 
@@ -44,8 +46,8 @@ TEST_CASE("Test MLFDBiPartMgr p1", "[test_MLFDBiPartMgr]") {
 //     auto partMgr = MLPartMgr{0.45};
 //     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
 //     auto part_info = PartInfo{std::move(part), py::set<size_t>()};
-//     partMgr.run_Partition<FDPartMgr<FDBiGainMgr, FMBiConstrMgr> >(H, part_info, 300);
-//     auto &[part_s, extern_nets] = part_info;
+//     partMgr.run_Partition<FDPartMgr<FDBiGainMgr, FMBiConstrMgr> >(H,
+//     part_info, 300); auto &[part_s, extern_nets] = part_info;
 //     CHECK(partMgr.totalcost == extern_nets.size());
 //     CHECK(partMgr.totalcost == 247);
 // }

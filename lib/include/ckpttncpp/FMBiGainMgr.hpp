@@ -14,7 +14,6 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
     using Base = FMGainMgr<FMBiGainCalc, FMBiGainMgr>;
     using GainCalc_ = FMBiGainCalc;
 
-
     /**
      * @brief Construct a new FMBiGainMgr object
      *
@@ -56,9 +55,9 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
 
     /**
      * @brief lock
-     * 
-     * @param whichPart 
-     * @param v 
+     *
+     * @param whichPart
+     * @param v
      */
     auto lock(std::uint8_t whichPart, node_t v) -> void {
         auto &vlink = this->gainCalc.vertex_list[v];
@@ -68,9 +67,9 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
 
     /**
      * @brief lock_all
-     * 
-     * @param fromPart 
-     * @param v 
+     *
+     * @param fromPart
+     * @param v
      */
     auto lock_all(std::uint8_t fromPart, node_t v) -> void {
         auto toPart = 1 - fromPart;

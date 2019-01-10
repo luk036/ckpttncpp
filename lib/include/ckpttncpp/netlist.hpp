@@ -146,17 +146,17 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
 
     /**
      * @brief projection down
-     * 
-     * @param part_info 
-     * @param part_info_down 
+     *
+     * @param part_info
+     * @param part_info_down
      */
     void projection_down(const PartInfo &part_info, PartInfo &part_info_down);
 
     /**
      * @brief projection up
-     * 
-     * @param part_info 
-     * @param part_info_up 
+     *
+     * @param part_info
+     * @param part_info_up
      */
     void projection_up(const PartInfo &part_info, PartInfo &part_info_up);
 };

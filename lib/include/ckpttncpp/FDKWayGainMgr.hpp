@@ -13,7 +13,6 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
     robin RR;
 
   public:
-
     using Base = FDGainMgr<FDKWayGainCalc, FDKWayGainMgr>;
     using GainCalc_ = FDKWayGainCalc;
 
@@ -58,9 +57,9 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
 
     /**
      * @brief lock
-     * 
-     * @param whichPart 
-     * @param v 
+     *
+     * @param whichPart
+     * @param v
      */
     auto lock(size_t whichPart, node_t v) -> void {
         auto &vlink = this->gainCalc.vertex_list[whichPart][v];
@@ -70,9 +69,9 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
 
     /**
      * @brief lock_all
-     * 
-     * @param fromPart 
-     * @param v 
+     *
+     * @param fromPart
+     * @param v
      */
     auto lock_all(size_t fromPart, node_t v) -> void {
         for (auto k = 0u; k < this->K; ++k) {

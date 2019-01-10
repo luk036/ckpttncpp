@@ -15,9 +15,9 @@
 
 /**
  * @brief FM Partition Manager
- * 
- * @tparam GainMgr 
- * @tparam ConstrMgr 
+ *
+ * @tparam GainMgr
+ * @tparam ConstrMgr
  */
 template <typename GainMgr, typename ConstrMgr> //
 class FMPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FMPartMgr> {
@@ -52,11 +52,12 @@ class FMPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FMPartMgr> {
      * @param snapshot
      * @return PartInfo
      */
-    auto restore_part_info(std::vector<std::uint8_t> &snapshot, PartInfo& part_info) -> void {
+    auto restore_part_info(std::vector<std::uint8_t> &snapshot,
+                           PartInfo &part_info) -> void {
         // auto part = std::vector<std::uint8_t>{};
         auto &[part, extern_nets] = part_info;
         part.swap(snapshot);
-        //return PartInfo{std::move(part), py::set<node_t>{} };
+        // return PartInfo{std::move(part), py::set<node_t>{} };
     }
 };
 

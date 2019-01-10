@@ -22,7 +22,7 @@ class robin {
             cur = cur->next;
             return *this;
         }
-        const int& operator*() const { return cur->key; }
+        const int &operator*() const { return cur->key; }
     };
     struct iterable_wrapper {
         robin *rr;

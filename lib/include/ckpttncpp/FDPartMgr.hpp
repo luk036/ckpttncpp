@@ -1,5 +1,5 @@
-#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FDPARTMGR_HPP
-#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FDPARTMGR_HPP 1
+#ifndef CKPTTNCPP_FDPARTMGR_HPP
+#define CKPTTNCPP_FDPARTMGR_HPP 1
 
 // **Special code for two-pin nets**
 // Take a snapshot when a move make **negative** gain.

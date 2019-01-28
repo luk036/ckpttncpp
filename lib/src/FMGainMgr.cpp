@@ -14,9 +14,9 @@
  */
 template <typename GainCalc, class Derived>
 FMGainMgr<GainCalc, Derived>::FMGainMgr(SimpleNetlist &H, std::uint8_t K)
-    : H{H}, K{K}, gainCalc{H, K}, pmax{H.get_max_degree()}, waitinglist{} {
+    : H{H}, K{K}, gainCalc{H, K}, pmax{H.get_max_degree()} {
     static_assert(std::is_base_of_v<FMGainMgr<GainCalc, Derived>, Derived>);
-    for (auto k = 0u; k < this->K; ++k) {
+    for (auto k = 0U; k < this->K; ++k) {
         this->gainbucket.push_back(
             std::make_unique<bpqueue>(-this->pmax, this->pmax));
     }
@@ -45,7 +45,7 @@ template <typename GainCalc, class Derived>
 auto FMGainMgr<GainCalc, Derived>::select(const std::vector<std::uint8_t> &part)
     -> std::tuple<MoveInfoV, int> {
     auto gainmax = std::vector<int>(this->K);
-    for (auto k = 0u; k < this->K; ++k) {
+    for (auto k = 0U; k < this->K; ++k) {
         gainmax[k] = this->gainbucket[k]->get_max();
     }
     auto it = std::max_element(gainmax.cbegin(), gainmax.cend());
@@ -57,7 +57,7 @@ auto FMGainMgr<GainCalc, Derived>::select(const std::vector<std::uint8_t> &part)
     // node_t v = this->H.modules[v];
     auto fromPart = part[v];
     auto move_info_v = MoveInfoV{fromPart, toPart, v};
-    return std::tuple{std::move(move_info_v), gainmax[toPart]};
+    return std::tuple{move_info_v, gainmax[toPart]};
 }
 
 template <typename GainCalc, class Derived>
@@ -128,7 +128,7 @@ auto FMGainMgr<GainCalc, Derived>::update_move_general_net(
         this->gainCalc.update_move_general_net(part_info, move_info);
     auto const &[part, extern_nets] = part_info;
     auto degree = std::size(IdVec);
-    for (auto idx = 0u; idx < degree; ++idx) {
+    for (auto idx = 0U; idx < degree; ++idx) {
         auto w = IdVec[idx];
         self.modify_key(w, part[w], deltaGain[idx]);
     }

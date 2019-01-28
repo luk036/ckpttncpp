@@ -20,7 +20,7 @@ TEST_CASE("Test dllist", "[dllist]") {
     CHECK(!L1.is_empty());
     CHECK(!L2.is_empty());
 
-    auto count = 0u;
+    auto count = 0U;
     for (auto &node : L2) {
         count += 1;
     }
@@ -29,7 +29,7 @@ TEST_CASE("Test dllist", "[dllist]") {
 
 TEST_CASE("Test robin", "[robin]") {
     auto RR = robin(6);
-    auto count = 0u;
+    auto count = 0U;
     for (auto k : RR.exclude(2)) {
         count += 1;
     }

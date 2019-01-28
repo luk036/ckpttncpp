@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include <catch.hpp>
-#include <ckpttncpp/dllist.hpp>  // import dllink
 #include <ckpttncpp/bpqueue.hpp> // import bpqueue
+#include <ckpttncpp/dllist.hpp>  // import dllink
 
 TEST_CASE("Test BPQueue for main", "[bpqueue]")
 {
@@ -31,7 +31,7 @@ TEST_CASE("Test BPQueue for main", "[bpqueue]")
 
     auto nodelist = std::vector<dllink>(10);
 
-    auto i = 0u;
+    auto i = 0U;
     for (auto &it : nodelist)
     {
         it.key = 2 * i - 10;
@@ -39,7 +39,7 @@ TEST_CASE("Test BPQueue for main", "[bpqueue]")
     }
     bpq1.appendfrom(nodelist);
 
-    auto count = 0u;
+    auto count = 0U;
     for (auto &node : bpq1)
     {
         count += 1;

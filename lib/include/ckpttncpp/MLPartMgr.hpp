@@ -1,5 +1,5 @@
-#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_MLPARTMGR_HPP
-#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_MLPARTMGR_HPP 1
+#ifndef CKPTTNCPP_MLPARTMGR_HPP
+#define CKPTTNCPP_MLPARTMGR_HPP 1
 
 // **Special code for two-pin nets**
 // Take a snapshot when a move make **negative** gain.
@@ -30,7 +30,7 @@ class MLPartMgr {
      * @param BalTol 
      * @param K 
      */
-    MLPartMgr(double BalTol, std::uint8_t K = 2)
+    explicit MLPartMgr(double BalTol, std::uint8_t K = 2)
         : BalTol{BalTol}, K{K}, totalcost{0} {}
 
     /**

@@ -8,7 +8,7 @@
  */
 auto FMConstrMgr::init(const std::vector<std::uint8_t> &part) -> void {
     std::fill_n(this->diff.begin(), this->K, 0);
-    for (auto v = 0u; v < this->H.number_of_modules(); ++v) {
+    for (auto v = 0U; v < this->H.number_of_modules(); ++v) {
         auto weight = this->H.get_module_weight_by_id(v);
         this->diff[part[v]] += weight;
     }

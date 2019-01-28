@@ -57,14 +57,14 @@ auto FMKWayGainCalc::init_gain_general_net(
         IdVec.push_back(w);
     }
     auto weight = this->H.get_net_weight(net);
-    for (auto k = 0u; k < this->K; ++k) {
+    for (auto k = 0U; k < this->K; ++k) {
         if (num[k] > 0) {
             this->totalcost += weight;
         }
     }
     this->totalcost -= weight;
 
-    for (auto k = 0u; k < this->K; ++k) {
+    for (auto k = 0U; k < this->K; ++k) {
         if (num[k] == 0) {
             for (auto w : IdVec) {
                 vertex_list[k][w].key -= weight;
@@ -93,12 +93,12 @@ auto FMKWayGainCalc::update_move_2pin_net(const PartInfo &part_info,
     auto deltaGainW = std::vector(this->K, 0);
     // auto deltaGainV = std::vector(this->K, 0);
     if (part_w == fromPart) {
-        for (auto k = 0u; k < this->K; ++k) {
+        for (auto k = 0U; k < this->K; ++k) {
             deltaGainW[k] += weight;
             this->deltaGainV[k] += weight;
         }
     } else if (part_w == toPart) {
-        for (auto k = 0u; k < this->K; ++k) {
+        for (auto k = 0U; k < this->K; ++k) {
             deltaGainW[k] -= weight;
             this->deltaGainV[k] -= weight;
         }
@@ -116,8 +116,9 @@ auto FMKWayGainCalc::update_move_general_net(const PartInfo &part_info,
     std::vector<size_t> num(this->K, 0);
     auto IdVec = std::vector<size_t>{};
     for (auto const &w : this->H.G[net]) {
-        if (w == v)
+        if (w == v) {
             continue;
+}
         // auto w = this->H.module_map[w];
         num[part[w]] += 1;
         IdVec.push_back(w);
@@ -129,26 +130,26 @@ auto FMKWayGainCalc::update_move_general_net(const PartInfo &part_info,
     auto weight = this->H.get_net_weight(net);
     if (num[fromPart] == 0) {
         if (num[toPart] > 0) {
-            for (auto k = 0u; k < this->K; ++k) {
+            for (auto k = 0U; k < this->K; ++k) {
                 this->deltaGainV[k] -= weight;
             }
         }
     } else { // num[fromPart] > 0
         if (num[toPart] == 0) {
-            for (auto k = 0u; k < this->K; ++k) {
+            for (auto k = 0U; k < this->K; ++k) {
                 this->deltaGainV[k] += weight;
             }
         }
     }
     for (auto &&l : {fromPart, toPart}) {
         if (num[l] == 0) {
-            for (auto idx = 0u; idx < degree; ++idx) {
+            for (auto idx = 0U; idx < degree; ++idx) {
                 deltaGain[idx][l] -= weight;
             }
         } else if (num[l] == 1) {
-            for (auto idx = 0u; idx < degree; ++idx) {
+            for (auto idx = 0U; idx < degree; ++idx) {
                 if (part[IdVec[idx]] == l) {
-                    for (auto k = 0u; k < this->K; ++k) {
+                    for (auto k = 0U; k < this->K; ++k) {
                         deltaGain[idx][k] += weight;
                     }
                     break;

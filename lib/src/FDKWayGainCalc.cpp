@@ -64,7 +64,7 @@ auto FDKWayGainCalc::init_gain_general_net(
         IdVec.push_back(w);
     }
     auto weight = this->H.get_net_weight(net);
-    for (auto k = 0u; k < this->K; ++k) {
+    for (auto k = 0U; k < this->K; ++k) {
         if (num[k] > 0) {
             this->totalcost += weight;
             if (num[k] == 1) {
@@ -98,13 +98,13 @@ auto FDKWayGainCalc::update_move_2pin_net(PartInfo &part_info,
     // auto deltaGainV = std::vector(this->K, 0);
     if (part_w == fromPart) {
         extern_nets.insert(net);
-        for (auto k = 0u; k < this->K; ++k) {
+        for (auto k = 0U; k < this->K; ++k) {
             deltaGainW[k] += weight;
             this->deltaGainV[k] += weight;
         }
     } else if (part_w == toPart) {
         extern_nets.erase(net);
-        for (auto k = 0u; k < this->K; ++k) {
+        for (auto k = 0U; k < this->K; ++k) {
             deltaGainW[k] -= weight;
             this->deltaGainV[k] -= weight;
         }
@@ -122,8 +122,9 @@ auto FDKWayGainCalc::update_move_general_net(PartInfo &part_info,
     std::vector<size_t> num(this->K, 0);
     auto IdVec = std::vector<size_t>{};
     for (auto const &w : this->H.G[net]) {
-        if (w == v)
+        if (w == v) {
             continue;
+}
         // auto w = this->H.module_map[w];
         num[part[w]] += 1;
         IdVec.push_back(w);
@@ -135,14 +136,14 @@ auto FDKWayGainCalc::update_move_general_net(PartInfo &part_info,
     auto weight = this->H.get_net_weight(net);
 
     auto count = 0;
-    for (auto k = 0u; k < this->K; ++k) {
+    for (auto k = 0U; k < this->K; ++k) {
         if (num[k] > 0) {
             count += 1;
         }
     }
     if (num[fromPart] == 0) {
         if (num[toPart] > 0) {
-            for (auto k = 0u; k < this->K; ++k) {
+            for (auto k = 0U; k < this->K; ++k) {
                 this->deltaGainV[k] -= weight;
             }
             if (count == 1) {
@@ -151,7 +152,7 @@ auto FDKWayGainCalc::update_move_general_net(PartInfo &part_info,
         }
     } else { // num[fromPart] > 0
         if (num[toPart] == 0) {
-            for (auto k = 0u; k < this->K; ++k) {
+            for (auto k = 0U; k < this->K; ++k) {
                 this->deltaGainV[k] += weight;
             }
             if (count == 1) {
@@ -161,13 +162,13 @@ auto FDKWayGainCalc::update_move_general_net(PartInfo &part_info,
     }
     for (auto &&l : {fromPart, toPart}) {
         if (num[l] == 0) {
-            for (auto idx = 0u; idx < degree; ++idx) {
+            for (auto idx = 0U; idx < degree; ++idx) {
                 deltaGain[idx][l] -= weight;
             }
         } else if (num[l] == 1) {
-            for (auto idx = 0u; idx < degree; ++idx) {
+            for (auto idx = 0U; idx < degree; ++idx) {
                 if (part[IdVec[idx]] == l) {
-                    for (auto k = 0u; k < this->K; ++k) {
+                    for (auto k = 0U; k < this->K; ++k) {
                         deltaGain[idx][k] += weight;
                     }
                     break;

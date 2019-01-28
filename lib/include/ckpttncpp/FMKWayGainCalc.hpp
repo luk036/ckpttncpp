@@ -1,5 +1,5 @@
-#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMKWayGAINCALC_HPP
-#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMKWayGAINCALC_HPP 1
+#ifndef CKPTTNCPP_FMKWAYGAINCALC_HPP
+#define CKPTTNCPP_FMKWAYGAINCALC_HPP 1
 
 // #include "bpqueue.hpp" // import bpqueue
 #include "dllist.hpp"  // import dllink
@@ -35,7 +35,7 @@ class FMKWayGainCalc {
     FMKWayGainCalc(SimpleNetlist &H, std::uint8_t K)
         : H{H}, K{K}, RR{K}, num_modules{H.number_of_modules()},
           deltaGainV(K, 0), totalcost{0} {
-        for (auto k = 0u; k < this->K; ++k) {
+        for (auto k = 0U; k < this->K; ++k) {
             this->vertex_list.emplace_back(
                 std::vector<dllink>(this->num_modules));
         }
@@ -58,7 +58,7 @@ class FMKWayGainCalc {
      */
     auto init(const PartInfo &part_info) -> int {
         this->totalcost = 0;
-        for (auto k = 0u; k < this->K; ++k) {
+        for (auto k = 0U; k < this->K; ++k) {
             for (auto &vlink : this->vertex_list[k]) {
                 vlink.key = 0;
             }

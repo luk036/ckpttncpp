@@ -64,7 +64,10 @@ auto readNetD(const char *netDFileName) -> SimpleNetlist {
     }
 
     char t;
-    size_t numPins, numNets, numModules, padOffset;
+    size_t numPins;
+    size_t numNets;
+    size_t numModules;
+    size_t padOffset;
 
     netD >> t; // eat 1st 0
     netD >> numPins >> numNets >> numModules >> padOffset;
@@ -80,7 +83,7 @@ auto readNetD(const char *netDFileName) -> SimpleNetlist {
     node_t w;
     size_t e = numModules - 1;
     char c;
-    auto i = 0u;
+    auto i = 0U;
     for (; i < numPins; ++i) {
         if (netD.eof()) {
             std::cerr << "Warning: Unexpected end of file.\n";
@@ -88,9 +91,10 @@ auto readNetD(const char *netDFileName) -> SimpleNetlist {
         }
         do {
             netD.get(c);
-        } while (isspace(c) && c != EOF);
-        if (c == '\n')
+        } while ((isspace(c) != 0) && c != EOF);
+        if (c == '\n') {
             continue;
+}
         if (c == 'a') {
             netD >> w;
         } else if (c == 'p') {
@@ -99,7 +103,7 @@ auto readNetD(const char *netDFileName) -> SimpleNetlist {
         }
         do {
             netD.get(c);
-        } while (isspace(c) && c != EOF);
+        } while ((isspace(c) != 0) && c != EOF);
         if (c == 's') {
             ++e;
         }
@@ -109,7 +113,7 @@ auto readNetD(const char *netDFileName) -> SimpleNetlist {
 
         do {
             netD.get(c);
-        } while (isspace(c) && c != '\n' && c != EOF);
+        } while ((isspace(c) != 0) && c != '\n' && c != EOF);
         // switch (c) {
         // case 'O': aPin.setDirection(Pin::OUTPUT); break;
         // case 'I': aPin.setDirection(Pin::INPUT); break;
@@ -166,11 +170,12 @@ void readAre(SimpleNetlist &H, const char *areFileName) {
 
     size_t lineno = 1;
     for (size_t i = 0; i < numModules; i++) {
-        if (are.eof())
+        if (are.eof()) {
             break;
+}
         do {
             are.get(c);
-        } while (isspace(c) && c != EOF);
+        } while ((isspace(c) != 0) && c != EOF);
         if (c == '\n') {
             lineno++;
             continue;
@@ -188,8 +193,8 @@ void readAre(SimpleNetlist &H, const char *areFileName) {
 
         do {
             are.get(c);
-        } while (isspace(c) && c != EOF);
-        if (isdigit(c)) {
+        } while ((isspace(c) != 0) && c != EOF);
+        if (isdigit(c) != 0) {
             are.putback(c);
             are >> weight;
             module_weight[w] = weight;

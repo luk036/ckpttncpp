@@ -3,15 +3,15 @@
 #include <tuple>
 #include <vector>
 
-auto max_independent_net(SimpleNetlist &H, const std::vector<size_t> &weight,
+auto max_independent_net(SimpleNetlist &H, const std::vector<size_t> & /*weight*/,
                          const py::set<node_t> &DontSelect) {
     auto visited = std::vector(H.nets.size(), false);
     for (auto net : DontSelect) {
         visited[H.net_map[net]] = true;
     }
     auto S = py::set<node_t>{};
-    auto total_cost = 0u;
-    for (auto i_net = 0u; i_net < H.nets.size(); ++i_net) {
+    auto total_cost = 0U;
+    for (auto i_net = 0U; i_net < H.nets.size(); ++i_net) {
         if (visited[i_net]) {
             continue;
         }
@@ -32,7 +32,7 @@ auto max_independent_net(SimpleNetlist &H, const std::vector<size_t> &weight,
 }
 
 // Primal-dual algorithm for (auto minimum vertex cover problem
-auto min_net_cover_pd(SimpleNetlist &H, const std::vector<size_t> &weight) {
+auto min_net_cover_pd(SimpleNetlist &H, const std::vector<size_t> & /*weight*/) {
     // auto S = py::set<node_t>{};
     auto L = std::vector<node_t>{};
     auto is_covered = py::set<node_t>{};
@@ -83,8 +83,9 @@ auto min_net_cover_pd(SimpleNetlist &H, const std::vector<size_t> &weight) {
         for (auto v : H.G[net]) {
             auto covered = false;
             for (auto net2 : H.G[v]) {
-                if (net2 == net)
+                if (net2 == net) {
                     continue;
+}
                 if (S.contains(net2)) {
                     covered = true;
                     break;
@@ -95,8 +96,9 @@ auto min_net_cover_pd(SimpleNetlist &H, const std::vector<size_t> &weight) {
                 break;
             }
         }
-        if (found)
+        if (found) {
             continue;
+}
         total_primal_cost -= H.get_net_weight(net);
         S.erase(net);
     }
@@ -225,7 +227,7 @@ auto create_contraction_subgraph(SimpleNetlist &H,
         // auto v = modules[v];
         if (cluster_down_map.contains(v)) {
             auto net = cluster_down_map[v];
-            auto cluster_weight = 0u;
+            auto cluster_weight = 0U;
             for (auto v2 : H.G[net]) {
                 cluster_weight += H.get_module_weight(v2);
             }

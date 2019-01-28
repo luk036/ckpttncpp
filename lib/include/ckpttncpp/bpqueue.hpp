@@ -1,5 +1,5 @@
-#ifndef HOME_UBUNTU_GITHUB_CKPTTNCPP_BPQUEUE_HPP
-#define HOME_UBUNTU_GITHUB_CKPTTNCPP_BPQUEUE_HPP 1
+#ifndef CKPTTNCPP_BPQUEUE_HPP
+#define CKPTTNCPP_BPQUEUE_HPP 1
 
 #include "dllist.hpp" // import dllink
 #include <cassert>
@@ -26,7 +26,7 @@ struct bpqueue {
      * @param b
      */
     bpqueue(int a, int b)
-        : offset{a - 1}, high{b - offset}, max{0}, sentinel{0},
+        : offset{a - 1}, high{b - offset}, max{0}, sentinel{},
           bucket(high + 1) {
         bucket[0].append(sentinel); // sentinel
     }
@@ -44,7 +44,7 @@ struct bpqueue {
      *
      * @return int -- maximum value
      */
-    auto get_max() const -> int { return this->max + this->offset; }
+    [[nodiscard]] auto get_max() const -> int { return this->max + this->offset; }
 
     /**
      * @brief whether empty
@@ -52,7 +52,7 @@ struct bpqueue {
      * @return true
      * @return false
      */
-    auto is_empty() const -> bool { return this->max == 0; }
+    [[nodiscard]] auto is_empty() const -> bool { return this->max == 0; }
 
     /**
      * @brief clear

@@ -1,5 +1,5 @@
-#ifndef _HOME_UBUNTU_GITHUB_PY2CPP_PY2CPP_HPP
-#define _HOME_UBUNTU_GITHUB_PY2CPP_PY2CPP_HPP 1
+#ifndef PY2CPP_PY2CPP_HPP
+#define PY2CPP_PY2CPP_HPP 1
 
 #include <initializer_list>
 #include <type_traits>
@@ -38,8 +38,8 @@ constexpr auto enumerate(T &&iterable) {
     };
     struct iterable_wrapper {
         T iterable;
-        auto cbegin() const { return iterator{0, std::begin(iterable)}; }
-        auto cend() const { return iterator{0, std::end(iterable)}; }
+        [[nodiscard]] auto cbegin() const { return iterator{0, std::begin(iterable)}; }
+        [[nodiscard]] auto cend() const { return iterator{0, std::end(iterable)}; }
         auto begin() { return iterator{0, std::begin(iterable)}; }
         auto end() { return iterator{0, std::end(iterable)}; }
     };
@@ -59,11 +59,11 @@ constexpr auto range(size_t stop) {
     };
     struct iterable_wrapper {
         size_t stop;
-        auto cbegin() const { return iterator{0u}; }
-        auto cend() const { return iterator{stop}; }
-        auto begin() const { return iterator{0u}; }
-        auto end() const { return iterator{stop}; }
-        auto size() const -> size_t { return stop; }
+        [[nodiscard]] auto cbegin() const { return iterator{0U}; }
+        [[nodiscard]] auto cend() const { return iterator{stop}; }
+        [[nodiscard]] auto begin() const { return iterator{0U}; }
+        [[nodiscard]] auto end() const { return iterator{stop}; }
+        [[nodiscard]] auto size() const -> size_t { return stop; }
         auto operator[](size_t index) const -> size_t { return index; }
     };
     return iterable_wrapper{stop};
@@ -83,11 +83,11 @@ constexpr auto range2(int start, int stop) {
     struct iterable_wrapper {
         int start;
         int stop;
-        auto cbegin() const { return iterator{start}; }
-        auto cend() const { return iterator{stop}; }
-        auto begin() const { return iterator{start}; }
-        auto end() const { return iterator{stop}; }
-        auto size() const -> size_t { return stop - start; }
+        [[nodiscard]] auto cbegin() const { return iterator{start}; }
+        [[nodiscard]] auto cend() const { return iterator{stop}; }
+        [[nodiscard]] auto begin() const { return iterator{start}; }
+        [[nodiscard]] auto end() const { return iterator{stop}; }
+        [[nodiscard]] auto size() const -> size_t { return stop - start; }
         auto operator[](size_t index) const -> int { return start + index; }
     };
     return iterable_wrapper{start, stop};
@@ -121,7 +121,7 @@ template <typename Key> class set : public std::unordered_set<Key> {
      *
      * @param init
      */
-    explicit set(std::initializer_list<Key> init)
+    set(std::initializer_list<Key> init)
         : std::unordered_set<Key>{init} {}
 
     /**
@@ -229,7 +229,7 @@ class dict : public std::unordered_map<Key, T> {
      *
      * @param init
      */
-    explicit dict(std::initializer_list<value_type> init)
+    dict(std::initializer_list<value_type> init)
         : std::unordered_map<Key, T>{init} {}
 
     /**
@@ -265,8 +265,9 @@ class dict : public std::unordered_map<Key, T> {
      * @return T
      */
     T get(const Key &key, const T &default_value) {
-        if (!contains(key))
+        if (!contains(key)) {
             return default_value;
+}
         return (*this)[key];
     }
 

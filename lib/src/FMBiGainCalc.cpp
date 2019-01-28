@@ -121,8 +121,9 @@ auto FMBiGainCalc::update_move_general_net(const PartInfo &part_info,
     size_t num[2] = {0, 0};
     auto IdVec = std::vector<size_t>{};
     for (auto const &w : this->H.G[net]) {
-        if (w == v)
+        if (w == v) {
             continue;
+}
         // auto w = this->H.module_map[w];
         num[part[w]] += 1;
         IdVec.push_back(w);
@@ -132,11 +133,11 @@ auto FMBiGainCalc::update_move_general_net(const PartInfo &part_info,
     auto weight = this->H.get_net_weight(net);
     for (auto &&l : {fromPart, toPart}) {
         if (num[l] == 0) {
-            for (auto idx = 0u; idx < degree; ++idx) {
+            for (auto idx = 0U; idx < degree; ++idx) {
                 deltaGain[idx] -= weight;
             }
         } else if (num[l] == 1) {
-            for (auto idx = 0u; idx < degree; ++idx) {
+            for (auto idx = 0U; idx < degree; ++idx) {
                 auto part_w = part[IdVec[idx]];
                 if (part_w == l) {
                     deltaGain[idx] += weight;

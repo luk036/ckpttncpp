@@ -18,8 +18,9 @@ void run_FMBiGainMgr(SimpleNetlist &H, PartInfo &part_info) {
     while (!mgr.is_empty()) {
         // Take the gainmax with v from gainbucket
         auto [move_info_v, gainmax] = mgr.select(part);
-        if (gainmax <= 0)
+        if (gainmax <= 0) {
             continue;
+}
         mgr.update_move(part_info, move_info_v);
         mgr.update_move_v(move_info_v, gainmax);
         auto const &[fromPart, toPart, v] = move_info_v;

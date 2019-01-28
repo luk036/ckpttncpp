@@ -1,5 +1,5 @@
-#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_DLLIST_HPP
-#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_DLLIST_HPP 1
+#ifndef CKPTTNCPP_DLLIST_HPP
+#define CKPTTNCPP_DLLIST_HPP 1
 
 #include <cassert>
 
@@ -11,7 +11,7 @@ struct dll_iterator;
  *
  */
 struct dllink {
-    int key;
+    int key = 0;
     dllink *next;
     dllink *prev;
 
@@ -22,7 +22,7 @@ struct dllink {
      * @param next
      * @param prev
      */
-    dllink(int key = 0) : key{key}, next{this}, prev{this} {}
+    dllink() : next{this}, prev{this} {}
 
     /**
      * @brief Construct a new dllink object
@@ -44,7 +44,7 @@ struct dllink {
 
     void lock() { this->next = nullptr; }
 
-    bool is_locked() const { return this->next == nullptr; }
+    [[nodiscard]] bool is_locked() const { return this->next == nullptr; }
 
     /**
      * @brief
@@ -52,7 +52,7 @@ struct dllink {
      * @return true
      * @return false
      */
-    auto is_empty() const noexcept -> bool { return this->next == this; }
+    [[nodiscard]] auto is_empty() const noexcept -> bool { return this->next == this; }
 
     /**
      * @brief

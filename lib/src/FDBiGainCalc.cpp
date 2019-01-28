@@ -120,21 +120,21 @@ auto FDBiGainCalc::update_move_general_net(PartInfo &part_info,
 
     if (num[fromPart] == 0) {
         extern_nets.erase(net);
-        for (auto idx = 0u; idx < degree; ++idx) {
+        for (auto idx = 0U; idx < degree; ++idx) {
             deltaGain[idx] -= weight;
         }
         return std::tuple{std::move(IdVec), std::move(deltaGain)};
     }
     if (num[toPart] == 0) {
         extern_nets.insert(net);
-        for (auto idx = 0u; idx < degree; ++idx) {
+        for (auto idx = 0U; idx < degree; ++idx) {
             deltaGain[idx] += weight;
         }
         return std::tuple{std::move(IdVec), std::move(deltaGain)};
     }
     for (auto &&l : {fromPart, toPart}) {
         if (num[l] == 1) {
-            for (auto idx = 0u; idx < degree; ++idx) {
+            for (auto idx = 0U; idx < degree; ++idx) {
                 auto part_w = part[IdVec[idx]];
                 if (part_w == l) {
                     deltaGain[idx] += weight;

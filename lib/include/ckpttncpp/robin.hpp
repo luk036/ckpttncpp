@@ -1,5 +1,5 @@
-#ifndef HOME_UBUNTU_GITHUB_CKPTTNCPP_ROBIN_HPP
-#define HOME_UBUNTU_GITHUB_CKPTTNCPP_ROBIN_HPP 1
+#ifndef CKPTTNCPP_ROBIN_HPP
+#define CKPTTNCPP_ROBIN_HPP 1
 
 #include "dllist.hpp" // import dllink
 #include <vector>
@@ -34,7 +34,7 @@ class robin {
 
   public:
     explicit robin(size_t K) : cycle(K) {
-        for (auto k = 0u; k < K - 1; ++k) {
+        for (auto k = 0U; k < K - 1; ++k) {
             this->cycle[k].next = &this->cycle[k + 1];
             this->cycle[k].key = k;
         }

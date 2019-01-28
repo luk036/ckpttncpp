@@ -182,7 +182,7 @@ void readAre(SimpleNetlist &H, const char *areFileName) {
             w += padOffset;
         } else {
             std::cerr << "Syntax error in line " << lineno << ":"
-                      << "expect keyword \"a\" or \"p\"" << std::endl;
+                      << R"(expect keyword "a" or "p")" << std::endl;
             exit(0);
         }
 

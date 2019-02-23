@@ -8,7 +8,7 @@
  */
 auto FMBiGainMgr::init(const PartInfo &part_info) -> int {
     auto totalcost = Base::init(part_info);
-    for (auto k = 0u; k < this->K; ++k) {
+    for (auto k = 0U; k < this->K; ++k) {
         this->gainbucket[k]->clear();
     }
     auto const &[part, extern_nets] = part_info;

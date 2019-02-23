@@ -1,5 +1,5 @@
-#ifndef _HOME_UBUNTU_GITHUB_PY2CPP_NX2BGL_HPP
-#define _HOME_UBUNTU_GITHUB_PY2CPP_NX2BGL_HPP 1
+#ifndef PY2CPP_NX2BGL_HPP
+#define PY2CPP_NX2BGL_HPP 1
 
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/graph_traits.hpp>
@@ -27,7 +27,7 @@ template <typename Graph> class VertexView : public Graph {
      *
      * @return auto
      */
-    auto begin() const {
+    [[nodiscard]] auto begin() const {
         auto [v_iter, v_end] = boost::vertices(*this);
         return v_iter;
     }
@@ -37,7 +37,7 @@ template <typename Graph> class VertexView : public Graph {
      *
      * @return auto
      */
-    auto end() const {
+    [[nodiscard]] auto end() const {
         auto [v_iter, v_end] = boost::vertices(*this);
         return v_end;
     }
@@ -47,7 +47,7 @@ template <typename Graph> class VertexView : public Graph {
      *
      * @return auto
      */
-    auto cbegin() const {
+    [[nodiscard]] auto cbegin() const {
         auto [v_iter, v_end] = boost::vertices(*this);
         return v_iter;
     }
@@ -57,7 +57,7 @@ template <typename Graph> class VertexView : public Graph {
      *
      * @return auto
      */
-    auto cend() const {
+    [[nodiscard]] auto cend() const {
         auto [v_iter, v_end] = boost::vertices(*this);
         return v_end;
     }
@@ -166,7 +166,7 @@ template <typename Vertex, typename Graph> class AtlasView {
      *
      * @return auto
      */
-    auto cbegin() const {
+    [[nodiscard]] auto cbegin() const {
         auto [v_iter, v_end] = boost::adjacent_vertices(_v, _G);
         return v_iter;
     }
@@ -176,7 +176,7 @@ template <typename Vertex, typename Graph> class AtlasView {
      *
      * @return auto
      */
-    auto cend() const {
+    [[nodiscard]] auto cend() const {
         auto [v_iter, v_end] = boost::adjacent_vertices(_v, _G);
         return v_end;
     }
@@ -209,7 +209,7 @@ template <typename Graph> class grAdaptor : public VertexView<Graph> {
      *
      * @return size_t
      */
-    auto number_of_nodes() const -> size_t {
+    [[nodiscard]] auto number_of_nodes() const -> size_t {
         return boost::num_vertices(*this);
     }
 
@@ -218,14 +218,14 @@ template <typename Graph> class grAdaptor : public VertexView<Graph> {
      *
      * @return size_t
      */
-    auto number_of_edges() const -> size_t { return boost::num_edges(*this); }
+    [[nodiscard]] auto number_of_edges() const -> size_t { return boost::num_edges(*this); }
 
     /**
      * @brief
      *
      * @return EdgeView<Graph>
      */
-    EdgeView<Graph> edges() const { return EdgeView<Graph>(*this); }
+    [[nodiscard]] EdgeView<Graph> edges() const { return EdgeView<Graph>(*this); }
 
     /**
      * @brief
@@ -233,7 +233,7 @@ template <typename Graph> class grAdaptor : public VertexView<Graph> {
      * @param v
      * @return AtlasView<Vertex, Graph>
      */
-    AtlasView<Vertex, Graph> neighbors(Vertex v) const {
+    [[nodiscard]] AtlasView<Vertex, Graph> neighbors(Vertex v) const {
         return AtlasView<Vertex, Graph>(v, *this);
     }
 
@@ -293,7 +293,7 @@ template <typename Graph> class grAdaptor : public VertexView<Graph> {
      * @param v
      * @return auto
      */
-    auto out_degree(Vertex v) const { return boost::out_degree(v, *this); }
+    [[nodiscard]] auto out_degree(Vertex v) const { return boost::out_degree(v, *this); }
 
     /**
      * @brief
@@ -301,7 +301,7 @@ template <typename Graph> class grAdaptor : public VertexView<Graph> {
      * @param v
      * @return auto
      */
-    auto in_degree(Vertex v) const { return boost::in_degree(v, *this); }
+    [[nodiscard]] auto in_degree(Vertex v) const { return boost::in_degree(v, *this); }
 
     /**
      * @brief
@@ -309,7 +309,7 @@ template <typename Graph> class grAdaptor : public VertexView<Graph> {
      * @param v
      * @return auto
      */
-    auto degree(Vertex v) const { return boost::degree(v, *this); }
+    [[nodiscard]] auto degree(Vertex v) const { return boost::degree(v, *this); }
 
     /**
      * @brief

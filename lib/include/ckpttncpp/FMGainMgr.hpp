@@ -1,5 +1,5 @@
-#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMGAINMGR_HPP
-#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMGAINMGR_HPP 1
+#ifndef CKPTTNCPP_FMGAINMGR_HPP
+#define CKPTTNCPP_FMGAINMGR_HPP 1
 
 #include "bpqueue.hpp" // import bpqueue
 #include "dllist.hpp"  // import dllink
@@ -36,7 +36,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      * @param H
      * @param K
      */
-    explicit FMGainMgr(SimpleNetlist &H, std::uint8_t K = 2);
+    explicit FMGainMgr(SimpleNetlist &H, std::uint8_t K);
 
     /**
      * @brief
@@ -52,7 +52,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      * @return true
      * @return false
      */
-    auto is_empty_togo(std::uint8_t toPart) const -> bool {
+    [[nodiscard]] auto is_empty_togo(std::uint8_t toPart) const -> bool {
         return this->gainbucket[toPart]->is_empty();
     }
 
@@ -62,8 +62,8 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      * @return true
      * @return false
      */
-    auto is_empty() const -> bool {
-        for (auto k = 0u; k < this->K; ++k) {
+    [[nodiscard]] auto is_empty() const -> bool {
+        for (auto k = 0U; k < this->K; ++k) {
             if (!this->gainbucket[k]->is_empty()) {
                 return false;
             }

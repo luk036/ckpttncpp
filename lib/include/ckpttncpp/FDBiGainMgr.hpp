@@ -1,5 +1,5 @@
-#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FDBIGAINMGR_HPP
-#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FDBIGAINMGR_HPP 1
+#ifndef CKPTTNCPP_FDBIGAINMGR_HPP
+#define CKPTTNCPP_FDBIGAINMGR_HPP 1
 
 #include "FDBiGainCalc.hpp"
 #include "FDGainMgr.hpp"
@@ -12,13 +12,15 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
     using Base = FDGainMgr<FDBiGainCalc, FDBiGainMgr>;
     using GainCalc_ = FDBiGainCalc;
 
+    explicit FDBiGainMgr(SimpleNetlist &H) : Base{H, 2} {}
+
     /**
      * @brief Construct a new FDBiGainMgr object
      *
      * @param H
      * @param K
      */
-    explicit FDBiGainMgr(SimpleNetlist &H, std::uint8_t K = 2) : Base{H} {}
+    FDBiGainMgr(SimpleNetlist &H, std::uint8_t /* K */) : Base{H, 2} {}
 
     /**
      * @brief

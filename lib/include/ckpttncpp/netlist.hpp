@@ -1,5 +1,5 @@
-#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_NETLIST_HPP
-#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_NETLIST_HPP 1
+#ifndef CKPTTNCPP_NETLIST_HPP
+#define CKPTTNCPP_NETLIST_HPP 1
 
 // import networkx as nx
 #include <iterator>
@@ -36,11 +36,11 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     size_t num_modules;
     size_t num_nets;
     py::set<node_t> module_fixed;
-    bool has_fixed_modules;
+    bool has_fixed_modules{};
     size_t num_pads = 0;
-    size_t max_degree;
-    size_t max_net_degree;
-    int cost_model = 0;  /**< currently we only has one model */
+    size_t max_degree{};
+    size_t max_net_degree{};
+    int cost_model = 0;
     std::vector<size_t> module_weight;
     std::vector<size_t> net_weight;
 
@@ -112,7 +112,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
         return this->module_weight.empty() ? 1 : this->module_weight[v];
     }
 
-    auto get_net_weight(node_t net) const -> size_t {
+    auto get_net_weight(node_t  /*net*/) const -> size_t {
         // return this->net_weight.empty() ? 1
         //                                 :
         //                                 this->net_weight[this->net_map[net]];
@@ -122,7 +122,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     auto project_down(const std::vector<std::uint8_t> &part,
                       std::vector<std::uint8_t> &part_down) -> void {
         auto &H = *this->parent;
-        for (auto v = 0u; v < this->modules.size(); ++v) {
+        for (auto v = 0U; v < this->modules.size(); ++v) {
             // auto v = this->modules[v];
             if (this->cluster_down_map.contains(v)) {
                 auto net = this->cluster_down_map[v];
@@ -142,7 +142,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
                     std::vector<std::uint8_t> &part_up) -> void {
         auto &H = *this->parent;
         // for (auto [v] : py::enumerate(H.modules)) {
-        for (auto v = 0u; v < H.modules.size(); ++v) {
+        for (auto v = 0U; v < H.modules.size(); ++v) {
             // auto v = H.modules[v];
             part_up[this->node_up_map[v]] = part[v];
         }
@@ -182,7 +182,7 @@ Netlist<nodeview_t, nodemap_t>::Netlist(xn::grAdaptor<graph_t> &&G,
     : G{std::move(G)}, modules{modules}, nets{nets},
       // module_map{std::move(module_map)},
       net_map{std::move(net_map)},
-      num_modules{modules.size()}, num_nets{nets.size()}, module_fixed{} //
+      num_modules{modules.size()}, num_nets{nets.size()}
 {
     this->has_fixed_modules = (!this->module_fixed.empty());
     auto deg_cmp = [this](node_t v, node_t w) -> size_t {

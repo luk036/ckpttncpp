@@ -1,5 +1,5 @@
-#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FDKWayGAINMGR_HPP
-#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FDKWayGAINMGR_HPP 1
+#ifndef CKPTTNCPP_FDKWAYGAINMGR_HPP
+#define CKPTTNCPP_FDKWAYGAINMGR_HPP 1
 
 #include "FDGainMgr.hpp"
 #include "FDKWayGainCalc.hpp"
@@ -73,8 +73,8 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
      * @param fromPart
      * @param v
      */
-    auto lock_all(size_t fromPart, node_t v) -> void {
-        for (auto k = 0u; k < this->K; ++k) {
+    auto lock_all(size_t  /*fromPart*/, node_t v) -> void {
+        for (auto k = 0U; k < this->K; ++k) {
             this->lock(k, v);
         }
     }

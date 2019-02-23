@@ -1,5 +1,5 @@
-#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMKWayCONSTRMGR_HPP
-#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMKWayCONSTRMGR_HPP 1
+#ifndef CKPTTNCPP_FMKWAYCONSTRMGR_HPP
+#define CKPTTNCPP_FMKWAYCONSTRMGR_HPP 1
 
 #include "FMConstrMgr.hpp"
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
@@ -30,7 +30,7 @@ class FMKWayConstrMgr : public FMConstrMgr {
      *
      * @return std::uint8_t
      */
-    auto select_togo() const -> std::uint8_t {
+    [[nodiscard]] auto select_togo() const -> std::uint8_t {
         auto it = std::min_element(this->diff.cbegin(), this->diff.cend());
         return std::distance(this->diff.cbegin(), it);
     }
@@ -42,7 +42,7 @@ class FMKWayConstrMgr : public FMConstrMgr {
      */
     auto init(const std::vector<std::uint8_t> &part) -> void {
         FMConstrMgr::init(part);
-        for (auto k = 0u; k < this->K; ++k) {
+        for (auto k = 0U; k < this->K; ++k) {
             this->illegal[k] = (this->diff[k] < this->lowerbound);
         }
     }

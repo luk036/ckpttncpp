@@ -24,7 +24,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(PartInfo &part_info)
     auto &[part, extern_nets] = part_info;
 
     // Zero-weighted modules does not contribute legalization
-    for (auto v = 0u; v < this->H.number_of_modules(); ++v) {
+    for (auto v = 0U; v < this->H.number_of_modules(); ++v) {
         if (this->H.get_module_weight(v) != 0) {
             continue;
         }
@@ -91,8 +91,9 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize_1pass(
         auto [move_info_v, gainmax] = this->gainMgr.select(part);
         // Check if the move of v can satisfied or notsatisfied
         auto satisfiedOK = this->validator.check_constraints(move_info_v);
-        if (!satisfiedOK)
+        if (!satisfiedOK) {
             continue;
+}
         if (gainmax < 0) {
             // become down turn
             if (!deferredsnapshot || totalgain > besttotalgain) {

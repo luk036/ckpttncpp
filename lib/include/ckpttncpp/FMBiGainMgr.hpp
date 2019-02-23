@@ -1,5 +1,5 @@
-#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMBIGAINMGR_HPP
-#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMBIGAINMGR_HPP 1
+#ifndef CKPTTNCPP_FMBIGAINMGR_HPP
+#define CKPTTNCPP_FMBIGAINMGR_HPP 1
 
 #include "FMBiGainCalc.hpp"
 #include "FMGainMgr.hpp"
@@ -14,12 +14,14 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
     using Base = FMGainMgr<FMBiGainCalc, FMBiGainMgr>;
     using GainCalc_ = FMBiGainCalc;
 
+    FMBiGainMgr(SimpleNetlist &H) : Base{H, 2} {}
+
     /**
      * @brief Construct a new FMBiGainMgr object
      *
      * @param H
      */
-    explicit FMBiGainMgr(SimpleNetlist &H, std::uint8_t K = 2) : Base{H} {}
+    explicit FMBiGainMgr(SimpleNetlist &H, std::uint8_t /* K */) : Base{H, 2} {}
 
     /**
      * @brief 

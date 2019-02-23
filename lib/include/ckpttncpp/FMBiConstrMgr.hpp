@@ -1,5 +1,5 @@
-#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMBICONSTRMGR_HPP
-#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMBICONSTRMGR_HPP 1
+#ifndef CKPTTNCPP_FMBICONSTRMGR_HPP
+#define CKPTTNCPP_FMBICONSTRMGR_HPP 1
 
 #include "FMConstrMgr.hpp" // import FMConstrMgr
 
@@ -21,7 +21,7 @@ class FMBiConstrMgr : public FMConstrMgr {
      *
      * @return std::uint8_t
      */
-    auto select_togo() const -> std::uint8_t {
+    [[nodiscard]] auto select_togo() const -> std::uint8_t {
         return this->diff[0] < this->diff[1] ? 0 : 1;
     }
 };

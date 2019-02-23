@@ -1,5 +1,5 @@
-#ifndef _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMBIGAINCALC_HPP
-#define _HOME_UBUNTU_GITHUB_CKPTTNCPP_FMBIGAINCALC_HPP 1
+#ifndef CKPTTNCPP_FMBIGAINCALC_HPP
+#define CKPTTNCPP_FMBIGAINCALC_HPP 1
 
 // #include "bpqueue.hpp" // import bpqueue
 #include "dllist.hpp"  // import dllink
@@ -16,7 +16,7 @@ class FMBiGainCalc {
 
   private:
     SimpleNetlist &H;
-    size_t num_modules;
+    size_t num_modules{};
     std::vector<dllink> vertex_list;
 
   public:
@@ -28,7 +28,7 @@ class FMBiGainCalc {
      * @param H
      * @param K
      */
-    explicit FMBiGainCalc(SimpleNetlist &H, std::uint8_t K = 2)
+    explicit FMBiGainCalc(SimpleNetlist &H, std::uint8_t  /*K*/)
         : H{H}, vertex_list(H.number_of_modules()), totalcost{0} {}
 
     /**
@@ -55,7 +55,7 @@ class FMBiGainCalc {
      * @param toPart
      * @return dllink*
      */
-    auto start_ptr(std::uint8_t toPart) -> dllink * {
+    auto start_ptr(std::uint8_t  /*toPart*/) -> dllink * {
         return &this->vertex_list[0];
     }
 

@@ -10,11 +10,11 @@ auto FDKWayGainMgr::init(const PartInfo &part_info) -> int {
     auto totalcost = Base::init(part_info);
     auto const &[part, extern_nets] = part_info;
 
-    for (auto k = 0u; k < this->K; ++k) {
+    for (auto k = 0U; k < this->K; ++k) {
         this->gainbucket[k]->clear();
     }
 
-    for (auto v = 0u; v < this->H.number_of_modules(); ++v) {
+    for (auto v = 0U; v < this->H.number_of_modules(); ++v) {
         auto pv = part[v];
         for (auto &&k : this->RR.exclude(pv)) {
             auto &vlink = this->gainCalc.vertex_list[k][v];
@@ -41,7 +41,7 @@ auto FDKWayGainMgr::update_move_v(const MoveInfoV &move_info_v, int gain)
     -> void {
     auto const &[fromPart, toPart, v] = move_info_v;
 
-    for (auto k = 0u; k < this->K; ++k) {
+    for (auto k = 0U; k < this->K; ++k) {
         if (fromPart == k || toPart == k) {
             continue;
         }

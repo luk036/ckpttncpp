@@ -9,7 +9,7 @@
 auto FMKWayGainMgr::init(const PartInfo &part_info) -> int {
     auto totalcost = Base::init(part_info);
 
-    for (auto k = 0u; k < this->K; ++k) {
+    for (auto k = 0U; k < this->K; ++k) {
         this->gainbucket[k]->clear();
     }
     auto const &[part, extern_nets] = part_info;
@@ -41,7 +41,7 @@ auto FMKWayGainMgr::update_move_v(const MoveInfoV &move_info_v, int gain)
     -> void {
     auto const &[fromPart, toPart, v] = move_info_v;
 
-    for (auto k = 0u; k < this->K; ++k) {
+    for (auto k = 0U; k < this->K; ++k) {
         if (fromPart == k || toPart == k) {
             continue;
         }

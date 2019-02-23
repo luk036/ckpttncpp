@@ -7,34 +7,39 @@
 struct dll_iterator;
 
 /**
- * @brief doubly linked node
+ * @brief doubly linked node (that may also be a "head" a list)
  *
+ * A Doubly-linked List class. This class simply contains a link of
+ * node's. By adding a "head" node (sentinel), deleting a node is
+ * extremely fast (see "Introduction to Algorithm"). This class does
+ * not keep the length information as it is not necessary for the FM
+ * algorithm. This saves memory and run-time to update the length
+ * information. Note that this class does not own the list node. They
+ * are supplied by the caller in order to better reuse the nodes.
  */
 struct dllink {
     int key;
-    dllink *next;
-    dllink *prev;
+    dllink *next;  /**< pointer to the next node */
+    dllink *prev;  /**< pointer to the previous node */
 
     /**
      * @brief Construct a new dllink object
      *
-     * @param key
-     * @param next
-     * @param prev
+     * @param key the key
      */
     dllink(int key = 0) : key{key}, next{this}, prev{this} {}
 
     /**
-     * @brief Construct a new dllink object
+     * @brief Construct a new dllink object (deleted intentionally)
      *
      */
     dllink(dllink &) = delete;
 
     /**
-     * @brief
+     * @brief detach from a list
      *
      */
-    void detach() {
+    auto detach() -> void {
         assert(!this->is_locked());
         auto n = this->next;
         auto p = this->prev;
@@ -42,12 +47,22 @@ struct dllink {
         n->prev = p;
     }
 
-    void lock() { this->next = nullptr; }
-
-    bool is_locked() const { return this->next == nullptr; }
+    /**
+     * @brief lock the node (and don't append it to any list)
+     * 
+     */
+    auto lock() -> void { this->next = nullptr; }
 
     /**
-     * @brief
+     * @brief whether the node is locked
+     * 
+     * @return true 
+     * @return false 
+     */
+    auto is_locked() const noexcept -> bool { return this->next == nullptr; }
+
+    /**
+     * @brief whether the list is empty
      *
      * @return true
      * @return false
@@ -55,14 +70,13 @@ struct dllink {
     auto is_empty() const noexcept -> bool { return this->next == this; }
 
     /**
-     * @brief
+     * @brief reset the list
      *
-     * @return auto
      */
-    auto clear() { this->next = this->prev = this; }
+    auto clear() -> void { this->next = this->prev = this; }
 
     /**
-     * @brief
+     * @brief append the node to the front
      *
      * @param node
      */
@@ -74,7 +88,7 @@ struct dllink {
     }
 
     /**
-     * @brief
+     * @brief append the node to the back
      *
      * @param node
      */
@@ -86,9 +100,11 @@ struct dllink {
     }
 
     /**
-     * @brief
+     * @brief pop a node from the front
      *
      * @return dllink&
+     *
+     * Precondition: list is not empty
      */
     auto popleft() -> dllink & {
         auto res = this->next;
@@ -98,9 +114,11 @@ struct dllink {
     }
 
     /**
-     * @brief
+     * @brief pop a node from the back
      *
      * @return dllink&
+     *
+     * Precondition: list is not empty
      */
     auto pop() -> dllink & {
         auto res = this->prev;
@@ -126,8 +144,14 @@ struct dllink {
     auto end() -> dll_iterator;
 };
 
+/**
+ * @brief list iterator
+ *
+ * List Cursor. Traverse the list from the first item. Usually it is
+ * safe to attach/detach list items during the iterator is active.
+ */
 struct dll_iterator {
-    dllink *cur;
+    dllink *cur; /**< pointer to the current item */
 
     /**
      * @brief Construct a new dll iterator object
@@ -136,10 +160,8 @@ struct dll_iterator {
      */
     explicit dll_iterator(dllink *cur) : cur{cur} {}
 
-    // For forward iterator
-
     /**
-     * @brief
+     * @brief move to the next item
      *
      * @return dllink&
      */
@@ -149,14 +171,14 @@ struct dll_iterator {
     }
 
     /**
-     * @brief
+     * @brief get the reference of the current item
      *
      * @return dllink&
      */
     auto operator*() -> dllink & { return *this->cur; }
 
     /**
-     * @brief
+     * @brief eq operator
      *
      * @param rhs
      * @return true
@@ -167,7 +189,7 @@ struct dll_iterator {
     }
 
     /**
-     * @brief
+     * @brief neq operator
      *
      * @param rhs
      * @return true

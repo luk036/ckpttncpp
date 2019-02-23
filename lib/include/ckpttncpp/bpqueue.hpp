@@ -11,19 +11,36 @@ struct bpq_iterator;
 /**
  * @brief bounded priority queue
  *
+ * Bounded Priority Queue with integer keys in [a..b]. 
+ * Implemented by array (bucket) of doubly-linked lists. 
+ * Efficient if key is bounded by a small integer value.
+ *
+ * Note that this class does not own the PQ nodes. This feature
+ * makes the nodes sharable between doubly linked list class and
+ * this class. In the FM algorithm, the node either attached to 
+ * the gain buckets (PQ) or in the waitinglist (doubly linked list),
+ * but not in both of them in the same time.
+ *
+ * Another improvement is to make the array size one element bigger
+ * i.e. (b - a + 2). The extra dummy array element (which is called
+ * sentinel) is used to reduce the boundary checking during updating.
+ *
+ * All the member functions assume that the keys are within the bound.
  */
 struct bpqueue {
-    int offset;
-    int high;
-    int max;
-    dllink sentinel;
-    std::vector<dllink> bucket;
+    int offset;  /**< a - 1 */
+    int high;  /**< b - a + 1 */
+    int max;  /**< max value */
+    dllink sentinel; 
+    std::vector<dllink> bucket;  /**< bucket, array of lists */
 
     /**
      * @brief Construct a new bpqueue object
      *
-     * @param a
-     * @param b
+     * @param a lower bound
+     * @param b upper bound
+     *
+     * Precondition: a <= b
      */
     bpqueue(int a, int b)
         : offset{a - 1}, high{b - offset}, max{0}, sentinel{0},
@@ -34,15 +51,15 @@ struct bpqueue {
     /**
      * @brief Set the key object
      *
-     * @param it
-     * @param gain
+     * @param it   the item
+     * @param gain the key of it
      */
     auto set_key(dllink &it, int gain) -> void { it.key = gain - this->offset; }
 
     /**
      * @brief Get the max value
      *
-     * @return int -- maximum value
+     * @return int maximum value
      */
     auto get_max() const -> int { return this->max + this->offset; }
 
@@ -55,7 +72,7 @@ struct bpqueue {
     auto is_empty() const -> bool { return this->max == 0; }
 
     /**
-     * @brief clear
+     * @brief clear reset the PQ
      */
     auto clear() -> void {
         while (this->max > 0) {
@@ -65,10 +82,9 @@ struct bpqueue {
     }
 
     /**
-     * @brief
+     * @brief append item with internal key
      *
-     * @param it
-     * @param k
+     * @param it the item
      */
     auto append_direct(dllink &it) -> void {
         assert(it.key > this->offset);
@@ -76,10 +92,10 @@ struct bpqueue {
     }
 
     /**
-     * @brief
+     * @brief append item with external key
      *
-     * @param it
-     * @param k
+     * @param it the item
+     * @param k  the key
      */
     auto append(dllink &it, int k) -> void {
         assert(k > this->offset);
@@ -109,7 +125,7 @@ struct bpqueue {
     }
 
     /**
-     * @brief pop node with maximum key
+     * @brief pop node with the highest key
      *
      * @return dllink&
      */
@@ -122,10 +138,13 @@ struct bpqueue {
     }
 
     /**
-     * @brief decrease key
+     * @brief decrease key by delta
      *
-     * @param it
-     * @param delta
+     * @param it the item
+     * @param delta the change of the key
+     *
+     * Note that the order of items with same key will not be preserved.
+     * For FM algorithm, this is a prefered behavior.
      */
     auto decrease_key(dllink &it, int delta) -> void {
         // this->bucket[it.key].detach(it)
@@ -144,10 +163,13 @@ struct bpqueue {
     }
 
     /**
-     * @brief increase key
+     * @brief increase key by delta
      *
-     * @param it
-     * @param delta
+     * @param it the item
+     * @param delta the change of the key
+     *
+     * Note that the order of items with same key will not be preserved.
+     * For FM algorithm, this is a prefered behavior.
      */
     auto increase_key(dllink &it, int delta) -> void {
         // this->bucket[it.key].detach(it)
@@ -162,10 +184,13 @@ struct bpqueue {
     }
 
     /**
-     * @brief modify key
+     * @brief modify key by delta
      *
-     * @param it
-     * @param delta
+     * @param it the item
+     * @param delta the change of the key
+     *
+     * Note that the order of items with same key will not be preserved.
+     * For FM algorithm, this is a prefered behavior.
      */
     auto modify_key(dllink &it, int delta) -> void {
         if (it.is_locked()) {
@@ -179,10 +204,9 @@ struct bpqueue {
     }
 
     /**
-     * @brief detach a node from bpqueue
+     * @brief detach the item from bpqueue
      *
-     * @param it
-     * @return auto
+     * @param it the item
      */
     auto detach(dllink &it) -> void {
         // this->bucket[it.key].detach(it)
@@ -208,14 +232,26 @@ struct bpqueue {
 };
 
 /**
- * @brief doubly linked node
+ * @brief Bounded Priority Queue Iterator
  *
+ * Bounded Priority Queue Iterator. Traverse the queue in descending
+ * order. Detaching queue items may invalidate the iterator because 
+ * the iterator makes a copy of current key. 
  */
-struct bpq_iterator {
-    bpqueue &bpq;
-    int curkey;
-    dll_iterator curitem;
+class bpq_iterator {
+  private:
+    bpqueue &bpq;  /**< the priority queue */
+    int curkey;  /**< the current key value */
+    dll_iterator curitem;  /**< list iterator pointed to the current item. */
 
+    /**
+     * @brief get the reference of the current list
+     *
+     * @return dllink&
+     */
+    auto curlist() -> dllink & { return this->bpq.bucket[this->curkey]; }
+
+  public:
     /**
      * @brief Construct a new bpq iterator object
      *
@@ -226,14 +262,7 @@ struct bpq_iterator {
         : bpq{bpq}, curkey{curkey}, curitem{bpq.bucket[curkey].begin()} {}
 
     /**
-     * @brief
-     *
-     * @return dllink&
-     */
-    auto curlist() -> dllink & { return this->bpq.bucket[this->curkey]; }
-
-    /**
-     * @brief
+     * @brief move to the next item
      *
      * @return bpq_iterator&
      */
@@ -249,7 +278,7 @@ struct bpq_iterator {
     }
 
     /**
-     * @brief
+     * @brief get the reference of the current item
      *
      * @return bpq_iterator&
      */

@@ -22,9 +22,10 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
     explicit FMBiGainMgr(SimpleNetlist &H, std::uint8_t K = 2) : Base{H} {}
 
     /**
-     * @brief
-     *
-     * @param part
+     * @brief 
+     * 
+     * @param part_info 
+     * @return int 
      */
     auto init(const PartInfo &part_info) -> int;
 

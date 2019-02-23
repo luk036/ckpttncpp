@@ -21,6 +21,9 @@ struct PartInfo {
 /**
  * @brief Netlist
  *
+ * Netlist is implemented by boost::graph, which is wrapped by
+ * xn::grAdaptor<> so that it is more networkx-like.
+ *
  */
 template <typename nodeview_t, typename nodemap_t> struct Netlist {
     using nodevec_t = std::vector<node_t>;
@@ -37,10 +40,11 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     size_t num_pads = 0;
     size_t max_degree;
     size_t max_net_degree;
-    int cost_model = 0;
+    int cost_model = 0;  /**< currently we only has one model */
     std::vector<size_t> module_weight;
     std::vector<size_t> net_weight;
 
+    /* For multi-level algorithms */
     Netlist<nodeview_t, nodemap_t> *parent;
     py::dict<node_t, node_t> node_up_map;
     py::dict<node_t, node_t> node_down_map;

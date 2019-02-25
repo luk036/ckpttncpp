@@ -21,7 +21,9 @@ void FDBiGainCalc::init_gain( //
     auto weight = this->H.get_net_weight(net);
     if (extern_nets.contains(net)) {
         this->totalcost += weight;
-        if (degree == 2) {
+        if (degree == 3) {
+            this->init_gain_3pin_net(net, part, weight);
+        } else if (degree == 2) {
             for (auto w : this->H.G[net]) {
                 this->modify_gain(w, weight);
             }
@@ -32,6 +34,33 @@ void FDBiGainCalc::init_gain( //
         for (auto w : this->H.G[net]) {
             this->modify_gain(w, -weight);
         }
+    }
+}
+
+/**
+ * @brief
+ *
+ * @param net
+ * @param part
+ * @param weight
+ */
+void FDBiGainCalc::init_gain_3pin_net(node_t net,
+                                      const std::vector<std::uint8_t> &part,
+                                      size_t weight)
+{
+    auto netCur = this->H.G[net].begin();
+    auto w = *netCur;
+    auto v = *++netCur;
+    auto u = *++netCur;
+    auto part_w = part[w];
+    auto part_v = part[v];
+    auto part_u = part[u];
+    if (part_u == part_v) {
+        this->modify_gain(w, weight);
+    } else if (part_w == part_v) {
+        this->modify_gain(u, weight);
+    } else {
+        this->modify_gain(v, weight);
     }
 }
 

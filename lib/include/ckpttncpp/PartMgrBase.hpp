@@ -18,6 +18,24 @@
  * @tparam GainMgr
  * @tparam ConstrMgr
  * @tparam Derived
+ *
+ * Iterative Improvement Partitioning Base Class. In this
+ * partitioning method, the next solution $s'$ considered after
+ * solution $s$ is dervied by first applying a sequence of
+ * $t$ changes (moves) to $s$ (with $t$ dependent from
+ * $s$ and from the specific heuristic method), thus obtaining a
+ * sequence of solution $s,...,s_t$ and by successively
+ * choosing the best among these solutions.
+ * 
+ * In order to do that, heuristics refer to a measure of the gain (and
+ * balance condition) associated to any sequence of changes performed on
+ * the current solution. Moreover, the length of the sequence generated
+ * is determined by evaluting a suitably defined $stopping rule$ at
+ * each iteration.
+ * 
+ * Reference:
+ *   G. Ausiello et al., Complexity and Approximation: Combinatorial
+ * Optimization Problems and Their Approximability Properties, Section 10.3.2.
  */
 template <typename GainMgr, typename ConstrMgr,
           template <typename _GainMgr, typename _ConstrMgr> class Derived> //

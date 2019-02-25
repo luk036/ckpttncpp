@@ -117,6 +117,17 @@ class FDBiGainCalc {
      * @param part
      * @param weight
      */
+    auto init_gain_3pin_net(node_t net,
+                            const std::vector<std::uint8_t> &part,
+                            size_t weight) -> void;
+
+    /**
+     * @brief
+     *
+     * @param net
+     * @param part
+     * @param weight
+     */
     auto init_gain_general_net(node_t net,
                                const std::vector<std::uint8_t> &part,
                                size_t weight) -> void;

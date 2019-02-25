@@ -40,8 +40,7 @@ auto FMKWayGainCalc::init_gain_2pin_net(node_t net,
         this->totalcost += weight;
         this->vertex_list[part_v][w].key += weight;
         this->vertex_list[part_w][v].key += weight;
-    }
-    if (part_v == part_w) {
+    } else {
         this->modify_gain(w, part_w, -weight);
         this->modify_gain(v, part_v, -weight);
     }

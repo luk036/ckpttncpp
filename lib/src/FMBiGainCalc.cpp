@@ -17,7 +17,9 @@ void FMBiGainCalc::init_gain( //
         return; // does not provide any gain when move
     }
     auto &[part, extern_nets] = part_info;
-    if (degree == 2) {
+    if (degree == 3) {
+        this->init_gain_3pin_net(net, part);
+    } else if (degree == 2) {
         this->init_gain_2pin_net(net, part);
     } else {
         this->init_gain_general_net(net, part);
@@ -42,10 +44,47 @@ void FMBiGainCalc::init_gain_2pin_net( //
     auto weight = this->H.get_net_weight(net);
     if (part_w != part_v) {
         this->totalcost += weight;
+        this->modify_gain(w, weight);
+        this->modify_gain(v, weight);
+    } else {
+        this->modify_gain(w, -weight);
+        this->modify_gain(v, -weight);
     }
-    auto g = (part_w == part_v) ? -weight : weight;
-    this->modify_gain(w, g);
-    this->modify_gain(v, g);
+}
+
+/**
+ * @brief
+ *
+ * @param net
+ * @param part
+ */
+void FMBiGainCalc::init_gain_3pin_net(
+    node_t net, const std::vector<std::uint8_t> &part) {
+    auto netCur = this->H.G[net].begin();
+    auto w = *netCur;
+    auto v = *++netCur;
+    auto u = *++netCur;
+    auto part_w = part[w];
+    auto part_v = part[v];
+    auto part_u = part[u];
+    auto weight = this->H.get_net_weight(net);
+    if (part_u == part_v) {
+        if (part_w == part_v) {
+            for (auto &&a : {u, v, w}) {
+                this->modify_gain(a, -weight);
+            }
+        } else {
+            this->totalcost += weight;
+            this->modify_gain(w, weight);
+        }
+    } else {
+        this->totalcost += weight;
+        if (part_w == part_v) {
+            this->modify_gain(u, weight);
+        } else {
+            this->modify_gain(v, weight);
+        }        
+    }
 }
 
 /**
@@ -123,7 +162,7 @@ auto FMBiGainCalc::update_move_general_net(const PartInfo &part_info,
     for (auto const &w : this->H.G[net]) {
         if (w == v) {
             continue;
-}
+        }
         // auto w = this->H.module_map[w];
         num[part[w]] += 1;
         IdVec.push_back(w);

@@ -93,7 +93,7 @@ auto FMGainMgr<GainCalc, Derived>::update_move(const PartInfo &part_info,
         if (degree == 2) {
             this->update_move_2pin_net(part_info, move_info);
         } else if (unlikely(degree < 2)) {
-            continue; // does not provide any gain change when move
+            continue; // does not provide any gain change when moving
         } else {
             this->update_move_general_net(part_info, move_info);
         }

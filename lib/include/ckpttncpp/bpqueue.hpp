@@ -39,12 +39,11 @@ struct bpqueue {
      *
      * @param a lower bound
      * @param b upper bound
-     *
-     * Precondition: a <= b
      */
     bpqueue(int a, int b)
         : offset{a - 1}, high{b - offset}, max{0}, sentinel{},
           bucket(high + 1) {
+        assert(a <= b);
         bucket[0].append(sentinel); // sentinel
     }
 

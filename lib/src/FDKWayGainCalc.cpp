@@ -15,7 +15,7 @@
 auto FDKWayGainCalc::init_gain(node_t net, const PartInfo &part_info) -> void {
     auto degree = this->H.G.degree(net);
     if (unlikely(degree < 2)) {
-        return; // does not provide any gain when move
+        return; // does not provide any gain when moving
     }
     auto const &[part, extern_nets] = part_info;
     if (extern_nets.contains(net)) {

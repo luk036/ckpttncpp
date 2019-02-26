@@ -45,3 +45,15 @@ TEST_CASE("Test FDKWayPartMgr p1", "[test_FDKWayPartMgr]") {
 //     readAre(H, "../../testcases/ibm01.are");
 //     run_FDKWayPartMgr(H, 3);
 // }
+
+// TEST_CASE("Test FDKWayPartMgr ibm02", "[test_FDKWayPartMgr]") {
+//     auto H = readNetD("../../testcases/ibm02.net");
+//     readAre(H, "../../testcases/ibm02.are");
+//     run_FDKWayPartMgr(H, 3);
+// }
+
+// TEST_CASE("Test FDKWayPartMgr ibm03", "[test_FDKWayPartMgr]") {
+//     auto H = readNetD("../../testcases/ibm03.net");
+//     readAre(H, "../../testcases/ibm03.are");
+//     run_FDKWayPartMgr(H, 3);
+// }

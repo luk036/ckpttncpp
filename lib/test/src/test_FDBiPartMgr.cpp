@@ -47,3 +47,15 @@ TEST_CASE("Test FDBiPartMgr ibm01", "[test_FDBiPartMgr]") {
     readAre(H, "../../testcases/ibm01.are");
     run_FDBiPartMgr(H);
 }
+
+// TEST_CASE("Test FDBiPartMgr ibm02", "[test_FDBiPartMgr]") {
+//     auto H = readNetD("../../testcases/ibm02.net");
+//     readAre(H, "../../testcases/ibm02.are");
+//     run_FDBiPartMgr(H);
+// }
+
+// TEST_CASE("Test FDBiPartMgr ibm03", "[test_FDBiPartMgr]") {
+//     auto H = readNetD("../../testcases/ibm03.net");
+//     readAre(H, "../../testcases/ibm03.are");
+//     run_FDBiPartMgr(H);
+// }

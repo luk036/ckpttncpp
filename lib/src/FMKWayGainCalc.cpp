@@ -15,7 +15,7 @@
 auto FMKWayGainCalc::init_gain(node_t net, const PartInfo &part_info) -> void {
     auto degree = this->H.G.degree(net);
     if (unlikely(degree < 2)) {
-        return; // does not provide any gain when move
+        return; // does not provide any gain when moving
     }
     auto const &[part, extern_nets] = part_info;
     if (degree == 2) {
@@ -31,8 +31,6 @@ auto FMKWayGainCalc::init_gain_2pin_net(node_t net,
     auto netCur = this->H.G[net].begin();
     auto w = *netCur;
     auto v = *++netCur;
-    // auto w = this->H.module_map[w];
-    // auto v = this->H.module_map[v];
     auto part_w = part[w];
     auto part_v = part[v];
     auto weight = this->H.get_net_weight(net);
@@ -86,17 +84,14 @@ auto FMKWayGainCalc::update_move_2pin_net(const PartInfo &part_info,
     auto const &[part, extern_nets] = part_info;
     auto netCur = this->H.G[net].begin();
     node_t w = (*netCur != v) ? *netCur : *++netCur;
-    // auto w = this->H.module_map[w];
-    auto part_w = part[w];
     auto weight = this->H.get_net_weight(net);
     auto deltaGainW = std::vector(this->K, 0);
-    // auto deltaGainV = std::vector(this->K, 0);
-    if (part_w == fromPart) {
+    if (part[w] == fromPart) {
         for (auto k = 0U; k < this->K; ++k) {
             deltaGainW[k] += weight;
             this->deltaGainV[k] += weight;
         }
-    } else if (part_w == toPart) {
+    } else if (part[w] == toPart) {
         for (auto k = 0U; k < this->K; ++k) {
             deltaGainW[k] -= weight;
             this->deltaGainV[k] -= weight;
@@ -117,15 +112,12 @@ auto FMKWayGainCalc::update_move_general_net(const PartInfo &part_info,
     for (auto const &w : this->H.G[net]) {
         if (w == v) {
             continue;
-}
-        // auto w = this->H.module_map[w];
+        }
         num[part[w]] += 1;
         IdVec.push_back(w);
     }
     auto degree = std::size(IdVec);
     auto deltaGain = std::vector(degree, std::vector(this->K, 0));
-    // auto deltaGainV = std::vector(this->K, 0);
-    // auto m = this->H.G[net].get('weight', 1);
     auto weight = this->H.get_net_weight(net);
     if (num[fromPart] == 0) {
         if (num[toPart] > 0) {

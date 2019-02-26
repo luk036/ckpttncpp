@@ -30,7 +30,7 @@ struct dllink {
     dllink() : next{this}, prev{this} {}
 
     /**
-     * @brief Construct a new dllink object (deleted intentionally)
+     * @brief Copy construct a new dllink object (deleted intentionally)
      *
      */
     dllink(dllink &) = delete;
@@ -147,7 +147,7 @@ struct dllink {
 /**
  * @brief list iterator
  *
- * List Cursor. Traverse the list from the first item. Usually it is
+ * List iterator. Traverse the list from the first item. Usually it is
  * safe to attach/detach list items during the iterator is active.
  */
 struct dll_iterator {
@@ -199,14 +199,14 @@ struct dll_iterator {
 };
 
 /**
- * @brief
+ * @brief begin
  *
  * @return dll_iterator
  */
 inline auto dllink::begin() -> dll_iterator { return dll_iterator{this->next}; }
 
 /**
- * @brief
+ * @brief end
  *
  * @return dll_iterator
  */

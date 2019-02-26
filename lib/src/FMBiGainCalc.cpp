@@ -14,7 +14,7 @@ void FMBiGainCalc::init_gain( //
     node_t net, const PartInfo &part_info) {
     auto degree = this->H.G.degree(net);
     if (unlikely(degree < 2)) {
-        return; // does not provide any gain when move
+        return; // does not provide any gain when moving
     }
     auto &[part, extern_nets] = part_info;
     if (degree == 3) {
@@ -37,19 +37,14 @@ void FMBiGainCalc::init_gain_2pin_net( //
     auto netCur = this->H.G[net].begin();
     auto w = *netCur;
     auto v = *++netCur;
-    // auto w = this->H.module_map[w];
-    // auto v = this->H.module_map[v];
-    auto part_w = part[w];
-    auto part_v = part[v];
     auto weight = this->H.get_net_weight(net);
-    if (part_w != part_v) {
+    if (part[w] != part[v]) {
         this->totalcost += weight;
-        this->modify_gain(w, weight);
-        this->modify_gain(v, weight);
     } else {
-        this->modify_gain(w, -weight);
-        this->modify_gain(v, -weight);
+        weight = -weight;
     }
+    this->modify_gain(w, weight);
+    this->modify_gain(v, weight);
 }
 
 /**
@@ -64,12 +59,9 @@ void FMBiGainCalc::init_gain_3pin_net(
     auto w = *netCur;
     auto v = *++netCur;
     auto u = *++netCur;
-    auto part_w = part[w];
-    auto part_v = part[v];
-    auto part_u = part[u];
     auto weight = this->H.get_net_weight(net);
-    if (part_u == part_v) {
-        if (part_w == part_v) {
+    if (part[u] == part[v]) {
+        if (part[w] == part[v]) {
             for (auto &&a : {u, v, w}) {
                 this->modify_gain(a, -weight);
             }
@@ -79,7 +71,7 @@ void FMBiGainCalc::init_gain_3pin_net(
         }
     } else {
         this->totalcost += weight;
-        if (part_w == part_v) {
+        if (part[w] == part[v]) {
             this->modify_gain(u, weight);
         } else {
             this->modify_gain(v, weight);
@@ -137,12 +129,10 @@ auto FMBiGainCalc::update_move_2pin_net(const PartInfo &part_info,
     auto const &[net, fromPart, toPart, v] = move_info;
     auto const &[part, extern_nets] = part_info;
     auto netCur = this->H.G[net].begin();
-    node_t w = (*netCur != v) ? *netCur : *++netCur;
-    // auto w = this->H.module_map[w];
-    auto part_w = part[w];
+    auto w = (*netCur != v) ? *netCur : *++netCur;
     auto weight = this->H.get_net_weight(net);
-    auto deltaGainW = (part_w == fromPart) ? 2 * weight : -2 * weight;
-    return std::tuple{w, deltaGainW};
+    auto delta = (part[w] == fromPart) ? weight : -weight;
+    return std::tuple{w, 2 * delta};
 }
 
 /**

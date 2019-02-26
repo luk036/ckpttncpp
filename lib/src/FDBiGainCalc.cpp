@@ -15,7 +15,7 @@ void FDBiGainCalc::init_gain( //
     node_t net, const PartInfo &part_info) {
     auto degree = this->H.G.degree(net);
     if (unlikely(degree < 2)) {
-        return; // does not provide any gain when move
+        return; // does not provide any gain when moving
     }
     auto const &[part, extern_nets] = part_info;
     auto weight = this->H.get_net_weight(net);
@@ -52,12 +52,9 @@ void FDBiGainCalc::init_gain_3pin_net(node_t net,
     auto w = *netCur;
     auto v = *++netCur;
     auto u = *++netCur;
-    auto part_w = part[w];
-    auto part_v = part[v];
-    auto part_u = part[u];
-    if (part_u == part_v) {
+    if (part[u] == part[v]) {
         this->modify_gain(w, weight);
-    } else if (part_w == part_v) {
+    } else if (part[w] == part[v]) {
         this->modify_gain(u, weight);
     } else {
         this->modify_gain(v, weight);
@@ -106,19 +103,15 @@ auto FDBiGainCalc::update_move_2pin_net(PartInfo &part_info,
     auto const &[net, fromPart, toPart, v] = move_info;
     auto &[part, extern_nets] = part_info;
     auto netCur = this->H.G[net].begin();
-    node_t w = (*netCur != v) ? *netCur : *++netCur;
-    // auto w = this->H.module_map[w];
-    auto part_w = part[w];
+    auto w = (*netCur != v) ? *netCur : *++netCur;
     auto weight = this->H.get_net_weight(net);
-    int deltaGainW;
-    if (part_w == fromPart) {
-        deltaGainW = 2 * weight;
+    if (part[w] == fromPart) {
         extern_nets.insert(net);
     } else {
-        deltaGainW = -2 * weight;
         extern_nets.erase(net);
+        weight = -weight;
     }
-    return std::tuple{w, deltaGainW};
+    return std::tuple{w, 2 * weight};
 }
 
 /**

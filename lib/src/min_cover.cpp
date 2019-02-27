@@ -1,3 +1,4 @@
+#include <ckpttncpp/bpqueue.hpp>
 #include <ckpttncpp/netlist.hpp>
 #include <py2cpp/py2cpp.hpp>
 #include <tuple>
@@ -5,13 +6,26 @@
 
 auto max_independent_net(SimpleNetlist &H, const std::vector<size_t> & /*weight*/,
                          const py::set<node_t> &DontSelect) {
+    bpqueue bpq{-int(H.get_max_net_degree()), 0};
+    auto nets = std::vector<dllink>(H.nets.size());
+
+    for (auto i_net = 0U; i_net < H.nets.size(); ++i_net) {
+        auto net = H.nets[i_net];
+        bpq.append(nets[i_net], -H.G.degree(net));
+    }
+
     auto visited = std::vector(H.nets.size(), false);
     for (auto net : DontSelect) {
         visited[H.net_map[net]] = true;
     }
     auto S = py::set<node_t>{};
     auto total_cost = 0U;
-    for (auto i_net = 0U; i_net < H.nets.size(); ++i_net) {
+
+    // for (auto i_net = 0U; i_net < H.nets.size(); ++i_net) {
+    while (!bpq.is_empty()) {
+        dllink& item = bpq.popleft();
+        auto i_net = std::distance(&nets[0], &item);
+
         if (visited[i_net]) {
             continue;
         }

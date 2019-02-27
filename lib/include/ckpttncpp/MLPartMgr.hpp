@@ -67,7 +67,7 @@ class MLPartMgr {
         if (H.number_of_modules() >= limitsize) { // OK
             try {
                 auto H2 = create_contraction_subgraph(H, extern_nets);
-                if (2*H2->number_of_modules() <= H.number_of_modules()) {
+                if (5*H2->number_of_modules() <= 3*H.number_of_modules()) {
                     auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
                     auto extern_nets_ss = py::set<size_t>{};
                     auto part2_info =
@@ -138,7 +138,7 @@ class MLPartMgr {
             try {
                 auto &[part, extern_nets] = part_info;
                 auto H2 = create_contraction_subgraph(H, extern_nets);
-                if (2*H2->number_of_modules() <= H.number_of_modules()) {
+                if (5*H2->number_of_modules() <= 3*H.number_of_modules()) {
                     auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
                     auto extern_nets_ss = py::set<size_t>{};
                     auto part2_info =

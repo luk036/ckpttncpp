@@ -60,6 +60,12 @@ auto FMGainMgr<GainCalc, Derived>::select(const std::vector<std::uint8_t> &part)
     return std::tuple{move_info_v, gainmax[toPart]};
 }
 
+/**
+ * @brief 
+ * 
+ * @param toPart 
+ * @return std::tuple<node_t, int> 
+ */
 template <typename GainCalc, class Derived>
 auto FMGainMgr<GainCalc, Derived>::select_togo(std::uint8_t toPart)
     -> std::tuple<node_t, int> {

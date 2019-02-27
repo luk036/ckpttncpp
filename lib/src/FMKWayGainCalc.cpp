@@ -25,6 +25,12 @@ auto FMKWayGainCalc::init_gain(node_t net, const PartInfo &part_info) -> void {
     }
 }
 
+/**
+ * @brief 
+ * 
+ * @param net 
+ * @param part 
+ */
 auto FMKWayGainCalc::init_gain_2pin_net(node_t net,
                                         const std::vector<std::uint8_t> &part)
     -> void {
@@ -44,6 +50,12 @@ auto FMKWayGainCalc::init_gain_2pin_net(node_t net,
     }
 }
 
+/**
+ * @brief 
+ * 
+ * @param net 
+ * @param part 
+ */
 auto FMKWayGainCalc::init_gain_general_net(
     node_t net, const std::vector<std::uint8_t> &part) -> void {
     std::vector<size_t> num(this->K, 0);
@@ -77,6 +89,13 @@ auto FMKWayGainCalc::init_gain_general_net(
     }
 }
 
+/**
+ * @brief 
+ * 
+ * @param part_info 
+ * @param move_info 
+ * @return ret_2pin_info 
+ */
 auto FMKWayGainCalc::update_move_2pin_net(const PartInfo &part_info,
                                           const MoveInfo &move_info)
     -> ret_2pin_info {
@@ -102,6 +121,13 @@ auto FMKWayGainCalc::update_move_2pin_net(const PartInfo &part_info,
     return std::tuple{w, std::move(deltaGainW)};
 }
 
+/**
+ * @brief 
+ * 
+ * @param part_info 
+ * @param move_info 
+ * @return ret_info 
+ */
 auto FMKWayGainCalc::update_move_general_net(const PartInfo &part_info,
                                              const MoveInfo &move_info)
     -> ret_info {

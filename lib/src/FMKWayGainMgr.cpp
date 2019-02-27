@@ -2,9 +2,10 @@
 #include <ckpttncpp/FMKWayGainMgr.hpp>
 
 /**
- * @brief
- *
- * @param part
+ * @brief 
+ * 
+ * @param part_info 
+ * @return int 
  */
 auto FMKWayGainMgr::init(const PartInfo &part_info) -> int {
     auto totalcost = Base::init(part_info);

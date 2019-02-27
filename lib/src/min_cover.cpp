@@ -206,7 +206,7 @@ auto create_contraction_subgraph(SimpleNetlist &H,
     }
     auto G = xn::grAdaptor<graph_t>(std::move(g));
 
-    auto H2 = Netlist(std::move(G), py::range2(0, numModules),
+    auto H2 = std::make_unique<SimpleNetlist>(std::move(G), py::range2(0, numModules),
                       py::range2(numModules, num_vertices),
                       py::range2(-numModules, numNets));
 
@@ -237,11 +237,10 @@ auto create_contraction_subgraph(SimpleNetlist &H,
             module_weight.push_back(H.get_module_weight(v2));
         }
     }
-
-    H2.node_up_map = std::move(node_up_map);
-    H2.node_down_map = std::move(node_down_map);
-    H2.cluster_down_map = std::move(cluster_down_map);
-    H2.module_weight = std::move(module_weight);
-    H2.parent = &H;
+    H2->node_up_map = std::move(node_up_map);
+    H2->node_down_map = std::move(node_down_map);
+    H2->cluster_down_map = std::move(cluster_down_map);
+    H2->module_weight = std::move(module_weight);
+    H2->parent = &H;
     return H2;
 }

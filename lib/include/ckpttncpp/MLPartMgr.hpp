@@ -9,8 +9,9 @@
 #include "netlist.hpp"
 #include <vector>
 
-extern SimpleNetlist create_contraction_subgraph(SimpleNetlist &,
-                                                 const py::set<node_t> &);
+extern std::unique_ptr<SimpleNetlist>
+create_contraction_subgraph(SimpleNetlist &,
+                            const py::set<node_t> &);
 
 /**
  * @brief Multilevel Partition Manager
@@ -49,31 +50,45 @@ class MLPartMgr {
         using GainMgr = typename PartMgr::GainMgr_;
         using ConstrMgr = typename PartMgr::ConstrMgr_;
 
-        auto gainMgr = GainMgr{H, this->K};
-        auto constrMgr = ConstrMgr{H, this->BalTol, this->K};
-        auto partMgr = PartMgr{H, gainMgr, constrMgr};
-        // partMgr.init(part);
-        auto legalcheck = partMgr.legalize(part_info);
+        // auto gainMgr = GainMgr{H, this->K};
+        // auto constrMgr = ConstrMgr{H, this->BalTol, this->K};
+        // auto partMgr = PartMgr{H, gainMgr, constrMgr};
+        auto gainMgrPtr = std::make_unique<GainMgr>(H, this->K);
+        auto constrMgrPtr = std::make_unique<ConstrMgr>(H, this->BalTol, this->K);
+        auto partMgrPtr = std::make_unique<PartMgr>(H, *gainMgrPtr, *constrMgrPtr);
+ 
+        // partMgrPtr->init(part);
+        auto legalcheck = partMgrPtr->legalize(part_info);
         if (legalcheck != 2) {
+            this->totalcost = partMgrPtr->totalcost;
             return legalcheck;
         }
         auto &[part, extern_nets] = part_info;
         if (H.number_of_modules() >= limitsize) { // OK
-            auto H2 = create_contraction_subgraph(H, extern_nets);
-            auto part2 = std::vector<std::uint8_t>(H2.number_of_modules(), 0);
-            auto extern_nets_ss = py::set<size_t>{};
-            auto part2_info =
-                PartInfo{std::move(part2), std::move(extern_nets_ss)};
-            H2.projection_up(part_info, part2_info);
-            legalcheck =
-                this->run_FMPartition<PartMgr>(H2, part2_info, limitsize);
-            if (legalcheck == 2) {
-                H2.projection_down(part2_info, part_info);
+            try {
+                auto H2 = create_contraction_subgraph(H, extern_nets);
+                if (2*H2->number_of_modules() <= H.number_of_modules()) {
+                    auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
+                    auto extern_nets_ss = py::set<size_t>{};
+                    auto part2_info =
+                        PartInfo{std::move(part2), std::move(extern_nets_ss)};
+                    H2->projection_up(part_info, part2_info);
+                    legalcheck =
+                        this->run_FMPartition<PartMgr>(*H2, part2_info, limitsize);
+                    if (legalcheck == 2) {
+                        H2->projection_down(part2_info, part_info);
+                    }
+                }
+            }
+            catch (std::bad_alloc) {
+                std::cerr << "Warning: Insufficient memory."
+  	                      << " Discard one level." << '\n';
             }
         }
-        partMgr.optimize(part_info);
-        assert(partMgr.totalcost >= 0);
-        this->totalcost = partMgr.totalcost;
+        partMgrPtr->optimize(part_info);
+        assert(partMgrPtr->totalcost >= 0);
+        this->totalcost = partMgrPtr->totalcost;
+
         return legalcheck;
     }
 
@@ -120,26 +135,35 @@ class MLPartMgr {
     auto run_Partition_recur(SimpleNetlist &H, PartInfo &part_info,
                        size_t limitsize) -> void {
         if (H.number_of_modules() >= limitsize) { // OK
-            auto &[part, extern_nets] = part_info;
-            auto H2 = create_contraction_subgraph(H, extern_nets);
-            auto part2 = std::vector<std::uint8_t>(H2.number_of_modules(), 0);
-            auto extern_nets_ss = py::set<size_t>{};
-            auto part2_info =
-                PartInfo{std::move(part2), std::move(extern_nets_ss)};
-            H2.projection_up(part_info, part2_info);
-            this->run_Partition<PartMgr>(H2, part2_info, limitsize);
-            H2.projection_down(part2_info, part_info);
+            try {
+                auto &[part, extern_nets] = part_info;
+                auto H2 = create_contraction_subgraph(H, extern_nets);
+                if (2*H2->number_of_modules() <= H.number_of_modules()) {
+                    auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
+                    auto extern_nets_ss = py::set<size_t>{};
+                    auto part2_info =
+                        PartInfo{std::move(part2), std::move(extern_nets_ss)};
+                    H2->projection_up(part_info, part2_info);
+                    this->run_Partition_recur<PartMgr>(*H2, part2_info, limitsize);
+                    H2->projection_down(part2_info, part_info);
+                }
+            }
+            catch (std::bad_alloc) {
+                std::cerr << "Warning: Insufficient memory."
+  	                      << " Discard one level." << '\n';
+            }
         }
         using GainMgr = typename PartMgr::GainMgr_;
         using ConstrMgr = typename PartMgr::ConstrMgr_;
-
-        auto gainMgr = GainMgr{H, this->K};
-        auto constrMgr = ConstrMgr{H, this->BalTol, this->K};
-        auto partMgr = PartMgr{H, gainMgr, constrMgr};
-
-        partMgr.optimize(part_info);
-        assert(partMgr.totalcost >= 0);
-        this->totalcost = partMgr.totalcost;
+        // auto gainMgr = GainMgr{H, this->K};
+        // auto constrMgr = ConstrMgr{H, this->BalTol, this->K};
+        // auto partMgr = PartMgr{H, gainMgr, constrMgr};
+        auto gainMgrPtr = std::make_unique<GainMgr>(H, this->K);
+        auto constrMgrPtr = std::make_unique<ConstrMgr>(H, this->BalTol, this->K);
+        auto partMgrPtr = std::make_unique<PartMgr>(H, *gainMgrPtr, *constrMgrPtr);
+        partMgrPtr->optimize(part_info);
+        assert(partMgrPtr->totalcost >= 0);
+        this->totalcost = partMgrPtr->totalcost;
     }
 
     // /**
@@ -166,15 +190,15 @@ class MLPartMgr {
     //     }
     //     if (H.number_of_modules() >= limitsize) { // OK
     //         auto H2 = create_contraction_subgraph(H, extern_nets);
-    //         auto part2 = std::vector<std::uint8_t>(H2.number_of_modules(), 0);
+    //         auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
     //         auto extern_nets = py::set<size_t>{};
     //         auto part2_info =
     //             PartInfo{std::move(part2), std::move(extern_nets)};
-    //         H2.projection_up(part_info, part2_info);
+    //         H2->projection_up(part_info, part2_info);
     //         legalcheck = this->run_FDPartition<GainMgr, ConstrMgr>(
-    //             H2, part2_info, limitsize);
+    //             *H2, part2_info, limitsize);
     //         if (legalcheck == 2) {
-    //             H2.projection_down(part2_info, part_info);
+    //             H2->projection_down(part2_info, part_info);
     //         }
     //     }
     //     partMgr.optimize(part_info);

@@ -27,7 +27,6 @@ template <typename GainCalc, class Derived> class FDGainMgr {
 
   protected:
     int pmax;
-    // size_t num[2];
     dllink<int> waitinglist;
     std::vector<std::unique_ptr<bpqueue<int>>> gainbucket;
 
@@ -53,7 +52,7 @@ template <typename GainCalc, class Derived> class FDGainMgr {
     /**
      * @brief Get the pmax object
      *
-     * @return size_t
+     * @return int
      */
     [[nodiscard]] auto get_pmax() const -> int { return this->pmax; }
 
@@ -96,7 +95,7 @@ template <typename GainCalc, class Derived> class FDGainMgr {
      * @brief
      *
      * @param toPart
-     * @return std::tuple<size_t, int>
+     * @return std::tuple<node_t, int>
      */
     auto select_togo(std::uint8_t toPart) -> std::tuple<node_t, int>;
 

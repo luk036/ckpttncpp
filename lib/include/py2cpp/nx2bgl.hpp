@@ -225,7 +225,7 @@ template <typename Graph> class grAdaptor : public VertexView<Graph> {
      *
      * @return EdgeView<Graph>
      */
-    [[nodiscard]] EdgeView<Graph> edges() const { return EdgeView<Graph>(*this); }
+    // [[nodiscard]] EdgeView<Graph> edges() const { return EdgeView<Graph>(*this); }
 
     /**
      * @brief

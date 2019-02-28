@@ -43,7 +43,7 @@ auto create_dwarf() -> SimpleNetlist {
 
     // std::vector<node_t> module_list(7);
     // std::vector<node_t> net_list(5);
-    std::vector<node_t> module_weight = {1, 3, 4, 2, 0, 0, 0};
+    std::vector<int> module_weight = {1, 3, 4, 2, 0, 0, 0};
     auto H = Netlist(std::move(G), py::range2(0, 7), py::range2(7, 13),
                      py::range2(-7, 6));
     H.module_weight = module_weight;
@@ -74,7 +74,7 @@ auto create_test_netlist() -> SimpleNetlist {
     auto G = xn::grAdaptor<graph_t>{std::move(g)};
     // std::vector<node_t> module_list(3);
     // std::vector<node_t> net_list(3);
-    auto module_weight = std::vector<node_t>{3, 4, 2};
+    auto module_weight = std::vector<int>{3, 4, 2};
     auto H = Netlist{std::move(G), py::range2(0, 3), py::range2(3, 6),
                      py::range2(-3, 3)};
     H.module_weight = std::move(module_weight);

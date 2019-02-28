@@ -90,7 +90,7 @@ class FDKWayGainCalc {
         std::fill_n(this->deltaGainV.begin(), this->K, 0);
     }
 
-    using ret_2pin_info = std::tuple<size_t, std::vector<int>>;
+    using ret_2pin_info = std::tuple<node_t, std::vector<int>>;
 
     /**
      * @brief
@@ -103,7 +103,7 @@ class FDKWayGainCalc {
         -> ret_2pin_info;
 
     using ret_info =
-        std::tuple<std::vector<size_t>, std::vector<std::vector<int>>>;
+        std::tuple<std::vector<node_t>, std::vector<std::vector<int>>>;
 
     /**
      * @brief

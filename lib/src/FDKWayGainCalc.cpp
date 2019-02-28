@@ -56,8 +56,8 @@ auto FDKWayGainCalc::init_gain_2pin_net(node_t net,
 
 auto FDKWayGainCalc::init_gain_general_net(
     node_t net, const std::vector<std::uint8_t> &part) -> void {
-    std::vector<size_t> num(this->K, 0);
-    auto IdVec = std::vector<size_t>{};
+    std::vector<uint8_t> num(this->K, 0);
+    auto IdVec = std::vector<node_t>{};
     for (auto const &w : this->H.G[net]) {
         // auto w = this->H.module_map[w];
         num[part[w]] += 1;
@@ -119,8 +119,8 @@ auto FDKWayGainCalc::update_move_general_net(PartInfo &part_info,
     -> ret_info {
     auto const &[net, fromPart, toPart, v] = move_info;
     auto &[part, extern_nets] = part_info;
-    std::vector<size_t> num(this->K, 0);
-    auto IdVec = std::vector<size_t>{};
+    std::vector<uint8_t> num(this->K, 0);
+    auto IdVec = std::vector<node_t>{};
     for (auto const &w : this->H.G[net]) {
         if (w == v) {
             continue;

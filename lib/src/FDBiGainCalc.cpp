@@ -46,7 +46,7 @@ void FDBiGainCalc::init_gain( //
  */
 void FDBiGainCalc::init_gain_3pin_net(node_t net,
                                       const std::vector<std::uint8_t> &part,
-                                      size_t weight)
+                                      int weight)
 {
     auto netCur = this->H.G[net].begin();
     auto w = *netCur;
@@ -70,9 +70,9 @@ void FDBiGainCalc::init_gain_3pin_net(node_t net,
  */
 void FDBiGainCalc::init_gain_general_net(node_t net,
                                          const std::vector<std::uint8_t> &part,
-                                         size_t weight) {
+                                         int weight) {
     size_t num[2] = {0, 0};
-    auto IdVec = std::vector<size_t>{};
+    auto IdVec = std::vector<node_t>{};
     for (auto const &w : this->H.G[net]) {
         // auto w = this->H.module_map[w];
         num[part[w]] += 1;
@@ -127,7 +127,7 @@ auto FDBiGainCalc::update_move_general_net(PartInfo &part_info,
     auto const &[net, fromPart, toPart, v] = move_info;
     auto &[part, extern_nets] = part_info;
     size_t num[2] = {0, 0};
-    auto IdVec = std::vector<size_t>{};
+    auto IdVec = std::vector<node_t>{};
     for (auto const &w : this->H.G[net]) {
         if (w == v) {
             continue;

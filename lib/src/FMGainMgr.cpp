@@ -93,7 +93,7 @@ auto FMGainMgr<GainCalc, Derived>::update_move(const PartInfo &part_info,
     this->gainCalc.update_move_init();
 
     auto const &[fromPart, toPart, v] = move_info_v;
-    for (auto net : this->H.G[v]) {
+    for (node_t net : this->H.G[v]) {
         auto move_info = MoveInfo{net, fromPart, toPart, v};
         auto degree = this->H.G.degree(net);
         if (degree == 2) {

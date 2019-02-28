@@ -18,9 +18,9 @@ class FMConstrMgr {
     SimpleNetlist &H;
     double BalTol;
     std::uint8_t K;
-    std::vector<size_t> diff;
-    size_t lowerbound;
-    size_t totalweight;
+    std::vector<int> diff;
+    int lowerbound;
+    int totalweight;
     uint32_t weight; // cache value
 
     /**

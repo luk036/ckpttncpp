@@ -10,8 +10,8 @@
 
 using graph_t =
     boost::adjacency_list<boost::hash_setS, boost::vecS, boost::undirectedS>;
-using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
-// using node_t = node_t;
+// using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
+using node_t = uint32_t;
 // using edge_t = typename boost::graph_traits<graph_t>::edge_iterator;
 
 struct PartInfo {
@@ -36,12 +36,12 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     size_t num_modules;
     size_t num_nets;
     size_t num_pads = 0;
-    size_t max_degree{};
-    size_t max_net_degree{};
+    int max_degree{};
+    int max_net_degree{};
     bool has_fixed_modules{};
-    int cost_model = 0;
-    std::vector<size_t> module_weight;
-    std::vector<size_t> net_weight;
+    uint8_t cost_model = 0;
+    std::vector<int> module_weight;
+    std::vector<int> net_weight;
     py::set<node_t> module_fixed;
 
     /* For multi-level algorithms */

@@ -11,7 +11,7 @@
  * @param DontSelect 
  * @return auto 
  */
-auto max_independent_net(SimpleNetlist &H, const std::vector<size_t> & /*weight*/,
+auto max_independent_net(SimpleNetlist &H, const std::vector<int> & /*weight*/,
                          const py::set<node_t> &DontSelect) {
     bpqueue bpq{-int(H.get_max_net_degree()), 0};
     auto nets = std::vector<dllink<int>>(H.nets.size());
@@ -58,11 +58,11 @@ auto max_independent_net(SimpleNetlist &H, const std::vector<size_t> & /*weight*
  * @param H 
  * @return auto 
  */
-auto min_net_cover_pd(SimpleNetlist &H, const std::vector<size_t> & /*weight*/) {
+auto min_net_cover_pd(SimpleNetlist &H, const std::vector<int> & /*weight*/) {
     // auto S = py::set<node_t>{};
     auto L = std::vector<node_t>{};
     auto is_covered = py::set<node_t>{};
-    auto gap = H.net_weight.empty() ? std::vector<size_t>(H.number_of_nets(), 1)
+    auto gap = H.net_weight.empty() ? std::vector<int>(H.number_of_nets(), 1)
                                     : H.net_weight;
     auto total_primal_cost = 0;
     auto total_dual_cost = 0;
@@ -248,7 +248,7 @@ auto create_contraction_subgraph(SimpleNetlist &H,
         cluster_down_map[node_up_map[v]] = net;
     }
 
-    auto module_weight = std::vector<size_t>{};
+    auto module_weight = std::vector<int>{};
     module_weight.reserve(numModules);
     for (auto v : py::range2(0, numModules)) {
         // auto v = modules[v];

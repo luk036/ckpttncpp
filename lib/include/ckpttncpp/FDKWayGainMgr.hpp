@@ -61,7 +61,7 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
      * @param whichPart
      * @param v
      */
-    auto lock(size_t whichPart, node_t v) -> void {
+    auto lock(uint8_t whichPart, node_t v) -> void {
         auto &vlink = this->gainCalc.vertex_list[whichPart][v];
         this->gainbucket[whichPart]->detach(vlink);
         vlink.lock();

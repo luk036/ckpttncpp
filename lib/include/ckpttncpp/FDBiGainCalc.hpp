@@ -66,7 +66,7 @@ class FDBiGainCalc {
         // nothing to do in 2-way partitioning
     }
 
-    using ret_2pin_info = std::tuple<size_t, int>;
+    using ret_2pin_info = std::tuple<node_t, int>;
 
     /**
      * @brief
@@ -78,7 +78,7 @@ class FDBiGainCalc {
     auto update_move_2pin_net(PartInfo &part_info, const MoveInfo &move_info)
         -> ret_2pin_info;
 
-    using ret_info = std::tuple<std::vector<size_t>, std::vector<int>>;
+    using ret_info = std::tuple<std::vector<node_t>, std::vector<int>>;
 
     /**
      * @brief
@@ -96,7 +96,7 @@ class FDBiGainCalc {
      * @param w
      * @param weight
      */
-    auto modify_gain(node_t w, size_t weight) -> void {
+    auto modify_gain(node_t w, int weight) -> void {
         this->vertex_list[w].key += weight;
     }
 
@@ -118,7 +118,7 @@ class FDBiGainCalc {
      */
     auto init_gain_3pin_net(node_t net,
                             const std::vector<std::uint8_t> &part,
-                            size_t weight) -> void;
+                            int weight) -> void;
 
     /**
      * @brief
@@ -129,7 +129,7 @@ class FDBiGainCalc {
      */
     auto init_gain_general_net(node_t net,
                                const std::vector<std::uint8_t> &part,
-                               size_t weight) -> void;
+                               int weight) -> void;
 };
 
 #endif

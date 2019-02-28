@@ -4,10 +4,17 @@
 #include <tuple>
 #include <vector>
 
+/**
+ * @brief 
+ * 
+ * @param H 
+ * @param DontSelect 
+ * @return auto 
+ */
 auto max_independent_net(SimpleNetlist &H, const std::vector<size_t> & /*weight*/,
                          const py::set<node_t> &DontSelect) {
     bpqueue bpq{-int(H.get_max_net_degree()), 0};
-    auto nets = std::vector<dllink>(H.nets.size());
+    auto nets = std::vector<dllink<int>>(H.nets.size());
 
     for (auto i_net = 0U; i_net < H.nets.size(); ++i_net) {
         auto net = H.nets[i_net];
@@ -23,7 +30,7 @@ auto max_independent_net(SimpleNetlist &H, const std::vector<size_t> & /*weight*
 
     // for (auto i_net = 0U; i_net < H.nets.size(); ++i_net) {
     while (!bpq.is_empty()) {
-        dllink& item = bpq.popleft();
+        dllink<int>& item = bpq.popleft();
         auto i_net = std::distance(&nets[0], &item);
 
         if (visited[i_net]) {
@@ -45,7 +52,12 @@ auto max_independent_net(SimpleNetlist &H, const std::vector<size_t> & /*weight*
     return std::tuple{std::move(S), total_cost};
 }
 
-// Primal-dual algorithm for (auto minimum vertex cover problem
+/**
+ * @brief 
+ * 
+ * @param H 
+ * @return auto 
+ */
 auto min_net_cover_pd(SimpleNetlist &H, const std::vector<size_t> & /*weight*/) {
     // auto S = py::set<node_t>{};
     auto L = std::vector<node_t>{};
@@ -122,9 +134,10 @@ auto min_net_cover_pd(SimpleNetlist &H, const std::vector<size_t> & /*weight*/) 
 
 /**
  * @brief Create a contraction subgraph object
- *
- * @param H
- * @return auto
+ * 
+ * @param H 
+ * @param DontSelect 
+ * @return auto 
  */
 auto create_contraction_subgraph(SimpleNetlist &H,
                                  const py::set<node_t> &DontSelect) {

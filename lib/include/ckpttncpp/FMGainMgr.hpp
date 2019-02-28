@@ -21,10 +21,10 @@ template <typename GainCalc, class Derived> class FMGainMgr {
   protected:
     SimpleNetlist &H;
     GainCalc gainCalc;
-    size_t pmax;
+    int pmax;
     // size_t num[2];
-    dllink waitinglist;
-    std::vector<std::unique_ptr<bpqueue>> gainbucket;
+    dllink<int> waitinglist;
+    std::vector<std::unique_ptr<bpqueue<int>>> gainbucket;
 
   public:
     std::uint8_t K;

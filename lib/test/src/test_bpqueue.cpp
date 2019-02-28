@@ -9,9 +9,9 @@ TEST_CASE("Test BPQueue", "[bpqueue]") {
 
     CHECK(bpq1.is_empty());
 
-    auto d = dllink{};
-    auto e = dllink{};
-    auto f = dllink{};
+    auto d = dllink{0};
+    auto e = dllink{0};
+    auto f = dllink{0};
 
     CHECK(d.key == 0);
 
@@ -28,7 +28,7 @@ TEST_CASE("Test BPQueue", "[bpqueue]") {
     CHECK(bpq1.is_empty());
     CHECK(bpq2.get_max() == 6);
 
-    auto nodelist = std::vector<dllink>(10);
+    auto nodelist = std::vector<dllink<int>>(10);
 
     auto i = 0U;
     for (auto &it : nodelist) {

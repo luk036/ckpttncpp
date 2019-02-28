@@ -18,9 +18,9 @@ class FMKWayGainCalc {
   private:
     SimpleNetlist &H;
     std::uint8_t K;
-    robin RR;
+    robin<uint8_t> RR;
     size_t num_modules;
-    std::vector<std::vector<dllink>> vertex_list;
+    std::vector<std::vector<dllink<int>>> vertex_list;
     std::vector<int> deltaGainV;
 
   public:
@@ -37,7 +37,7 @@ class FMKWayGainCalc {
           deltaGainV(K, 0), totalcost{0} {
         for (auto k = 0U; k < this->K; ++k) {
             this->vertex_list.emplace_back(
-                std::vector<dllink>(this->num_modules));
+                std::vector<dllink<int>>(this->num_modules));
         }
     }
 
@@ -47,7 +47,7 @@ class FMKWayGainCalc {
      * @param toPart
      * @return dllink*
      */
-    auto start_ptr(std::uint8_t toPart) -> dllink * {
+    auto start_ptr(std::uint8_t toPart) -> dllink<int> * {
         return &this->vertex_list[toPart][0];
     }
 

@@ -11,11 +11,12 @@
 using graph_t =
     boost::adjacency_list<boost::hash_setS, boost::vecS, boost::undirectedS>;
 using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
+// using node_t = node_t;
 // using edge_t = typename boost::graph_traits<graph_t>::edge_iterator;
 
 struct PartInfo {
-    std::vector<std::uint8_t> part;
-    py::set<size_t> extern_nets;
+    std::vector<uint8_t> part;
+    py::set<node_t> extern_nets;
 };
 
 /**
@@ -31,18 +32,17 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     xn::grAdaptor<graph_t> G;
     nodeview_t modules;
     nodeview_t nets;
-    // nodemap_t module_map;
     nodemap_t net_map;
     size_t num_modules;
     size_t num_nets;
-    py::set<node_t> module_fixed;
-    bool has_fixed_modules{};
     size_t num_pads = 0;
     size_t max_degree{};
     size_t max_net_degree{};
+    bool has_fixed_modules{};
     int cost_model = 0;
     std::vector<size_t> module_weight;
     std::vector<size_t> net_weight;
+    py::set<node_t> module_fixed;
 
     /* For multi-level algorithms */
     Netlist<nodeview_t, nodemap_t> *parent;
@@ -94,14 +94,14 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
      *
      * @return size_t
      */
-    auto get_max_degree() const -> size_t { return this->max_degree; }
+    auto get_max_degree() const -> int { return this->max_degree; }
 
     /**
      * @brief Get the max net degree
      *
      * @return size_t
      */
-    auto get_max_net_degree() const -> size_t { return this->max_net_degree; }
+    auto get_max_net_degree() const -> int { return this->max_net_degree; }
 
     auto get_module_weight(node_t v) const -> size_t {
         return this->module_weight.empty() ? 1 : this->module_weight[v];
@@ -216,7 +216,7 @@ struct MoveInfoV {
 };
 
 struct Snapshot {
-    py::set<size_t> extern_nets;
+    py::set<node_t> extern_nets;
     py::dict<size_t, std::uint8_t> extern_modules;
 };
 

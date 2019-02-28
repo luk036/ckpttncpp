@@ -1,7 +1,6 @@
 #ifndef CKPTTNCPP_FDBIGAINCALC_HPP
 #define CKPTTNCPP_FDBIGAINCALC_HPP 1
 
-// #include "bpqueue.hpp" // import bpqueue
 #include "dllist.hpp"  // import dllink
 #include "netlist.hpp" // import Netlist
 
@@ -17,7 +16,7 @@ class FDBiGainCalc {
   private:
     SimpleNetlist &H;
     size_t num_modules{};
-    std::vector<dllink> vertex_list;
+    std::vector<dllink<int>> vertex_list;
 
   public:
     int totalcost;
@@ -55,7 +54,7 @@ class FDBiGainCalc {
      * @param toPart
      * @return dllink*
      */
-    auto start_ptr(std::uint8_t  /*toPart*/) -> dllink * {
+    auto start_ptr(std::uint8_t  /*toPart*/) -> dllink<int> * {
         return &this->vertex_list[0];
     }
 

@@ -35,7 +35,7 @@ auto create_dwarf() -> SimpleNetlist {
     // std::size_t indices[] = {0, 1, 2, 3, 4, 5};
     int num_arcs = sizeof(edge_array) / sizeof(Edge);
     graph_t g(edge_array, edge_array + num_arcs, num_nodes);
-    using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
+    // using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
     using IndexMap =
         typename boost::property_map<graph_t, boost::vertex_index_t>::type;
     IndexMap index = boost::get(boost::vertex_index, g);

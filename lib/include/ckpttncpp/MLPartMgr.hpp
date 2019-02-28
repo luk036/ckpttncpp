@@ -69,7 +69,7 @@ class MLPartMgr {
                 auto H2 = create_contraction_subgraph(H, extern_nets);
                 if (5*H2->number_of_modules() <= 3*H.number_of_modules()) {
                     auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
-                    auto extern_nets_ss = py::set<size_t>{};
+                    auto extern_nets_ss = py::set<node_t>{};
                     auto part2_info =
                         PartInfo{std::move(part2), std::move(extern_nets_ss)};
                     H2->projection_up(part_info, part2_info);
@@ -140,7 +140,7 @@ class MLPartMgr {
                 auto H2 = create_contraction_subgraph(H, extern_nets);
                 if (5*H2->number_of_modules() <= 3*H.number_of_modules()) {
                     auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
-                    auto extern_nets_ss = py::set<size_t>{};
+                    auto extern_nets_ss = py::set<node_t>{};
                     auto part2_info =
                         PartInfo{std::move(part2), std::move(extern_nets_ss)};
                     H2->projection_up(part_info, part2_info);
@@ -191,7 +191,7 @@ class MLPartMgr {
     //     if (H.number_of_modules() >= limitsize) { // OK
     //         auto H2 = create_contraction_subgraph(H, extern_nets);
     //         auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
-    //         auto extern_nets = py::set<size_t>{};
+    //         auto extern_nets = py::set<node_t>{};
     //         auto part2_info =
     //             PartInfo{std::move(part2), std::move(extern_nets)};
     //         H2->projection_up(part_info, part2_info);

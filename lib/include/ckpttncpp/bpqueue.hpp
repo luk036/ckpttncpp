@@ -6,6 +6,7 @@
 #include <vector>
 
 // forward declare
+template <typename T>
 struct bpq_iterator;
 
 /**
@@ -27,12 +28,13 @@ struct bpq_iterator;
  *
  * All the member functions assume that the keys are within the bound.
  */
+template <typename T>
 struct bpqueue {
-    int offset;  /**< a - 1 */
-    int high;  /**< b - a + 1 */
-    int max;  /**< max value */
-    dllink sentinel; 
-    std::vector<dllink> bucket;  /**< bucket, array of lists */
+    T offset;  /**< a - 1 */
+    T high;  /**< b - a + 1 */
+    T max;  /**< max value */
+    dllink<T> sentinel; 
+    std::vector<dllink<T>> bucket;  /**< bucket, array of lists */
 
     /**
      * @brief Construct a new bpqueue object
@@ -40,7 +42,7 @@ struct bpqueue {
      * @param a lower bound
      * @param b upper bound
      */
-    bpqueue(int a, int b)
+    bpqueue(T a, T b)
         : offset{a - 1}, high{b - offset}, max{0}, sentinel{},
           bucket(high + 1) {
         assert(a <= b);
@@ -53,14 +55,14 @@ struct bpqueue {
      * @param it   the item
      * @param gain the key of it
      */
-    auto set_key(dllink &it, int gain) -> void { it.key = gain - this->offset; }
+    auto set_key(dllink<T> &it, T gain) -> void { it.key = gain - this->offset; }
 
     /**
      * @brief Get the max value
      *
-     * @return int maximum value
+     * @return T maximum value
      */
-    [[nodiscard]] auto get_max() const -> int { return this->max + this->offset; }
+    [[nodiscard]] auto get_max() const -> T { return this->max + this->offset; }
 
     /**
      * @brief whether empty
@@ -85,7 +87,7 @@ struct bpqueue {
      *
      * @param it the item
      */
-    auto append_direct(dllink &it) -> void {
+    auto append_direct(dllink<T> &it) -> void {
         assert(it.key > this->offset);
         this->append(it, it.key);
     }
@@ -96,7 +98,7 @@ struct bpqueue {
      * @param it the item
      * @param k  the key
      */
-    auto append(dllink &it, int k) -> void {
+    auto append(dllink<T> &it, T k) -> void {
         assert(k > this->offset);
         it.key = k - this->offset;
         if (this->max < it.key) {
@@ -111,7 +113,7 @@ struct bpqueue {
      * @param nodes
      * @param keys
      */
-    auto appendfrom(std::vector<dllink> &nodes) -> void {
+    auto appendfrom(std::vector<dllink<T>> &nodes) -> void {
         for (auto &it : nodes) {
             it.key -= this->offset;
             assert(it.key > 0);
@@ -128,8 +130,8 @@ struct bpqueue {
      *
      * @return dllink&
      */
-    auto popleft() -> dllink & {
-        dllink &res = this->bucket[this->max].popleft();
+    auto popleft() -> dllink<T> & {
+        dllink<T> &res = this->bucket[this->max].popleft();
         while (this->bucket[this->max].is_empty()) {
             this->max -= 1;
         }
@@ -145,7 +147,7 @@ struct bpqueue {
      * Note that the order of items with same key will not be preserved.
      * For FM algorithm, this is a prefered behavior.
      */
-    auto decrease_key(dllink &it, int delta) -> void {
+    auto decrease_key(dllink<T> &it, T delta) -> void {
         // this->bucket[it.key].detach(it)
         it.detach();
         it.key += delta;
@@ -170,7 +172,7 @@ struct bpqueue {
      * Note that the order of items with same key will not be preserved.
      * For FM algorithm, this is a prefered behavior.
      */
-    auto increase_key(dllink &it, int delta) -> void {
+    auto increase_key(dllink<T> &it, T delta) -> void {
         // this->bucket[it.key].detach(it)
         it.detach();
         it.key += delta;
@@ -191,7 +193,7 @@ struct bpqueue {
      * Note that the order of items with same key will not be preserved.
      * For FM algorithm, this is a prefered behavior.
      */
-    auto modify_key(dllink &it, int delta) -> void {
+    auto modify_key(dllink<T> &it, T delta) -> void {
         if (it.is_locked()) {
             return;
         }
@@ -207,7 +209,7 @@ struct bpqueue {
      *
      * @param it the item
      */
-    auto detach(dllink &it) -> void {
+    auto detach(dllink<T> &it) -> void {
         // this->bucket[it.key].detach(it)
         it.detach();
         while (this->bucket[this->max].is_empty()) {
@@ -220,14 +222,14 @@ struct bpqueue {
      *
      * @return bpq_iterator
      */
-    auto begin() -> bpq_iterator;
+    auto begin() -> bpq_iterator<T>;
 
     /**
      * @brief iterator point to end
      *
      * @return bpq_iterator
      */
-    auto end() -> bpq_iterator;
+    auto end() -> bpq_iterator<T>;
 };
 
 /**
@@ -237,18 +239,19 @@ struct bpqueue {
  * order. Detaching queue items may invalidate the iterator because 
  * the iterator makes a copy of current key. 
  */
+template <typename T>
 class bpq_iterator {
   private:
-    bpqueue &bpq;  /**< the priority queue */
-    int curkey;  /**< the current key value */
-    dll_iterator curitem;  /**< list iterator pointed to the current item. */
+    bpqueue<T> &bpq;  /**< the priority queue */
+    T curkey;  /**< the current key value */
+    dll_iterator<T> curitem;  /**< list iterator pointed to the current item. */
 
     /**
      * @brief get the reference of the current list
      *
      * @return dllink&
      */
-    auto curlist() -> dllink & { return this->bpq.bucket[this->curkey]; }
+    auto curlist() -> dllink<T> & { return this->bpq.bucket[this->curkey]; }
 
   public:
     /**
@@ -257,7 +260,7 @@ class bpq_iterator {
      * @param bpq
      * @param curkey
      */
-    bpq_iterator(bpqueue &bpq, int curkey)
+    bpq_iterator(bpqueue<T> &bpq, T curkey)
         : bpq{bpq}, curkey{curkey}, curitem{bpq.bucket[curkey].begin()} {}
 
     /**
@@ -265,7 +268,7 @@ class bpq_iterator {
      *
      * @return bpq_iterator&
      */
-    auto operator++() -> bpq_iterator & {
+    auto operator++() -> bpq_iterator<T> & {
         ++this->curitem;
         if (this->curitem == this->curlist().end()) {
             do {
@@ -281,7 +284,7 @@ class bpq_iterator {
      *
      * @return bpq_iterator&
      */
-    auto operator*() -> dllink & { return *this->curitem; }
+    auto operator*() -> dllink<T> & { return *this->curitem; }
 
     /**
      * @brief eq operator
@@ -290,7 +293,7 @@ class bpq_iterator {
      * @return true
      * @return false
      */
-    auto operator==(const bpq_iterator &rhs) -> bool {
+    auto operator==(const bpq_iterator<T> &rhs) -> bool {
         return this->curitem == rhs.curitem;
     }
 
@@ -301,7 +304,7 @@ class bpq_iterator {
      * @return true
      * @return false
      */
-    auto operator!=(const bpq_iterator &rhs) -> bool { return !(*this == rhs); }
+    auto operator!=(const bpq_iterator<T> &rhs) -> bool { return !(*this == rhs); }
 };
 
 /**
@@ -309,8 +312,9 @@ class bpq_iterator {
  *
  * @return bpq_iterator
  */
-inline auto bpqueue::begin() -> bpq_iterator {
-    return bpq_iterator(*this, this->max);
+template <typename T>
+inline auto bpqueue<T>::begin() -> bpq_iterator<T> {
+    return bpq_iterator<T>(*this, this->max);
 }
 
 /**
@@ -318,6 +322,9 @@ inline auto bpqueue::begin() -> bpq_iterator {
  *
  * @return bpq_iterator
  */
-inline auto bpqueue::end() -> bpq_iterator { return bpq_iterator(*this, 0); }
+template <typename T>
+inline auto bpqueue<T>::end() -> bpq_iterator<T> {
+    return bpq_iterator<T>(*this, 0); 
+}
 
 #endif

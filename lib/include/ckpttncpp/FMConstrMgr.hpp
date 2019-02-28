@@ -20,8 +20,8 @@ class FMConstrMgr {
     std::uint8_t K;
     std::vector<size_t> diff;
     size_t lowerbound;
-    size_t weight; // cache value
     size_t totalweight;
+    uint32_t weight; // cache value
 
     /**
      * @brief Construct a new FMConstrMgr object

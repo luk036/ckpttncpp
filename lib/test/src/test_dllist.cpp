@@ -3,11 +3,11 @@
 #include <ckpttncpp/robin.hpp>  // import  dllink
 
 TEST_CASE("Test dllist", "[dllist]") {
-    auto L1 = dllink{};
-    auto L2 = dllink{};
-    auto d = dllink{};
-    auto e = dllink{};
-    auto f = dllink{};
+    auto L1 = dllink{0};
+    auto L2 = dllink{0};
+    auto d = dllink{0};
+    auto e = dllink{0};
+    auto f = dllink{0};
     CHECK(L1.is_empty());
 
     L1.appendleft(e);
@@ -28,7 +28,7 @@ TEST_CASE("Test dllist", "[dllist]") {
 }
 
 TEST_CASE("Test robin", "[robin]") {
-    auto RR = robin(6);
+    auto RR = robin<int>(6);
     auto count = 0U;
     for (auto k : RR.exclude(2)) {
         count += 1;

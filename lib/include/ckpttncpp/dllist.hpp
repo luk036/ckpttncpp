@@ -4,6 +4,7 @@
 #include <cassert>
 
 // forward declare
+template <typename T>
 struct dll_iterator;
 
 /**
@@ -17,23 +18,26 @@ struct dll_iterator;
  * information. Note that this class does not own the list node. They
  * are supplied by the caller in order to better reuse the nodes.
  */
+template <typename T>
 struct dllink {
-    int key = 0;
-    dllink *next;  /**< pointer to the next node */
-    dllink *prev;  /**< pointer to the previous node */
+    dllink<T> *next;  /**< pointer to the next node */
+    dllink<T> *prev;  /**< pointer to the previous node */
+    T key;
 
     /**
      * @brief Construct a new dllink object
      *
      * @param key the key
      */
-    dllink() : next{this}, prev{this} {}
+    dllink(T key = T(0)) : next{this}, prev{this}, key{key} {
+        static_assert(sizeof(dllink<T>) <= 24);
+    }
 
     /**
      * @brief Copy construct a new dllink object (deleted intentionally)
      *
      */
-    dllink(dllink &) = delete;
+    dllink(dllink<T> &) = delete;
 
     /**
      * @brief detach from a list
@@ -80,7 +84,7 @@ struct dllink {
      *
      * @param node
      */
-    auto appendleft(dllink &node) -> void {
+    auto appendleft(dllink<T> &node) -> void {
         node.next = this->next;
         this->next->prev = &node;
         this->next = &node;
@@ -92,7 +96,7 @@ struct dllink {
      *
      * @param node
      */
-    auto append(dllink &node) -> void {
+    auto append(dllink<T> &node) -> void {
         node.prev = this->prev;
         this->prev->next = &node;
         this->prev = &node;
@@ -106,7 +110,7 @@ struct dllink {
      *
      * Precondition: list is not empty
      */
-    auto popleft() -> dllink & {
+    auto popleft() -> dllink<T> & {
         auto res = this->next;
         this->next = res->next;
         this->next->prev = this;
@@ -120,7 +124,7 @@ struct dllink {
      *
      * Precondition: list is not empty
      */
-    auto pop() -> dllink & {
+    auto pop() -> dllink<T> & {
         auto res = this->prev;
         this->prev = res->prev;
         this->prev->next = this;
@@ -134,14 +138,14 @@ struct dllink {
      *
      * @return dll_iterator
      */
-    auto begin() -> dll_iterator;
+    auto begin() -> dll_iterator<T>;
 
     /**
      * @brief
      *
      * @return dll_iterator
      */
-    auto end() -> dll_iterator;
+    auto end() -> dll_iterator<T>;
 };
 
 /**
@@ -150,22 +154,23 @@ struct dllink {
  * List iterator. Traverse the list from the first item. Usually it is
  * safe to attach/detach list items during the iterator is active.
  */
+template <typename T>
 struct dll_iterator {
-    dllink *cur; /**< pointer to the current item */
+    dllink<T> *cur; /**< pointer to the current item */
 
     /**
      * @brief Construct a new dll iterator object
      *
      * @param cur
      */
-    explicit dll_iterator(dllink *cur) : cur{cur} {}
+    explicit dll_iterator(dllink<T> *cur) : cur{cur} {}
 
     /**
      * @brief move to the next item
      *
      * @return dllink&
      */
-    auto operator++() -> dll_iterator & {
+    auto operator++() -> dll_iterator<T> & {
         this->cur = this->cur->next;
         return *this;
     }
@@ -175,7 +180,7 @@ struct dll_iterator {
      *
      * @return dllink&
      */
-    auto operator*() -> dllink & { return *this->cur; }
+    auto operator*() -> dllink<T> & { return *this->cur; }
 
     /**
      * @brief eq operator
@@ -184,7 +189,7 @@ struct dll_iterator {
      * @return true
      * @return false
      */
-    auto operator==(const dll_iterator &rhs) -> bool {
+    auto operator==(const dll_iterator<T> &rhs) -> bool {
         return this->cur == rhs.cur;
     }
 
@@ -195,7 +200,7 @@ struct dll_iterator {
      * @return true
      * @return false
      */
-    auto operator!=(const dll_iterator &rhs) -> bool { return !(*this == rhs); }
+    auto operator!=(const dll_iterator<T> &rhs) -> bool { return !(*this == rhs); }
 };
 
 /**
@@ -203,13 +208,15 @@ struct dll_iterator {
  *
  * @return dll_iterator
  */
-inline auto dllink::begin() -> dll_iterator { return dll_iterator{this->next}; }
+template <typename T>
+inline auto dllink<T>::begin() -> dll_iterator<T> { return dll_iterator<T>{this->next}; }
 
 /**
  * @brief end
  *
  * @return dll_iterator
  */
-inline auto dllink::end() -> dll_iterator { return dll_iterator{this}; }
+template <typename T>
+inline auto dllink<T>::end() -> dll_iterator<T> { return dll_iterator<T>{this}; }
 
 #endif

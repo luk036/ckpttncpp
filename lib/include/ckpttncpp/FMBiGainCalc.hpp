@@ -17,7 +17,7 @@ class FMBiGainCalc {
   private:
     SimpleNetlist &H;
     size_t num_modules{};
-    std::vector<dllink> vertex_list;
+    std::vector<dllink<int>> vertex_list;
 
   public:
     int totalcost;
@@ -55,7 +55,7 @@ class FMBiGainCalc {
      * @param toPart
      * @return dllink*
      */
-    auto start_ptr(std::uint8_t  /*toPart*/) -> dllink * {
+    auto start_ptr(std::uint8_t  /*toPart*/) -> dllink<int> * {
         return &this->vertex_list[0];
     }
 

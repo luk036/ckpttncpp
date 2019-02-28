@@ -13,7 +13,7 @@ class FMKWayGainMgr;
 class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
 
   private:
-    robin RR;
+    robin<uint8_t> RR;
 
   public:
     using Base = FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>;

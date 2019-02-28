@@ -4,14 +4,13 @@
 #include "dllist.hpp" // import dllink
 #include <vector>
 
-class robin;
-
+template <typename T>
 class robin {
   private:
-    std::vector<dllink> cycle;
+    std::vector<dllink<T>> cycle;
 
     struct iterator {
-        dllink *cur;
+        dllink<T> *cur;
         bool operator!=(const iterator &other) const {
             return cur != other.cur;
         }
@@ -22,18 +21,19 @@ class robin {
             cur = cur->next;
             return *this;
         }
-        const int &operator*() const { return cur->key; }
+        const T &operator*() const { return cur->key; }
     };
+
     struct iterable_wrapper {
-        robin *rr;
-        size_t fromPart;
+        robin<T> *rr;
+        T fromPart;
         auto begin() { return iterator{rr->cycle[fromPart].next}; }
         auto end() { return iterator{&rr->cycle[fromPart]}; }
         // auto size() const -> size_t { return rr->cycle.size() - 1; }
     };
 
   public:
-    explicit robin(size_t K) : cycle(K) {
+    explicit robin(T K) : cycle(K) {
         for (auto k = 0U; k < K - 1; ++k) {
             this->cycle[k].next = &this->cycle[k + 1];
             this->cycle[k].key = k;
@@ -42,7 +42,7 @@ class robin {
         this->cycle[K - 1].key = K - 1;
     }
 
-    auto exclude(size_t fromPart) { return iterable_wrapper{this, fromPart}; }
+    auto exclude(T fromPart) { return iterable_wrapper{this, fromPart}; }
 };
 
 #endif

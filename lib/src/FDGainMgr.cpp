@@ -18,7 +18,7 @@ FDGainMgr<GainCalc, Derived>::FDGainMgr(SimpleNetlist &H, std::uint8_t K)
     static_assert(std::is_base_of_v<FDGainMgr<GainCalc, Derived>, Derived>);
     for (auto k = 0U; k < this->K; ++k) {
         this->gainbucket.push_back(
-            std::make_unique<bpqueue>(-this->pmax, this->pmax));
+            std::make_unique<bpqueue<int>>(-this->pmax, this->pmax));
     }
 }
 

@@ -10,7 +10,7 @@
  */
 class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
   private:
-    robin RR;
+    robin<uint8_t> RR;
 
   public:
     using Base = FDGainMgr<FDKWayGainCalc, FDKWayGainMgr>;

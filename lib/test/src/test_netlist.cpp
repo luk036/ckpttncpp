@@ -36,9 +36,9 @@ auto create_dwarf() -> SimpleNetlist {
     int num_arcs = sizeof(edge_array) / sizeof(Edge);
     graph_t g(edge_array, edge_array + num_arcs, num_nodes);
     // using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
-    using IndexMap =
-        typename boost::property_map<graph_t, boost::vertex_index_t>::type;
-    IndexMap index = boost::get(boost::vertex_index, g);
+    // using IndexMap =
+    //     typename boost::property_map<graph_t, boost::vertex_index_t>::type;
+    // IndexMap index = boost::get(boost::vertex_index, g);
     auto G = xn::grAdaptor<graph_t>(std::move(g));
 
     // std::vector<node_t> module_list(7);
@@ -67,13 +67,7 @@ auto create_test_netlist() -> SimpleNetlist {
     // std::size_t indices[] = {0, 1, 2, 3, 4, 5};
     auto num_arcs = sizeof(edge_array) / sizeof(Edge);
     auto g = graph_t{edge_array, edge_array + num_arcs, num_nodes};
-    // using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
-    // using IndexMap =
-    //     typename boost::property_map<graph_t, boost::vertex_index_t>::type;
-    auto index = boost::get(boost::vertex_index, g);
     auto G = xn::grAdaptor<graph_t>{std::move(g)};
-    // std::vector<node_t> module_list(3);
-    // std::vector<node_t> net_list(3);
     auto module_weight = std::vector<int>{3, 4, 2};
     auto H = Netlist{std::move(G), py::range2(0, 3), py::range2(3, 6),
                      py::range2(-3, 3)};

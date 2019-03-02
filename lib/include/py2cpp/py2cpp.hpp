@@ -46,32 +46,34 @@ constexpr auto enumerate(T &&iterable) {
     return iterable_wrapper{std::forward<T>(iterable)};
 }
 
-constexpr auto range(size_t stop) {
+template <typename T>
+constexpr auto range(T stop) {
     struct iterator {
-        size_t i;
+        T i;
         bool operator!=(const iterator &other) const { return i != other.i; }
         bool operator==(const iterator &other) const { return i == other.i; }
         iterator &operator++() {
             ++i;
             return *this;
         }
-        size_t operator*() const { return i; }
+        T operator*() const { return i; }
     };
     struct iterable_wrapper {
-        size_t stop;
-        [[nodiscard]] auto cbegin() const { return iterator{0U}; }
-        [[nodiscard]] auto cend() const { return iterator{stop}; }
-        [[nodiscard]] auto begin() const { return iterator{0U}; }
+        using value_type = T; // luk
+        T stop;
+        [[nodiscard]] auto begin() const { return iterator{0}; }
         [[nodiscard]] auto end() const { return iterator{stop}; }
         [[nodiscard]] auto size() const -> size_t { return stop; }
-        auto operator[](size_t index) const -> size_t { return index; }
+        auto operator[](T n) const -> T { return n; }
+        auto contains(T n) const -> bool { return n < stop; }
     };
     return iterable_wrapper{stop};
 }
 
-constexpr auto range2(int start, int stop) {
+template <typename T>
+constexpr auto range2(T start, T stop) {
     struct iterator {
-        int i;
+        T i;
         bool operator!=(const iterator &other) const { return i != other.i; }
         bool operator==(const iterator &other) const { return i == other.i; }
         iterator &operator++() {
@@ -81,14 +83,14 @@ constexpr auto range2(int start, int stop) {
         int operator*() const { return i; }
     };
     struct iterable_wrapper {
-        int start;
-        int stop;
-        [[nodiscard]] auto cbegin() const { return iterator{start}; }
-        [[nodiscard]] auto cend() const { return iterator{stop}; }
+        using value_type = size_t; // luk
+        T start;
+        T stop;
         [[nodiscard]] auto begin() const { return iterator{start}; }
         [[nodiscard]] auto end() const { return iterator{stop}; }
         [[nodiscard]] auto size() const -> size_t { return stop - start; }
-        auto operator[](size_t index) const -> int { return start + index; }
+        auto operator[](T n) const -> int { return start + n; }
+        auto contains(T n) const -> bool { return !(n < start) && n < stop; }
     };
     return iterable_wrapper{start, stop};
 }

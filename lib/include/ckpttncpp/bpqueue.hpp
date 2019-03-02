@@ -131,7 +131,7 @@ struct bpqueue {
      * @return dllink&
      */
     auto popleft() -> dllink<T> & {
-        dllink<T> &res = this->bucket[this->max].popleft();
+        auto &res = this->bucket[this->max].popleft();
         while (this->bucket[this->max].is_empty()) {
             this->max -= 1;
         }
@@ -293,7 +293,7 @@ class bpq_iterator {
      * @return true
      * @return false
      */
-    auto operator==(const bpq_iterator<T> &rhs) -> bool {
+    auto operator==(const bpq_iterator &rhs) -> bool {
         return this->curitem == rhs.curitem;
     }
 
@@ -304,7 +304,7 @@ class bpq_iterator {
      * @return true
      * @return false
      */
-    auto operator!=(const bpq_iterator<T> &rhs) -> bool { return !(*this == rhs); }
+    auto operator!=(const bpq_iterator &rhs) -> bool { return !(*this == rhs); }
 };
 
 /**
@@ -314,7 +314,7 @@ class bpq_iterator {
  */
 template <typename T>
 inline auto bpqueue<T>::begin() -> bpq_iterator<T> {
-    return bpq_iterator<T>(*this, this->max);
+    return bpq_iterator(*this, this->max);
 }
 
 /**
@@ -324,7 +324,7 @@ inline auto bpqueue<T>::begin() -> bpq_iterator<T> {
  */
 template <typename T>
 inline auto bpqueue<T>::end() -> bpq_iterator<T> {
-    return bpq_iterator<T>(*this, 0); 
+    return bpq_iterator(*this, 0); 
 }
 
 #endif

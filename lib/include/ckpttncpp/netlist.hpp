@@ -27,11 +27,10 @@ struct PartInfo {
  *
  */
 template <typename nodeview_t, typename nodemap_t> struct Netlist {
-    using nodevec_t = std::vector<node_t>;
-
     xn::grAdaptor<graph_t> G;
     nodeview_t modules;
     nodeview_t nets;
+    // nodemap_t module_map;
     nodemap_t net_map;
     size_t num_modules;
     size_t num_nets;

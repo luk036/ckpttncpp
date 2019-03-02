@@ -209,7 +209,7 @@ struct dll_iterator {
  * @return dll_iterator
  */
 template <typename T>
-inline auto dllink<T>::begin() -> dll_iterator<T> { return dll_iterator<T>{this->next}; }
+inline auto dllink<T>::begin() -> dll_iterator<T> { return dll_iterator{this->next}; }
 
 /**
  * @brief end
@@ -217,6 +217,6 @@ inline auto dllink<T>::begin() -> dll_iterator<T> { return dll_iterator<T>{this-
  * @return dll_iterator
  */
 template <typename T>
-inline auto dllink<T>::end() -> dll_iterator<T> { return dll_iterator<T>{this}; }
+inline auto dllink<T>::end() -> dll_iterator<T> { return dll_iterator{this}; }
 
 #endif

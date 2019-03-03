@@ -8,6 +8,7 @@
 #include "FMPartMgr.hpp" // import FMPartMgr
 #include "netlist.hpp"
 #include <vector>
+#include <iostream>
 
 extern std::unique_ptr<SimpleNetlist>
 create_contraction_subgraph(SimpleNetlist &,

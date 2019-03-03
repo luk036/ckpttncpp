@@ -48,20 +48,20 @@ class AtlasView {
     {
     }
 
-    auto size( ) {
+    auto size( ) const {
         return std::size(this->_atlas);
     }
 
-    auto begin( ) {
+    auto begin( ) const {
         return std::begin(this->_atlas);
     }
 
-    auto end( ) {
+    auto end( ) const {
         return std::end(this->_atlas);
     }
 
     template <typename T>
-    auto operator[](const T& key) {
+    auto operator[](const T& key) const {
         return this->_atlas[key];
     }
 
@@ -99,7 +99,7 @@ class AdjacencyView: public AtlasView<Atlas> {
     }
 
     template <typename T>
-    auto operator[](const T& name) {
+    auto operator[](const T& name) const {
         return AtlasView(this->_atlas[name]);
     }
 

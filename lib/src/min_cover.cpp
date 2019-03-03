@@ -2,6 +2,7 @@
 #include <ckpttncpp/netlist.hpp>
 #include <py2cpp/py2cpp.hpp>
 #include <tuple>
+#include <memory>
 #include <vector>
 
 /**
@@ -221,17 +222,19 @@ auto create_contraction_subgraph(SimpleNetlist &H,
     }
 
     auto num_vertices = numModules + numNets;
-    graph_t g(num_vertices);
+    auto R = py::range<node_t>(num_vertices);
+    auto g = graph_t{R, R};
     // G.add_nodes_from(nodes);
     for (auto v : H.modules) {
         for (auto net : H.G[v]) {
             if (S.contains(net)) {
                 continue;
             }
-            boost::add_edge(node_up_map[v], node_up_map[net], g);
+            g.add_edge(node_up_map[v], node_up_map[net]);
         }
     }
-    auto G = xn::grAdaptor<graph_t>(std::move(g));
+    // auto G = xn::grAdaptor<graph_t>(std::move(g));
+    auto G = std::move(g);
 
     auto H2 = std::make_unique<SimpleNetlist>(std::move(G), py::range2<int>(0, numModules),
                       py::range2<int>(numModules, num_vertices),

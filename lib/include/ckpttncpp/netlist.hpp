@@ -2,16 +2,20 @@
 #define CKPTTNCPP_NETLIST_HPP 1
 
 // import networkx as nx
+#include <algorithm>
 #include <iterator>
-#include <py2cpp/nx2bgl.hpp>
+// #include <py2cpp/nx2bgl.hpp>
 #include <py2cpp/py2cpp.hpp>
 #include <utility>
 #include <vector>
+#include <xnetwork/classes/graph.hpp>
 
-using graph_t =
-    boost::adjacency_list<boost::hash_setS, boost::vecS, boost::undirectedS>;
+// using RngIter = decltype(py::range<int>(1));
 // using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
-using node_t = uint32_t;
+using node_t = int;
+using RngIter = decltype(py::range<node_t>(1));
+using graph_t = xn::Graph<RngIter, RngIter>;
+
 // using edge_t = typename boost::graph_traits<graph_t>::edge_iterator;
 
 struct PartInfo {
@@ -22,12 +26,11 @@ struct PartInfo {
 /**
  * @brief Netlist
  *
- * Netlist is implemented by boost::graph, which is wrapped by
- * xn::grAdaptor<> so that it is more networkx-like.
+ * Netlist is implemented by xn::Graph, which is a networkx-like graph.
  *
  */
 template <typename nodeview_t, typename nodemap_t> struct Netlist {
-    xn::grAdaptor<graph_t> G;
+    graph_t G;
     nodeview_t modules;
     nodeview_t nets;
     // nodemap_t module_map;
@@ -57,7 +60,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
      * @param net_list
      * @param module_fixed
      */
-    Netlist(xn::grAdaptor<graph_t> &&G, const nodeview_t &modules,
+    Netlist(graph_t &&G, const nodeview_t &modules,
             const nodeview_t &nets, nodemap_t &&net_map);
 
     /**
@@ -81,12 +84,12 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
      */
     auto number_of_nodes() const -> size_t { return this->G.number_of_nodes(); }
 
-    /**
-     * @brief
-     *
-     * @return size_t
-     */
-    auto number_of_pins() const -> size_t { return this->G.number_of_edges(); }
+    // /**
+    //  * @brief
+    //  *
+    //  * @return size_t
+    //  */
+    // auto number_of_pins() const -> size_t { return this->G.number_of_edges(); }
 
     /**
      * @brief Get the max degree
@@ -173,11 +176,12 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
  * @param module_fixed
  */
 template <typename nodeview_t, typename nodemap_t>
-Netlist<nodeview_t, nodemap_t>::Netlist(xn::grAdaptor<graph_t> &&G,
-                                        const nodeview_t &modules,
-                                        const nodeview_t &nets,
-                                        // nodemap_t&& module_map,
-                                        nodemap_t &&net_map)
+Netlist<nodeview_t, nodemap_t>::
+Netlist(graph_t &&G,
+        const nodeview_t &modules,
+        const nodeview_t &nets,
+        // nodemap_t&& module_map,
+        nodemap_t &&net_map)
     : G{std::move(G)}, modules{modules}, nets{nets},
       // module_map{std::move(module_map)},
       net_map{std::move(net_map)},
@@ -195,8 +199,8 @@ Netlist<nodeview_t, nodemap_t>::Netlist(xn::grAdaptor<graph_t> &&G,
     this->max_net_degree = this->G.degree(*result2);
 }
 
-using RngIter = decltype(py::range2(0, 1));
-using SimpleNetlist = Netlist<RngIter, RngIter>;
+using Rng2Iter = decltype(py::range2<node_t>(0, 1));
+using SimpleNetlist = Netlist<Rng2Iter, Rng2Iter>;
 using NodeMap = py::dict<node_t, size_t>;
 using ClusterNetlist = Netlist<std::vector<node_t>, NodeMap>;
 

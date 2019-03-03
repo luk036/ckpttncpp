@@ -2,7 +2,8 @@
 #include <ckpttncpp/netlist.hpp>
 #include <climits>
 #include <fstream>
-#include <py2cpp/nx2bgl.hpp>
+#include <iostream>
+// #include <py2cpp/nx2bgl.hpp>
 #include <py2cpp/py2cpp.hpp>
 #include <utility> // for std::pair
 #include <vector>
@@ -74,7 +75,8 @@ auto readNetD(const char *netDFileName) -> SimpleNetlist {
 
     using Edge = std::pair<int, int>;
     auto const num_vertices = numModules + numNets;
-    graph_t g{num_vertices};
+    auto R = py::range<node_t>(num_vertices);
+    graph_t g{R, R};
 
     const size_t bufferSize = 100;
     char lineBuffer[bufferSize]; // Does it work for other compiler?
@@ -109,7 +111,7 @@ auto readNetD(const char *netDFileName) -> SimpleNetlist {
         }
 
         // edge_array[i] = Edge(w, e);
-        boost::add_edge(w, e, g);
+        g.add_edge(w, e);
 
         do {
             netD.get(c);
@@ -139,9 +141,9 @@ auto readNetD(const char *netDFileName) -> SimpleNetlist {
 
     // using IndexMap =
     //     typename boost::property_map<graph_t, boost::vertex_index_t>::type;
-    auto index = boost::get(boost::vertex_index, g);
-    auto G = xn::grAdaptor<graph_t>{std::move(g)};
-    auto H = Netlist{std::move(G), py::range2<int>(0, numModules),
+    // auto index = boost::get(boost::vertex_index, g);
+    // auto G = xn::grAdaptor<graph_t>{std::move(g)};
+    auto H = Netlist{std::move(g), py::range2<int>(0, numModules),
                      py::range2<int>(numModules, num_vertices),
                      py::range2<int>(-numModules, num_vertices - numModules)};
     H.num_pads = numModules - padOffset - 1;

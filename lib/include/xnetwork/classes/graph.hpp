@@ -267,7 +267,7 @@ class Graph : public object {
 
         For directed graphs, `G.adj` holds outgoing (successor) info.
     */
-    auto adj( ) {
+    auto adj( ) const {
         return AdjacencyView(this->_adj);
     }
 
@@ -304,11 +304,11 @@ class Graph : public object {
     >>> list(G);
     [0, 1, 2, 3];
      */
-    auto begin( ) {
+    auto begin( ) const {
         return std::begin(this->_node);
     }
 
-    auto end( ) {
+    auto end( ) const {
         return std::end(this->_node);
     }
 
@@ -347,7 +347,7 @@ class Graph : public object {
     >>> G[0];
     AtlasView({1: {}});
      */
-    auto operator[](const Node& n) {
+    auto operator[](const Node& n) const {
         return this->adj()[this->_node_map[n]];
     }
 
@@ -447,7 +447,7 @@ class Graph : public object {
     >>> len(G);
     3
      */
-    auto number_of_nodes( ) {
+    auto number_of_nodes( ) const {
         return std::size(this->_node);
     }
 

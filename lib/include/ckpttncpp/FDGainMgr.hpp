@@ -7,6 +7,7 @@
 #include <cassert>
 #include <cinttypes>
 #include <iterator>
+#include <memory>
 #include <type_traits>
 
 /**

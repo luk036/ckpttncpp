@@ -6,10 +6,9 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
+#include <tuple>
 
 namespace py {
-
-#include <tuple>
 
 /**
  * @brief
@@ -38,8 +37,6 @@ constexpr auto enumerate(T &&iterable) {
     };
     struct iterable_wrapper {
         T iterable;
-        [[nodiscard]] auto cbegin() const { return iterator{0, std::begin(iterable)}; }
-        [[nodiscard]] auto cend() const { return iterator{0, std::end(iterable)}; }
         auto begin() { return iterator{0, std::begin(iterable)}; }
         auto end() { return iterator{0, std::end(iterable)}; }
     };
@@ -50,23 +47,27 @@ template <typename T>
 constexpr auto range(T stop) {
     struct iterator {
         T i;
-        bool operator!=(const iterator &other) const { return i != other.i; }
-        bool operator==(const iterator &other) const { return i == other.i; }
-        iterator &operator++() {
+        constexpr bool operator!=(const iterator &other) const { return i != other.i; }
+        constexpr bool operator==(const iterator &other) const { return i == other.i; }
+        constexpr T operator*() const { return i; }
+        constexpr iterator &operator++() {
             ++i;
             return *this;
         }
-        T operator*() const { return i; }
     };
+
     struct iterable_wrapper {
         using value_type = T; // luk
         T stop;
-        [[nodiscard]] auto begin() const { return iterator{0}; }
-        [[nodiscard]] auto end() const { return iterator{stop}; }
-        [[nodiscard]] auto size() const -> size_t { return stop; }
-        auto operator[](T n) const -> T { return n; }
-        auto contains(T n) const -> bool { return n < stop; }
+        constexpr auto begin() const { return iterator{0}; }
+        constexpr auto end() const { return iterator{stop}; }
+        constexpr auto empty() const -> bool { return stop == 0; }
+        constexpr auto size() const -> size_t { return stop; }
+        constexpr auto operator[](size_t n) const -> T { return n; } // no bounds checking
+        constexpr auto contains(T n) const -> bool { return n < stop; }
     };
+
+    if (stop < 0) stop = 0;
     return iterable_wrapper{stop};
 }
 
@@ -74,24 +75,28 @@ template <typename T>
 constexpr auto range2(T start, T stop) {
     struct iterator {
         T i;
-        bool operator!=(const iterator &other) const { return i != other.i; }
-        bool operator==(const iterator &other) const { return i == other.i; }
-        iterator &operator++() {
+        constexpr bool operator!=(const iterator &other) const { return i != other.i; }
+        constexpr bool operator==(const iterator &other) const { return i == other.i; }
+        constexpr int operator*() const { return i; }
+        constexpr iterator &operator++() {
             ++i;
             return *this;
         }
-        int operator*() const { return i; }
     };
+
     struct iterable_wrapper {
-        using value_type = size_t; // luk
+        using value_type = T; // luk
         T start;
         T stop;
-        [[nodiscard]] auto begin() const { return iterator{start}; }
-        [[nodiscard]] auto end() const { return iterator{stop}; }
-        [[nodiscard]] auto size() const -> size_t { return stop - start; }
-        auto operator[](T n) const -> int { return start + n; }
-        auto contains(T n) const -> bool { return !(n < start) && n < stop; }
+        constexpr auto begin() const { return iterator{start}; }
+        constexpr auto end() const { return iterator{stop}; }
+        constexpr auto empty() const -> bool { return false; }
+        constexpr auto size() const -> size_t { return stop - start; }
+        constexpr auto operator[](size_t n) const -> T { return start + n; } // no bounds checking
+        constexpr auto contains(T n) const -> bool { return !(n < start) && n < stop; }
     };
+
+    if (stop < start) stop = start;
     return iterable_wrapper{start, stop};
 }
 

@@ -16,8 +16,8 @@
 struct FMBiGainMgr {
     SimpleNetlist &H;
     FMBiGainCalc gainCalc;
-    size_t pmax;
-    size_t num_modules;
+    index_t pmax;
+    index_t num_modules;
     std::vector<dllink> vertex_list;
     dllink waitinglist;
     bpqueue gainbucket;
@@ -71,7 +71,7 @@ struct FMBiGainMgr {
     }
 
     auto select_togo(std::uint8_t toPart)
-                        -> std::tuple<size_t, int> {
+                        -> std::tuple<index_t, int> {
         auto gainmax = this->gainbucket.get_max();
         auto &vlink = this->gainbucket.popleft();
         this->waitinglist.append(vlink);

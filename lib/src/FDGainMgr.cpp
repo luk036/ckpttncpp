@@ -51,7 +51,7 @@ auto FDGainMgr<GainCalc, Derived>::select(const std::vector<std::uint8_t> &part)
     std::uint8_t toPart = std::distance(gainmax.cbegin(), it);
     auto &vlink = this->gainbucket[toPart]->popleft();
     this->waitinglist.append(vlink);
-    size_t i_v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);
+    index_t i_v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);
     // node_t v = this->H.modules[v];
     auto fromPart = part[i_v];
     auto move_info_v = MoveInfoV{fromPart, toPart, i_v};
@@ -62,15 +62,15 @@ auto FDGainMgr<GainCalc, Derived>::select(const std::vector<std::uint8_t> &part)
  * @brief 
  * 
  * @param toPart 
- * @return std::tuple<size_t, int> 
+ * @return std::tuple<index_t, int> 
  */
 template <typename GainCalc, class Derived>
 auto FDGainMgr<GainCalc, Derived>::select_togo(std::uint8_t toPart)
-    -> std::tuple<size_t, int> {
+    -> std::tuple<index_t, int> {
     auto gainmax = this->gainbucket[toPart]->get_max();
     auto &vlink = this->gainbucket[toPart]->popleft();
     this->waitinglist.append(vlink);
-    size_t i_v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);
+    index_t i_v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);
     // node_t v = this->H.modules[v];
     return std::tuple{i_v, gainmax};
 }

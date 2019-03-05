@@ -15,7 +15,7 @@
 auto max_independent_net(SimpleNetlist &H, const std::vector<int> & /*weight*/,
                          const py::set<node_t> &DontSelect) {
     bpqueue bpq{-int(H.get_max_net_degree()), 0};
-    auto nets = std::vector<dllink<int>>(H.nets.size());
+    auto nets = std::vector<dllink<index_t>>(H.nets.size());
 
     for (auto i_net = 0U; i_net < H.nets.size(); ++i_net) {
         auto net = H.nets[i_net];
@@ -31,7 +31,7 @@ auto max_independent_net(SimpleNetlist &H, const std::vector<int> & /*weight*/,
 
     // for (auto i_net = 0U; i_net < H.nets.size(); ++i_net) {
     while (!bpq.is_empty()) {
-        dllink<int>& item = bpq.popleft();
+        dllink<index_t>& item = bpq.popleft();
         auto i_net = std::distance(&nets[0], &item);
 
         if (visited[i_net]) {
@@ -152,9 +152,9 @@ auto create_contraction_subgraph(SimpleNetlist &H,
 
     auto cluster_map = py::dict<node_t, node_t>{};
     cluster_map.reserve(S.size());
-    auto node_up_map = py::dict<node_t, size_t>{};
-    size_t numModules;
-    size_t numNets;
+    auto node_up_map = py::dict<node_t, index_t>{};
+    index_t numModules;
+    index_t numNets;
 
     auto modules = std::vector<node_t>{};
     auto nets = std::vector<node_t>{};
@@ -198,13 +198,13 @@ auto create_contraction_subgraph(SimpleNetlist &H,
     numNets = std::size(nets);
 
         { // localize module_map and net_map
-            auto module_map = py::dict<node_t, size_t>{};
+            auto module_map = py::dict<node_t, index_t>{};
             module_map.reserve(numModules);
             for (auto [i_v, v] : py::enumerate(modules)) {
                 module_map[v] = i_v;
             }
 
-            auto net_map = py::dict<node_t, size_t>{};
+            auto net_map = py::dict<node_t, index_t>{};
             net_map.reserve(numNets);
             for (auto [i_net, net] : py::enumerate(nets)) {
                 net_map[net] = i_net;
@@ -242,12 +242,12 @@ auto create_contraction_subgraph(SimpleNetlist &H,
                       py::range<int>(-numModules, numNets)
                       );
 
-    auto node_down_map = py::dict<size_t, node_t>{};
+    auto node_down_map = py::dict<index_t, node_t>{};
     node_down_map.reserve(num_vertices);
     for (auto [v1, v2] : node_up_map) {
         node_down_map[v2] = v1;
     }
-    auto cluster_down_map = py::dict<size_t, node_t>{};
+    auto cluster_down_map = py::dict<index_t, node_t>{};
     cluster_down_map.reserve(cluster_map.size()); // ???
     for (auto [v, net] : cluster_map) {
         cluster_down_map[node_up_map[v]] = net;

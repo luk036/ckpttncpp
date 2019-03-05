@@ -207,18 +207,18 @@ template <typename Graph> class grAdaptor : public VertexView<Graph> {
     /**
      * @brief number of nodes
      *
-     * @return size_t
+     * @return index_t
      */
-    [[nodiscard]] auto number_of_nodes() const -> size_t {
+    [[nodiscard]] auto number_of_nodes() const -> index_t {
         return boost::num_vertices(*this);
     }
 
     /**
      * @brief number of edges
      *
-     * @return size_t
+     * @return index_t
      */
-    [[nodiscard]] auto number_of_edges() const -> size_t { return boost::num_edges(*this); }
+    [[nodiscard]] auto number_of_edges() const -> index_t { return boost::num_edges(*this); }
 
     /**
      * @brief

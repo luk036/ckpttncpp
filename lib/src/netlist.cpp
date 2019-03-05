@@ -53,4 +53,4 @@ auto Netlist<nodeview_t, nodemap_t>::projection_down(const PartInfo &part_info,
     }
 }
 
-template class Netlist<Rng2Iter, Rng2Iter>;
+template class Netlist<RngIter, RngIter>;

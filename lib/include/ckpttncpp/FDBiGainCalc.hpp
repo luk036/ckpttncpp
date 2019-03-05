@@ -12,11 +12,12 @@ class FDBiGainMgr;
  */
 class FDBiGainCalc {
     friend FDBiGainMgr;
+    using index_t = typename SimpleNetlist::index_t;
 
   private:
     SimpleNetlist &H;
-    size_t num_modules{};
-    std::vector<dllink<int>> vertex_list;
+    index_t num_modules{};
+    std::vector<dllink<index_t>> vertex_list;
 
   public:
     int totalcost;
@@ -54,7 +55,7 @@ class FDBiGainCalc {
      * @param toPart
      * @return dllink*
      */
-    auto start_ptr(std::uint8_t  /*toPart*/) -> dllink<int> * {
+    auto start_ptr(std::uint8_t  /*toPart*/) -> dllink<index_t> * {
         return &this->vertex_list[0];
     }
 
@@ -66,7 +67,7 @@ class FDBiGainCalc {
         // nothing to do in 2-way partitioning
     }
 
-    using ret_2pin_info = std::tuple<size_t, int>;
+    using ret_2pin_info = std::tuple<index_t, int>;
 
     /**
      * @brief
@@ -78,7 +79,7 @@ class FDBiGainCalc {
     auto update_move_2pin_net(PartInfo &part_info, const MoveInfo &move_info)
         -> ret_2pin_info;
 
-    using ret_info = std::tuple<std::vector<size_t>, std::vector<int>>;
+    using ret_info = std::tuple<std::vector<index_t>, std::vector<int>>;
 
     /**
      * @brief
@@ -96,7 +97,7 @@ class FDBiGainCalc {
      * @param w
      * @param weight
      */
-    auto modify_gain(size_t i_w, int weight) -> void {
+    auto modify_gain(index_t i_w, int weight) -> void {
         this->vertex_list[i_w].key += weight;
     }
 

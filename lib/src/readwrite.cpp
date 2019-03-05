@@ -65,10 +65,10 @@ auto readNetD(const char *netDFileName) -> SimpleNetlist {
     }
 
     char t;
-    size_t numPins;
-    size_t numNets;
-    size_t numModules;
-    size_t padOffset;
+    index_t numPins;
+    index_t numNets;
+    index_t numModules;
+    index_t padOffset;
 
     netD >> t; // eat 1st 0
     netD >> numPins >> numNets >> numModules >> padOffset;
@@ -78,12 +78,12 @@ auto readNetD(const char *netDFileName) -> SimpleNetlist {
     auto R = py::range<node_t>(0, num_vertices);
     graph_t g{R, R};
 
-    const size_t bufferSize = 100;
+    const index_t bufferSize = 100;
     char lineBuffer[bufferSize]; // Does it work for other compiler?
     netD.getline(lineBuffer, bufferSize);
 
     node_t w;
-    size_t e = numModules - 1;
+    index_t e = numModules - 1;
     char c;
     auto i = 0U;
     for (; i < numPins; ++i) {
@@ -161,20 +161,20 @@ void readAre(SimpleNetlist &H, const char *areFileName) {
         exit(1);
     }
 
-    const size_t bufferSize = 100;
+    const index_t bufferSize = 100;
     char lineBuffer[bufferSize];
 
     char c;
     node_t w;
     int weight;
     auto totalWeight = 0;
-    // xxx size_t smallestWeight = UINT_MAX;
+    // xxx index_t smallestWeight = UINT_MAX;
     auto numModules = H.number_of_modules();
     auto padOffset = numModules - H.num_pads - 1;
     auto module_weight = std::vector<int>(numModules);
 
-    size_t lineno = 1;
-    for (size_t i = 0; i < numModules; i++) {
+    index_t lineno = 1;
+    for (index_t i = 0; i < numModules; i++) {
         if (are.eof()) {
             break;
         }

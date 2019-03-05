@@ -15,6 +15,7 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
   public:
     using Base = FDGainMgr<FDKWayGainCalc, FDKWayGainMgr>;
     using GainCalc_ = FDKWayGainCalc;
+    using index_t = typename SimpleNetlist::index_t;
 
     /**
      * @brief Construct a new FDKWayGainMgr object
@@ -38,7 +39,7 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
      * @param w
      * @param keys
      */
-    auto modify_key(size_t i_w, std::uint8_t part_w, const std::vector<int> &keys)
+    auto modify_key(index_t i_w, std::uint8_t part_w, const std::vector<int> &keys)
         -> void {
         for (auto &&k : this->RR.exclude(part_w)) {
             this->gainbucket[k]->modify_key(this->gainCalc.vertex_list[k][i_w],
@@ -61,7 +62,7 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
      * @param whichPart
      * @param v
      */
-    auto lock(uint8_t whichPart, size_t i_v) -> void {
+    auto lock(uint8_t whichPart, index_t i_v) -> void {
         auto &vlink = this->gainCalc.vertex_list[whichPart][i_v];
         this->gainbucket[whichPart]->detach(vlink);
         vlink.lock();
@@ -73,7 +74,7 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
      * @param fromPart
      * @param v
      */
-    auto lock_all(size_t  /*fromPart*/, size_t i_v) -> void {
+    auto lock_all(index_t  /*fromPart*/, index_t i_v) -> void {
         for (auto k = 0U; k < this->K; ++k) {
             this->lock(k, i_v);
         }
@@ -87,7 +88,7 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
      * @param v
      * @param key
      */
-    auto set_key(size_t whichPart, size_t i_v, int key) -> void {
+    auto set_key(index_t whichPart, index_t i_v, int key) -> void {
         this->gainbucket[whichPart]->set_key(
             this->gainCalc.vertex_list[whichPart][i_v], key);
     }

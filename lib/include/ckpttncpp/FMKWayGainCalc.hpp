@@ -14,13 +14,14 @@ class FMKWayGainMgr;
  */
 class FMKWayGainCalc {
     friend FMKWayGainMgr;
+    using index_t = typename SimpleNetlist::index_t;
 
   private:
     SimpleNetlist &H;
     std::uint8_t K;
     robin<uint8_t> RR;
-    size_t num_modules;
-    std::vector<std::vector<dllink<int>>> vertex_list;
+    index_t num_modules;
+    std::vector<std::vector<dllink<index_t>>> vertex_list;
     std::vector<int> deltaGainV;
 
   public:
@@ -37,7 +38,7 @@ class FMKWayGainCalc {
           deltaGainV(K, 0), totalcost{0} {
         for (auto k = 0U; k < this->K; ++k) {
             this->vertex_list.emplace_back(
-                std::vector<dllink<int>>(this->num_modules));
+                std::vector<dllink<index_t>>(this->num_modules));
         }
     }
 
@@ -47,7 +48,7 @@ class FMKWayGainCalc {
      * @param toPart
      * @return dllink*
      */
-    auto start_ptr(std::uint8_t toPart) -> dllink<int> * {
+    auto start_ptr(std::uint8_t toPart) -> dllink<index_t> * {
         return &this->vertex_list[toPart][0];
     }
 
@@ -75,7 +76,7 @@ class FMKWayGainCalc {
      * @param v
      * @param weight
      */
-    auto modify_gain(size_t i_v, std::uint8_t part_v, int weight) -> void {
+    auto modify_gain(index_t i_v, std::uint8_t part_v, int weight) -> void {
         for (auto &&k : this->RR.exclude(part_v)) {
             this->vertex_list[k][i_v].key += weight;
         }
@@ -89,7 +90,7 @@ class FMKWayGainCalc {
         std::fill_n(this->deltaGainV.begin(), this->K, 0);
     }
 
-    using ret_2pin_info = std::tuple<size_t, std::vector<int>>;
+    using ret_2pin_info = std::tuple<index_t, std::vector<int>>;
 
     /**
      * @brief
@@ -102,7 +103,7 @@ class FMKWayGainCalc {
                               const MoveInfo &move_info) -> ret_2pin_info;
 
     using ret_info =
-        std::tuple<std::vector<size_t>, std::vector<std::vector<int>>>;
+        std::tuple<std::vector<index_t>, std::vector<std::vector<int>>>;
 
     /**
      * @brief

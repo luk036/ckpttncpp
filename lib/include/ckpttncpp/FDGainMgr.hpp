@@ -17,6 +17,7 @@
  * @tparam Derived
  */
 template <typename GainCalc, class Derived> class FDGainMgr {
+    using index_t = typename SimpleNetlist::index_t;
 
     Derived &self = *static_cast<Derived *>(this);
 
@@ -28,7 +29,7 @@ template <typename GainCalc, class Derived> class FDGainMgr {
 
   protected:
     int pmax;
-    dllink<int> waitinglist;
+    dllink<index_t> waitinglist;
     std::vector<std::unique_ptr<bpqueue<int>>> gainbucket;
 
   public:
@@ -96,9 +97,9 @@ template <typename GainCalc, class Derived> class FDGainMgr {
      * @brief
      *
      * @param toPart
-     * @return std::tuple<size_t, int>
+     * @return std::tuple<index_t, int>
      */
-    auto select_togo(std::uint8_t toPart) -> std::tuple<size_t, int>;
+    auto select_togo(std::uint8_t toPart) -> std::tuple<index_t, int>;
 
     /**
      * @brief

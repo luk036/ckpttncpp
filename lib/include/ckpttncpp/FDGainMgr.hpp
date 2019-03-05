@@ -96,9 +96,9 @@ template <typename GainCalc, class Derived> class FDGainMgr {
      * @brief
      *
      * @param toPart
-     * @return std::tuple<node_t, int>
+     * @return std::tuple<size_t, int>
      */
-    auto select_togo(std::uint8_t toPart) -> std::tuple<node_t, int>;
+    auto select_togo(std::uint8_t toPart) -> std::tuple<size_t, int>;
 
     /**
      * @brief

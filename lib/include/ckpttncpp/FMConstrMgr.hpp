@@ -34,8 +34,8 @@ class FMConstrMgr {
     FMConstrMgr(SimpleNetlist &H, double BalTol, std::uint8_t K = 2)
         : H{H}, BalTol{BalTol}, K{K},
           diff(K, 0), lowerbound{0}, weight{0}, totalweight{0} {
-        for (auto v = 0U; v < this->H.number_of_modules(); ++v) {
-            weight = this->H.get_module_weight_by_id(v);
+        for (auto i_v = 0U; i_v < this->H.number_of_modules(); ++i_v) {
+            weight = this->H.get_module_weight_by_id(i_v);
             this->totalweight += weight;
         }
         auto totalweightK = this->totalweight * (2. / this->K);

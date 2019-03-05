@@ -14,18 +14,19 @@ auto FDKWayGainMgr::init(const PartInfo &part_info) -> int {
         this->gainbucket[k]->clear();
     }
 
-    for (auto v = 0U; v < this->H.number_of_modules(); ++v) {
-        auto pv = part[v];
+    for (auto i_v = 0U; i_v < this->H.number_of_modules(); ++i_v) {
+        auto pv = part[i_v];
         for (auto &&k : this->RR.exclude(pv)) {
-            auto &vlink = this->gainCalc.vertex_list[k][v];
+            auto &vlink = this->gainCalc.vertex_list[k][i_v];
             this->gainbucket[k]->append_direct(vlink);
         }
-        auto &vlink = this->gainCalc.vertex_list[pv][v];
+        auto &vlink = this->gainCalc.vertex_list[pv][i_v];
         this->gainbucket[pv]->set_key(vlink, 0);
         this->waitinglist.append(vlink);
     }
     for (auto v : this->H.module_fixed) {
-        this->lock_all(part[v], v);
+        auto i_v = this->H.module_map[v];
+        this->lock_all(part[i_v], i_v);
     }
     return totalcost;
 }
@@ -39,15 +40,15 @@ auto FDKWayGainMgr::init(const PartInfo &part_info) -> int {
  */
 auto FDKWayGainMgr::update_move_v(const MoveInfoV &move_info_v, int gain)
     -> void {
-    auto const &[fromPart, toPart, v] = move_info_v;
+    auto const &[fromPart, toPart, i_v] = move_info_v;
 
     for (auto k = 0U; k < this->K; ++k) {
         if (fromPart == k || toPart == k) {
             continue;
         }
-        this->gainbucket[k]->modify_key(this->gainCalc.vertex_list[k][v],
+        this->gainbucket[k]->modify_key(this->gainCalc.vertex_list[k][i_v],
                                         this->gainCalc.deltaGainV[k]);
     }
-    this->set_key(fromPart, v, -gain);
+    this->set_key(fromPart, i_v, -gain);
     // this->set_key(toPart, v, -2*this->pmax);
 }

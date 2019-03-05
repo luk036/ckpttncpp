@@ -75,9 +75,9 @@ class FMKWayGainCalc {
      * @param v
      * @param weight
      */
-    auto modify_gain(node_t v, std::uint8_t part_v, int weight) -> void {
+    auto modify_gain(size_t i_v, std::uint8_t part_v, int weight) -> void {
         for (auto &&k : this->RR.exclude(part_v)) {
-            this->vertex_list[k][v].key += weight;
+            this->vertex_list[k][i_v].key += weight;
         }
     }
 
@@ -89,7 +89,7 @@ class FMKWayGainCalc {
         std::fill_n(this->deltaGainV.begin(), this->K, 0);
     }
 
-    using ret_2pin_info = std::tuple<node_t, std::vector<int>>;
+    using ret_2pin_info = std::tuple<size_t, std::vector<int>>;
 
     /**
      * @brief
@@ -102,7 +102,7 @@ class FMKWayGainCalc {
                               const MoveInfo &move_info) -> ret_2pin_info;
 
     using ret_info =
-        std::tuple<std::vector<node_t>, std::vector<std::vector<int>>>;
+        std::tuple<std::vector<size_t>, std::vector<std::vector<int>>>;
 
     /**
      * @brief

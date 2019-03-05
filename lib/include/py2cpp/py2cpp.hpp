@@ -43,8 +43,36 @@ constexpr auto enumerate(T &&iterable) {
     return iterable_wrapper{std::forward<T>(iterable)};
 }
 
+// template <typename T>
+// constexpr auto range(T stop) {
+//     struct iterator {
+//         T i;
+//         constexpr bool operator!=(const iterator &other) const { return i != other.i; }
+//         constexpr bool operator==(const iterator &other) const { return i == other.i; }
+//         constexpr T operator*() const { return i; }
+//         constexpr iterator &operator++() {
+//             ++i;
+//             return *this;
+//         }
+//     };
+
+//     struct iterable_wrapper {
+//         using value_type = T; // luk
+//         T stop;
+//         constexpr auto begin() const { return iterator{0}; }
+//         constexpr auto end() const { return iterator{stop}; }
+//         constexpr auto empty() const -> bool { return stop == 0; }
+//         constexpr auto size() const -> size_t { return stop; }
+//         constexpr auto operator[](size_t n) const -> T { return n; } // no bounds checking
+//         constexpr auto contains(T n) const -> bool { return n < stop; }
+//     };
+
+//     if (stop < 0) stop = 0;
+//     return iterable_wrapper{stop};
+// }
+
 template <typename T>
-constexpr auto range(T stop) {
+inline constexpr auto range(T start, T stop) {
     struct iterator {
         T i;
         constexpr bool operator!=(const iterator &other) const { return i != other.i; }
@@ -58,39 +86,11 @@ constexpr auto range(T stop) {
 
     struct iterable_wrapper {
         using value_type = T; // luk
-        T stop;
-        constexpr auto begin() const { return iterator{0}; }
-        constexpr auto end() const { return iterator{stop}; }
-        constexpr auto empty() const -> bool { return stop == 0; }
-        constexpr auto size() const -> size_t { return stop; }
-        constexpr auto operator[](size_t n) const -> T { return n; } // no bounds checking
-        constexpr auto contains(T n) const -> bool { return n < stop; }
-    };
-
-    if (stop < 0) stop = 0;
-    return iterable_wrapper{stop};
-}
-
-template <typename T>
-constexpr auto range2(T start, T stop) {
-    struct iterator {
-        T i;
-        constexpr bool operator!=(const iterator &other) const { return i != other.i; }
-        constexpr bool operator==(const iterator &other) const { return i == other.i; }
-        constexpr int operator*() const { return i; }
-        constexpr iterator &operator++() {
-            ++i;
-            return *this;
-        }
-    };
-
-    struct iterable_wrapper {
-        using value_type = T; // luk
         T start;
         T stop;
         constexpr auto begin() const { return iterator{start}; }
         constexpr auto end() const { return iterator{stop}; }
-        constexpr auto empty() const -> bool { return false; }
+        constexpr auto empty() const -> bool { return stop == start; }
         constexpr auto size() const -> size_t { return stop - start; }
         constexpr auto operator[](size_t n) const -> T { return start + n; } // no bounds checking
         constexpr auto contains(T n) const -> bool { return !(n < start) && n < stop; }
@@ -98,6 +98,11 @@ constexpr auto range2(T start, T stop) {
 
     if (stop < start) stop = start;
     return iterable_wrapper{start, stop};
+}
+
+template <typename T>
+inline constexpr auto range(T stop) {
+    return range(T(0), stop);
 }
 
 /**

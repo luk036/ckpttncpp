@@ -58,7 +58,7 @@ class FMKWayConstrMgr : public FMConstrMgr {
         if (status != 2) {
             return status;
         }
-        auto const &[fromPart, toPart, v] = move_info_v;
+        auto const &[fromPart, toPart, i_v] = move_info_v;
         this->illegal[fromPart] = this->illegal[toPart] = false;
         for (auto b : this->illegal) {
             if (b) {

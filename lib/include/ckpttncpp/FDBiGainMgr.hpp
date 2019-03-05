@@ -37,8 +37,8 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
      * @param part_w
      * @param key
      */
-    auto modify_key(node_t w, std::uint8_t part_w, int key) -> void {
-        this->gainbucket[1 - part_w]->modify_key(this->gainCalc.vertex_list[w],
+    auto modify_key(size_t i_w, std::uint8_t part_w, int key) -> void {
+        this->gainbucket[1 - part_w]->modify_key(this->gainCalc.vertex_list[i_w],
                                                  key);
     }
 
@@ -50,19 +50,19 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
      * @param gain
      */
     auto update_move_v(const MoveInfoV &move_info_v, int gain) -> void {
-        auto const &[fromPart, toPart, v] = move_info_v;
-        this->set_key(fromPart, v, -gain);
+        auto const &[fromPart, toPart, i_v] = move_info_v;
+        this->set_key(fromPart, i_v, -gain);
     }
 
-    auto lock(std::uint8_t whichPart, node_t v) -> void {
-        auto &vlink = this->gainCalc.vertex_list[v];
+    auto lock(std::uint8_t whichPart, size_t i_v) -> void {
+        auto &vlink = this->gainCalc.vertex_list[i_v];
         this->gainbucket[whichPart]->detach(vlink);
         vlink.lock();
     }
 
-    auto lock_all(std::uint8_t fromPart, node_t v) -> void {
+    auto lock_all(std::uint8_t fromPart, size_t i_v) -> void {
         auto toPart = 1 - fromPart;
-        this->lock(toPart, v);
+        this->lock(toPart, i_v);
     }
 
   private:
@@ -73,8 +73,8 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
      * @param v
      * @param key
      */
-    auto set_key(std::uint8_t whichPart, node_t v, int key) -> void {
-        this->gainbucket[whichPart]->set_key(this->gainCalc.vertex_list[v],
+    auto set_key(std::uint8_t whichPart, size_t i_v, int key) -> void {
+        this->gainbucket[whichPart]->set_key(this->gainCalc.vertex_list[i_v],
                                              key);
     }
 };

@@ -10,10 +10,9 @@
 #include <vector>
 #include <xnetwork/classes/graph.hpp>
 
-// using RngIter = decltype(py::range<int>(1));
 // using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
 using node_t = int;
-using RngIter = decltype(py::range<node_t>(1));
+using RngIter = decltype(py::range<node_t>(0, 1));
 using graph_t = xn::Graph<RngIter, RngIter>;
 
 // using edge_t = typename boost::graph_traits<graph_t>::edge_iterator;
@@ -33,7 +32,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     graph_t G;
     nodeview_t modules;
     nodeview_t nets;
-    // nodemap_t module_map;
+    nodemap_t module_map;
     nodemap_t net_map;
     size_t num_modules;
     size_t num_nets;
@@ -48,9 +47,9 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
 
     /* For multi-level algorithms */
     Netlist<nodeview_t, nodemap_t> *parent;
-    py::dict<node_t, node_t> node_up_map;
-    py::dict<node_t, node_t> node_down_map;
-    py::dict<node_t, node_t> cluster_down_map;
+    py::dict<node_t, size_t> node_up_map;
+    py::dict<size_t, node_t> node_down_map;
+    py::dict<size_t, node_t> cluster_down_map;
 
     /**
      * @brief Construct a new Netlist object
@@ -60,8 +59,11 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
      * @param net_list
      * @param module_fixed
      */
-    Netlist(graph_t &&G, const nodeview_t &modules,
-            const nodeview_t &nets, nodemap_t &&net_map);
+    Netlist(graph_t &&G,
+            const nodeview_t& modules,
+            const nodeview_t& nets,
+            const nodemap_t& module_map,
+            const nodemap_t& net_map);
 
     /**
      * @brief
@@ -106,12 +108,13 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     auto get_max_net_degree() const -> int { return this->max_net_degree; }
 
     auto get_module_weight(node_t v) const -> size_t {
-        return this->module_weight.empty() ? 1 : this->module_weight[v];
+        auto i_v = this->module_map[v];
+        return get_module_weight_by_id(i_v);
         // return this->module_weight[this->module_map[v]];
     }
 
-    auto get_module_weight_by_id(node_t v) const -> size_t {
-        return this->module_weight.empty() ? 1 : this->module_weight[v];
+    auto get_module_weight_by_id(size_t i_v) const -> size_t {
+        return this->module_weight.empty() ? 1 : this->module_weight[i_v];
     }
 
     auto get_net_weight(node_t  /*net*/) const -> size_t {
@@ -124,18 +127,18 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     auto project_down(const std::vector<std::uint8_t> &part,
                       std::vector<std::uint8_t> &part_down) -> void {
         auto &H = *this->parent;
-        for (auto v = 0U; v < this->modules.size(); ++v) {
-            // auto v = this->modules[v];
+        for (auto i_v = 0U; i_v < this->modules.size(); ++i_v) {
+            auto v = this->modules[i_v];
             if (this->cluster_down_map.contains(v)) {
                 auto net = this->cluster_down_map[v];
                 for (auto v2 : H.G[net]) {
-                    // auto v2 = H.module_map[v2];
-                    part_down[v2] = part[v];
+                    auto i_v2 = H.module_map[v2];
+                    part_down[i_v2] = part[i_v];
                 }
             } else {
                 auto v2 = this->node_down_map[v];
-                // auto v2 = H.module_map[v2];
-                part_down[v2] = part[v];
+                auto i_v2 = H.module_map[v2];
+                part_down[i_v2] = part[i_v];
             }
         }
     }
@@ -143,10 +146,10 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     auto project_up(const std::vector<std::uint8_t> &part,
                     std::vector<std::uint8_t> &part_up) -> void {
         auto &H = *this->parent;
-        // for (auto [v] : py::enumerate(H.modules)) {
-        for (auto v = 0U; v < H.modules.size(); ++v) {
-            // auto v = H.modules[v];
-            part_up[this->node_up_map[v]] = part[v];
+        // for (auto [i_v, v] : py::enumerate(H.modules)) {
+        for (auto i_v = 0U; i_v < H.number_of_modules(); ++i_v) {
+            auto v = H.modules[i_v];
+            part_up[this->node_up_map[v]] = part[i_v];
         }
     }
 
@@ -180,11 +183,13 @@ Netlist<nodeview_t, nodemap_t>::
 Netlist(graph_t &&G,
         const nodeview_t &modules,
         const nodeview_t &nets,
-        // nodemap_t&& module_map,
-        nodemap_t &&net_map)
-    : G{std::move(G)}, modules{modules}, nets{nets},
-      // module_map{std::move(module_map)},
-      net_map{std::move(net_map)},
+        const nodemap_t &module_map,
+        const nodemap_t &net_map)
+    : G{std::forward<graph_t>(G)}, 
+      modules{modules},
+      nets{nets},
+      module_map{module_map},
+      net_map{net_map},
       num_modules{modules.size()}, num_nets{nets.size()}
 {
     this->has_fixed_modules = (!this->module_fixed.empty());
@@ -199,7 +204,7 @@ Netlist(graph_t &&G,
     this->max_net_degree = this->G.degree(*result2);
 }
 
-using Rng2Iter = decltype(py::range2<node_t>(0, 1));
+using Rng2Iter = decltype(py::range<node_t>(0, 1));
 using SimpleNetlist = Netlist<Rng2Iter, Rng2Iter>;
 using NodeMap = py::dict<node_t, size_t>;
 using ClusterNetlist = Netlist<std::vector<node_t>, NodeMap>;
@@ -214,8 +219,8 @@ struct MoveInfo {
 struct MoveInfoV {
     std::uint8_t fromPart;
     std::uint8_t toPart;
-    node_t v;
-    // size_t i_v;
+    // node_t v;
+    size_t i_v;
 };
 
 struct Snapshot {

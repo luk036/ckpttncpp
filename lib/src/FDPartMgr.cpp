@@ -11,7 +11,8 @@ auto FDPartMgr<GainMgr, ConstrMgr>::take_snapshot(const PartInfo &part_info)
     extern_modules_ss.reserve(3 * extern_nets.size());
     for (auto net : extern_nets) {
         for (auto v : this->H.G[net]) {
-            extern_modules_ss[v] = part[v];
+            auto i_v = this->H.module_map[v];
+            extern_modules_ss[v] = part[i_v];
         }
     }
     return Snapshot{std::move(extern_nets_ss), std::move(extern_modules_ss)};
@@ -25,10 +26,11 @@ auto FDPartMgr<GainMgr, ConstrMgr>::restore_part_info(Snapshot &snapshot,
     auto &[part, extern_nets] = part_info;
     std::fill(part.begin(), part.end(), this->K);
     for (auto const &[v, part_v] : extern_modules_ss) {
-        if (part[v] < this->K) {
+        auto i_v = this->H.module_map[v];
+        if (part[i_v] < this->K) {
             continue;
         }
-        part[v] = part_v;
+        part[i_v] = part_v;
         std::deque Q = {v};
         while (!Q.empty()) {
             auto v2 = Q.front();
@@ -41,10 +43,11 @@ auto FDPartMgr<GainMgr, ConstrMgr>::restore_part_info(Snapshot &snapshot,
                     continue;
                 }
                 for (auto v3 : this->H.G[net]) {
-                    if (part[v3] < this->K) {
+                    auto i_v3 = this->H.module_map[v3];
+                    if (part[i_v3] < this->K) {
                         continue;
                     }
-                    part[v3] = part_v;
+                    part[i_v3] = part_v;
                     Q.push_back(v3);
                 }
             }

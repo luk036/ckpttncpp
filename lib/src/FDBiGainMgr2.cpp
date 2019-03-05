@@ -13,13 +13,14 @@ auto FDBiGainMgr::init(const PartInfo &part_info) -> int {
     for (auto k = 0U; k < this->K; ++k) {
         this->gainbucket[k]->clear();
     }
-    for (auto v = 0U; v < this->H.number_of_modules(); ++v) {
-        auto &vlink = this->gainCalc.vertex_list[v];
-        auto toPart = 1 - part[v];
+    for (auto i_v = 0U; i_v < this->H.number_of_modules(); ++i_v) {
+        auto &vlink = this->gainCalc.vertex_list[i_v];
+        auto toPart = 1 - part[i_v];
         this->gainbucket[toPart]->append_direct(vlink);
     }
     for (auto v : this->H.module_fixed) {
-        this->lock_all(part[v], v);
+        auto i_v = this->H.module_map[v];
+        this->lock_all(part[i_v], i_v);
     }
     return totalcost;
 }

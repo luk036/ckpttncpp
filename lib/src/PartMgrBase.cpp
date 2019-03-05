@@ -24,14 +24,15 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(PartInfo &part_info)
     auto &[part, extern_nets] = part_info;
 
     // Zero-weighted modules does not contribute legalization
-    for (auto v = 0U; v < this->H.number_of_modules(); ++v) {
-        if (this->H.get_module_weight(v) != 0) {
+    for (auto i_v = 0U; i_v < this->H.number_of_modules(); ++i_v) {
+        if (this->H.get_module_weight_by_id(i_v) != 0) {
             continue;
         }
+        auto v = this->H.modules[i_v];
         if (this->H.module_fixed.contains(v)) {
             continue;
         }
-        this->gainMgr.lock_all(part[v], v);
+        this->gainMgr.lock_all(part[i_v], i_v);
     }
 
     size_t legalcheck = 0;
@@ -40,11 +41,11 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(PartInfo &part_info)
         if (this->gainMgr.is_empty_togo(toPart)) {
             break;
         }
-        auto [v, gainmax] = this->gainMgr.select_togo(toPart);
-        auto fromPart = part[v];
+        auto [i_v, gainmax] = this->gainMgr.select_togo(toPart);
+        auto fromPart = part[i_v];
         // assert(v == v);
         assert(fromPart != toPart);
-        auto move_info_v = MoveInfoV{fromPart, toPart, v};
+        auto move_info_v = MoveInfoV{fromPart, toPart, i_v};
         // Check if the move of v can notsatisfied, makebetter, or satisfied
         legalcheck = this->validator.check_legal(move_info_v);
         if (legalcheck == 0) { // notsatisfied
@@ -55,7 +56,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(PartInfo &part_info)
         this->gainMgr.update_move(part_info, move_info_v);
         this->gainMgr.update_move_v(move_info_v, gainmax);
         this->validator.update_move(move_info_v);
-        part[v] = toPart;
+        part[i_v] = toPart;
         // totalgain += gainmax;
         this->totalcost -= gainmax;
         assert(this->totalcost >= 0);
@@ -109,13 +110,13 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize_1pass(
         }
         // Update v and its neigbours (even they are in waitinglist);
         // Put neigbours to bucket
-        auto const &[fromPart, toPart, v] = move_info_v;
-        this->gainMgr.lock(toPart, v);
+        auto const &[fromPart, toPart, i_v] = move_info_v;
+        this->gainMgr.lock(toPart, i_v);
         this->gainMgr.update_move(part_info, move_info_v);
         this->gainMgr.update_move_v(move_info_v, gainmax);
         this->validator.update_move(move_info_v);
         totalgain += gainmax;
-        part[v] = toPart;
+        part[i_v] = toPart;
     }
     if (deferredsnapshot) {
         // restore the previous best solution

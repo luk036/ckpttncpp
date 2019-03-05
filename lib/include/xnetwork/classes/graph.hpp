@@ -209,8 +209,8 @@ class Graph : public object {
 
   public:
     // std::vector<Node > _Nodes{};
-    nodeview_t& _node;
-    nodemap_t& _node_map;
+    nodeview_t _node;
+    nodemap_t _node_map;
     graph_attr_dict_factory graph{};   // dictionary for graph attributes
     // node_dict_factory _node{};  // empty node attribute dict
     adjlist_outer_dict_factory _adj;  // empty adjacency dict
@@ -244,7 +244,7 @@ class Graph : public object {
         >>> r = py::range(100);
         >>> G = xn::Graph(r);  // or DiGraph, MultiGraph, MultiDiGraph, etc
     */
-    Graph(nodeview_t& Nodes, nodemap_t& node_map)
+    Graph(const nodeview_t& Nodes, const nodemap_t& node_map)
         : _node{Nodes}, 
           _node_map{node_map},
           _adj(Nodes.size())

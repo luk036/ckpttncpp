@@ -75,7 +75,7 @@ auto readNetD(const char *netDFileName) -> SimpleNetlist {
 
     using Edge = std::pair<int, int>;
     auto const num_vertices = numModules + numNets;
-    auto R = py::range<node_t>(num_vertices);
+    auto R = py::range<node_t>(0, num_vertices);
     graph_t g{R, R};
 
     const size_t bufferSize = 100;
@@ -143,9 +143,12 @@ auto readNetD(const char *netDFileName) -> SimpleNetlist {
     //     typename boost::property_map<graph_t, boost::vertex_index_t>::type;
     // auto index = boost::get(boost::vertex_index, g);
     // auto G = xn::grAdaptor<graph_t>{std::move(g)};
-    auto H = Netlist{std::move(g), py::range2<int>(0, numModules),
-                     py::range2<int>(numModules, num_vertices),
-                     py::range2<int>(-numModules, num_vertices - numModules)};
+    auto H = Netlist{std::move(g),
+                     py::range<int>(numModules),
+                     py::range<int>(numModules, num_vertices),
+                     py::range<int>(numModules),
+                     py::range<int>(-numModules, num_vertices - numModules)
+                     };
     H.num_pads = numModules - padOffset - 1;
     return std::move(H);
 }
@@ -174,7 +177,7 @@ void readAre(SimpleNetlist &H, const char *areFileName) {
     for (size_t i = 0; i < numModules; i++) {
         if (are.eof()) {
             break;
-}
+        }
         do {
             are.get(c);
         } while ((isspace(c) != 0) && c != EOF);

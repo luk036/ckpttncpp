@@ -15,10 +15,10 @@ auto FMBiPartMgr::init() -> void {
         if (this->gainMgr.is_empty_togo(toPart)) {
             break;
         }
-        auto [v, gainmax] = this->gainMgr.select_togo(toPart);
-        auto fromPart = this->part[v];
+        auto [i_v, gainmax] = this->gainMgr.select_togo(toPart);
+        auto fromPart = this->part[i_v];
         assert(fromPart != toPart);
-        auto move_info_v = MoveInfoV{fromPart, toPart, v};
+        auto move_info_v = MoveInfoV{fromPart, toPart, i_v};
         // Check if the move of v can notsatisfied, makebetter, or satisfied
         auto legalcheck = this->validator.check_legal(move_info_v);
         if (legalcheck == 0) { // notsatisfied
@@ -28,7 +28,7 @@ auto FMBiPartMgr::init() -> void {
         // Put neigbours to bucket
         this->gainMgr.update_move(this->part, move_info_v, gainmax);
         this->validator.update_move(move_info_v);
-        this->part[v] = toPart;
+        this->part[i_v] = toPart;
         totalgain += gainmax;
         if (legalcheck == 2) { // satisfied
             this->totalcost -= totalgain;
@@ -75,8 +75,8 @@ auto FMBiPartMgr::optimize() -> void {
             totalgain = 0; // reset to zero
             deferredsnapshot = true;
         }
-        auto const &[fromPart, toPart, v] = move_info_v;
-        this->part[v] = toPart;
+        auto const &[fromPart, toPart, i_v] = move_info_v;
+        this->part[i_v] = toPart;
     }
     if (deferredsnapshot) {
         // Take a snapshot

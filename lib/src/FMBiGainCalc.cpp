@@ -72,18 +72,15 @@ void FMBiGainCalc::init_gain_3pin_net(
             for (auto &&a : {u, v, w}) {
                 this->modify_gain(a, -weight);
             }
-        } else {
-            this->totalcost += weight;
-            this->modify_gain(i_w, weight);
+            return;
         }
+        this->modify_gain(i_w, weight);
+    } else if (part[i_w] == part[i_v]) {
+        this->modify_gain(u, weight);
     } else {
-        this->totalcost += weight;
-        if (part[i_w] == part[i_v]) {
-            this->modify_gain(u, weight);
-        } else {
-            this->modify_gain(i_v, weight);
-        }        
+        this->modify_gain(i_v, weight);
     }
+    this->totalcost += weight;
 }
 
 /**
@@ -141,6 +138,48 @@ auto FMBiGainCalc::update_move_2pin_net(const PartInfo &part_info,
     auto weight = this->H.get_net_weight(net);
     auto delta = (part[i_w] == fromPart) ? weight : -weight;
     return std::tuple{i_w, 2 * delta};
+}
+
+/**
+ * @brief
+ *
+ * @param part
+ * @param move_info
+ * @return ret_info
+ */
+auto FMBiGainCalc::update_move_3pin_net(const PartInfo &part_info,
+                                        const MoveInfo &move_info)
+    -> ret_info {
+    auto const &[net, fromPart, toPart, v] = move_info;
+    auto const &[part, extern_nets] = part_info;
+    uint8_t num[2] = {0, 0};
+    auto IdVec = std::vector<index_t>{};
+    for (auto const &w : this->H.G[net]) {
+        if (w == v) {
+            continue;
+        }
+        auto i_w = this->H.module_map[w];
+        num[part[i_w]] += 1;
+        IdVec.push_back(i_w);
+    }
+    auto degree = std::size(IdVec);
+    auto deltaGain = std::vector{0, 0};
+    auto weight = this->H.get_net_weight(net);
+
+    auto part_w = part[IdVec[0]];
+
+    if (part_w != fromPart) {
+        weight = -weight;
+    }
+    if (part_w == part[IdVec[1]]) {
+        for (auto &&idx : {0, 1}) {
+            deltaGain[idx] += weight;
+        }
+    } else {
+        deltaGain[0] += weight;
+        deltaGain[1] -= weight;
+    }
+    return std::tuple{std::move(IdVec), std::move(deltaGain)};
 }
 
 /**

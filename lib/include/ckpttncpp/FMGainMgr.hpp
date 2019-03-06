@@ -115,6 +115,15 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      * @param part
      * @param move_info
      */
+    auto update_move_3pin_net(const PartInfo &part_info,
+                              const MoveInfo &move_info) -> void;
+
+    /**
+     * @brief
+     *
+     * @param part
+     * @param move_info
+     */
     auto update_move_general_net(const PartInfo &part_info,
                                  const MoveInfo &move_info) -> void;
 };

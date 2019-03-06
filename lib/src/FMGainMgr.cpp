@@ -95,12 +95,16 @@ auto FMGainMgr<GainCalc, Derived>::update_move(const PartInfo &part_info,
     auto const &[fromPart, toPart, i_v] = move_info_v;
     auto v = this->H.modules[i_v];
     for (node_t net : this->H.G[v]) {
-        auto move_info = MoveInfo{net, fromPart, toPart, v};
         auto degree = this->H.G.degree(net);
+        if (unlikely(degree < 2)) {
+            continue; // does not provide any gain change when moving
+        }
+        auto move_info = MoveInfo{net, fromPart, toPart, v};
+        // if (degree == 3) {
+        //     this->update_move_3pin_net(part_info, move_info);
+        // } else
         if (degree == 2) {
             this->update_move_2pin_net(part_info, move_info);
-        } else if (unlikely(degree < 2)) {
-            continue; // does not provide any gain change when moving
         } else {
             this->update_move_general_net(part_info, move_info);
         }
@@ -121,6 +125,26 @@ auto FMGainMgr<GainCalc, Derived>::update_move_2pin_net(
     auto const &[part, extern_nets] = part_info;
     self.modify_key(i_w, part[i_w], deltaGainW);
 }
+
+/**
+ * @brief
+ *
+ * @param part
+ * @param move_info
+ */
+template <typename GainCalc, class Derived>
+auto FMGainMgr<GainCalc, Derived>::update_move_3pin_net(
+    const PartInfo &part_info, const MoveInfo &move_info) -> void {
+    auto [IdVec, deltaGain] =
+        this->gainCalc.update_move_3pin_net(part_info, move_info);
+    auto const &[part, extern_nets] = part_info;
+    auto degree = std::size(IdVec);
+    for (auto idx = 0U; idx < degree; ++idx) {
+        auto i_w = IdVec[idx];
+        self.modify_key(i_w, part[i_w], deltaGain[idx]);
+    }
+}
+
 
 /**
  * @brief

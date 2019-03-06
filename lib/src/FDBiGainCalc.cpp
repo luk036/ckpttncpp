@@ -62,7 +62,7 @@ void FDBiGainCalc::init_gain_3pin_net(node_t net,
         this->modify_gain(i_w, weight);
     } else if (part[i_w] == part[i_v]) {
         this->modify_gain(u, weight);
-    } else {
+    } else { // part[i_u] == part[i_w]
         this->modify_gain(i_v, weight);
     }
 }
@@ -120,6 +120,55 @@ auto FDBiGainCalc::update_move_2pin_net(PartInfo &part_info,
         weight = -weight;
     }
     return std::tuple{i_w, 2 * weight};
+}
+
+/**
+ * @brief Update move for 3-pin nets
+ *
+ * @param part
+ * @param move_info
+ * @return ret_info
+ */
+auto FDBiGainCalc::update_move_3pin_net(PartInfo &part_info,
+                                        const MoveInfo &move_info)
+    -> ret_info {
+    auto const &[net, fromPart, toPart, v] = move_info;
+    auto &[part, extern_nets] = part_info;
+    index_t num[2] = {0, 0};
+    auto IdVec = std::vector<index_t>{};
+    for (auto const &w : this->H.G[net]) {
+        if (w == v) {
+            continue;
+        }
+        auto i_w = this->H.module_map[w];
+        IdVec.push_back(i_w);
+    }
+    auto deltaGain = std::vector{0, 0};
+    auto weight = this->H.get_net_weight(net);
+
+    auto part_w = part[IdVec[0]];
+    if (part_w == part[IdVec[1]]) {
+        if (part_w == fromPart) {
+            extern_nets.insert(net);
+            for (auto&& idx : {0, 1}) {
+                deltaGain[idx] += weight;
+            }
+        } else {
+            extern_nets.erase(net);
+            for (auto&& idx : {0, 1}) {
+                deltaGain[idx] -= weight;
+            }
+        }
+    } else {
+        if (part_w == fromPart) {
+            deltaGain[0] += weight;
+            deltaGain[1] -= weight;
+        } else {
+            deltaGain[0] -= weight;
+            deltaGain[1] += weight;
+        }
+    }
+    return std::tuple{std::move(IdVec), std::move(deltaGain)};
 }
 
 /**

@@ -90,6 +90,16 @@ class FMBiGainCalc {
      * @param fromPart
      * @param v
      */
+    auto update_move_3pin_net(const PartInfo &part_info,
+                                 const MoveInfo &move_info) -> ret_info;
+    /**
+     * @brief
+     *
+     * @param net
+     * @param part
+     * @param fromPart
+     * @param v
+     */
     auto update_move_general_net(const PartInfo &part_info,
                                  const MoveInfo &move_info) -> ret_info;
 

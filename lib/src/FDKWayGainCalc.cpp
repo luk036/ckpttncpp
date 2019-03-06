@@ -19,10 +19,12 @@ auto FDKWayGainCalc::init_gain(node_t net, const PartInfo &part_info) -> void {
     }
     auto const &[part, extern_nets] = part_info;
     if (extern_nets.contains(net)) {
-        if (degree == 2) {
-            this->init_gain_2pin_net(net, part);
-        } else {
+        if (degree > 3) {
             this->init_gain_general_net(net, part);
+        } else if (degree == 3) {
+            this->init_gain_3pin_net(net, part);
+        } else { // degree == 2
+            this->init_gain_2pin_net(net, part);
         }
     } else { // 90%
         auto weight = this->H.get_net_weight(net);
@@ -57,6 +59,64 @@ auto FDKWayGainCalc::init_gain_2pin_net(node_t net,
     this->vertex_list[part_w][i_v].key += weight;
 }
 
+/**
+ * @brief 
+ * 
+ * @param net 
+ * @param part 
+ */
+auto FDKWayGainCalc::init_gain_3pin_net(
+    node_t net, const std::vector<std::uint8_t> &part) -> void {
+    auto netCur = this->H.G[net].begin();
+    auto w = *netCur;
+    auto v = *++netCur;
+    auto u = *++netCur;
+    auto i_w = this->H.module_map[w];
+    auto i_v = this->H.module_map[v];
+    auto i_u = this->H.module_map[u];
+    auto part_w = part[i_w];
+    auto part_v = part[i_v];
+    auto part_u = part[i_u];
+
+    auto weight = this->H.get_net_weight(net);
+
+    if (part_u == part_v) {
+        this->vertex_list[part_v][i_w].key += weight;
+        for (auto i_a : {i_u, i_v}) {
+            this->modify_gain(i_a, part_v, -weight);
+            this->vertex_list[part_w][i_a].key += weight;
+        }
+    } else if (part_w == part_v) {
+        this->vertex_list[part_v][i_u].key += weight;
+        for (auto i_a : {i_w, i_v}) {
+            this->modify_gain(i_a, part_v, -weight);
+            this->vertex_list[part_u][i_a].key += weight;
+        }
+    } else if (part_w == part_u) {
+        this->vertex_list[part_w][i_v].key += weight;
+        for (auto i_a : {i_w, i_u}) {
+            this->modify_gain(i_a, part_w, -weight);
+            this->vertex_list[part_v][i_a].key += weight;
+        }
+    } else {
+        this->vertex_list[part_v][i_u].key += weight;
+        this->vertex_list[part_w][i_u].key += weight;
+        this->vertex_list[part_w][i_v].key += weight;
+        this->vertex_list[part_u][i_v].key += weight;
+        this->vertex_list[part_u][i_w].key += weight;
+        this->vertex_list[part_v][i_w].key += weight;
+        this->totalcost += weight;
+    }
+    this->totalcost += weight;
+}
+    
+
+/**
+ * @brief 
+ * 
+ * @param net 
+ * @param part 
+ */
 auto FDKWayGainCalc::init_gain_general_net(
     node_t net, const std::vector<std::uint8_t> &part) -> void {
     std::vector<uint8_t> num(this->K, 0);
@@ -117,6 +177,89 @@ auto FDKWayGainCalc::update_move_2pin_net(PartInfo &part_info,
     return std::tuple{i_w, std::move(deltaGainW)};
 }
 
+/**
+ * @brief 
+ * 
+ * @param part_info 
+ * @param move_info 
+ * @return ret_info 
+ */
+auto FDKWayGainCalc::update_move_3pin_net(PartInfo &part_info,
+                                          const MoveInfo &move_info)
+    -> ret_info {
+    auto const &[net, fromPart, toPart, v] = move_info;
+    auto &[part, extern_nets] = part_info;
+    std::vector<uint8_t> num(this->K, 0);
+    auto IdVec = std::vector<index_t>{};
+    for (auto const &w : this->H.G[net]) {
+        if (w == v) {
+            continue;
+        }
+        auto i_w = this->H.module_map[w];
+        num[part[i_w]] += 1;
+        IdVec.push_back(i_w);
+    }
+    auto degree = std::size(IdVec);
+    auto deltaGain = std::vector(degree, std::vector(this->K, 0));
+    auto weight = this->H.get_net_weight(net);
+
+    auto part_w = part[IdVec[0]];
+    // action = [extern_nets.add, extern_nets.remove];
+    if (part_w == part[IdVec[1]]) {
+        if (part_w == fromPart) {
+            for (auto k = 0U; k < this->K; ++k) {
+                this->deltaGainV[k] += weight;
+            }
+            for (auto idx : {0, 1}) {
+                deltaGain[idx][toPart] += weight;
+            }
+            extern_nets.insert(net);
+        } else if (part_w == toPart) {
+            for (auto k = 0U; k < this->K; ++k) {
+                this->deltaGainV[k] -= weight;
+            }
+            for (auto idx : {0, 1}) {
+                deltaGain[idx][fromPart] -= weight;
+            }
+            extern_nets.erase(net);
+        }
+        return std::tuple{std::move(IdVec), std::move(deltaGain)};
+    }
+
+    auto l = fromPart, u = toPart;
+    auto a = 0, b = 1;
+    for (auto&& i : {0, 1}) {
+        for (auto&& j : {0, 1}) {
+            if (part[IdVec[a]] == l) {
+                if (part[IdVec[b]] == u) {
+                    for (auto k = 0U; k < this->K; ++k) {
+                        deltaGain[b][k] -= weight;
+                    }
+                } else {
+                    for (auto k = 0U; k < this->K; ++k) {
+                        this->deltaGainV[k] += weight;
+                    }
+                    for (auto&& idx : {0, 1}) {
+                        deltaGain[idx][u] += weight;
+                    }
+                }
+            }
+            std::swap(a, b);
+        }
+        weight = -weight;
+        std::swap(l, u);
+    }
+    return std::tuple{std::move(IdVec), std::move(deltaGain)};
+    // return this->update_move_general_net(part_info, move_info)
+}
+
+/**
+ * @brief 
+ * 
+ * @param part_info 
+ * @param move_info 
+ * @return ret_info 
+ */
 auto FDKWayGainCalc::update_move_general_net(PartInfo &part_info,
                                              const MoveInfo &move_info)
     -> ret_info {

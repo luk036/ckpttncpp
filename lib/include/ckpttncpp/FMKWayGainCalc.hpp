@@ -112,6 +112,16 @@ class FMKWayGainCalc {
      * @param move_info
      * @return ret_info
      */
+    auto update_move_3pin_net(const PartInfo &part_info,
+                              const MoveInfo &move_info) -> ret_info;
+
+    /**
+     * @brief
+     *
+     * @param part
+     * @param move_info
+     * @return ret_info
+     */
     auto update_move_general_net(const PartInfo &part_info,
                                  const MoveInfo &move_info) -> ret_info;
 
@@ -131,6 +141,15 @@ class FMKWayGainCalc {
      * @param part
      */
     auto init_gain_2pin_net(node_t net, const std::vector<std::uint8_t> &part)
+        -> void;
+
+    /**
+     * @brief
+     *
+     * @param net
+     * @param part
+     */
+    auto init_gain_3pin_net(node_t net, const std::vector<std::uint8_t> &part)
         -> void;
 
     /**

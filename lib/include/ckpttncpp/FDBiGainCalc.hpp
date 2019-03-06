@@ -87,6 +87,15 @@ class FDBiGainCalc {
      * @param part_info
      * @param move_info
      */
+    auto update_move_3pin_net(PartInfo &part_info, const MoveInfo &move_info)
+        -> ret_info;
+
+    /**
+     * @brief
+     *
+     * @param part_info
+     * @param move_info
+     */
     auto update_move_general_net(PartInfo &part_info, const MoveInfo &move_info)
         -> ret_info;
 

@@ -90,16 +90,19 @@ auto FDGainMgr<GainCalc, Derived>::update_move(PartInfo &part_info,
     auto const &[fromPart, toPart, i_v] = move_info_v;
     auto v = this->H.modules[i_v];
     for (node_t net : this->H.G[v]) {
-        auto move_info = MoveInfo{net, fromPart, toPart, v};
         auto degree = this->H.G.degree(net);
-        // if (degree == 3) {
-        //     this->update_move_3pin_net(part_info, move_info);
-        // } else
-        if (degree == 2) {
-            this->update_move_2pin_net(part_info, move_info);
-        } else if (unlikely(degree < 2)) {
+        if (unlikely(degree < 2)) {
             continue; // does not provide any gain change when moving
-        } else {
+        }
+        auto move_info = MoveInfo{net, fromPart, toPart, v};
+        switch (degree) {
+        case 2: 
+            this->update_move_2pin_net(part_info, move_info);
+            break;
+        case 3:
+            this->update_move_3pin_net(part_info, move_info);
+            break;
+        default:
             this->update_move_general_net(part_info, move_info);
         }
     }

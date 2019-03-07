@@ -17,11 +17,14 @@ void FMBiGainCalc::init_gain( //
         return; // does not provide any gain when moving
     }
     auto &[part, extern_nets] = part_info;
-    if (degree == 3) {
-        this->init_gain_3pin_net(net, part);
-    } else if (degree == 2) {
+    switch (degree) {
+    case 2:
         this->init_gain_2pin_net(net, part);
-    } else {
+        break;
+    case 3:
+        this->init_gain_3pin_net(net, part);
+        break;
+    default:
         this->init_gain_general_net(net, part);
     }
 }

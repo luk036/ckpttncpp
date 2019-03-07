@@ -100,12 +100,14 @@ auto FMGainMgr<GainCalc, Derived>::update_move(const PartInfo &part_info,
             continue; // does not provide any gain change when moving
         }
         auto move_info = MoveInfo{net, fromPart, toPart, v};
-        // if (degree == 3) {
-        //     this->update_move_3pin_net(part_info, move_info);
-        // } else
-        if (degree == 2) {
+        switch (degree) {
+        case 2: 
             this->update_move_2pin_net(part_info, move_info);
-        } else {
+            break;
+        case 3:
+            this->update_move_3pin_net(part_info, move_info);
+            break;
+        default:
             this->update_move_general_net(part_info, move_info);
         }
     }

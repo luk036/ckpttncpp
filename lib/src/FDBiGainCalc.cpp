@@ -21,14 +21,17 @@ void FDBiGainCalc::init_gain( //
     auto weight = this->H.get_net_weight(net);
     if (extern_nets.contains(net)) {
         this->totalcost += weight;
-        if (degree == 3) {
-            this->init_gain_3pin_net(net, part, weight);
-        } else if (degree == 2) {
+        switch (degree) {
+        case 2:
             for (auto w : this->H.G[net]) {
                 auto i_w = this->H.module_map[w];
                 this->modify_gain(i_w, weight);
             }
-        } else {
+            break;
+        case 3:
+            this->init_gain_3pin_net(net, part, weight);
+            break;
+        default:
             this->init_gain_general_net(net, part, weight);
         }
     } else { // 90%

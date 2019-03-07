@@ -18,12 +18,15 @@ auto FMKWayGainCalc::init_gain(node_t net, const PartInfo &part_info) -> void {
         return; // does not provide any gain when moving
     }
     auto const &[part, extern_nets] = part_info;
-    if (degree > 3) {
-        this->init_gain_general_net(net, part);
-    } else if (degree == 3) {
-        this->init_gain_3pin_net(net, part);
-    } else { // degree == 2
+    switch (degree) {
+    case 2:
         this->init_gain_2pin_net(net, part);
+        break;
+    case 3:
+        this->init_gain_3pin_net(net, part);
+        break;
+    default:
+        this->init_gain_general_net(net, part);
     }
 }
 
@@ -211,49 +214,54 @@ auto FMKWayGainCalc::update_move_3pin_net(const PartInfo &part_info,
     auto deltaGain = std::vector(degree, std::vector(this->K, 0));
     auto weight = this->H.get_net_weight(net);
     auto part_w = part[IdVec[0]];
-
+    auto part_u = part[IdVec[1]];
     auto l = fromPart, u = toPart;
-    if (part_w == part[IdVec[1]]) {
-        for (auto i : {0, 1}) {
-            if (part_w == l) {
-                for (auto k = 0U; k < this->K; ++k) {
-                    this->deltaGainV[k] += weight;
-                }
-                for (auto idx : {0, 1}) {
-                    deltaGain[idx][u] += weight;
-                }
-            }
-            weight = -weight;
-            std::swap(l, u);
-        }
-    }
-    else {
-        auto a = 0, b = 1;
+
+    if (part_w == part_u) {
         for (auto &&i : {0, 1}) {
-            for (auto &&j : {0, 1}) {
-                if (part[IdVec[a]] == l) {
-                    if (part[IdVec[b]] == u) {
-                        for (auto k = 0U; k < this->K; ++k) {
-                            deltaGain[b][k] -= weight;
-                        }
-                    }
-                    else {
-                        for (auto k = 0U; k < this->K; ++k) {
-                            this->deltaGainV[k] += weight;
-                        }
-                        for (auto &&idx : {0, 1}) {
-                            deltaGain[idx][u] += weight;
-                        }
+            if (part_w != l) {
+                for (auto &&idx : {0, 1}) {
+                    deltaGain[idx][l] -= weight;
+                }
+                if (part_w == u) {
+                    for (auto k = 0U; k < this->K; ++k) {
+                        this->deltaGainV[k] -= weight;
                     }
                 }
-                std::swap(a, b);
             }
             weight = -weight;
             std::swap(l, u);
         }
+        return std::tuple{std::move(IdVec), std::move(deltaGain)};
     }
+
+    for (auto &&i : {0, 1}) {
+        if (part_w == l) {
+            for (auto k = 0U; k < this->K; ++k) {
+                deltaGain[0][k] += weight;
+            }
+        }
+        else if (part_u == l) {
+            for (auto k = 0U; k < this->K; ++k) {
+                deltaGain[1][k] += weight;
+            }
+        }
+        else {
+            for (auto &&idx : {0, 1}) {
+                deltaGain[idx][l] -= weight;
+            }
+            if (part_w == u || part_u == u) {
+                for (auto k = 0U; k < this->K; ++k) {
+                    this->deltaGainV[k] -= weight;
+                }
+            }
+        }
+        weight = -weight;
+        std::swap(l, u);
+    }
+
     return std::tuple{std::move(IdVec), std::move(deltaGain)};
-    // return this->update_move_general_net(part_info, move_info)
+    // return this->update_move_general_net(part_info, move_info);
 }
 
 /**

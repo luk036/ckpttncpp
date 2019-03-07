@@ -4,8 +4,7 @@
 #include <cassert>
 
 // forward declare
-template <typename T>
-struct dll_iterator;
+template <typename T> struct dll_iterator;
 
 /**
  * @brief doubly linked node (that may also be a "head" a list)
@@ -18,10 +17,9 @@ struct dll_iterator;
  * information. Note that this class does not own the list node. They
  * are supplied by the caller in order to better reuse the nodes.
  */
-template <typename T>
-struct dllink {
-    dllink<T> *next;  /**< pointer to the next node */
-    dllink<T> *prev;  /**< pointer to the previous node */
+template <typename T> struct dllink {
+    dllink<T> *next; /**< pointer to the next node */
+    dllink<T> *prev; /**< pointer to the previous node */
     T key;
 
     /**
@@ -53,15 +51,15 @@ struct dllink {
 
     /**
      * @brief lock the node (and don't append it to any list)
-     * 
+     *
      */
     auto lock() -> void { this->next = nullptr; }
 
     /**
      * @brief whether the node is locked
-     * 
-     * @return true 
-     * @return false 
+     *
+     * @return true
+     * @return false
      */
     auto is_locked() const noexcept -> bool { return this->next == nullptr; }
 
@@ -71,7 +69,9 @@ struct dllink {
      * @return true
      * @return false
      */
-    [[nodiscard]] auto is_empty() const noexcept -> bool { return this->next == this; }
+    [[nodiscard]] auto is_empty() const noexcept -> bool {
+        return this->next == this;
+    }
 
     /**
      * @brief reset the list
@@ -154,8 +154,7 @@ struct dllink {
  * List iterator. Traverse the list from the first item. Usually it is
  * safe to attach/detach list items during the iterator is active.
  */
-template <typename T>
-struct dll_iterator {
+template <typename T> struct dll_iterator {
     dllink<T> *cur; /**< pointer to the current item */
 
     /**
@@ -200,7 +199,9 @@ struct dll_iterator {
      * @return true
      * @return false
      */
-    auto operator!=(const dll_iterator<T> &rhs) -> bool { return !(*this == rhs); }
+    auto operator!=(const dll_iterator<T> &rhs) -> bool {
+        return !(*this == rhs);
+    }
 };
 
 /**
@@ -208,15 +209,17 @@ struct dll_iterator {
  *
  * @return dll_iterator
  */
-template <typename T>
-inline auto dllink<T>::begin() -> dll_iterator<T> { return dll_iterator{this->next}; }
+template <typename T> inline auto dllink<T>::begin() -> dll_iterator<T> {
+    return dll_iterator{this->next};
+}
 
 /**
  * @brief end
  *
  * @return dll_iterator
  */
-template <typename T>
-inline auto dllink<T>::end() -> dll_iterator<T> { return dll_iterator{this}; }
+template <typename T> inline auto dllink<T>::end() -> dll_iterator<T> {
+    return dll_iterator{this};
+}
 
 #endif

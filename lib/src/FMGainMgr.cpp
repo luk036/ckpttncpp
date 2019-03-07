@@ -61,10 +61,10 @@ auto FMGainMgr<GainCalc, Derived>::select(const std::vector<std::uint8_t> &part)
 }
 
 /**
- * @brief 
- * 
- * @param toPart 
- * @return std::tuple<index_t, int> 
+ * @brief
+ *
+ * @param toPart
+ * @return std::tuple<index_t, int>
  */
 template <typename GainCalc, class Derived>
 auto FMGainMgr<GainCalc, Derived>::select_togo(std::uint8_t toPart)
@@ -101,7 +101,7 @@ auto FMGainMgr<GainCalc, Derived>::update_move(const PartInfo &part_info,
         }
         auto move_info = MoveInfo{net, fromPart, toPart, v};
         switch (degree) {
-        case 2: 
+        case 2:
             this->update_move_2pin_net(part_info, move_info);
             break;
         case 3:
@@ -146,7 +146,6 @@ auto FMGainMgr<GainCalc, Derived>::update_move_3pin_net(
         self.modify_key(i_w, part[i_w], deltaGain[idx]);
     }
 }
-
 
 /**
  * @brief

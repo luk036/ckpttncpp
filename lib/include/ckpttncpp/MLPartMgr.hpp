@@ -7,16 +7,15 @@
 #include "FDPartMgr.hpp" // import FDPartMgr
 #include "FMPartMgr.hpp" // import FMPartMgr
 #include "netlist.hpp"
-#include <vector>
 #include <iostream>
+#include <vector>
 
 extern std::unique_ptr<SimpleNetlist>
-create_contraction_subgraph(SimpleNetlist &,
-                            const py::set<node_t> &);
+create_contraction_subgraph(SimpleNetlist &, const py::set<node_t> &);
 
 /**
  * @brief Multilevel Partition Manager
- * 
+ *
  */
 class MLPartMgr {
   private:
@@ -28,26 +27,26 @@ class MLPartMgr {
 
     /**
      * @brief Construct a new MLPartMgr object
-     * 
-     * @param BalTol 
-     * @param K 
+     *
+     * @param BalTol
+     * @param K
      */
     explicit MLPartMgr(double BalTol, std::uint8_t K = 2)
         : BalTol{BalTol}, K{K}, totalcost{0} {}
 
     /**
      * @brief run_Partition
-     * 
-     * @tparam GainMgr 
-     * @tparam ConstrMgr 
-     * @param H 
-     * @param part 
-     * @param limitsize 
+     *
+     * @tparam GainMgr
+     * @tparam ConstrMgr
+     * @param H
+     * @param part
+     * @param limitsize
      * @return size_t self.take_snapshot(part_info)
      */
     template <typename PartMgr>
     auto run_FMPartition(SimpleNetlist &H, PartInfo &part_info,
-                       size_t limitsize = 7) -> size_t {
+                         size_t limitsize = 7) -> size_t {
         using GainMgr = typename PartMgr::GainMgr_;
         using ConstrMgr = typename PartMgr::ConstrMgr_;
 
@@ -55,9 +54,11 @@ class MLPartMgr {
         // auto constrMgr = ConstrMgr{H, this->BalTol, this->K};
         // auto partMgr = PartMgr{H, gainMgr, constrMgr};
         auto gainMgrPtr = std::make_unique<GainMgr>(H, this->K);
-        auto constrMgrPtr = std::make_unique<ConstrMgr>(H, this->BalTol, this->K);
-        auto partMgrPtr = std::make_unique<PartMgr>(H, *gainMgrPtr, *constrMgrPtr);
- 
+        auto constrMgrPtr =
+            std::make_unique<ConstrMgr>(H, this->BalTol, this->K);
+        auto partMgrPtr =
+            std::make_unique<PartMgr>(H, *gainMgrPtr, *constrMgrPtr);
+
         // partMgrPtr->init(part);
         auto legalcheck = partMgrPtr->legalize(part_info);
         if (legalcheck != 2) {
@@ -68,22 +69,22 @@ class MLPartMgr {
         if (H.number_of_modules() >= limitsize) { // OK
             try {
                 auto H2 = create_contraction_subgraph(H, extern_nets);
-                if (5*H2->number_of_modules() <= 3*H.number_of_modules()) {
-                    auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
+                if (5 * H2->number_of_modules() <= 3 * H.number_of_modules()) {
+                    auto part2 =
+                        std::vector<std::uint8_t>(H2->number_of_modules(), 0);
                     auto extern_nets_ss = py::set<node_t>{};
                     auto part2_info =
                         PartInfo{std::move(part2), std::move(extern_nets_ss)};
                     H2->projection_up(part_info, part2_info);
-                    legalcheck =
-                        this->run_FMPartition<PartMgr>(*H2, part2_info, limitsize);
+                    legalcheck = this->run_FMPartition<PartMgr>(*H2, part2_info,
+                                                                limitsize);
                     if (legalcheck == 2) {
                         H2->projection_down(part2_info, part_info);
                     }
                 }
-            }
-            catch (std::bad_alloc) {
+            } catch (std::bad_alloc) {
                 std::cerr << "Warning: Insufficient memory."
-  	                      << " Discard one level." << '\n';
+                          << " Discard one level." << '\n';
             }
         }
         partMgrPtr->optimize(part_info);
@@ -95,12 +96,12 @@ class MLPartMgr {
 
     /**
      * @brief run_Partition
-     * 
-     * @tparam GainMgr 
-     * @tparam ConstrMgr 
-     * @param H 
-     * @param part 
-     * @param limitsize 
+     *
+     * @tparam GainMgr
+     * @tparam ConstrMgr
+     * @param H
+     * @param part
+     * @param limitsize
      * @return size_t self.take_snapshot(part_info)
      */
     template <typename PartMgr>
@@ -124,34 +125,35 @@ class MLPartMgr {
 
     /**
      * @brief run_Partition_recur
-     * 
-     * @tparam GainMgr 
-     * @tparam ConstrMgr 
-     * @param H 
-     * @param part 
-     * @param limitsize 
+     *
+     * @tparam GainMgr
+     * @tparam ConstrMgr
+     * @param H
+     * @param part
+     * @param limitsize
      * @return size_t self.take_snapshot(part_info)
      */
     template <typename PartMgr>
     auto run_Partition_recur(SimpleNetlist &H, PartInfo &part_info,
-                       size_t limitsize) -> void {
+                             size_t limitsize) -> void {
         if (H.number_of_modules() >= limitsize) { // OK
             try {
                 auto &[part, extern_nets] = part_info;
                 auto H2 = create_contraction_subgraph(H, extern_nets);
-                if (5*H2->number_of_modules() <= 3*H.number_of_modules()) {
-                    auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
+                if (5 * H2->number_of_modules() <= 3 * H.number_of_modules()) {
+                    auto part2 =
+                        std::vector<std::uint8_t>(H2->number_of_modules(), 0);
                     auto extern_nets_ss = py::set<node_t>{};
                     auto part2_info =
                         PartInfo{std::move(part2), std::move(extern_nets_ss)};
                     H2->projection_up(part_info, part2_info);
-                    this->run_Partition_recur<PartMgr>(*H2, part2_info, limitsize);
+                    this->run_Partition_recur<PartMgr>(*H2, part2_info,
+                                                       limitsize);
                     H2->projection_down(part2_info, part_info);
                 }
-            }
-            catch (std::bad_alloc) {
+            } catch (std::bad_alloc) {
                 std::cerr << "Warning: Insufficient memory."
-  	                      << " Discard one level." << '\n';
+                          << " Discard one level." << '\n';
             }
         }
         using GainMgr = typename PartMgr::GainMgr_;
@@ -160,8 +162,10 @@ class MLPartMgr {
         // auto constrMgr = ConstrMgr{H, this->BalTol, this->K};
         // auto partMgr = PartMgr{H, gainMgr, constrMgr};
         auto gainMgrPtr = std::make_unique<GainMgr>(H, this->K);
-        auto constrMgrPtr = std::make_unique<ConstrMgr>(H, this->BalTol, this->K);
-        auto partMgrPtr = std::make_unique<PartMgr>(H, *gainMgrPtr, *constrMgrPtr);
+        auto constrMgrPtr =
+            std::make_unique<ConstrMgr>(H, this->BalTol, this->K);
+        auto partMgrPtr =
+            std::make_unique<PartMgr>(H, *gainMgrPtr, *constrMgrPtr);
         partMgrPtr->optimize(part_info);
         assert(partMgrPtr->totalcost >= 0);
         this->totalcost = partMgrPtr->totalcost;
@@ -169,13 +173,13 @@ class MLPartMgr {
 
     // /**
     //  * @brief run_FDPartition
-    //  * 
-    //  * @tparam GainMgr 
-    //  * @tparam ConstrMgr 
-    //  * @param H 
-    //  * @param part_info 
-    //  * @param limitsize 
-    //  * @return size_t 
+    //  *
+    //  * @tparam GainMgr
+    //  * @tparam ConstrMgr
+    //  * @param H
+    //  * @param part_info
+    //  * @param limitsize
+    //  * @return size_t
     //  */
     // template <typename GainMgr, typename ConstrMgr>
     // auto run_FDPartition(SimpleNetlist &H, PartInfo &part_info,
@@ -191,9 +195,8 @@ class MLPartMgr {
     //     }
     //     if (H.number_of_modules() >= limitsize) { // OK
     //         auto H2 = create_contraction_subgraph(H, extern_nets);
-    //         auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
-    //         auto extern_nets = py::set<node_t>{};
-    //         auto part2_info =
+    //         auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(),
+    //         0); auto extern_nets = py::set<node_t>{}; auto part2_info =
     //             PartInfo{std::move(part2), std::move(extern_nets)};
     //         H2->projection_up(part_info, part2_info);
     //         legalcheck = this->run_FDPartition<GainMgr, ConstrMgr>(

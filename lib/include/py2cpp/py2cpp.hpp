@@ -2,11 +2,11 @@
 #define PY2CPP_PY2CPP_HPP 1
 
 #include <initializer_list>
+#include <tuple>
 #include <type_traits>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
-#include <tuple>
 
 namespace py {
 
@@ -47,9 +47,9 @@ constexpr auto enumerate(T &&iterable) {
 // constexpr auto range(T stop) {
 //     struct iterator {
 //         T i;
-//         constexpr bool operator!=(const iterator &other) const { return i != other.i; }
-//         constexpr bool operator==(const iterator &other) const { return i == other.i; }
-//         constexpr T operator*() const { return i; }
+//         constexpr bool operator!=(const iterator &other) const { return i !=
+//         other.i; } constexpr bool operator==(const iterator &other) const {
+//         return i == other.i; } constexpr T operator*() const { return i; }
 //         constexpr iterator &operator++() {
 //             ++i;
 //             return *this;
@@ -63,20 +63,24 @@ constexpr auto enumerate(T &&iterable) {
 //         constexpr auto end() const { return iterator{stop}; }
 //         constexpr auto empty() const -> bool { return stop == 0; }
 //         constexpr auto size() const -> size_t { return stop; }
-//         constexpr auto operator[](size_t n) const -> T { return n; } // no bounds checking
-//         constexpr auto contains(T n) const -> bool { return n < stop; }
+//         constexpr auto operator[](size_t n) const -> T { return n; } // no
+//         bounds checking constexpr auto contains(T n) const -> bool { return n
+//         < stop; }
 //     };
 
 //     if (stop < 0) stop = 0;
 //     return iterable_wrapper{stop};
 // }
 
-template <typename T>
-inline constexpr auto range(T start, T stop) {
+template <typename T> inline constexpr auto range(T start, T stop) {
     struct iterator {
         T i;
-        constexpr bool operator!=(const iterator &other) const { return i != other.i; }
-        constexpr bool operator==(const iterator &other) const { return i == other.i; }
+        constexpr bool operator!=(const iterator &other) const {
+            return i != other.i;
+        }
+        constexpr bool operator==(const iterator &other) const {
+            return i == other.i;
+        }
         constexpr T operator*() const { return i; }
         constexpr iterator &operator++() {
             ++i;
@@ -92,16 +96,20 @@ inline constexpr auto range(T start, T stop) {
         constexpr auto end() const { return iterator{stop}; }
         constexpr auto empty() const -> bool { return stop == start; }
         constexpr auto size() const -> size_t { return stop - start; }
-        constexpr auto operator[](size_t n) const -> T { return start + n; } // no bounds checking
-        constexpr auto contains(T n) const -> bool { return !(n < start) && n < stop; }
+        constexpr auto operator[](size_t n) const -> T {
+            return start + n;
+        } // no bounds checking
+        constexpr auto contains(T n) const -> bool {
+            return !(n < start) && n < stop;
+        }
     };
 
-    if (stop < start) stop = start;
+    if (stop < start)
+        stop = start;
     return iterable_wrapper{start, stop};
 }
 
-template <typename T>
-inline constexpr auto range(T stop) {
+template <typename T> inline constexpr auto range(T stop) {
     return range(T(0), stop);
 }
 
@@ -133,8 +141,7 @@ template <typename Key> class set : public std::unordered_set<Key> {
      *
      * @param init
      */
-    set(std::initializer_list<Key> init)
-        : std::unordered_set<Key>{init} {}
+    set(std::initializer_list<Key> init) : std::unordered_set<Key>{init} {}
 
     /**
      * @brief
@@ -279,7 +286,7 @@ class dict : public std::unordered_map<Key, T> {
     T get(const Key &key, const T &default_value) {
         if (!contains(key)) {
             return default_value;
-}
+        }
         return (*this)[key];
     }
 

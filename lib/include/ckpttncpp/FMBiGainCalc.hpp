@@ -29,7 +29,7 @@ class FMBiGainCalc {
      * @param H
      * @param K
      */
-    explicit FMBiGainCalc(SimpleNetlist &H, std::uint8_t  /*K*/)
+    explicit FMBiGainCalc(SimpleNetlist &H, std::uint8_t /*K*/)
         : H{H}, vertex_list(H.number_of_modules()), totalcost{0} {}
 
     /**
@@ -56,7 +56,7 @@ class FMBiGainCalc {
      * @param toPart
      * @return dllink*
      */
-    auto start_ptr(std::uint8_t  /*toPart*/) -> dllink<index_t> * {
+    auto start_ptr(std::uint8_t /*toPart*/) -> dllink<index_t> * {
         return &this->vertex_list[0];
     }
 
@@ -91,7 +91,7 @@ class FMBiGainCalc {
      * @param v
      */
     auto update_move_3pin_net(const PartInfo &part_info,
-                                 const MoveInfo &move_info) -> ret_info;
+                              const MoveInfo &move_info) -> ret_info;
     /**
      * @brief
      *

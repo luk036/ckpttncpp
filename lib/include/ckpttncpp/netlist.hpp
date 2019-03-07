@@ -57,11 +57,8 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
      * @param net_list
      * @param module_fixed
      */
-    Netlist(graph_t &&G,
-            const nodeview_t& modules,
-            const nodeview_t& nets,
-            const nodemap_t& module_map,
-            const nodemap_t& net_map);
+    Netlist(graph_t &&G, const nodeview_t &modules, const nodeview_t &nets,
+            const nodemap_t &module_map, const nodemap_t &net_map);
 
     /**
      * @brief
@@ -82,14 +79,17 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
      *
      * @return index_t
      */
-    auto number_of_nodes() const -> index_t { return this->G.number_of_nodes(); }
+    auto number_of_nodes() const -> index_t {
+        return this->G.number_of_nodes();
+    }
 
     // /**
     //  * @brief
     //  *
     //  * @return index_t
     //  */
-    // auto number_of_pins() const -> index_t { return this->G.number_of_edges(); }
+    // auto number_of_pins() const -> index_t { return
+    // this->G.number_of_edges(); }
 
     /**
      * @brief Get the max degree
@@ -115,7 +115,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
         return this->module_weight.empty() ? 1 : this->module_weight[i_v];
     }
 
-    auto get_net_weight(node_t  /*net*/) const -> index_t {
+    auto get_net_weight(node_t /*net*/) const -> index_t {
         // return this->net_weight.empty() ? 1
         //                                 :
         //                                 this->net_weight[this->net_map[net]];
@@ -177,20 +177,13 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
  * @param module_fixed
  */
 template <typename nodeview_t, typename nodemap_t>
-Netlist<nodeview_t, nodemap_t>::
-Netlist(graph_t &&G,
-        const nodeview_t &modules,
-        const nodeview_t &nets,
-        const nodemap_t &module_map,
-        const nodemap_t &net_map)
-    : G{std::forward<graph_t>(G)}, 
-      modules{modules},
-      nets{nets},
-      module_map{module_map},
-      net_map{net_map},
-      num_modules(modules.size()),
-      num_nets(nets.size())
-{
+Netlist<nodeview_t, nodemap_t>::Netlist(graph_t &&G, const nodeview_t &modules,
+                                        const nodeview_t &nets,
+                                        const nodemap_t &module_map,
+                                        const nodemap_t &net_map)
+    : G{std::forward<graph_t>(G)}, modules{modules}, nets{nets},
+      module_map{module_map}, net_map{net_map}, num_modules(modules.size()),
+      num_nets(nets.size()) {
     this->has_fixed_modules = (!this->module_fixed.empty());
     auto deg_cmp = [this](node_t v, node_t w) -> index_t {
         return this->G.degree(v) < this->G.degree(w);
@@ -226,6 +219,5 @@ struct Snapshot {
     py::set<node_t> extern_nets;
     py::dict<index_t, std::uint8_t> extern_modules;
 };
-
 
 #endif

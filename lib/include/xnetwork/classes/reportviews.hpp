@@ -102,15 +102,28 @@ EdgeDataView
 
 namespace xn {
 
-static const auto __all__ = {"NodeView", "NodeDataView",
-           "EdgeView", "OutEdgeView", "InEdgeView",
-           "EdgeDataView", "OutEdgeDataView", "InEdgeDataView",
-           "MultiEdgeView", "OutMultiEdgeView", "InMultiEdgeView",
-           "MultiEdgeDataView", "OutMultiEdgeDataView", "InMultiEdgeDataView",
-           "DegreeView", "DiDegreeView", "InDegreeView", "OutDegreeView",
-           "MultiDegreeView", "DiMultiDegreeView",
-           "InMultiDegreeView", "OutMultiDegreeView"};
-
+static const auto __all__ = {"NodeView",
+                             "NodeDataView",
+                             "EdgeView",
+                             "OutEdgeView",
+                             "InEdgeView",
+                             "EdgeDataView",
+                             "OutEdgeDataView",
+                             "InEdgeDataView",
+                             "MultiEdgeView",
+                             "OutMultiEdgeView",
+                             "InMultiEdgeView",
+                             "MultiEdgeDataView",
+                             "OutMultiEdgeDataView",
+                             "InMultiEdgeDataView",
+                             "DegreeView",
+                             "DiDegreeView",
+                             "InDegreeView",
+                             "OutDegreeView",
+                             "MultiDegreeView",
+                             "DiMultiDegreeView",
+                             "InMultiDegreeView",
+                             "OutMultiDegreeView"};
 
 // NodeViews
 /** A NodeView class to act as G.nodes for a XNetwork Graph
@@ -160,13 +173,12 @@ true
 false
  */
 // interface: Mapping, Set
-template <typename nodeview_t>
-class NodeView {
+template <typename nodeview_t> class NodeView {
   private:
     using _Self = NodeView<nodeview_t>;
     using Node = typename nodeview_t::value_type;
 
-    nodeview_t& _nodes;
+    nodeview_t &_nodes;
 
     // auto __getstate__( ) {
     //     return {"_nodes": this->_nodes};
@@ -176,32 +188,19 @@ class NodeView {
     //     this->_nodes = state["_nodes"];
     // }
   public:
-    explicit NodeView(nodeview_t& nodes) :
-        _nodes{nodes}
-    {
-    }
+    explicit NodeView(nodeview_t &nodes) : _nodes{nodes} {}
 
     // Mapping methods
-    auto size( ) {
-        return std::size(this->_nodes);
-    }
+    auto size() { return std::size(this->_nodes); }
 
-    auto begin( ) {
-        return std::begin(this->_nodes);
-    }
+    auto begin() { return std::begin(this->_nodes); }
 
-    auto end( ) {
-        return std::end(this->_nodes);
-    }
+    auto end() { return std::end(this->_nodes); }
 
-    auto operator[](const Node& n) {
-        return this->_nodes[n];
-    }
+    auto operator[](const Node &n) { return this->_nodes[n]; }
 
     // Set methods
-    bool contains(const Node& n) {
-        return this->_nodes.contains(n);
-    }
+    bool contains(const Node &n) { return this->_nodes.contains(n); }
 
     // /// @classmethod
     // auto _from_iterable(cls, it) {
@@ -231,7 +230,6 @@ class NodeView {
     //     return "%s(%r)" % (this->__class__.__name__, tuple( ));
     // }
 };
-
 
 // class NodeDataView: public Set {
 //     /** A DataView class for nodes of a XNetwork Graph
@@ -278,8 +276,8 @@ class NodeView {
 //             return set(it);
 //         } catch (TypeError as err) {
 //             if ("unhashable" : str(err) {
-//                 const auto msg = " : Could be b/c data=true || your values are unhashable";
-//                 throw TypeError(str(err) + msg);
+//                 const auto msg = " : Could be b/c data=true || your values
+//                 are unhashable"; throw TypeError(str(err) + msg);
 //             }
 //             throw;
 //         }
@@ -344,7 +342,6 @@ class NodeView {
 //     // }
 // };
 
-
 // // DegreeViews
 // /** A View class for degree of nodes : a XNetwork Graph
 
@@ -356,8 +353,8 @@ class NodeView {
 //     Parameters
 //     ==========
 //     graph : XNetwork graph-like class
-//     nbunch : node, container of nodes, || None meaning all nodes (default=None);
-//     weight : bool || string (default=None);
+//     nbunch : node, container of nodes, || None meaning all nodes
+//     (default=None); weight : bool || string (default=None);
 
 //     Notes
 //     -----
@@ -457,7 +454,6 @@ class NodeView {
 //     // }
 // };
 
-
 // class DegreeView: public DiDegreeView {
 //     /** A DegreeView class to act as G.degree for a XNetwork Graph
 
@@ -474,8 +470,8 @@ class NodeView {
 //     Parameters
 //     ==========
 //     graph : XNetwork graph-like class
-//     nbunch : node, container of nodes, || None meaning all nodes (default=None);
-//     weight : string || None (default=None);
+//     nbunch : node, container of nodes, || None meaning all nodes
+//     (default=None); weight : string || None (default=None);
 
 //     Notes
 //     -----
@@ -530,9 +526,9 @@ class NodeView {
 //     }
 // };
 
-
 // class OutDegreeView: public DiDegreeView {
-//     /** A DegreeView class to report out_degree for a DiGraph; See DegreeView */
+//     /** A DegreeView class to report out_degree for a DiGraph; See DegreeView
+//     */
 
 //     auto operator[]( n) {
 //         weight = this->_weight;
@@ -560,9 +556,9 @@ class NodeView {
 //     }
 // };
 
-
 // class InDegreeView: public DiDegreeView {
-//     /** A DegreeView class to report in_degree for a DiGraph; See DegreeView */
+//     /** A DegreeView class to report in_degree for a DiGraph; See DegreeView
+//     */
 
 //     auto operator[]( n) {
 //         weight = this->_weight;
@@ -589,7 +585,6 @@ class NodeView {
 //         }
 //     }
 // };
-
 
 // class MultiDegreeView: public DiDegreeView {
 //     /** A DegreeView class for undirected multigraphs; See DegreeView */
@@ -632,7 +627,6 @@ class NodeView {
 //         }
 //     }
 // };
-
 
 // class DiMultiDegreeView: public DiDegreeView {
 //     /** A DegreeView class for MultiDiGraph; See DegreeView */
@@ -677,9 +671,9 @@ class NodeView {
 //     }
 // };
 
-
 // class InMultiDegreeView: public DiDegreeView {
-//     /** A DegreeView class for inward degree of MultiDiGraph; See DegreeView */
+//     /** A DegreeView class for inward degree of MultiDiGraph; See DegreeView
+//     */
 
 //     auto operator[]( n) {
 //         weight = this->_weight;
@@ -711,9 +705,9 @@ class NodeView {
 //     }
 // };
 
-
 // class OutMultiDegreeView: public DiDegreeView {
-//     /** A DegreeView class for outward degree of MultiDiGraph; See DegreeView */
+//     /** A DegreeView class for outward degree of MultiDiGraph; See DegreeView
+//     */
 
 //     auto operator[]( n) {
 //         weight = this->_weight;
@@ -745,7 +739,6 @@ class NodeView {
 //     }
 // };
 
-
 // // EdgeDataViews
 // class OutEdgeDataView: public object {
 //     /** EdgeDataView for outward edges of DiGraph; See EdgeDataView */
@@ -770,7 +763,8 @@ class NodeView {
 //             this->_nodes_nbrs = this->_adjdict.items;
 //         } else {
 //             nbunch = list(viewer._graph.nbunch_iter(nbunch));
-//             this->_nodes_nbrs = lambda: [(n, this->_adjdict[n]) for n : nbunch];
+//             this->_nodes_nbrs = lambda: [(n, this->_adjdict[n]) for n :
+//             nbunch];
 //         }
 //         this->_nbunch = nbunch;
 //         this->_data = data;
@@ -813,7 +807,6 @@ class NodeView {
 //     //     return "%s(%r)" % (this->__class__.__name__, list( ));
 //     // }
 // };
-
 
 // class EdgeDataView(OutEdgeDataView) {
 //     /** A EdgeDataView class for edges of Graph
@@ -877,10 +870,9 @@ class NodeView {
 //     }
 // };
 
-
 // class InEdgeDataView(OutEdgeDataView) {
-//     /** An EdgeDataView class for outward edges of DiGraph; See EdgeDataView */
-//     static const auto __slots__ = ();
+//     /** An EdgeDataView class for outward edges of DiGraph; See EdgeDataView
+//     */ static const auto __slots__ = ();
 
 //     auto __iter__( ) {
 //         return (this->_report(nbr, n, dd) for n, nbrs : this->_nodes_nbrs();
@@ -898,10 +890,9 @@ class NodeView {
 //     }
 // };
 
-
 // class OutMultiEdgeDataView(OutEdgeDataView) {
-//     /** An EdgeDataView for outward edges of MultiDiGraph; See EdgeDataView */
-//     static const auto __slots__ = ("keys",);
+//     /** An EdgeDataView for outward edges of MultiDiGraph; See EdgeDataView
+//     */ static const auto __slots__ = ("keys",);
 
 //     auto __getstate__( ) {
 //         return {"viewer": this->_viewer,
@@ -924,7 +915,8 @@ class NodeView {
 //             this->_nodes_nbrs = this->_adjdict.items;
 //         } else {
 //             nbunch = list(viewer._graph.nbunch_iter(nbunch));
-//             this->_nodes_nbrs = lambda: [(n, this->_adjdict[n]) for n : nbunch];
+//             this->_nodes_nbrs = lambda: [(n, this->_adjdict[n]) for n :
+//             nbunch];
 //         }
 //         this->_nbunch = nbunch;
 //         this->_data = data;
@@ -958,7 +950,8 @@ class NodeView {
 //     }
 
 //     auto __iter__( ) {
-//         return (this->_report(n, nbr, k, dd) for n, nbrs : this->_nodes_nbrs();
+//         return (this->_report(n, nbr, k, dd) for n, nbrs :
+//         this->_nodes_nbrs();
 //                 for (auto nbr, kd : nbrs.items() for k, dd : kd.items());
 //     }
 
@@ -986,7 +979,6 @@ class NodeView {
 //         return false;
 //     }
 // };
-
 
 // class MultiEdgeDataView(OutMultiEdgeDataView) {
 //     /** An EdgeDataView class for edges of MultiGraph; See EdgeDataView */
@@ -1041,7 +1033,8 @@ class NodeView {
 //     static const auto __slots__ = ();
 
 //     auto __iter__( ) {
-//         return (this->_report(nbr, n, k, dd) for n, nbrs : this->_nodes_nbrs();
+//         return (this->_report(nbr, n, k, dd) for n, nbrs :
+//         this->_nodes_nbrs();
 //                 for (auto nbr, kd : nbrs.items() for k, dd : kd.items());
 //     }
 
@@ -1065,7 +1058,6 @@ class NodeView {
 //         return false;
 //     }
 // };
-
 
 // // EdgeViews    have set operations && no data reported
 // class OutEdgeView(Set, Mapping) {
@@ -1148,7 +1140,6 @@ class NodeView {
 //     }
 // };
 
-
 // class EdgeView(OutEdgeView) {
 //     /** A EdgeView class for edges of a Graph
 
@@ -1167,7 +1158,8 @@ class NodeView {
 //     If `data == false` (the default) then iterate over 2-tuples `(u, v)`.
 //     If `data is true` iterate over 3-tuples `(u, v, datadict)`.
 //     Otherwise iterate over `(u, v, datadict.get(data, default))`.
-//     For Multigraphs, if (`keys is true`, replace `u, v` with `u, v, key` above.
+//     For Multigraphs, if (`keys is true`, replace `u, v` with `u, v, key`
+//     above.
 
 //     Parameters
 //     ==========
@@ -1192,10 +1184,8 @@ class NodeView {
 //     >>> EVdata = G.edges(data="color", default="aqua");
 //     >>> G.add_edge(2, 3, color="blue");
 //     >>> assert((2, 3, "blue"] : EVdata);
-//     >>> for u, v, c : EVdata: print("({}, {}) has color: {}".format(u, v, c));
-//     (0, 1) has color: aqua
-//     (1, 2) has color: aqua
-//     (2, 3) has color: blue
+//     >>> for u, v, c : EVdata: print("({}, {}) has color: {}".format(u, v,
+//     c)); (0, 1) has color: aqua (1, 2) has color: aqua (2, 3) has color: blue
 
 //     >>> EVnbunch = G.edges(nbunch=2);
 //     >>> assert((2, 3] : EVnbunch);
@@ -1220,7 +1210,8 @@ class NodeView {
 //     dataview = EdgeDataView;
 
 //     auto __len__( ) {
-//         return sum(len(nbrs) + (n : nbrs) for n, nbrs : this->_nodes_nbrs()) / 2;
+//         return sum(len(nbrs) + (n : nbrs) for n, nbrs : this->_nodes_nbrs())
+//         / 2;
 //     }
 
 //     auto __iter__( ) {
@@ -1245,7 +1236,6 @@ class NodeView {
 //         }
 //     }
 // };
-
 
 // class InEdgeView(OutEdgeView) {
 //     /** A EdgeView class for inward edges of a DiGraph */
@@ -1287,7 +1277,6 @@ class NodeView {
 //         return this->_adjdict[v][u];
 //     }
 // };
-
 
 // class OutMultiEdgeView(OutEdgeView) {
 //     /** A EdgeView class for outward edges of a MultiDiGraph */
@@ -1347,7 +1336,6 @@ class NodeView {
 //     }
 // };
 
-
 // class MultiEdgeView(OutMultiEdgeView) {
 //     /** A EdgeView class for edges of a MultiGraph */
 //     static const auto __slots__ = ();
@@ -1373,7 +1361,6 @@ class NodeView {
 //         del seen;
 //     }
 // };
-
 
 // class InMultiEdgeView(OutMultiEdgeView) {
 //     /** A EdgeView class for inward edges of a MultiDiGraph */
@@ -1426,6 +1413,6 @@ class NodeView {
 //     }
 // };
 
-};
+}; // namespace xn
 
 #endif

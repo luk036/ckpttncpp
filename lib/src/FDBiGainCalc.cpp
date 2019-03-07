@@ -1,4 +1,5 @@
 #include <ckpttncpp/FDBiGainCalc.hpp>
+#include <functional>
 
 /* linux-2.6.38.8/include/linux/compiler.h */
 #include <cstdio>
@@ -51,8 +52,7 @@ void FDBiGainCalc::init_gain( //
  */
 void FDBiGainCalc::init_gain_3pin_net(node_t net,
                                       const std::vector<std::uint8_t> &part,
-                                      int weight)
-{
+                                      int weight) {
     auto netCur = this->H.G[net].begin();
     auto w = *netCur;
     auto v = *++netCur;
@@ -133,8 +133,7 @@ auto FDBiGainCalc::update_move_2pin_net(PartInfo &part_info,
  * @return ret_info
  */
 auto FDBiGainCalc::update_move_3pin_net(PartInfo &part_info,
-                                        const MoveInfo &move_info)
-    -> ret_info {
+                                        const MoveInfo &move_info) -> ret_info {
     auto const &[net, fromPart, toPart, v] = move_info;
     auto &[part, extern_nets] = part_info;
     index_t num[2] = {0, 0};
@@ -153,20 +152,18 @@ auto FDBiGainCalc::update_move_3pin_net(PartInfo &part_info,
     if (part_w == part[IdVec[1]]) {
         if (part_w == fromPart) {
             extern_nets.insert(net);
-            for (auto&& idx : {0, 1}) {
-                deltaGain[idx] += weight;
-            }
-        } else {
+            deltaGain[0] += weight;
+            deltaGain[1] += weight;
+        } else { // part_w == toPart
             extern_nets.erase(net);
-            for (auto&& idx : {0, 1}) {
-                deltaGain[idx] -= weight;
-            }
+            deltaGain[0] -= weight;
+            deltaGain[1] -= weight;
         }
     } else {
         if (part_w == fromPart) {
             deltaGain[0] += weight;
             deltaGain[1] -= weight;
-        } else {
+        } else { // part_w == toPart
             deltaGain[0] -= weight;
             deltaGain[1] += weight;
         }
@@ -199,23 +196,38 @@ auto FDBiGainCalc::update_move_general_net(PartInfo &part_info,
     auto degree = std::size(IdVec);
     auto deltaGain = std::vector(degree, 0);
     auto weight = this->H.get_net_weight(net);
+    std::function<void(node_t)> action1 = [&](node_t n) -> void {
+        extern_nets.erase(n);
+    };
+    std::function<void(node_t)> action2 = [&](node_t n) -> void {
+        extern_nets.insert(n);
+    };
+    auto action = std::vector{action1, action2};
 
-    if (num[fromPart] == 0) {
-        extern_nets.erase(net);
-        for (auto idx = 0U; idx < degree; ++idx) {
-            deltaGain[idx] -= weight;
-        }
-        return std::tuple{std::move(IdVec), std::move(deltaGain)};
-    }
-    if (num[toPart] == 0) {
-        extern_nets.insert(net);
-        for (auto idx = 0U; idx < degree; ++idx) {
-            deltaGain[idx] += weight;
-        }
-        return std::tuple{std::move(IdVec), std::move(deltaGain)};
-    }
-    for (auto &&l : {fromPart, toPart}) {
-        if (num[l] == 1) {
+    // if (num[fromPart] == 0) {
+    //     action[0](net);
+    //     extern_nets.erase(net);
+    //     for (auto idx = 0U; idx < degree; ++idx) {
+    //         deltaGain[idx] -= weight;
+    //     }
+    //     return std::tuple{std::move(IdVec), std::move(deltaGain)};
+    // }
+    // if (num[toPart] == 0) {
+    //     extern_nets.insert(net);
+    //     for (auto idx = 0U; idx < degree; ++idx) {
+    //         deltaGain[idx] += weight;
+    //     }
+    //     return std::tuple{std::move(IdVec), std::move(deltaGain)};
+    // }
+
+    auto l = fromPart, u = toPart;
+    for (auto &&i : {0, 1}) {
+        if (num[l] == 0) {
+            action[i](net);
+            for (auto idx = 0U; idx < degree; ++idx) {
+                deltaGain[idx] -= weight;
+            }
+        } else if (num[l] == 1) {
             for (auto idx = 0U; idx < degree; ++idx) {
                 auto part_w = part[IdVec[idx]];
                 if (part_w == l) {
@@ -225,6 +237,7 @@ auto FDBiGainCalc::update_move_general_net(PartInfo &part_info,
             }
         }
         weight = -weight;
+        std::swap(l, u);
     }
     return std::tuple{std::move(IdVec), std::move(deltaGain)};
 }

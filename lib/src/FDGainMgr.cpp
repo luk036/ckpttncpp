@@ -14,7 +14,7 @@
  */
 template <typename GainCalc, class Derived>
 FDGainMgr<GainCalc, Derived>::FDGainMgr(SimpleNetlist &H, std::uint8_t K)
-    : H{H}, gainCalc{H, K}, pmax{H.get_max_degree()},  K{K} {
+    : H{H}, gainCalc{H, K}, pmax{H.get_max_degree()}, K{K} {
     static_assert(std::is_base_of_v<FDGainMgr<GainCalc, Derived>, Derived>);
     for (auto k = 0U; k < this->K; ++k) {
         this->gainbucket.push_back(
@@ -59,10 +59,10 @@ auto FDGainMgr<GainCalc, Derived>::select(const std::vector<std::uint8_t> &part)
 }
 
 /**
- * @brief 
- * 
- * @param toPart 
- * @return std::tuple<index_t, int> 
+ * @brief
+ *
+ * @param toPart
+ * @return std::tuple<index_t, int>
  */
 template <typename GainCalc, class Derived>
 auto FDGainMgr<GainCalc, Derived>::select_togo(std::uint8_t toPart)
@@ -76,10 +76,10 @@ auto FDGainMgr<GainCalc, Derived>::select_togo(std::uint8_t toPart)
 }
 
 /**
- * @brief 
- * 
- * @param part_info 
- * @param move_info_v 
+ * @brief
+ *
+ * @param part_info
+ * @param move_info_v
  */
 template <typename GainCalc, class Derived>
 auto FDGainMgr<GainCalc, Derived>::update_move(PartInfo &part_info,
@@ -96,7 +96,7 @@ auto FDGainMgr<GainCalc, Derived>::update_move(PartInfo &part_info,
         }
         auto move_info = MoveInfo{net, fromPart, toPart, v};
         switch (degree) {
-        case 2: 
+        case 2:
             this->update_move_2pin_net(part_info, move_info);
             break;
         case 3:

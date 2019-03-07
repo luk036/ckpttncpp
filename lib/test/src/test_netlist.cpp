@@ -28,10 +28,10 @@ auto create_dwarf() -> SimpleNetlist {
     // static std::vector<nodes> net__name_list = {n1, n2, n3};
 
     // char name[] = "ABCDE";
-    auto edge_array = std::vector{Edge(p1, n1), Edge(a0, n1), Edge(a1, n1), Edge(a0, n2),
-                         Edge(a2, n2), Edge(a3, n2), Edge(a1, n3), Edge(a2, n3),
-                         Edge(a3, n3), Edge(a2, n4), Edge(p2, n4), Edge(a3, n5),
-                         Edge(p3, n5), Edge(a0, n6)};
+    auto edge_array = std::vector{
+        Edge(p1, n1), Edge(a0, n1), Edge(a1, n1), Edge(a0, n2), Edge(a2, n2),
+        Edge(a3, n2), Edge(a1, n3), Edge(a2, n3), Edge(a3, n3), Edge(a2, n4),
+        Edge(p2, n4), Edge(a3, n5), Edge(p3, n5), Edge(a0, n6)};
     // std::index_t indices[] = {0, 1, 2, 3, 4, 5};
     // int num_arcs = sizeof(edge_array) / sizeof(Edge);
     auto R = py::range<int>(num_nodes);
@@ -48,12 +48,8 @@ auto create_dwarf() -> SimpleNetlist {
     // std::vector<node_t> module_list(7);
     // std::vector<node_t> net_list(5);
     std::vector<int> module_weight = {1, 3, 4, 2, 0, 0, 0};
-    auto H = Netlist{std::move(g),
-                     py::range(7),
-                     py::range(7, 13),
-                     py::range(7),
-                     py::range(-7, 6)
-                     };
+    auto H = Netlist{std::move(g), py::range(7), py::range(7, 13), py::range(7),
+                     py::range(-7, 6)};
     H.module_weight = module_weight;
     H.num_pads = 3;
     return H;
@@ -71,7 +67,7 @@ auto create_test_netlist() -> SimpleNetlist {
 
     // char name[] = "ABCDE";
     auto edge_array = std::vector{Edge(a1, n1), Edge(a1, n2), Edge(a2, n1),
-                         Edge(a2, n2), Edge(a3, n2), Edge(a1, n3)};
+                                  Edge(a2, n2), Edge(a3, n2), Edge(a1, n3)};
     // std::index_t indices[] = {0, 1, 2, 3, 4, 5};
     // auto num_arcs = sizeof(edge_array) / sizeof(Edge);
     // auto g = graph_t{edge_array, edge_array + num_arcs, num_nodes};
@@ -83,12 +79,8 @@ auto create_test_netlist() -> SimpleNetlist {
     }
 
     auto module_weight = std::vector<int>{3, 4, 2};
-    auto H = Netlist{std::move(g),
-                     py::range(3),
-                     py::range(3, 6),
-                     py::range(3),
-                     py::range(-3, 3)
-                     };
+    auto H = Netlist{std::move(g), py::range(3), py::range(3, 6), py::range(3),
+                     py::range(-3, 3)};
     H.module_weight = std::move(module_weight);
     return H;
 }

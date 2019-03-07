@@ -39,8 +39,8 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
      * @param key
      */
     auto modify_key(index_t i_w, std::uint8_t part_w, int key) -> void {
-        this->gainbucket[1 - part_w]->modify_key(this->gainCalc.vertex_list[i_w],
-                                                 key);
+        this->gainbucket[1 - part_w]->modify_key(
+            this->gainCalc.vertex_list[i_w], key);
     }
 
     /**

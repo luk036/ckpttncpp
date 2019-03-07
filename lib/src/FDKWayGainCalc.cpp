@@ -63,13 +63,14 @@ auto FDKWayGainCalc::init_gain_2pin_net(node_t net,
 }
 
 /**
- * @brief 
- * 
- * @param net 
- * @param part 
+ * @brief
+ *
+ * @param net
+ * @param part
  */
-auto FDKWayGainCalc::init_gain_3pin_net(
-    node_t net, const std::vector<std::uint8_t> &part) -> void {
+auto FDKWayGainCalc::init_gain_3pin_net(node_t net,
+                                        const std::vector<std::uint8_t> &part)
+    -> void {
     auto netCur = this->H.G[net].begin();
     auto w = *netCur;
     auto v = *++netCur;
@@ -112,13 +113,12 @@ auto FDKWayGainCalc::init_gain_3pin_net(
     }
     this->totalcost += weight;
 }
-    
 
 /**
- * @brief 
- * 
- * @param net 
- * @param part 
+ * @brief
+ *
+ * @param net
+ * @param part
  */
 auto FDKWayGainCalc::init_gain_general_net(
     node_t net, const std::vector<std::uint8_t> &part) -> void {
@@ -181,11 +181,11 @@ auto FDKWayGainCalc::update_move_2pin_net(PartInfo &part_info,
 }
 
 /**
- * @brief 
- * 
- * @param part_info 
- * @param move_info 
- * @return ret_info 
+ * @brief
+ *
+ * @param part_info
+ * @param move_info
+ * @return ret_info
  */
 auto FDKWayGainCalc::update_move_3pin_net(PartInfo &part_info,
                                           const MoveInfo &move_info)
@@ -210,9 +210,9 @@ auto FDKWayGainCalc::update_move_3pin_net(PartInfo &part_info,
 
     if (part_w == part_u) {
         if (part_w != fromPart) {
-            for (auto &&idx : {0, 1}) {
-                deltaGain[idx][fromPart] -= weight;
-            }
+            deltaGain[0][fromPart] -= weight;
+            deltaGain[1][fromPart] -= weight;
+
             if (part_w == toPart) {
                 for (auto k = 0U; k < this->K; ++k) {
                     this->deltaGainV[k] -= weight;
@@ -221,9 +221,8 @@ auto FDKWayGainCalc::update_move_3pin_net(PartInfo &part_info,
             }
         }
         if (part_w != toPart) {
-            for (auto &&idx : {0, 1}) {
-                deltaGain[idx][toPart] += weight;
-            }
+            deltaGain[0][toPart] += weight;
+            deltaGain[1][toPart] += weight;
             if (part_w == fromPart) {
                 for (auto k = 0U; k < this->K; ++k) {
                     this->deltaGainV[k] += weight;
@@ -239,16 +238,13 @@ auto FDKWayGainCalc::update_move_3pin_net(PartInfo &part_info,
             for (auto k = 0U; k < this->K; ++k) {
                 deltaGain[0][k] += weight;
             }
-        }
-        else if (part_u == l) {
+        } else if (part_u == l) {
             for (auto k = 0U; k < this->K; ++k) {
                 deltaGain[1][k] += weight;
             }
-        }
-        else {
-            for (auto &&idx : {0, 1}) {
-                deltaGain[idx][l] -= weight;
-            }
+        } else {
+            deltaGain[0][l] -= weight;
+            deltaGain[1][l] -= weight;
             if (part_w == u || part_u == u) {
                 for (auto k = 0U; k < this->K; ++k) {
                     this->deltaGainV[k] -= weight;
@@ -258,17 +254,17 @@ auto FDKWayGainCalc::update_move_3pin_net(PartInfo &part_info,
         weight = -weight;
         std::swap(l, u);
     }
-    
+
     return std::tuple{std::move(IdVec), std::move(deltaGain)};
     // return this->update_move_general_net(part_info, move_info);
 }
 
 /**
- * @brief 
- * 
- * @param part_info 
- * @param move_info 
- * @return ret_info 
+ * @brief
+ *
+ * @param part_info
+ * @param move_info
+ * @return ret_info
  */
 auto FDKWayGainCalc::update_move_general_net(PartInfo &part_info,
                                              const MoveInfo &move_info)

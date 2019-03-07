@@ -39,8 +39,8 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
      * @param w
      * @param keys
      */
-    auto modify_key(index_t i_w, std::uint8_t part_w, const std::vector<int> &keys)
-        -> void {
+    auto modify_key(index_t i_w, std::uint8_t part_w,
+                    const std::vector<int> &keys) -> void {
         for (auto &&k : this->RR.exclude(part_w)) {
             this->gainbucket[k]->modify_key(this->gainCalc.vertex_list[k][i_w],
                                             keys[k]);
@@ -74,7 +74,7 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
      * @param fromPart
      * @param v
      */
-    auto lock_all(index_t  /*fromPart*/, index_t i_v) -> void {
+    auto lock_all(index_t /*fromPart*/, index_t i_v) -> void {
         for (auto k = 0U; k < this->K; ++k) {
             this->lock(k, i_v);
         }

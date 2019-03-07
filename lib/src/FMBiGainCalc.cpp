@@ -59,8 +59,8 @@ void FMBiGainCalc::init_gain_2pin_net( //
  * @param net
  * @param part
  */
-void FMBiGainCalc::init_gain_3pin_net(
-    node_t net, const std::vector<std::uint8_t> &part) {
+void FMBiGainCalc::init_gain_3pin_net(node_t net,
+                                      const std::vector<std::uint8_t> &part) {
     auto netCur = this->H.G[net].begin();
     auto w = *netCur;
     auto v = *++netCur;
@@ -72,14 +72,14 @@ void FMBiGainCalc::init_gain_3pin_net(
     auto weight = this->H.get_net_weight(net);
     if (part[i_u] == part[i_v]) {
         if (part[i_w] == part[i_v]) {
-            for (auto &&a : {u, v, w}) {
-                this->modify_gain(a, -weight);
+            for (auto i_a : {i_u, i_v, i_w}) {
+                this->modify_gain(i_a, -weight);
             }
             return;
         }
         this->modify_gain(i_w, weight);
     } else if (part[i_w] == part[i_v]) {
-        this->modify_gain(u, weight);
+        this->modify_gain(i_u, weight);
     } else {
         this->modify_gain(i_v, weight);
     }
@@ -151,8 +151,7 @@ auto FMBiGainCalc::update_move_2pin_net(const PartInfo &part_info,
  * @return ret_info
  */
 auto FMBiGainCalc::update_move_3pin_net(const PartInfo &part_info,
-                                        const MoveInfo &move_info)
-    -> ret_info {
+                                        const MoveInfo &move_info) -> ret_info {
     auto const &[net, fromPart, toPart, v] = move_info;
     auto const &[part, extern_nets] = part_info;
     uint8_t num[2] = {0, 0};
@@ -175,9 +174,8 @@ auto FMBiGainCalc::update_move_3pin_net(const PartInfo &part_info,
         weight = -weight;
     }
     if (part_w == part[IdVec[1]]) {
-        for (auto &&idx : {0, 1}) {
-            deltaGain[idx] += weight;
-        }
+        deltaGain[0] += weight;
+        deltaGain[1] += weight;
     } else {
         deltaGain[0] += weight;
         deltaGain[1] -= weight;

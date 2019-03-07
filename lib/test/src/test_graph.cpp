@@ -1,7 +1,7 @@
 // -*- coding: utf-8 -*-
-#include <xnetwork/classes/graph.hpp>
-#include <py2cpp/py2cpp.hpp>
 #include <catch.hpp>
+#include <py2cpp/py2cpp.hpp>
+#include <xnetwork/classes/graph.hpp>
 
 /**
  * @brief Create a test netlist object
@@ -31,6 +31,4 @@ TEST_CASE("Test xnetwork", "[test_xnetwork]") {
     }
 
     CHECK(G.degree(a1) == deg);
-
 }
-

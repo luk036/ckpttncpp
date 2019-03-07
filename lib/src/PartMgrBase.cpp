@@ -94,7 +94,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize_1pass(
         auto satisfiedOK = this->validator.check_constraints(move_info_v);
         if (!satisfiedOK) {
             continue;
-}
+        }
         if (gainmax < 0) {
             // become down turn
             if (!deferredsnapshot || totalgain > besttotalgain) {

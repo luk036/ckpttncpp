@@ -5,7 +5,7 @@
 #include <exception>
 #include <initializer_list>
 #include <stdexcept>
-	
+
 /**
 **********
 Exceptions
@@ -33,7 +33,6 @@ static const auto __all__ = {
     "XNetworkUnfeasible",
 };
 
-
 /** Base class for exceptions : XNetwork. */
 struct XNetworkException : std::runtime_error {
     explicit XNetworkException(const char *msg) : std::runtime_error(msg) {}
@@ -58,7 +57,8 @@ References
 
  */
 struct XNetworkPointlessConcept : XNetworkException {
-    explicit XNetworkPointlessConcept(const char *msg) : XNetworkException(msg) {}
+    explicit XNetworkPointlessConcept(const char *msg)
+        : XNetworkException(msg) {}
 };
 
 /** Exception for unexpected termination of algorithms. */
@@ -69,7 +69,8 @@ struct XNetworkAlgorithmError : XNetworkException {
 /** Exception raised by algorithms trying to solve a problem
 instance that has no feasible solution. */
 struct XNetworkUnfeasible : XNetworkAlgorithmError {
-    explicit XNetworkUnfeasible(const char *msg) : XNetworkAlgorithmError(msg) {}
+    explicit XNetworkUnfeasible(const char *msg)
+        : XNetworkAlgorithmError(msg) {}
 };
 
 /** Exception for algorithms that should return a path when running
@@ -136,12 +137,12 @@ struct ExceededMaxIterations : XNetworkException {
 //      */
 // class PowerIterationFailedConvergence : ExceededMaxIterations {
 //     explicit _Self( num_iterations, *args, **kw) {
-//         const auto msg = "power iteration failed to converge within {} iterations";
-//         exception_message = msg.format(num_iterations);
+//         const auto msg = "power iteration failed to converge within {}
+//         iterations"; exception_message = msg.format(num_iterations);
 //         superinit = super(PowerIterationFailedConvergence, *this).__init__
 //         superinit( exception_message, *args, **kw);
 //     }
 // };
-};
+}; // namespace xn
 
 #endif

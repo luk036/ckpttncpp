@@ -6,19 +6,18 @@
 #include <vector>
 
 // forward declare
-template <typename T>
-struct bpq_iterator;
+template <typename T> struct bpq_iterator;
 
 /**
  * @brief bounded priority queue
  *
- * Bounded Priority Queue with integer keys in [a..b]. 
- * Implemented by array (bucket) of doubly-linked lists. 
+ * Bounded Priority Queue with integer keys in [a..b].
+ * Implemented by array (bucket) of doubly-linked lists.
  * Efficient if key is bounded by a small integer value.
  *
  * Note that this class does not own the PQ nodes. This feature
  * makes the nodes sharable between doubly linked list class and
- * this class. In the FM algorithm, the node either attached to 
+ * this class. In the FM algorithm, the node either attached to
  * the gain buckets (PQ) or in the waitinglist (doubly linked list),
  * but not in both of them in the same time.
  *
@@ -28,13 +27,12 @@ struct bpq_iterator;
  *
  * All the member functions assume that the keys are within the bound.
  */
-template <typename T>
-struct bpqueue {
-    T offset;  /**< a - 1 */
-    T high;  /**< b - a + 1 */
-    T max;  /**< max value */
-    dllink<T> sentinel; 
-    std::vector<dllink<T>> bucket;  /**< bucket, array of lists */
+template <typename T> struct bpqueue {
+    T offset; /**< a - 1 */
+    T high;   /**< b - a + 1 */
+    T max;    /**< max value */
+    dllink<T> sentinel;
+    std::vector<dllink<T>> bucket; /**< bucket, array of lists */
 
     /**
      * @brief Construct a new bpqueue object
@@ -55,7 +53,9 @@ struct bpqueue {
      * @param it   the item
      * @param gain the key of it
      */
-    auto set_key(dllink<T> &it, T gain) -> void { it.key = gain - this->offset; }
+    auto set_key(dllink<T> &it, T gain) -> void {
+        it.key = gain - this->offset;
+    }
 
     /**
      * @brief Get the max value
@@ -236,15 +236,14 @@ struct bpqueue {
  * @brief Bounded Priority Queue Iterator
  *
  * Bounded Priority Queue Iterator. Traverse the queue in descending
- * order. Detaching queue items may invalidate the iterator because 
- * the iterator makes a copy of current key. 
+ * order. Detaching queue items may invalidate the iterator because
+ * the iterator makes a copy of current key.
  */
-template <typename T>
-class bpq_iterator {
+template <typename T> class bpq_iterator {
   private:
-    bpqueue<T> &bpq;  /**< the priority queue */
-    T curkey;  /**< the current key value */
-    dll_iterator<T> curitem;  /**< list iterator pointed to the current item. */
+    bpqueue<T> &bpq;         /**< the priority queue */
+    T curkey;                /**< the current key value */
+    dll_iterator<T> curitem; /**< list iterator pointed to the current item. */
 
     /**
      * @brief get the reference of the current list
@@ -312,8 +311,7 @@ class bpq_iterator {
  *
  * @return bpq_iterator
  */
-template <typename T>
-inline auto bpqueue<T>::begin() -> bpq_iterator<T> {
+template <typename T> inline auto bpqueue<T>::begin() -> bpq_iterator<T> {
     return bpq_iterator(*this, this->max);
 }
 
@@ -322,9 +320,8 @@ inline auto bpqueue<T>::begin() -> bpq_iterator<T> {
  *
  * @return bpq_iterator
  */
-template <typename T>
-inline auto bpqueue<T>::end() -> bpq_iterator<T> {
-    return bpq_iterator(*this, 0); 
+template <typename T> inline auto bpqueue<T>::end() -> bpq_iterator<T> {
+    return bpq_iterator(*this, 0);
 }
 
 #endif

@@ -23,14 +23,15 @@ class FMKWayConstrMgr : public FMConstrMgr {
      * @param K
      */
     FMKWayConstrMgr(SimpleNetlist &H, double BalTol, std::uint8_t K)
-        : FMConstrMgr{H, BalTol, K}, illegal(K, true) {}
+        : FMConstrMgr{H, BalTol, K},
+          illegal(K, true){}
 
     /**
      * @brief
      *
      * @return std::uint8_t
      */
-    [[nodiscard]] auto select_togo() const -> std::uint8_t {
+    auto select_togo() const -> std::uint8_t {
         auto it = std::min_element(this->diff.cbegin(), this->diff.cend());
         return std::distance(this->diff.cbegin(), it);
     }

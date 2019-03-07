@@ -4,8 +4,7 @@
 #include "dllist.hpp" // import dllink
 #include <vector>
 
-template <typename T>
-class robin {
+template <typename T> class robin {
   private:
     std::vector<dllink<T>> cycle;
 

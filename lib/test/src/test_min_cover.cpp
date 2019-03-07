@@ -12,8 +12,7 @@ extern std::tuple<py::set<node_t>, int>
 max_independent_net(SimpleNetlist &, const std::vector<int> &,
                     const py::set<node_t> &);
 extern std::unique_ptr<SimpleNetlist>
-  create_contraction_subgraph(SimpleNetlist &,
-                            const py::set<node_t> &);
+create_contraction_subgraph(SimpleNetlist &, const py::set<node_t> &);
 
 //
 // Primal-dual algorithm for minimum vertex cover problem

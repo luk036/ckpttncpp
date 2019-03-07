@@ -26,13 +26,13 @@
  * $s$ and from the specific heuristic method), thus obtaining a
  * sequence of solution $s,...,s_t$ and by successively
  * choosing the best among these solutions.
- * 
+ *
  * In order to do that, heuristics refer to a measure of the gain (and
  * balance condition) associated to any sequence of changes performed on
  * the current solution. Moreover, the length of the sequence generated
  * is determined by evaluting a suitably defined $stopping rule$ at
  * each iteration.
- * 
+ *
  * Reference:
  *   G. Ausiello et al., Complexity and Approximation: Combinatorial
  * Optimization Problems and Their Approximability Properties, Section 10.3.2.

@@ -20,7 +20,7 @@ void run_FMBiGainMgr(SimpleNetlist &H, PartInfo &part_info) {
         auto [move_info_v, gainmax] = mgr.select(part);
         if (gainmax <= 0) {
             continue;
-}
+        }
         mgr.update_move(part_info, move_info_v);
         mgr.update_move_v(move_info_v, gainmax);
         auto const &[fromPart, toPart, i_v] = move_info_v;

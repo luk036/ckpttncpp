@@ -2,10 +2,10 @@
 #include <ckpttncpp/FMKWayGainMgr.hpp>
 
 /**
- * @brief 
- * 
- * @param part_info 
- * @return int 
+ * @brief
+ *
+ * @param part_info
+ * @return int
  */
 auto FMKWayGainMgr::init(const PartInfo &part_info) -> int {
     auto totalcost = Base::init(part_info);
@@ -15,7 +15,7 @@ auto FMKWayGainMgr::init(const PartInfo &part_info) -> int {
     }
     auto const &[part, extern_nets] = part_info;
 
-    //for (auto v : this->H.modules) {
+    // for (auto v : this->H.modules) {
     for (auto i_v = 0U; i_v < this->H.number_of_modules(); ++i_v) {
         auto pv = part[i_v];
         for (auto &&k : this->RR.exclude(pv)) {

@@ -28,7 +28,7 @@ class FDBiGainCalc {
      * @param H
      * @param K
      */
-    explicit FDBiGainCalc(SimpleNetlist &H, std::uint8_t  K = 2)
+    explicit FDBiGainCalc(SimpleNetlist &H, std::uint8_t K = 2)
         : H{H}, vertex_list(H.number_of_modules()), totalcost{0} {}
 
     /**
@@ -55,7 +55,7 @@ class FDBiGainCalc {
      * @param toPart
      * @return dllink*
      */
-    auto start_ptr(std::uint8_t  /*toPart*/) -> dllink<index_t> * {
+    auto start_ptr(std::uint8_t /*toPart*/) -> dllink<index_t> * {
         return &this->vertex_list[0];
     }
 
@@ -126,8 +126,7 @@ class FDBiGainCalc {
      * @param part
      * @param weight
      */
-    auto init_gain_3pin_net(node_t net,
-                            const std::vector<std::uint8_t> &part,
+    auto init_gain_3pin_net(node_t net, const std::vector<std::uint8_t> &part,
                             int weight) -> void;
 
     /**

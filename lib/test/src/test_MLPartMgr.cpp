@@ -36,7 +36,8 @@ TEST_CASE("Test MLBiPartMgr p1", "[test_MLBiPartMgr]") {
     auto partMgr = MLPartMgr{0.3};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     auto part_info = PartInfo{std::move(part), py::set<node_t>()};
-    partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part_info, 100);
+    partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part_info,
+                                                                   100);
     CHECK(partMgr.totalcost >= 50);
     CHECK(partMgr.totalcost <= 50);
 }
@@ -47,7 +48,8 @@ TEST_CASE("Test MLBiPartMgr ibm01", "[test_MLBiPartMgr]") {
     auto partMgr = MLPartMgr{0.45};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     auto part_info = PartInfo{std::move(part), py::set<node_t>()};
-    partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr> >(H, part_info, 300);
+    partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part_info,
+                                                                   300);
     CHECK(partMgr.totalcost >= 650);
     CHECK(partMgr.totalcost <= 650);
 }
@@ -58,7 +60,8 @@ TEST_CASE("Test MLBiPartMgr ibm03", "[test_MLBiPartMgr]") {
     auto partMgr = MLPartMgr{0.45};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     auto part_info = PartInfo{std::move(part), py::set<node_t>()};
-    partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr> >(H, part_info, 300);
+    partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part_info,
+                                                                   300);
     CHECK(partMgr.totalcost >= 1469);
     CHECK(partMgr.totalcost <= 2041);
 }

@@ -1,16 +1,16 @@
 #include <ckpttncpp/bpqueue.hpp>
 #include <ckpttncpp/netlist.hpp>
+#include <memory>
 #include <py2cpp/py2cpp.hpp>
 #include <tuple>
-#include <memory>
 #include <vector>
 
 /**
- * @brief 
- * 
- * @param H 
- * @param DontSelect 
- * @return auto 
+ * @brief
+ *
+ * @param H
+ * @param DontSelect
+ * @return auto
  */
 auto max_independent_net(SimpleNetlist &H, const std::vector<int> & /*weight*/,
                          const py::set<node_t> &DontSelect) {
@@ -31,7 +31,7 @@ auto max_independent_net(SimpleNetlist &H, const std::vector<int> & /*weight*/,
 
     // for (auto i_net = 0U; i_net < H.nets.size(); ++i_net) {
     while (!bpq.is_empty()) {
-        dllink<index_t>& item = bpq.popleft();
+        dllink<index_t> &item = bpq.popleft();
         auto i_net = std::distance(&nets[0], &item);
 
         if (visited[i_net]) {
@@ -54,12 +54,13 @@ auto max_independent_net(SimpleNetlist &H, const std::vector<int> & /*weight*/,
 }
 
 // /**
-//  * @brief 
-//  * 
-//  * @param H 
-//  * @return auto 
+//  * @brief
+//  *
+//  * @param H
+//  * @return auto
 //  */
-// auto min_net_cover_pd(SimpleNetlist &H, const std::vector<int> & /*weight*/) {
+// auto min_net_cover_pd(SimpleNetlist &H, const std::vector<int> & /*weight*/)
+// {
 //     // auto S = py::set<node_t>{};
 //     auto L = std::vector<node_t>{};
 //     auto is_covered = py::set<node_t>{};
@@ -135,10 +136,10 @@ auto max_independent_net(SimpleNetlist &H, const std::vector<int> & /*weight*/,
 
 /**
  * @brief Create a contraction subgraph object
- * 
- * @param H 
- * @param DontSelect 
- * @return auto 
+ *
+ * @param H
+ * @param DontSelect
+ * @return auto
  */
 auto create_contraction_subgraph(SimpleNetlist &H,
                                  const py::set<node_t> &DontSelect) {
@@ -160,65 +161,65 @@ auto create_contraction_subgraph(SimpleNetlist &H,
     auto nets = std::vector<node_t>{};
     nets.reserve(H.nets.size() - S.size());
 
-        { // localize C and clusters
-            auto C = py::set<node_t>{};
-            auto clusters = std::vector<node_t>{};
-            C.reserve(3 * S.size()); // ???
-            clusters.reserve(S.size());
+    { // localize C and clusters
+        auto C = py::set<node_t>{};
+        auto clusters = std::vector<node_t>{};
+        C.reserve(3 * S.size()); // ???
+        clusters.reserve(S.size());
 
-            for (auto net : H.nets) {
-                if (S.contains(net)) {
-                    auto netCur = H.G[net].begin();
-                    auto master = *netCur;
-                    clusters.push_back(master);
-                    for (auto v : H.G[net]) {
-                        module_up_map[v] = master;
-                        C.insert(v);
-                    }
-                    cluster_map[master] = net;
-                } else {
-                    nets.push_back(net);
+        for (auto net : H.nets) {
+            if (S.contains(net)) {
+                auto netCur = H.G[net].begin();
+                auto master = *netCur;
+                clusters.push_back(master);
+                for (auto v : H.G[net]) {
+                    module_up_map[v] = master;
+                    C.insert(v);
                 }
+                cluster_map[master] = net;
+            } else {
+                nets.push_back(net);
             }
-            modules.reserve(H.modules.size() - C.size() + clusters.size());
-            for (auto v : H.modules) {
-                if (C.contains(v)) {
-                    continue;
-                }
-                modules.push_back(v);
-            }
-            modules.insert(modules.end(), clusters.begin(), clusters.end());
         }
-        // auto nodes = std::vector<node_t>{};
-        // nodes.reserve(modules.size() + nets.size());
+        modules.reserve(H.modules.size() - C.size() + clusters.size());
+        for (auto v : H.modules) {
+            if (C.contains(v)) {
+                continue;
+            }
+            modules.push_back(v);
+        }
+        modules.insert(modules.end(), clusters.begin(), clusters.end());
+    }
+    // auto nodes = std::vector<node_t>{};
+    // nodes.reserve(modules.size() + nets.size());
 
-        // nodes.insert(nodes.end(), modules.begin(), modules.end());
-        // nodes.insert(nodes.end(), nets.begin(), nets.end());
+    // nodes.insert(nodes.end(), modules.begin(), modules.end());
+    // nodes.insert(nodes.end(), nets.begin(), nets.end());
     numModules = std::size(modules);
     numNets = std::size(nets);
 
-        { // localize module_map and net_map
-            auto module_map = py::dict<node_t, index_t>{};
-            module_map.reserve(numModules);
-            for (auto [i_v, v] : py::enumerate(modules)) {
-                module_map[v] = i_v;
-            }
-
-            auto net_map = py::dict<node_t, index_t>{};
-            net_map.reserve(numNets);
-            for (auto [i_net, net] : py::enumerate(nets)) {
-                net_map[net] = i_net;
-            }
-
-            node_up_map.reserve(H.number_of_modules() + nets.size());
-
-            for (auto v : H.modules) {
-                node_up_map[v] = module_map[module_up_map[v]];
-            }
-            for (auto net : nets) {
-                node_up_map[net] = net_map[net] + numModules;
-            }
+    { // localize module_map and net_map
+        auto module_map = py::dict<node_t, index_t>{};
+        module_map.reserve(numModules);
+        for (auto [i_v, v] : py::enumerate(modules)) {
+            module_map[v] = i_v;
         }
+
+        auto net_map = py::dict<node_t, index_t>{};
+        net_map.reserve(numNets);
+        for (auto [i_net, net] : py::enumerate(nets)) {
+            net_map[net] = i_net;
+        }
+
+        node_up_map.reserve(H.number_of_modules() + nets.size());
+
+        for (auto v : H.modules) {
+            node_up_map[v] = module_map[module_up_map[v]];
+        }
+        for (auto net : nets) {
+            node_up_map[net] = net_map[net] + numModules;
+        }
+    }
 
     auto num_vertices = numModules + numNets;
     auto R = py::range<node_t>(0, num_vertices);
@@ -235,12 +236,10 @@ auto create_contraction_subgraph(SimpleNetlist &H,
     // auto G = xn::grAdaptor<graph_t>(std::move(g));
     auto G = std::move(g);
 
-    auto H2 = std::make_unique<SimpleNetlist>(std::move(G),
-                      py::range<int>(numModules),
-                      py::range<int>(numModules, num_vertices),
-                      py::range<int>(numModules),
-                      py::range<int>(-numModules, numNets)
-                      );
+    auto H2 = std::make_unique<SimpleNetlist>(
+        std::move(G), py::range<int>(numModules),
+        py::range<int>(numModules, num_vertices), py::range<int>(numModules),
+        py::range<int>(-numModules, numNets));
 
     auto node_down_map = py::dict<index_t, node_t>{};
     node_down_map.reserve(num_vertices);

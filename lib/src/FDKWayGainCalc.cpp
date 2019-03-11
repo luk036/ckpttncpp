@@ -1,4 +1,5 @@
 #include <ckpttncpp/FDKWayGainCalc.hpp>
+#include <functional>
 
 /* linux-2.6.38.8/include/linux/compiler.h */
 #include <cstdio>
@@ -204,31 +205,27 @@ auto FDKWayGainCalc::update_move_3pin_net(PartInfo &part_info,
     auto deltaGain = std::vector(degree, std::vector(this->K, 0));
     auto weight = this->H.get_net_weight(net);
 
+    auto l = fromPart, u = toPart;
     auto part_w = part[IdVec[0]];
     auto part_u = part[IdVec[1]];
-    auto l = fromPart, u = toPart;
+    action1 = [&](node_t n) -> void { extern_nets.erase(n); };
+    action2 = [&](node_t n) -> void { extern_nets.insert(n); };
+    auto action = std::vector{action1, action2};
 
     if (part_w == part_u) {
-        if (part_w != fromPart) {
-            deltaGain[0][fromPart] -= weight;
-            deltaGain[1][fromPart] -= weight;
-
-            if (part_w == toPart) {
-                for (auto k = 0U; k < this->K; ++k) {
-                    this->deltaGainV[k] -= weight;
+        for (auto &&i : {0, 1}) {
+            if (part_w != l) {
+                deltaGain[0][l] -= weight;
+                deltaGain[1][l] -= weight;
+                if (part_w == u) {
+                    for (auto k = 0U; k < this->K; ++k) {
+                        this->deltaGainV[k] -= weight;
+                    }
+                    action[i](net);
                 }
-                extern_nets.erase(net);
             }
-        }
-        if (part_w != toPart) {
-            deltaGain[0][toPart] += weight;
-            deltaGain[1][toPart] += weight;
-            if (part_w == fromPart) {
-                for (auto k = 0U; k < this->K; ++k) {
-                    this->deltaGainV[k] += weight;
-                }
-                extern_nets.insert(net);
-            }
+            weight = -weight;
+            std::swap(l, u);
         }
         return std::tuple{std::move(IdVec), std::move(deltaGain)};
     }
@@ -293,29 +290,45 @@ auto FDKWayGainCalc::update_move_general_net(PartInfo &part_info,
             count += 1;
         }
     }
-    if (num[fromPart] == 0) {
-        if (num[toPart] > 0) {
-            for (auto k = 0U; k < this->K; ++k) {
-                this->deltaGainV[k] -= weight;
-            }
-            if (count == 1) {
-                extern_nets.erase(net);
-            }
-        }
-    } else { // num[fromPart] > 0
-        if (num[toPart] == 0) {
-            for (auto k = 0U; k < this->K; ++k) {
-                this->deltaGainV[k] += weight;
-            }
-            if (count == 1) {
-                extern_nets.insert(net);
-            }
-        }
-    }
-    for (auto l : {fromPart, toPart}) {
+
+    action1 = [&](node_t n) -> void { extern_nets.erase(n); };
+    action2 = [&](node_t n) -> void { extern_nets.insert(n); };
+    auto action = std::vector{action1, action2};
+
+    // if (num[fromPart] == 0) {
+    //     if (num[toPart] > 0) {
+    //         for (auto k = 0U; k < this->K; ++k) {
+    //             this->deltaGainV[k] -= weight;
+    //         }
+    //         if (count == 1) {
+    //             extern_nets.erase(net);
+    //         }
+    //     }
+    // } else { // num[fromPart] > 0
+    //     if (num[toPart] == 0) {
+    //         for (auto k = 0U; k < this->K; ++k) {
+    //             this->deltaGainV[k] += weight;
+    //         }
+    //         if (count == 1) {
+    //             extern_nets.insert(net);
+    //         }
+    //     }
+    // }
+
+    auto l = fromPart, u = toPart;
+    // for (auto l : {fromPart, toPart}) {
+    for (auto &&i : {0, 1}) {
         if (num[l] == 0) {
             for (auto idx = 0U; idx < degree; ++idx) {
                 deltaGain[idx][l] -= weight;
+            }
+            if (num[u] > 0) {
+                for (auto k = 0U; k < this->K; ++k) {
+                    this->deltaGainV[k] -= weight;
+                }
+                if (count == 1) {
+                    action[i](net);
+                }
             }
         } else if (num[l] == 1) {
             for (auto idx = 0U; idx < degree; ++idx) {

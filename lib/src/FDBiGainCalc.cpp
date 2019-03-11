@@ -203,23 +203,6 @@ auto FDBiGainCalc::update_move_general_net(PartInfo &part_info,
         extern_nets.insert(n);
     };
     auto action = std::vector{action1, action2};
-
-    // if (num[fromPart] == 0) {
-    //     action[0](net);
-    //     extern_nets.erase(net);
-    //     for (auto idx = 0U; idx < degree; ++idx) {
-    //         deltaGain[idx] -= weight;
-    //     }
-    //     return std::tuple{std::move(IdVec), std::move(deltaGain)};
-    // }
-    // if (num[toPart] == 0) {
-    //     extern_nets.insert(net);
-    //     for (auto idx = 0U; idx < degree; ++idx) {
-    //         deltaGain[idx] += weight;
-    //     }
-    //     return std::tuple{std::move(IdVec), std::move(deltaGain)};
-    // }
-
     auto l = fromPart, u = toPart;
     for (auto &&i : {0, 1}) {
         if (num[l] == 0) {

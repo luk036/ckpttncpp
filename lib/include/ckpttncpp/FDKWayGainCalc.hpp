@@ -4,6 +4,7 @@
 #include "dllist.hpp"  // import dllink
 #include "netlist.hpp" // import Netlist
 #include "robin.hpp"   // import robin
+#include <functional>
 
 class FDKWayGainMgr;
 
@@ -22,6 +23,8 @@ class FDKWayGainCalc {
     index_t num_modules;
     std::vector<std::vector<dllink<index_t>>> vertex_list;
     std::vector<int> deltaGainV;
+    std::function<void(node_t)> action1;
+    std::function<void(node_t)> action2;
 
   public:
     int totalcost;

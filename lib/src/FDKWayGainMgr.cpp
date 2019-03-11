@@ -13,7 +13,6 @@ auto FDKWayGainMgr::init(const PartInfo &part_info) -> int {
     for (auto k = 0U; k < this->K; ++k) {
         this->gainbucket[k]->clear();
     }
-
     for (auto i_v = 0U; i_v < this->H.number_of_modules(); ++i_v) {
         auto pv = part[i_v];
         for (auto &&k : this->RR.exclude(pv)) {
@@ -50,5 +49,4 @@ auto FDKWayGainMgr::update_move_v(const MoveInfoV &move_info_v, int gain)
                                         this->gainCalc.deltaGainV[k]);
     }
     this->set_key(fromPart, i_v, -gain);
-    // this->set_key(toPart, v, -2*this->pmax);
 }

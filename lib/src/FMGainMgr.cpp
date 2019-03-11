@@ -17,8 +17,7 @@ FMGainMgr<GainCalc, Derived>::FMGainMgr(SimpleNetlist &H, std::uint8_t K)
     : H{H}, K{K}, gainCalc{H, K}, pmax{H.get_max_degree()} {
     static_assert(std::is_base_of_v<FMGainMgr<GainCalc, Derived>, Derived>);
     for (auto k = 0U; k < this->K; ++k) {
-        this->gainbucket.push_back(
-            std::make_unique<bpqueue<int>>(-this->pmax, this->pmax));
+        this->gainbucket.emplace_back(-this->pmax, this->pmax);
     }
 }
 
@@ -46,11 +45,11 @@ auto FMGainMgr<GainCalc, Derived>::select(const std::vector<std::uint8_t> &part)
     -> std::tuple<MoveInfoV, int> {
     auto gainmax = std::vector<int>(this->K);
     for (auto k = 0U; k < this->K; ++k) {
-        gainmax[k] = this->gainbucket[k]->get_max();
+        gainmax[k] = this->gainbucket[k].get_max();
     }
     auto it = std::max_element(gainmax.cbegin(), gainmax.cend());
     std::uint8_t toPart = std::distance(gainmax.cbegin(), it);
-    auto &vlink = this->gainbucket[toPart]->popleft();
+    auto &vlink = this->gainbucket[toPart].popleft();
     this->waitinglist.append(vlink);
     // node_t v = &vlink - this->gainCalc.start_ptr(toPart);
     index_t i_v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);
@@ -69,8 +68,8 @@ auto FMGainMgr<GainCalc, Derived>::select(const std::vector<std::uint8_t> &part)
 template <typename GainCalc, class Derived>
 auto FMGainMgr<GainCalc, Derived>::select_togo(std::uint8_t toPart)
     -> std::tuple<index_t, int> {
-    auto gainmax = this->gainbucket[toPart]->get_max();
-    auto &vlink = this->gainbucket[toPart]->popleft();
+    auto gainmax = this->gainbucket[toPart].get_max();
+    auto &vlink = this->gainbucket[toPart].popleft();
     this->waitinglist.append(vlink);
     // node_t v = &vlink - this->gainCalc.start_ptr(toPart);
     index_t i_v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);

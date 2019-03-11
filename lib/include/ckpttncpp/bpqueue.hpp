@@ -28,10 +28,11 @@ template <typename T> struct bpq_iterator;
  * All the member functions assume that the keys are within the bound.
  */
 template <typename T> struct bpqueue {
+    static dllink<T> sentinel;
+
     T offset; /**< a - 1 */
     T high;   /**< b - a + 1 */
     T max;    /**< max value */
-    dllink<T> sentinel;
     std::vector<dllink<T>> bucket; /**< bucket, array of lists */
 
     /**
@@ -41,7 +42,7 @@ template <typename T> struct bpqueue {
      * @param b upper bound
      */
     bpqueue(T a, T b)
-        : offset{a - 1}, high{b - offset}, max{0}, sentinel{},
+        : offset{a - 1}, high{b - offset}, max{0},
           bucket(high + 1) {
         assert(a <= b);
         bucket[0].append(sentinel); // sentinel
@@ -231,6 +232,8 @@ template <typename T> struct bpqueue {
      */
     auto end() -> bpq_iterator<T>;
 };
+
+template <typename T> dllink<T> bpqueue<T>::sentinel{};
 
 /**
  * @brief Bounded Priority Queue Iterator

@@ -11,7 +11,7 @@ auto FMKWayGainMgr::init(const PartInfo &part_info) -> int {
     auto totalcost = Base::init(part_info);
 
     for (auto k = 0U; k < this->K; ++k) {
-        this->gainbucket[k]->clear();
+        this->gainbucket[k].clear();
     }
     auto const &[part, extern_nets] = part_info;
 
@@ -20,10 +20,10 @@ auto FMKWayGainMgr::init(const PartInfo &part_info) -> int {
         auto pv = part[i_v];
         for (auto &&k : this->RR.exclude(pv)) {
             auto &vlink = this->gainCalc.vertex_list[k][i_v];
-            this->gainbucket[k]->append_direct(vlink);
+            this->gainbucket[k].append_direct(vlink);
         }
         auto &vlink = this->gainCalc.vertex_list[pv][i_v];
-        this->gainbucket[pv]->set_key(vlink, 0);
+        this->gainbucket[pv].set_key(vlink, 0);
         this->waitinglist.append(vlink);
     }
     for (auto v : this->H.module_fixed) {
@@ -48,7 +48,7 @@ auto FMKWayGainMgr::update_move_v(const MoveInfoV &move_info_v, int gain)
         if (fromPart == k || toPart == k) {
             continue;
         }
-        this->gainbucket[k]->modify_key(this->gainCalc.vertex_list[k][i_v],
+        this->gainbucket[k].modify_key(this->gainCalc.vertex_list[k][i_v],
                                         this->gainCalc.deltaGainV[k]);
     }
     this->set_key(fromPart, i_v, -gain);

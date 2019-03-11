@@ -26,7 +26,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
     int pmax;
     // index_t num[2];
     dllink<index_t> waitinglist;
-    std::vector<std::unique_ptr<bpqueue<int>>> gainbucket;
+    std::vector<bpqueue<int>> gainbucket;
 
   public:
     std::uint8_t K;
@@ -55,7 +55,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      * @return false
      */
     [[nodiscard]] auto is_empty_togo(std::uint8_t toPart) const -> bool {
-        return this->gainbucket[toPart]->is_empty();
+        return this->gainbucket[toPart].is_empty();
     }
 
     /**
@@ -66,7 +66,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      */
     [[nodiscard]] auto is_empty() const -> bool {
         for (auto k = 0U; k < this->K; ++k) {
-            if (!this->gainbucket[k]->is_empty()) {
+            if (!this->gainbucket[k].is_empty()) {
                 return false;
             }
         }

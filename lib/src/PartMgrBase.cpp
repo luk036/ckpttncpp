@@ -13,7 +13,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::init(PartInfo &part_info)
     -> void {
     this->totalcost = this->gainMgr.init(part_info);
     // this->totalcost = this->gainMgr.totalcost;
-    auto const &[part, extern_nets] = part_info;
+    auto const &[part, _] = part_info;
     this->validator.init(part);
 }
 
@@ -21,7 +21,7 @@ template <typename GainMgr, typename ConstrMgr, template <typename _GainMgr, typ
 auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(PartInfo &part_info)
     -> size_t {
     this->init(part_info);
-    auto &[part, extern_nets] = part_info;
+    auto &[part, _] = part_info;
 
     // Zero-weighted modules does not contribute legalization
     for (auto i_v = 0U; i_v < this->H.number_of_modules(); ++i_v) {
@@ -85,7 +85,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize_1pass(
     using SS_t = decltype(self.take_snapshot(part_info));
     auto snapshot = SS_t{};
     auto besttotalgain = 0;
-    auto &[part, extern_nets] = part_info;
+    auto &[part, _] = part_info;
 
     while (!this->gainMgr.is_empty()) {
         // Take the gainmax with v from gainbucket

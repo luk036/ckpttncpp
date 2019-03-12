@@ -13,7 +13,7 @@ extern SimpleNetlist create_dwarf();        // import create_dwarf
  */
 void run_FMBiGainMgr(SimpleNetlist &H, PartInfo &part_info) {
     auto mgr = FMBiGainMgr{H};
-    auto &[part, extern_nets] = part_info;
+    auto &[part, _] = part_info;
     mgr.init(part_info);
     while (!mgr.is_empty()) {
         // Take the gainmax with v from gainbucket

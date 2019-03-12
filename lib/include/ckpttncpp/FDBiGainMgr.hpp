@@ -51,7 +51,7 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
      * @param gain
      */
     auto update_move_v(const MoveInfoV &move_info_v, int gain) -> void {
-        auto const &[fromPart, toPart, i_v] = move_info_v;
+        auto const &[fromPart, _, i_v] = move_info_v;
         this->set_key(fromPart, i_v, -gain);
     }
 
@@ -62,8 +62,7 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
     }
 
     auto lock_all(std::uint8_t fromPart, index_t i_v) -> void {
-        auto toPart = 1 - fromPart;
-        this->lock(toPart, i_v);
+        this->lock(1 - fromPart, i_v);
     }
 
   private:

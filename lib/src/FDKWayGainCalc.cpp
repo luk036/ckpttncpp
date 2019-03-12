@@ -230,7 +230,7 @@ auto FDKWayGainCalc::update_move_3pin_net(PartInfo &part_info,
         return std::tuple{std::move(IdVec), std::move(deltaGain)};
     }
 
-    for (auto &&i : {0, 1}) {
+    for (auto &&_ : {0, 1}) {
         if (part_w == l) {
             for (auto k = 0U; k < this->K; ++k) {
                 deltaGain[0][k] += weight;

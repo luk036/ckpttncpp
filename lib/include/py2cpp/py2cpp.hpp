@@ -308,7 +308,7 @@ class dict : public std::unordered_map<Key, T> {
      * 
      * @return auto 
      */
-    auto begin() const -> key_iterator {
+    auto begin() const {
         return key_iterator{std::unordered_map<Key, T>::begin()};
     }
 
@@ -317,7 +317,7 @@ class dict : public std::unordered_map<Key, T> {
      * 
      * @return auto 
      */
-    auto end() const -> key_iterator {
+    auto end() const {
         return key_iterator{std::unordered_map<Key, T>::end()};
     }
 

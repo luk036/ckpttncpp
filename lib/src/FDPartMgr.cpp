@@ -25,7 +25,7 @@ auto FDPartMgr<GainMgr, ConstrMgr>::restore_part_info(Snapshot &snapshot,
     auto &[extern_nets_ss, extern_modules_ss] = snapshot;
     auto &[part, extern_nets] = part_info;
     std::fill(part.begin(), part.end(), this->K);
-    for (auto const &[v, part_v] : extern_modules_ss) {
+    for (auto const &[v, part_v] : extern_modules_ss.items()) {
         auto i_v = this->H.module_map[v];
         if (part[i_v] < this->K) {
             continue;

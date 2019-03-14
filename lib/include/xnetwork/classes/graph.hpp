@@ -4,6 +4,7 @@
 #include <any>
 #include <cassert>
 #include <py2cpp/py2cpp.hpp>
+#include <type_traits>
 #include <vector>
 // #include <xnetwork.hpp> // as xn
 #include <xnetwork/classes/coreviews.hpp> // import AtlasView, AdjacencyView
@@ -195,8 +196,11 @@ namespace xn {
 
 struct object : py::dict<const char *, std::any> {};
 
-template <typename nodeview_t, typename nodemap_t> class Graph : public object {
-  private:
+template <typename nodeview_t, typename nodemap_t,
+          typename adjlist_inner_dict_factory = 
+                py::dict<typename nodeview_t::value_type, std::any>>
+class Graph : public object {
+  public:
     using Node = typename nodeview_t::value_type; // luk
     using dict = py::dict<const char *, std::any>;
     using graph_attr_dict_factory = dict;
@@ -205,8 +209,10 @@ template <typename nodeview_t, typename nodemap_t> class Graph : public object {
     // using node_dict_factory = py::dict<Node, node_attr_dict_factory>;
     // using adjlist_inner_dict_factory = py::dict<Node,
     // edge_attr_dict_factory>;
-    using adjlist_inner_dict_factory = py::set<Node>;
+    // using adjlist_inner_dict_factory = py::set<Node>;
     using adjlist_outer_dict_factory = std::vector<adjlist_inner_dict_factory>;
+    using key_type = typename adjlist_inner_dict_factory::key_type;
+    using value_type = typename adjlist_inner_dict_factory::value_type;
 
   public:
     // std::vector<Node > _Nodes{};
@@ -516,8 +522,17 @@ template <typename nodeview_t, typename nodemap_t> class Graph : public object {
         // add the edge
         // datadict = this->_adj[u].get(v, this->edge_attr_dict_factory());
         // datadict.update(attr);
-        this->_adj[this->_node_map[u]].insert(v);
-        this->_adj[this->_node_map[v]].insert(u);
+        if constexpr (std::is_same_v<key_type, value_type>) {
+            // set
+            this->_adj[this->_node_map[u]].insert(v);
+            this->_adj[this->_node_map[v]].insert(u);
+        }
+        else {
+            using T = typename adjlist_inner_dict_factory::mapped_type;
+            auto data = this->_adj[this->_node_map[u]].get(v, T{});
+            this->_adj[this->_node_map[u]][v] = data;
+            this->_adj[this->_node_map[v]][u] = data; // ???
+        }
     }
 
     auto has_edge(const Node &u, const Node &v) -> bool {

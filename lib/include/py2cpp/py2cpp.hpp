@@ -225,6 +225,17 @@ template <typename Key> set(std::initializer_list<Key>)->set<Key>;
 // template <typename Key>
 // set(std::initializer_list<const char*> ) -> set<std::string>;
 
+template <typename Iter>
+struct key_iterator : Iter {
+    key_iterator(Iter it) : Iter(it) {}
+    auto operator*() const { return Iter::operator*().first; }
+    key_iterator &operator++() {
+        Iter::operator++();
+        return *this;
+    }
+};
+
+
 /**
  * @brief
  *
@@ -233,10 +244,12 @@ template <typename Key> set(std::initializer_list<Key>)->set<Key>;
  */
 template <typename Key, typename T>
 class dict : public std::unordered_map<Key, T> {
-    using value_type = std::pair<const Key, T>;
     using _Self = dict<Key, T>;
+    using _Base = std::unordered_map<Key, T>;
 
   public:
+    using value_type = std::pair<const Key, T>;
+
     /**
      * @brief Construct a new dict object
      *
@@ -289,6 +302,38 @@ class dict : public std::unordered_map<Key, T> {
         }
         return (*this)[key];
     }
+
+    /**
+     * @brief 
+     * 
+     * @return auto 
+     */
+    auto begin() const -> key_iterator {
+        return key_iterator{std::unordered_map<Key, T>::begin()};
+    }
+
+    /**
+     * @brief 
+     * 
+     * @return auto 
+     */
+    auto end() const -> key_iterator {
+        return key_iterator{std::unordered_map<Key, T>::end()};
+    }
+
+    /**
+     * @brief 
+     * 
+     * @return std::unordered_map<Key, T>& 
+     */
+    std::unordered_map<Key, T>& items() { return *this; }
+
+    /**
+     * @brief 
+     * 
+     * @return const std::unordered_map<Key, T>& 
+     */
+    const std::unordered_map<Key, T>& items() const { return *this; }
 
     /**
      * @brief

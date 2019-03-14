@@ -243,12 +243,12 @@ auto create_contraction_subgraph(SimpleNetlist &H,
 
     auto node_down_map = py::dict<index_t, node_t>{};
     node_down_map.reserve(num_vertices);
-    for (auto [v1, v2] : node_up_map) {
+    for (auto [v1, v2] : node_up_map.items()) {
         node_down_map[v2] = v1;
     }
     auto cluster_down_map = py::dict<index_t, node_t>{};
     cluster_down_map.reserve(cluster_map.size()); // ???
-    for (auto [v, net] : cluster_map) {
+    for (auto [v, net] : cluster_map.items()) {
         cluster_down_map[node_up_map[v]] = net;
     }
 

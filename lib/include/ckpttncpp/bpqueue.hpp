@@ -32,7 +32,7 @@ template <typename T> struct bpqueue {
 
     T offset; /**< a - 1 */
     T high;   /**< b - a + 1 */
-    T max;    /**< max value */
+    T max{0};    /**< max value */
     std::vector<dllink<T>> bucket; /**< bucket, array of lists */
 
     /**
@@ -42,7 +42,7 @@ template <typename T> struct bpqueue {
      * @param b upper bound
      */
     bpqueue(T a, T b)
-        : offset{a - 1}, high{b - offset}, max{0},
+        : offset{a - 1}, high{b - offset},
           bucket(high + 1) {
         assert(a <= b);
         bucket[0].append(sentinel); // sentinel

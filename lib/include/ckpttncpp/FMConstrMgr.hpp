@@ -20,9 +20,9 @@ class FMConstrMgr {
     double BalTol;
     std::uint8_t K;
     std::vector<int> diff;
-    int lowerbound;
-    int totalweight;
-    uint32_t weight; // cache value
+    int lowerbound{0};
+    int totalweight{0};
+    uint32_t weight{0}; // cache value
 
     /**
      * @brief Construct a new FMConstrMgr object
@@ -32,8 +32,7 @@ class FMConstrMgr {
      * @param BalTol
      */
     FMConstrMgr(SimpleNetlist &H, double BalTol, std::uint8_t K = 2)
-        : H{H}, BalTol{BalTol}, K{K},
-          diff(K, 0), lowerbound{0}, weight{0}, totalweight{0} {
+        : H{H}, BalTol{BalTol}, K{K}, diff(K, 0) {
         for (auto i_v = 0U; i_v < this->H.number_of_modules(); ++i_v) {
             weight = this->H.get_module_weight_by_id(i_v);
             this->totalweight += weight;

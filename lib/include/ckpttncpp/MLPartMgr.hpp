@@ -23,7 +23,7 @@ class MLPartMgr {
     std::uint8_t K;
 
   public:
-    int totalcost;
+    int totalcost{0};
 
     /**
      * @brief Construct a new MLPartMgr object
@@ -32,7 +32,7 @@ class MLPartMgr {
      * @param K
      */
     explicit MLPartMgr(double BalTol, std::uint8_t K = 2)
-        : BalTol{BalTol}, K{K}, totalcost{0} {}
+        : BalTol{BalTol}, K{K} {}
 
     /**
      * @brief run_Partition

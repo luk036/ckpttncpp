@@ -5,6 +5,7 @@
 #include <ckpttncpp/FMKWayGainMgr.hpp>   // import FMKWayGainMgr
 #include <ckpttncpp/FMPartMgr.hpp>       // import FMBiPartMgr
 #include <ckpttncpp/MLPartMgr.hpp>       // import MLBiPartMgr
+#include <experimental/random>
 
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
 extern SimpleNetlist create_dwarf();        // import create_dwarf
@@ -34,24 +35,47 @@ TEST_CASE("Test MLKWayPartMgr dwarf", "[test_MLKWayPartMgr]") {
 TEST_CASE("Test MLBiPartMgr p1", "[test_MLBiPartMgr]") {
     auto H = readNetD("../../testcases/p1.net");
     auto partMgr = MLPartMgr{0.3};
-    auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-    auto part_info = PartInfo{std::move(part), py::set<node_t>()};
-    partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part_info,
+
+    auto mincost = 1000;
+    for (auto i=0; i<10; ++i) {
+        auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
+        for (auto& elem: part) {
+            elem = std::experimental::randint(0, 1);
+        }
+        auto part_info = PartInfo{std::move(part), py::set<node_t>()};
+        partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part_info,
                                                                    100);
-    CHECK(partMgr.totalcost >= 50);
-    CHECK(partMgr.totalcost <= 50);
+        if (mincost > partMgr.totalcost) {
+            mincost = partMgr.totalcost;
+        }
+    }
+    // CHECK(partMgr.totalcost >= 50);
+    // CHECK(partMgr.totalcost <= 50);
+    CHECK(mincost >= 30);
+    CHECK(mincost <= 36);
 }
 
 TEST_CASE("Test MLBiPartMgr ibm01", "[test_MLBiPartMgr]") {
     auto H = readNetD("../../testcases/ibm01.net");
     readAre(H, "../../testcases/ibm01.are");
-    auto partMgr = MLPartMgr{0.45};
-    auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-    auto part_info = PartInfo{std::move(part), py::set<node_t>()};
-    partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part_info,
-                                                                   300);
-    CHECK(partMgr.totalcost >= 650);
-    CHECK(partMgr.totalcost <= 650);
+    auto partMgr = MLPartMgr{0.4};
+    auto mincost = 1000;
+    for (auto i=0; i<10; ++i) {
+        auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
+        for (auto& elem: part) {
+            elem = std::experimental::randint(0, 1);
+        }
+        auto part_info = PartInfo{std::move(part), py::set<node_t>()};
+        partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part_info,
+                                                                   400);
+        if (mincost > partMgr.totalcost) {
+            mincost = partMgr.totalcost;
+        }
+    }
+    // CHECK(partMgr.totalcost >= 650);
+    // CHECK(partMgr.totalcost <= 650);
+    CHECK(mincost >= 230);
+    CHECK(mincost <= 290);
 }
 
 TEST_CASE("Test MLBiPartMgr ibm03", "[test_MLBiPartMgr]") {
@@ -65,3 +89,16 @@ TEST_CASE("Test MLBiPartMgr ibm03", "[test_MLBiPartMgr]") {
     CHECK(partMgr.totalcost >= 1469);
     CHECK(partMgr.totalcost <= 2041);
 }
+
+/*
+
+Advantages:
+
+1. Python-like, networkx
+2. Check legalization, report
+3. Generic
+4. K buckets rather than K(K-1)
+5. Time, space, and code complexity.
+6. Design issues
+
+*/

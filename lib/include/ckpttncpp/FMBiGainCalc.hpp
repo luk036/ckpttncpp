@@ -21,7 +21,7 @@ class FMBiGainCalc {
     std::vector<dllink<index_t>> vertex_list;
 
   public:
-    int totalcost;
+    int totalcost{0};
 
     /**
      * @brief Construct a new FMBiGainCalc object
@@ -30,7 +30,7 @@ class FMBiGainCalc {
      * @param K
      */
     explicit FMBiGainCalc(SimpleNetlist &H, std::uint8_t /*K*/)
-        : H{H}, vertex_list(H.number_of_modules()), totalcost{0} {}
+        : H{H}, vertex_list(H.number_of_modules()) {}
 
     /**
      * @brief

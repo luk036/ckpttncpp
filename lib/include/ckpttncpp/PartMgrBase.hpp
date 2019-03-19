@@ -58,7 +58,7 @@ class PartMgrBase {
     // std::vector<std::uint8_t> part;
 
   public:
-    int totalcost;
+    int totalcost{0};
 
     /**
      * @brief Construct a new FDPartMgr object
@@ -68,9 +68,7 @@ class PartMgrBase {
      * @param constrMgr
      */
     PartMgrBase(SimpleNetlist &H, GainMgr &gainMgr, ConstrMgr &constrMgr)
-        : H{H}, gainMgr{gainMgr}, validator{constrMgr}, K{gainMgr.K},
-          // part(this->H.number_of_modules(), 0),
-          totalcost{0} {}
+        : H{H}, gainMgr{gainMgr}, validator{constrMgr}, K{gainMgr.K} {}
 
     /**
      * @brief

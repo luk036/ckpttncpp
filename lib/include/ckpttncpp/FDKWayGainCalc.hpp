@@ -27,7 +27,7 @@ class FDKWayGainCalc {
     std::function<void(node_t)> action2;
 
   public:
-    int totalcost;
+    int totalcost{0};
 
     /**
      * @brief Construct a new FDKWayGainCalc object
@@ -37,7 +37,7 @@ class FDKWayGainCalc {
      */
     FDKWayGainCalc(SimpleNetlist &H, std::uint8_t K)
         : H{H}, K{K}, RR{K}, num_modules{H.number_of_modules()},
-          deltaGainV(K, 0), totalcost{0} {
+          deltaGainV(K, 0) {
         for (auto k = 0U; k < this->K; ++k) {
             this->vertex_list.emplace_back(
                 std::vector<dllink<index_t>>(this->num_modules));

@@ -20,7 +20,7 @@ class FDBiGainCalc {
     std::vector<dllink<index_t>> vertex_list;
 
   public:
-    int totalcost;
+    int totalcost{0};
 
     /**
      * @brief Construct a new FDBiGainCalc object
@@ -29,7 +29,7 @@ class FDBiGainCalc {
      * @param K
      */
     explicit FDBiGainCalc(SimpleNetlist &H, std::uint8_t K = 2)
-        : H{H}, vertex_list(H.number_of_modules()), totalcost{0} {}
+        : H{H}, vertex_list(H.number_of_modules()) {}
 
     /**
      * @brief

@@ -18,8 +18,8 @@ template <typename T> struct dll_iterator;
  * are supplied by the caller in order to better reuse the nodes.
  */
 template <typename T> struct dllink {
-    dllink<T> *next; /**< pointer to the next node */
-    dllink<T> *prev; /**< pointer to the previous node */
+    dllink<T> *next{this}; /**< pointer to the next node */
+    dllink<T> *prev{this}; /**< pointer to the previous node */
     T key;
 
     /**
@@ -27,7 +27,7 @@ template <typename T> struct dllink {
      *
      * @param key the key
      */
-    dllink(T key = T(0)) : next{this}, prev{this}, key{key} {
+    dllink(T key = T(0)) : key{key} {
         static_assert(sizeof(dllink<T>) <= 24);
     }
 

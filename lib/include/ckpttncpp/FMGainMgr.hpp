@@ -25,7 +25,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
     GainCalc gainCalc;
     int pmax;
     // index_t num[2];
-    dllink<index_t> waitinglist;
+    dllink<index_t> waitinglist{};
     std::vector<bpqueue<int>> gainbucket;
 
   public:

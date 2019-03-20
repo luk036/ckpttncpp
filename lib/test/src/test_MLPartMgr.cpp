@@ -75,7 +75,7 @@ TEST_CASE("Test MLBiPartMgr ibm01", "[test_MLBiPartMgr]") {
     // CHECK(partMgr.totalcost >= 650);
     // CHECK(partMgr.totalcost <= 650);
     CHECK(mincost >= 230);
-    CHECK(mincost <= 291);
+    CHECK(mincost <= 324);
 }
 
 TEST_CASE("Test MLBiPartMgr ibm03", "[test_MLBiPartMgr]") {

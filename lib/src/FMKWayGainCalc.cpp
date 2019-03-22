@@ -78,6 +78,7 @@ auto FMKWayGainCalc::init_gain_3pin_net(node_t net,
     auto part_v = part[i_v];
     auto part_u = part[i_u];
     auto weight = this->H.get_net_weight(net);
+    auto i_a = i_w, i_b = i_v, i_c = i_u;
 
     if (part_u == part_v) {
         if (part_w == part_v) {
@@ -86,31 +87,25 @@ auto FMKWayGainCalc::init_gain_3pin_net(node_t net,
             }
             return;
         }
-        this->vertex_list[part_v][i_w].key += weight;
-        for (auto i_a : {i_u, i_v}) {
-            this->modify_gain(i_a, part_v, -weight);
-            this->vertex_list[part_w][i_a].key += weight;
-        }
     } else if (part_w == part_v) {
-        this->vertex_list[part_v][i_u].key += weight;
-        for (auto i_a : {i_w, i_v}) {
-            this->modify_gain(i_a, part_v, -weight);
-            this->vertex_list[part_u][i_a].key += weight;
-        }
+        i_a = i_u, i_b = i_w, i_c = i_v;
     } else if (part_w == part_u) {
-        this->vertex_list[part_w][i_v].key += weight;
-        for (auto i_a : {i_w, i_u}) {
-            this->modify_gain(i_a, part_w, -weight);
-            this->vertex_list[part_v][i_a].key += weight;
-        }
+        i_a = i_v, i_b = i_u, i_c = i_w;
     } else {
-        this->totalcost += weight;
+        this->totalcost += 2 * weight;
         this->vertex_list[part_v][i_u].key += weight;
         this->vertex_list[part_w][i_u].key += weight;
         this->vertex_list[part_w][i_v].key += weight;
         this->vertex_list[part_u][i_v].key += weight;
         this->vertex_list[part_u][i_w].key += weight;
         this->vertex_list[part_v][i_w].key += weight;
+        return;
+    }
+
+    this->vertex_list[part[i_b]][i_a].key += weight;
+    for (auto i_e : {i_b, i_c}) {
+        this->modify_gain(i_e, part[i_b], -weight);
+        this->vertex_list[part[i_a]][i_e].key += weight;
     }
     this->totalcost += weight;
 }

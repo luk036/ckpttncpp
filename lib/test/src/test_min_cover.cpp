@@ -53,14 +53,14 @@ TEST_CASE("Test contraction subgraph dwarf", "[test_contractio_subgraph]") {
     // CHECK(H2->number_of_pins() < 14);
     CHECK(H2->get_max_net_degree() <= 3);
 
-    auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-    auto part2 = std::vector<uint8_t>(H2->number_of_modules(), 0);
-    auto part3 = std::vector<uint8_t>(H2->number_of_modules(), 0);
-    part2[0] = part2[2] = 1;
-    part2[1] = 2;
-    H2->project_down(part2, part);
-    H2->project_up(part, part3);
-    CHECK(part2 == part3);
+    // auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
+    // auto part2 = std::vector<uint8_t>(H2->number_of_modules(), 0);
+    // auto part3 = std::vector<uint8_t>(H2->number_of_modules(), 0);
+    // part2[0] = part2[2] = 1;
+    // part2[1] = 2;
+    // // H2->project_down(part2, part);
+    // // H2->project_up(part, part3);
+    // CHECK(part2 == part3);
 }
 
 // TEST_CASE("Test contraction subgraph ibm01", "[test_contractio_subgraph]") {

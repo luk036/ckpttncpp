@@ -143,10 +143,7 @@ auto readNetD(const char *netDFileName) -> SimpleNetlist {
     //     typename boost::property_map<graph_t, boost::vertex_index_t>::type;
     // auto index = boost::get(boost::vertex_index, g);
     // auto G = xn::grAdaptor<graph_t>{std::move(g)};
-    auto H = Netlist{std::move(g), py::range<int>(numModules),
-                     py::range<int>(numModules, num_vertices),
-                     py::range<int>(numModules),
-                     py::range<int>(-numModules, num_vertices - numModules)};
+    auto H = Netlist{std::move(g), numModules, numNets};
     H.num_pads = numModules - padOffset - 1;
     return std::move(H);
 }

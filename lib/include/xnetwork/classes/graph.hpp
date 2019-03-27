@@ -254,6 +254,10 @@ class Graph : public object {
     Graph(const nodeview_t &Nodes, const nodemap_t &node_map)
         : _node{Nodes}, _node_map{node_map}, _adj(Nodes.size()) {}
 
+    Graph(int num_nodes) 
+        : _node{py::range<int>(num_nodes)}, _node_map{py::range<int>(num_nodes)}, 
+          _adj(num_nodes) {}
+
     /// @property
     /** Graph adjacency object holding the neighbors of each node.
 
@@ -711,6 +715,11 @@ class Graph : public object {
         return false;
     }
 };
+
+
+template <typename nodeview_t, typename nodemap_t,
+          typename adjlist_inner_dict_factory> Graph(int ) 
+-> Graph<decltype(py::range<int>(1)), decltype(py::range<int>(1)), py::set<int>>;
 
 }; // namespace xn
 

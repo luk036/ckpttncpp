@@ -61,6 +61,16 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
             const nodemap_t &module_map, const nodemap_t &net_map);
 
     /**
+     * @brief Construct a new Netlist object
+     *
+     * @param G
+     * @param module_list
+     * @param net_list
+     * @param module_fixed
+     */
+    Netlist(graph_t &&G, int num_modules, int num_nets);
+
+    /**
      * @brief
      *
      * @return index_t
@@ -195,6 +205,14 @@ Netlist<nodeview_t, nodemap_t>::Netlist(graph_t &&G, const nodeview_t &modules,
         std::max_element(this->nets.begin(), this->nets.end(), deg_cmp);
     this->max_net_degree = this->G.degree(*result2);
 }
+
+template <typename nodeview_t, typename nodemap_t>
+Netlist<nodeview_t, nodemap_t>::Netlist(graph_t &&G, int numModules,
+                                        int numNets)
+    : Netlist{std::forward<graph_t>(G), py::range<int>(numModules),
+                     py::range<int>(numModules, numModules + numNets),
+                     py::range<int>(numModules),
+                     py::range<int>(-numModules, numNets)} {}
 
 using RngIter = decltype(py::range<int>(0, 1));
 using graph_t = xn::Graph<RngIter, RngIter>;

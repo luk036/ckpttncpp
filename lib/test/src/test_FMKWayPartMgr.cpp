@@ -20,11 +20,11 @@ void run_FMKWayPartMgr(SimpleNetlist &H, std::uint8_t K) {
     // CHECK(H.G.nodes[0].get('weight', 1) == 5844);
     auto partMgr = FMPartMgr{H, gainMgr, constrMgr};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-    auto part_info = PartInfo{std::move(part), py::set<node_t>{}};
-    partMgr.legalize(part_info);
+    // auto part_info = PartInfo{std::move(part), py::set<node_t>{}};
+    partMgr.legalize(part);
     auto totalcostbefore = partMgr.totalcost;
     CHECK(totalcostbefore >= 0);
-    partMgr.optimize(part_info);
+    partMgr.optimize(part);
     CHECK(partMgr.totalcost <= totalcostbefore);
     CHECK(partMgr.totalcost >= 0);
 }

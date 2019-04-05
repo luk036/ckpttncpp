@@ -13,7 +13,7 @@
  * @param part_info
  */
 void FDBiGainCalc::init_gain( //
-    node_t net, const PartInfo &part_info) {
+    node_t net, const std::vector<uint8_t> &part) {
     auto degree = this->H.G.degree(net);
     if (unlikely(degree < 2)) {
         return; // does not provide any gain when moving
@@ -106,11 +106,11 @@ void FDBiGainCalc::init_gain_general_net(node_t net,
  * @param move_info
  * @return ret_2pin_info
  */
-auto FDBiGainCalc::update_move_2pin_net(PartInfo &part_info,
+auto FDBiGainCalc::update_move_2pin_net(std::vector<uint8_t> &part,
                                         const MoveInfo &move_info)
     -> ret_2pin_info {
     auto const &[net, fromPart, _, v] = move_info;
-    auto &[part, extern_nets] = part_info;
+    // auto &[part, extern_nets] = part_info;
     auto netCur = this->H.G[net].begin();
     auto w = (*netCur != v) ? *netCur : *++netCur;
     auto i_w = this->H.module_map[w];
@@ -132,10 +132,10 @@ auto FDBiGainCalc::update_move_2pin_net(PartInfo &part_info,
  * @param move_info
  * @return ret_info
  */
-auto FDBiGainCalc::update_move_3pin_net(PartInfo &part_info,
+auto FDBiGainCalc::update_move_3pin_net(std::vector<uint8_t> &part,
                                         const MoveInfo &move_info) -> ret_info {
     auto const &[net, fromPart, _, v] = move_info;
-    auto &[part, extern_nets] = part_info;
+    // auto &[part, extern_nets] = part_info;
     index_t num[2] = {0, 0};
     auto IdVec = std::vector<index_t>{};
     for (auto const &w : this->H.G[net]) {
@@ -178,11 +178,11 @@ auto FDBiGainCalc::update_move_3pin_net(PartInfo &part_info,
  * @param move_info
  * @return ret_info
  */
-auto FDBiGainCalc::update_move_general_net(PartInfo &part_info,
+auto FDBiGainCalc::update_move_general_net(std::vector<uint8_t> &part,
                                            const MoveInfo &move_info)
     -> ret_info {
     auto const &[net, fromPart, toPart, v] = move_info;
-    auto &[part, extern_nets] = part_info;
+    // auto &[part, extern_nets] = part_info;
     index_t num[2] = {0, 0};
     auto IdVec = std::vector<index_t>{};
     for (auto const &w : this->H.G[net]) {

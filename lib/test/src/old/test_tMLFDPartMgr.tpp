@@ -15,8 +15,8 @@ TEST_CASE("Test MLFDBiPartMgr dwarf", "[test_MLFDBiPartMgr]") {
     auto H = create_dwarf();
     auto partMgr = MLPartMgr{0.3};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-    auto part_info = PartInfo{std::move(part), py::set<node_t>()};
-    partMgr.run_Partition<FDPartMgr<FDBiGainMgr, FMBiConstrMgr>>(H, part_info);
+    // auto part_info = PartInfo{std::move(part), py::set<node_t>()};
+    partMgr.run_Partition<FDPartMgr<FDBiGainMgr, FMBiConstrMgr>>(H, part);
     CHECK(partMgr.totalcost == 2);
 }
 
@@ -24,9 +24,9 @@ TEST_CASE("Test MLFDKWayPartMgr dwarf", "[test_MLFDKWayPartMgr]") {
     auto H = create_dwarf();
     auto partMgr = MLPartMgr{0.4, 3}; // 0.3???
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-    auto part_info = PartInfo{std::move(part), py::set<node_t>()};
+    // auto part_info = PartInfo{std::move(part), py::set<node_t>()};
     partMgr.run_Partition<FDPartMgr<FDKWayGainMgr, FMKWayConstrMgr>>(H,
-                                                                     part_info);
+                                                                     part);
     CHECK(partMgr.totalcost == 4);
 }
 
@@ -34,8 +34,8 @@ TEST_CASE("Test MLFDBiPartMgr p1", "[test_MLFDBiPartMgr]") {
     auto H = readNetD("../../testcases/p1.net");
     auto partMgr = MLPartMgr{0.3};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-    auto part_info = PartInfo{std::move(part), py::set<node_t>()};
-    partMgr.run_Partition<FDPartMgr<FDBiGainMgr, FMBiConstrMgr>>(H, part_info,
+    // auto part_info = PartInfo{std::move(part), py::set<node_t>()};
+    partMgr.run_Partition<FDPartMgr<FDBiGainMgr, FMBiConstrMgr>>(H, part,
                                                                  200);
     CHECK(partMgr.totalcost >= 50);
     CHECK(partMgr.totalcost <= 50);
@@ -46,8 +46,8 @@ TEST_CASE("Test MLFDBiPartMgr ibm01", "[test_MLFDBiPartMgr]") {
     readAre(H, "../../testcases/ibm01.are");
     auto partMgr = MLPartMgr{0.45};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-    auto part_info = PartInfo{std::move(part), py::set<node_t>()};
-    partMgr.run_Partition<FDPartMgr<FDBiGainMgr, FMBiConstrMgr>>(H, part_info,
+    // auto part_info = PartInfo{std::move(part), py::set<node_t>()};
+    partMgr.run_Partition<FDPartMgr<FDBiGainMgr, FMBiConstrMgr>>(H, part,
                                                                  2000);
     auto &[part_s, extern_nets] = part_info;
     CHECK(partMgr.totalcost == extern_nets.size());
@@ -60,8 +60,8 @@ TEST_CASE("Test MLFDBiPartMgr ibm03", "[test_MLFDBiPartMgr]") {
     readAre(H, "../../testcases/ibm03.are");
     auto partMgr = MLPartMgr{0.45};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-    auto part_info = PartInfo{std::move(part), py::set<node_t>()};
-    partMgr.run_Partition<FDPartMgr<FDBiGainMgr, FMBiConstrMgr>>(H, part_info,
+    // auto part_info = PartInfo{std::move(part), py::set<node_t>()};
+    partMgr.run_Partition<FDPartMgr<FDBiGainMgr, FMBiConstrMgr>>(H, part,
                                                                  2000);
     auto &[part_s, extern_nets] = part_info;
     CHECK(partMgr.totalcost == extern_nets.size());

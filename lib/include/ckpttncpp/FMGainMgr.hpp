@@ -45,7 +45,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      *
      * @param part
      */
-    auto init(const PartInfo &part_info) -> int;
+    auto init(const std::vector<uint8_t> &part) -> int;
 
     /**
      * @brief
@@ -96,7 +96,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      * @param part
      * @param move_info_v
      */
-    auto update_move(const PartInfo &part_info, const MoveInfoV &move_info_v)
+    auto update_move(const std::vector<uint8_t> &part, const MoveInfoV &move_info_v)
         -> void;
 
   private:
@@ -106,7 +106,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      * @param part
      * @param move_info
      */
-    auto update_move_2pin_net(const PartInfo &part_info,
+    auto update_move_2pin_net(const std::vector<uint8_t> &part,
                               const MoveInfo &move_info) -> void;
 
     /**
@@ -115,7 +115,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      * @param part
      * @param move_info
      */
-    auto update_move_3pin_net(const PartInfo &part_info,
+    auto update_move_3pin_net(const std::vector<uint8_t> &part,
                               const MoveInfo &move_info) -> void;
 
     /**
@@ -124,7 +124,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      * @param part
      * @param move_info
      */
-    auto update_move_general_net(const PartInfo &part_info,
+    auto update_move_general_net(const std::vector<uint8_t> &part,
                                  const MoveInfo &move_info) -> void;
 };
 

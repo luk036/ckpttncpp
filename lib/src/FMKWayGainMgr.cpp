@@ -7,13 +7,13 @@
  * @param part_info
  * @return int
  */
-auto FMKWayGainMgr::init(const PartInfo &part_info) -> int {
-    auto totalcost = Base::init(part_info);
+auto FMKWayGainMgr::init(const std::vector<uint8_t> &part) -> int {
+    auto totalcost = Base::init(part);
 
     for (auto k = 0U; k < this->K; ++k) {
         this->gainbucket[k].clear();
     }
-    auto const &[part, _] = part_info;
+    // auto const &[part, _] = part_info;
 
     // for (auto v : this->H.modules) {
     for (auto i_v = 0U; i_v < this->H.number_of_modules(); ++i_v) {

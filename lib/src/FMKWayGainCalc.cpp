@@ -12,12 +12,12 @@
  * @param part
  * @param vertex_list
  */
-auto FMKWayGainCalc::init_gain(node_t net, const PartInfo &part_info) -> void {
+auto FMKWayGainCalc::init_gain(node_t net, const std::vector<uint8_t> &part) -> void {
     auto degree = this->H.G.degree(net);
     if (unlikely(degree < 2)) {
         return; // does not provide any gain when moving
     }
-    auto const &[part, _] = part_info;
+    // auto const &[part, _] = part_info;
     switch (degree) {
     case 2:
         this->init_gain_2pin_net(net, part);
@@ -156,11 +156,11 @@ auto FMKWayGainCalc::init_gain_general_net(
  * @param move_info
  * @return ret_2pin_info
  */
-auto FMKWayGainCalc::update_move_2pin_net(const PartInfo &part_info,
+auto FMKWayGainCalc::update_move_2pin_net(const std::vector<uint8_t> &part,
                                           const MoveInfo &move_info)
     -> ret_2pin_info {
     auto const &[net, fromPart, toPart, v] = move_info;
-    auto const &[part, _] = part_info;
+    // auto const &[part, _] = part_info;
     auto netCur = this->H.G[net].begin();
     node_t w = (*netCur != v) ? *netCur : *++netCur;
     auto i_w = this->H.module_map[w];
@@ -187,11 +187,11 @@ auto FMKWayGainCalc::update_move_2pin_net(const PartInfo &part_info,
  * @param move_info
  * @return ret_info
  */
-auto FMKWayGainCalc::update_move_3pin_net(const PartInfo &part_info,
+auto FMKWayGainCalc::update_move_3pin_net(const std::vector<uint8_t> &part,
                                           const MoveInfo &move_info)
     -> ret_info {
     auto const &[net, fromPart, toPart, v] = move_info;
-    auto const &[part, _] = part_info;
+    // auto const &[part, _] = part_info;
     auto IdVec = std::vector<index_t>{};
     for (auto const &w : this->H.G[net]) {
         if (w == v) {
@@ -247,7 +247,7 @@ auto FMKWayGainCalc::update_move_3pin_net(const PartInfo &part_info,
     }
 
     return std::tuple{std::move(IdVec), std::move(deltaGain)};
-    // return this->update_move_general_net(part_info, move_info);
+    // return this->update_move_general_net(part, move_info);
 }
 
 /**
@@ -257,11 +257,11 @@ auto FMKWayGainCalc::update_move_3pin_net(const PartInfo &part_info,
  * @param move_info
  * @return ret_info
  */
-auto FMKWayGainCalc::update_move_general_net(const PartInfo &part_info,
+auto FMKWayGainCalc::update_move_general_net(const std::vector<uint8_t> &part,
                                              const MoveInfo &move_info)
     -> ret_info {
     auto const &[net, fromPart, toPart, v] = move_info;
-    auto const &[part, _] = part_info;
+    // auto const &[part, _] = part_info;
     std::vector<uint8_t> num(this->K, 0);
     auto IdVec = std::vector<index_t>{};
     for (auto const &w : this->H.G[net]) {

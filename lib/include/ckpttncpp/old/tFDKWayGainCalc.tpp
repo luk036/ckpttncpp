@@ -59,7 +59,7 @@ class FDKWayGainCalc {
      *
      * @param part_info
      */
-    auto init(const PartInfo &part_info) -> int {
+    auto init(const std::vector<uint8_t> &part) -> int {
         this->totalcost = 0;
         for (auto k = 0U; k < this->K; ++k) {
             for (auto &vlink : this->vertex_list[k]) {
@@ -67,7 +67,7 @@ class FDKWayGainCalc {
             }
         }
         for (auto net : this->H.nets) {
-            this->init_gain(net, part_info);
+            this->init_gain(net, part);
         }
 
         return this->totalcost;
@@ -103,7 +103,7 @@ class FDKWayGainCalc {
      * @param move_info
      * @return ret_2pin_info
      */
-    auto update_move_2pin_net(PartInfo &part_info, const MoveInfo &move_info)
+    auto update_move_2pin_net(std::vector<uint8_t> &part, const MoveInfo &move_info)
         -> ret_2pin_info;
 
     using ret_info =
@@ -116,7 +116,7 @@ class FDKWayGainCalc {
      * @param move_info
      * @return ret_info
      */
-    auto update_move_3pin_net(PartInfo &part_info, const MoveInfo &move_info)
+    auto update_move_3pin_net(std::vector<uint8_t> &part, const MoveInfo &move_info)
         -> ret_info;
 
     /**
@@ -126,7 +126,7 @@ class FDKWayGainCalc {
      * @param move_info
      * @return ret_info
      */
-    auto update_move_general_net(PartInfo &part_info, const MoveInfo &move_info)
+    auto update_move_general_net(std::vector<uint8_t> &part, const MoveInfo &move_info)
         -> ret_info;
 
   private:
@@ -136,7 +136,7 @@ class FDKWayGainCalc {
      * @param net
      * @param part_info
      */
-    auto init_gain(node_t net, const PartInfo &part_info) -> void;
+    auto init_gain(node_t net, const std::vector<uint8_t> &part) -> void;
 
     /**
      * @brief

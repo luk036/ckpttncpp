@@ -40,7 +40,7 @@ class FDPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FDPartMgr> {
      * @param part_info
      * @return Snapshot
      */
-    auto take_snapshot(const PartInfo &part_info) -> Snapshot;
+    auto take_snapshot(const std::vector<uint8_t> &part) -> Snapshot;
 
     /**
      * @brief
@@ -48,7 +48,7 @@ class FDPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FDPartMgr> {
      * @param snapshot
      * @return PartInfo
      */
-    auto restore_part_info(Snapshot &snapshot, PartInfo &part_info) -> void;
+    auto restore_part_info(Snapshot &snapshot, std::vector<uint8_t> &part) -> void;
 };
 
 #endif

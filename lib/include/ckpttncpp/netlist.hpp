@@ -167,7 +167,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
      * @param part_info
      * @param part_info_down
      */
-    void projection_down(const PartInfo &part_info, PartInfo &part_info_down);
+    void projection_down(const std::vector<uint8_t> &part, std::vector<uint8_t> &part_down);
 
     /**
      * @brief projection up
@@ -175,7 +175,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
      * @param part_info
      * @param part_info_up
      */
-    void projection_up(const PartInfo &part_info, PartInfo &part_info_up);
+    void projection_up(const std::vector<uint8_t> &part, std::vector<uint8_t> &part_up);
 };
 
 /**

@@ -37,14 +37,14 @@ class FDBiGainCalc {
      * @param part_info
      * @return int
      */
-    auto init(const PartInfo &part_info) -> int {
+    auto init(const std::vector<uint8_t> &part) -> int {
         // for (auto &net : this->H.net_list) {
         this->totalcost = 0;
         for (auto &vlink : this->vertex_list) {
             vlink.key = 0;
         }
         for (auto net : this->H.nets) {
-            this->init_gain(net, part_info);
+            this->init_gain(net, part);
         }
         return this->totalcost;
     }
@@ -76,7 +76,7 @@ class FDBiGainCalc {
      * @param move_info
      * @return ret_2pin_info
      */
-    auto update_move_2pin_net(PartInfo &part_info, const MoveInfo &move_info)
+    auto update_move_2pin_net(std::vector<uint8_t> &part, const MoveInfo &move_info)
         -> ret_2pin_info;
 
     using ret_info = std::tuple<std::vector<index_t>, std::vector<int>>;
@@ -87,7 +87,7 @@ class FDBiGainCalc {
      * @param part_info
      * @param move_info
      */
-    auto update_move_3pin_net(PartInfo &part_info, const MoveInfo &move_info)
+    auto update_move_3pin_net(std::vector<uint8_t> &part, const MoveInfo &move_info)
         -> ret_info;
 
     /**
@@ -96,7 +96,7 @@ class FDBiGainCalc {
      * @param part_info
      * @param move_info
      */
-    auto update_move_general_net(PartInfo &part_info, const MoveInfo &move_info)
+    auto update_move_general_net(std::vector<uint8_t> &part, const MoveInfo &move_info)
         -> ret_info;
 
   protected:
@@ -117,7 +117,7 @@ class FDBiGainCalc {
      * @param net
      * @param part_info
      */
-    auto init_gain(node_t net, const PartInfo &part_info) -> void;
+    auto init_gain(node_t net, const std::vector<uint8_t> &part) -> void;
 
     /**
      * @brief

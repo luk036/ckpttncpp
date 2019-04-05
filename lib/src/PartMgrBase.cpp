@@ -9,19 +9,19 @@
  * @param part
  */
 template <typename GainMgr, typename ConstrMgr, template <typename _GainMgr, typename _ConstrMgr> class Derived> //
-auto PartMgrBase<GainMgr, ConstrMgr, Derived>::init(PartInfo &part_info)
+auto PartMgrBase<GainMgr, ConstrMgr, Derived>::init(std::vector<uint8_t> &part)
     -> void {
-    this->totalcost = this->gainMgr.init(part_info);
+    this->totalcost = this->gainMgr.init(part);
     // this->totalcost = this->gainMgr.totalcost;
-    auto const &[part, _] = part_info;
+    // auto const &[part, _] = part_info;
     this->validator.init(part);
 }
 
 template <typename GainMgr, typename ConstrMgr, template <typename _GainMgr, typename _ConstrMgr> class Derived> //
-auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(PartInfo &part_info)
+auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(std::vector<uint8_t> &part)
     -> size_t {
-    this->init(part_info);
-    auto &[part, _] = part_info;
+    this->init(part);
+    // auto &[part, _] = part_info;
 
     // Zero-weighted modules does not contribute legalization
     for (auto i_v = 0U; i_v < this->H.number_of_modules(); ++i_v) {
@@ -53,7 +53,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(PartInfo &part_info)
         }
         // Update v and its neigbours (even they are in waitinglist);
         // Put neigbours to bucket
-        this->gainMgr.update_move(part_info, move_info_v);
+        this->gainMgr.update_move(part, move_info_v);
         this->gainMgr.update_move_v(move_info_v, gainmax);
         this->validator.update_move(move_info_v);
         part[i_v] = toPart;
@@ -78,14 +78,14 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(PartInfo &part_info)
  */
 template <typename GainMgr, typename ConstrMgr, template <typename _GainMgr, typename _ConstrMgr> class Derived> //
 auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize_1pass(
-    PartInfo &part_info) -> void {
+    std::vector<uint8_t> &part) -> void {
     auto totalgain = 0;
     auto deferredsnapshot = false;
     // auto snapshot = part;
-    using SS_t = decltype(self.take_snapshot(part_info));
+    using SS_t = decltype(self.take_snapshot(part));
     auto snapshot = SS_t{};
     auto besttotalgain = 0;
-    auto &[part, _] = part_info;
+    // auto &[part, _] = part_info;
 
     while (!this->gainMgr.is_empty()) {
         // Take the gainmax with v from gainbucket
@@ -100,7 +100,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize_1pass(
             if (!deferredsnapshot || totalgain > besttotalgain) {
                 // Take a snapshot before move
                 // snapshot = part;
-                snapshot = self.take_snapshot(part_info);
+                snapshot = self.take_snapshot(part);
                 besttotalgain = totalgain;
             }
             deferredsnapshot = true;
@@ -112,7 +112,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize_1pass(
         // Put neigbours to bucket
         auto const &[fromPart, toPart, i_v] = move_info_v;
         this->gainMgr.lock(toPart, i_v);
-        this->gainMgr.update_move(part_info, move_info_v);
+        this->gainMgr.update_move(part, move_info_v);
         this->gainMgr.update_move_v(move_info_v, gainmax);
         this->validator.update_move(move_info_v);
         totalgain += gainmax;
@@ -121,7 +121,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize_1pass(
     if (deferredsnapshot) {
         // restore the previous best solution
         // part = snapshot;
-        self.restore_part_info(snapshot, part_info);
+        self.restore_part_info(snapshot, part);
         totalgain = besttotalgain;
     }
     this->totalcost -= totalgain;
@@ -135,15 +135,15 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize_1pass(
  * @param part
  */
 template <typename GainMgr, typename ConstrMgr, template <typename _GainMgr, typename _ConstrMgr> class Derived> //
-auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize(PartInfo &part_info)
+auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize(std::vector<uint8_t> &part)
     -> void {
-    // this->init(part_info);
+    // this->init(part);
     // auto totalcostafter = this->totalcost;
     while (true) {
-        this->init(part_info);
+        this->init(part);
         auto totalcostbefore = this->totalcost;
         // assert(totalcostafter == totalcostbefore);
-        this->optimize_1pass(part_info);
+        this->optimize_1pass(part);
         assert(this->totalcost <= totalcostbefore);
         if (this->totalcost == totalcostbefore) {
             break;

@@ -75,21 +75,21 @@ class PartMgrBase {
      *
      * @param part_info
      */
-    void init(PartInfo &part_info);
+    void init(std::vector<uint8_t> &part);
 
     /**
      * @brief
      *
      * @param part_info
      */
-    size_t legalize(PartInfo &part_info);
+    size_t legalize(std::vector<uint8_t> &part);
 
     /**
      * @brief
      *
      * @param part_info
      */
-    void optimize(PartInfo &part_info);
+    void optimize(std::vector<uint8_t> &part);
 
   private:
     /**
@@ -97,7 +97,7 @@ class PartMgrBase {
      *
      * @param part_info
      */
-    void optimize_1pass(PartInfo &part_info);
+    void optimize_1pass(std::vector<uint8_t> &part);
 
     /**
      * @brief
@@ -105,7 +105,7 @@ class PartMgrBase {
      * @param part_info
      * @return Snapshot
      */
-    auto take_snapshot(const PartInfo &part_info) -> Snapshot;
+    auto take_snapshot(const std::vector<uint8_t> &part) -> Snapshot;
 
     /**
      * @brief
@@ -113,7 +113,7 @@ class PartMgrBase {
      * @param snapshot
      * @return PartInfo
      */
-    auto restore_part_info(Snapshot &snapshot, PartInfo &part_info) -> void;
+    auto restore_part_info(Snapshot &snapshot, std::vector<uint8_t> &part) -> void;
 };
 
 #endif

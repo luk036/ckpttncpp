@@ -30,7 +30,7 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
      *
      * @param part
      */
-    auto init(const PartInfo &part_info) -> int;
+    auto init(const std::vector<uint8_t> &part) -> int;
 
     /**
      * @brief (needed by base class)

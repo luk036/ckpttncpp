@@ -6,8 +6,8 @@
  *
  * @param part_info
  */
-auto FDBiGainMgr::init(const PartInfo &part_info) -> int {
-    auto totalcost = Base::init(part_info);
+auto FDBiGainMgr::init(const std::vector<uint8_t> &part) -> int {
+    auto totalcost = Base::init(part);
     auto const &[part, extern_nets] = part_info;
 
     for (auto k = 0U; k < this->K; ++k) {

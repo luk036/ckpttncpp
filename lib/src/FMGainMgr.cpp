@@ -27,8 +27,8 @@ FMGainMgr<GainCalc, Derived>::FMGainMgr(SimpleNetlist &H, std::uint8_t K)
  * @param part
  */
 template <typename GainCalc, class Derived>
-auto FMGainMgr<GainCalc, Derived>::init(const PartInfo &part_info) -> int {
-    auto totalcost = this->gainCalc.init(part_info);
+auto FMGainMgr<GainCalc, Derived>::init(const std::vector<uint8_t> &part) -> int {
+    auto totalcost = this->gainCalc.init(part);
     // this->totalcost = this->gainCalc.totalcost;
     this->waitinglist.clear();
     return totalcost;
@@ -85,7 +85,7 @@ auto FMGainMgr<GainCalc, Derived>::select_togo(std::uint8_t toPart)
  * @param gain
  */
 template <typename GainCalc, class Derived>
-auto FMGainMgr<GainCalc, Derived>::update_move(const PartInfo &part_info,
+auto FMGainMgr<GainCalc, Derived>::update_move(const std::vector<uint8_t> &part,
                                                const MoveInfoV &move_info_v)
     -> void {
     // std::fill_n(this->deltaGainV.begin(), this->K, 0);
@@ -101,13 +101,13 @@ auto FMGainMgr<GainCalc, Derived>::update_move(const PartInfo &part_info,
         auto move_info = MoveInfo{net, fromPart, toPart, v};
         switch (degree) {
         case 2:
-            this->update_move_2pin_net(part_info, move_info);
+            this->update_move_2pin_net(part, move_info);
             break;
         case 3:
-            this->update_move_3pin_net(part_info, move_info);
+            this->update_move_3pin_net(part, move_info);
             break;
         default:
-            this->update_move_general_net(part_info, move_info);
+            this->update_move_general_net(part, move_info);
         }
     }
 }
@@ -120,10 +120,10 @@ auto FMGainMgr<GainCalc, Derived>::update_move(const PartInfo &part_info,
  */
 template <typename GainCalc, class Derived>
 auto FMGainMgr<GainCalc, Derived>::update_move_2pin_net(
-    const PartInfo &part_info, const MoveInfo &move_info) -> void {
+    const std::vector<uint8_t> &part, const MoveInfo &move_info) -> void {
     auto [i_w, deltaGainW] =
-        this->gainCalc.update_move_2pin_net(part_info, move_info);
-    auto const &[part, _] = part_info;
+        this->gainCalc.update_move_2pin_net(part, move_info);
+    // auto const &[part, _] = part_info;
     self.modify_key(i_w, part[i_w], deltaGainW);
 }
 
@@ -135,10 +135,10 @@ auto FMGainMgr<GainCalc, Derived>::update_move_2pin_net(
  */
 template <typename GainCalc, class Derived>
 auto FMGainMgr<GainCalc, Derived>::update_move_3pin_net(
-    const PartInfo &part_info, const MoveInfo &move_info) -> void {
+    const std::vector<uint8_t> &part, const MoveInfo &move_info) -> void {
     auto [IdVec, deltaGain] =
-        this->gainCalc.update_move_3pin_net(part_info, move_info);
-    auto const &[part, _] = part_info;
+        this->gainCalc.update_move_3pin_net(part, move_info);
+    // auto const &[part, _] = part_info;
     auto degree = std::size(IdVec);
     for (auto idx = 0U; idx < degree; ++idx) {
         auto i_w = IdVec[idx];
@@ -154,10 +154,10 @@ auto FMGainMgr<GainCalc, Derived>::update_move_3pin_net(
  */
 template <typename GainCalc, class Derived>
 auto FMGainMgr<GainCalc, Derived>::update_move_general_net(
-    const PartInfo &part_info, const MoveInfo &move_info) -> void {
+    const std::vector<uint8_t> &part, const MoveInfo &move_info) -> void {
     auto [IdVec, deltaGain] =
-        this->gainCalc.update_move_general_net(part_info, move_info);
-    auto const &[part, _] = part_info;
+        this->gainCalc.update_move_general_net(part, move_info);
+    // auto const &[part, _] = part_info;
     auto degree = std::size(IdVec);
     for (auto idx = 0U; idx < degree; ++idx) {
         auto i_w = IdVec[idx];

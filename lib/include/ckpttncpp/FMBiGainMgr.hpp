@@ -30,7 +30,7 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr> {
      * @param part_info
      * @return int
      */
-    auto init(const PartInfo &part_info) -> int;
+    auto init(const std::vector<uint8_t> &part) -> int;
 
     /**
      * @brief (needed by base class)

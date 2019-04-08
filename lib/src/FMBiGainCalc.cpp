@@ -36,7 +36,7 @@ void FMBiGainCalc::init_gain( //
  * @param part
  */
 void FMBiGainCalc::init_gain_2pin_net( //
-    node_t net, const std::vector<std::uint8_t> &part) {
+    node_t net, const std::vector<uint8_t> &part) {
     auto netCur = this->H.G[net].begin();
     auto w = *netCur;
     auto v = *++netCur;
@@ -60,7 +60,7 @@ void FMBiGainCalc::init_gain_2pin_net( //
  * @param part
  */
 void FMBiGainCalc::init_gain_3pin_net(node_t net,
-                                      const std::vector<std::uint8_t> &part) {
+                                      const std::vector<uint8_t> &part) {
     auto netCur = this->H.G[net].begin();
     auto w = *netCur;
     auto v = *++netCur;
@@ -93,7 +93,7 @@ void FMBiGainCalc::init_gain_3pin_net(node_t net,
  * @param part
  */
 void FMBiGainCalc::init_gain_general_net(
-    node_t net, const std::vector<std::uint8_t> &part) {
+    node_t net, const std::vector<uint8_t> &part) {
     uint8_t num[2] = {0, 0};
     auto IdVec = std::vector<index_t>{};
     for (auto const &w : this->H.G[net]) {

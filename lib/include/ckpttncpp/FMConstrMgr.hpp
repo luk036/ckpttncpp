@@ -18,7 +18,7 @@ class FMConstrMgr {
   protected:
     SimpleNetlist &H;
     double BalTol;
-    std::uint8_t K;
+    uint8_t K;
     std::vector<int> diff;
     int lowerbound{0};
     int totalweight{0};
@@ -31,7 +31,7 @@ class FMConstrMgr {
      * @param K
      * @param BalTol
      */
-    FMConstrMgr(SimpleNetlist &H, double BalTol, std::uint8_t K = 2)
+    FMConstrMgr(SimpleNetlist &H, double BalTol, uint8_t K = 2)
         : H{H}, BalTol{BalTol}, K{K}, diff(K, 0) {
         for (auto i_v = 0U; i_v < this->H.number_of_modules(); ++i_v) {
             weight = this->H.get_module_weight_by_id(i_v);
@@ -47,7 +47,7 @@ class FMConstrMgr {
      *
      * @param part
      */
-    auto init(const std::vector<std::uint8_t> &part) -> void;
+    auto init(const std::vector<uint8_t> &part) -> void;
 
     /**
      * @brief

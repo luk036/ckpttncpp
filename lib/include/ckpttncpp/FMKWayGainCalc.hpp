@@ -18,7 +18,7 @@ class FMKWayGainCalc {
 
   private:
     SimpleNetlist &H;
-    std::uint8_t K;
+    uint8_t K;
     robin<uint8_t> RR;
     index_t num_modules;
     std::vector<std::vector<dllink<index_t>>> vertex_list;
@@ -33,7 +33,7 @@ class FMKWayGainCalc {
      * @param H Netlist
      * @param K number of partitions
      */
-    FMKWayGainCalc(SimpleNetlist &H, std::uint8_t K)
+    FMKWayGainCalc(SimpleNetlist &H, uint8_t K)
         : H{H}, K{K}, RR{K}, num_modules{H.number_of_modules()},
           deltaGainV(K, 0) {
         for (auto k = 0U; k < this->K; ++k) {
@@ -48,7 +48,7 @@ class FMKWayGainCalc {
      * @param toPart
      * @return dllink*
      */
-    auto start_ptr(std::uint8_t toPart) -> dllink<index_t> * {
+    auto start_ptr(uint8_t toPart) -> dllink<index_t> * {
         return &this->vertex_list[toPart][0];
     }
 
@@ -76,7 +76,7 @@ class FMKWayGainCalc {
      * @param v
      * @param weight
      */
-    auto modify_gain(index_t i_v, std::uint8_t part_v, int weight) -> void {
+    auto modify_gain(index_t i_v, uint8_t part_v, int weight) -> void {
         for (auto &&k : this->RR.exclude(part_v)) {
             this->vertex_list[k][i_v].key += weight;
         }
@@ -140,7 +140,7 @@ class FMKWayGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain_2pin_net(node_t net, const std::vector<std::uint8_t> &part)
+    auto init_gain_2pin_net(node_t net, const std::vector<uint8_t> &part)
         -> void;
 
     /**
@@ -149,7 +149,7 @@ class FMKWayGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain_3pin_net(node_t net, const std::vector<std::uint8_t> &part)
+    auto init_gain_3pin_net(node_t net, const std::vector<uint8_t> &part)
         -> void;
 
     /**
@@ -159,7 +159,7 @@ class FMKWayGainCalc {
      * @param part
      */
     auto init_gain_general_net(node_t net,
-                               const std::vector<std::uint8_t> &part) -> void;
+                               const std::vector<uint8_t> &part) -> void;
 };
 
 #endif

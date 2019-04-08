@@ -7,7 +7,7 @@ auto FDPartMgr<GainMgr, ConstrMgr>::take_snapshot(const std::vector<uint8_t> &pa
     -> Snapshot {
     auto const &[part, extern_nets] = part_info;
     auto extern_nets_ss = extern_nets.copy();
-    auto extern_modules_ss = py::dict<index_t, std::uint8_t>{};
+    auto extern_modules_ss = py::dict<index_t, uint8_t>{};
     extern_modules_ss.reserve(3 * extern_nets.size());
     for (auto net : extern_nets) {
         for (auto v : this->H.G[net]) {

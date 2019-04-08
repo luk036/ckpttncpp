@@ -132,8 +132,8 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
         return 1;
     }
 
-    // auto project_down(const std::vector<std::uint8_t> &part,
-    //                   std::vector<std::uint8_t> &part_down) -> void {
+    // auto project_down(const std::vector<uint8_t> &part,
+    //                   std::vector<uint8_t> &part_down) -> void {
     //     auto &H = *this->parent;
     //     for (auto i_v = 0U; i_v < this->modules.size(); ++i_v) {
     //         auto v = this->modules[i_v];
@@ -151,8 +151,8 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     //     }
     // }
 
-    // auto project_up(const std::vector<std::uint8_t> &part,
-    //                 std::vector<std::uint8_t> &part_up) -> void {
+    // auto project_up(const std::vector<uint8_t> &part,
+    //                 std::vector<uint8_t> &part_up) -> void {
     //     auto &H = *this->parent;
     //     // for (auto [i_v, v] : py::enumerate(H.modules)) {
     //     for (auto i_v = 0U; i_v < H.number_of_modules(); ++i_v) {
@@ -221,21 +221,21 @@ using SimpleNetlist = Netlist<RngIter, RngIter>;
 
 struct MoveInfo {
     node_t net;
-    std::uint8_t fromPart;
-    std::uint8_t toPart;
+    uint8_t fromPart;
+    uint8_t toPart;
     node_t v;
 };
 
 struct MoveInfoV {
-    std::uint8_t fromPart;
-    std::uint8_t toPart;
+    uint8_t fromPart;
+    uint8_t toPart;
     // node_t v;
     index_t i_v;
 };
 
 struct Snapshot {
     py::set<node_t> extern_nets;
-    py::dict<index_t, std::uint8_t> extern_modules;
+    py::dict<index_t, uint8_t> extern_modules;
 };
 
 #endif

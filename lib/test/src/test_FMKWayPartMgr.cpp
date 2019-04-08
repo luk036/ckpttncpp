@@ -14,7 +14,7 @@ void readAre(SimpleNetlist &H, const char *areFileName);
  * @param H
  * @param K
  */
-void run_FMKWayPartMgr(SimpleNetlist &H, std::uint8_t K) {
+void run_FMKWayPartMgr(SimpleNetlist &H, uint8_t K) {
     auto gainMgr = FMKWayGainMgr{H, K};
     auto constrMgr = FMKWayConstrMgr{H, 0.4, K};
     // CHECK(H.G.nodes[0].get('weight', 1) == 5844);

@@ -31,14 +31,14 @@ void run_FMBiGainMgr(SimpleNetlist &H, std::vector<uint8_t> &part) {
 
 TEST_CASE("Test FMBiGainMgr", "[test_FMBiGainMgr]") {
     auto H = create_test_netlist();
-    auto part_test = std::vector<std::uint8_t>{0, 1, 0};
+    auto part_test = std::vector<uint8_t>{0, 1, 0};
     // auto part_info = PartInfo{std::move(part_test), py::set<node_t>{}};
     run_FMBiGainMgr(H, part_test);
 }
 
 TEST_CASE("Test FMBiGainMgr 2", "[test_FMBiGainMgr2]") {
     auto H = create_dwarf();
-    auto part_test = std::vector<std::uint8_t>{0, 0, 0, 0, 1, 1, 1};
+    auto part_test = std::vector<uint8_t>{0, 0, 0, 0, 1, 1, 1};
     // auto part_info = PartInfo{std::move(part_test), py::set<node_t>{}};
     run_FMBiGainMgr(H, part_test);
 }

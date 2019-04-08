@@ -29,7 +29,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
     std::vector<bpqueue<int>> gainbucket;
 
   public:
-    std::uint8_t K;
+    uint8_t K;
     // int totalcost;
 
     /**
@@ -38,7 +38,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      * @param H
      * @param K
      */
-    explicit FMGainMgr(SimpleNetlist &H, std::uint8_t K);
+    explicit FMGainMgr(SimpleNetlist &H, uint8_t K);
 
     /**
      * @brief
@@ -54,7 +54,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      * @return true
      * @return false
      */
-    [[nodiscard]] auto is_empty_togo(std::uint8_t toPart) const -> bool {
+    [[nodiscard]] auto is_empty_togo(uint8_t toPart) const -> bool {
         return this->gainbucket[toPart].is_empty();
     }
 
@@ -79,7 +79,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      * @param part
      * @return std::tuple<MoveInfoV, int>
      */
-    auto select(const std::vector<std::uint8_t> &part)
+    auto select(const std::vector<uint8_t> &part)
         -> std::tuple<MoveInfoV, int>;
 
     /**
@@ -88,7 +88,7 @@ template <typename GainCalc, class Derived> class FMGainMgr {
      * @param toPart
      * @return std::tuple<index_t, int>
      */
-    auto select_togo(std::uint8_t toPart) -> std::tuple<index_t, int>;
+    auto select_togo(uint8_t toPart) -> std::tuple<index_t, int>;
 
     /**
      * @brief

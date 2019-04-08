@@ -21,7 +21,7 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
      * @param H
      * @param K
      */
-    FDBiGainMgr(SimpleNetlist &H, std::uint8_t /* K */) : Base{H, 2} {}
+    FDBiGainMgr(SimpleNetlist &H, uint8_t /* K */) : Base{H, 2} {}
 
     /**
      * @brief
@@ -38,7 +38,7 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
      * @param part_w
      * @param key
      */
-    auto modify_key(index_t i_w, std::uint8_t part_w, int key) -> void {
+    auto modify_key(index_t i_w, uint8_t part_w, int key) -> void {
         this->gainbucket[1 - part_w].modify_key(
             this->gainCalc.vertex_list[i_w], key);
     }
@@ -55,13 +55,13 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
         this->set_key(fromPart, i_v, -gain);
     }
 
-    auto lock(std::uint8_t whichPart, index_t i_v) -> void {
+    auto lock(uint8_t whichPart, index_t i_v) -> void {
         auto &vlink = this->gainCalc.vertex_list[i_v];
         this->gainbucket[whichPart].detach(vlink);
         vlink.lock();
     }
 
-    auto lock_all(std::uint8_t fromPart, index_t i_v) -> void {
+    auto lock_all(uint8_t fromPart, index_t i_v) -> void {
         this->lock(1 - fromPart, i_v);
     }
 
@@ -73,7 +73,7 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
      * @param v
      * @param key
      */
-    auto set_key(std::uint8_t whichPart, index_t i_v, int key) -> void {
+    auto set_key(uint8_t whichPart, index_t i_v, int key) -> void {
         this->gainbucket[whichPart].set_key(this->gainCalc.vertex_list[i_v],
                                              key);
     }

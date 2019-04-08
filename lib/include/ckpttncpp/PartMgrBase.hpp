@@ -53,9 +53,9 @@ class PartMgrBase {
     SimpleNetlist &H;
     GainMgr &gainMgr;
     ConstrMgr &validator;
-    std::uint8_t K;
-    // std::vector<std::uint8_t> snapshot;
-    // std::vector<std::uint8_t> part;
+    uint8_t K;
+    // std::vector<uint8_t> snapshot;
+    // std::vector<uint8_t> part;
 
   public:
     int totalcost{0};

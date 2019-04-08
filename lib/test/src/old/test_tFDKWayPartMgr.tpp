@@ -14,7 +14,7 @@ void readAre(SimpleNetlist &H, const char *areFileName);
  * @param H
  * @param K
  */
-void run_FDKWayPartMgr(SimpleNetlist &H, std::uint8_t K) {
+void run_FDKWayPartMgr(SimpleNetlist &H, uint8_t K) {
     auto gainMgr = FDKWayGainMgr{H, K};
     auto constrMgr = FMKWayConstrMgr{H, 0.4, K};
     auto partMgr = FDPartMgr{H, gainMgr, constrMgr};

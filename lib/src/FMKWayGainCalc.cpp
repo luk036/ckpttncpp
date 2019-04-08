@@ -37,7 +37,7 @@ auto FMKWayGainCalc::init_gain(node_t net, const std::vector<uint8_t> &part) -> 
  * @param part
  */
 auto FMKWayGainCalc::init_gain_2pin_net(node_t net,
-                                        const std::vector<std::uint8_t> &part)
+                                        const std::vector<uint8_t> &part)
     -> void {
     auto netCur = this->H.G[net].begin();
     auto w = *netCur;
@@ -65,7 +65,7 @@ auto FMKWayGainCalc::init_gain_2pin_net(node_t net,
  * @param part
  */
 auto FMKWayGainCalc::init_gain_3pin_net(node_t net,
-                                        const std::vector<std::uint8_t> &part)
+                                        const std::vector<uint8_t> &part)
     -> void {
     auto netCur = this->H.G[net].begin();
     auto w = *netCur;
@@ -117,7 +117,7 @@ auto FMKWayGainCalc::init_gain_3pin_net(node_t net,
  * @param part
  */
 auto FMKWayGainCalc::init_gain_general_net(
-    node_t net, const std::vector<std::uint8_t> &part) -> void {
+    node_t net, const std::vector<uint8_t> &part) -> void {
     std::vector<uint8_t> num(this->K, 0);
     auto IdVec = std::vector<index_t>{};
     for (auto const &w : this->H.G[net]) {

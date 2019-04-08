@@ -4,7 +4,7 @@
 // **Special code for two-pin nets**
 // Take a snapshot when a move make **negative** gain.
 // Snapshot in the form of "interface"???
-#include "FDPartMgr.hpp" // import FDPartMgr
+// #include "FDPartMgr.hpp" // import FDPartMgr
 #include "FMPartMgr.hpp" // import FMPartMgr
 #include "netlist.hpp"
 #include <iostream>
@@ -20,7 +20,7 @@ create_contraction_subgraph(SimpleNetlist &, const py::set<node_t> &);
 class MLPartMgr {
   private:
     double BalTol;
-    std::uint8_t K;
+    uint8_t K;
 
   public:
     int totalcost{0};
@@ -31,7 +31,7 @@ class MLPartMgr {
      * @param BalTol
      * @param K
      */
-    explicit MLPartMgr(double BalTol, std::uint8_t K = 2)
+    explicit MLPartMgr(double BalTol, uint8_t K = 2)
         : BalTol{BalTol}, K{K} {}
 
     /**
@@ -71,7 +71,7 @@ class MLPartMgr {
                 auto H2 = create_contraction_subgraph(H, py::set<node_t>{});
                 if (5 * H2->number_of_modules() <= 3 * H.number_of_modules()) {
                     auto part2 =
-                        std::vector<std::uint8_t>(H2->number_of_modules(), 0);
+                        std::vector<uint8_t>(H2->number_of_modules(), 0);
                     // auto extern_nets_ss = py::set<node_t>{};
                     // auto part2_info =
                     //     PartInfo{std::move(part2), std::move(extern_nets_ss)};
@@ -142,7 +142,7 @@ class MLPartMgr {
                 auto H2 = create_contraction_subgraph(H, py::set<node_t>{});
                 if (5 * H2->number_of_modules() <= 3 * H.number_of_modules()) {
                     auto part2 =
-                        std::vector<std::uint8_t>(H2->number_of_modules(), 0);
+                        std::vector<uint8_t>(H2->number_of_modules(), 0);
                     // auto extern_nets_ss = py::set<node_t>{};
                     // auto part2_info =
                     //     PartInfo{std::move(part2), std::move(extern_nets_ss)};
@@ -195,7 +195,7 @@ class MLPartMgr {
     //     }
     //     if (H.number_of_modules() >= limitsize) { // OK
     //         auto H2 = create_contraction_subgraph(H, extern_nets);
-    //         auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(),
+    //         auto part2 = std::vector<uint8_t>(H2->number_of_modules(),
     //         0); auto extern_nets = py::set<node_t>{}; auto part2_info =
     //             PartInfo{std::move(part2), std::move(extern_nets)};
     //         H2->projection_up(part, part2);

@@ -10,8 +10,8 @@ matrix:
           packages:
             - g++-8
             - catch
-            - libboost-coroutine-dev
-            - libboost-context-dev
+            - libboost-coroutine1.62-dev
+            - libboost-context1.62-dev
       env: COMPILER=gcc GCC=8 BLAS=OpenBLAS BUILD_TYPE='Debug'
     - os: linux
       addons:
@@ -21,8 +21,8 @@ matrix:
           packages:
             - g++-8
             - catch
-            - libboost-coroutine-dev
-            - libboost-context-dev
+            - libboost-coroutine1.62-dev
+            - libboost-context1.62-dev
       env: COMPILER=gcc GCC=8 BLAS=OpenBLAS BUILD_TYPE='Release'
 env:
   global:

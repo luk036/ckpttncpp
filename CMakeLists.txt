@@ -13,7 +13,7 @@ set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set (THREADS_PREFER_PTHREAD_FLAG ON)
 find_package (Threads REQUIRED)
-find_package (Boost 1.62.0 COMPONENTS coroutine)
+find_package (Boost 1.60.0 COMPONENTS coroutine)
 # find_package (xtensor REQUIRED)
 # message(STATUS "Found xtensor: ${xtensor_INCLUDE_DIRS}")
 # set(LIBS ${LIBS} "-L${xtensor_INCLUDE_DIRS}/../lib")

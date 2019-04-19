@@ -7,22 +7,24 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+            - boost-latest
           packages:
             - g++-8
             - catch
-            - libboost-coroutine1.60-dev
-            - libboost-context1.60-dev
+            - libboost-coroutine-dev
+            - libboost-context-dev
       env: COMPILER=gcc GCC=8 BLAS=OpenBLAS BUILD_TYPE='Debug'
     - os: linux
       addons:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+            - boost-latest
           packages:
             - g++-8
             - catch
-            - libboost-coroutine1.60-dev
-            - libboost-context1.60-dev
+            - libboost-coroutine-dev
+            - libboost-context-dev
       env: COMPILER=gcc GCC=8 BLAS=OpenBLAS BUILD_TYPE='Release'
 env:
   global:

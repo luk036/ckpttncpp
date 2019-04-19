@@ -21,7 +21,7 @@ TEST_CASE("Test dllist", "[dllist]") {
     CHECK(!L2.is_empty());
 
     auto count = 0U;
-    for (auto &_ : L2) {
+    for (auto &_ : L2.items()) {
         count += 1;
     }
     CHECK(count == 2);

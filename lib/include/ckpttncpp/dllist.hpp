@@ -2,6 +2,7 @@
 #define CKPTTNCPP_DLLIST_HPP 1
 
 #include <cassert>
+#include <boost/coroutine2/all.hpp>
 
 // forward declare
 template <typename T> struct dll_iterator;
@@ -146,6 +147,19 @@ template <typename T> struct dllink {
      * @return dll_iterator
      */
     auto end() -> dll_iterator<T>;
+
+    using coro_t = boost::coroutines2::coroutine<dllink<T>&>;
+    using pull_t = typename coro_t::pull_type;
+    auto items() -> pull_t {
+        auto func = [&](typename coro_t::push_type & yield){
+            auto cur = this->next;
+            while (cur != this) {
+                yield(*cur);
+                cur = cur->next;
+            }
+        };
+        return pull_t(func);
+    }
 };
 
 /**

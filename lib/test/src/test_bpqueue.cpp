@@ -38,7 +38,7 @@ TEST_CASE("Test BPQueue", "[bpqueue]") {
     bpq1.appendfrom(nodelist);
 
     auto count = 0U;
-    for (auto &_ : bpq1) {
+    for (auto &_ : bpq1.items()) {
         count += 1;
     }
     CHECK(count == 10);

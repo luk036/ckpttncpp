@@ -5,7 +5,7 @@
 #include <cassert>
 #include <vector>
 
-// forward declare
+// Forward declaration
 template <typename T> struct bpq_iterator;
 
 /**
@@ -231,6 +231,21 @@ template <typename T> struct bpqueue {
      * @return bpq_iterator
      */
     auto end() -> bpq_iterator<T>;
+
+    using coro_t = boost::coroutines2::coroutine<dllink<T>&>;
+    using pull_t = typename coro_t::pull_type;
+    auto items() -> pull_t {
+        auto func = [&](typename coro_t::push_type & yield){
+            auto curkey = this->max;
+            while (curkey > 0) {
+                for (auto& item : this->bucket[curkey].items()) {
+                    yield(item);
+                }
+                curkey -= 1;
+            }
+        };
+        return pull_t(func);
+    }
 };
 
 template <typename T> dllink<T> bpqueue<T>::sentinel{};
@@ -272,7 +287,7 @@ template <typename T> class bpq_iterator {
      */
     auto operator++() -> bpq_iterator<T> & {
         ++this->curitem;
-        if (this->curitem == this->curlist().end()) {
+        while (this->curitem == this->curlist().end()) {
             do {
                 this->curkey -= 1;
             } while (this->curlist().is_empty());

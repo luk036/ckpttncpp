@@ -12,7 +12,7 @@ set (LIBRARY_INCLUDE_PATH  "${LIBRARY_MODULE_PATH}/include")
 
 #set includes
 # include_directories (${LIBRARY_INCLUDE_PATH} ${THIRD_PARTY_INCLUDE_PATH})
-include_directories (${LIBRARY_INCLUDE_PATH} ${THIRD_PARTY_INCLUDE_PATH} ${xtensor_INCLUDE_DIRS} ${Boost_INCLUDE_DIR})
+include_directories (${LIBRARY_INCLUDE_PATH} ${THIRD_PARTY_INCLUDE_PATH} "$ENV{CONDA_PREFIX}/include")
 
 #set sources
 file (GLOB LIB_HEADER_FILES "${LIBRARY_INCLUDE_PATH}/*.hpp ${LIBRARY_INCLUDE_PATH}/*.h")

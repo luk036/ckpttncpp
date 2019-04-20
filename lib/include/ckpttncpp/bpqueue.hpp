@@ -232,23 +232,23 @@ template <typename T> struct bpqueue {
      */
     auto end() -> bpq_iterator<T>;
 
-    // using coro_t = boost::coroutines2::coroutine<dllink<T>&>;
-    // using pull_t = typename coro_t::pull_type;
-    // auto items() -> pull_t {
-    //     auto func = [&](typename coro_t::push_type & yield){
-    //         auto curkey = this->max;
-    //         while (curkey > 0) {
-    //             for (auto& item : this->bucket[curkey].items()) {
-    //                 yield(item);
-    //             }
-    //             curkey -= 1;
-    //         }
-    //     };
-    //     return pull_t(func);
-    // }
+    using coro_t = boost::coroutines2::coroutine<dllink<T>&>;
+    using pull_t = typename coro_t::pull_type;
+    auto items() -> pull_t {
+        auto func = [&](typename coro_t::push_type & yield){
+            auto curkey = this->max;
+            while (curkey > 0) {
+                for (auto& item : this->bucket[curkey].items()) {
+                    yield(item);
+                }
+                curkey -= 1;
+            }
+        };
+        return pull_t(func);
+    }
 
-    auto& items() { return *this; }
-    const auto& items() const { return *this; }
+    // auto& items() { return *this; }
+    // const auto& items() const { return *this; }
 };
 
 template <typename T> dllink<T> bpqueue<T>::sentinel{};

@@ -21,7 +21,7 @@ class FMBiGainCalc {
     std::vector<dllink<index_t>> vertex_list;
 
   public:
-    int totalcost{0};
+    int totalcost = 0;
 
     /**
      * @brief Construct a new FMBiGainCalc object
@@ -38,12 +38,10 @@ class FMBiGainCalc {
      * @param part
      */
     auto init(const std::vector<uint8_t> &part) -> int {
-        // for (auto &net : this->H.net_list) {
         this->totalcost = 0;
         for (auto &vlink : this->vertex_list) {
             vlink.key = 0;
         }
-        // auto &[part, extern_nets] = part_info;
         for (auto net : this->H.nets) {
             this->init_gain(net, part);
         }

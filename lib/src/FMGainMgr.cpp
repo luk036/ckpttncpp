@@ -71,7 +71,6 @@ auto FMGainMgr<GainCalc, Derived>::select_togo(uint8_t toPart)
     auto gainmax = this->gainbucket[toPart].get_max();
     auto &vlink = this->gainbucket[toPart].popleft();
     this->waitinglist.append(vlink);
-    // node_t v = &vlink - this->gainCalc.start_ptr(toPart);
     index_t i_v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);
     // node_t v = this->H.modules[v];
     return std::tuple{i_v, gainmax};

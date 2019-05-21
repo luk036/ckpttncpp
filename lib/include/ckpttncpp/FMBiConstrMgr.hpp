@@ -3,10 +3,12 @@
 
 #include "FMConstrMgr.hpp" // import FMConstrMgr
 
-// Check if (the move of v can satisfied, makebetter, or notsatisfied
-
-class FMBiConstrMgr : public FMConstrMgr {
-  public:
+/**
+ * @brief Constraint Manager
+ *
+ * Check if (the move of v can satisfied, makebetter, or notsatisfied 
+ */
+struct FMBiConstrMgr : FMConstrMgr {
     /**
      * @brief Construct a new FMBiConstrMgr object
      *

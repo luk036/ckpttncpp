@@ -5,7 +5,7 @@
 template <typename GainMgr, typename ConstrMgr>
 auto FDPartMgr<GainMgr, ConstrMgr>::take_snapshot(const std::vector<uint8_t> &part)
     -> Snapshot {
-    auto const &[part, extern_nets] = part_info;
+    auto &&[part, extern_nets] = part_info;
     auto extern_nets_ss = extern_nets.copy();
     auto extern_modules_ss = py::dict<index_t, uint8_t>{};
     extern_modules_ss.reserve(3 * extern_nets.size());
@@ -25,7 +25,7 @@ auto FDPartMgr<GainMgr, ConstrMgr>::restore_part_info(Snapshot &snapshot,
     auto &[extern_nets_ss, extern_modules_ss] = snapshot;
     // auto &[part, extern_nets] = part_info;
     std::fill(part.begin(), part.end(), this->K);
-    for (auto const &[v, part_v] : extern_modules_ss.items()) {
+    for (auto &&[v, part_v] : extern_modules_ss.items()) {
         auto i_v = this->H.module_map[v];
         if (part[i_v] < this->K) {
             continue;

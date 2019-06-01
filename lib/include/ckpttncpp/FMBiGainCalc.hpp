@@ -21,7 +21,7 @@ class FMBiGainCalc {
     std::vector<dllink<index_t>> vertex_list;
 
   public:
-    int totalcost = 0;
+    int totalcost;
 
     /**
      * @brief Construct a new FMBiGainCalc object

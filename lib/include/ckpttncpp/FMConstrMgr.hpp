@@ -15,6 +15,8 @@ class MoveInfoV;
  *
  */
 class FMConstrMgr {
+    uint32_t weight; // cache value
+
   protected:
     SimpleNetlist &H;
     double BalTol;
@@ -22,7 +24,6 @@ class FMConstrMgr {
     std::vector<int> diff;
     int lowerbound{0};
     int totalweight{0};
-    uint32_t weight{0}; // cache value
 
     /**
      * @brief Construct a new FMConstrMgr object

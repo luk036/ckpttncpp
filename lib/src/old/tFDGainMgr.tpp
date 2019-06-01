@@ -86,7 +86,7 @@ auto FDGainMgr<GainCalc, Derived>::update_move(std::vector<uint8_t> &part,
     -> void {
     this->gainCalc.update_move_init();
 
-    auto const &[fromPart, toPart, i_v] = move_info_v;
+    auto &&[fromPart, toPart, i_v] = move_info_v;
     auto v = this->H.modules[i_v];
     for (node_t net : this->H.G[v]) {
         auto degree = this->H.G.degree(net);

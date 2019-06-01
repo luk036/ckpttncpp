@@ -21,11 +21,11 @@ template <typename GainCalc, class Derived> class FMGainMgr {
     using index_t = typename SimpleNetlist::index_t;
 
   protected:
+    dllink<index_t> waitinglist{};
+
     SimpleNetlist &H;
     GainCalc gainCalc;
     int pmax;
-    // index_t num[2];
-    dllink<index_t> waitinglist{};
     std::vector<bpqueue<int>> gainbucket;
 
   public:

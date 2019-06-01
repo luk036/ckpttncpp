@@ -51,7 +51,7 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
      * @param gain
      */
     auto update_move_v(const MoveInfoV &move_info_v, int gain) -> void {
-        auto const &[fromPart, _, i_v] = move_info_v;
+        auto &&[fromPart, _, i_v] = move_info_v;
         this->set_key(fromPart, i_v, -gain);
     }
 

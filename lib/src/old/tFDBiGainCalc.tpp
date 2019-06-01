@@ -18,7 +18,7 @@ void FDBiGainCalc::init_gain( //
     if (unlikely(degree < 2)) {
         return; // does not provide any gain when moving
     }
-    auto const &[part, extern_nets] = part_info;
+    auto &&[part, extern_nets] = part_info;
     auto weight = this->H.get_net_weight(net);
     if (extern_nets.contains(net)) {
         this->totalcost += weight;
@@ -109,7 +109,7 @@ void FDBiGainCalc::init_gain_general_net(node_t net,
 auto FDBiGainCalc::update_move_2pin_net(std::vector<uint8_t> &part,
                                         const MoveInfo &move_info)
     -> ret_2pin_info {
-    auto const &[net, fromPart, _, v] = move_info;
+    auto &&[net, fromPart, _, v] = move_info;
     // auto &[part, extern_nets] = part_info;
     auto netCur = this->H.G[net].begin();
     auto w = (*netCur != v) ? *netCur : *++netCur;
@@ -134,7 +134,7 @@ auto FDBiGainCalc::update_move_2pin_net(std::vector<uint8_t> &part,
  */
 auto FDBiGainCalc::update_move_3pin_net(std::vector<uint8_t> &part,
                                         const MoveInfo &move_info) -> ret_info {
-    auto const &[net, fromPart, _, v] = move_info;
+    auto &&[net, fromPart, _, v] = move_info;
     // auto &[part, extern_nets] = part_info;
     index_t num[2] = {0, 0};
     auto IdVec = std::vector<index_t>{};
@@ -181,7 +181,7 @@ auto FDBiGainCalc::update_move_3pin_net(std::vector<uint8_t> &part,
 auto FDBiGainCalc::update_move_general_net(std::vector<uint8_t> &part,
                                            const MoveInfo &move_info)
     -> ret_info {
-    auto const &[net, fromPart, toPart, v] = move_info;
+    auto &&[net, fromPart, toPart, v] = move_info;
     // auto &[part, extern_nets] = part_info;
     index_t num[2] = {0, 0};
     auto IdVec = std::vector<index_t>{};

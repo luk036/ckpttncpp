@@ -8,7 +8,7 @@
  */
 auto FDKWayGainMgr::init(const std::vector<uint8_t> &part) -> int {
     auto totalcost = Base::init(part);
-    auto const &[part, extern_nets] = part_info;
+    auto &&[part, extern_nets] = part_info;
 
     for (auto k = 0U; k < this->K; ++k) {
         this->gainbucket[k].clear();
@@ -39,7 +39,7 @@ auto FDKWayGainMgr::init(const std::vector<uint8_t> &part) -> int {
  */
 auto FDKWayGainMgr::update_move_v(const MoveInfoV &move_info_v, int gain)
     -> void {
-    auto const &[fromPart, toPart, i_v] = move_info_v;
+    auto &&[fromPart, toPart, i_v] = move_info_v;
 
     for (auto k = 0U; k < this->K; ++k) {
         if (fromPart == k || toPart == k) {

@@ -13,7 +13,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::init(std::vector<uint8_t> &part)
     -> void {
     this->totalcost = this->gainMgr.init(part);
     // this->totalcost = this->gainMgr.totalcost;
-    // auto const &[part, _] = part_info;
+    // auto &&[part, _] = part_info;
     this->validator.init(part);
 }
 
@@ -110,7 +110,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize_1pass(
         }
         // Update v and its neigbours (even they are in waitinglist);
         // Put neigbours to bucket
-        auto const &[fromPart, toPart, i_v] = move_info_v;
+        auto &&[fromPart, toPart, i_v] = move_info_v;
         this->gainMgr.lock(toPart, i_v);
         this->gainMgr.update_move(part, move_info_v);
         this->gainMgr.update_move_v(move_info_v, gainmax);

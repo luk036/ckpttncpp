@@ -13,7 +13,7 @@ auto FMKWayGainMgr::init(const std::vector<uint8_t> &part) -> int {
     for (auto k = 0U; k < this->K; ++k) {
         this->gainbucket[k].clear();
     }
-    // auto const &[part, _] = part_info;
+    // auto &&[part, _] = part_info;
 
     // for (auto v : this->H.modules) {
     for (auto i_v = 0U; i_v < this->H.number_of_modules(); ++i_v) {
@@ -42,7 +42,7 @@ auto FMKWayGainMgr::init(const std::vector<uint8_t> &part) -> int {
  */
 auto FMKWayGainMgr::update_move_v(const MoveInfoV &move_info_v, int gain)
     -> void {
-    auto const &[fromPart, toPart, i_v] = move_info_v;
+    auto &&[fromPart, toPart, i_v] = move_info_v;
 
     for (auto k = 0U; k < this->K; ++k) {
         if (fromPart == k || toPart == k) {

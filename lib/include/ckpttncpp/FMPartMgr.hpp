@@ -41,7 +41,7 @@ class FMPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FMPartMgr> {
      * @return Snapshot
      */
     auto take_snapshot(const std::vector<uint8_t> &part) -> std::vector<uint8_t> {
-        // auto const &[part, _] = part_info;
+        // auto &&[part, _] = part_info;
         auto snapshot = part;
         return std::move(snapshot);
     }

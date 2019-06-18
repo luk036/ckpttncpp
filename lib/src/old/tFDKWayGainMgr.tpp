@@ -1,7 +1,7 @@
 #include <ckpttncpp/FDKWayGainCalc.hpp>
 #include <ckpttncpp/FDKWayGainMgr.hpp>
 
-/*!
+/**
  * @brief
  *
  * @param part
@@ -30,7 +30,7 @@ auto FDKWayGainMgr::init(const std::vector<uint8_t> &part) -> int {
     return totalcost;
 }
 
-/*!
+/**
  * @brief
  *
  * @param part

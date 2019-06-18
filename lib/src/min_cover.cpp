@@ -5,7 +5,7 @@
 #include <tuple>
 #include <vector>
 
-/*!
+/**
  * @brief
  *
  * @param H
@@ -53,7 +53,7 @@ auto max_independent_net(SimpleNetlist &H, const std::vector<int> & /*weight*/,
     return std::tuple{std::move(S), total_cost};
 }
 
-// /*!
+// /**
 //  * @brief
 //  *
 //  * @param H
@@ -134,7 +134,7 @@ auto max_independent_net(SimpleNetlist &H, const std::vector<int> & /*weight*/,
 //     return std::tuple{std::move(S), total_primal_cost};
 // }
 
-/*!
+/**
  * @brief Create a contraction subgraph object
  *
  * @param H

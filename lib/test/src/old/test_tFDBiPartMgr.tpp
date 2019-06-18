@@ -8,7 +8,7 @@ extern SimpleNetlist create_dwarf();        // import create_dwarf
 extern SimpleNetlist readNetD(const char *netDFileName);
 void readAre(SimpleNetlist &H, const char *areFileName);
 
-/*!
+/**
  * @brief Run test cases
  *
  * @param H

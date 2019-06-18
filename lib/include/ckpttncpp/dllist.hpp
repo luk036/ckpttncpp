@@ -7,7 +7,7 @@
 // forward declare
 // template <typename T> struct dll_iterator;
 
-/*!
+/**
  * @brief doubly linked node (that may also be a "head" a list)
  *
  * A Doubly-linked List class. This class simply contains a link of
@@ -19,11 +19,11 @@
  * are supplied by the caller in order to better reuse the nodes.
  */
 template <typename T> struct dllink {
-    dllink<T> *next{this}; /*!< pointer to the next node */
-    dllink<T> *prev{this}; /*!< pointer to the previous node */
+    dllink<T> *next{this}; /**< pointer to the next node */
+    dllink<T> *prev{this}; /**< pointer to the previous node */
     T key;
 
-    /*!
+    /**
      * @brief Construct a new dllink object
      *
      * @param key the key
@@ -32,13 +32,13 @@ template <typename T> struct dllink {
         static_assert(sizeof(dllink<T>) <= 24);
     }
 
-    /*!
+    /**
      * @brief Copy construct a new dllink object (deleted intentionally)
      *
      */
     dllink(dllink<T> &) = delete;
 
-    /*!
+    /**
      * @brief detach from a list
      *
      */
@@ -50,13 +50,13 @@ template <typename T> struct dllink {
         n->prev = p;
     }
 
-    /*!
+    /**
      * @brief lock the node (and don't append it to any list)
      *
      */
     auto lock() -> void { this->next = nullptr; }
 
-    /*!
+    /**
      * @brief whether the node is locked
      *
      * @return true
@@ -64,7 +64,7 @@ template <typename T> struct dllink {
      */
     auto is_locked() const noexcept -> bool { return this->next == nullptr; }
 
-    /*!
+    /**
      * @brief whether the list is empty
      *
      * @return true
@@ -74,13 +74,13 @@ template <typename T> struct dllink {
         return this->next == this;
     }
 
-    /*!
+    /**
      * @brief reset the list
      *
      */
     auto clear() -> void { this->next = this->prev = this; }
 
-    /*!
+    /**
      * @brief append the node to the front
      *
      * @param node
@@ -92,7 +92,7 @@ template <typename T> struct dllink {
         node.prev = this;
     }
 
-    /*!
+    /**
      * @brief append the node to the back
      *
      * @param node
@@ -104,7 +104,7 @@ template <typename T> struct dllink {
         node.next = this;
     }
 
-    /*!
+    /**
      * @brief pop a node from the front
      *
      * @return dllink&
@@ -118,7 +118,7 @@ template <typename T> struct dllink {
         return *res;
     }
 
-    /*!
+    /**
      * @brief pop a node from the back
      *
      * @return dllink&
@@ -134,14 +134,14 @@ template <typename T> struct dllink {
 
     // For iterator
 
-    // /*!
+    // /**
     //  * @brief
     //  *
     //  * @return dll_iterator
     //  */
     // auto begin() -> dll_iterator<T>;
 
-    // /*!
+    // /**
     //  * @brief
     //  *
     //  * @return dll_iterator
@@ -165,23 +165,23 @@ template <typename T> struct dllink {
     // const auto& items() const { return *this; }
 };
 
-// /*!
+// /**
 //  * @brief list iterator
 //  *
 //  * List iterator. Traverse the list from the first item. Usually it is
 //  * safe to attach/detach list items during the iterator is active.
 //  */
 // template <typename T> struct dll_iterator {
-//     dllink<T> *cur; /*!< pointer to the current item */
+//     dllink<T> *cur; /**< pointer to the current item */
 
-//     /*!
+//     /**
 //      * @brief Construct a new dll iterator object
 //      *
 //      * @param cur
 //      */
 //     explicit dll_iterator(dllink<T> *cur) : cur{cur} {}
 
-//     /*!
+//     /**
 //      * @brief move to the next item
 //      *
 //      * @return dllink&
@@ -191,14 +191,14 @@ template <typename T> struct dllink {
 //         return *this;
 //     }
 
-//     /*!
+//     /**
 //      * @brief get the reference of the current item
 //      *
 //      * @return dllink&
 //      */
 //     auto operator*() -> dllink<T> & { return *this->cur; }
 
-//     /*!
+//     /**
 //      * @brief eq operator
 //      *
 //      * @param rhs
@@ -209,7 +209,7 @@ template <typename T> struct dllink {
 //         return this->cur == rhs.cur;
 //     }
 
-//     /*!
+//     /**
 //      * @brief neq operator
 //      *
 //      * @param rhs
@@ -221,7 +221,7 @@ template <typename T> struct dllink {
 //     }
 // };
 
-// /*!
+// /**
 //  * @brief begin
 //  *
 //  * @return dll_iterator
@@ -230,7 +230,7 @@ template <typename T> struct dllink {
 //     return dll_iterator{this->next};
 // }
 
-// /*!
+// /**
 //  * @brief end
 //  *
 //  * @return dll_iterator

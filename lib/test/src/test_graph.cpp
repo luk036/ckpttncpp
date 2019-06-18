@@ -3,7 +3,7 @@
 #include <py2cpp/py2cpp.hpp>
 #include <xnetwork/classes/graph.hpp>
 
-/*!
+/**
  * @brief Create a test netlist object
  *
  * @return Netlist

@@ -8,7 +8,7 @@
 
 class FMKWayGainMgr;
 
-/*!
+/**
  * @brief FMKWayGainCalc
  *
  */
@@ -27,7 +27,7 @@ class FMKWayGainCalc {
   public:
     int totalcost{0};
 
-    /*!
+    /**
      * @brief Construct a new FMKWayGainCalc object
      *
      * @param H Netlist
@@ -42,7 +42,7 @@ class FMKWayGainCalc {
         }
     }
 
-    /*!
+    /**
      * @brief
      *
      * @param toPart
@@ -52,7 +52,7 @@ class FMKWayGainCalc {
         return &this->vertex_list[toPart][0];
     }
 
-    /*!
+    /**
      * @brief
      *
      * @param part
@@ -70,7 +70,7 @@ class FMKWayGainCalc {
         return this->totalcost;
     }
 
-    /*!
+    /**
      * @brief
      *
      * @param v
@@ -82,7 +82,7 @@ class FMKWayGainCalc {
         }
     }
 
-    /*!
+    /**
      * @brief
      *
      */
@@ -92,7 +92,7 @@ class FMKWayGainCalc {
 
     using ret_2pin_info = std::tuple<index_t, std::vector<int>>;
 
-    /*!
+    /**
      * @brief
      *
      * @param part
@@ -105,7 +105,7 @@ class FMKWayGainCalc {
     using ret_info =
         std::tuple<std::vector<index_t>, std::vector<std::vector<int>>>;
 
-    /*!
+    /**
      * @brief
      *
      * @param part
@@ -115,7 +115,7 @@ class FMKWayGainCalc {
     auto update_move_3pin_net(const std::vector<uint8_t> &part,
                               const MoveInfo &move_info) -> ret_info;
 
-    /*!
+    /**
      * @brief
      *
      * @param part
@@ -126,7 +126,7 @@ class FMKWayGainCalc {
                                  const MoveInfo &move_info) -> ret_info;
 
   private:
-    /*!
+    /**
      * @brief
      *
      * @param net
@@ -134,7 +134,7 @@ class FMKWayGainCalc {
      */
     auto init_gain(node_t net, const std::vector<uint8_t> &part) -> void;
 
-    /*!
+    /**
      * @brief
      *
      * @param net
@@ -143,7 +143,7 @@ class FMKWayGainCalc {
     auto init_gain_2pin_net(node_t net, const std::vector<uint8_t> &part)
         -> void;
 
-    /*!
+    /**
      * @brief
      *
      * @param net
@@ -152,7 +152,7 @@ class FMKWayGainCalc {
     auto init_gain_3pin_net(node_t net, const std::vector<uint8_t> &part)
         -> void;
 
-    /*!
+    /**
      * @brief
      *
      * @param net

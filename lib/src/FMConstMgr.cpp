@@ -1,7 +1,7 @@
 #include <ckpttncpp/FMConstrMgr.hpp>
 #include <ckpttncpp/netlist.hpp> // import Netlist
 
-/*!
+/**
  * @brief
  *
  * @param part
@@ -14,7 +14,7 @@ auto FMConstrMgr::init(const std::vector<uint8_t> &part) -> void {
     }
 }
 
-/*!
+/**
  * @brief
  *
  * @param move_info_v
@@ -34,7 +34,7 @@ auto FMConstrMgr::check_legal(const MoveInfoV &move_info_v) -> size_t {
     return 2; // all satisfied
 }
 
-/*!
+/**
  * @brief
  *
  * @param move_info_v
@@ -49,7 +49,7 @@ auto FMConstrMgr::check_constraints(const MoveInfoV &move_info_v) -> bool {
     return diffFrom >= this->lowerbound;
 }
 
-/*!
+/**
  * @brief
  *
  * @param move_info_v

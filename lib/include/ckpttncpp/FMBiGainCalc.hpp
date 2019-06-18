@@ -7,7 +7,7 @@
 
 class FMBiGainMgr;
 
-/*!
+/**
  * @brief FMBiGainCalc
  *
  */
@@ -23,7 +23,7 @@ class FMBiGainCalc {
   public:
     int totalcost;
 
-    /*!
+    /**
      * @brief Construct a new FMBiGainCalc object
      *
      * @param H
@@ -32,7 +32,7 @@ class FMBiGainCalc {
     explicit FMBiGainCalc(SimpleNetlist &H, uint8_t /*K*/)
         : H{H}, vertex_list(H.number_of_modules()) {}
 
-    /*!
+    /**
      * @brief
      *
      * @param part
@@ -48,7 +48,7 @@ class FMBiGainCalc {
         return this->totalcost;
     }
 
-    /*!
+    /**
      * @brief
      *
      * @param toPart
@@ -58,7 +58,7 @@ class FMBiGainCalc {
         return &this->vertex_list[0];
     }
 
-    /*!
+    /**
      * @brief
      *
      */
@@ -68,7 +68,7 @@ class FMBiGainCalc {
 
     using ret_2pin_info = std::tuple<index_t, int>;
 
-    /*!
+    /**
      * @brief
      *
      * @param part
@@ -80,7 +80,7 @@ class FMBiGainCalc {
 
     using ret_info = std::tuple<std::vector<index_t>, std::vector<int>>;
 
-    /*!
+    /**
      * @brief
      *
      * @param net
@@ -90,7 +90,7 @@ class FMBiGainCalc {
      */
     auto update_move_3pin_net(const std::vector<uint8_t> &part,
                               const MoveInfo &move_info) -> ret_info;
-    /*!
+    /**
      * @brief
      *
      * @param net
@@ -102,7 +102,7 @@ class FMBiGainCalc {
                                  const MoveInfo &move_info) -> ret_info;
 
   protected:
-    /*!
+    /**
      * @brief
      *
      * @param w
@@ -113,7 +113,7 @@ class FMBiGainCalc {
     }
 
   private:
-    /*!
+    /**
      * @brief
      *
      * @param net
@@ -121,7 +121,7 @@ class FMBiGainCalc {
      */
     auto init_gain(node_t net, const std::vector<uint8_t> &part) -> void;
 
-    /*!
+    /**
      * @brief
      *
      * @param net
@@ -130,7 +130,7 @@ class FMBiGainCalc {
     auto init_gain_2pin_net(node_t net, const std::vector<uint8_t> &part)
         -> void;
 
-    /*!
+    /**
      * @brief
      *
      * @param net
@@ -139,7 +139,7 @@ class FMBiGainCalc {
     auto init_gain_3pin_net(node_t net, const std::vector<uint8_t> &part)
         -> void;
 
-    /*!
+    /**
      * @brief
      *
      * @param net

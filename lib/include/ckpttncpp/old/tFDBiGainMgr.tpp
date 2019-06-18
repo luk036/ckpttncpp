@@ -4,7 +4,7 @@
 #include "FDBiGainCalc.hpp"
 #include "FDGainMgr.hpp"
 
-/*!
+/**
  * @brief FDBiGainMgr
  *
  */
@@ -15,7 +15,7 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
 
     explicit FDBiGainMgr(SimpleNetlist &H) : Base{H, 2} {}
 
-    /*!
+    /**
      * @brief Construct a new FDBiGainMgr object
      *
      * @param H
@@ -23,7 +23,7 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
      */
     FDBiGainMgr(SimpleNetlist &H, uint8_t /* K */) : Base{H, 2} {}
 
-    /*!
+    /**
      * @brief
      *
      * @param part_info
@@ -31,7 +31,7 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
      */
     auto init(const std::vector<uint8_t> &part) -> int;
 
-    /*!
+    /**
      * @brief (needed by base class)
      *
      * @param w
@@ -43,7 +43,7 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
             this->gainCalc.vertex_list[i_w], key);
     }
 
-    /*!
+    /**
      * @brief
      *
      * @param part
@@ -66,7 +66,7 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
     }
 
   private:
-    /*!
+    /**
      * @brief Set the key object
      *
      * @param whichPart

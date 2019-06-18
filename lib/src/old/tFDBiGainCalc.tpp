@@ -6,7 +6,7 @@
 #define likely(x) __builtin_expect(!!(x), 1)
 #define unlikely(x) __builtin_expect(!!(x), 0)
 
-/*!
+/**
  * @brief init_gain
  *
  * @param net
@@ -43,7 +43,7 @@ void FDBiGainCalc::init_gain( //
     }
 }
 
-/*!
+/**
  * @brief
  *
  * @param net
@@ -70,7 +70,7 @@ void FDBiGainCalc::init_gain_3pin_net(node_t net,
     }
 }
 
-/*!
+/**
  * @brief
  *
  * @param net
@@ -99,7 +99,7 @@ void FDBiGainCalc::init_gain_general_net(node_t net,
     }
 }
 
-/*!
+/**
  * @brief
  *
  * @param part
@@ -125,7 +125,7 @@ auto FDBiGainCalc::update_move_2pin_net(std::vector<uint8_t> &part,
     return std::tuple{i_w, 2 * weight};
 }
 
-/*!
+/**
  * @brief Update move for 3-pin nets
  *
  * @param part
@@ -171,7 +171,7 @@ auto FDBiGainCalc::update_move_3pin_net(std::vector<uint8_t> &part,
     return std::tuple{std::move(IdVec), std::move(deltaGain)};
 }
 
-/*!
+/**
  * @brief Update move for general nets
  *
  * @param part

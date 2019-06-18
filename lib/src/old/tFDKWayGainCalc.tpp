@@ -6,7 +6,7 @@
 #define likely(x) __builtin_expect(!!(x), 1)
 #define unlikely(x) __builtin_expect(!!(x), 0)
 
-/*!
+/**
  * @brief
  *
  * @param net
@@ -41,7 +41,7 @@ auto FDKWayGainCalc::init_gain(node_t net, const std::vector<uint8_t> &part) -> 
     }
 }
 
-/*!
+/**
  * @brief init_gain_2pin_net
  *
  * @param net
@@ -63,7 +63,7 @@ auto FDKWayGainCalc::init_gain_2pin_net(node_t net,
     this->vertex_list[part_w][i_v].key += weight;
 }
 
-/*!
+/**
  * @brief
  *
  * @param net
@@ -115,7 +115,7 @@ auto FDKWayGainCalc::init_gain_3pin_net(node_t net,
     this->totalcost += weight;
 }
 
-/*!
+/**
  * @brief
  *
  * @param net
@@ -181,7 +181,7 @@ auto FDKWayGainCalc::update_move_2pin_net(std::vector<uint8_t> &part,
     return std::tuple{i_w, std::move(deltaGainW)};
 }
 
-/*!
+/**
  * @brief
  *
  * @param part_info
@@ -256,7 +256,7 @@ auto FDKWayGainCalc::update_move_3pin_net(std::vector<uint8_t> &part,
     // return this->update_move_general_net(part, move_info);
 }
 
-/*!
+/**
  * @brief
  *
  * @param part_info

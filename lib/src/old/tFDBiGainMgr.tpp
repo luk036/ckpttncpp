@@ -1,7 +1,7 @@
 #include <ckpttncpp/FDBiGainCalc.hpp>
 #include <ckpttncpp/FDBiGainMgr.hpp>
 
-/*!
+/**
  * @brief
  *
  * @param part_info

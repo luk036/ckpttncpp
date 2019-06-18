@@ -5,7 +5,7 @@
 #define likely(x) __builtin_expect(!!(x), 1)
 #define unlikely(x) __builtin_expect(!!(x), 0)
 
-/*!
+/**
  * @brief
  *
  * @param net
@@ -30,7 +30,7 @@ auto FMKWayGainCalc::init_gain(node_t net, const std::vector<uint8_t> &part) -> 
     }
 }
 
-/*!
+/**
  * @brief
  *
  * @param net
@@ -58,7 +58,7 @@ auto FMKWayGainCalc::init_gain_2pin_net(node_t net,
     }
 }
 
-/*!
+/**
  * @brief
  *
  * @param net
@@ -110,7 +110,7 @@ auto FMKWayGainCalc::init_gain_3pin_net(node_t net,
     this->totalcost += weight;
 }
 
-/*!
+/**
  * @brief
  *
  * @param net
@@ -149,7 +149,7 @@ auto FMKWayGainCalc::init_gain_general_net(
     }
 }
 
-/*!
+/**
  * @brief
  *
  * @param part_info
@@ -180,7 +180,7 @@ auto FMKWayGainCalc::update_move_2pin_net(const std::vector<uint8_t> &part,
     return std::tuple{i_w, std::move(deltaGainW)};
 }
 
-/*!
+/**
  * @brief
  *
  * @param part_info
@@ -250,7 +250,7 @@ auto FMKWayGainCalc::update_move_3pin_net(const std::vector<uint8_t> &part,
     // return this->update_move_general_net(part, move_info);
 }
 
-/*!
+/**
  * @brief
  *
  * @param part_info

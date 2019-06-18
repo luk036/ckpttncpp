@@ -1,7 +1,7 @@
 #include <ckpttncpp/FMBiGainCalc.hpp>
 #include <ckpttncpp/FMBiGainMgr.hpp>
 
-/*!
+/**
  * @brief
  *
  * @param part

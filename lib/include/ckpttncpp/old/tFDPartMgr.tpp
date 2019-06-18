@@ -13,7 +13,7 @@
 // #include <vector>
 #include "PartMgrBase.hpp"
 
-/*!
+/**
  * @brief FD Partition Manager
  *
  * @tparam GainMgr
@@ -24,7 +24,7 @@ class FDPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FDPartMgr> {
     using Base = PartMgrBase<GainMgr, ConstrMgr, FDPartMgr>;
 
   public:
-    /*!
+    /**
      * @brief Construct a new FDPartMgr object
      *
      * @param H
@@ -34,7 +34,7 @@ class FDPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FDPartMgr> {
     FDPartMgr(SimpleNetlist &H, GainMgr &gainMgr, ConstrMgr &constrMgr)
         : Base{H, gainMgr, constrMgr} {}
 
-    /*!
+    /**
      * @brief
      *
      * @param part_info
@@ -42,7 +42,7 @@ class FDPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FDPartMgr> {
      */
     auto take_snapshot(const std::vector<uint8_t> &part) -> Snapshot;
 
-    /*!
+    /**
      * @brief
      *
      * @param snapshot

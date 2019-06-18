@@ -8,7 +8,7 @@
 
 class FDKWayGainMgr;
 
-/**
+/*!
  * @brief FDKWayGainCalc
  *
  */
@@ -29,7 +29,7 @@ class FDKWayGainCalc {
   public:
     int totalcost{0};
 
-    /**
+    /*!
      * @brief Construct a new FDKWayGainCalc object
      *
      * @param H Netlist
@@ -44,7 +44,7 @@ class FDKWayGainCalc {
         }
     }
 
-    /**
+    /*!
      * @brief
      *
      * @param toPart
@@ -54,7 +54,7 @@ class FDKWayGainCalc {
         return &this->vertex_list[toPart][0];
     }
 
-    /**
+    /*!
      * @brief
      *
      * @param part_info
@@ -73,7 +73,7 @@ class FDKWayGainCalc {
         return this->totalcost;
     }
 
-    /**
+    /*!
      * @brief
      *
      * @param v
@@ -86,7 +86,7 @@ class FDKWayGainCalc {
         }
     }
 
-    /**
+    /*!
      * @brief
      *
      */
@@ -96,7 +96,7 @@ class FDKWayGainCalc {
 
     using ret_2pin_info = std::tuple<index_t, std::vector<int>>;
 
-    /**
+    /*!
      * @brief
      *
      * @param part_info
@@ -109,7 +109,7 @@ class FDKWayGainCalc {
     using ret_info =
         std::tuple<std::vector<index_t>, std::vector<std::vector<int>>>;
 
-    /**
+    /*!
      * @brief
      *
      * @param part_info
@@ -119,7 +119,7 @@ class FDKWayGainCalc {
     auto update_move_3pin_net(std::vector<uint8_t> &part, const MoveInfo &move_info)
         -> ret_info;
 
-    /**
+    /*!
      * @brief
      *
      * @param part_info
@@ -130,7 +130,7 @@ class FDKWayGainCalc {
         -> ret_info;
 
   private:
-    /**
+    /*!
      * @brief
      *
      * @param net
@@ -138,7 +138,7 @@ class FDKWayGainCalc {
      */
     auto init_gain(node_t net, const std::vector<uint8_t> &part) -> void;
 
-    /**
+    /*!
      * @brief
      *
      * @param net
@@ -147,7 +147,7 @@ class FDKWayGainCalc {
     auto init_gain_2pin_net(node_t net, const std::vector<uint8_t> &part)
         -> void;
 
-    /**
+    /*!
      * @brief
      *
      * @param net
@@ -156,7 +156,7 @@ class FDKWayGainCalc {
     auto init_gain_3pin_net(node_t net, const std::vector<uint8_t> &part)
         -> void;
 
-    /**
+    /*!
      * @brief
      *
      * @param net

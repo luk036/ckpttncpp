@@ -13,7 +13,7 @@
 extern std::unique_ptr<SimpleNetlist>
 create_contraction_subgraph(SimpleNetlist &, const py::set<node_t> &);
 
-/**
+/*!
  * @brief Multilevel Partition Manager
  *
  */
@@ -25,7 +25,7 @@ class MLPartMgr {
   public:
     int totalcost{0};
 
-    /**
+    /*!
      * @brief Construct a new MLPartMgr object
      *
      * @param BalTol
@@ -34,7 +34,7 @@ class MLPartMgr {
     explicit MLPartMgr(double BalTol, uint8_t K = 2)
         : BalTol{BalTol}, K{K} {}
 
-    /**
+    /*!
      * @brief run_Partition
      *
      * @tparam GainMgr
@@ -94,7 +94,7 @@ class MLPartMgr {
         return legalcheck;
     }
 
-    /**
+    /*!
      * @brief run_Partition
      *
      * @tparam GainMgr
@@ -123,7 +123,7 @@ class MLPartMgr {
         return legalcheck;
     }
 
-    /**
+    /*!
      * @brief run_Partition_recur
      *
      * @tparam GainMgr
@@ -171,7 +171,7 @@ class MLPartMgr {
         this->totalcost = partMgrPtr->totalcost;
     }
 
-    // /**
+    // /*!
     //  * @brief run_FDPartition
     //  *
     //  * @tparam GainMgr

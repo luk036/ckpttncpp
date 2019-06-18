@@ -8,21 +8,21 @@
 
 namespace xn {
 
-/**
+/*!
  * @brief VertexView
  *
  * @tparam Graph
  */
 template <typename Graph> class VertexView : public Graph {
   public:
-    /**
+    /*!
      * @brief Construct a new Vertex View object
      *
      * @param G
      */
     explicit VertexView(Graph &&G) : Graph{std::move(G)} {}
 
-    /**
+    /*!
      * @brief begin()
      *
      * @return auto
@@ -32,7 +32,7 @@ template <typename Graph> class VertexView : public Graph {
         return v_iter;
     }
 
-    /**
+    /*!
      * @brief end()
      *
      * @return auto
@@ -42,7 +42,7 @@ template <typename Graph> class VertexView : public Graph {
         return v_end;
     }
 
-    /**
+    /*!
      * @brief cbegin()
      *
      * @return auto
@@ -52,7 +52,7 @@ template <typename Graph> class VertexView : public Graph {
         return v_iter;
     }
 
-    /**
+    /*!
      * @brief cend()
      *
      * @return auto
@@ -63,7 +63,7 @@ template <typename Graph> class VertexView : public Graph {
     }
 };
 
-/**
+/*!
  * @brief EdgeView
  *
  * @tparam Graph
@@ -73,14 +73,14 @@ template <typename Graph> class EdgeView {
     const Graph &_G;
 
   public:
-    /**
+    /*!
      * @brief Construct a new Edge View object
      *
      * @param G
      */
     explicit EdgeView(const Graph &G) : _G{G} {}
 
-    /**
+    /*!
      * @brief begin()
      *
      * @return auto
@@ -90,7 +90,7 @@ template <typename Graph> class EdgeView {
         return e_iter;
     }
 
-    /**
+    /*!
      * @brief end()
      *
      * @return auto
@@ -100,7 +100,7 @@ template <typename Graph> class EdgeView {
         return e_end;
     }
 
-    /**
+    /*!
      * @brief cbegin()
      *
      * @return auto
@@ -110,7 +110,7 @@ template <typename Graph> class EdgeView {
         return e_iter;
     }
 
-    /**
+    /*!
      * @brief cend()
      *
      * @return auto
@@ -121,7 +121,7 @@ template <typename Graph> class EdgeView {
     }
 };
 
-/**
+/*!
  * @brief AtlasView
  *
  * @tparam Vertex
@@ -133,7 +133,7 @@ template <typename Vertex, typename Graph> class AtlasView {
     const Graph &_G;
 
   public:
-    /**
+    /*!
      * @brief Construct a new Atlas View object
      *
      * @param v
@@ -141,7 +141,7 @@ template <typename Vertex, typename Graph> class AtlasView {
      */
     explicit AtlasView(Vertex v, const Graph &G) : _v{v}, _G{G} {}
 
-    /**
+    /*!
      * @brief begin()
      *
      * @return auto
@@ -151,7 +151,7 @@ template <typename Vertex, typename Graph> class AtlasView {
         return v_iter;
     }
 
-    /**
+    /*!
      * @brief end()
      *
      * @return auto
@@ -161,7 +161,7 @@ template <typename Vertex, typename Graph> class AtlasView {
         return v_end;
     }
 
-    /**
+    /*!
      * @brief cbegin()
      *
      * @return auto
@@ -171,7 +171,7 @@ template <typename Vertex, typename Graph> class AtlasView {
         return v_iter;
     }
 
-    /**
+    /*!
      * @brief cend()
      *
      * @return auto
@@ -182,7 +182,7 @@ template <typename Vertex, typename Graph> class AtlasView {
     }
 };
 
-/**
+/*!
  * @brief grAdaptor
  *
  * @tparam Graph
@@ -191,20 +191,20 @@ template <typename Graph> class grAdaptor : public VertexView<Graph> {
   public:
     using Vertex = typename boost::graph_traits<Graph>::vertex_descriptor;
 
-    /**
+    /*!
      * @brief Construct a new gr Adaptor object
      *
      */
     explicit grAdaptor() = delete;
 
-    /**
+    /*!
      * @brief Construct a new gr Adaptor object
      *
      * @param G
      */
     explicit grAdaptor(Graph &&G) : VertexView<Graph>{std::forward<Graph>(G)} {}
 
-    /**
+    /*!
      * @brief number of nodes
      *
      * @return index_t
@@ -213,21 +213,21 @@ template <typename Graph> class grAdaptor : public VertexView<Graph> {
         return boost::num_vertices(*this);
     }
 
-    /**
+    /*!
      * @brief number of edges
      *
      * @return index_t
      */
     auto number_of_edges() const -> index_t { return boost::num_edges(*this); }
 
-    /**
+    /*!
      * @brief
      *
      * @return EdgeView<Graph>
      */
     // EdgeView<Graph> edges() const { return EdgeView<Graph>(*this); }
 
-    /**
+    /*!
      * @brief
      *
      * @param v
@@ -237,7 +237,7 @@ template <typename Graph> class grAdaptor : public VertexView<Graph> {
         return AtlasView<Vertex, Graph>(v, *this);
     }
 
-    /**
+    /*!
      * @brief
      *
      * @param v
@@ -247,7 +247,7 @@ template <typename Graph> class grAdaptor : public VertexView<Graph> {
         return this->neighbors(v);
     }
 
-    /**
+    /*!
      * @brief
      *
      * @param u
@@ -256,7 +256,7 @@ template <typename Graph> class grAdaptor : public VertexView<Graph> {
      */
     auto add_edge(int u, int v) { return boost::add_edge(u, v, *this); }
 
-    /**
+    /*!
      * @brief
      *
      * @return Vertex
@@ -265,7 +265,7 @@ template <typename Graph> class grAdaptor : public VertexView<Graph> {
         return boost::graph_traits<Graph>::null_vertex();
     }
 
-    /**
+    /*!
      * @brief
      *
      * @tparam Edge
@@ -276,7 +276,7 @@ template <typename Graph> class grAdaptor : public VertexView<Graph> {
         return boost::source(e, *this);
     }
 
-    /**
+    /*!
      * @brief
      *
      * @tparam Edge
@@ -287,7 +287,7 @@ template <typename Graph> class grAdaptor : public VertexView<Graph> {
         return boost::target(e, *this);
     }
 
-    /**
+    /*!
      * @brief
      *
      * @param v
@@ -295,7 +295,7 @@ template <typename Graph> class grAdaptor : public VertexView<Graph> {
      */
     auto out_degree(Vertex v) const { return boost::out_degree(v, *this); }
 
-    /**
+    /*!
      * @brief
      *
      * @param v
@@ -303,7 +303,7 @@ template <typename Graph> class grAdaptor : public VertexView<Graph> {
      */
     auto in_degree(Vertex v) const { return boost::in_degree(v, *this); }
 
-    /**
+    /*!
      * @brief
      *
      * @param v
@@ -311,7 +311,7 @@ template <typename Graph> class grAdaptor : public VertexView<Graph> {
      */
     auto degree(Vertex v) const { return boost::degree(v, *this); }
 
-    /**
+    /*!
      * @brief
      *
      * @tparam Edge

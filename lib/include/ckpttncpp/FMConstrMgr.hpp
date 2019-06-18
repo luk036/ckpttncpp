@@ -10,7 +10,7 @@
 
 class MoveInfoV;
 
-/**
+/*!
  * @brief FM Partition Constraint Manager
  *
  */
@@ -25,7 +25,7 @@ class FMConstrMgr {
     int lowerbound{0};
     int totalweight{0};
 
-    /**
+    /*!
      * @brief Construct a new FMConstrMgr object
      *
      * @param H
@@ -43,14 +43,14 @@ class FMConstrMgr {
     }
 
   public:
-    /**
+    /*!
      * @brief
      *
      * @param part
      */
     auto init(const std::vector<uint8_t> &part) -> void;
 
-    /**
+    /*!
      * @brief
      *
      * @param move_info_v
@@ -58,7 +58,7 @@ class FMConstrMgr {
      */
     auto check_legal(const MoveInfoV &move_info_v) -> size_t;
 
-    /**
+    /*!
      * @brief
      *
      * @param move_info_v
@@ -67,7 +67,7 @@ class FMConstrMgr {
      */
     auto check_constraints(const MoveInfoV &move_info_v) -> bool;
 
-    /**
+    /*!
      * @brief
      *
      * @param move_info_v

@@ -5,7 +5,7 @@
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
 extern SimpleNetlist create_dwarf();        // import create_dwarf
 
-/**
+/*!
  * @brief
  *
  * @param H

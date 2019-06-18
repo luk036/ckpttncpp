@@ -6,7 +6,7 @@
 #define likely(x) __builtin_expect(!!(x), 1)
 #define unlikely(x) __builtin_expect(!!(x), 0)
 
-/**
+/*!
  * @brief Construct a new FMGainMgr object
  *
  * @param H
@@ -21,7 +21,7 @@ FMGainMgr<GainCalc, Derived>::FMGainMgr(SimpleNetlist &H, uint8_t K)
     }
 }
 
-/**
+/*!
  * @brief
  *
  * @param part
@@ -34,7 +34,7 @@ auto FMGainMgr<GainCalc, Derived>::init(const std::vector<uint8_t> &part) -> int
     return totalcost;
 }
 
-/**
+/*!
  * @brief
  *
  * @param part
@@ -59,7 +59,7 @@ auto FMGainMgr<GainCalc, Derived>::select(const std::vector<uint8_t> &part)
     return std::tuple{move_info_v, gainmax[toPart]};
 }
 
-/**
+/*!
  * @brief
  *
  * @param toPart
@@ -76,7 +76,7 @@ auto FMGainMgr<GainCalc, Derived>::select_togo(uint8_t toPart)
     return std::tuple{i_v, gainmax};
 }
 
-/**
+/*!
  * @brief
  *
  * @param part
@@ -111,7 +111,7 @@ auto FMGainMgr<GainCalc, Derived>::update_move(const std::vector<uint8_t> &part,
     }
 }
 
-/**
+/*!
  * @brief
  *
  * @param part
@@ -126,7 +126,7 @@ auto FMGainMgr<GainCalc, Derived>::update_move_2pin_net(
     self.modify_key(i_w, part[i_w], deltaGainW);
 }
 
-/**
+/*!
  * @brief
  *
  * @param part
@@ -145,7 +145,7 @@ auto FMGainMgr<GainCalc, Derived>::update_move_3pin_net(
     }
 }
 
-/**
+/*!
  * @brief
  *
  * @param part

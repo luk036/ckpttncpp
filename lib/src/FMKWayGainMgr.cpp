@@ -1,7 +1,7 @@
 #include <ckpttncpp/FMKWayGainCalc.hpp>
 #include <ckpttncpp/FMKWayGainMgr.hpp>
 
-/**
+/*!
  * @brief
  *
  * @param part_info
@@ -33,7 +33,7 @@ auto FMKWayGainMgr::init(const std::vector<uint8_t> &part) -> int {
     return totalcost;
 }
 
-/**
+/*!
  * @brief
  *
  * @param part

@@ -12,7 +12,7 @@
 #include <type_traits>
 #include <vector>
 
-/**
+/*!
  * @brief Partition Manager Base
  *
  * @tparam GainMgr
@@ -60,7 +60,7 @@ class PartMgrBase {
   public:
     int totalcost{0};
 
-    /**
+    /*!
      * @brief Construct a new FDPartMgr object
      *
      * @param H
@@ -70,21 +70,21 @@ class PartMgrBase {
     PartMgrBase(SimpleNetlist &H, GainMgr &gainMgr, ConstrMgr &constrMgr)
         : H{H}, gainMgr{gainMgr}, validator{constrMgr}, K{gainMgr.K} {}
 
-    /**
+    /*!
      * @brief
      *
      * @param part_info
      */
     void init(std::vector<uint8_t> &part);
 
-    /**
+    /*!
      * @brief
      *
      * @param part_info
      */
     size_t legalize(std::vector<uint8_t> &part);
 
-    /**
+    /*!
      * @brief
      *
      * @param part_info
@@ -92,14 +92,14 @@ class PartMgrBase {
     void optimize(std::vector<uint8_t> &part);
 
   private:
-    /**
+    /*!
      * @brief
      *
      * @param part_info
      */
     void optimize_1pass(std::vector<uint8_t> &part);
 
-    /**
+    /*!
      * @brief
      *
      * @param part_info
@@ -107,7 +107,7 @@ class PartMgrBase {
      */
     auto take_snapshot(const std::vector<uint8_t> &part) -> Snapshot;
 
-    /**
+    /*!
      * @brief
      *
      * @param snapshot

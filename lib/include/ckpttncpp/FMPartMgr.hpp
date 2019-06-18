@@ -13,7 +13,7 @@
 // #include <vector>
 #include "PartMgrBase.hpp"
 
-/**
+/*!
  * @brief FM Partition Manager
  *
  * @tparam GainMgr
@@ -24,7 +24,7 @@ class FMPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FMPartMgr> {
     using Base = PartMgrBase<GainMgr, ConstrMgr, FMPartMgr>;
 
   public:
-    /**
+    /*!
      * @brief Construct a new FMPartMgr object
      *
      * @param H
@@ -34,7 +34,7 @@ class FMPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FMPartMgr> {
     FMPartMgr(SimpleNetlist &H, GainMgr &gainMgr, ConstrMgr &constrMgr)
         : Base{H, gainMgr, constrMgr} {}
 
-    /**
+    /*!
      * @brief
      *
      * @param part_info
@@ -46,7 +46,7 @@ class FMPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FMPartMgr> {
         return std::move(snapshot);
     }
 
-    /**
+    /*!
      * @brief
      *
      * @param snapshot

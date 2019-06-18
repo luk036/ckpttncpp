@@ -1,7 +1,7 @@
 #include <ckpttncpp/PartMgrBase.hpp>
 #include <ckpttncpp/netlist.hpp>
 
-/**
+/*!
  * @brief
  *
  * @tparam GainMgr
@@ -69,7 +69,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(std::vector<uint8_t> &pa
     return legalcheck;
 }
 
-/**
+/*!
  * @brief
  *
  * @tparam GainMgr
@@ -127,7 +127,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize_1pass(
     this->totalcost -= totalgain;
 }
 
-/**
+/*!
  * @brief
  *
  * @tparam GainMgr

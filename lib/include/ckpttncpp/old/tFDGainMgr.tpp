@@ -9,7 +9,7 @@
 #include <iterator>
 #include <type_traits>
 
-/**
+/*!
  * @brief
  *
  * @tparam GainCalc
@@ -35,7 +35,7 @@ template <typename GainCalc, class Derived> class FDGainMgr {
     uint8_t K;
     // int totalcost;
 
-    /**
+    /*!
      * @brief Construct a new FDGainMgr object
      *
      * @param H
@@ -43,21 +43,21 @@ template <typename GainCalc, class Derived> class FDGainMgr {
      */
     explicit FDGainMgr(SimpleNetlist &H, uint8_t K);
 
-    /**
+    /*!
      * @brief
      *
      * @param part_info
      */
     auto init(const std::vector<uint8_t> &part) -> int;
 
-    /**
+    /*!
      * @brief Get the pmax object
      *
      * @return int
      */
     [[nodiscard]] auto get_pmax() const -> int { return this->pmax; }
 
-    /**
+    /*!
      * @brief
      *
      * @param toPart
@@ -68,7 +68,7 @@ template <typename GainCalc, class Derived> class FDGainMgr {
         return this->gainbucket[toPart].is_empty();
     }
 
-    /**
+    /*!
      * @brief
      *
      * @return true
@@ -83,7 +83,7 @@ template <typename GainCalc, class Derived> class FDGainMgr {
         return true;
     }
 
-    /**
+    /*!
      * @brief
      *
      * @param part
@@ -92,7 +92,7 @@ template <typename GainCalc, class Derived> class FDGainMgr {
     auto select(const std::vector<uint8_t> &part)
         -> std::tuple<MoveInfoV, int>;
 
-    /**
+    /*!
      * @brief
      *
      * @param toPart
@@ -100,7 +100,7 @@ template <typename GainCalc, class Derived> class FDGainMgr {
      */
     auto select_togo(uint8_t toPart) -> std::tuple<index_t, int>;
 
-    /**
+    /*!
      * @brief
      *
      * @param part
@@ -109,7 +109,7 @@ template <typename GainCalc, class Derived> class FDGainMgr {
     auto update_move(std::vector<uint8_t> &part, const MoveInfoV &move_info_v) -> void;
 
   private:
-    /**
+    /*!
      * @brief
      *
      * @param part_info
@@ -118,7 +118,7 @@ template <typename GainCalc, class Derived> class FDGainMgr {
     auto update_move_2pin_net(std::vector<uint8_t> &part, const MoveInfo &move_info)
         -> void;
 
-    /**
+    /*!
      * @brief
      *
      * @param part_info
@@ -127,7 +127,7 @@ template <typename GainCalc, class Derived> class FDGainMgr {
     auto update_move_3pin_net(std::vector<uint8_t> &part, const MoveInfo &move_info)
         -> void;
 
-    /**
+    /*!
      * @brief
      *
      * @param part_info

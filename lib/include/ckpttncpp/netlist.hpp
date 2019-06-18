@@ -16,7 +16,7 @@ struct PartInfo {
     py::set<node_t> extern_nets;
 };
 
-/**
+/*!
  * @brief Netlist
  *
  * Netlist is implemented by xn::Graph, which is a networkx-like graph.
@@ -49,7 +49,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     py::dict<index_t, node_t> node_down_map;
     py::dict<index_t, node_t> cluster_down_map;
 
-    /**
+    /*!
      * @brief Construct a new Netlist object
      *
      * @param G
@@ -60,7 +60,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     Netlist(graph_t &&G, const nodeview_t &modules, const nodeview_t &nets,
             const nodemap_t &module_map, const nodemap_t &net_map);
 
-    /**
+    /*!
      * @brief Construct a new Netlist object
      *
      * @param G
@@ -70,21 +70,21 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
      */
     Netlist(graph_t &&G, int num_modules, int num_nets);
 
-    /**
+    /*!
      * @brief
      *
      * @return index_t
      */
     auto number_of_modules() const -> index_t { return this->num_modules; }
 
-    /**
+    /*!
      * @brief
      *
      * @return index_t
      */
     auto number_of_nets() const -> index_t { return this->num_nets; }
 
-    /**
+    /*!
      * @brief
      *
      * @return index_t
@@ -93,7 +93,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
         return this->G.number_of_nodes();
     }
 
-    // /**
+    // /*!
     //  * @brief
     //  *
     //  * @return index_t
@@ -101,14 +101,14 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     // auto number_of_pins() const -> index_t { return
     // this->G.number_of_edges(); }
 
-    /**
+    /*!
      * @brief Get the max degree
      *
      * @return index_t
      */
     auto get_max_degree() const -> index_t { return this->max_degree; }
 
-    /**
+    /*!
      * @brief Get the max net degree
      *
      * @return index_t
@@ -161,7 +161,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     //     }
     // }
 
-    /**
+    /*!
      * @brief projection down
      *
      * @param part_info
@@ -169,7 +169,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
      */
     void projection_down(const std::vector<uint8_t> &part, std::vector<uint8_t> &part_down);
 
-    /**
+    /*!
      * @brief projection up
      *
      * @param part_info
@@ -178,7 +178,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     void projection_up(const std::vector<uint8_t> &part, std::vector<uint8_t> &part_up);
 };
 
-/**
+/*!
  * @brief Construct a new Netlist object
  *
  * @param G

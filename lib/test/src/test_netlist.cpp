@@ -15,7 +15,7 @@
 // using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
 // using edge_t = typename boost::graph_traits<graph_t>::edge_iterator;
 
-/**
+/*!
  * @brief Create a test netlist object
  *
  * @return Netlist
@@ -57,7 +57,7 @@ auto create_dwarf() -> SimpleNetlist {
     return H;
 }
 
-/**
+/*!
  * @brief Create a test netlist object
  *
  * @return Netlist

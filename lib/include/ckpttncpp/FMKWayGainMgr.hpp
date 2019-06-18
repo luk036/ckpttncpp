@@ -4,7 +4,7 @@
 #include "FMGainMgr.hpp"
 #include "FMKWayGainCalc.hpp"
 
-/**
+/*!
  * @brief FMKWayGainMgr
  *
  */
@@ -20,7 +20,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
     using GainCalc_ = FMKWayGainCalc;
     using index_t = typename SimpleNetlist::index_t;
 
-    /**
+    /*!
      * @brief Construct a new FMKWayGainMgr object
      *
      * @param H
@@ -28,14 +28,14 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
      */
     FMKWayGainMgr(SimpleNetlist &H, uint8_t K) : Base{H, K}, RR{K} {}
 
-    /**
+    /*!
      * @brief
      *
      * @param part
      */
     auto init(const std::vector<uint8_t> &part) -> int;
 
-    /**
+    /*!
      * @brief (needed by base class)
      *
      * @param part
@@ -50,7 +50,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
         }
     }
 
-    /**
+    /*!
      * @brief
      *
      * @param part
@@ -59,7 +59,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
      */
     auto update_move_v(const MoveInfoV &move_info_v, int gain) -> void;
 
-    /**
+    /*!
      * @brief lock
      *
      * @param whichPart
@@ -71,7 +71,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
         vlink.lock();
     }
 
-    /**
+    /*!
      * @brief lock_all
      *
      * @param fromPart
@@ -84,7 +84,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
     }
 
   private:
-    /**
+    /*!
      * @brief Set the key object
      *
      * @param whichPart

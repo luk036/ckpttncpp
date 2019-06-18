@@ -6,6 +6,10 @@
 #include <ckpttncpp/FMPartMgr.hpp>       // import FMBiPartMgr
 #include <ckpttncpp/MLPartMgr.hpp>       // import MLBiPartMgr
 #include <experimental/random>
+#include <chrono>
+#include <iostream>
+
+using std::experimental::randint;
 
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
 extern SimpleNetlist create_dwarf();        // import create_dwarf
@@ -40,7 +44,7 @@ TEST_CASE("Test MLBiPartMgr p1", "[test_MLBiPartMgr]") {
     for (auto i=0; i<10; ++i) {
         auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
         for (auto& elem: part) {
-            elem = std::experimental::randint(0, 1);
+            elem = randint(0, 1);
         }
         // auto part_info = PartInfo{std::move(part), py::set<node_t>()};
         partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part,
@@ -63,7 +67,7 @@ TEST_CASE("Test MLBiPartMgr ibm01", "[test_MLBiPartMgr]") {
     for (auto i=0; i<10; ++i) {
         auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
         for (auto& elem: part) {
-            elem = std::experimental::randint(0, 1);
+            elem = randint(0, 1);
         }
         // auto part_info = PartInfo{std::move(part), py::set<node_t>()};
         partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part,
@@ -84,8 +88,11 @@ TEST_CASE("Test MLBiPartMgr ibm03", "[test_MLBiPartMgr]") {
     auto partMgr = MLPartMgr{0.45};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     // auto part_info = PartInfo{std::move(part), py::set<node_t>()};
+    auto begin= std::chrono::steady_clock::now();
     partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part,
                                                                    300);
+    std::chrono::duration<double> last=  std::chrono::steady_clock::now() - begin;
+    std::cout << "time: " << last.count() << std::endl;
     CHECK(partMgr.totalcost >= 1469);
     CHECK(partMgr.totalcost <= 2041);
 }

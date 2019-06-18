@@ -19,13 +19,13 @@ include_directories (${LIBRARY_INCLUDE_PATH} ${TEST_THIRD_PARTY_INCLUDE_PATH} ${
 file (GLOB TEST_SOURCE_FILES "${TEST_SRC_PATH}/*.cpp")
 
 #set concepts TS
-add_definitions ( -std=c++1z )
+# add_definitions ( -std=c++1z )
 
 #set target executable
 add_executable (${TEST_APP_NAME} ${TEST_SOURCE_FILES})
 
 #add the library
-target_link_libraries (${TEST_APP_NAME} ${LIB_NAME} Threads::Threads ${LIBS} ${Boost_LIBRARIES})
+target_link_libraries (${TEST_APP_NAME} ${LIB_NAME} Threads::Threads ${LIBS})
 
 # Turn on CMake testing capabilities
 enable_testing()

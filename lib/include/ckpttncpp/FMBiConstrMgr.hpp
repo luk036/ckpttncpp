@@ -3,13 +3,13 @@
 
 #include "FMConstrMgr.hpp" // import FMConstrMgr
 
-/**
+/*!
  * @brief Constraint Manager
  *
  * Check if (the move of v can satisfied, makebetter, or notsatisfied 
  */
 struct FMBiConstrMgr : FMConstrMgr {
-    /**
+    /*!
      * @brief Construct a new FMBiConstrMgr object
      *
      * @param H
@@ -18,7 +18,7 @@ struct FMBiConstrMgr : FMConstrMgr {
     FMBiConstrMgr(SimpleNetlist &H, double BalTol, uint8_t K = 2)
         : FMConstrMgr{H, BalTol, 2} {}
 
-    /**
+    /*!
      * @brief
      *
      * @return uint8_t

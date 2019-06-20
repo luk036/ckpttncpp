@@ -4,7 +4,7 @@
 #include "FDGainMgr.hpp"
 #include "FDKWayGainCalc.hpp"
 
-/**
+/*!
  * @brief FDKWayGainMgr
  *
  */
@@ -17,22 +17,22 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
     using GainCalc_ = FDKWayGainCalc;
     using index_t = typename SimpleNetlist::index_t;
 
-    /**
+    /*!
      * @brief Construct a new FDKWayGainMgr object
      *
      * @param H
      * @param K
      */
-    FDKWayGainMgr(SimpleNetlist &H, uint8_t K) : Base{H, K}, RR{K} {}
+    FDKWayGainMgr(SimpleNetlist &H, uint8_t K) : Base{H, K}, RR{--K} {}
 
-    /**
+    /*!
      * @brief
      *
      * @param part
      */
     auto init(const std::vector<uint8_t> &part) -> int;
 
-    /**
+    /*!
      * @brief (needed by base class)
      *
      * @param part
@@ -47,7 +47,7 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
         }
     }
 
-    /**
+    /*!
      * @brief
      *
      * @param part
@@ -56,7 +56,7 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
      */
     auto update_move_v(const MoveInfoV &move_info_v, int gain) -> void;
 
-    /**
+    /*!
      * @brief lock
      *
      * @param whichPart
@@ -68,7 +68,7 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
         vlink.lock();
     }
 
-    /**
+    /*!
      * @brief lock_all
      *
      * @param fromPart
@@ -81,7 +81,7 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
     }
 
   private:
-    /**
+    /*!
      * @brief Set the key object
      *
      * @param whichPart

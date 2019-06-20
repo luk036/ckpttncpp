@@ -14,7 +14,7 @@
  */
 template <typename GainCalc, class Derived>
 FMGainMgr<GainCalc, Derived>::FMGainMgr(SimpleNetlist &H, uint8_t K)
-    : H{H}, K{K}, gainCalc{H, K}, pmax{H.get_max_degree()} {
+    : H{H}, gainCalc{H, K}, pmax{H.get_max_degree()}, K{K} {
     static_assert(std::is_base_of_v<FMGainMgr<GainCalc, Derived>, Derived>);
     for (auto k = 0U; k < this->K; ++k) {
         this->gainbucket.emplace_back(-this->pmax, this->pmax);

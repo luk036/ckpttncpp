@@ -23,7 +23,7 @@ void run_FMBiGainMgr(SimpleNetlist &H, std::vector<uint8_t> &part) {
         }
         mgr.update_move(part, move_info_v);
         mgr.update_move_v(move_info_v, gainmax);
-        auto &&[fromPart, toPart, i_v] = move_info_v;
+        auto &&[_, toPart, i_v] = move_info_v;
         part[i_v] = toPart;
         CHECK(i_v >= 0);
     }

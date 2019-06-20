@@ -104,7 +104,7 @@ Advantages:
 1. Python-like, networkx
 2. Check legalization, report
 3. Generic
-4. K buckets rather than K(K-1)
+4. K buckets rather than K(--K)
 5. Time, space, and code complexity.
 6. Design issues
 

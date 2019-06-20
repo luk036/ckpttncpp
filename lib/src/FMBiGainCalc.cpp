@@ -152,7 +152,7 @@ auto FMBiGainCalc::update_move_2pin_net(const std::vector<uint8_t> &part,
  */
 auto FMBiGainCalc::update_move_3pin_net(const std::vector<uint8_t> &part,
                                         const MoveInfo &move_info) -> ret_info {
-    auto &&[net, fromPart, _1, v] = move_info;
+    auto &&[net, fromPart, _, v] = move_info;
     // auto &&[part, _2] = part_info;
     uint8_t num[2] = {0, 0};
     auto IdVec = std::vector<index_t>{};
@@ -164,7 +164,7 @@ auto FMBiGainCalc::update_move_3pin_net(const std::vector<uint8_t> &part,
         num[part[i_w]] += 1;
         IdVec.push_back(i_w);
     }
-    auto degree = std::size(IdVec);
+    // auto degree = std::size(IdVec);
     auto deltaGain = std::vector{0, 0};
     auto weight = this->H.get_net_weight(net);
 

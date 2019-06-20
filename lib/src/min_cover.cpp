@@ -143,7 +143,7 @@ auto max_independent_net(SimpleNetlist &H, const std::vector<int> & /*weight*/,
  */
 auto create_contraction_subgraph(SimpleNetlist &H,
                                  const py::set<node_t> &DontSelect) {
-    auto [S, total_cost] = max_independent_net(H, H.module_weight, DontSelect);
+    auto [S, _] = max_independent_net(H, H.module_weight, DontSelect);
 
     auto module_up_map = py::dict<node_t, node_t>{};
     module_up_map.reserve(H.number_of_modules());
@@ -154,8 +154,8 @@ auto create_contraction_subgraph(SimpleNetlist &H,
     auto cluster_map = py::dict<node_t, node_t>{};
     cluster_map.reserve(S.size());
     auto node_up_map = py::dict<node_t, index_t>{};
-    index_t numModules;
-    index_t numNets;
+    size_t numModules;
+    size_t numNets;
 
     auto modules = std::vector<node_t>{};
     auto nets = std::vector<node_t>{};

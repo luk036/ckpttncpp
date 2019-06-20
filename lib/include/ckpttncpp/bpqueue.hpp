@@ -8,7 +8,7 @@
 // Forward declaration
 // template <typename T> struct bpq_iterator;
 
-/**
+/*!
  * @brief bounded priority queue
  *
  * Bounded Priority Queue with integer keys in [a..b].
@@ -31,12 +31,12 @@ template <typename T> //
 struct bpqueue {
     static dllink<T> sentinel;
 
-    T offset; /**< a - 1 */
-    T high;   /**< b - a + 1 */
-    T max{0}; /**< max value */
-    std::vector<dllink<T>> bucket; /**< bucket, array of lists */
+    T offset; /*!< a - 1 */
+    T high;   /*!< b - a + 1 */
+    T max{0}; /*!< max value */
+    std::vector<dllink<T>> bucket; /*!< bucket, array of lists */
 
-    /**
+    /*!
      * @brief Construct a new bpqueue object
      *
      * @param a lower bound
@@ -49,7 +49,7 @@ struct bpqueue {
         bucket[0].append(sentinel); // sentinel
     }
 
-    /**
+    /*!
      * @brief Set the key object
      *
      * @param it   the item
@@ -59,14 +59,14 @@ struct bpqueue {
         it.key = gain - this->offset;
     }
 
-    /**
+    /*!
      * @brief Get the max value
      *
      * @return T maximum value
      */
     auto get_max() const -> T { return this->max + this->offset; }
 
-    /**
+    /*!
      * @brief whether empty
      *
      * @return true
@@ -74,7 +74,7 @@ struct bpqueue {
      */
     auto is_empty() const -> bool { return this->max == 0; }
 
-    /**
+    /*!
      * @brief clear reset the PQ
      */
     auto clear() -> void {
@@ -84,7 +84,7 @@ struct bpqueue {
         }
     }
 
-    /**
+    /*!
      * @brief append item with internal key
      *
      * @param it the item
@@ -94,7 +94,7 @@ struct bpqueue {
         this->append(it, it.key);
     }
 
-    /**
+    /*!
      * @brief append item with external key
      *
      * @param it the item
@@ -109,7 +109,7 @@ struct bpqueue {
         this->bucket[it.key].append(it);
     }
 
-    /**
+    /*!
      * @brief append from list
      *
      * @param nodes
@@ -127,7 +127,7 @@ struct bpqueue {
         }
     }
 
-    /**
+    /*!
      * @brief pop node with the highest key
      *
      * @return dllink&
@@ -140,7 +140,7 @@ struct bpqueue {
         return res;
     }
 
-    /**
+    /*!
      * @brief decrease key by delta
      *
      * @param it the item
@@ -165,7 +165,7 @@ struct bpqueue {
         }
     }
 
-    /**
+    /*!
      * @brief increase key by delta
      *
      * @param it the item
@@ -186,7 +186,7 @@ struct bpqueue {
         }
     }
 
-    /**
+    /*!
      * @brief modify key by delta
      *
      * @param it the item
@@ -206,7 +206,7 @@ struct bpqueue {
         }
     }
 
-    /**
+    /*!
      * @brief detach the item from bpqueue
      *
      * @param it the item
@@ -219,14 +219,14 @@ struct bpqueue {
         }
     }
 
-    // /**
+    // /*!
     //  * @brief iterator point to begin
     //  *
     //  * @return bpq_iterator
     //  */
     // auto begin() -> bpq_iterator<T>;
 
-    // /**
+    // /*!
     //  * @brief iterator point to end
     //  *
     //  * @return bpq_iterator
@@ -254,7 +254,7 @@ struct bpqueue {
 
 template <typename T> dllink<T> bpqueue<T>::sentinel{};
 
-// /**
+// /*!
 //  * @brief Bounded Priority Queue Iterator
 //  *
 //  * Bounded Priority Queue Iterator. Traverse the queue in descending
@@ -263,11 +263,11 @@ template <typename T> dllink<T> bpqueue<T>::sentinel{};
 //  */
 // template <typename T> class bpq_iterator {
 //   private:
-//     bpqueue<T> &bpq;         /**< the priority queue */
-//     T curkey;                /**< the current key value */
-//     dll_iterator<T> curitem; /**< list iterator pointed to the current item. */
+//     bpqueue<T> &bpq;         /*!< the priority queue */
+//     T curkey;                /*!< the current key value */
+//     dll_iterator<T> curitem; /*!< list iterator pointed to the current item. */
 
-//     /**
+//     /*!
 //      * @brief get the reference of the current list
 //      *
 //      * @return dllink&
@@ -275,7 +275,7 @@ template <typename T> dllink<T> bpqueue<T>::sentinel{};
 //     auto curlist() -> dllink<T> & { return this->bpq.bucket[this->curkey]; }
 
 //   public:
-//     /**
+//     /*!
 //      * @brief Construct a new bpq iterator object
 //      *
 //      * @param bpq
@@ -284,7 +284,7 @@ template <typename T> dllink<T> bpqueue<T>::sentinel{};
 //     bpq_iterator(bpqueue<T> &bpq, T curkey)
 //         : bpq{bpq}, curkey{curkey}, curitem{bpq.bucket[curkey].begin()} {}
 
-//     /**
+//     /*!
 //      * @brief move to the next item
 //      *
 //      * @return bpq_iterator&
@@ -300,14 +300,14 @@ template <typename T> dllink<T> bpqueue<T>::sentinel{};
 //         return *this;
 //     }
 
-//     /**
+//     /*!
 //      * @brief get the reference of the current item
 //      *
 //      * @return bpq_iterator&
 //      */
 //     auto operator*() -> dllink<T> & { return *this->curitem; }
 
-//     /**
+//     /*!
 //      * @brief eq operator
 //      *
 //      * @param rhs
@@ -318,7 +318,7 @@ template <typename T> dllink<T> bpqueue<T>::sentinel{};
 //         return this->curitem == rhs.curitem;
 //     }
 
-//     /**
+//     /*!
 //      * @brief neq operator
 //      *
 //      * @param rhs
@@ -328,7 +328,7 @@ template <typename T> dllink<T> bpqueue<T>::sentinel{};
 //     auto operator!=(const bpq_iterator &rhs) -> bool { return !(*this == rhs); }
 // };
 
-// /**
+// /*!
 //  * @brief
 //  *
 //  * @return bpq_iterator
@@ -337,7 +337,7 @@ template <typename T> dllink<T> bpqueue<T>::sentinel{};
 //     return bpq_iterator(*this, this->max);
 // }
 
-// /**
+// /*!
 //  * @brief
 //  *
 //  * @return bpq_iterator

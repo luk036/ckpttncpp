@@ -52,7 +52,7 @@ TEST_CASE("Test Range (pointer)", "[range]") {
     CHECK(R[1] == &A + 1);
 
     auto count = 0;
-    for (auto a : R) {
+    for (auto _ : R) {
         ++count;
     }
     CHECK(count == R.size());

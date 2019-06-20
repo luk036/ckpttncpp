@@ -16,7 +16,7 @@ struct PartInfo {
     py::set<node_t> extern_nets;
 };
 
-/**
+/*!
  * @brief Netlist
  *
  * Netlist is implemented by xn::Graph, which is a networkx-like graph.
@@ -32,11 +32,11 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     nodeview_t nets;
     nodemap_t module_map;
     nodemap_t net_map;
-    index_t num_modules;
-    index_t num_nets;
-    index_t num_pads = 0;
-    index_t max_degree{};
-    index_t max_net_degree{};
+    size_t num_modules;
+    size_t num_nets;
+    size_t num_pads = 0U;
+    size_t max_degree{};
+    size_t max_net_degree{};
     bool has_fixed_modules{};
     uint8_t cost_model = 0;
     std::vector<int> module_weight;
@@ -49,7 +49,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     py::dict<index_t, node_t> node_down_map;
     py::dict<index_t, node_t> cluster_down_map;
 
-    /**
+    /*!
      * @brief Construct a new Netlist object
      *
      * @param G
@@ -60,7 +60,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     Netlist(graph_t &&G, const nodeview_t &modules, const nodeview_t &nets,
             const nodemap_t &module_map, const nodemap_t &net_map);
 
-    /**
+    /*!
      * @brief Construct a new Netlist object
      *
      * @param G
@@ -68,32 +68,32 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
      * @param net_list
      * @param module_fixed
      */
-    Netlist(graph_t &&G, int num_modules, int num_nets);
+    Netlist(graph_t &&G, size_t num_modules, size_t num_nets);
 
-    /**
+    /*!
      * @brief
      *
      * @return index_t
      */
-    auto number_of_modules() const -> index_t { return this->num_modules; }
+    auto number_of_modules() const -> size_t { return this->num_modules; }
 
-    /**
+    /*!
      * @brief
      *
      * @return index_t
      */
-    auto number_of_nets() const -> index_t { return this->num_nets; }
+    auto number_of_nets() const -> size_t { return this->num_nets; }
 
-    /**
+    /*!
      * @brief
      *
      * @return index_t
      */
-    auto number_of_nodes() const -> index_t {
+    auto number_of_nodes() const -> size_t {
         return this->G.number_of_nodes();
     }
 
-    // /**
+    // /*!
     //  * @brief
     //  *
     //  * @return index_t
@@ -101,19 +101,19 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     // auto number_of_pins() const -> index_t { return
     // this->G.number_of_edges(); }
 
-    /**
+    /*!
      * @brief Get the max degree
      *
      * @return index_t
      */
-    auto get_max_degree() const -> index_t { return this->max_degree; }
+    auto get_max_degree() const -> size_t { return this->max_degree; }
 
-    /**
+    /*!
      * @brief Get the max net degree
      *
      * @return index_t
      */
-    auto get_max_net_degree() const -> index_t { return this->max_net_degree; }
+    auto get_max_net_degree() const -> size_t { return this->max_net_degree; }
 
     auto get_module_weight(node_t v) const -> int {
         auto i_v = this->module_map[v];
@@ -161,7 +161,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     //     }
     // }
 
-    /**
+    /*!
      * @brief projection down
      *
      * @param part_info
@@ -169,7 +169,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
      */
     void projection_down(const std::vector<uint8_t> &part, std::vector<uint8_t> &part_down);
 
-    /**
+    /*!
      * @brief projection up
      *
      * @param part_info
@@ -178,7 +178,7 @@ template <typename nodeview_t, typename nodemap_t> struct Netlist {
     void projection_up(const std::vector<uint8_t> &part, std::vector<uint8_t> &part_up);
 };
 
-/**
+/*!
  * @brief Construct a new Netlist object
  *
  * @param G
@@ -207,8 +207,8 @@ Netlist<nodeview_t, nodemap_t>::Netlist(graph_t &&G, const nodeview_t &modules,
 }
 
 template <typename nodeview_t, typename nodemap_t>
-Netlist<nodeview_t, nodemap_t>::Netlist(graph_t &&G, int numModules,
-                                        int numNets)
+Netlist<nodeview_t, nodemap_t>::Netlist(graph_t &&G, size_t numModules,
+                                        size_t numNets)
     : Netlist{std::forward<graph_t>(G), py::range<int>(numModules),
                      py::range<int>(numModules, numModules + numNets),
                      py::range<int>(numModules),

@@ -28,7 +28,7 @@ TEST_CASE("Test dllist", "[dllist]") {
 }
 
 TEST_CASE("Test robin", "[robin]") {
-    auto RR = robin<int>(6);
+    auto RR = robin<uint8_t>(5U);
     auto count = 0U;
     for (auto _ : RR.exclude(2)) {
         count += 1;

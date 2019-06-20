@@ -6,7 +6,7 @@
 
 class MoveInfoV;
 
-/**
+/*!
  * @brief FM K-Way Partition Constraint Manager
  *
  */
@@ -15,7 +15,7 @@ class FMKWayConstrMgr : public FMConstrMgr {
     std::vector<bool> illegal;
 
   public:
-    /**
+    /*!
      * @brief Construct a new FMKWayConstrMgr object
      *
      * @param H
@@ -26,7 +26,7 @@ class FMKWayConstrMgr : public FMConstrMgr {
         : FMConstrMgr{H, BalTol, K},
           illegal(K, true){}
 
-    /**
+    /*!
      * @brief
      *
      * @return uint8_t
@@ -36,7 +36,7 @@ class FMKWayConstrMgr : public FMConstrMgr {
         return std::distance(this->diff.cbegin(), it);
     }
 
-    /**
+    /*!
      * @brief
      *
      * @param part
@@ -48,7 +48,7 @@ class FMKWayConstrMgr : public FMConstrMgr {
         }
     }
 
-    /**
+    /*!
      * @brief
      *
      * @param move_info_v
@@ -59,7 +59,7 @@ class FMKWayConstrMgr : public FMConstrMgr {
         if (status != 2) {
             return status;
         }
-        auto &&[fromPart, toPart, i_v] = move_info_v;
+        auto &&[fromPart, toPart, _] = move_info_v;
         this->illegal[fromPart] = this->illegal[toPart] = false;
         for (auto b : this->illegal) {
             if (b) {

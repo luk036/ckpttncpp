@@ -33,7 +33,7 @@ create_contraction_subgraph(SimpleNetlist &, const py::set<node_t> &);
 
 TEST_CASE("Test max_independent_net dwarf", "[test_max_independent_net]") {
     auto H = create_dwarf();
-    auto [S, cost] = max_independent_net(H, H.module_weight, py::set<node_t>{});
+    auto [_, cost] = max_independent_net(H, H.module_weight, py::set<node_t>{});
     CHECK(cost == 3);
 }
 

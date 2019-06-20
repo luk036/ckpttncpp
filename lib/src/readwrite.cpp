@@ -65,9 +65,9 @@ auto readNetD(const char *netDFileName) -> SimpleNetlist {
     }
 
     char t;
-    index_t numPins;
-    index_t numNets;
-    index_t numModules;
+    size_t numPins;
+    size_t numNets;
+    size_t numModules;
     index_t padOffset;
 
     netD >> t; // eat 1st 0
@@ -162,14 +162,14 @@ void readAre(SimpleNetlist &H, const char *areFileName) {
     char c;
     node_t w;
     int weight;
-    auto totalWeight = 0;
+    // auto totalWeight = 0;
     // xxx index_t smallestWeight = UINT_MAX;
     auto numModules = H.number_of_modules();
     auto padOffset = numModules - H.num_pads - 1;
     auto module_weight = std::vector<int>(numModules);
 
-    index_t lineno = 1;
-    for (index_t i = 0; i < numModules; i++) {
+    size_t lineno = 1;
+    for (size_t i = 0; i < numModules; i++) {
         if (are.eof()) {
             break;
         }

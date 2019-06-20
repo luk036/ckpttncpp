@@ -16,22 +16,22 @@ Base exceptions && errors for XNetwork.
 
 namespace xn {
 
-static const auto __all__ = {
-    "HasACycle",
-    "NodeNotFound",
-    "PowerIterationFailedConvergence",
-    "ExceededMaxIterations",
-    "AmbiguousSolution",
-    "XNetworkAlgorithmError",
-    "XNetworkException",
-    "XNetworkError",
-    "XNetworkNoCycle",
-    "XNetworkNoPath",
-    "XNetworkNotImplemented",
-    "XNetworkPointlessConcept",
-    "XNetworkUnbounded",
-    "XNetworkUnfeasible",
-};
+// static const auto __all__ = {
+//     "HasACycle",
+//     "NodeNotFound",
+//     "PowerIterationFailedConvergence",
+//     "ExceededMaxIterations",
+//     "AmbiguousSolution",
+//     "XNetworkAlgorithmError",
+//     "XNetworkException",
+//     "XNetworkError",
+//     "XNetworkNoCycle",
+//     "XNetworkNoPath",
+//     "XNetworkNotImplemented",
+//     "XNetworkPointlessConcept",
+//     "XNetworkUnbounded",
+//     "XNetworkUnfeasible",
+// };
 
 /** Base class for exceptions : XNetwork. */
 struct XNetworkException : std::runtime_error {

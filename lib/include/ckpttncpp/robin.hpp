@@ -32,13 +32,13 @@ template <typename T> class robin {
     };
 
   public:
-    explicit robin(T K) : cycle(K) {
-        for (auto k = 0U; k < K - 1; ++k) {
+    explicit robin(T K1) : cycle(K1 + 1) {
+        for (auto k = 0U; k < K1; ++k) {
             this->cycle[k].next = &this->cycle[k + 1];
             this->cycle[k].key = k;
         }
-        this->cycle[K - 1].next = &this->cycle[0];
-        this->cycle[K - 1].key = K - 1;
+        this->cycle[K1].next = &this->cycle[0];
+        this->cycle[K1].key = K1;
     }
 
     auto exclude(T fromPart) { return iterable_wrapper{this, fromPart}; }

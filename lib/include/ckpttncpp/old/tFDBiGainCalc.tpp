@@ -6,7 +6,7 @@
 
 class FDBiGainMgr;
 
-/**
+/*!
  * @brief FDBiGainCalc
  *
  */
@@ -16,13 +16,13 @@ class FDBiGainCalc {
 
   private:
     SimpleNetlist &H;
-    index_t num_modules{};
+    size_t num_modules{};
     std::vector<dllink<index_t>> vertex_list;
 
   public:
     int totalcost{0};
 
-    /**
+    /*!
      * @brief Construct a new FDBiGainCalc object
      *
      * @param H
@@ -31,7 +31,7 @@ class FDBiGainCalc {
     explicit FDBiGainCalc(SimpleNetlist &H, uint8_t K = 2)
         : H{H}, vertex_list(H.number_of_modules()) {}
 
-    /**
+    /*!
      * @brief
      *
      * @param part_info
@@ -49,7 +49,7 @@ class FDBiGainCalc {
         return this->totalcost;
     }
 
-    /**
+    /*!
      * @brief
      *
      * @param toPart
@@ -59,7 +59,7 @@ class FDBiGainCalc {
         return &this->vertex_list[0];
     }
 
-    /**
+    /*!
      * @brief
      *
      */
@@ -69,7 +69,7 @@ class FDBiGainCalc {
 
     using ret_2pin_info = std::tuple<index_t, int>;
 
-    /**
+    /*!
      * @brief
      *
      * @param part_info
@@ -81,7 +81,7 @@ class FDBiGainCalc {
 
     using ret_info = std::tuple<std::vector<index_t>, std::vector<int>>;
 
-    /**
+    /*!
      * @brief
      *
      * @param part_info
@@ -90,7 +90,7 @@ class FDBiGainCalc {
     auto update_move_3pin_net(std::vector<uint8_t> &part, const MoveInfo &move_info)
         -> ret_info;
 
-    /**
+    /*!
      * @brief
      *
      * @param part_info
@@ -100,7 +100,7 @@ class FDBiGainCalc {
         -> ret_info;
 
   protected:
-    /**
+    /*!
      * @brief
      *
      * @param w
@@ -111,7 +111,7 @@ class FDBiGainCalc {
     }
 
   private:
-    /**
+    /*!
      * @brief
      *
      * @param net
@@ -119,7 +119,7 @@ class FDBiGainCalc {
      */
     auto init_gain(node_t net, const std::vector<uint8_t> &part) -> void;
 
-    /**
+    /*!
      * @brief
      *
      * @param net
@@ -129,7 +129,7 @@ class FDBiGainCalc {
     auto init_gain_3pin_net(node_t net, const std::vector<uint8_t> &part,
                             int weight) -> void;
 
-    /**
+    /*!
      * @brief
      *
      * @param net

@@ -110,7 +110,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize_1pass(
         }
         // Update v and its neigbours (even they are in waitinglist);
         // Put neigbours to bucket
-        auto &&[fromPart, toPart, i_v] = move_info_v;
+        auto &&[_, toPart, i_v] = move_info_v;
         this->gainMgr.lock(toPart, i_v);
         this->gainMgr.update_move(part, move_info_v);
         this->gainMgr.update_move_v(move_info_v, gainmax);

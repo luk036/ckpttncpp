@@ -89,7 +89,7 @@ template <typename T> inline constexpr auto range(T start, T stop) {
     };
 
     struct iterable_wrapper {
-        using value_type = T; // luk
+        using value_type = T;
         T start;
         T stop;
         constexpr auto begin() const { return iterator{start}; }

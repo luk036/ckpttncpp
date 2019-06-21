@@ -36,7 +36,7 @@ class FDKWayGainCalc {
      * @param K number of partitions
      */
     FDKWayGainCalc(SimpleNetlist &H, uint8_t K)
-        : H{H}, K{K}, RR{--K}, num_modules{H.number_of_modules()},
+        : H{H}, K{K}, RR{K}, num_modules{H.number_of_modules()},
           deltaGainV(K, 0) {
         for (auto k = 0U; k < this->K; ++k) {
             this->vertex_list.emplace_back(

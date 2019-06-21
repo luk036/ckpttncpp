@@ -23,7 +23,7 @@ class FDKWayGainMgr : public FDGainMgr<FDKWayGainCalc, FDKWayGainMgr> {
      * @param H
      * @param K
      */
-    FDKWayGainMgr(SimpleNetlist &H, uint8_t K) : Base{H, K}, RR{--K} {}
+    FDKWayGainMgr(SimpleNetlist &H, uint8_t K) : Base{H, K}, RR{K} {}
 
     /*!
      * @brief

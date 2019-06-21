@@ -26,7 +26,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr> {
      * @param H
      * @param K
      */
-    FMKWayGainMgr(SimpleNetlist &H, uint8_t K) : Base{H, K}, RR{--K} {}
+    FMKWayGainMgr(SimpleNetlist &H, uint8_t K) : Base{H, K}, RR{K} {}
 
     /*!
      * @brief

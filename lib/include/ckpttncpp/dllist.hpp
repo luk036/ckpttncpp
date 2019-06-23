@@ -62,7 +62,7 @@ template <typename T> struct dllink {
      * @return true
      * @return false
      */
-    auto is_locked() const noexcept -> bool { return this->next == nullptr; }
+    auto is_locked() const -> bool { return this->next == nullptr; }
 
     /*!
      * @brief whether the list is empty
@@ -70,7 +70,7 @@ template <typename T> struct dllink {
      * @return true
      * @return false
      */
-    auto is_empty() const noexcept -> bool {
+    auto is_empty() const -> bool {
         return this->next == this;
     }
 

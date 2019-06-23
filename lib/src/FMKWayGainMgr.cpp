@@ -13,9 +13,6 @@ auto FMKWayGainMgr::init(const std::vector<uint8_t> &part) -> int {
     for (auto k = 0U; k < this->K; ++k) {
         this->gainbucket[k].clear();
     }
-    // auto &&[part, _] = part_info;
-
-    // for (auto v : this->H.modules) {
     for (auto i_v = 0U; i_v < this->H.number_of_modules(); ++i_v) {
         auto pv = part[i_v];
         for (auto &&k : this->RR.exclude(pv)) {

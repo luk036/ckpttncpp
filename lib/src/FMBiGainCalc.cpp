@@ -133,8 +133,8 @@ void FMBiGainCalc::init_gain_general_net(
 auto FMBiGainCalc::update_move_2pin_net(const std::vector<uint8_t> &part,
                                         const MoveInfo &move_info)
     -> ret_2pin_info {
-    auto &&[net, fromPart, _1, v] = move_info;
-    // auto &&[part, _2] = part_info;
+    auto &&[net, fromPart, _, v] = move_info;
+    _; // not used; make compile happy only
     auto netCur = this->H.G[net].begin();
     auto w = (*netCur != v) ? *netCur : *++netCur;
     auto i_w = this->H.module_map[w];

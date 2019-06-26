@@ -38,12 +38,12 @@ TEST_CASE("Test FMBiPartMgr dwarf", "[test_FMBiPartMgr]") {
 }
 
 TEST_CASE("Test FMBiPartMgr p1", "[test_FMBiPartMgr]") {
-    auto H = readNetD("../../testcases/p1.net");
+    auto H = readNetD("../../../testcases/p1.net");
     run_FMBiPartMgr(H);
 }
 
 TEST_CASE("Test FMBiPartMgr ibm01", "[test_FMBiPartMgr]") {
-    auto H = readNetD("../../testcases/ibm01.net");
-    readAre(H, "../../testcases/ibm01.are");
+    auto H = readNetD("../../../testcases/ibm01.net");
+    readAre(H, "../../../testcases/ibm01.are");
     run_FMBiPartMgr(H);
 }

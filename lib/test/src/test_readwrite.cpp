@@ -7,8 +7,8 @@ extern void readAre(SimpleNetlist &H, const char *areFileName);
 extern void writeJSON(const char *jsonFileName, const SimpleNetlist &H);
 
 TEST_CASE("Test Read Dwarf", "[test_readwrite]") {
-    auto H = readNetD("../../testcases/dwarf1.netD");
-    readAre(H, "../../testcases/dwarf1.are");
+    auto H = readNetD("../../../testcases/dwarf1.netD");
+    readAre(H, "../../../testcases/dwarf1.are");
 
     CHECK(H.number_of_modules() == 7);
     CHECK(H.number_of_nets() == 5);
@@ -20,7 +20,7 @@ TEST_CASE("Test Read Dwarf", "[test_readwrite]") {
 }
 
 TEST_CASE("Test Read p1", "[test_readwrite]") {
-    auto H = readNetD("../../testcases/p1.net");
+    auto H = readNetD("../../../testcases/p1.net");
 
     CHECK(H.number_of_modules() == 833);
     CHECK(H.number_of_nets() == 902);
@@ -32,9 +32,9 @@ TEST_CASE("Test Read p1", "[test_readwrite]") {
 }
 
 TEST_CASE("Test Write Dwarf", "[test_readwrite]") {
-    auto H = readNetD("../../testcases/dwarf1.netD");
-    readAre(H, "../../testcases/dwarf1.are");
-    writeJSON("../../testcases/dwarf1.json", H);
+    auto H = readNetD("../../../testcases/dwarf1.netD");
+    readAre(H, "../../../testcases/dwarf1.are");
+    writeJSON("../../../testcases/dwarf1.json", H);
 
     CHECK(H.number_of_modules() == 7);
     CHECK(H.number_of_nets() == 5);
@@ -42,6 +42,6 @@ TEST_CASE("Test Write Dwarf", "[test_readwrite]") {
 }
 
 TEST_CASE("Test Write p1", "[test_readwrite]") {
-    auto H = readNetD("../../testcases/p1.net");
-    writeJSON("../../testcases/p1.json", H);
+    auto H = readNetD("../../../testcases/p1.net");
+    writeJSON("../../../testcases/p1.json", H);
 }

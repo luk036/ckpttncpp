@@ -25,8 +25,8 @@ create_contraction_subgraph(SimpleNetlist &, const py::set<node_t> &);
 // }
 
 // TEST_CASE("Test min_net_cover_pd ibm01", "[test_min_cover]") {
-//     auto H = readNetD("../../testcases/ibm01.net");
-//     readAre(H, "../../testcases/ibm01.are");
+//     auto H = readNetD("../../../testcases/ibm01.net");
+//     readAre(H, "../../../testcases/ibm01.are");
 //     auto [S, cost] = min_net_cover_pd(H, H.net_weight);
 //     CHECK(cost == 4053);
 // }
@@ -38,8 +38,8 @@ TEST_CASE("Test max_independent_net dwarf", "[test_max_independent_net]") {
 }
 
 // TEST_CASE("Test max_independent_net ibm01", "[test_max_independent_net]") {
-//     auto H = readNetD("../../testcases/ibm01.net");
-//     readAre(H, "../../testcases/ibm01.are");
+//     auto H = readNetD("../../../testcases/ibm01.net");
+//     readAre(H, "../../../testcases/ibm01.are");
 //     auto [S, cost] = max_independent_net(H, H.net_weight);
 //     CHECK(cost == 3157);
 // }
@@ -64,8 +64,8 @@ TEST_CASE("Test contraction subgraph dwarf", "[test_contractio_subgraph]") {
 }
 
 // TEST_CASE("Test contraction subgraph ibm01", "[test_contractio_subgraph]") {
-//     auto H = readNetD("../../testcases/ibm01.net");
-//     readAre(H, "../../testcases/ibm01.are");
+//     auto H = readNetD("../../../testcases/ibm01.net");
+//     readAre(H, "../../../testcases/ibm01.are");
 //     auto H2 = create_contraction_subgraph(H, py::set<node_t>{});
 //     auto H3 = create_contraction_subgraph(*H2, py::set<node_t>{});
 //     CHECK(H2->number_of_modules() < H.number_of_modules());

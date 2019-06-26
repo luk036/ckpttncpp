@@ -1,44 +1,51 @@
 language: cpp
 dist: trusty
+
+cache: # see https://docs.travis-ci.com/user/caching/
+  - directories:
+    - $HOME/.cache
+
 matrix:
   include:
     - os: linux
-      addons:
+      addons: &gcc8
         apt:
           sources:
             - ubuntu-toolchain-r-test
           packages:
             - g++-8
             - catch
-      env: COMPILER=gcc GCC=8 BLAS=OpenBLAS BUILD_TYPE='Debug'
+            - lcov
+      env: COMPILER=gcc GCC=8 BUILD_TYPE='Debug'
     - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-8
-            - catch
-      env: COMPILER=gcc GCC=8 BLAS=OpenBLAS BUILD_TYPE='Release'
+      addons: *gcc8
+      env: COMPILER=gcc GCC=8 BUILD_TYPE='Release'
+    - os: linux
+      addons: *gcc8
+      env: COMPILER=gcc GCC=8 BUILD_TYPE='Coverage'
 env:
   global:
     - MINCONDA_VERSION="latest"
     - MINCONDA_LINUX="Linux-x86_64"
     - MINCONDA_OSX="MacOSX-x86_64"
+
 before_install:
-    - |
-      # Configure build variables
-      if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-        if [[ "$COMPILER" == "gcc" ]]; then
-          export CXX=g++-$GCC CC=gcc-$GCC;
-        fi
-        if [[ "$COMPILER" == "clang" ]]; then
-          export CXX=clang++-$CLANG CC=clang-$CLANG;
-        fi
-      elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-        export CXX=clang++ CC=clang;
+  - |
+    # Configure build variables
+    if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      if [[ "$COMPILER" == "gcc" ]]; then
+        export CXX=g++-$GCC CC=gcc-$GCC;
       fi
+      if [[ "$COMPILER" == "clang" ]]; then
+        export CXX=clang++-$CLANG CC=clang-$CLANG;
+      fi
+    elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      export CXX=clang++ CC=clang;
+    fi
+
 install:
+  - mkdir -p $HOME/.cache
+  - touch $HOME/.cache/mydependency.so
     # Define the version of miniconda to download
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
         MINCONDA_OS=$MINCONDA_LINUX;
@@ -55,15 +62,24 @@ install:
     - conda update -q conda
     - conda info -a
     - conda install libboost -c conda-forge
-    # Testing
-    - if [[ "$BOUND_CHECKS" == 1 ]]; then
-        cmake -DXTENSOR_ENABLE_ASSERT=ON -DBUILD_TESTS=ON -DCMAKE_PREFIX_PATH=$CONDA_PREFIX -DCMAKE_BUILD_TYPE=${BUILD_TYPE}-DCMAKE_SYSTEM_IGNORE_PATH=/usr/lib .;
-      else
-        cmake -DBUILD_TESTS=ON -DCMAKE_PREFIX_PATH=$CONDA_PREFIX -DCMAKE_BUILD_TYPE=${BUILD_TYPE}-DCMAKE_SYSTEM_IGNORE_PATH=/usr/lib .;
-      fi
-    - make -j2
+
 script:
-    - ctest -V -j 2
+  - |
+    if [[ "$BUILD_TYPE" == "Coverage" ]]; then
+      ctest -S cmake/CI.CTestScript.cmake --output-on-failure -VV -DCMAKE_PREFIX_PATH=$CONDA_PREFIX -DCTEST_SITE=Travis -DCTEST_BUILD_NAME="${TRAVIS_OS_NAME}-$BUILD_TYPE"
+    else
+      mkdir build && cd build;
+      cmake -DBUILD_TESTS=ON -DCMAKE_PREFIX_PATH=$CONDA_PREFIX -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_SYSTEM_IGNORE_PATH=/usr/lib .;
+      make -j2
+      ctest -V -j 2
+    fi
+
+after_success:
+  - |
+    if [[ "$BUILD_TYPE" == "Coverage" ]]; then
+      bash <(curl -s https://codecov.io/bash) -X gcov || echo "Codecov did not collect coverage reports"
+    fi
+
 notifications:
   email: false
   slack:

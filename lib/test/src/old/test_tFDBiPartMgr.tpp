@@ -38,24 +38,24 @@ TEST_CASE("Test FDBiPartMgr dwarf", "[test_FDBiPartMgr]") {
 }
 
 TEST_CASE("Test FDBiPartMgr p1", "[test_FDBiPartMgr]") {
-    auto H = readNetD("../../testcases/p1.net");
+    auto H = readNetD("../../../testcases/p1.net");
     run_FDBiPartMgr(H);
 }
 
 TEST_CASE("Test FDBiPartMgr ibm01", "[test_FDBiPartMgr]") {
-    auto H = readNetD("../../testcases/ibm01.net");
-    readAre(H, "../../testcases/ibm01.are");
+    auto H = readNetD("../../../testcases/ibm01.net");
+    readAre(H, "../../../testcases/ibm01.are");
     run_FDBiPartMgr(H);
 }
 
 // TEST_CASE("Test FDBiPartMgr ibm02", "[test_FDBiPartMgr]") {
-//     auto H = readNetD("../../testcases/ibm02.net");
-//     readAre(H, "../../testcases/ibm02.are");
+//     auto H = readNetD("../../../testcases/ibm02.net");
+//     readAre(H, "../../../testcases/ibm02.are");
 //     run_FDBiPartMgr(H);
 // }
 
 // TEST_CASE("Test FDBiPartMgr ibm03", "[test_FDBiPartMgr]") {
-//     auto H = readNetD("../../testcases/ibm03.net");
-//     readAre(H, "../../testcases/ibm03.are");
+//     auto H = readNetD("../../../testcases/ibm03.net");
+//     readAre(H, "../../../testcases/ibm03.are");
 //     run_FDBiPartMgr(H);
 // }

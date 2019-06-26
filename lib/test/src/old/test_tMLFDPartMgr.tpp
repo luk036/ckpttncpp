@@ -31,7 +31,7 @@ TEST_CASE("Test MLFDKWayPartMgr dwarf", "[test_MLFDKWayPartMgr]") {
 }
 
 TEST_CASE("Test MLFDBiPartMgr p1", "[test_MLFDBiPartMgr]") {
-    auto H = readNetD("../../testcases/p1.net");
+    auto H = readNetD("../../../testcases/p1.net");
     auto partMgr = MLPartMgr{0.3};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     // auto part_info = PartInfo{std::move(part), py::set<node_t>()};
@@ -42,8 +42,8 @@ TEST_CASE("Test MLFDBiPartMgr p1", "[test_MLFDBiPartMgr]") {
 }
 
 TEST_CASE("Test MLFDBiPartMgr ibm01", "[test_MLFDBiPartMgr]") {
-    auto H = readNetD("../../testcases/ibm01.net");
-    readAre(H, "../../testcases/ibm01.are");
+    auto H = readNetD("../../../testcases/ibm01.net");
+    readAre(H, "../../../testcases/ibm01.are");
     auto partMgr = MLPartMgr{0.45};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     // auto part_info = PartInfo{std::move(part), py::set<node_t>()};
@@ -56,8 +56,8 @@ TEST_CASE("Test MLFDBiPartMgr ibm01", "[test_MLFDBiPartMgr]") {
 }
 
 TEST_CASE("Test MLFDBiPartMgr ibm03", "[test_MLFDBiPartMgr]") {
-    auto H = readNetD("../../testcases/ibm03.net");
-    readAre(H, "../../testcases/ibm03.are");
+    auto H = readNetD("../../../testcases/ibm03.net");
+    readAre(H, "../../../testcases/ibm03.are");
     auto partMgr = MLPartMgr{0.45};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     // auto part_info = PartInfo{std::move(part), py::set<node_t>()};

@@ -8,21 +8,21 @@ cache: # see https://docs.travis-ci.com/user/caching/
 matrix:
   include:
     - os: linux
-      addons: &gcc8
+      addons: &gcc7
         apt:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - g++-8
+            - g++-7
             - catch
             - lcov
-      env: COMPILER=gcc GCC=8 BUILD_TYPE='Debug'
+      env: COMPILER=gcc GCC=7 BUILD_TYPE='Debug'
     - os: linux
-      addons: *gcc8
-      env: COMPILER=gcc GCC=8 BUILD_TYPE='Release'
+      addons: *gcc7
+      env: COMPILER=gcc GCC=7 BUILD_TYPE='Release'
     - os: linux
-      addons: *gcc8
-      env: COMPILER=gcc GCC=8 BUILD_TYPE='Coverage'
+      addons: *gcc7
+      env: COMPILER=gcc GCC=7 BUILD_TYPE='Coverage'
 env:
   global:
     - MINCONDA_VERSION="latest"

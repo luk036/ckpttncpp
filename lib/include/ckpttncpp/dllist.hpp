@@ -1,8 +1,8 @@
 #ifndef CKPTTNCPP_DLLIST_HPP
 #define CKPTTNCPP_DLLIST_HPP 1
 
-#include <cassert>
 #include <boost/coroutine2/all.hpp>
+#include <cassert>
 
 // forward declare
 // template <typename T> struct dll_iterator;
@@ -18,34 +18,35 @@
  * information. Note that this class does not own the list node. They
  * are supplied by the caller in order to better reuse the nodes.
  */
-template <typename T> struct dllink {
-    dllink<T> *next{this}; /*!< pointer to the next node */
-    dllink<T> *prev{this}; /*!< pointer to the previous node */
-    T key;
+template<typename T>
+struct dllink
+{
+    dllink<T>* next{this}; /*!< pointer to the next node */
+    dllink<T>* prev{this}; /*!< pointer to the previous node */
+    T          key;
 
     /*!
      * @brief Construct a new dllink object
      *
      * @param key the key
      */
-    dllink(T key = T(0)) : key{key} {
-        static_assert(sizeof(dllink<T>) <= 24);
-    }
+    dllink(T key = T(0)) : key{key} { static_assert(sizeof(dllink<T>) <= 24); }
 
     /*!
      * @brief Copy construct a new dllink object (deleted intentionally)
      *
      */
-    dllink(dllink<T> &) = delete;
+    dllink(dllink<T>&) = delete;
 
     /*!
      * @brief detach from a list
      *
      */
-    auto detach() -> void {
+    auto detach() -> void
+    {
         assert(!this->is_locked());
-        auto n = this->next;
-        auto p = this->prev;
+        auto n  = this->next;
+        auto p  = this->prev;
         p->next = n;
         n->prev = p;
     }
@@ -70,9 +71,7 @@ template <typename T> struct dllink {
      * @return true
      * @return false
      */
-    auto is_empty() const -> bool {
-        return this->next == this;
-    }
+    auto is_empty() const -> bool { return this->next == this; }
 
     /*!
      * @brief reset the list
@@ -85,11 +84,12 @@ template <typename T> struct dllink {
      *
      * @param node
      */
-    auto appendleft(dllink<T> &node) -> void {
-        node.next = this->next;
+    auto appendleft(dllink<T>& node) -> void
+    {
+        node.next        = this->next;
         this->next->prev = &node;
-        this->next = &node;
-        node.prev = this;
+        this->next       = &node;
+        node.prev        = this;
     }
 
     /*!
@@ -97,11 +97,12 @@ template <typename T> struct dllink {
      *
      * @param node
      */
-    auto append(dllink<T> &node) -> void {
-        node.prev = this->prev;
+    auto append(dllink<T>& node) -> void
+    {
+        node.prev        = this->prev;
         this->prev->next = &node;
-        this->prev = &node;
-        node.next = this;
+        this->prev       = &node;
+        node.next        = this;
     }
 
     /*!
@@ -111,9 +112,10 @@ template <typename T> struct dllink {
      *
      * Precondition: list is not empty
      */
-    auto popleft() -> dllink<T> & {
-        auto res = this->next;
-        this->next = res->next;
+    auto popleft() -> dllink<T>&
+    {
+        auto res         = this->next;
+        this->next       = res->next;
         this->next->prev = this;
         return *res;
     }
@@ -125,9 +127,10 @@ template <typename T> struct dllink {
      *
      * Precondition: list is not empty
      */
-    auto pop() -> dllink<T> & {
-        auto res = this->prev;
-        this->prev = res->prev;
+    auto pop() -> dllink<T>&
+    {
+        auto res         = this->prev;
+        this->prev       = res->prev;
         this->prev->next = this;
         return *res;
     }
@@ -150,10 +153,12 @@ template <typename T> struct dllink {
 
     using coro_t = boost::coroutines2::coroutine<dllink<T>&>;
     using pull_t = typename coro_t::pull_type;
-    auto items() -> pull_t {
-        auto func = [&](typename coro_t::push_type & yield){
+    auto items() -> pull_t
+    {
+        auto func = [&](typename coro_t::push_type& yield) {
             auto cur = this->next;
-            while (cur != this) {
+            while (cur != this)
+            {
                 yield(*cur);
                 cur = cur->next;
             }

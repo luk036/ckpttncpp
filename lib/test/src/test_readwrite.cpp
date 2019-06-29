@@ -2,11 +2,12 @@
 #include <catch.hpp>
 #include <ckpttncpp/netlist.hpp>
 
-extern SimpleNetlist readNetD(const char *netDFileName);
-extern void readAre(SimpleNetlist &H, const char *areFileName);
-extern void writeJSON(const char *jsonFileName, const SimpleNetlist &H);
+extern SimpleNetlist readNetD(const char* netDFileName);
+extern void          readAre(SimpleNetlist& H, const char* areFileName);
+extern void          writeJSON(const char* jsonFileName, const SimpleNetlist& H);
 
-TEST_CASE("Test Read Dwarf", "[test_readwrite]") {
+TEST_CASE("Test Read Dwarf", "[test_readwrite]")
+{
     auto H = readNetD("../../../testcases/dwarf1.netD");
     readAre(H, "../../../testcases/dwarf1.are");
 
@@ -19,7 +20,8 @@ TEST_CASE("Test Read Dwarf", "[test_readwrite]") {
     CHECK(H.get_module_weight(1) == 2);
 }
 
-TEST_CASE("Test Read p1", "[test_readwrite]") {
+TEST_CASE("Test Read p1", "[test_readwrite]")
+{
     auto H = readNetD("../../../testcases/p1.net");
 
     CHECK(H.number_of_modules() == 833);
@@ -31,7 +33,8 @@ TEST_CASE("Test Read p1", "[test_readwrite]") {
     CHECK(H.get_module_weight(1) == 1);
 }
 
-TEST_CASE("Test Write Dwarf", "[test_readwrite]") {
+TEST_CASE("Test Write Dwarf", "[test_readwrite]")
+{
     auto H = readNetD("../../../testcases/dwarf1.netD");
     readAre(H, "../../../testcases/dwarf1.are");
     writeJSON("../../../testcases/dwarf1.json", H);
@@ -41,7 +44,8 @@ TEST_CASE("Test Write Dwarf", "[test_readwrite]") {
     // CHECK(H.number_of_pins() == 13);
 }
 
-TEST_CASE("Test Write p1", "[test_readwrite]") {
+TEST_CASE("Test Write p1", "[test_readwrite]")
+{
     auto H = readNetD("../../../testcases/p1.net");
     writeJSON("../../../testcases/p1.json", H);
 }

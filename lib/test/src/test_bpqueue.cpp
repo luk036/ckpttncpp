@@ -3,7 +3,8 @@
 #include <ckpttncpp/bpqueue.hpp> // import bpqueue
 #include <ckpttncpp/dllist.hpp>  // import dllink
 
-TEST_CASE("Test BPQueue", "[bpqueue]") {
+TEST_CASE("Test BPQueue", "[bpqueue]")
+{
     auto bpq1 = bpqueue{-10, 10};
     auto bpq2 = bpqueue{-10, 10};
 
@@ -31,14 +32,16 @@ TEST_CASE("Test BPQueue", "[bpqueue]") {
     auto nodelist = std::vector<dllink<int>>(10);
 
     auto i = 0U;
-    for (auto &it : nodelist) {
+    for (auto& it : nodelist)
+    {
         it.key = 2 * i - 10;
         i += 1;
     }
     bpq1.appendfrom(nodelist);
 
     auto count = 0U;
-    for (auto &_ : bpq1.items()) {
+    for (auto& _ : bpq1.items())
+    {
         count += 1;
     }
     CHECK(count == 10);

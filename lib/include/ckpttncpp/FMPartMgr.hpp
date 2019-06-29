@@ -19,11 +19,12 @@
  * @tparam GainMgr
  * @tparam ConstrMgr
  */
-template <typename GainMgr, typename ConstrMgr> //
-class FMPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FMPartMgr> {
+template<typename GainMgr, typename ConstrMgr> //
+class FMPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FMPartMgr>
+{
     using Base = PartMgrBase<GainMgr, ConstrMgr, FMPartMgr>;
 
-  public:
+public:
     /*!
      * @brief Construct a new FMPartMgr object
      *
@@ -31,8 +32,10 @@ class FMPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FMPartMgr> {
      * @param gainMgr
      * @param constrMgr
      */
-    FMPartMgr(SimpleNetlist &H, GainMgr &gainMgr, ConstrMgr &constrMgr)
-        : Base{H, gainMgr, constrMgr} {}
+    FMPartMgr(SimpleNetlist& H, GainMgr& gainMgr, ConstrMgr& constrMgr)
+        : Base{H, gainMgr, constrMgr}
+    {
+    }
 
     /*!
      * @brief
@@ -40,7 +43,8 @@ class FMPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FMPartMgr> {
      * @param part_info
      * @return Snapshot
      */
-    auto take_snapshot(const std::vector<uint8_t> &part) -> std::vector<uint8_t> {
+    auto take_snapshot(const std::vector<uint8_t>& part) -> std::vector<uint8_t>
+    {
         // auto &&[part, _] = part_info;
         auto snapshot = part;
         return std::move(snapshot);
@@ -52,8 +56,8 @@ class FMPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FMPartMgr> {
      * @param snapshot
      * @return PartInfo
      */
-    auto restore_part_info(std::vector<uint8_t> &snapshot,
-                           std::vector<uint8_t> &part) -> void {
+    auto restore_part_info(std::vector<uint8_t>& snapshot, std::vector<uint8_t>& part) -> void
+    {
         // auto part = std::vector<uint8_t>{};
         // auto &[part, _] = part_info;
         part.swap(snapshot);

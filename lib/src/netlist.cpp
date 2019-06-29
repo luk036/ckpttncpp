@@ -1,15 +1,17 @@
 #include <ckpttncpp/netlist.hpp>
 #include <py2cpp/py2cpp.hpp>
 
-template <typename nodeview_t, typename nodemap_t>
-auto Netlist<nodeview_t, nodemap_t>::projection_up(const std::vector<uint8_t> &part,
-                                                   std::vector<uint8_t> &part_up)
-    -> void {
-    auto &H = *this->parent;
+template<typename nodeview_t, typename nodemap_t>
+auto Netlist<nodeview_t, nodemap_t>::projection_up(const std::vector<uint8_t>& part,
+                                                   std::vector<uint8_t>&       part_up) -> void
+{
+    auto& H = *this->parent;
     // auto &&[part, extern_nets] = part_info;
     // auto &[part_up, extern_nets_up] = part_info_up;
-    for (auto v : H.modules) {
+    for (auto v : H.modules)
+    {
         auto i_v = H.modules[v];
+
         part_up[this->node_up_map[v]] = part[i_v];
     }
     // if (extern_nets.empty()) {
@@ -22,24 +24,30 @@ auto Netlist<nodeview_t, nodemap_t>::projection_up(const std::vector<uint8_t> &p
     // }
 }
 
-template <typename nodeview_t, typename nodemap_t>
-auto Netlist<nodeview_t, nodemap_t>::projection_down(const std::vector<uint8_t> &part,
-                                                     std::vector<uint8_t> &part_down)
-    -> void {
-    auto &H = *this->parent;
+template<typename nodeview_t, typename nodemap_t>
+auto Netlist<nodeview_t, nodemap_t>::projection_down(const std::vector<uint8_t>& part,
+                                                     std::vector<uint8_t>&       part_down) -> void
+{
+    auto& H = *this->parent;
     // auto &&[part, extern_nets] = part_info;
     // auto &[part_down, extern_nets_down] = part_info_down;
-    for (auto v : this->modules) {
+    for (auto v : this->modules)
+    {
         auto i_v = this->modules[v];
-        if (this->cluster_down_map.contains(v)) {
+        if (this->cluster_down_map.contains(v))
+        {
             auto net = this->cluster_down_map[v];
-            for (auto v2 : H.G[net]) {
-                auto i_v2 = H.module_map[v2];
+            for (auto v2 : H.G[net])
+            {
+                auto i_v2       = H.module_map[v2];
                 part_down[i_v2] = part[i_v];
             }
-        } else {
-            auto v2 = this->node_down_map[v];
+        }
+        else
+        {
+            auto v2   = this->node_down_map[v];
             auto i_v2 = H.module_map[v2];
+
             part_down[i_v2] = part[i_v];
         }
     }

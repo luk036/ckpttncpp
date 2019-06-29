@@ -1,9 +1,9 @@
 #ifndef CKPTTNCPP_BPQUEUE_HPP
 #define CKPTTNCPP_BPQUEUE_HPP 1
 
-#include "dllist.hpp" // import dllink
 #include <cassert>
 #include <vector>
+#include "dllist.hpp" // import dllink
 
 // Forward declaration
 // template <typename T> struct bpq_iterator;
@@ -27,13 +27,14 @@
  *
  * All the member functions assume that the keys are within the bound.
  */
-template <typename T> //
-struct bpqueue {
+template<typename T> //
+struct bpqueue
+{
     static dllink<T> sentinel;
 
-    T offset; /*!< a - 1 */
-    T high;   /*!< b - a + 1 */
-    T max{0}; /*!< max value */
+    T                      offset; /*!< a - 1 */
+    T                      high;   /*!< b - a + 1 */
+    T                      max{0}; /*!< max value */
     std::vector<dllink<T>> bucket; /*!< bucket, array of lists */
 
     /*!
@@ -42,9 +43,8 @@ struct bpqueue {
      * @param a lower bound
      * @param b upper bound
      */
-    bpqueue(T a, T b)
-        : offset{a - 1}, high{b - offset},
-          bucket(high + 1) {
+    bpqueue(T a, T b) : offset{a - 1}, high{b - offset}, bucket(high + 1)
+    {
         assert(a <= b);
         bucket[0].append(sentinel); // sentinel
     }
@@ -55,9 +55,7 @@ struct bpqueue {
      * @param it   the item
      * @param gain the key of it
      */
-    auto set_key(dllink<T> &it, T gain) -> void {
-        it.key = gain - this->offset;
-    }
+    auto set_key(dllink<T>& it, T gain) -> void { it.key = gain - this->offset; }
 
     /*!
      * @brief Get the max value
@@ -77,8 +75,10 @@ struct bpqueue {
     /*!
      * @brief clear reset the PQ
      */
-    auto clear() -> void {
-        while (this->max > 0) {
+    auto clear() -> void
+    {
+        while (this->max > 0)
+        {
             this->bucket[this->max].clear();
             this->max -= 1;
         }
@@ -89,7 +89,8 @@ struct bpqueue {
      *
      * @param it the item
      */
-    auto append_direct(dllink<T> &it) -> void {
+    auto append_direct(dllink<T>& it) -> void
+    {
         assert(it.key > this->offset);
         this->append(it, it.key);
     }
@@ -100,12 +101,11 @@ struct bpqueue {
      * @param it the item
      * @param k  the key
      */
-    auto append(dllink<T> &it, T k) -> void {
+    auto append(dllink<T>& it, T k) -> void
+    {
         assert(k > this->offset);
         it.key = k - this->offset;
-        if (this->max < it.key) {
-            this->max = it.key;
-        }
+        if (this->max < it.key) { this->max = it.key; }
         this->bucket[it.key].append(it);
     }
 
@@ -115,14 +115,17 @@ struct bpqueue {
      * @param nodes
      * @param keys
      */
-    auto appendfrom(std::vector<dllink<T>> &nodes) -> void {
-        for (auto &it : nodes) {
+    auto appendfrom(std::vector<dllink<T>>& nodes) -> void
+    {
+        for (auto& it : nodes)
+        {
             it.key -= this->offset;
             assert(it.key > 0);
             this->bucket[it.key].append(it);
         }
         this->max = this->high;
-        while (this->bucket[this->max].is_empty()) {
+        while (this->bucket[this->max].is_empty())
+        {
             this->max -= 1;
         }
     }
@@ -132,9 +135,11 @@ struct bpqueue {
      *
      * @return dllink&
      */
-    auto popleft() -> dllink<T> & {
-        auto &res = this->bucket[this->max].popleft();
-        while (this->bucket[this->max].is_empty()) {
+    auto popleft() -> dllink<T>&
+    {
+        auto& res = this->bucket[this->max].popleft();
+        while (this->bucket[this->max].is_empty())
+        {
             this->max -= 1;
         }
         return res;
@@ -149,18 +154,21 @@ struct bpqueue {
      * Note that the order of items with same key will not be preserved.
      * For FM algorithm, this is a prefered behavior.
      */
-    auto decrease_key(dllink<T> &it, T delta) -> void {
+    auto decrease_key(dllink<T>& it, T delta) -> void
+    {
         // this->bucket[it.key].detach(it)
         it.detach();
         it.key += delta;
         assert(it.key > 0);
         assert(it.key <= this->high);
         this->bucket[it.key].append(it); // FIFO
-        if (this->max < it.key) {
+        if (this->max < it.key)
+        {
             this->max = it.key;
             return;
         }
-        while (this->bucket[this->max].is_empty()) {
+        while (this->bucket[this->max].is_empty())
+        {
             this->max -= 1;
         }
     }
@@ -174,16 +182,15 @@ struct bpqueue {
      * Note that the order of items with same key will not be preserved.
      * For FM algorithm, this is a prefered behavior.
      */
-    auto increase_key(dllink<T> &it, T delta) -> void {
+    auto increase_key(dllink<T>& it, T delta) -> void
+    {
         // this->bucket[it.key].detach(it)
         it.detach();
         it.key += delta;
         assert(it.key > 0);
         assert(it.key <= this->high);
         this->bucket[it.key].appendleft(it); // LIFO
-        if (this->max < it.key) {
-            this->max = it.key;
-        }
+        if (this->max < it.key) { this->max = it.key; }
     }
 
     /*!
@@ -195,13 +202,12 @@ struct bpqueue {
      * Note that the order of items with same key will not be preserved.
      * For FM algorithm, this is a prefered behavior.
      */
-    auto modify_key(dllink<T> &it, T delta) -> void {
-        if (it.is_locked()) {
-            return;
-        }
-        if (delta > 0) {
-            this->increase_key(it, delta);
-        } else if (delta < 0) {
+    auto modify_key(dllink<T>& it, T delta) -> void
+    {
+        if (it.is_locked()) { return; }
+        if (delta > 0) { this->increase_key(it, delta); }
+        else if (delta < 0)
+        {
             this->decrease_key(it, delta);
         }
     }
@@ -211,10 +217,12 @@ struct bpqueue {
      *
      * @param it the item
      */
-    auto detach(dllink<T> &it) -> void {
+    auto detach(dllink<T>& it) -> void
+    {
         // this->bucket[it.key].detach(it)
         it.detach();
-        while (this->bucket[this->max].is_empty()) {
+        while (this->bucket[this->max].is_empty())
+        {
             this->max -= 1;
         }
     }
@@ -235,11 +243,14 @@ struct bpqueue {
 
     using coro_t = boost::coroutines2::coroutine<dllink<T>&>;
     using pull_t = typename coro_t::pull_type;
-    auto items() -> pull_t {
-        auto func = [&](typename coro_t::push_type & yield){
+    auto items() -> pull_t
+    {
+        auto func = [&](typename coro_t::push_type& yield) {
             auto curkey = this->max;
-            while (curkey > 0) {
-                for (auto& item : this->bucket[curkey].items()) {
+            while (curkey > 0)
+            {
+                for (auto& item : this->bucket[curkey].items())
+                {
                     yield(item);
                 }
                 curkey -= 1;
@@ -252,7 +263,8 @@ struct bpqueue {
     // const auto& items() const { return *this; }
 };
 
-template <typename T> dllink<T> bpqueue<T>::sentinel{};
+template<typename T>
+dllink<T> bpqueue<T>::sentinel{};
 
 // /*!
 //  * @brief Bounded Priority Queue Iterator

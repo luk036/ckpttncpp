@@ -4,15 +4,14 @@
 
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
 extern SimpleNetlist create_dwarf();        // import create_dwarf
-extern SimpleNetlist readNetD(const char *netDFileName);
-extern void readAre(SimpleNetlist &H, const char *areFileName);
+extern SimpleNetlist readNetD(const char* netDFileName);
+extern void          readAre(SimpleNetlist& H, const char* areFileName);
 // extern std::tuple<py::set<node_t>, int>
 // min_net_cover_pd(SimpleNetlist &, const std::vector<int> &);
-extern std::tuple<py::set<node_t>, int>
-max_independent_net(SimpleNetlist &, const std::vector<int> &,
-                    const py::set<node_t> &);
-extern std::unique_ptr<SimpleNetlist>
-create_contraction_subgraph(SimpleNetlist &, const py::set<node_t> &);
+extern std::tuple<py::set<node_t>, int> max_independent_net(SimpleNetlist&, const std::vector<int>&,
+                                                            const py::set<node_t>&);
+extern std::unique_ptr<SimpleNetlist>   create_contraction_subgraph(SimpleNetlist&,
+                                                                    const py::set<node_t>&);
 
 //
 // Primal-dual algorithm for minimum vertex cover problem
@@ -31,8 +30,9 @@ create_contraction_subgraph(SimpleNetlist &, const py::set<node_t> &);
 //     CHECK(cost == 4053);
 // }
 
-TEST_CASE("Test max_independent_net dwarf", "[test_max_independent_net]") {
-    auto H = create_dwarf();
+TEST_CASE("Test max_independent_net dwarf", "[test_max_independent_net]")
+{
+    auto H         = create_dwarf();
     auto [_, cost] = max_independent_net(H, H.module_weight, py::set<node_t>{});
     CHECK(cost == 3);
 }
@@ -44,8 +44,9 @@ TEST_CASE("Test max_independent_net dwarf", "[test_max_independent_net]") {
 //     CHECK(cost == 3157);
 // }
 
-TEST_CASE("Test contraction subgraph dwarf", "[test_contractio_subgraph]") {
-    auto H = create_dwarf();
+TEST_CASE("Test contraction subgraph dwarf", "[test_contractio_subgraph]")
+{
+    auto H  = create_dwarf();
     auto H2 = create_contraction_subgraph(H, py::set<node_t>{});
     auto H3 = create_contraction_subgraph(*H2, py::set<node_t>{});
     CHECK(H2->number_of_modules() < 7);

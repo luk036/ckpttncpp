@@ -20,24 +20,41 @@
  *
  * @return Netlist
  */
-auto create_dwarf() -> SimpleNetlist {
-    using Edge = std::pair<int, int>;
+auto create_dwarf() -> SimpleNetlist
+{
+    using Edge          = std::pair<int, int>;
     const int num_nodes = 13;
-    enum nodes { a0, a1, a2, a3, p1, p2, p3, n1, n2, n3, n4, n5, n6 };
+    enum nodes
+    {
+        a0,
+        a1,
+        a2,
+        a3,
+        p1,
+        p2,
+        p3,
+        n1,
+        n2,
+        n3,
+        n4,
+        n5,
+        n6
+    };
     // static std::vector<nodes> module_name_list = {a1, a2, a3};
     // static std::vector<nodes> net__name_list = {n1, n2, n3};
 
     // char name[] = "ABCDE";
-    auto edge_array = std::vector{
-        Edge(p1, n1), Edge(a0, n1), Edge(a1, n1), Edge(a0, n2), Edge(a2, n2),
-        Edge(a3, n2), Edge(a1, n3), Edge(a2, n3), Edge(a3, n3), Edge(a2, n4),
-        Edge(p2, n4), Edge(a3, n5), Edge(p3, n5), Edge(a0, n6)};
+    auto edge_array =
+        std::vector{Edge(p1, n1), Edge(a0, n1), Edge(a1, n1), Edge(a0, n2), Edge(a2, n2),
+                    Edge(a3, n2), Edge(a1, n3), Edge(a2, n3), Edge(a3, n3), Edge(a2, n4),
+                    Edge(p2, n4), Edge(a3, n5), Edge(p3, n5), Edge(a0, n6)};
     // std::index_t indices[] = {0, 1, 2, 3, 4, 5};
     // int num_arcs = sizeof(edge_array) / sizeof(Edge);
     // auto R = py::range<int>(num_nodes);
     // graph_t g{R, R};
     auto g = graph_t(num_nodes);
-    for (auto [u, v] : edge_array) {
+    for (auto [u, v] : edge_array)
+    {
         g.add_edge(u, v);
     }
     // using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
@@ -51,9 +68,9 @@ auto create_dwarf() -> SimpleNetlist {
     std::vector<int> module_weight = {1, 3, 4, 2, 0, 0, 0};
     // auto H = Netlist{std::move(g), py::range(7), py::range(7, 13), py::range(7),
     //                  py::range(-7, 6)};
-    auto H = Netlist{std::move(g), 7, 6};
+    auto H          = Netlist{std::move(g), 7, 6};
     H.module_weight = module_weight;
-    H.num_pads = 3;
+    H.num_pads      = 3;
     return H;
 }
 
@@ -62,10 +79,19 @@ auto create_dwarf() -> SimpleNetlist {
  *
  * @return Netlist
  */
-auto create_test_netlist() -> SimpleNetlist {
-    using Edge = std::pair<int, int>;
+auto create_test_netlist() -> SimpleNetlist
+{
+    using Edge           = std::pair<int, int>;
     auto const num_nodes = 6;
-    enum nodes { a1, a2, a3, n1, n2, n3 };
+    enum nodes
+    {
+        a1,
+        a2,
+        a3,
+        n1,
+        n2,
+        n3
+    };
 
     // char name[] = "ABCDE";
     auto edge_array = std::vector{Edge(a1, n1), Edge(a1, n2), Edge(a2, n1),
@@ -74,19 +100,21 @@ auto create_test_netlist() -> SimpleNetlist {
     // auto num_arcs = sizeof(edge_array) / sizeof(Edge);
     // auto g = graph_t{edge_array, edge_array + num_arcs, num_nodes};
     // auto G = xn::grAdaptor<graph_t>{std::move(g)};
-    auto R = py::range<int>(num_nodes);
+    auto    R = py::range<int>(num_nodes);
     graph_t g{R, R};
-    for (auto [u, v] : edge_array) {
+    for (auto [u, v] : edge_array)
+    {
         g.add_edge(u, v);
     }
 
     auto module_weight = std::vector<int>{3, 4, 2};
-    auto H = Netlist{std::move(g), 3, 3};
-    H.module_weight = std::move(module_weight);
+    auto H             = Netlist{std::move(g), 3, 3};
+    H.module_weight    = std::move(module_weight);
     return H;
 }
 
-TEST_CASE("Test Netlist", "[test_netlist]") {
+TEST_CASE("Test Netlist", "[test_netlist]")
+{
     auto H = create_test_netlist();
 
     CHECK(H.number_of_modules() == 3);
@@ -97,7 +125,8 @@ TEST_CASE("Test Netlist", "[test_netlist]") {
     CHECK(!H.has_fixed_modules);
 }
 
-TEST_CASE("Test dwarf", "[test_dwarf]") {
+TEST_CASE("Test dwarf", "[test_dwarf]")
+{
     auto H = create_dwarf();
 
     CHECK(H.number_of_modules() == 7);

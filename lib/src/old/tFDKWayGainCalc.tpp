@@ -32,7 +32,7 @@ auto FDKWayGainCalc::init_gain(node_t net, const std::vector<uint8_t> &part) -> 
         }
     } else { // 90%
         auto weight = this->H.get_net_weight(net);
-        for (auto const &w : this->H.G[net]) {
+        for (const auto &w : this->H.G[net]) {
             auto i_w = this->H.module_map[w];
             for (auto k : this->RR.exclude(part[i_w])) {
                 this->vertex_list[k][i_w].key -= weight;
@@ -125,7 +125,7 @@ auto FDKWayGainCalc::init_gain_general_net(
     node_t net, const std::vector<uint8_t> &part) -> void {
     std::vector<uint8_t> num(this->K, 0);
     auto IdVec = std::vector<index_t>{};
-    for (auto const &w : this->H.G[net]) {
+    for (const auto &w : this->H.G[net]) {
         auto i_w = this->H.module_map[w];
         num[part[i_w]] += 1;
         IdVec.push_back(i_w);
@@ -194,7 +194,7 @@ auto FDKWayGainCalc::update_move_3pin_net(std::vector<uint8_t> &part,
     auto &&[net, fromPart, toPart, v] = move_info;
     // auto &[part, extern_nets] = part_info;
     auto IdVec = std::vector<index_t>{};
-    for (auto const &w : this->H.G[net]) {
+    for (const auto &w : this->H.G[net]) {
         if (w == v) {
             continue;
         }
@@ -270,7 +270,7 @@ auto FDKWayGainCalc::update_move_general_net(std::vector<uint8_t> &part,
     // auto &[part, extern_nets] = part_info;
     std::vector<uint8_t> num(this->K, 0);
     auto IdVec = std::vector<index_t>{};
-    for (auto const &w : this->H.G[net]) {
+    for (const auto &w : this->H.G[net]) {
         if (w == v) {
             continue;
         }

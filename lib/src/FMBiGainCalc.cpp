@@ -102,7 +102,7 @@ void FMBiGainCalc::init_gain_general_net(node_t net, const std::vector<uint8_t>&
 {
     uint8_t num[2] = {0, 0};
     auto    IdVec  = std::vector<index_t>{};
-    for (auto const& w : this->H.G[net])
+    for (const auto& w : this->H.G[net])
     {
         auto i_w = this->H.module_map[w];
         num[part[i_w]] += 1;
@@ -169,7 +169,7 @@ auto FMBiGainCalc::update_move_3pin_net(const std::vector<uint8_t>& part, const 
     // auto &&[part, _2] = part_info;
     uint8_t num[2] = {0, 0};
     auto    IdVec  = std::vector<index_t>{};
-    for (auto const& w : this->H.G[net])
+    for (const auto& w : this->H.G[net])
     {
         if (w == v) { continue; }
         auto i_w = this->H.module_map[w];
@@ -210,7 +210,7 @@ auto FMBiGainCalc::update_move_general_net(const std::vector<uint8_t>& part,
     // auto &&[part, _] = part_info;
     uint8_t num[2] = {0, 0};
     auto    IdVec  = std::vector<index_t>{};
-    for (auto const& w : this->H.G[net])
+    for (const auto& w : this->H.G[net])
     {
         if (w == v) { continue; }
         auto i_w = this->H.module_map[w];

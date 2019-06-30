@@ -80,13 +80,14 @@ auto readNetD(const char* netDFileName) -> SimpleNetlist
     netD >> t; // eat 1st 0
     netD >> numPins >> numNets >> numModules >> padOffset;
 
-    using Edge              = std::pair<int, int>;
-    auto const num_vertices = numModules + numNets;
-    auto       R            = py::range<node_t>(0, num_vertices);
-    graph_t    g{R, R};
+    using Edge = std::pair<int, int>;
 
-    const index_t bufferSize = 100;
-    char          lineBuffer[bufferSize]; // Does it work for other compiler?
+    auto num_vertices = numModules + numNets;
+    auto R            = py::range<node_t>(0, num_vertices);
+    auto g            = graph_t{R, R};
+
+    index_t bufferSize = 100;
+    char    lineBuffer[bufferSize]; // Does it work for other compiler?
     netD.getline(lineBuffer, bufferSize);
 
     node_t  w;

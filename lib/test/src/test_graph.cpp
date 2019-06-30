@@ -10,7 +10,7 @@
  */
 TEST_CASE("Test xnetwork", "[test_xnetwork]")
 {
-    auto const num_nodes = 6;
+    auto num_nodes = 6;
     enum nodes
     {
         a1,

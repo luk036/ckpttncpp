@@ -6,7 +6,7 @@
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
 extern SimpleNetlist create_dwarf();        // import create_dwarf
 extern SimpleNetlist readNetD(const char* netDFileName);
-void                 readAre(SimpleNetlist& H, const char* areFileName);
+extern void          readAre(SimpleNetlist& H, const char* areFileName);
 
 /**
  * @brief Run test cases
@@ -22,8 +22,8 @@ void run_FMBiPartMgr(SimpleNetlist& H)
     // auto part_info = PartInfo{std::move(part), py::set<node_t>{}};
     partMgr.legalize(part);
     auto totalcostbefore = partMgr.totalcost;
-    CHECK(totalcostbefore >= 0);
     partMgr.optimize(part);
+    CHECK(totalcostbefore >= 0);
     CHECK(partMgr.totalcost <= totalcostbefore);
     CHECK(partMgr.totalcost >= 0);
 }

@@ -69,6 +69,7 @@ auto create_dwarf() -> SimpleNetlist
     // auto H = Netlist{std::move(g), py::range(7), py::range(7, 13), py::range(7),
     //                  py::range(-7, 6)};
     auto H          = Netlist{std::move(g), 7, 6};
+
     H.module_weight = module_weight;
     H.num_pads      = 3;
     return H;
@@ -81,8 +82,8 @@ auto create_dwarf() -> SimpleNetlist
  */
 auto create_test_netlist() -> SimpleNetlist
 {
-    using Edge           = std::pair<int, int>;
-    auto const num_nodes = 6;
+    using Edge     = std::pair<int, int>;
+    auto num_nodes = 6;
     enum nodes
     {
         a1,

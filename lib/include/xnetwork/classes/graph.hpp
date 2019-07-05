@@ -1,7 +1,7 @@
 #ifndef _HOME_UBUNTU_GITHUB_XNETWORK_CLASS_GRAPH_HPP
 #define _HOME_UBUNTU_GITHUB_XNETWORK_CLASS_GRAPH_HPP 1
 
-#include <any>
+#include <boost/any.hpp>
 #include <cassert>
 #include <py2cpp/py2cpp.hpp>
 #include <type_traits>
@@ -105,7 +105,7 @@ namespace xn {
     direct manipulation of the attribute
     dictionaries named graph, node and edge respectively.
 
-    >>> G.graph["day"] = std::any("Friday");
+    >>> G.graph["day"] = boost::any("Friday");
     {'day': 'Friday'}
 
     **Subclasses (Advanced):**
@@ -194,7 +194,7 @@ namespace xn {
     a dictionary-like object.
 */
 
-struct object : py::dict<const char *, std::any> {};
+struct object : py::dict<const char *, boost::any> {};
 
 template <typename nodeview_t, typename nodemap_t,
           typename adjlist_inner_dict_factory = 
@@ -202,7 +202,7 @@ template <typename nodeview_t, typename nodemap_t,
 class Graph : public object {
   public:
     using Node = typename nodeview_t::value_type; // luk
-    using dict = py::dict<const char *, std::any>;
+    using dict = py::dict<const char *, boost::any>;
     using graph_attr_dict_factory = dict;
     // using edge_attr_dict_factory = dict;
     // using node_attr_dict_factory = dict;
@@ -286,11 +286,11 @@ class Graph : public object {
          */
         if (!this->graph.contains("name"))
             return "";
-        return std::any_cast<const char *>(this->graph["name"]);
+        return boost::any_cast<const char *>(this->graph["name"]);
     }
 
     // @name.setter
-    auto set_name(const char *s) { this->graph["name"] = std::any(s); }
+    auto set_name(const char *s) { this->graph["name"] = boost::any(s); }
 
     /** Iterate over the nodes. Use: "for (auto n : G)".
      *
@@ -422,7 +422,7 @@ class Graph : public object {
         // Lazy View creation: overload the (class) property on the instance
         // Then future G.nodes use the existing View
         // setattr doesn"t work because attribute already exists
-        this->operator[]("nodes") = std::any(nodes);
+        this->operator[]("nodes") = boost::any(nodes);
         return nodes;
     }
 
@@ -443,7 +443,7 @@ class Graph : public object {
     >>> len(G);
     3
      */
-    auto number_of_nodes() const { return std::size(this->_node); }
+    auto number_of_nodes() const { return this->_node.size(); }
 
     /** Return the number of nodes : the graph.
 
@@ -456,7 +456,7 @@ class Graph : public object {
     --------
     number_of_nodes, __len__  which are identical
      */
-    auto order() { return std::size(this->_node); }
+    auto order() { return this->_node.size(); }
 
     /** Return true if (the graph contains the node n.
 
@@ -636,7 +636,7 @@ class Graph : public object {
     //     G.adj[0]?); EdgeDataView([(0, 1)]);
     //      */
     //     auto edges = EdgeView(*this);
-    //     this->operator[]("edges") = std::any(edges);
+    //     this->operator[]("edges") = boost::any(edges);
     //     return edges;
     // }
 
@@ -681,7 +681,7 @@ class Graph : public object {
     //     [(0, 1), (1, 2), (2, 2)];
     //      */
     //     auto degree = DegreeView(*this);
-    //     this->operator[]("degree") = std::any(degree);
+    //     this->operator[]("degree") = boost::any(degree);
     //     return degree;
     // }
 

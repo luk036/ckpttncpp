@@ -193,7 +193,7 @@ auto FDBiGainCalc::update_move_general_net(std::vector<uint8_t> &part,
         num[part[i_w]] += 1;
         IdVec.push_back(i_w);
     }
-    auto degree = std::size(IdVec);
+    auto degree = IdVec.size();
     auto deltaGain = std::vector(degree, 0);
     auto weight = this->H.get_net_weight(net);
     std::function<void(node_t)> action1 = [&](node_t n) -> void {

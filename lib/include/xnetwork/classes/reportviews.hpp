@@ -191,7 +191,7 @@ template <typename nodeview_t> class NodeView {
     explicit NodeView(nodeview_t &nodes) : _nodes{nodes} {}
 
     // Mapping methods
-    auto size() { return std::size(this->_nodes); }
+    auto size() { return this->_nodes.size(); }
 
     auto begin() { return std::begin(this->_nodes); }
 

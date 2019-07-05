@@ -42,7 +42,7 @@ template <typename Atlas> class AtlasView {
 
     explicit AtlasView(Atlas &d) : _atlas{d} {}
 
-    auto size() const { return std::size(this->_atlas); }
+    auto size() const { return this->_atlas.size(); }
 
     auto begin() const { return std::begin(this->_atlas); }
 
@@ -146,7 +146,7 @@ template <typename Atlas> class AdjacencyView : public AtlasView<Atlas> {
 //     }
 
 //     auto size( ) {
-//         return std::size(this->_succ) + std::size(this->_pred);
+//         return this->_succ.size() + this->_pred.size();
 //     }
 
 //     auto __iter__( ) {
@@ -215,13 +215,13 @@ template <typename Atlas> class AdjacencyView : public AtlasView<Atlas> {
 
 //     explicit _Self( succ, pred) {
 //         // keys must be the same for two input dicts
-//         assert(std::size(set(succ.keys()) ^ set(pred.keys())) == 0);
+//         assert(set(succ.keys(.size()) ^ set(pred.keys())) == 0);
 //         this->_succ = succ;
 //         this->_pred = pred;
 //     }
 
 //     auto size( ) {
-//         return std::size(this->_succ);  // length of each dict should be the
+//         return this->_succ.size();  // length of each dict should be the
 //         same
 //     }
 

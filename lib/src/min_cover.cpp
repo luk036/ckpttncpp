@@ -202,8 +202,8 @@ auto create_contraction_subgraph(SimpleNetlist& H, const py::set<node_t>& DontSe
 
     // nodes.insert(nodes.end(), modules.begin(), modules.end());
     // nodes.insert(nodes.end(), nets.begin(), nets.end());
-    numModules = std::size(modules);
-    numNets    = std::size(nets);
+    numModules = modules.size();
+    numNets    = nets.size();
 
     { // localize module_map and net_map
         auto module_map = py::dict<node_t, index_t>{};

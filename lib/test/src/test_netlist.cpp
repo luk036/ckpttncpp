@@ -52,7 +52,7 @@ auto create_dwarf() -> SimpleNetlist
     // int num_arcs = sizeof(edge_array) / sizeof(Edge);
     // auto R = py::range<int>(num_nodes);
     // graph_t g{R, R};
-    auto g = graph_t(num_nodes);
+    auto g = xn::SimpleGraph(num_nodes);
     for (auto [u, v] : edge_array)
     {
         g.add_edge(u, v);

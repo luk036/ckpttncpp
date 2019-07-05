@@ -716,10 +716,10 @@ class Graph : public object {
     }
 };
 
-
-template <typename nodeview_t, typename nodemap_t,
-          typename adjlist_inner_dict_factory> Graph(int ) 
--> Graph<decltype(py::range<int>(1)), decltype(py::range<int>(1)), py::set<int>>;
+using SimpleGraph = Graph<decltype(py::range<int>(1)), decltype(py::range<int>(1)), py::set<int>>;
+// Clang 8.0 does not support the following deduction rule.
+// template <typename nodeview_t, typename nodemap_t,
+//           typename adjlist_inner_dict_factory> Graph(int )-> Graph<decltype(py::range<int>(1)), decltype(py::range<int>(1)), py::set<int>>;
 
 }; // namespace xn
 

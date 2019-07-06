@@ -42,6 +42,8 @@ matrix:
           sources: ['llvm-toolchain-trusty-8', 'ubuntu-toolchain-r-test']
           packages:
             - clang-8
+            - lldb-8
+            - lld-8
             - catch
             - lcov
       env: COMPILER=clang CLANG=8 BUILD_TYPE='Debug'

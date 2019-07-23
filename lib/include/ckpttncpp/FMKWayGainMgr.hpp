@@ -95,7 +95,7 @@ private:
      * @param v
      * @param key
      */
-    auto set_key(index_t whichPart, index_t i_v, int key) -> void
+    auto __set_key(index_t whichPart, index_t i_v, int key) -> void
     {
         this->gainbucket[whichPart].set_key(this->gainCalc.vertex_list[whichPart][i_v], key);
     }

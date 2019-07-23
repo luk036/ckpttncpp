@@ -67,7 +67,7 @@ class FDKWayGainCalc {
             }
         }
         for (auto net : this->H.nets) {
-            this->init_gain(net, part);
+            this->__init_gain(net, part);
         }
 
         return this->totalcost;
@@ -80,7 +80,7 @@ class FDKWayGainCalc {
      * @param part_v
      * @param weight
      */
-    auto modify_gain(index_t i_v, uint8_t part_v, int weight) -> void {
+    auto __modify_gain(index_t i_v, uint8_t part_v, int weight) -> void {
         for (auto &&k : this->RR.exclude(part_v)) {
             this->vertex_list[k][i_v].key += weight;
         }
@@ -136,7 +136,7 @@ class FDKWayGainCalc {
      * @param net
      * @param part_info
      */
-    auto init_gain(node_t net, const std::vector<uint8_t> &part) -> void;
+    auto __init_gain(node_t net, const std::vector<uint8_t> &part) -> void;
 
     /*!
      * @brief
@@ -144,7 +144,7 @@ class FDKWayGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain_2pin_net(node_t net, const std::vector<uint8_t> &part)
+    auto __init_gain_2pin_net(node_t net, const std::vector<uint8_t> &part)
         -> void;
 
     /*!
@@ -153,7 +153,7 @@ class FDKWayGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain_3pin_net(node_t net, const std::vector<uint8_t> &part)
+    auto __init_gain_3pin_net(node_t net, const std::vector<uint8_t> &part)
         -> void;
 
     /*!
@@ -162,7 +162,7 @@ class FDKWayGainCalc {
      * @param net
      * @param part
      */
-    auto init_gain_general_net(node_t net,
+    auto __init_gain_general_net(node_t net,
                                const std::vector<uint8_t> &part) -> void;
 };
 

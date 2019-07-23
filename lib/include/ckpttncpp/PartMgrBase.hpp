@@ -100,23 +100,7 @@ private:
      *
      * @param part_info
      */
-    void optimize_1pass(std::vector<uint8_t>& part);
-
-    /*!
-     * @brief
-     *
-     * @param part_info
-     * @return Snapshot
-     */
-    auto take_snapshot(const std::vector<uint8_t>& part) -> Snapshot;
-
-    /*!
-     * @brief
-     *
-     * @param snapshot
-     * @return PartInfo
-     */
-    auto restore_part_info(Snapshot& snapshot, std::vector<uint8_t>& part) -> void;
+    void __optimize_1pass(std::vector<uint8_t>& part);
 };
 
 #endif

@@ -108,9 +108,9 @@ auto FMGainMgr<GainCalc, Derived>::update_move(const std::vector<uint8_t>& part,
         auto move_info = MoveInfo{net, fromPart, toPart, v};
         switch (degree)
         {
-        case 2: this->update_move_2pin_net(part, move_info); break;
-        case 3: this->update_move_3pin_net(part, move_info); break;
-        default: this->update_move_general_net(part, move_info);
+        case 2: this->__update_move_2pin_net(part, move_info); break;
+        case 3: this->__update_move_3pin_net(part, move_info); break;
+        default: this->__update_move_general_net(part, move_info);
         }
     }
 }
@@ -122,7 +122,7 @@ auto FMGainMgr<GainCalc, Derived>::update_move(const std::vector<uint8_t>& part,
  * @param move_info
  */
 template<typename GainCalc, class Derived>
-auto FMGainMgr<GainCalc, Derived>::update_move_2pin_net(const std::vector<uint8_t>& part,
+auto FMGainMgr<GainCalc, Derived>::__update_move_2pin_net(const std::vector<uint8_t>& part,
                                                         const MoveInfo& move_info) -> void
 {
     auto [i_w, deltaGainW] = this->gainCalc.update_move_2pin_net(part, move_info);
@@ -137,7 +137,7 @@ auto FMGainMgr<GainCalc, Derived>::update_move_2pin_net(const std::vector<uint8_
  * @param move_info
  */
 template<typename GainCalc, class Derived>
-auto FMGainMgr<GainCalc, Derived>::update_move_3pin_net(const std::vector<uint8_t>& part,
+auto FMGainMgr<GainCalc, Derived>::__update_move_3pin_net(const std::vector<uint8_t>& part,
                                                         const MoveInfo& move_info) -> void
 {
     auto [IdVec, deltaGain] = this->gainCalc.update_move_3pin_net(part, move_info);
@@ -157,7 +157,7 @@ auto FMGainMgr<GainCalc, Derived>::update_move_3pin_net(const std::vector<uint8_
  * @param move_info
  */
 template<typename GainCalc, class Derived>
-auto FMGainMgr<GainCalc, Derived>::update_move_general_net(const std::vector<uint8_t>& part,
+auto FMGainMgr<GainCalc, Derived>::__update_move_general_net(const std::vector<uint8_t>& part,
                                                            const MoveInfo& move_info) -> void
 {
     auto [IdVec, deltaGain] = this->gainCalc.update_move_general_net(part, move_info);

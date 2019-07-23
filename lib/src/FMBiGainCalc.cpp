@@ -10,7 +10,7 @@
  * @param net
  * @param part
  */
-void FMBiGainCalc::init_gain( //
+void FMBiGainCalc::__init_gain( //
     node_t net, const std::vector<uint8_t>& part)
 {
     auto degree = this->H.G.degree(net);
@@ -21,9 +21,9 @@ void FMBiGainCalc::init_gain( //
     // auto &[part, _] = part_info;
     switch (degree)
     {
-    case 2: this->init_gain_2pin_net(net, part); break;
-    case 3: this->init_gain_3pin_net(net, part); break;
-    default: this->init_gain_general_net(net, part);
+    case 2: this->__init_gain_2pin_net(net, part); break;
+    case 3: this->__init_gain_3pin_net(net, part); break;
+    default: this->__init_gain_general_net(net, part);
     }
 }
 
@@ -33,7 +33,7 @@ void FMBiGainCalc::init_gain( //
  * @param net
  * @param part
  */
-void FMBiGainCalc::init_gain_2pin_net( //
+void FMBiGainCalc::__init_gain_2pin_net( //
     node_t net, const std::vector<uint8_t>& part)
 {
     auto netCur = this->H.G[net].begin();
@@ -48,8 +48,8 @@ void FMBiGainCalc::init_gain_2pin_net( //
     {
         weight = -weight;
     }
-    this->modify_gain(i_w, weight);
-    this->modify_gain(i_v, weight);
+    this->__modify_gain(i_w, weight);
+    this->__modify_gain(i_v, weight);
 }
 
 /**
@@ -58,7 +58,7 @@ void FMBiGainCalc::init_gain_2pin_net( //
  * @param net
  * @param part
  */
-void FMBiGainCalc::init_gain_3pin_net(node_t net, const std::vector<uint8_t>& part)
+void FMBiGainCalc::__init_gain_3pin_net(node_t net, const std::vector<uint8_t>& part)
 {
     auto netCur = this->H.G[net].begin();
     auto w      = *netCur;
@@ -75,19 +75,19 @@ void FMBiGainCalc::init_gain_3pin_net(node_t net, const std::vector<uint8_t>& pa
         {
             for (auto i_a : {i_u, i_v, i_w})
             {
-                this->modify_gain(i_a, -weight);
+                this->__modify_gain(i_a, -weight);
             }
             return;
         }
-        this->modify_gain(i_w, weight);
+        this->__modify_gain(i_w, weight);
     }
     else if (part[i_w] == part[i_v])
     {
-        this->modify_gain(i_u, weight);
+        this->__modify_gain(i_u, weight);
     }
     else
     {
-        this->modify_gain(i_v, weight);
+        this->__modify_gain(i_v, weight);
     }
     this->totalcost += weight;
 }
@@ -98,7 +98,7 @@ void FMBiGainCalc::init_gain_3pin_net(node_t net, const std::vector<uint8_t>& pa
  * @param net
  * @param part
  */
-void FMBiGainCalc::init_gain_general_net(node_t net, const std::vector<uint8_t>& part)
+void FMBiGainCalc::__init_gain_general_net(node_t net, const std::vector<uint8_t>& part)
 {
     uint8_t num[2] = {0, 0};
     auto    IdVec  = std::vector<index_t>{};
@@ -118,7 +118,7 @@ void FMBiGainCalc::init_gain_general_net(node_t net, const std::vector<uint8_t>&
         {
             for (auto i_w : IdVec)
             {
-                this->modify_gain(i_w, -weight);
+                this->__modify_gain(i_w, -weight);
             }
         }
         else if (num[k] == 1)
@@ -127,7 +127,7 @@ void FMBiGainCalc::init_gain_general_net(node_t net, const std::vector<uint8_t>&
             {
                 if (part[i_w] == k)
                 {
-                    this->modify_gain(i_w, weight);
+                    this->__modify_gain(i_w, weight);
                     break;
                 }
             }

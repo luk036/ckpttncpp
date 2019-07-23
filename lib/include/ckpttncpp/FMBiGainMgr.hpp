@@ -56,7 +56,7 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
     {
         // this->vertex_list[i_v].key -= 2 * gain;
         auto&& [fromPart, _, i_v] = move_info_v;
-        this->set_key(fromPart, i_v, -gain);
+        this->__set_key(fromPart, i_v, -gain);
     }
 
     /*!
@@ -92,7 +92,7 @@ private:
      * @param v
      * @param key
      */
-    auto set_key(uint8_t whichPart, index_t i_v, int key) -> void
+    auto __set_key(uint8_t whichPart, index_t i_v, int key) -> void
     {
         this->gainbucket[whichPart].set_key(this->gainCalc.vertex_list[i_v], key);
     }

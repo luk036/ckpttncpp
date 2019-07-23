@@ -75,7 +75,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(std::vector<uint8_t>& pa
  * @param part
  */
 template<typename GainMgr, typename ConstrMgr, template<typename _GainMgr, typename _ConstrMgr> class Derived> //
-auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize_1pass(std::vector<uint8_t>& part) -> void
+auto PartMgrBase<GainMgr, ConstrMgr, Derived>::__optimize_1pass(std::vector<uint8_t>& part) -> void
 {
     using SS_t = decltype(self.take_snapshot(part));
 
@@ -146,7 +146,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize(std::vector<uint8_t>& pa
         this->init(part);
         auto totalcostbefore = this->totalcost;
         // assert(totalcostafter == totalcostbefore);
-        this->optimize_1pass(part);
+        this->__optimize_1pass(part);
         assert(this->totalcost <= totalcostbefore);
         if (this->totalcost == totalcostbefore) { break; }
         // totalcostafter = this->totalcost;

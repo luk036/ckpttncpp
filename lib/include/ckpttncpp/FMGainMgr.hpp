@@ -107,7 +107,7 @@ private:
      * @param part
      * @param move_info
      */
-    auto update_move_2pin_net(const std::vector<uint8_t>& part, const MoveInfo& move_info) -> void;
+    auto __update_move_2pin_net(const std::vector<uint8_t>& part, const MoveInfo& move_info) -> void;
 
     /*!
      * @brief
@@ -115,7 +115,7 @@ private:
      * @param part
      * @param move_info
      */
-    auto update_move_3pin_net(const std::vector<uint8_t>& part, const MoveInfo& move_info) -> void;
+    auto __update_move_3pin_net(const std::vector<uint8_t>& part, const MoveInfo& move_info) -> void;
 
     /*!
      * @brief
@@ -123,7 +123,7 @@ private:
      * @param part
      * @param move_info
      */
-    auto update_move_general_net(const std::vector<uint8_t>& part, const MoveInfo& move_info)
+    auto __update_move_general_net(const std::vector<uint8_t>& part, const MoveInfo& move_info)
         -> void;
 };
 

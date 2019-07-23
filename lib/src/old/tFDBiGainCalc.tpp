@@ -7,12 +7,12 @@
 #define unlikely(x) __builtin_expect(!!(x), 0)
 
 /**
- * @brief init_gain
+ * @brief __init_gain
  *
  * @param net
  * @param part_info
  */
-void FDBiGainCalc::init_gain( //
+void FDBiGainCalc::__init_gain( //
     node_t net, const std::vector<uint8_t> &part) {
     auto degree = this->H.G.degree(net);
     if (unlikely(degree < 2)) {
@@ -26,19 +26,19 @@ void FDBiGainCalc::init_gain( //
         case 2:
             for (auto w : this->H.G[net]) {
                 auto i_w = this->H.module_map[w];
-                this->modify_gain(i_w, weight);
+                this->__modify_gain(i_w, weight);
             }
             break;
         case 3:
-            this->init_gain_3pin_net(net, part, weight);
+            this->__init_gain_3pin_net(net, part, weight);
             break;
         default:
-            this->init_gain_general_net(net, part, weight);
+            this->__init_gain_general_net(net, part, weight);
         }
     } else { // 90%
         for (auto w : this->H.G[net]) {
             auto i_w = this->H.module_map[w];
-            this->modify_gain(i_w, -weight);
+            this->__modify_gain(i_w, -weight);
         }
     }
 }
@@ -50,7 +50,7 @@ void FDBiGainCalc::init_gain( //
  * @param part
  * @param weight
  */
-void FDBiGainCalc::init_gain_3pin_net(node_t net,
+void FDBiGainCalc::__init_gain_3pin_net(node_t net,
                                       const std::vector<uint8_t> &part,
                                       int weight) {
     auto netCur = this->H.G[net].begin();
@@ -62,11 +62,11 @@ void FDBiGainCalc::init_gain_3pin_net(node_t net,
     auto i_u = this->H.module_map[u];
 
     if (part[i_u] == part[i_v]) {
-        this->modify_gain(i_w, weight);
+        this->__modify_gain(i_w, weight);
     } else if (part[i_w] == part[i_v]) {
-        this->modify_gain(u, weight);
+        this->__modify_gain(u, weight);
     } else { // part[i_u] == part[i_w]
-        this->modify_gain(i_v, weight);
+        this->__modify_gain(i_v, weight);
     }
 }
 
@@ -77,7 +77,7 @@ void FDBiGainCalc::init_gain_3pin_net(node_t net,
  * @param part
  * @param weight
  */
-void FDBiGainCalc::init_gain_general_net(node_t net,
+void FDBiGainCalc::__init_gain_general_net(node_t net,
                                          const std::vector<uint8_t> &part,
                                          int weight) {
     index_t num[2] = {0, 0};
@@ -91,7 +91,7 @@ void FDBiGainCalc::init_gain_general_net(node_t net,
         if (num[k] == 1) {
             for (auto i_w : IdVec) {
                 if (part[i_w] == k) {
-                    this->modify_gain(i_w, weight);
+                    this->__modify_gain(i_w, weight);
                     break;
                 }
             }

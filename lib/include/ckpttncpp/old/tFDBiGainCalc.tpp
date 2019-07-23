@@ -44,7 +44,7 @@ class FDBiGainCalc {
             vlink.key = 0;
         }
         for (auto net : this->H.nets) {
-            this->init_gain(net, part);
+            this->__init_gain(net, part);
         }
         return this->totalcost;
     }
@@ -106,7 +106,7 @@ class FDBiGainCalc {
      * @param w
      * @param weight
      */
-    auto modify_gain(index_t i_w, int weight) -> void {
+    auto __modify_gain(index_t i_w, int weight) -> void {
         this->vertex_list[i_w].key += weight;
     }
 
@@ -117,7 +117,7 @@ class FDBiGainCalc {
      * @param net
      * @param part_info
      */
-    auto init_gain(node_t net, const std::vector<uint8_t> &part) -> void;
+    auto __init_gain(node_t net, const std::vector<uint8_t> &part) -> void;
 
     /*!
      * @brief
@@ -126,7 +126,7 @@ class FDBiGainCalc {
      * @param part
      * @param weight
      */
-    auto init_gain_3pin_net(node_t net, const std::vector<uint8_t> &part,
+    auto __init_gain_3pin_net(node_t net, const std::vector<uint8_t> &part,
                             int weight) -> void;
 
     /*!
@@ -136,7 +136,7 @@ class FDBiGainCalc {
      * @param part
      * @param weight
      */
-    auto init_gain_general_net(node_t net,
+    auto __init_gain_general_net(node_t net,
                                const std::vector<uint8_t> &part,
                                int weight) -> void;
 };

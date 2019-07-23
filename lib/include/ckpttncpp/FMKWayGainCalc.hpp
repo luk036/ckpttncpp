@@ -68,23 +68,9 @@ public:
         }
         for (auto net : this->H.nets)
         {
-            this->init_gain(net, part);
+            this->__init_gain(net, part);
         }
         return this->totalcost;
-    }
-
-    /*!
-     * @brief
-     *
-     * @param v
-     * @param weight
-     */
-    auto modify_gain(index_t i_v, uint8_t part_v, int weight) -> void
-    {
-        for (auto&& k : this->RR.exclude(part_v))
-        {
-            this->vertex_list[k][i_v].key += weight;
-        }
     }
 
     /*!
@@ -131,10 +117,16 @@ private:
     /*!
      * @brief
      *
-     * @param net
-     * @param part
+     * @param v
+     * @param weight
      */
-    auto init_gain(node_t net, const std::vector<uint8_t>& part) -> void;
+    auto __modify_gain(index_t i_v, uint8_t part_v, int weight) -> void
+    {
+        for (auto&& k : this->RR.exclude(part_v))
+        {
+            this->vertex_list[k][i_v].key += weight;
+        }
+    }
 
     /*!
      * @brief
@@ -142,7 +134,7 @@ private:
      * @param net
      * @param part
      */
-    auto init_gain_2pin_net(node_t net, const std::vector<uint8_t>& part) -> void;
+    auto __init_gain(node_t net, const std::vector<uint8_t>& part) -> void;
 
     /*!
      * @brief
@@ -150,7 +142,7 @@ private:
      * @param net
      * @param part
      */
-    auto init_gain_3pin_net(node_t net, const std::vector<uint8_t>& part) -> void;
+    auto __init_gain_2pin_net(node_t net, const std::vector<uint8_t>& part) -> void;
 
     /*!
      * @brief
@@ -158,7 +150,15 @@ private:
      * @param net
      * @param part
      */
-    auto init_gain_general_net(node_t net, const std::vector<uint8_t>& part) -> void;
+    auto __init_gain_3pin_net(node_t net, const std::vector<uint8_t>& part) -> void;
+
+    /*!
+     * @brief
+     *
+     * @param net
+     * @param part
+     */
+    auto __init_gain_general_net(node_t net, const std::vector<uint8_t>& part) -> void;
 };
 
 #endif

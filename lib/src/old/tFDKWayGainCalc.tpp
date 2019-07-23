@@ -13,7 +13,7 @@
  * @param part
  * @param vertex_list
  */
-auto FDKWayGainCalc::init_gain(node_t net, const std::vector<uint8_t> &part) -> void {
+auto FDKWayGainCalc::__init_gain(node_t net, const std::vector<uint8_t> &part) -> void {
     auto degree = this->H.G.degree(net);
     if (unlikely(degree < 2)) {
         return; // does not provide any gain when moving
@@ -22,13 +22,13 @@ auto FDKWayGainCalc::init_gain(node_t net, const std::vector<uint8_t> &part) -> 
     if (extern_nets.contains(net)) {
         switch (degree) {
         case 2:
-            this->init_gain_2pin_net(net, part);
+            this->__init_gain_2pin_net(net, part);
             break;
         case 3:
-            this->init_gain_3pin_net(net, part);
+            this->__init_gain_3pin_net(net, part);
             break;
         default:
-            this->init_gain_general_net(net, part);
+            this->__init_gain_general_net(net, part);
         }
     } else { // 90%
         auto weight = this->H.get_net_weight(net);
@@ -42,12 +42,12 @@ auto FDKWayGainCalc::init_gain(node_t net, const std::vector<uint8_t> &part) -> 
 }
 
 /**
- * @brief init_gain_2pin_net
+ * @brief __init_gain_2pin_net
  *
  * @param net
  * @param part
  */
-auto FDKWayGainCalc::init_gain_2pin_net(node_t net,
+auto FDKWayGainCalc::__init_gain_2pin_net(node_t net,
                                         const std::vector<uint8_t> &part)
     -> void {
     auto weight = this->H.get_net_weight(net);
@@ -69,7 +69,7 @@ auto FDKWayGainCalc::init_gain_2pin_net(node_t net,
  * @param net
  * @param part
  */
-auto FDKWayGainCalc::init_gain_3pin_net(node_t net,
+auto FDKWayGainCalc::__init_gain_3pin_net(node_t net,
                                         const std::vector<uint8_t> &part)
     -> void {
     auto netCur = this->H.G[net].begin();
@@ -88,19 +88,19 @@ auto FDKWayGainCalc::init_gain_3pin_net(node_t net,
     if (part_u == part_v) {
         this->vertex_list[part_v][i_w].key += weight;
         for (auto i_a : {i_u, i_v}) {
-            this->modify_gain(i_a, part_v, -weight);
+            this->__modify_gain(i_a, part_v, -weight);
             this->vertex_list[part_w][i_a].key += weight;
         }
     } else if (part_w == part_v) {
         this->vertex_list[part_v][i_u].key += weight;
         for (auto i_a : {i_w, i_v}) {
-            this->modify_gain(i_a, part_v, -weight);
+            this->__modify_gain(i_a, part_v, -weight);
             this->vertex_list[part_u][i_a].key += weight;
         }
     } else if (part_w == part_u) {
         this->vertex_list[part_w][i_v].key += weight;
         for (auto i_a : {i_w, i_u}) {
-            this->modify_gain(i_a, part_w, -weight);
+            this->__modify_gain(i_a, part_w, -weight);
             this->vertex_list[part_v][i_a].key += weight;
         }
     } else {
@@ -121,7 +121,7 @@ auto FDKWayGainCalc::init_gain_3pin_net(node_t net,
  * @param net
  * @param part
  */
-auto FDKWayGainCalc::init_gain_general_net(
+auto FDKWayGainCalc::__init_gain_general_net(
     node_t net, const std::vector<uint8_t> &part) -> void {
     std::vector<uint8_t> num(this->K, 0);
     auto IdVec = std::vector<index_t>{};
@@ -137,7 +137,7 @@ auto FDKWayGainCalc::init_gain_general_net(
             if (num[k] == 1) {
                 for (auto i_w : IdVec) {
                     if (part[i_w] == k) {
-                        this->modify_gain(i_w, part[i_w], weight);
+                        this->__modify_gain(i_w, part[i_w], weight);
                         break;
                     }
                 }

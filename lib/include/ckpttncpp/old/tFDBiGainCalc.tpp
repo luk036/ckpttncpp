@@ -34,7 +34,7 @@ class FDBiGainCalc {
     /*!
      * @brief
      *
-     * @param part_info
+     * @param part
      * @return int
      */
     auto init(const std::vector<uint8_t> &part) -> int {
@@ -72,7 +72,7 @@ class FDBiGainCalc {
     /*!
      * @brief
      *
-     * @param part_info
+     * @param part
      * @param move_info
      * @return ret_2pin_info
      */
@@ -84,7 +84,7 @@ class FDBiGainCalc {
     /*!
      * @brief
      *
-     * @param part_info
+     * @param part
      * @param move_info
      */
     auto update_move_3pin_net(std::vector<uint8_t> &part, const MoveInfo &move_info)
@@ -93,7 +93,7 @@ class FDBiGainCalc {
     /*!
      * @brief
      *
-     * @param part_info
+     * @param part
      * @param move_info
      */
     auto update_move_general_net(std::vector<uint8_t> &part, const MoveInfo &move_info)
@@ -115,7 +115,7 @@ class FDBiGainCalc {
      * @brief
      *
      * @param net
-     * @param part_info
+     * @param part
      */
     auto __init_gain(node_t net, const std::vector<uint8_t> &part) -> void;
 

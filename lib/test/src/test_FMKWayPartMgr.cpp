@@ -20,7 +20,7 @@ void run_FMKWayPartMgr(SimpleNetlist& H, uint8_t K)
     auto constrMgr = FMKWayConstrMgr{H, 0.4, K};
     auto partMgr   = FMPartMgr{H, gainMgr, constrMgr};
     auto part      = std::vector<uint8_t>(H.number_of_modules(), 0);
-    // auto part_info = PartInfo{std::move(part), py::set<node_t>{}};
+
     partMgr.legalize(part);
     auto totalcostbefore = partMgr.totalcost;
     partMgr.optimize(part);

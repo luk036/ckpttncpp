@@ -4,7 +4,7 @@
 /**
  * @brief
  *
- * @param part_info
+ * @param part
  */
 auto FDBiGainMgr::init(const std::vector<uint8_t> &part) -> int {
     auto totalcost = Base::init(part);

@@ -168,16 +168,16 @@ struct Netlist
     /*!
      * @brief projection down
      *
-     * @param part_info
-     * @param part_info_down
+     * @param part
+     * @param part_down
      */
     void projection_down(const std::vector<uint8_t>& part, std::vector<uint8_t>& part_down);
 
     /*!
      * @brief projection up
      *
-     * @param part_info
-     * @param part_info_up
+     * @param part
+     * @param part_up
      */
     void projection_up(const std::vector<uint8_t>& part, std::vector<uint8_t>& part_up);
 };

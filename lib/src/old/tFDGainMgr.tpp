@@ -77,7 +77,7 @@ auto FDGainMgr<GainCalc, Derived>::select_togo(uint8_t toPart)
 /**
  * @brief
  *
- * @param part_info
+ * @param part
  * @param move_info_v
  */
 template <typename GainCalc, class Derived>

@@ -12,8 +12,6 @@ template<typename GainMgr, typename ConstrMgr, template<typename _GainMgr, typen
 auto PartMgrBase<GainMgr, ConstrMgr, Derived>::init(std::vector<uint8_t>& part) -> void
 {
     this->totalcost = this->gainMgr.init(part);
-    // this->totalcost = this->gainMgr.totalcost;
-    // auto &&[part, _] = part_info;
     this->validator.init(part);
 }
 
@@ -21,7 +19,6 @@ template<typename GainMgr, typename ConstrMgr, template<typename _GainMgr, typen
 auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(std::vector<uint8_t>& part) -> size_t
 {
     this->init(part);
-    // auto &[part, _] = part_info;
 
     // Zero-weighted modules does not contribute legalization
     for (auto i_v = 0U; i_v < this->H.number_of_modules(); ++i_v)
@@ -83,7 +80,6 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::__optimize_1pass(std::vector<uint
     auto totalgain        = 0;
     auto deferredsnapshot = false;
     auto besttotalgain    = 0;
-    // auto &[part, _] = part_info;
 
     while (!this->gainMgr.is_empty())
     {
@@ -123,7 +119,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::__optimize_1pass(std::vector<uint
     {
         // restore the previous best solution
         // part = snapshot;
-        self.restore_part_info(snapshot, part);
+        self.restore_part(snapshot, part);
         totalgain = besttotalgain;
     }
     this->totalcost -= totalgain;

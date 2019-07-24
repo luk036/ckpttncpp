@@ -126,7 +126,6 @@ auto FMGainMgr<GainCalc, Derived>::__update_move_2pin_net(const std::vector<uint
                                                         const MoveInfo& move_info) -> void
 {
     auto [i_w, deltaGainW] = this->gainCalc.update_move_2pin_net(part, move_info);
-    // auto &&[part, _] = part_info;
     self.modify_key(i_w, part[i_w], deltaGainW);
 }
 
@@ -141,7 +140,6 @@ auto FMGainMgr<GainCalc, Derived>::__update_move_3pin_net(const std::vector<uint
                                                         const MoveInfo& move_info) -> void
 {
     auto [IdVec, deltaGain] = this->gainCalc.update_move_3pin_net(part, move_info);
-    // auto &&[part, _] = part_info;
     auto degree = IdVec.size();
     for (auto idx = 0U; idx < degree; ++idx)
     {
@@ -161,7 +159,6 @@ auto FMGainMgr<GainCalc, Derived>::__update_move_general_net(const std::vector<u
                                                            const MoveInfo& move_info) -> void
 {
     auto [IdVec, deltaGain] = this->gainCalc.update_move_general_net(part, move_info);
-    // auto &&[part, _] = part_info;
     auto degree = IdVec.size();
     for (auto idx = 0U; idx < degree; ++idx)
     {

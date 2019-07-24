@@ -6,8 +6,6 @@ auto Netlist<nodeview_t, nodemap_t>::projection_up(const std::vector<uint8_t>& p
                                                    std::vector<uint8_t>&       part_up) -> void
 {
     auto& H = *this->parent;
-    // auto &&[part, extern_nets] = part_info;
-    // auto &[part_up, extern_nets_up] = part_info_up;
     for (auto v : H.modules)
     {
         auto i_v = H.modules[v];
@@ -29,8 +27,6 @@ auto Netlist<nodeview_t, nodemap_t>::projection_down(const std::vector<uint8_t>&
                                                      std::vector<uint8_t>&       part_down) -> void
 {
     auto& H = *this->parent;
-    // auto &&[part, extern_nets] = part_info;
-    // auto &[part_down, extern_nets_down] = part_info_down;
     for (auto v : this->modules)
     {
         auto i_v = this->modules[v];

@@ -10,7 +10,7 @@
  * @brief __init_gain
  *
  * @param net
- * @param part_info
+ * @param part
  */
 void FDBiGainCalc::__init_gain( //
     node_t net, const std::vector<uint8_t> &part) {

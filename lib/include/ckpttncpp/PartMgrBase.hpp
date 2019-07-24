@@ -76,21 +76,21 @@ public:
     /*!
      * @brief
      *
-     * @param part_info
+     * @param part
      */
     void init(std::vector<uint8_t>& part);
 
     /*!
      * @brief
      *
-     * @param part_info
+     * @param part
      */
     size_t legalize(std::vector<uint8_t>& part);
 
     /*!
      * @brief
      *
-     * @param part_info
+     * @param part
      */
     void optimize(std::vector<uint8_t>& part);
 
@@ -98,7 +98,7 @@ private:
     /*!
      * @brief
      *
-     * @param part_info
+     * @param part
      */
     void __optimize_1pass(std::vector<uint8_t>& part);
 };

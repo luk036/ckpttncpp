@@ -26,7 +26,7 @@ struct FDBiGainMgr : public FDGainMgr<FDBiGainCalc, FDBiGainMgr> {
     /*!
      * @brief
      *
-     * @param part_info
+     * @param part
      * @return int
      */
     auto init(const std::vector<uint8_t> &part) -> int;

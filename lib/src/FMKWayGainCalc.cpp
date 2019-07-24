@@ -19,7 +19,6 @@ auto FMKWayGainCalc::__init_gain(node_t net, const std::vector<uint8_t>& part) -
     {
         return; // does not provide any gain when moving
     }
-    // auto &&[part, _] = part_info;
     switch (degree)
     {
     case 2: this->__init_gain_2pin_net(net, part); break;
@@ -169,7 +168,7 @@ auto FMKWayGainCalc::__init_gain_general_net(node_t net, const std::vector<uint8
 /**
  * @brief
  *
- * @param part_info
+ * @param part
  * @param move_info
  * @return ret_2pin_info
  */
@@ -177,7 +176,7 @@ auto FMKWayGainCalc::update_move_2pin_net(const std::vector<uint8_t>& part,
                                           const MoveInfo&             move_info) -> ret_2pin_info
 {
     auto&& [net, fromPart, toPart, v] = move_info;
-    // auto &&[part, _] = part_info;
+
     auto netCur     = this->H.G[net].begin();
     auto w          = (*netCur != v) ? *netCur : *++netCur;
     auto i_w        = this->H.module_map[w];
@@ -203,7 +202,7 @@ auto FMKWayGainCalc::update_move_2pin_net(const std::vector<uint8_t>& part,
 /**
  * @brief
  *
- * @param part_info
+ * @param part
  * @param move_info
  * @return ret_info
  */
@@ -211,7 +210,7 @@ auto FMKWayGainCalc::update_move_3pin_net(const std::vector<uint8_t>& part,
                                           const MoveInfo&             move_info) -> ret_info
 {
     auto&& [net, fromPart, toPart, v] = move_info;
-    // auto &&[part, _] = part_info;
+
     auto IdVec = std::vector<index_t>{};
     for (const auto& w : this->H.G[net])
     {
@@ -287,7 +286,7 @@ auto FMKWayGainCalc::update_move_3pin_net(const std::vector<uint8_t>& part,
 /**
  * @brief
  *
- * @param part_info
+ * @param part
  * @param move_info
  * @return ret_info
  */
@@ -295,9 +294,9 @@ auto FMKWayGainCalc::update_move_general_net(const std::vector<uint8_t>& part,
                                              const MoveInfo&             move_info) -> ret_info
 {
     auto&& [net, fromPart, toPart, v] = move_info;
-    // auto &&[part, _] = part_info;
-    std::vector<uint8_t> num(this->K, 0);
-    auto                 IdVec = std::vector<index_t>{};
+
+    auto num   = std::vector<uint8_t>(this->K, 0);
+    auto IdVec = std::vector<index_t>{};
     for (const auto& w : this->H.G[net])
     {
         if (w == v) { continue; }

@@ -21,7 +21,6 @@ TEST_CASE("Test MLBiPartMgr dwarf", "[test_MLBiPartMgr]")
     auto H       = create_dwarf();
     auto partMgr = MLPartMgr{0.3};
     auto part    = std::vector<uint8_t>(H.number_of_modules(), 0);
-    // auto part_info = PartInfo{std::move(part), py::set<node_t>()};
     partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part);
     CHECK(partMgr.totalcost == 2);
 }
@@ -31,7 +30,6 @@ TEST_CASE("Test MLKWayPartMgr dwarf", "[test_MLKWayPartMgr]")
     auto H       = create_dwarf();
     auto partMgr = MLPartMgr{0.4, 3}; // 0.3???
     auto part    = std::vector<uint8_t>(H.number_of_modules(), 0);
-    // auto part_info = PartInfo{std::move(part), py::set<node_t>()};
     partMgr.run_FMPartition<FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>>(H, part);
     CHECK(partMgr.totalcost == 4);
 }
@@ -49,7 +47,6 @@ TEST_CASE("Test MLBiPartMgr p1", "[test_MLBiPartMgr]")
         {
             elem = randint(0, 1);
         }
-        // auto part_info = PartInfo{std::move(part), py::set<node_t>()};
         partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part, 100);
         if (mincost > partMgr.totalcost) { mincost = partMgr.totalcost; }
     }
@@ -72,7 +69,6 @@ TEST_CASE("Test MLBiPartMgr ibm01", "[test_MLBiPartMgr]")
         {
             elem = randint(0, 1);
         }
-        // auto part_info = PartInfo{std::move(part), py::set<node_t>()};
         partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part, 400);
         if (mincost > partMgr.totalcost) { mincost = partMgr.totalcost; }
     }

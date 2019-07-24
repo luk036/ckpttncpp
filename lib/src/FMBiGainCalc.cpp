@@ -18,7 +18,6 @@ void FMBiGainCalc::__init_gain( //
     {
         return; // does not provide any gain when moving
     }
-    // auto &[part, _] = part_info;
     switch (degree)
     {
     case 2: this->__init_gain_2pin_net(net, part); break;
@@ -165,8 +164,7 @@ auto FMBiGainCalc::update_move_2pin_net(const std::vector<uint8_t>& part, const 
 auto FMBiGainCalc::update_move_3pin_net(const std::vector<uint8_t>& part, const MoveInfo& move_info)
     -> ret_info
 {
-    auto&& [net, fromPart, _, v] = move_info;
-    // auto &&[part, _2] = part_info;
+    auto&&  [net, fromPart, _, v] = move_info;
     uint8_t num[2] = {0, 0};
     auto    IdVec  = std::vector<index_t>{};
     for (const auto& w : this->H.G[net])
@@ -206,8 +204,7 @@ auto FMBiGainCalc::update_move_3pin_net(const std::vector<uint8_t>& part, const 
 auto FMBiGainCalc::update_move_general_net(const std::vector<uint8_t>& part,
                                            const MoveInfo&             move_info) -> ret_info
 {
-    auto&& [net, fromPart, toPart, v] = move_info;
-    // auto &&[part, _] = part_info;
+    auto&&  [net, fromPart, toPart, v] = move_info;
     uint8_t num[2] = {0, 0};
     auto    IdVec  = std::vector<index_t>{};
     for (const auto& w : this->H.G[net])

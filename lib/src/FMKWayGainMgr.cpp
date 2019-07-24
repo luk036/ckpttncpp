@@ -4,7 +4,7 @@
 /**
  * @brief
  *
- * @param part_info
+ * @param part
  * @return int
  */
 auto FMKWayGainMgr::init(const std::vector<uint8_t>& part) -> int

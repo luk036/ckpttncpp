@@ -184,7 +184,7 @@ auto FDKWayGainCalc::update_move_2pin_net(std::vector<uint8_t> &part,
 /**
  * @brief
  *
- * @param part_info
+ * @param part
  * @param move_info
  * @return ret_info
  */
@@ -259,7 +259,7 @@ auto FDKWayGainCalc::update_move_3pin_net(std::vector<uint8_t> &part,
 /**
  * @brief
  *
- * @param part_info
+ * @param part
  * @param move_info
  * @return ret_info
  */

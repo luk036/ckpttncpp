@@ -40,12 +40,11 @@ public:
     /*!
      * @brief
      *
-     * @param part_info
+     * @param part
      * @return Snapshot
      */
     auto take_snapshot(const std::vector<uint8_t>& part) -> std::vector<uint8_t>
     {
-        // auto &&[part, _] = part_info;
         auto snapshot = part;
         return std::move(snapshot);
     }
@@ -54,14 +53,11 @@ public:
      * @brief
      *
      * @param snapshot
-     * @return PartInfo
+     * @param part
      */
-    auto restore_part_info(std::vector<uint8_t>& snapshot, std::vector<uint8_t>& part) -> void
+    auto restore_part(std::vector<uint8_t>& snapshot, std::vector<uint8_t>& part) -> void
     {
-        // auto part = std::vector<uint8_t>{};
-        // auto &[part, _] = part_info;
         part.swap(snapshot);
-        // return PartInfo{std::move(part), py::set<node_t>{} };
     }
 };
 

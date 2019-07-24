@@ -13,7 +13,6 @@ auto FMBiGainMgr::init(const std::vector<uint8_t>& part) -> int
     {
         this->gainbucket[k].clear();
     }
-    // auto &&[part, _] = part_info;
     for (auto i_v = 0U; i_v < this->H.number_of_modules(); ++i_v)
     {
         auto& vlink  = this->gainCalc.vertex_list[i_v];

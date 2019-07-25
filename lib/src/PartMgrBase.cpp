@@ -149,16 +149,6 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize(std::vector<uint8_t>& pa
     }
 }
 
-// #include <ckpttncpp/FDPartMgr.hpp> // import FDPartMgr
-
-// #include <ckpttncpp/FDKWayGainMgr.hpp>   // import FDKWayGainMgr
-// #include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr
-// template class PartMgrBase<FDKWayGainMgr, FMKWayConstrMgr, FDPartMgr>;
-
-// #include <ckpttncpp/FDBiGainMgr.hpp>   // import FDBiGainMgr
-// #include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
-// template class PartMgrBase<FDBiGainMgr, FMBiConstrMgr, FDPartMgr>;
-
 #include <ckpttncpp/FMPartMgr.hpp> // import FMPartMgr
 
 #include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr

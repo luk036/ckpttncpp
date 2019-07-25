@@ -4,7 +4,6 @@
 // **Special code for two-pin nets**
 // Take a snapshot when a move make **negative** gain.
 // Snapshot in the form of "interface"???
-// #include "FDPartMgr.hpp" // import FDPartMgr
 #include <iostream>
 #include <vector>
 #include "FMPartMgr.hpp" // import FMPartMgr

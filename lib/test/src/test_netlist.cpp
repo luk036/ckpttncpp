@@ -1,11 +1,6 @@
 // -*- coding: utf-8 -*-
-// #include <boost/graph/adjacency_list.hpp>
-// #include <boost/graph/graph_traits.hpp>
-// #include <boost/graph/properties.hpp>
-// #include <boost/property_map/property_map.hpp>
 #include <catch.hpp>
 #include <ckpttncpp/netlist.hpp>
-// #include <py2cpp/nx2bgl.hpp>
 #include <py2cpp/py2cpp.hpp>
 #include <utility> // for std::pair
 #include <vector>

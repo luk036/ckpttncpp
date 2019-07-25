@@ -1,5 +1,4 @@
 #include <ckpttncpp/FMGainMgr.hpp>
-// #include <ckpttncpp/FMGainCalc.hpp>
 
 /* linux-2.6.38.8/include/linux/compiler.h */
 #include <cstdio>

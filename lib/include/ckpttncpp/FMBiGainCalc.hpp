@@ -1,7 +1,6 @@
 #ifndef CKPTTNCPP_FMBIGAINCALC_HPP
 #define CKPTTNCPP_FMBIGAINCALC_HPP 1
 
-// #include "bpqueue.hpp" // import bpqueue
 #include "dllist.hpp"  // import dllink
 #include "netlist.hpp" // import Netlist
 

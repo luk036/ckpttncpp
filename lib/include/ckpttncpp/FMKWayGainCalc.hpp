@@ -1,7 +1,6 @@
 #ifndef CKPTTNCPP_FMKWAYGAINCALC_HPP
 #define CKPTTNCPP_FMKWAYGAINCALC_HPP 1
 
-// #include "bpqueue.hpp" // import bpqueue
 #include "dllist.hpp"  // import dllink
 #include "netlist.hpp" // import Netlist
 #include "robin.hpp"   // import robin

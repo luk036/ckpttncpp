@@ -4,13 +4,6 @@
 // **Special code for two-pin nets**
 // Take a snapshot when a move make **negative** gain.
 // Snapshot in the form of "interface"???
-// #include "netlist.hpp"
-// #include <cassert>
-// #include <cinttypes>
-// #include <iterator>
-// #include <py2cpp/py2cpp.hpp>
-// #include <type_traits>
-// #include <vector>
 #include "PartMgrBase.hpp"
 
 /*!

@@ -6,7 +6,6 @@
 #include <py2cpp/py2cpp.hpp>
 #include <type_traits>
 #include <vector>
-// #include <xnetwork.hpp> // as xn
 #include <xnetwork/classes/coreviews.hpp> // import AtlasView, AdjacencyView
 #include <xnetwork/classes/reportviews.hpp> // import NodeView, EdgeView, DegreeView
 

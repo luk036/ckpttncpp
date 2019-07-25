@@ -3,7 +3,6 @@
 #include <climits>
 #include <fstream>
 #include <iostream>
-// #include <py2cpp/nx2bgl.hpp>
 #include <py2cpp/py2cpp.hpp>
 #include <utility> // for std::pair
 #include <vector>

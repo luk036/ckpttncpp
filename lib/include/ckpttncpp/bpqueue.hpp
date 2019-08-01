@@ -1,5 +1,4 @@
-#ifndef CKPTTNCPP_BPQUEUE_HPP
-#define CKPTTNCPP_BPQUEUE_HPP 1
+#pragma once
 
 #include <cassert>
 #include <vector>
@@ -357,5 +356,3 @@ dllink<T> bpqueue<T>::sentinel{};
 // template <typename T> inline auto bpqueue<T>::end() -> bpq_iterator<T> {
 //     return bpq_iterator(*this, 0);
 // }
-
-#endif

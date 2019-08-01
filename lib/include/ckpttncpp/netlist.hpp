@@ -1,5 +1,4 @@
-#ifndef CKPTTNCPP_NETLIST_HPP
-#define CKPTTNCPP_NETLIST_HPP 1
+#pragma once
 
 // import networkx as nx
 #include <algorithm>
@@ -246,5 +245,3 @@ struct Snapshot
     py::set<node_t>            extern_nets;
     py::dict<index_t, uint8_t> extern_modules;
 };
-
-#endif

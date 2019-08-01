@@ -1,5 +1,4 @@
-#ifndef CKPTTNCPP_FMKWAYCONSTRMGR_HPP
-#define CKPTTNCPP_FMKWAYCONSTRMGR_HPP 1
+#pragma once
 
 #include "FMConstrMgr.hpp"
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
@@ -75,5 +74,3 @@ public:
         return 2; // all satisfied
     }
 };
-
-#endif

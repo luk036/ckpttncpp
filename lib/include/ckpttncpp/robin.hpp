@@ -1,5 +1,4 @@
-#ifndef CKPTTNCPP_ROBIN_HPP
-#define CKPTTNCPP_ROBIN_HPP 1
+#pragma once
 
 #include <vector>
 #include "dllist.hpp" // import dllink
@@ -47,5 +46,3 @@ public:
 
     auto exclude(T fromPart) { return iterable_wrapper{this, fromPart}; }
 };
-
-#endif

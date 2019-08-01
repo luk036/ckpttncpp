@@ -1,5 +1,4 @@
-#ifndef CKPTTNCPP_MLPARTMGR_HPP
-#define CKPTTNCPP_MLPARTMGR_HPP 1
+#pragma once
 
 // **Special code for two-pin nets**
 // Take a snapshot when a move make **negative** gain.
@@ -171,5 +170,3 @@ public:
         this->totalcost = partMgrPtr->totalcost;
     }
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef CKPTTNCPP_FMKWAYGAINCALC_HPP
-#define CKPTTNCPP_FMKWAYGAINCALC_HPP 1
+#pragma once
 
 #include "dllist.hpp"  // import dllink
 #include "netlist.hpp" // import Netlist
@@ -159,5 +158,3 @@ private:
      */
     auto __init_gain_general_net(node_t net, const std::vector<uint8_t>& part) -> void;
 };
-
-#endif

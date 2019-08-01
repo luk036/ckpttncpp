@@ -1,5 +1,4 @@
-#ifndef CKPTTNCPP_FMCONSTRMGR_HPP
-#define CKPTTNCPP_FMCONSTRMGR_HPP 1
+#pragma once
 
 #include <algorithm>
 #include <cinttypes>
@@ -77,5 +76,3 @@ public:
      */
     auto update_move(const MoveInfoV& move_info_v) -> void;
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef CKPTTNCPP_FMKWAYGAINMGR_HPP
-#define CKPTTNCPP_FMKWAYGAINMGR_HPP 1
+#pragma once
 
 #include "FMGainMgr.hpp"
 #include "FMKWayGainCalc.hpp"
@@ -100,5 +99,3 @@ private:
         this->gainbucket[whichPart].set_key(this->gainCalc.vertex_list[whichPart][i_v], key);
     }
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef CKPTTNCPP_FMBICONSTRMGR_HPP
-#define CKPTTNCPP_FMBICONSTRMGR_HPP 1
+#pragma once
 
 #include "FMConstrMgr.hpp" // import FMConstrMgr
 
@@ -25,5 +24,3 @@ struct FMBiConstrMgr : FMConstrMgr
      */
     auto select_togo() const -> uint8_t { return this->diff[0] < this->diff[1] ? 0 : 1; }
 };
-
-#endif

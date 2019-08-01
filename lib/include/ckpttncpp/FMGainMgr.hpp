@@ -1,5 +1,4 @@
-#ifndef CKPTTNCPP_FMGAINMGR_HPP
-#define CKPTTNCPP_FMGAINMGR_HPP 1
+#pragma once
 
 #include <cassert>
 #include <cinttypes>
@@ -126,5 +125,3 @@ private:
     auto __update_move_general_net(const std::vector<uint8_t>& part, const MoveInfo& move_info)
         -> void;
 };
-
-#endif

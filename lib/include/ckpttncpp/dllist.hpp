@@ -1,5 +1,4 @@
-#ifndef CKPTTNCPP_DLLIST_HPP
-#define CKPTTNCPP_DLLIST_HPP 1
+#pragma once
 
 #include <boost/coroutine2/all.hpp>
 #include <cassert>
@@ -243,5 +242,3 @@ struct dllink
 // template <typename T> inline auto dllink<T>::end() -> dll_iterator<T> {
 //     return dll_iterator{this};
 // }
-
-#endif

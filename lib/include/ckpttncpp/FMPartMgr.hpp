@@ -1,5 +1,4 @@
-#ifndef CKPTTNCPP_FMPARTMGR_HPP
-#define CKPTTNCPP_FMPARTMGR_HPP 1
+#pragma once
 
 // **Special code for two-pin nets**
 // Take a snapshot when a move make **negative** gain.
@@ -53,5 +52,3 @@ public:
         part.swap(snapshot);
     }
 };
-
-#endif

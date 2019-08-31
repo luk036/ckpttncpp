@@ -11,6 +11,6 @@ Circuit Partitioning C++ Code
 
 ## Highlights
 
-- Direct port from [Python version](https://github.com/luk036/ckpttnpy)
-- Powered by C++17.
-- Special handle three-pin nets.
+-   Direct port from [Python version](https://github.com/luk036/ckpttnpy)
+-   Powered by C++17.
+-   Special handle three-pin nets.

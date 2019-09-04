@@ -6,7 +6,7 @@
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
 extern SimpleNetlist create_dwarf();        // import create_dwarf
 extern SimpleNetlist readNetD(const char* netDFileName);
-extern void          readAre(SimpleNetlist& H, const char* areFileName);
+extern void readAre(SimpleNetlist& H, const char* areFileName);
 
 /**
  * @brief Run test cases
@@ -15,10 +15,10 @@ extern void          readAre(SimpleNetlist& H, const char* areFileName);
  */
 void run_FMBiPartMgr(SimpleNetlist& H)
 {
-    auto gainMgr   = FMBiGainMgr{H};
-    auto constrMgr = FMBiConstrMgr{H, 0.4};
-    auto partMgr   = FMPartMgr{H, gainMgr, constrMgr};
-    auto part      = std::vector<uint8_t>(H.number_of_modules(), 0);
+    auto gainMgr = FMBiGainMgr {H};
+    auto constrMgr = FMBiConstrMgr {H, 0.4};
+    auto partMgr = FMPartMgr {H, gainMgr, constrMgr};
+    auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     partMgr.legalize(part);
     auto totalcostbefore = partMgr.totalcost;
     partMgr.optimize(part);

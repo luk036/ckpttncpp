@@ -3,11 +3,11 @@
 
 TEST_CASE("Test Range", "[range]")
 {
-    auto R = py::range(0u, 10u);
+    auto R = py::range(0U, 10U);
 
     CHECK(!R.empty());
-    CHECK(R.contains(4u));
-    CHECK(R[3] == 3u);
+    CHECK(R.contains(4U));
+    CHECK(R[3] == 3U);
 
     auto count = 0;
     for (auto a : R)
@@ -52,7 +52,7 @@ TEST_CASE("Test Range (char)", "[range]")
 TEST_CASE("Test Range (pointer)", "[range]")
 {
     double A[] = {0.2, 0.4, 0.1, 0.9};
-    auto   R   = py::range(&A, &A + 4);
+    auto R = py::range(&A, &A + 4);
 
     CHECK(!R.empty());
     CHECK(R.contains(&A + 2));

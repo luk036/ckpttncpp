@@ -16,9 +16,9 @@ using std::ifstream;
 using std::ofstream;
 
 // Read the IBM .netD/.net format. Precondition: Netlist is empty.
-auto writeJSON(const char* jsonFileName, const SimpleNetlist& H) -> void
+void writeJSON(const char* jsonFileName, const SimpleNetlist& H)
 {
-    auto json = ofstream{jsonFileName};
+    auto json = ofstream {jsonFileName};
     if (json.fail())
     {
         std::cerr << "Error: Can't open file " << jsonFileName << ".\n";
@@ -63,17 +63,17 @@ auto writeJSON(const char* jsonFileName, const SimpleNetlist& H) -> void
 // Read the IBM .netD/.net format. Precondition: Netlist is empty.
 auto readNetD(const char* netDFileName) -> SimpleNetlist
 {
-    auto netD = ifstream{netDFileName};
+    auto netD = ifstream {netDFileName};
     if (netD.fail())
     {
         std::cerr << "Error: Can't open file " << netDFileName << ".\n";
         exit(1);
     }
 
-    char    t;
-    size_t  numPins;
-    size_t  numNets;
-    size_t  numModules;
+    char t;
+    size_t numPins;
+    size_t numNets;
+    size_t numModules;
     index_t padOffset;
 
     netD >> t; // eat 1st 0
@@ -82,17 +82,17 @@ auto readNetD(const char* netDFileName) -> SimpleNetlist
     // using Edge = std::pair<int, int>;
 
     auto num_vertices = numModules + numNets;
-    auto R            = py::range<node_t>(0, num_vertices);
-    auto g            = graph_t{R, R};
+    auto R = py::range<node_t>(0, num_vertices);
+    auto g = graph_t {R, R};
 
     index_t bufferSize = 100;
-    char    lineBuffer[100]; // Does it work for other compiler?
+    char lineBuffer[100]; // Does it work for other compiler?
     netD.getline(lineBuffer, bufferSize);
 
-    node_t  w;
+    node_t w;
     index_t e = numModules - 1;
-    char    c;
-    auto    i = 0U;
+    char c;
+    auto i = 0U;
     for (; i < numPins; ++i)
     {
         if (netD.eof())
@@ -104,8 +104,14 @@ auto readNetD(const char* netDFileName) -> SimpleNetlist
         {
             netD.get(c);
         } while ((isspace(c) != 0) && c != EOF);
-        if (c == '\n') { continue; }
-        if (c == 'a') { netD >> w; }
+        if (c == '\n')
+        {
+            continue;
+        }
+        if (c == 'a')
+        {
+            netD >> w;
+        }
         else if (c == 'p')
         {
             netD >> w;
@@ -115,7 +121,10 @@ auto readNetD(const char* netDFileName) -> SimpleNetlist
         {
             netD.get(c);
         } while ((isspace(c) != 0) && c != EOF);
-        if (c == 's') { ++e; }
+        if (c == 's')
+        {
+            ++e;
+        }
 
         // edge_array[i] = Edge(w, e);
         g.add_edge(w, e);
@@ -129,7 +138,10 @@ auto readNetD(const char* netDFileName) -> SimpleNetlist
         // case 'I': aPin.setDirection(Pin::INPUT); break;
         // case 'B': aPin.setDirection(Pin::BIDIR); break;
         // }
-        if (c != '\n') { netD.getline(lineBuffer, bufferSize); }
+        if (c != '\n')
+        {
+            netD.getline(lineBuffer, bufferSize);
+        }
     }
 
     e -= numModules - 1;
@@ -153,7 +165,7 @@ auto readNetD(const char* netDFileName) -> SimpleNetlist
     //     typename boost::property_map<graph_t, boost::vertex_index_t>::type;
     // auto index = boost::get(boost::vertex_index, g);
     // auto G = xn::grAdaptor<graph_t>{std::move(g)};
-    auto H     = Netlist{std::move(g), numModules, numNets};
+    auto H = Netlist {std::move(g), numModules, numNets};
     H.num_pads = numModules - padOffset - 1;
     return H;
 }
@@ -161,7 +173,7 @@ auto readNetD(const char* netDFileName) -> SimpleNetlist
 // Read the IBM .are format
 void readAre(SimpleNetlist& H, const char* areFileName)
 {
-    auto are = ifstream{areFileName};
+    auto are = ifstream {areFileName};
     if (are.fail())
     {
         std::cerr << " Could not open " << areFileName << std::endl;
@@ -169,21 +181,24 @@ void readAre(SimpleNetlist& H, const char* areFileName)
     }
 
     const index_t bufferSize = 100;
-    char          lineBuffer[bufferSize];
+    char lineBuffer[bufferSize];
 
-    char   c;
+    char c;
     node_t w;
-    int    weight;
+    int weight;
     // auto totalWeight = 0;
     // xxx index_t smallestWeight = UINT_MAX;
-    auto numModules    = H.number_of_modules();
-    auto padOffset     = numModules - H.num_pads - 1;
+    auto numModules = H.number_of_modules();
+    auto padOffset = numModules - H.num_pads - 1;
     auto module_weight = std::vector<int>(numModules);
 
     size_t lineno = 1;
     for (size_t i = 0; i < numModules; i++)
     {
-        if (are.eof()) { break; }
+        if (are.eof())
+        {
+            break;
+        }
         do
         {
             are.get(c);
@@ -193,7 +208,10 @@ void readAre(SimpleNetlist& H, const char* areFileName)
             lineno++;
             continue;
         }
-        if (c == 'a') { are >> w; }
+        if (c == 'a')
+        {
+            are >> w;
+        }
         else if (c == 'p')
         {
             are >> w;

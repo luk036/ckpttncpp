@@ -11,18 +11,24 @@ struct FMBiGainMgr;
  */
 struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
 {
-    using Base      = FMGainMgr<FMBiGainCalc, FMBiGainMgr>;
+    using Base = FMGainMgr<FMBiGainCalc, FMBiGainMgr>;
     using GainCalc_ = FMBiGainCalc;
-    using index_t   = typename SimpleNetlist::index_t;
+    using index_t = typename SimpleNetlist::index_t;
 
-    FMBiGainMgr(SimpleNetlist& H) : Base{H, 2} {}
+    FMBiGainMgr(SimpleNetlist& H)
+        : Base {H, 2}
+    {
+    }
 
     /*!
      * @brief Construct a new FMBiGainMgr object
      *
      * @param H
      */
-    explicit FMBiGainMgr(SimpleNetlist& H, uint8_t /* K */) : Base{H, 2} {}
+    explicit FMBiGainMgr(SimpleNetlist& H, uint8_t /* K */)
+        : Base {H, 2}
+    {
+    }
 
     /*!
      * @brief
@@ -41,7 +47,8 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
      */
     auto modify_key(index_t i_w, uint8_t part_w, int key) -> void
     {
-        this->gainbucket[1 - part_w].modify_key(this->gainCalc.vertex_list[i_w], key);
+        this->gainbucket[1 - part_w].modify_key(
+            this->gainCalc.vertex_list[i_w], key);
     }
 
     /*!
@@ -83,7 +90,7 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
         this->lock(toPart, i_v);
     }
 
-private:
+  private:
     /*!
      * @brief Set the key object
      *
@@ -93,6 +100,7 @@ private:
      */
     auto __set_key(uint8_t whichPart, index_t i_v, int key) -> void
     {
-        this->gainbucket[whichPart].set_key(this->gainCalc.vertex_list[i_v], key);
+        this->gainbucket[whichPart].set_key(
+            this->gainCalc.vertex_list[i_v], key);
     }
 };

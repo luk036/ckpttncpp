@@ -15,16 +15,16 @@ class FMKWayGainCalc
     friend FMKWayGainMgr;
     using index_t = typename SimpleNetlist::index_t;
 
-private:
-    SimpleNetlist&                            H;
-    uint8_t                                   K;
-    robin<uint8_t>                            RR;
-    size_t                                    num_modules;
+  private:
+    SimpleNetlist& H;
+    uint8_t K;
+    robin<uint8_t> RR;
+    size_t num_modules;
     std::vector<std::vector<dllink<index_t>>> vertex_list;
-    std::vector<int>                          deltaGainV;
+    std::vector<int> deltaGainV;
 
-public:
-    int totalcost{0};
+  public:
+    int totalcost {0};
 
     /*!
      * @brief Construct a new FMKWayGainCalc object
@@ -33,11 +33,16 @@ public:
      * @param K number of partitions
      */
     FMKWayGainCalc(SimpleNetlist& H, uint8_t K)
-        : H{H}, K{K}, RR{K}, num_modules{H.number_of_modules()}, deltaGainV(K, 0)
+        : H {H}
+        , K {K}
+        , RR {K}
+        , num_modules {H.number_of_modules()}
+        , deltaGainV(K, 0)
     {
         for (auto k = 0U; k < this->K; ++k)
         {
-            this->vertex_list.emplace_back(std::vector<dllink<index_t>>(this->num_modules));
+            this->vertex_list.emplace_back(
+                std::vector<dllink<index_t>>(this->num_modules));
         }
     }
 
@@ -47,7 +52,10 @@ public:
      * @param toPart
      * @return dllink*
      */
-    auto start_ptr(uint8_t toPart) -> dllink<index_t>* { return &this->vertex_list[toPart][0]; }
+    auto start_ptr(uint8_t toPart) -> dllink<index_t>*
+    {
+        return &this->vertex_list[toPart][0];
+    }
 
     /*!
      * @brief
@@ -75,7 +83,10 @@ public:
      * @brief
      *
      */
-    auto update_move_init() -> void { std::fill_n(this->deltaGainV.begin(), this->K, 0); }
+    auto update_move_init() -> void
+    {
+        std::fill_n(this->deltaGainV.begin(), this->K, 0);
+    }
 
     using ret_2pin_info = std::tuple<index_t, std::vector<int>>;
 
@@ -86,20 +97,11 @@ public:
      * @param move_info
      * @return ret_2pin_info
      */
-    auto update_move_2pin_net(const std::vector<uint8_t>& part, const MoveInfo& move_info)
-        -> ret_2pin_info;
+    auto update_move_2pin_net(const std::vector<uint8_t>& part,
+        const MoveInfo& move_info) -> ret_2pin_info;
 
-    using ret_info = std::tuple<std::vector<index_t>, std::vector<std::vector<int>>>;
-
-    /*!
-     * @brief
-     *
-     * @param part
-     * @param move_info
-     * @return ret_info
-     */
-    auto update_move_3pin_net(const std::vector<uint8_t>& part, const MoveInfo& move_info)
-        -> ret_info;
+    using ret_info =
+        std::tuple<std::vector<index_t>, std::vector<std::vector<int>>>;
 
     /*!
      * @brief
@@ -108,10 +110,20 @@ public:
      * @param move_info
      * @return ret_info
      */
-    auto update_move_general_net(const std::vector<uint8_t>& part, const MoveInfo& move_info)
-        -> ret_info;
+    auto update_move_3pin_net(const std::vector<uint8_t>& part,
+        const MoveInfo& move_info) -> ret_info;
 
-private:
+    /*!
+     * @brief
+     *
+     * @param part
+     * @param move_info
+     * @return ret_info
+     */
+    auto update_move_general_net(const std::vector<uint8_t>& part,
+        const MoveInfo& move_info) -> ret_info;
+
+  private:
     /*!
      * @brief
      *
@@ -140,7 +152,8 @@ private:
      * @param net
      * @param part
      */
-    auto __init_gain_2pin_net(node_t net, const std::vector<uint8_t>& part) -> void;
+    auto __init_gain_2pin_net(node_t net, const std::vector<uint8_t>& part)
+        -> void;
 
     /*!
      * @brief
@@ -148,7 +161,8 @@ private:
      * @param net
      * @param part
      */
-    auto __init_gain_3pin_net(node_t net, const std::vector<uint8_t>& part) -> void;
+    auto __init_gain_3pin_net(node_t net, const std::vector<uint8_t>& part)
+        -> void;
 
     /*!
      * @brief
@@ -156,5 +170,6 @@ private:
      * @param net
      * @param part
      */
-    auto __init_gain_general_net(node_t net, const std::vector<uint8_t>& part) -> void;
+    auto __init_gain_general_net(node_t net, const std::vector<uint8_t>& part)
+        -> void;
 };

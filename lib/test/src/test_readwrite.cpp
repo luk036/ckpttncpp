@@ -3,8 +3,8 @@
 #include <ckpttncpp/netlist.hpp>
 
 extern SimpleNetlist readNetD(const char* netDFileName);
-extern void          readAre(SimpleNetlist& H, const char* areFileName);
-extern void          writeJSON(const char* jsonFileName, const SimpleNetlist& H);
+extern void readAre(SimpleNetlist& H, const char* areFileName);
+extern void writeJSON(const char* jsonFileName, const SimpleNetlist& H);
 
 TEST_CASE("Test Read Dwarf", "[test_readwrite]")
 {

@@ -4,11 +4,11 @@
 
 TEST_CASE("Test dllist", "[dllist]")
 {
-    auto L1 = dllink{0};
-    auto L2 = dllink{0};
-    auto d  = dllink{0};
-    auto e  = dllink{0};
-    auto f  = dllink{0};
+    auto L1 = dllink {0};
+    auto L2 = dllink {0};
+    auto d = dllink {0};
+    auto e = dllink {0};
+    auto f = dllink {0};
     CHECK(L1.is_empty());
 
     L1.appendleft(e);
@@ -31,7 +31,7 @@ TEST_CASE("Test dllist", "[dllist]")
 
 TEST_CASE("Test robin", "[robin]")
 {
-    auto RR    = robin<uint8_t>(6U);
+    auto RR = robin<uint8_t>(6U);
     auto count = 0U;
     for (auto _ : RR.exclude(2))
     {

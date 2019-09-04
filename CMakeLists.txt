@@ -23,12 +23,6 @@ include(Warnings)
 include(CopyDllsForDebug)
 include(Coverage)
 
-# Adds convenience methods, see cmake/cleanCppExtensions.cmake
-include(cleanCppExtensions)
-
-# Creates options to turn on sanitizers, see cmake/sanitizers.cmake
-include(sanitizers)
-
 ###############
 ##  OPTIONS  ##
 ###############
@@ -82,9 +76,3 @@ add_subdirectory (lib)
 add_subdirectory (app)
 
 enable_testing ()
-
-#------------------------------------------------------------------------------
-# Other MISC targets
-
-# Adds misc targets: format, cppcheck, tidy, see cmake/cleanCppExtensions.cmake
-addMiscTargets()

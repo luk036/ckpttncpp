@@ -1,9 +1,9 @@
 #include <ckpttncpp/netlist.hpp>
 #include <py2cpp/py2cpp.hpp>
 
-template<typename nodeview_t, typename nodemap_t>
-auto Netlist<nodeview_t, nodemap_t>::projection_up(const std::vector<uint8_t>& part,
-                                                   std::vector<uint8_t>&       part_up) -> void
+template <typename nodeview_t, typename nodemap_t>
+void Netlist<nodeview_t, nodemap_t>::projection_up(
+    const std::vector<uint8_t>& part, std::vector<uint8_t>& part_up)
 {
     auto& H = *this->parent;
     for (auto v : H.modules)
@@ -22,9 +22,9 @@ auto Netlist<nodeview_t, nodemap_t>::projection_up(const std::vector<uint8_t>& p
     // }
 }
 
-template<typename nodeview_t, typename nodemap_t>
-auto Netlist<nodeview_t, nodemap_t>::projection_down(const std::vector<uint8_t>& part,
-                                                     std::vector<uint8_t>&       part_down) -> void
+template <typename nodeview_t, typename nodemap_t>
+void Netlist<nodeview_t, nodemap_t>::projection_down(
+    const std::vector<uint8_t>& part, std::vector<uint8_t>& part_down)
 {
     auto& H = *this->parent;
     for (auto v : this->modules)
@@ -35,13 +35,13 @@ auto Netlist<nodeview_t, nodemap_t>::projection_down(const std::vector<uint8_t>&
             auto net = this->cluster_down_map[v];
             for (auto v2 : H.G[net])
             {
-                auto i_v2       = H.module_map[v2];
+                auto i_v2 = H.module_map[v2];
                 part_down[i_v2] = part[i_v];
             }
         }
         else
         {
-            auto v2   = this->node_down_map[v];
+            auto v2 = this->node_down_map[v];
             auto i_v2 = H.module_map[v2];
 
             part_down[i_v2] = part[i_v];

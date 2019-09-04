@@ -1,10 +1,10 @@
 #pragma once
 
+#include "netlist.hpp"
 #include <algorithm>
 #include <cinttypes>
 #include <cmath>
 #include <vector>
-#include "netlist.hpp"
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
 
 struct MoveInfoV;
@@ -17,13 +17,13 @@ class FMConstrMgr
 {
     uint32_t weight; // cache value
 
-protected:
-    SimpleNetlist&   H;
-    double           BalTol;
-    uint8_t          K;
+  protected:
+    SimpleNetlist& H;
+    double BalTol;
+    uint8_t K;
     std::vector<int> diff;
-    int              lowerbound{0};
-    int              totalweight{0};
+    int lowerbound {0};
+    int totalweight {0};
 
     /*!
      * @brief Construct a new FMConstrMgr object
@@ -33,7 +33,10 @@ protected:
      * @param BalTol
      */
     FMConstrMgr(SimpleNetlist& H, double BalTol, uint8_t K = 2)
-        : H{H}, BalTol{BalTol}, K{K}, diff(K, 0)
+        : H {H}
+        , BalTol {BalTol}
+        , K {K}
+        , diff(K, 0)
     {
         for (auto i_v = 0U; i_v < this->H.number_of_modules(); ++i_v)
         {
@@ -41,10 +44,10 @@ protected:
             this->totalweight += weight;
         }
         auto totalweightK = this->totalweight * (2. / this->K);
-        this->lowerbound  = std::round(totalweightK * this->BalTol);
+        this->lowerbound = std::round(totalweightK * this->BalTol);
     }
 
-public:
+  public:
     /*!
      * @brief
      *

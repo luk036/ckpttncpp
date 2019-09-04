@@ -1,8 +1,8 @@
 #pragma once
 
+#include "dllist.hpp" // import dllink
 #include <cassert>
 #include <vector>
-#include "dllist.hpp" // import dllink
 
 // Forward declaration
 // template <typename T> struct bpq_iterator;
@@ -26,14 +26,14 @@
  *
  * All the member functions assume that the keys are within the bound.
  */
-template<typename T> //
+template <typename T> //
 struct bpqueue
 {
     static dllink<T> sentinel;
 
-    T                      offset; /*!< a - 1 */
-    T                      high;   /*!< b - a + 1 */
-    T                      max{0}; /*!< max value */
+    T offset;                      /*!< a - 1 */
+    T high;                        /*!< b - a + 1 */
+    T max {0};                     /*!< max value */
     std::vector<dllink<T>> bucket; /*!< bucket, array of lists */
 
     /*!
@@ -42,7 +42,10 @@ struct bpqueue
      * @param a lower bound
      * @param b upper bound
      */
-    bpqueue(T a, T b) : offset{a - 1}, high{b - offset}, bucket(high + 1)
+    bpqueue(T a, T b)
+        : offset {a - 1}
+        , high {b - offset}
+        , bucket(high + 1)
     {
         assert(a <= b);
         bucket[0].append(sentinel); // sentinel
@@ -54,14 +57,20 @@ struct bpqueue
      * @param it   the item
      * @param gain the key of it
      */
-    auto set_key(dllink<T>& it, T gain) -> void { it.key = gain - this->offset; }
+    auto set_key(dllink<T>& it, T gain) -> void
+    {
+        it.key = gain - this->offset;
+    }
 
     /*!
      * @brief Get the max value
      *
      * @return T maximum value
      */
-    auto get_max() const -> T { return this->max + this->offset; }
+    auto get_max() const -> T
+    {
+        return this->max + this->offset;
+    }
 
     /*!
      * @brief whether empty
@@ -69,7 +78,10 @@ struct bpqueue
      * @return true
      * @return false
      */
-    auto is_empty() const -> bool { return this->max == 0; }
+    auto is_empty() const -> bool
+    {
+        return this->max == 0;
+    }
 
     /*!
      * @brief clear reset the PQ
@@ -104,7 +116,10 @@ struct bpqueue
     {
         assert(k > this->offset);
         it.key = k - this->offset;
-        if (this->max < it.key) { this->max = it.key; }
+        if (this->max < it.key)
+        {
+            this->max = it.key;
+        }
         this->bucket[it.key].append(it);
     }
 
@@ -189,7 +204,10 @@ struct bpqueue
         assert(it.key > 0);
         assert(it.key <= this->high);
         this->bucket[it.key].appendleft(it); // LIFO
-        if (this->max < it.key) { this->max = it.key; }
+        if (this->max < it.key)
+        {
+            this->max = it.key;
+        }
     }
 
     /*!
@@ -203,8 +221,14 @@ struct bpqueue
      */
     auto modify_key(dllink<T>& it, T delta) -> void
     {
-        if (it.is_locked()) { return; }
-        if (delta > 0) { this->increase_key(it, delta); }
+        if (it.is_locked())
+        {
+            return;
+        }
+        if (delta > 0)
+        {
+            this->increase_key(it, delta);
+        }
         else if (delta < 0)
         {
             this->decrease_key(it, delta);
@@ -262,8 +286,8 @@ struct bpqueue
     // const auto& items() const { return *this; }
 };
 
-template<typename T>
-dllink<T> bpqueue<T>::sentinel{};
+template <typename T>
+dllink<T> bpqueue<T>::sentinel {};
 
 // /*!
 //  * @brief Bounded Priority Queue Iterator
@@ -276,7 +300,8 @@ dllink<T> bpqueue<T>::sentinel{};
 //   private:
 //     bpqueue<T> &bpq;         /*!< the priority queue */
 //     T curkey;                /*!< the current key value */
-//     dll_iterator<T> curitem; /*!< list iterator pointed to the current item. */
+//     dll_iterator<T> curitem; /*!< list iterator pointed to the current item.
+//     */
 
 //     /*!
 //      * @brief get the reference of the current list
@@ -336,7 +361,8 @@ dllink<T> bpqueue<T>::sentinel{};
 //      * @return true
 //      * @return false
 //      */
-//     auto operator!=(const bpq_iterator &rhs) -> bool { return !(*this == rhs); }
+//     auto operator!=(const bpq_iterator &rhs) -> bool { return !(*this ==
+//     rhs); }
 // };
 
 // /*!

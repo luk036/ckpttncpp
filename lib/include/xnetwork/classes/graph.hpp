@@ -9,7 +9,8 @@
 #include <xnetwork/classes/coreviews.hpp> // import AtlasView, AdjacencyView
 #include <xnetwork/classes/reportviews.hpp> // import NodeView, EdgeView, DegreeView
 
-namespace xn {
+namespace xn
+{
 
 /** Base class for undirected graphs.
 
@@ -193,15 +194,18 @@ namespace xn {
     a dictionary-like object.
 */
 
-struct object : py::dict<const char *, boost::any> {};
+struct object : py::dict<const char*, boost::any>
+{
+};
 
 template <typename nodeview_t, typename nodemap_t,
-          typename adjlist_inner_dict_factory = 
-                py::set<typename nodeview_t::value_type>>
-class Graph : public object {
+    typename adjlist_inner_dict_factory =
+        py::set<typename nodeview_t::value_type>>
+class Graph : public object
+{
   public:
     using Node = typename nodeview_t::value_type; // luk
-    using dict = py::dict<const char *, boost::any>;
+    using dict = py::dict<const char*, boost::any>;
     using graph_attr_dict_factory = dict;
     // using edge_attr_dict_factory = dict;
     // using node_attr_dict_factory = dict;
@@ -217,7 +221,7 @@ class Graph : public object {
     // std::vector<Node > _Nodes{};
     nodeview_t _node;
     nodemap_t _node_map;
-    graph_attr_dict_factory graph{}; // dictionary for graph attributes
+    graph_attr_dict_factory graph {}; // dictionary for graph attributes
     // node_dict_factory _node{};  // empty node attribute dict
     adjlist_outer_dict_factory _adj; // empty adjacency dict
 
@@ -250,12 +254,19 @@ class Graph : public object {
         >>> r = py::range(100);
         >>> G = xn::Graph(r);  // or DiGraph, MultiGraph, MultiDiGraph, etc
     */
-    Graph(const nodeview_t &Nodes, const nodemap_t &node_map)
-        : _node{Nodes}, _node_map{node_map}, _adj(Nodes.size()) {}
+    Graph(const nodeview_t& Nodes, const nodemap_t& node_map)
+        : _node {Nodes}
+        , _node_map {node_map}
+        , _adj(Nodes.size())
+    {
+    }
 
-    Graph(int num_nodes) 
-        : _node{py::range<int>(num_nodes)}, _node_map{py::range<int>(num_nodes)}, 
-          _adj(num_nodes) {}
+    Graph(int num_nodes)
+        : _node {py::range<int>(num_nodes)}
+        , _node_map {py::range<int>(num_nodes)}
+        , _adj(num_nodes)
+    {
+    }
 
     /// @property
     /** Graph adjacency object holding the neighbors of each node.
@@ -273,10 +284,14 @@ class Graph : public object {
 
         For directed graphs, `G.adj` holds outgoing (successor) info.
     */
-    auto adj() const { return AdjacencyView(this->_adj); }
+    auto adj() const
+    {
+        return AdjacencyView(this->_adj);
+    }
 
     /// @property
-    auto get_name() {
+    auto get_name()
+    {
         /** String identifier of the graph.
 
         This graph attribute appears : the attribute dict G.graph
@@ -285,11 +300,14 @@ class Graph : public object {
          */
         if (!this->graph.contains("name"))
             return "";
-        return boost::any_cast<const char *>(this->graph["name"]);
+        return boost::any_cast<const char*>(this->graph["name"]);
     }
 
     // @name.setter
-    auto set_name(const char *s) { this->graph["name"] = boost::any(s); }
+    auto set_name(const char* s)
+    {
+        this->graph["name"] = boost::any(s);
+    }
 
     /** Iterate over the nodes. Use: "for (auto n : G)".
      *
@@ -306,9 +324,15 @@ class Graph : public object {
     >>> list(G);
     [0, 1, 2, 3];
      */
-    auto begin() const { return std::begin(this->_node); }
+    auto begin() const
+    {
+        return std::begin(this->_node);
+    }
 
-    auto end() const { return std::end(this->_node); }
+    auto end() const
+    {
+        return std::end(this->_node);
+    }
 
     /** Return true if (n is a node, false otherwise. Use: "n : G".
 
@@ -318,7 +342,10 @@ class Graph : public object {
     >>> 1 : G
     true
      */
-    bool contains(const Node &n) { return this->_node.contains(n); }
+    bool contains(const Node& n)
+    {
+        return this->_node.contains(n);
+    }
 
     /** Return a dict of neighbors of node n.  Use: "G[n]".
 
@@ -343,12 +370,14 @@ class Graph : public object {
     >>> G[0];
     AtlasView({1: {}});
      */
-    auto operator[](const Node &n) const {
+    auto operator[](const Node& n) const
+    {
         return this->adj()[this->_node_map[n]];
     }
 
     /// @property
-    auto nodes() {
+    auto nodes()
+    {
         /** A NodeView of the Graph as G.nodes().
 
         Returns
@@ -442,7 +471,10 @@ class Graph : public object {
     >>> len(G);
     3
      */
-    auto number_of_nodes() const { return this->_node.size(); }
+    auto number_of_nodes() const
+    {
+        return this->_node.size();
+    }
 
     /** Return the number of nodes : the graph.
 
@@ -455,7 +487,10 @@ class Graph : public object {
     --------
     number_of_nodes, __len__  which are identical
      */
-    auto order() { return this->_node.size(); }
+    auto order()
+    {
+        return this->_node.size();
+    }
 
     /** Return true if (the graph contains the node n.
 
@@ -471,9 +506,13 @@ class Graph : public object {
     >>> G.has_node(0);
     true
      */
-    auto has_node(const Node &n) { return this->_node.contains(n); }
+    auto has_node(const Node& n)
+    {
+        return this->_node.contains(n);
+    }
 
-    auto add_edge(const Node &u, const Node &v) {
+    auto add_edge(const Node& u, const Node& v)
+    {
         /** Add an edge between u && v.
 
         The nodes u && v will be automatically added if (they are
@@ -525,20 +564,23 @@ class Graph : public object {
         // add the edge
         // datadict = this->_adj[u].get(v, this->edge_attr_dict_factory());
         // datadict.update(attr);
-        if constexpr (std::is_same<key_type, value_type>::value) {
+        if constexpr (std::is_same<key_type, value_type>::value)
+        {
             // set
             this->_adj[this->_node_map[u]].insert(v);
             this->_adj[this->_node_map[v]].insert(u);
         }
-        else {
+        else
+        {
             using T = typename adjlist_inner_dict_factory::mapped_type;
-            auto data = this->_adj[this->_node_map[u]].get(v, T{});
+            auto data = this->_adj[this->_node_map[u]].get(v, T {});
             this->_adj[this->_node_map[u]][v] = data;
             this->_adj[this->_node_map[v]][u] = data; // ???
         }
     }
 
-    auto has_edge(const Node &u, const Node &v) -> bool {
+    auto has_edge(const Node& u, const Node& v) -> bool
+    {
         /** Return true if (the edge (u, v) is : the graph.
 
         This is the same as `v : G[u]` without KeyError exceptions.
@@ -577,7 +619,10 @@ class Graph : public object {
         return this->_adj[this->_node_map[u]].contains(v);
     }
 
-    auto degree(const Node &n) { return this->_adj[this->_node_map[n]].size(); }
+    auto degree(const Node& n)
+    {
+        return this->_adj[this->_node_map[n]].size();
+    }
 
     // /// @property
     // auto edges( ) {
@@ -684,7 +729,8 @@ class Graph : public object {
     //     return degree;
     // }
 
-    auto clear() {
+    auto clear()
+    {
         /** Remove all nodes && edges from the graph.
 
         This also removes the name, && all graph, node, && edge attributes.
@@ -704,21 +750,26 @@ class Graph : public object {
         this->graph.clear();
     }
 
-    auto is_multigraph() {
+    auto is_multigraph()
+    {
         /** Return true if (graph is a multigraph, false otherwise. */
         return false;
     }
 
-    auto is_directed() {
+    auto is_directed()
+    {
         /** Return true if (graph is directed, false otherwise. */
         return false;
     }
 };
 
-using SimpleGraph = Graph<decltype(py::range<int>(1)), decltype(py::range<int>(1)), py::set<int>>;
+using SimpleGraph = Graph<decltype(py::range<int>(1)),
+    decltype(py::range<int>(1)), py::set<int>>;
 // Clang 8.0 does not support the following deduction rule.
 // template <typename nodeview_t, typename nodemap_t,
-//           typename adjlist_inner_dict_factory> Graph(int )-> Graph<decltype(py::range<int>(1)), decltype(py::range<int>(1)), py::set<int>>;
+//           typename adjlist_inner_dict_factory> Graph(int )->
+//           Graph<decltype(py::range<int>(1)), decltype(py::range<int>(1)),
+//           py::set<int>>;
 
 }; // namespace xn
 

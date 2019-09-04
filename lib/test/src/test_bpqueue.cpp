@@ -5,14 +5,14 @@
 
 TEST_CASE("Test BPQueue", "[bpqueue]")
 {
-    auto bpq1 = bpqueue{-10, 10};
-    auto bpq2 = bpqueue{-10, 10};
+    auto bpq1 = bpqueue {-10, 10};
+    auto bpq2 = bpqueue {-10, 10};
 
     CHECK(bpq1.is_empty());
 
-    auto d = dllink{0};
-    auto e = dllink{0};
-    auto f = dllink{0};
+    auto d = dllink {0};
+    auto e = dllink {0};
+    auto f = dllink {0};
 
     CHECK(d.key == 0);
 

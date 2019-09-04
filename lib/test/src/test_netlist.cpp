@@ -17,7 +17,7 @@
  */
 auto create_dwarf() -> SimpleNetlist
 {
-    using Edge          = std::pair<int, int>;
+    using Edge = std::pair<int, int>;
     const int num_nodes = 13;
     enum nodes
     {
@@ -39,10 +39,10 @@ auto create_dwarf() -> SimpleNetlist
     // static std::vector<nodes> net__name_list = {n1, n2, n3};
 
     // char name[] = "ABCDE";
-    auto edge_array =
-        std::vector{Edge(p1, n1), Edge(a0, n1), Edge(a1, n1), Edge(a0, n2), Edge(a2, n2),
-                    Edge(a3, n2), Edge(a1, n3), Edge(a2, n3), Edge(a3, n3), Edge(a2, n4),
-                    Edge(p2, n4), Edge(a3, n5), Edge(p3, n5), Edge(a0, n6)};
+    auto edge_array = std::vector {Edge(p1, n1), Edge(a0, n1), Edge(a1, n1),
+        Edge(a0, n2), Edge(a2, n2), Edge(a3, n2), Edge(a1, n3), Edge(a2, n3),
+        Edge(a3, n3), Edge(a2, n4), Edge(p2, n4), Edge(a3, n5), Edge(p3, n5),
+        Edge(a0, n6)};
     // std::index_t indices[] = {0, 1, 2, 3, 4, 5};
     // int num_arcs = sizeof(edge_array) / sizeof(Edge);
     // auto R = py::range<int>(num_nodes);
@@ -61,12 +61,13 @@ auto create_dwarf() -> SimpleNetlist
     // std::vector<node_t> module_list(7);
     // std::vector<node_t> net_list(5);
     std::vector<int> module_weight = {1, 3, 4, 2, 0, 0, 0};
-    // auto H = Netlist{std::move(g), py::range(7), py::range(7, 13), py::range(7),
+    // auto H = Netlist{std::move(g), py::range(7), py::range(7, 13),
+    // py::range(7),
     //                  py::range(-7, 6)};
-    auto H          = Netlist{std::move(g), 7, 6};
+    auto H = Netlist {std::move(g), 7, 6};
 
     H.module_weight = module_weight;
-    H.num_pads      = 3;
+    H.num_pads = 3;
     return H;
 }
 
@@ -77,7 +78,7 @@ auto create_dwarf() -> SimpleNetlist
  */
 auto create_test_netlist() -> SimpleNetlist
 {
-    using Edge     = std::pair<int, int>;
+    using Edge = std::pair<int, int>;
     auto num_nodes = 6;
     enum nodes
     {
@@ -90,22 +91,22 @@ auto create_test_netlist() -> SimpleNetlist
     };
 
     // char name[] = "ABCDE";
-    auto edge_array = std::vector{Edge(a1, n1), Edge(a1, n2), Edge(a2, n1),
-                                  Edge(a2, n2), Edge(a3, n2), Edge(a1, n3)};
+    auto edge_array = std::vector {Edge(a1, n1), Edge(a1, n2), Edge(a2, n1),
+        Edge(a2, n2), Edge(a3, n2), Edge(a1, n3)};
     // std::index_t indices[] = {0, 1, 2, 3, 4, 5};
     // auto num_arcs = sizeof(edge_array) / sizeof(Edge);
     // auto g = graph_t{edge_array, edge_array + num_arcs, num_nodes};
     // auto G = xn::grAdaptor<graph_t>{std::move(g)};
-    auto    R = py::range<int>(num_nodes);
-    graph_t g{R, R};
+    auto R = py::range<int>(num_nodes);
+    graph_t g {R, R};
     for (auto [u, v] : edge_array)
     {
         g.add_edge(u, v);
     }
 
-    auto module_weight = std::vector<int>{3, 4, 2};
-    auto H             = Netlist{std::move(g), 3, 3};
-    H.module_weight    = std::move(module_weight);
+    auto module_weight = std::vector<int> {3, 4, 2};
+    auto H = Netlist {std::move(g), 3, 3};
+    H.module_weight = std::move(module_weight);
     return H;
 }
 

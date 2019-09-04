@@ -7,7 +7,7 @@
  * @param part
  * @return int
  */
-auto FMKWayGainMgr::init(const std::vector<uint8_t>& part) -> int
+int FMKWayGainMgr::init(const std::vector<uint8_t>& part)
 {
     auto totalcost = Base::init(part);
 
@@ -42,15 +42,18 @@ auto FMKWayGainMgr::init(const std::vector<uint8_t>& part) -> int
  * @param move_info_v
  * @param gain
  */
-auto FMKWayGainMgr::update_move_v(const MoveInfoV& move_info_v, int gain) -> void
+void FMKWayGainMgr::update_move_v(const MoveInfoV& move_info_v, int gain)
 {
     auto&& [fromPart, toPart, i_v] = move_info_v;
 
     for (auto k = 0U; k < this->K; ++k)
     {
-        if (fromPart == k || toPart == k) { continue; }
-        this->gainbucket[k].modify_key(this->gainCalc.vertex_list[k][i_v],
-                                       this->gainCalc.deltaGainV[k]);
+        if (fromPart == k || toPart == k)
+        {
+            continue;
+        }
+        this->gainbucket[k].modify_key(
+            this->gainCalc.vertex_list[k][i_v], this->gainCalc.deltaGainV[k]);
     }
     this->__set_key(fromPart, i_v, -gain);
     // this->__set_key(toPart, v, -2*this->pmax);

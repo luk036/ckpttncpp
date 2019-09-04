@@ -11,10 +11,10 @@ struct MoveInfoV;
  */
 class FMKWayConstrMgr : public FMConstrMgr
 {
-private:
+  private:
     std::vector<bool> illegal;
 
-public:
+  public:
     /*!
      * @brief Construct a new FMKWayConstrMgr object
      *
@@ -23,7 +23,8 @@ public:
      * @param K
      */
     FMKWayConstrMgr(SimpleNetlist& H, double BalTol, uint8_t K)
-        : FMConstrMgr{H, BalTol, K}, illegal(K, true)
+        : FMConstrMgr {H, BalTol, K}
+        , illegal(K, true)
     {
     }
 
@@ -61,7 +62,10 @@ public:
     auto check_legal(const MoveInfoV& move_info_v) -> size_t
     {
         auto status = FMConstrMgr::check_legal(move_info_v);
-        if (status != 2) { return status; }
+        if (status != 2)
+        {
+            return status;
+        }
         auto&& [fromPart, toPart, _] = move_info_v;
         this->illegal[fromPart] = this->illegal[toPart] = false;
         for (auto b : this->illegal)

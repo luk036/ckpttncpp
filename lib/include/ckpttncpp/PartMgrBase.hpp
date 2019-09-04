@@ -3,13 +3,13 @@
 // **Special code for two-pin nets**
 // Take a snapshot when a move make **negative** gain.
 // Snapshot in the form of "interface"???
+#include "netlist.hpp"
 #include <cassert>
 #include <cinttypes>
 #include <iterator>
 #include <py2cpp/py2cpp.hpp>
 #include <type_traits>
 #include <vector>
-#include "netlist.hpp"
 
 /*!
  * @brief Partition Manager Base
@@ -36,29 +36,29 @@
  *   G. Ausiello et al., Complexity and Approximation: Combinatorial
  * Optimization Problems and Their Approximability Properties, Section 10.3.2.
  */
-template<typename GainMgr, typename ConstrMgr,
-         template<typename _GainMgr, typename _ConstrMgr> class Derived> //
+template <typename GainMgr, typename ConstrMgr,
+    template <typename _GainMgr, typename _ConstrMgr> class Derived> //
 class PartMgrBase
 {
 
-public:
-    using GainCalc_  = typename GainMgr::GainCalc_;
-    using GainMgr_   = GainMgr;
+  public:
+    using GainCalc_ = typename GainMgr::GainCalc_;
+    using GainMgr_ = GainMgr;
     using ConstrMgr_ = ConstrMgr;
 
     using Der = Derived<GainMgr, ConstrMgr>;
     Der& self = *static_cast<Der*>(this);
 
-protected:
+  protected:
     SimpleNetlist& H;
-    GainMgr&       gainMgr;
-    ConstrMgr&     validator;
-    uint8_t        K;
+    GainMgr& gainMgr;
+    ConstrMgr& validator;
+    uint8_t K;
     // std::vector<uint8_t> snapshot;
     // std::vector<uint8_t> part;
 
-public:
-    int totalcost{0};
+  public:
+    int totalcost {0};
 
     /*!
      * @brief Construct a new FDPartMgr object
@@ -68,7 +68,10 @@ public:
      * @param constrMgr
      */
     PartMgrBase(SimpleNetlist& H, GainMgr& gainMgr, ConstrMgr& constrMgr)
-        : H{H}, gainMgr{gainMgr}, validator{constrMgr}, K{gainMgr.K}
+        : H {H}
+        , gainMgr {gainMgr}
+        , validator {constrMgr}
+        , K {gainMgr.K}
     {
     }
 
@@ -93,7 +96,7 @@ public:
      */
     void optimize(std::vector<uint8_t>& part);
 
-private:
+  private:
     /*!
      * @brief
      *

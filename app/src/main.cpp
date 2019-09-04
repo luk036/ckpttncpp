@@ -32,7 +32,7 @@ TEST_CASE("Test BPQueue for main", "[bpqueue]")
     auto nodelist = std::vector<dllink<int>>(10);
 
     auto i = 0U;
-    for (auto &it : nodelist)
+    for (auto& it : nodelist)
     {
         it.key = 2 * i - 10;
         i += 1;
@@ -40,7 +40,7 @@ TEST_CASE("Test BPQueue for main", "[bpqueue]")
     bpq1.appendfrom(nodelist);
 
     auto count = 0U;
-    for (auto &node : bpq1.items())
+    for (auto& node : bpq1.items())
     {
         count += 1;
     }

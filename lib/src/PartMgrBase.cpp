@@ -8,24 +8,33 @@
  * @tparam ConstrMgr
  * @param part
  */
-template<typename GainMgr, typename ConstrMgr, template<typename _GainMgr, typename _ConstrMgr> class Derived> //
-auto PartMgrBase<GainMgr, ConstrMgr, Derived>::init(std::vector<uint8_t>& part) -> void
+template <typename GainMgr, typename ConstrMgr,
+    template <typename _GainMgr, typename _ConstrMgr> class Derived> //
+void PartMgrBase<GainMgr, ConstrMgr, Derived>::init(std::vector<uint8_t>& part)
 {
     this->totalcost = this->gainMgr.init(part);
     this->validator.init(part);
 }
 
-template<typename GainMgr, typename ConstrMgr, template<typename _GainMgr, typename _ConstrMgr> class Derived> //
-auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(std::vector<uint8_t>& part) -> size_t
+template <typename GainMgr, typename ConstrMgr,
+    template <typename _GainMgr, typename _ConstrMgr> class Derived> //
+size_t PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
+    std::vector<uint8_t>& part)
 {
     this->init(part);
 
     // Zero-weighted modules does not contribute legalization
     for (auto i_v = 0U; i_v < this->H.number_of_modules(); ++i_v)
     {
-        if (this->H.get_module_weight_by_id(i_v) != 0) { continue; }
+        if (this->H.get_module_weight_by_id(i_v) != 0)
+        {
+            continue;
+        }
         auto v = this->H.modules[i_v];
-        if (this->H.module_fixed.contains(v)) { continue; }
+        if (this->H.module_fixed.contains(v))
+        {
+            continue;
+        }
         this->gainMgr.lock_all(part[i_v], i_v);
     }
 
@@ -33,12 +42,15 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(std::vector<uint8_t>& pa
     while (true)
     {
         auto toPart = this->validator.select_togo();
-        if (this->gainMgr.is_empty_togo(toPart)) { break; }
+        if (this->gainMgr.is_empty_togo(toPart))
+        {
+            break;
+        }
         auto [i_v, gainmax] = this->gainMgr.select_togo(toPart);
-        auto fromPart       = part[i_v];
+        auto fromPart = part[i_v];
         // assert(v == v);
         assert(fromPart != toPart);
-        auto move_info_v = MoveInfoV{fromPart, toPart, i_v};
+        auto move_info_v = MoveInfoV {fromPart, toPart, i_v};
         // Check if the move of v can notsatisfied, makebetter, or satisfied
         legalcheck = this->validator.check_legal(move_info_v);
         if (legalcheck == 0)
@@ -71,15 +83,17 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(std::vector<uint8_t>& pa
  * @tparam ConstrMgr
  * @param part
  */
-template<typename GainMgr, typename ConstrMgr, template<typename _GainMgr, typename _ConstrMgr> class Derived> //
-auto PartMgrBase<GainMgr, ConstrMgr, Derived>::__optimize_1pass(std::vector<uint8_t>& part) -> void
+template <typename GainMgr, typename ConstrMgr,
+    template <typename _GainMgr, typename _ConstrMgr> class Derived> //
+void PartMgrBase<GainMgr, ConstrMgr, Derived>::__optimize_1pass(
+    std::vector<uint8_t>& part)
 {
     using SS_t = decltype(self.take_snapshot(part));
 
-    auto snapshot         = SS_t{};
-    auto totalgain        = 0;
+    auto snapshot = SS_t {};
+    auto totalgain = 0;
     auto deferredsnapshot = false;
-    auto besttotalgain    = 0;
+    auto besttotalgain = 0;
 
     while (!this->gainMgr.is_empty())
     {
@@ -87,7 +101,10 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::__optimize_1pass(std::vector<uint
         auto [move_info_v, gainmax] = this->gainMgr.select(part);
         // Check if the move of v can satisfied or notsatisfied
         auto satisfiedOK = this->validator.check_constraints(move_info_v);
-        if (!satisfiedOK) { continue; }
+        if (!satisfiedOK)
+        {
+            continue;
+        }
         if (gainmax < 0)
         {
             // become down turn
@@ -95,14 +112,14 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::__optimize_1pass(std::vector<uint
             {
                 // Take a snapshot before move
                 // snapshot = part;
-                snapshot      = self.take_snapshot(part);
+                snapshot = self.take_snapshot(part);
                 besttotalgain = totalgain;
             }
             deferredsnapshot = true;
         }
         else if (totalgain + gainmax >= besttotalgain)
         {
-            besttotalgain    = totalgain + gainmax;
+            besttotalgain = totalgain + gainmax;
             deferredsnapshot = false;
         }
         // Update v and its neigbours (even they are in waitinglist);
@@ -132,8 +149,10 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::__optimize_1pass(std::vector<uint
  * @tparam ConstrMgr
  * @param part
  */
-template<typename GainMgr, typename ConstrMgr, template<typename _GainMgr, typename _ConstrMgr> class Derived> //
-auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize(std::vector<uint8_t>& part) -> void
+template <typename GainMgr, typename ConstrMgr,
+    template <typename _GainMgr, typename _ConstrMgr> class Derived> //
+void PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize(
+    std::vector<uint8_t>& part)
 {
     // this->init(part);
     // auto totalcostafter = this->totalcost;
@@ -144,7 +163,10 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize(std::vector<uint8_t>& pa
         // assert(totalcostafter == totalcostbefore);
         this->__optimize_1pass(part);
         assert(this->totalcost <= totalcostbefore);
-        if (this->totalcost == totalcostbefore) { break; }
+        if (this->totalcost == totalcostbefore)
+        {
+            break;
+        }
         // totalcostafter = this->totalcost;
     }
 }

@@ -1,13 +1,13 @@
 #pragma once
 
+#include "bpqueue.hpp" // import bpqueue
+#include "dllist.hpp"  // import dllink
+#include "netlist.hpp" // import Netlist
 #include <cassert>
 #include <cinttypes>
 #include <iterator>
 #include <memory>
 #include <type_traits>
-#include "bpqueue.hpp" // import bpqueue
-#include "dllist.hpp"  // import dllink
-#include "netlist.hpp" // import Netlist
 
 /*!
  * @brief
@@ -15,21 +15,21 @@
  * @tparam GainCalc
  * @tparam Derived
  */
-template<typename GainCalc, class Derived>
+template <typename GainCalc, class Derived>
 class FMGainMgr
 {
     Derived& self = *static_cast<Derived*>(this);
     using index_t = typename SimpleNetlist::index_t;
 
-protected:
-    dllink<index_t> waitinglist{};
+  protected:
+    dllink<index_t> waitinglist {};
 
-    SimpleNetlist&            H;
-    GainCalc                  gainCalc;
-    size_t                    pmax;
+    SimpleNetlist& H;
+    GainCalc gainCalc;
+    size_t pmax;
     std::vector<bpqueue<int>> gainbucket;
 
-public:
+  public:
     uint8_t K;
     // int totalcost;
 
@@ -70,7 +70,10 @@ public:
     {
         for (auto k = 0U; k < this->K; ++k)
         {
-            if (!this->gainbucket[k].is_empty()) { return false; }
+            if (!this->gainbucket[k].is_empty())
+            {
+                return false;
+            }
         }
         return true;
     }
@@ -97,24 +100,18 @@ public:
      * @param part
      * @param move_info_v
      */
-    auto update_move(const std::vector<uint8_t>& part, const MoveInfoV& move_info_v) -> void;
+    auto update_move(
+        const std::vector<uint8_t>& part, const MoveInfoV& move_info_v) -> void;
 
-private:
+  private:
     /*!
      * @brief
      *
      * @param part
      * @param move_info
      */
-    auto __update_move_2pin_net(const std::vector<uint8_t>& part, const MoveInfo& move_info) -> void;
-
-    /*!
-     * @brief
-     *
-     * @param part
-     * @param move_info
-     */
-    auto __update_move_3pin_net(const std::vector<uint8_t>& part, const MoveInfo& move_info) -> void;
+    auto __update_move_2pin_net(
+        const std::vector<uint8_t>& part, const MoveInfo& move_info) -> void;
 
     /*!
      * @brief
@@ -122,6 +119,15 @@ private:
      * @param part
      * @param move_info
      */
-    auto __update_move_general_net(const std::vector<uint8_t>& part, const MoveInfo& move_info)
-        -> void;
+    auto __update_move_3pin_net(
+        const std::vector<uint8_t>& part, const MoveInfo& move_info) -> void;
+
+    /*!
+     * @brief
+     *
+     * @param part
+     * @param move_info
+     */
+    auto __update_move_general_net(
+        const std::vector<uint8_t>& part, const MoveInfo& move_info) -> void;
 };

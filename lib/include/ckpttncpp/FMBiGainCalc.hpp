@@ -14,13 +14,13 @@ class FMBiGainCalc
     friend FMBiGainMgr;
     using index_t = typename SimpleNetlist::index_t;
 
-private:
+  private:
     SimpleNetlist& H;
-    size_t         num_modules{};
+    size_t num_modules {};
 
     std::vector<dllink<index_t>> vertex_list;
 
-public:
+  public:
     int totalcost;
 
     /*!
@@ -30,7 +30,8 @@ public:
      * @param K
      */
     explicit FMBiGainCalc(SimpleNetlist& H, uint8_t /*K*/)
-        : H{H}, vertex_list(H.number_of_modules())
+        : H {H}
+        , vertex_list(H.number_of_modules())
     {
     }
 
@@ -59,7 +60,10 @@ public:
      * @param toPart
      * @return dllink*
      */
-    auto start_ptr(uint8_t /*toPart*/) -> dllink<index_t>* { return &this->vertex_list[0]; }
+    auto start_ptr(uint8_t /*toPart*/) -> dllink<index_t>*
+    {
+        return &this->vertex_list[0];
+    }
 
     /*!
      * @brief
@@ -79,8 +83,8 @@ public:
      * @param move_info
      * @return ret_2pin_info
      */
-    auto update_move_2pin_net(const std::vector<uint8_t>& part, const MoveInfo& move_info)
-        -> ret_2pin_info;
+    auto update_move_2pin_net(const std::vector<uint8_t>& part,
+        const MoveInfo& move_info) -> ret_2pin_info;
 
     using ret_info = std::tuple<std::vector<index_t>, std::vector<int>>;
 
@@ -92,8 +96,8 @@ public:
      * @param fromPart
      * @param v
      */
-    auto update_move_3pin_net(const std::vector<uint8_t>& part, const MoveInfo& move_info)
-        -> ret_info;
+    auto update_move_3pin_net(const std::vector<uint8_t>& part,
+        const MoveInfo& move_info) -> ret_info;
     /*!
      * @brief
      *
@@ -102,17 +106,20 @@ public:
      * @param fromPart
      * @param v
      */
-    auto update_move_general_net(const std::vector<uint8_t>& part, const MoveInfo& move_info)
-        -> ret_info;
+    auto update_move_general_net(const std::vector<uint8_t>& part,
+        const MoveInfo& move_info) -> ret_info;
 
-private:
+  private:
     /*!
      * @brief
      *
      * @param w
      * @param weight
      */
-    auto __modify_gain(index_t i_w, int weight) -> void { this->vertex_list[i_w].key += weight; }
+    auto __modify_gain(index_t i_w, int weight) -> void
+    {
+        this->vertex_list[i_w].key += weight;
+    }
 
     /*!
      * @brief
@@ -128,7 +135,8 @@ private:
      * @param net
      * @param part
      */
-    auto __init_gain_2pin_net(node_t net, const std::vector<uint8_t>& part) -> void;
+    auto __init_gain_2pin_net(node_t net, const std::vector<uint8_t>& part)
+        -> void;
 
     /*!
      * @brief
@@ -136,7 +144,8 @@ private:
      * @param net
      * @param part
      */
-    auto __init_gain_3pin_net(node_t net, const std::vector<uint8_t>& part) -> void;
+    auto __init_gain_3pin_net(node_t net, const std::vector<uint8_t>& part)
+        -> void;
 
     /*!
      * @brief
@@ -144,5 +153,6 @@ private:
      * @param net
      * @param part
      */
-    auto __init_gain_general_net(node_t net, const std::vector<uint8_t>& part) -> void;
+    auto __init_gain_general_net(node_t net, const std::vector<uint8_t>& part)
+        -> void;
 };

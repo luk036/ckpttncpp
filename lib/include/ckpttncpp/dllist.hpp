@@ -17,19 +17,23 @@
  * information. Note that this class does not own the list node. They
  * are supplied by the caller in order to better reuse the nodes.
  */
-template<typename T>
+template <typename T>
 struct dllink
 {
-    dllink<T>* next{this}; /*!< pointer to the next node */
-    dllink<T>* prev{this}; /*!< pointer to the previous node */
-    T          key;
+    dllink<T>* next {this}; /*!< pointer to the next node */
+    dllink<T>* prev {this}; /*!< pointer to the previous node */
+    T key;
 
     /*!
      * @brief Construct a new dllink object
      *
      * @param key the key
      */
-    dllink(T key = T(0)) : key{key} { static_assert(sizeof(dllink<T>) <= 24); }
+    dllink(T key = T(0))
+        : key {key}
+    {
+        static_assert(sizeof(dllink<T>) <= 24);
+    }
 
     /*!
      * @brief Copy construct a new dllink object (deleted intentionally)
@@ -44,8 +48,8 @@ struct dllink
     auto detach() -> void
     {
         assert(!this->is_locked());
-        auto n  = this->next;
-        auto p  = this->prev;
+        auto n = this->next;
+        auto p = this->prev;
         p->next = n;
         n->prev = p;
     }
@@ -54,7 +58,10 @@ struct dllink
      * @brief lock the node (and don't append it to any list)
      *
      */
-    auto lock() -> void { this->next = nullptr; }
+    auto lock() -> void
+    {
+        this->next = nullptr;
+    }
 
     /*!
      * @brief whether the node is locked
@@ -62,7 +69,10 @@ struct dllink
      * @return true
      * @return false
      */
-    auto is_locked() const -> bool { return this->next == nullptr; }
+    auto is_locked() const -> bool
+    {
+        return this->next == nullptr;
+    }
 
     /*!
      * @brief whether the list is empty
@@ -70,13 +80,19 @@ struct dllink
      * @return true
      * @return false
      */
-    auto is_empty() const -> bool { return this->next == this; }
+    auto is_empty() const -> bool
+    {
+        return this->next == this;
+    }
 
     /*!
      * @brief reset the list
      *
      */
-    auto clear() -> void { this->next = this->prev = this; }
+    auto clear() -> void
+    {
+        this->next = this->prev = this;
+    }
 
     /*!
      * @brief append the node to the front
@@ -85,10 +101,10 @@ struct dllink
      */
     auto appendleft(dllink<T>& node) -> void
     {
-        node.next        = this->next;
+        node.next = this->next;
         this->next->prev = &node;
-        this->next       = &node;
-        node.prev        = this;
+        this->next = &node;
+        node.prev = this;
     }
 
     /*!
@@ -98,10 +114,10 @@ struct dllink
      */
     auto append(dllink<T>& node) -> void
     {
-        node.prev        = this->prev;
+        node.prev = this->prev;
         this->prev->next = &node;
-        this->prev       = &node;
-        node.next        = this;
+        this->prev = &node;
+        node.next = this;
     }
 
     /*!
@@ -113,8 +129,8 @@ struct dllink
      */
     auto popleft() -> dllink<T>&
     {
-        auto res         = this->next;
-        this->next       = res->next;
+        auto res = this->next;
+        this->next = res->next;
         this->next->prev = this;
         return *res;
     }
@@ -128,8 +144,8 @@ struct dllink
      */
     auto pop() -> dllink<T>&
     {
-        auto res         = this->prev;
-        this->prev       = res->prev;
+        auto res = this->prev;
+        this->prev = res->prev;
         this->prev->next = this;
         return *res;
     }

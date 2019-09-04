@@ -14,30 +14,30 @@ using std::experimental::randint;
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
 extern SimpleNetlist create_dwarf();        // import create_dwarf
 extern SimpleNetlist readNetD(const char* netDFileName);
-extern void          readAre(SimpleNetlist& H, const char* areFileName);
+extern void readAre(SimpleNetlist& H, const char* areFileName);
 
 TEST_CASE("Test MLBiPartMgr dwarf", "[test_MLBiPartMgr]")
 {
-    auto H       = create_dwarf();
-    auto partMgr = MLPartMgr{0.3};
-    auto part    = std::vector<uint8_t>(H.number_of_modules(), 0);
+    auto H = create_dwarf();
+    auto partMgr = MLPartMgr {0.3};
+    auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part);
     CHECK(partMgr.totalcost == 2);
 }
 
 TEST_CASE("Test MLKWayPartMgr dwarf", "[test_MLKWayPartMgr]")
 {
-    auto H       = create_dwarf();
-    auto partMgr = MLPartMgr{0.4, 3}; // 0.3???
-    auto part    = std::vector<uint8_t>(H.number_of_modules(), 0);
+    auto H = create_dwarf();
+    auto partMgr = MLPartMgr {0.4, 3}; // 0.3???
+    auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     partMgr.run_FMPartition<FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>>(H, part);
     CHECK(partMgr.totalcost == 4);
 }
 
 TEST_CASE("Test MLBiPartMgr p1", "[test_MLBiPartMgr]")
 {
-    auto H       = readNetD("../../../testcases/p1.net");
-    auto partMgr = MLPartMgr{0.3};
+    auto H = readNetD("../../../testcases/p1.net");
+    auto partMgr = MLPartMgr {0.3};
 
     auto mincost = 1000;
     for (auto i = 0; i < 10; ++i)
@@ -47,8 +47,12 @@ TEST_CASE("Test MLBiPartMgr p1", "[test_MLBiPartMgr]")
         {
             elem = randint(0, 1);
         }
-        partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part, 100);
-        if (mincost > partMgr.totalcost) { mincost = partMgr.totalcost; }
+        partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(
+            H, part, 100);
+        if (mincost > partMgr.totalcost)
+        {
+            mincost = partMgr.totalcost;
+        }
     }
     // CHECK(partMgr.totalcost >= 50);
     // CHECK(partMgr.totalcost <= 50);
@@ -60,7 +64,7 @@ TEST_CASE("Test MLBiPartMgr ibm01", "[test_MLBiPartMgr]")
 {
     auto H = readNetD("../../../testcases/ibm01.net");
     readAre(H, "../../../testcases/ibm01.are");
-    auto partMgr = MLPartMgr{0.4};
+    auto partMgr = MLPartMgr {0.4};
     auto mincost = 1000;
     for (auto i = 0; i < 10; ++i)
     {
@@ -69,8 +73,12 @@ TEST_CASE("Test MLBiPartMgr ibm01", "[test_MLBiPartMgr]")
         {
             elem = randint(0, 1);
         }
-        partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part, 400);
-        if (mincost > partMgr.totalcost) { mincost = partMgr.totalcost; }
+        partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(
+            H, part, 400);
+        if (mincost > partMgr.totalcost)
+        {
+            mincost = partMgr.totalcost;
+        }
     }
     // CHECK(partMgr.totalcost >= 650);
     // CHECK(partMgr.totalcost <= 650);
@@ -82,12 +90,14 @@ TEST_CASE("Test MLBiPartMgr ibm03", "[test_MLBiPartMgr]")
 {
     auto H = readNetD("../../../testcases/ibm03.net");
     readAre(H, "../../../testcases/ibm03.are");
-    auto partMgr = MLPartMgr{0.45};
-    auto part    = std::vector<uint8_t>(H.number_of_modules(), 0);
+    auto partMgr = MLPartMgr {0.45};
+    auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     // auto part_info = PartInfo{std::move(part), py::set<node_t>()};
     auto begin = std::chrono::steady_clock::now();
-    partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part, 300);
-    std::chrono::duration<double> last = std::chrono::steady_clock::now() - begin;
+    partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(
+        H, part, 300);
+    std::chrono::duration<double> last =
+        std::chrono::steady_clock::now() - begin;
     std::cout << "time: " << last.count() << std::endl;
     CHECK(partMgr.totalcost >= 1469);
     CHECK(partMgr.totalcost <= 2041);

@@ -12,13 +12,13 @@ class FMKWayGainMgr;
 class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
 {
 
-private:
+  private:
     robin<uint8_t> RR;
 
-public:
-    using Base      = FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>;
+  public:
+    using Base = FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>;
     using GainCalc_ = FMKWayGainCalc;
-    using index_t   = typename SimpleNetlist::index_t;
+    using index_t = typename SimpleNetlist::index_t;
 
     /*!
      * @brief Construct a new FMKWayGainMgr object
@@ -26,7 +26,11 @@ public:
      * @param H
      * @param K
      */
-    FMKWayGainMgr(SimpleNetlist& H, uint8_t K) : Base{H, K}, RR{K} {}
+    FMKWayGainMgr(SimpleNetlist& H, uint8_t K)
+        : Base {H, K}
+        , RR {K}
+    {
+    }
 
     /*!
      * @brief
@@ -42,11 +46,13 @@ public:
      * @param w
      * @param keys
      */
-    auto modify_key(index_t i_w, uint8_t part_w, const std::vector<int>& keys) -> void
+    auto modify_key(index_t i_w, uint8_t part_w, const std::vector<int>& keys)
+        -> void
     {
         for (auto&& k : this->RR.exclude(part_w))
         {
-            this->gainbucket[k].modify_key(this->gainCalc.vertex_list[k][i_w], keys[k]);
+            this->gainbucket[k].modify_key(
+                this->gainCalc.vertex_list[k][i_w], keys[k]);
         }
     }
 
@@ -86,7 +92,7 @@ public:
         }
     }
 
-private:
+  private:
     /*!
      * @brief Set the key object
      *
@@ -96,6 +102,7 @@ private:
      */
     auto __set_key(index_t whichPart, index_t i_v, int key) -> void
     {
-        this->gainbucket[whichPart].set_key(this->gainCalc.vertex_list[whichPart][i_v], key);
+        this->gainbucket[whichPart].set_key(
+            this->gainCalc.vertex_list[whichPart][i_v], key);
     }
 };

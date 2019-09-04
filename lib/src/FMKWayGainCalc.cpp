@@ -83,9 +83,9 @@ auto FMKWayGainCalc::__init_gain_3pin_net(node_t net, const std::vector<uint8_t>
     {
         if (part_w == part_v)
         {
-            for (auto i_a : {i_u, i_v, i_w})
+            for (auto i_e : {i_u, i_v, i_w})
             {
-                this->__modify_gain(i_a, part_v, -weight);
+                this->__modify_gain(i_e, part_v, -weight);
             }
             return;
         }
@@ -227,7 +227,7 @@ auto FMKWayGainCalc::update_move_3pin_net(const std::vector<uint8_t>& part,
 
     if (part_w == part_u)
     {
-        for (auto&& _ : {0, 1})
+        for (auto i=0; i<2; ++i)
         {
             if (part_w != l)
             {
@@ -247,7 +247,7 @@ auto FMKWayGainCalc::update_move_3pin_net(const std::vector<uint8_t>& part,
         return std::tuple{std::move(IdVec), std::move(deltaGain)};
     }
 
-    for (auto&& _ : {0, 1})
+    for (auto i=0; i<2; ++i)
     {
         if (part_w == l)
         {
@@ -309,7 +309,7 @@ auto FMKWayGainCalc::update_move_general_net(const std::vector<uint8_t>& part,
     auto weight    = this->H.get_net_weight(net);
 
     auto l = fromPart, u = toPart;
-    for (auto&& _ : {0, 1})
+    for (auto i=0; i<2; ++i)
     {
         if (num[l] == 0)
         {

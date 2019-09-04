@@ -3,7 +3,7 @@
 #include "dllist.hpp"  // import dllink
 #include "netlist.hpp" // import Netlist
 
-class FMBiGainMgr;
+struct FMBiGainMgr;
 
 /*!
  * @brief FMBiGainCalc

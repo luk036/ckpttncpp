@@ -3,7 +3,7 @@
 #include "FMConstrMgr.hpp"
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
 
-class MoveInfoV;
+struct MoveInfoV;
 
 /*!
  * @brief FM K-Way Partition Constraint Manager

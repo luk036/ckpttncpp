@@ -38,7 +38,7 @@ public:
     auto take_snapshot(const std::vector<uint8_t>& part) -> std::vector<uint8_t>
     {
         auto snapshot = part;
-        return std::move(snapshot);
+        return snapshot;
     }
 
     /*!

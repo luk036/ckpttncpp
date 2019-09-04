@@ -57,4 +57,4 @@ auto Netlist<nodeview_t, nodemap_t>::projection_down(const std::vector<uint8_t>&
     // }
 }
 
-template class Netlist<RngIter, RngIter>;
+template struct Netlist<RngIter, RngIter>;

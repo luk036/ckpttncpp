@@ -46,8 +46,8 @@ int FMGainMgr<GainCalc, Derived>::init(const std::vector<uint8_t>& part)
  * @return std::tuple<MoveInfoV, int>
  */
 template <typename GainCalc, class Derived>
-std::tuple<MoveInfoV, int>
-FMGainMgr<GainCalc, Derived>::select(const std::vector<uint8_t>& part)
+std::tuple<MoveInfoV, int> FMGainMgr<GainCalc, Derived>::select(
+    const std::vector<uint8_t>& part)
 {
     auto gainmax = std::vector<int>(this->K);
     for (auto k = 0U; k < this->K; ++k)
@@ -73,8 +73,8 @@ FMGainMgr<GainCalc, Derived>::select(const std::vector<uint8_t>& part)
  * @return std::tuple<index_t, int>
  */
 template <typename GainCalc, class Derived>
-std::tuple<index_t, int>
-FMGainMgr<GainCalc, Derived>::select_togo(uint8_t toPart)
+std::tuple<index_t, int> FMGainMgr<GainCalc, Derived>::select_togo(
+    uint8_t toPart)
 {
     auto gainmax = this->gainbucket[toPart].get_max();
     auto& vlink = this->gainbucket[toPart].popleft();
@@ -151,7 +151,7 @@ void FMGainMgr<GainCalc, Derived>::__update_move_3pin_net(
     auto [IdVec, deltaGain] =
         this->gainCalc.update_move_3pin_net(part, move_info);
     auto degree = IdVec.size();
-    for (auto idx = 0U; idx < degree; ++idx)
+    for (size_t idx = 0U; idx < degree; ++idx)
     {
         auto i_w = IdVec[idx];
         self.modify_key(i_w, part[i_w], deltaGain[idx]);
@@ -171,7 +171,7 @@ void FMGainMgr<GainCalc, Derived>::__update_move_general_net(
     auto [IdVec, deltaGain] =
         this->gainCalc.update_move_general_net(part, move_info);
     auto degree = IdVec.size();
-    for (auto idx = 0U; idx < degree; ++idx)
+    for (size_t idx = 0U; idx < degree; ++idx)
     {
         auto i_w = IdVec[idx];
         self.modify_key(i_w, part[i_w], deltaGain[idx]);

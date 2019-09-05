@@ -24,7 +24,7 @@ size_t PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
     this->init(part);
 
     // Zero-weighted modules does not contribute legalization
-    for (auto i_v = 0U; i_v < this->H.number_of_modules(); ++i_v)
+    for (size_t i_v = 0U; i_v < this->H.number_of_modules(); ++i_v)
     {
         if (this->H.get_module_weight_by_id(i_v) != 0)
         {

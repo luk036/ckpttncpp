@@ -15,7 +15,7 @@ struct MoveInfoV;
  */
 class FMConstrMgr
 {
-    uint32_t weight; // cache value
+    int weight; // cache value
 
   protected:
     SimpleNetlist& H;

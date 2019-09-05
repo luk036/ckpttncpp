@@ -61,7 +61,7 @@ void writeJSON(const char* jsonFileName, const SimpleNetlist& H)
 }
 
 // Read the IBM .netD/.net format. Precondition: Netlist is empty.
-auto readNetD(const char* netDFileName) -> SimpleNetlist
+SimpleNetlist readNetD(const char* netDFileName)
 {
     auto netD = ifstream {netDFileName};
     if (netD.fail())
@@ -92,7 +92,7 @@ auto readNetD(const char* netDFileName) -> SimpleNetlist
     node_t w;
     index_t e = numModules - 1;
     char c;
-    auto i = 0U;
+    size_t i = 0U;
     for (; i < numPins; ++i)
     {
         if (netD.eof())

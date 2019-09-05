@@ -18,7 +18,7 @@ auto max_independent_net(SimpleNetlist& H, const std::vector<int>& /*weight*/,
     bpqueue bpq {-int(H.get_max_net_degree()), 0};
     auto nets = std::vector<dllink<index_t>>(H.nets.size());
 
-    for (auto i_net = 0U; i_net < H.nets.size(); ++i_net)
+    for (size_t i_net = 0U; i_net < H.nets.size(); ++i_net)
     {
         auto net = H.nets[i_net];
         bpq.append(nets[i_net], -H.G.degree(net));

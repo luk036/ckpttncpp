@@ -185,9 +185,8 @@ void FMKWayGainCalc::__init_gain_general_net(
  * @param move_info
  * @return ret_2pin_info
  */
-FMKWayGainCalc::ret_2pin_info
-FMKWayGainCalc::update_move_2pin_net(const std::vector<uint8_t>& part,
-    const MoveInfo& move_info)
+FMKWayGainCalc::ret_2pin_info FMKWayGainCalc::update_move_2pin_net(
+    const std::vector<uint8_t>& part, const MoveInfo& move_info)
 {
     auto&& [net, fromPart, toPart, v] = move_info;
 
@@ -220,8 +219,7 @@ FMKWayGainCalc::update_move_2pin_net(const std::vector<uint8_t>& part,
  * @param move_info
  * @return ret_info
  */
-FMKWayGainCalc::ret_info
-FMKWayGainCalc::update_move_3pin_net(
+FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
     const std::vector<uint8_t>& part, const MoveInfo& move_info)
 {
     auto&& [net, fromPart, toPart, v] = move_info;
@@ -309,8 +307,7 @@ FMKWayGainCalc::update_move_3pin_net(
  * @param move_info
  * @return ret_info
  */
-FMKWayGainCalc::ret_info
-FMKWayGainCalc::update_move_general_net(
+FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_general_net(
     const std::vector<uint8_t>& part, const MoveInfo& move_info)
 {
     auto&& [net, fromPart, toPart, v] = move_info;
@@ -337,7 +334,7 @@ FMKWayGainCalc::update_move_general_net(
     {
         if (num[l] == 0)
         {
-            for (auto idx = 0U; idx < degree; ++idx)
+            for (size_t idx = 0U; idx < degree; ++idx)
             {
                 deltaGain[idx][l] -= weight;
             }
@@ -351,7 +348,7 @@ FMKWayGainCalc::update_move_general_net(
         }
         else if (num[l] == 1)
         {
-            for (auto idx = 0U; idx < degree; ++idx)
+            for (size_t idx = 0U; idx < degree; ++idx)
             {
                 if (part[IdVec[idx]] == l)
                 {

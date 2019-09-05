@@ -109,7 +109,8 @@ void FMBiGainCalc::__init_gain_3pin_net(
 void FMBiGainCalc::__init_gain_general_net(
     node_t net, const std::vector<uint8_t>& part)
 {
-    uint8_t num[2] = {0, 0};
+    // uint8_t num[2] = {0, 0};
+    auto num = std::array {0U, 0U};
     auto IdVec = std::vector<index_t> {};
     for (const auto& w : this->H.G[net])
     {
@@ -154,9 +155,8 @@ void FMBiGainCalc::__init_gain_general_net(
  * @param move_info
  * @return ret_2pin_info
  */
-FMBiGainCalc::ret_2pin_info
-FMBiGainCalc::update_move_2pin_net(const std::vector<uint8_t>& part,
-    const MoveInfo& move_info)
+FMBiGainCalc::ret_2pin_info FMBiGainCalc::update_move_2pin_net(
+    const std::vector<uint8_t>& part, const MoveInfo& move_info)
 {
     auto&& [net, fromPart, _, v] = move_info;
 
@@ -175,13 +175,13 @@ FMBiGainCalc::update_move_2pin_net(const std::vector<uint8_t>& part,
  * @param move_info
  * @return ret_info
  */
-FMBiGainCalc::ret_info
-FMBiGainCalc::update_move_3pin_net(
+FMBiGainCalc::ret_info FMBiGainCalc::update_move_3pin_net(
     const std::vector<uint8_t>& part, const MoveInfo& move_info)
 {
     auto&& [net, fromPart, _, v] = move_info;
+
     // uint8_t num[2] = {0, 0};
-    auto num = std::array<uint8_t, 2>{0, 0};
+    auto num = std::array {0U, 0U};
     auto IdVec = std::vector<index_t> {};
     for (const auto& w : this->H.G[net])
     {
@@ -194,7 +194,7 @@ FMBiGainCalc::update_move_3pin_net(
         IdVec.push_back(i_w);
     }
     // auto degree = IdVec.size();
-    auto deltaGain = std::vector{0, 0};
+    auto deltaGain = std::vector<int> {0, 0};
     auto weight = this->H.get_net_weight(net);
 
     auto part_w = part[IdVec[0]];
@@ -223,13 +223,12 @@ FMBiGainCalc::update_move_3pin_net(
  * @param move_info
  * @return ret_info
  */
-FMBiGainCalc::ret_info
-FMBiGainCalc::update_move_general_net(
+FMBiGainCalc::ret_info FMBiGainCalc::update_move_general_net(
     const std::vector<uint8_t>& part, const MoveInfo& move_info)
 {
     auto&& [net, fromPart, toPart, v] = move_info;
     // uint8_t num[2] = {0, 0};
-    auto num = std::array<uint8_t, 2>{0, 0};
+    auto num = std::array<uint8_t, 2> {0, 0};
     auto IdVec = std::vector<index_t> {};
     for (const auto& w : this->H.G[net])
     {
@@ -242,20 +241,20 @@ FMBiGainCalc::update_move_general_net(
         IdVec.push_back(i_w);
     }
     auto degree = IdVec.size();
-    auto deltaGain = std::vector(degree, 0);
+    auto deltaGain = std::vector<int>(degree, 0);
     auto weight = this->H.get_net_weight(net);
     for (auto&& l : {fromPart, toPart})
     {
         if (num[l] == 0)
         {
-            for (auto idx = 0U; idx < degree; ++idx)
+            for (size_t idx = 0U; idx < degree; ++idx)
             {
                 deltaGain[idx] -= weight;
             }
         }
         else if (num[l] == 1)
         {
-            for (auto idx = 0U; idx < degree; ++idx)
+            for (size_t idx = 0U; idx < degree; ++idx)
             {
                 auto part_w = part[IdVec[idx]];
                 if (part_w == l)

@@ -132,7 +132,7 @@ class FMKWayGainCalc
      */
     auto __modify_gain(index_t i_v, uint8_t part_v, int weight) -> void
     {
-        for (auto&& k : this->RR.exclude(part_v))
+        for (auto k : this->RR.exclude(part_v))
         {
             this->vertex_list[k][i_v].key += weight;
         }

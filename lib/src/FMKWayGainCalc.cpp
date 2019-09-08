@@ -188,7 +188,7 @@ void FMKWayGainCalc::__init_gain_general_net(
 FMKWayGainCalc::ret_2pin_info FMKWayGainCalc::update_move_2pin_net(
     const std::vector<uint8_t>& part, const MoveInfo& move_info)
 {
-    auto&& [net, fromPart, toPart, v] = move_info;
+    auto [net, fromPart, toPart, v] = move_info;
 
     auto netCur = this->H.G[net].begin();
     auto w = (*netCur != v) ? *netCur : *++netCur;

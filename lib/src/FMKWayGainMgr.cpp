@@ -18,7 +18,7 @@ int FMKWayGainMgr::init(const std::vector<uint8_t>& part)
     for (size_t i_v = 0U; i_v < this->H.number_of_modules(); ++i_v)
     {
         auto pv = part[i_v];
-        for (auto&& k : this->RR.exclude(pv))
+        for (auto k : this->RR.exclude(pv))
         {
             auto& vlink = this->gainCalc.vertex_list[k][i_v];
             this->gainbucket[k].append_direct(vlink);

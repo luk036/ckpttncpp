@@ -125,7 +125,7 @@ void FMBiGainCalc::__init_gain_general_net(
         this->totalcost += weight;
     }
 
-    for (auto&& k : {0, 1})
+    for (auto k : {0, 1})
     {
         if (num[k] == 0)
         {

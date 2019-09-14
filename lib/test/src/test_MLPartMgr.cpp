@@ -6,10 +6,10 @@
 #include <ckpttncpp/FMKWayGainMgr.hpp>   // import FMKWayGainMgr
 #include <ckpttncpp/FMPartMgr.hpp>       // import FMBiPartMgr
 #include <ckpttncpp/MLPartMgr.hpp>       // import MLBiPartMgr
-#include <experimental/random>
+// #include <experimental/random>
 #include <iostream>
 
-using std::experimental::randint;
+// using std::experimental::randint;
 
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
 extern SimpleNetlist create_dwarf();        // import create_dwarf
@@ -43,9 +43,11 @@ TEST_CASE("Test MLBiPartMgr p1", "[test_MLBiPartMgr]")
     for (auto i = 0; i < 10; ++i)
     {
         auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
+        auto whichPart = 0U;
         for (auto& elem : part)
         {
-            elem = randint(0, 1);
+            whichPart ^= 1;
+            elem = whichPart;
         }
         partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(
             H, part, 100);
@@ -57,7 +59,7 @@ TEST_CASE("Test MLBiPartMgr p1", "[test_MLBiPartMgr]")
     // CHECK(partMgr.totalcost >= 50);
     // CHECK(partMgr.totalcost <= 50);
     CHECK(mincost >= 29);
-    CHECK(mincost <= 60);
+    CHECK(mincost <= 73);
 }
 
 TEST_CASE("Test MLBiPartMgr ibm01", "[test_MLBiPartMgr]")
@@ -69,9 +71,11 @@ TEST_CASE("Test MLBiPartMgr ibm01", "[test_MLBiPartMgr]")
     for (auto i = 0; i < 10; ++i)
     {
         auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
+        auto whichPart = 0U;
         for (auto& elem : part)
         {
-            elem = randint(0, 1);
+            whichPart ^= 1;
+            elem = whichPart;
         }
         partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(
             H, part, 400);

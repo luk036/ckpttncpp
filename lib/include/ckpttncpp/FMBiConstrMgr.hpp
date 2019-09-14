@@ -15,7 +15,19 @@ struct FMBiConstrMgr : FMConstrMgr
      * @param H
      * @param BalTol
      */
-    FMBiConstrMgr(SimpleNetlist& H, double BalTol, uint8_t K = 2)
+    FMBiConstrMgr(SimpleNetlist& H, double BalTol)
+        : FMConstrMgr {H, BalTol, 2}
+    {
+    }
+
+    /*!
+     * @brief Construct a new FMBiConstrMgr object (for general framework)
+     *
+     * @param H
+     * @param BalTol
+     * @param K (for compatability only)
+     */
+    FMBiConstrMgr(SimpleNetlist& H, double BalTol, uint8_t /*K*/ )
         : FMConstrMgr {H, BalTol, 2}
     {
     }

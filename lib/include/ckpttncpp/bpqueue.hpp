@@ -29,7 +29,7 @@
 template <typename T> //
 struct bpqueue
 {
-    static dllink<T> sentinel;
+    static dllink<T> sentinel; /*!< sentinel */
 
     T offset;                      /*!< a - 1 */
     T high;                        /*!< b - a + 1 */
@@ -266,6 +266,12 @@ struct bpqueue
 
     using coro_t = boost::coroutines2::coroutine<dllink<T>&>;
     using pull_t = typename coro_t::pull_type;
+
+    /**
+     * @brief item generator
+     *
+     * @return pull_t
+     */
     auto items() -> pull_t
     {
         auto func = [&](typename coro_t::push_type& yield) {
@@ -286,8 +292,13 @@ struct bpqueue
     // const auto& items() const { return *this; }
 };
 
+/**
+ * @brief sentinel
+ *
+ * @tparam T
+ */
 template <typename T>
-dllink<T> bpqueue<T>::sentinel {};
+inline dllink<T> bpqueue<T>::sentinel {};
 
 // /*!
 //  * @brief Bounded Priority Queue Iterator

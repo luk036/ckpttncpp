@@ -66,7 +66,7 @@ class FMBiGainCalc
     }
 
     /*!
-     * @brief
+     * @brief update move init
      *
      */
     auto update_move_init() -> void
@@ -77,7 +77,7 @@ class FMBiGainCalc
     using ret_2pin_info = std::tuple<index_t, int>;
 
     /*!
-     * @brief
+     * @brief update move 2-pin net
      *
      * @param part
      * @param move_info
@@ -98,6 +98,7 @@ class FMBiGainCalc
      */
     auto update_move_3pin_net(const std::vector<uint8_t>& part,
         const MoveInfo& move_info) -> ret_info;
+
     /*!
      * @brief
      *

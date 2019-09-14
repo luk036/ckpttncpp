@@ -22,7 +22,7 @@ struct dllink
 {
     dllink<T>* next {this}; /*!< pointer to the next node */
     dllink<T>* prev {this}; /*!< pointer to the previous node */
-    T key;
+    T key;                  /*!< key/data */
 
     /*!
      * @brief Construct a new dllink object
@@ -168,6 +168,12 @@ struct dllink
 
     using coro_t = boost::coroutines2::coroutine<dllink<T>&>;
     using pull_t = typename coro_t::pull_type;
+
+    /**
+     * @brief item generator
+     *
+     * @return pull_t
+     */
     auto items() -> pull_t
     {
         auto func = [&](typename coro_t::push_type& yield) {

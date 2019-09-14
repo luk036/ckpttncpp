@@ -98,7 +98,7 @@ void FMGainMgr<GainCalc, Derived>::update_move(
     // std::fill_n(this->deltaGainV.begin(), this->K, 0);
     this->gainCalc.update_move_init();
 
-    const auto& [fromPart, toPart, i_v] = move_info_v;
+    auto [fromPart, toPart, i_v] = move_info_v;
 
     auto v = this->H.modules[i_v];
     for (node_t net : this->H.G[v])

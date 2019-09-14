@@ -44,7 +44,7 @@ int FMKWayGainMgr::init(const std::vector<uint8_t>& part)
  */
 void FMKWayGainMgr::update_move_v(const MoveInfoV& move_info_v, int gain)
 {
-    const auto& [fromPart, toPart, i_v] = move_info_v;
+    auto [fromPart, toPart, i_v] = move_info_v;
 
     for (auto k = 0U; k < this->K; ++k)
     {

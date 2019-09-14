@@ -24,7 +24,7 @@ void FMConstrMgr::init(const std::vector<uint8_t>& part)
  */
 size_t FMConstrMgr::check_legal(const MoveInfoV& move_info_v)
 {
-    const auto& [fromPart, toPart, i_v] = move_info_v;
+    auto [fromPart, toPart, i_v] = move_info_v;
 
     this->weight = this->H.get_module_weight_by_id(i_v);
     auto diffFrom = this->diff[fromPart] - this->weight;
@@ -49,7 +49,7 @@ size_t FMConstrMgr::check_legal(const MoveInfoV& move_info_v)
  */
 bool FMConstrMgr::check_constraints(const MoveInfoV& move_info_v)
 {
-    const auto& [fromPart, toPart, i_v] = move_info_v;
+    auto [fromPart, toPart, i_v] = move_info_v;
 
     this->weight = this->H.get_module_weight_by_id(i_v);
     // auto diffTo = this->diff[toPart] + this->weight;
@@ -64,7 +64,7 @@ bool FMConstrMgr::check_constraints(const MoveInfoV& move_info_v)
  */
 void FMConstrMgr::update_move(const MoveInfoV& move_info_v)
 {
-    const auto& [fromPart, toPart, i_v] = move_info_v;
-    this->diff[toPart] += this->weight;
-    this->diff[fromPart] -= this->weight;
+    // auto [fromPart, toPart, i_v] = move_info_v;
+    this->diff[move_info_v.toPart] += this->weight;
+    this->diff[move_info_v.fromPart] -= this->weight;
 }

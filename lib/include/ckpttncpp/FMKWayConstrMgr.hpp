@@ -3,8 +3,6 @@
 #include "FMConstrMgr.hpp"
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
 
-struct MoveInfoV;
-
 /*!
  * @brief FM K-Way Partition Constraint Manager
  *
@@ -66,8 +64,9 @@ class FMKWayConstrMgr : public FMConstrMgr
         {
             return status;
         }
-        const auto& [fromPart, toPart, _] = move_info_v;
-        this->illegal[fromPart] = this->illegal[toPart] = false;
+        // auto [fromPart, toPart, _] = move_info_v;
+        this->illegal[move_info_v.fromPart] = false; 
+        this->illegal[move_info_v.toPart] = false;
         for (auto b : this->illegal)
         {
             if (b)

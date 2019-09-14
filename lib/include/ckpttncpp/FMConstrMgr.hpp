@@ -7,8 +7,6 @@
 #include <vector>
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
 
-struct MoveInfoV;
-
 /*!
  * @brief FM Partition Constraint Manager
  *

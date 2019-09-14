@@ -222,7 +222,7 @@ FMKWayGainCalc::ret_2pin_info FMKWayGainCalc::update_move_2pin_net(
 FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
     const std::vector<uint8_t>& part, const MoveInfo& move_info)
 {
-    const auto& [net, fromPart, toPart, v] = move_info;
+    auto [net, fromPart, toPart, v] = move_info;
 
     auto IdVec = std::vector<index_t> {};
     for (const auto& w : this->H.G[net])
@@ -310,7 +310,7 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
 FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_general_net(
     const std::vector<uint8_t>& part, const MoveInfo& move_info)
 {
-    const auto& [net, fromPart, toPart, v] = move_info;
+    auto [net, fromPart, toPart, v] = move_info;
 
     auto num = std::vector<uint8_t>(this->K, 0);
     auto IdVec = std::vector<index_t> {};

@@ -51,10 +51,8 @@ void FMKWayGainCalc::__init_gain_2pin_net(
     auto weight = this->H.get_net_weight(net);
     if (part_v == part_w)
     {
-        for (auto i_a : {i_w, i_v})
-        {
-            this->__modify_gain(i_a, part_v, -weight);
-        }
+        this->__modify_gain(i_w, part_v, -weight);
+        this->__modify_gain(i_v, part_v, -weight);
     }
     else
     {
@@ -92,10 +90,9 @@ void FMKWayGainCalc::__init_gain_3pin_net(
     {
         if (part_w == part_v)
         {
-            for (auto i_e : {i_u, i_v, i_w})
-            {
-                this->__modify_gain(i_e, part_v, -weight);
-            }
+            this->__modify_gain(i_u, part_v, -weight);
+            this->__modify_gain(i_v, part_v, -weight);
+            this->__modify_gain(i_w, part_v, -weight);
             return;
         }
     }
@@ -196,7 +193,7 @@ FMKWayGainCalc::ret_2pin_info FMKWayGainCalc::update_move_2pin_net(
     auto weight = this->H.get_net_weight(net);
     auto deltaGainW = std::vector(this->K, 0);
 
-    for (auto l : {fromPart, toPart})
+    for (auto l : {fromPart, toPart}) // for ...
     {
         if (part[i_w] == l)
         {

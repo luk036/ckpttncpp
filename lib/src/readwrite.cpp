@@ -1,4 +1,3 @@
-#include <cassert>
 #include <ckpttncpp/netlist.hpp>
 #include <climits>
 #include <fstream>

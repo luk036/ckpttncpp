@@ -1,3 +1,4 @@
+#include <cassert>
 #include <ckpttncpp/PartMgrBase.hpp>
 #include <ckpttncpp/netlist.hpp>
 

@@ -4,7 +4,6 @@
 // Take a snapshot when a move make **negative** gain.
 // Snapshot in the form of "interface"???
 #include "netlist.hpp"
-#include <cassert>
 #include <cinttypes>
 #include <iterator>
 #include <py2cpp/py2cpp.hpp>

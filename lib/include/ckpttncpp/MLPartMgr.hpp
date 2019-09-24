@@ -5,6 +5,7 @@
 // Snapshot in the form of "interface"???
 #include "FMPartMgr.hpp" // import FMPartMgr
 #include "netlist.hpp"
+#include <cassert>
 #include <iostream>
 #include <vector>
 

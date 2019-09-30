@@ -29,7 +29,7 @@
 template <typename T> //
 struct bpqueue
 {
-    static dllink<T> sentinel;     /*!< sentinel */
+    static dllink<T> sentinel; /*!< sentinel */
 
     T offset;                      /*!< a - 1 */
     T high;                        /*!< b - a + 1 */

@@ -84,8 +84,8 @@ SimpleNetlist readNetD(const char* netDFileName)
     auto R = py::range<node_t>(0, num_vertices);
     auto g = graph_t {R, R};
 
-    index_t bufferSize = 100;
-    char lineBuffer[100]; // Does it work for other compiler?
+    constexpr index_t bufferSize = 100;
+    char lineBuffer[bufferSize]; // Does it work for other compiler?
     netD.getline(lineBuffer, bufferSize);
 
     node_t w;
@@ -179,7 +179,7 @@ void readAre(SimpleNetlist& H, const char* areFileName)
         exit(1);
     }
 
-    const index_t bufferSize = 100;
+    constexpr index_t bufferSize = 100;
     char lineBuffer[bufferSize];
 
     char c;

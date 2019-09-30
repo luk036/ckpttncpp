@@ -65,7 +65,7 @@ class FMKWayConstrMgr : public FMConstrMgr
             return status;
         }
         // auto [fromPart, toPart, _] = move_info_v;
-        this->illegal[move_info_v.fromPart] = false; 
+        this->illegal[move_info_v.fromPart] = false;
         this->illegal[move_info_v.toPart] = false;
         for (auto b : this->illegal)
         {

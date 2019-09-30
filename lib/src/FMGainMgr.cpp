@@ -18,7 +18,8 @@ FMGainMgr<GainCalc, Derived>::FMGainMgr(SimpleNetlist& H, uint8_t K)
     , pmax {H.get_max_degree()}
     , K {K}
 {
-    static_assert(std::is_base_of<FMGainMgr<GainCalc, Derived>, Derived>::value);
+    static_assert(
+        std::is_base_of<FMGainMgr<GainCalc, Derived>, Derived>::value);
     for (auto k = 0U; k < this->K; ++k)
     {
         this->gainbucket.emplace_back(-this->pmax, this->pmax);

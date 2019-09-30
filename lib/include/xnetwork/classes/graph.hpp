@@ -771,6 +771,6 @@ using SimpleGraph = Graph<decltype(py::range<int>(1)),
 //           Graph<decltype(py::range<int>(1)), decltype(py::range<int>(1)),
 //           py::set<int>>;
 
-}; // namespace xn
+} // namespace xn
 
 #endif

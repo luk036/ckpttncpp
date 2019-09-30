@@ -1434,6 +1434,6 @@ class NodeView
 //     }
 // };
 
-}; // namespace xn
+} // namespace xn
 
 #endif

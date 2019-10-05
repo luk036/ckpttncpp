@@ -40,6 +40,7 @@ matrix:
           sources: ['llvm-toolchain-xenial-8', 'ubuntu-toolchain-r-test']
           packages:
             - clang-8
+            - libstdc++-8-dev
             - lcov
       env: COMPILER=clang CLANG=8 BUILD_TYPE='Debug'
     - os: linux

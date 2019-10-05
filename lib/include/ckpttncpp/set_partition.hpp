@@ -61,8 +61,6 @@ class set_partition_
     using Fun = std::function<void(ret_t)>;
 
   private:
-    int n;
-    int k;
     // int b[100 + 1]; /* maximum value of n */
     // int cnt{0};
     Fun yield;
@@ -70,23 +68,21 @@ class set_partition_
   public:
     /**
      * @brief Construct object
-     * 
-     * @param n_ 
-     * @param k_ 
-     * @param yield_ 
+     *
+     * @param n_
+     * @param k_
+     * @param yield_
      */
-    set_partition_(int n_, int k_, Fun yield_)
-        : n(n_)
-        , k(k_)
-        , yield(yield_)
+    set_partition_(Fun yield_)
+        : yield(yield_)
     {
     }
 
     /**
      * @brief run
-     * 
+     *
      */
-    void run()
+    void run(int n, int k)
     {
         if (k % 2 == 0)
             GEN0_even(n, k);
@@ -97,9 +93,9 @@ class set_partition_
   private:
     /**
      * @brief Move
-     * 
-     * @param x 
-     * @param y 
+     *
+     * @param x
+     * @param y
      */
     void Move(int x, int y)
     {
@@ -108,65 +104,65 @@ class set_partition_
 
     /**
      * @brief S(n,k,0) even k
-     * 
-     * @param n 
-     * @param k 
+     *
+     * @param n
+     * @param k
      */
     void GEN0_even(int n, int k);
 
     /**
      * @brief S'(n,k,0) even k
-     * 
-     * @param n 
-     * @param k 
+     *
+     * @param n
+     * @param k
      */
     void NEG0_even(int n, int k);
 
     /**
      * @brief S(n,k,1) even k
-     * 
-     * @param n 
-     * @param k 
+     *
+     * @param n
+     * @param k
      */
     void GEN1_even(int n, int k);
 
     /**
      * @brief S'(n,k,1) even k
-     * 
-     * @param n 
-     * @param k 
+     *
+     * @param n
+     * @param k
      */
     void NEG1_even(int n, int k);
 
     /**
      * @brief S(n,k,0) odd k
-     * 
-     * @param n 
-     * @param k 
+     *
+     * @param n
+     * @param k
      */
     void GEN0_odd(int n, int k);
 
     /**
      * @brief S'(n,k,0) odd k
-     * 
-     * @param n 
-     * @param k 
+     *
+     * @param n
+     * @param k
      */
     void NEG0_odd(int n, int k);
 
     /**
      * @brief S(n,k,1) odd k
-     * 
-     * @param n 
-     * @param k 
+     *
+     * @param n
+     * @param k
      */
     void GEN1_odd(int n, int k);
 
     /**
      * @brief S'(n,k,1) odd k
-     * 
-     * @param n 
-     * @param k 
+     *
+     * @param n
+     * @param k
      */
     void NEG1_odd(int n, int k);
 };

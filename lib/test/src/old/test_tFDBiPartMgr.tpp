@@ -1,4 +1,4 @@
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <ckpttncpp/FDBiGainMgr.hpp>   // import FDBiGainMgr
 #include <ckpttncpp/FDPartMgr.hpp>     // import FDBiPartMgr
 #include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr

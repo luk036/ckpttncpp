@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <ckpttncpp/netlist.hpp>
 #include <py2cpp/py2cpp.hpp>
 #include <utility> // for std::pair

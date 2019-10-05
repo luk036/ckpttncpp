@@ -14,7 +14,6 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-7
-            - catch
             - lcov
       env: COMPILER=gcc GCC=7 BUILD_TYPE='Debug'
     - os: linux
@@ -30,7 +29,6 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-8
-            - catch
             - lcov
       env: COMPILER=gcc GCC=8 BUILD_TYPE='Debug'
     - os: linux
@@ -39,10 +37,9 @@ matrix:
     - os: linux
       addons: &clang8
         apt:
-          sources: ['llvm-toolchain-trusty-8', 'ubuntu-toolchain-r-test']
+          sources: ['llvm-toolchain-xenial-8', 'ubuntu-toolchain-r-test']
           packages:
             - clang-8
-            - catch
             - lcov
       env: COMPILER=clang CLANG=8 BUILD_TYPE='Debug'
     - os: linux
@@ -88,6 +85,7 @@ install:
   - conda update -q conda
   - conda info -a
   - conda install libboost -c conda-forge
+  - conda install catch2 -c conda-forge
 
 script:
   - |

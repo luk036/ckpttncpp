@@ -1,4 +1,4 @@
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <ckpttncpp/FDKWayGainMgr.hpp>   // import FDKWayGainMgr
 #include <ckpttncpp/FDPartMgr.hpp>       // import FDKWayPartMgr
 #include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr

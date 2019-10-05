@@ -1,4 +1,4 @@
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <ckpttncpp/netlist.hpp> // import Netlist
 #include <py2cpp/py2cpp.hpp>
 

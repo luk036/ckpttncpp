@@ -9,9 +9,9 @@
 
 /**
  * @brief S(n,k,0) even k
- * 
- * @param n 
- * @param k 
+ *
+ * @param n
+ * @param k
  */
 void set_partition_::GEN0_even(int n, int k)
 {
@@ -37,9 +37,9 @@ void set_partition_::GEN0_even(int n, int k)
 
 /**
  * @brief S'(n,k,0) even k
- * 
- * @param n 
- * @param k 
+ *
+ * @param n
+ * @param k
  */
 void set_partition_::NEG0_even(int n, int k)
 {
@@ -65,9 +65,9 @@ void set_partition_::NEG0_even(int n, int k)
 
 /**
  * @brief S(n,k,1) even k
- * 
- * @param n 
- * @param k 
+ *
+ * @param n
+ * @param k
  */
 void set_partition_::GEN1_even(int n, int k)
 {
@@ -93,9 +93,9 @@ void set_partition_::GEN1_even(int n, int k)
 
 /**
  * @brief S'(n,k,1) even k
- * 
- * @param n 
- * @param k 
+ *
+ * @param n
+ * @param k
  */
 void set_partition_::NEG1_even(int n, int k)
 {
@@ -121,9 +121,9 @@ void set_partition_::NEG1_even(int n, int k)
 
 /**
  * @brief S(n,k,0) odd k
- * 
- * @param n 
- * @param k 
+ *
+ * @param n
+ * @param k
  */
 void set_partition_::GEN0_odd(int n, int k)
 {
@@ -147,9 +147,9 @@ void set_partition_::GEN0_odd(int n, int k)
 
 /**
  * @brief S'(n,k,0) odd k
- * 
- * @param n 
- * @param k 
+ *
+ * @param n
+ * @param k
  */
 void set_partition_::NEG0_odd(int n, int k)
 {
@@ -173,9 +173,9 @@ void set_partition_::NEG0_odd(int n, int k)
 
 /**
  * @brief S(n,k,1) odd k
- * 
- * @param n 
- * @param k 
+ *
+ * @param n
+ * @param k
  */
 void set_partition_::GEN1_odd(int n, int k)
 {
@@ -199,9 +199,9 @@ void set_partition_::GEN1_odd(int n, int k)
 
 /**
  * @brief S'(n,k,1) odd k
- * 
- * @param n 
- * @param k 
+ *
+ * @param n
+ * @param k
  */
 void set_partition_::NEG1_odd(int n, int k)
 {
@@ -225,15 +225,15 @@ void set_partition_::NEG1_odd(int n, int k)
 
 /**
  * @brief Set Partition
- * 
- * @param n 
- * @param k 
- * @return coro_t::pull_type 
+ *
+ * @param n
+ * @param k
+ * @return coro_t::pull_type
  */
 coro_t::pull_type set_partition(int n, int k)
 {
     return coro_t::pull_type([n, k](coro_t::push_type& callback) {
-        set_partition_ p(n, k, [&callback](ret_t ch) { callback(ch); });
-        p.run();
+        set_partition_ p([&callback](ret_t ch) { callback(ch); });
+        p.run(n, k);
     });
 }

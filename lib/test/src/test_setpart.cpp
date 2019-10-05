@@ -1,5 +1,5 @@
 #include <array>
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <ckpttncpp/set_partition.hpp> // import  setpart
 // #include <iostream>
 

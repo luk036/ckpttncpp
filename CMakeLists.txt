@@ -23,6 +23,10 @@ include(Warnings)
 include(CopyDllsForDebug)
 include(Coverage)
 
+# Guard against in-source builds and bad build-type strings
+#
+# include(ConfigSafeGuards)
+
 ###############
 ##  OPTIONS  ##
 ###############

@@ -29,7 +29,7 @@ struct dllink
      *
      * @param key the key
      */
-    dllink(T key = T(0))
+    explicit dllink(T key = T(0))
         : key {key}
     {
         static_assert(sizeof(dllink<T>) <= 24);

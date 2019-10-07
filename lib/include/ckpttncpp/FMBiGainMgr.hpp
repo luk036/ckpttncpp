@@ -15,7 +15,7 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
     using GainCalc_ = FMBiGainCalc;
     using index_t = typename SimpleNetlist::index_t;
 
-    FMBiGainMgr(SimpleNetlist& H)
+    explicit FMBiGainMgr(SimpleNetlist& H)
         : Base {H, 2}
     {
     }
@@ -25,7 +25,7 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
      *
      * @param H
      */
-    explicit FMBiGainMgr(SimpleNetlist& H, uint8_t /* K */)
+    FMBiGainMgr(SimpleNetlist& H, uint8_t /* K */)
         : Base {H, 2}
     {
     }

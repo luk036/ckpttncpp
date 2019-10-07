@@ -261,7 +261,7 @@ class Graph : public object
     {
     }
 
-    Graph(int num_nodes)
+    explicit Graph(int num_nodes)
         : _node {py::range<int>(num_nodes)}
         , _node_map {py::range<int>(num_nodes)}
         , _adj(num_nodes)

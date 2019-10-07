@@ -73,7 +73,7 @@ class set_partition_
      * @param k_
      * @param yield_
      */
-    set_partition_(Fun yield_)
+    explicit set_partition_(Fun yield_)
         : yield(yield_)
     {
     }

@@ -25,7 +25,7 @@ include(Coverage)
 
 # Guard against in-source builds and bad build-type strings
 #
-# include(ConfigSafeGuards)
+include(ConfigSafeGuards)
 
 ###############
 ##  OPTIONS  ##

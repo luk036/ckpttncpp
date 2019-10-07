@@ -1,5 +1,6 @@
 #include <catch2/catch.hpp>
 #include <py2cpp/py2cpp.hpp>
+#include <array>
 
 TEST_CASE("Test Range", "[range]")
 {
@@ -51,7 +52,7 @@ TEST_CASE("Test Range (char)", "[range]")
 
 TEST_CASE("Test Range (pointer)", "[range]")
 {
-    double A[] = {0.2, 0.4, 0.1, 0.9};
+    auto A = std::array {0.2, 0.4, 0.1, 0.9};
     auto R = py::range(&A, &A + 4);
 
     CHECK(!R.empty());

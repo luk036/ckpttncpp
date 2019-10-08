@@ -14,7 +14,6 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-7
-            - libfmt-dev
             - lcov
       env: COMPILER=gcc GCC=7 BUILD_TYPE='Debug'
     - os: linux
@@ -33,7 +32,6 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-8
-            - libfmt-dev
             - lcov
       env: COMPILER=gcc GCC=8 BUILD_TYPE='Debug'
     - os: linux
@@ -48,7 +46,6 @@ matrix:
           packages:
             - clang-8
             - libstdc++-8-dev
-            - libfmt-dev
             - lcov
       env: COMPILER=clang CLANG=8 BUILD_TYPE='Debug'
     - os: linux

@@ -13,7 +13,7 @@ set (TEST_SRC_PATH  "${TEST_MODULE_PATH}/src" )
 
 #set includes
 message(STATUS "Test: ${LIBRARY_INCLUDE_PATH} ")
-include_directories (${LIBRARY_INCLUDE_PATH} ${TEST_THIRD_PARTY_INCLUDE_PATH} ${xtensor_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
+include_directories (${LIBRARY_INCLUDE_PATH} ${TEST_THIRD_PARTY_INCLUDE_PATH} ${Boost_INCLUDE_DIRS})
 
 #set test sources
 file (GLOB TEST_SOURCE_FILES "${TEST_SRC_PATH}/*.cpp")
@@ -25,7 +25,7 @@ file (GLOB TEST_SOURCE_FILES "${TEST_SRC_PATH}/*.cpp")
 add_executable (${TEST_APP_NAME} ${TEST_SOURCE_FILES})
 
 #add the library
-target_link_libraries (${TEST_APP_NAME} ${LIB_NAME} ${LIBS} Threads::Threads)
+target_link_libraries (${TEST_APP_NAME} ${LIB_NAME} ${LIBS} fmt::fmt Threads::Threads)
 
 # Turn on CMake testing capabilities
 enable_testing()

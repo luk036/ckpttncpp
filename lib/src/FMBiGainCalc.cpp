@@ -165,7 +165,7 @@ FMBiGainCalc::ret_2pin_info FMBiGainCalc::update_move_2pin_net(
     auto i_w = this->H.module_map[w];
     auto weight = this->H.get_net_weight(net);
     auto delta = (part[i_w] == fromPart) ? weight : -weight;
-    return std::tuple {i_w, 2 * delta};
+    return {i_w, 2 * delta};
 }
 
 /**

@@ -1,7 +1,8 @@
 #ifndef _HOME_UBUNTU_GITHUB_XNETWORK_CLASS_GRAPH_HPP
 #define _HOME_UBUNTU_GITHUB_XNETWORK_CLASS_GRAPH_HPP 1
 
-#include <boost/any.hpp>
+// #include <boost/any.hpp>
+#include <any>
 #include <cassert>
 #include <py2cpp/py2cpp.hpp>
 #include <type_traits>
@@ -105,7 +106,7 @@ namespace xn
     direct manipulation of the attribute
     dictionaries named graph, node and edge respectively.
 
-    >>> G.graph["day"] = boost::any("Friday");
+    >>> G.graph["day"] = std::any("Friday");
     {'day': 'Friday'}
 
     **Subclasses (Advanced):**
@@ -194,7 +195,7 @@ namespace xn
     a dictionary-like object.
 */
 
-struct object : py::dict<const char*, boost::any>
+struct object : py::dict<const char*, std::any>
 {
 };
 
@@ -205,7 +206,7 @@ class Graph : public object
 {
   public:
     using Node = typename nodeview_t::value_type; // luk
-    using dict = py::dict<const char*, boost::any>;
+    using dict = py::dict<const char*, std::any>;
     using graph_attr_dict_factory = dict;
     // using edge_attr_dict_factory = dict;
     // using node_attr_dict_factory = dict;
@@ -300,13 +301,13 @@ class Graph : public object
          */
         if (!this->graph.contains("name"))
             return "";
-        return boost::any_cast<const char*>(this->graph["name"]);
+        return std::any_cast<const char*>(this->graph["name"]);
     }
 
     // @name.setter
     auto set_name(const char* s)
     {
-        this->graph["name"] = boost::any(s);
+        this->graph["name"] = std::any(s);
     }
 
     /** Iterate over the nodes. Use: "for (auto n : G)".
@@ -450,7 +451,7 @@ class Graph : public object
         // Lazy View creation: overload the (class) property on the instance
         // Then future G.nodes use the existing View
         // setattr doesn"t work because attribute already exists
-        this->operator[]("nodes") = boost::any(nodes);
+        this->operator[]("nodes") = std::any(nodes);
         return nodes;
     }
 
@@ -564,7 +565,7 @@ class Graph : public object
         // add the edge
         // datadict = this->_adj[u].get(v, this->edge_attr_dict_factory());
         // datadict.update(attr);
-        if constexpr (std::is_same<key_type, value_type>::value)
+        if constexpr (std::is_same<key_type, value_type>)
         {
             // set
             this->_adj[this->_node_map[u]].insert(v);
@@ -680,7 +681,7 @@ class Graph : public object
     //     G.adj[0]?); EdgeDataView([(0, 1)]);
     //      */
     //     auto edges = EdgeView(*this);
-    //     this->operator[]("edges") = boost::any(edges);
+    //     this->operator[]("edges") = std::any(edges);
     //     return edges;
     // }
 
@@ -725,7 +726,7 @@ class Graph : public object
     //     [(0, 1), (1, 2), (2, 2)];
     //      */
     //     auto degree = DegreeView(*this);
-    //     this->operator[]("degree") = boost::any(degree);
+    //     this->operator[]("degree") = std::any(degree);
     //     return degree;
     // }
 

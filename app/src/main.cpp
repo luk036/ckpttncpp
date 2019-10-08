@@ -1,5 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
+#include <fmt/format.h>
 #include <ckpttncpp/bpqueue.hpp> // import bpqueue
 #include <ckpttncpp/dllist.hpp>  // import dllink
 
@@ -45,4 +46,5 @@ TEST_CASE("Test BPQueue for main", "[bpqueue]")
         count += 1;
     }
     CHECK(count == 10);
+    fmt::print("The answer is {}.\n", count);
 }

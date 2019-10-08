@@ -57,7 +57,7 @@ endif()
 
 set (THREADS_PREFER_PTHREAD_FLAG ON)
 find_package (Threads REQUIRED)
-
+find_package (fmt REQUIRED)
 # set (Boost_DIR $ENV{CONDA_PREFIX}/include)
 find_package (Boost REQUIRED COMPONENTS coroutine context)
 if (Boost_FOUND)
@@ -65,14 +65,6 @@ if (Boost_FOUND)
     set(LIBS ${LIBS} ${Boost_LIBRARIES})
 endif (Boost_FOUND)
 
-# add_definitions ( -std=c++1z )
-# add_subdirectory (third_party EXCLUDE_FROM_ALL)
-
-# add_executable (Main profit_main.cpp)
-# add_executable (Test exp1d.cpp)
-# target_link_libraries ( Main Threads::Threads ${LIBS} -llapack -lblas -lfmt)
-# target_link_libraries ( Test Threads::Threads ${LIBS} -llapack -lblas -lfmt)
-# set (LIBRARY_INCLUDE_PATH ${LIBRARY_INCLUDE_PATH} "$ENV{CONDA_PREFIX}/include")
 set (LIBRARY_INCLUDE_PATH  ${LIBRARY_INCLUDE_PATH} ${Boost_INCLUDE_DIRS})
 
 add_subdirectory (doc)

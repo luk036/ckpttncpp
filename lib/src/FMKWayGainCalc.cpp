@@ -206,7 +206,7 @@ FMKWayGainCalc::ret_2pin_info FMKWayGainCalc::update_move_2pin_net(
         deltaGainW[l] -= weight;
         weight = -weight;
     }
-    return std::tuple {i_w, std::move(deltaGainW)};
+    return {i_w, std::move(deltaGainW)};
 }
 
 /**
@@ -258,7 +258,7 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
             weight = -weight;
             std::swap(l, u);
         }
-        return std::tuple {std::move(IdVec), std::move(deltaGain)};
+        return {std::move(IdVec), std::move(deltaGain)};
     }
 
     for (auto i = 0; i < 2; ++i)
@@ -293,7 +293,7 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
         std::swap(l, u);
     }
 
-    return std::tuple {std::move(IdVec), std::move(deltaGain)};
+    return {std::move(IdVec), std::move(deltaGain)};
     // return this->update_move_general_net(part, move_info);
 }
 
@@ -360,5 +360,5 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_general_net(
         weight = -weight;
         std::swap(l, u);
     }
-    return std::tuple {std::move(IdVec), std::move(deltaGain)};
+    return {std::move(IdVec), std::move(deltaGain)};
 }

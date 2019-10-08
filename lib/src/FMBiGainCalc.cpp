@@ -213,7 +213,7 @@ FMBiGainCalc::ret_info FMBiGainCalc::update_move_3pin_net(
         deltaGain[0] += weight;
         deltaGain[1] -= weight;
     }
-    return std::tuple {std::move(IdVec), std::move(deltaGain)};
+    return {std::move(IdVec), std::move(deltaGain)};
 }
 
 /**
@@ -266,5 +266,5 @@ FMBiGainCalc::ret_info FMBiGainCalc::update_move_general_net(
         }
         weight = -weight;
     }
-    return std::tuple {std::move(IdVec), std::move(deltaGain)};
+    return {std::move(IdVec), std::move(deltaGain)};
 }

@@ -565,7 +565,7 @@ class Graph : public object
         // add the edge
         // datadict = this->_adj[u].get(v, this->edge_attr_dict_factory());
         // datadict.update(attr);
-        if constexpr (std::is_same<key_type, value_type>)
+        if constexpr (std::is_same_v<key_type, value_type>)
         {
             // set
             this->_adj[this->_node_map[u]].insert(v);

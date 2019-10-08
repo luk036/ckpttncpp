@@ -64,7 +64,7 @@ std::tuple<MoveInfoV, int> FMGainMgr<GainCalc, Derived>::select(
     // node_t v = this->H.modules[v];
     auto fromPart = part[i_v];
     auto move_info_v = MoveInfoV {fromPart, toPart, i_v};
-    return std::tuple {move_info_v, gainmax[toPart]};
+    return {move_info_v, gainmax[toPart]};
 }
 
 /**
@@ -82,7 +82,7 @@ std::tuple<index_t, int> FMGainMgr<GainCalc, Derived>::select_togo(
     this->waitinglist.append(vlink);
     index_t i_v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);
     // node_t v = this->H.modules[v];
-    return std::tuple {i_v, gainmax};
+    return {i_v, gainmax};
 }
 
 /**

@@ -1,4 +1,3 @@
-#define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
 #include <ckpttncpp/bpqueue.hpp> // import bpqueue
 #include <ckpttncpp/dllist.hpp>  // import dllink

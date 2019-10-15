@@ -17,7 +17,6 @@ class FMBiGainCalc
   private:
     SimpleNetlist& H;
     size_t num_modules {};
-
     std::vector<dllink<index_t>> vertex_list;
 
   public:

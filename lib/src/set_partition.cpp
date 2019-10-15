@@ -13,25 +13,25 @@
  * @param n
  * @param k
  */
-void set_partition_::GEN0_even(int n, int k)
+void set_partition_::__GEN0_even(int n, int k)
 {
     if (!(k > 0 && k < n))
     {
         return;
     }
 
-    GEN0_odd(n - 1, k - 1); // S(n-1, k-1, 0).(k-1)
-    Move(n - 1, k - 1);
-    GEN1_even(n - 1, k); // S(n-1, k, 1).(k-1)
-    Move(n, k - 2);
-    NEG1_even(n - 1, k); // S'(n-1, k, 1).(k-2)
+    this->__GEN0_odd(n - 1, k - 1); // S(n-1, k-1, 0).(k-1)
+    this->__Move(n - 1, k - 1);
+    this->__GEN1_even(n - 1, k); // S(n-1, k, 1).(k-1)
+    this->__Move(n, k - 2);
+    this->__NEG1_even(n - 1, k); // S'(n-1, k, 1).(k-2)
 
     for (int i = k - 3; i >= 1; i -= 2)
     {
-        Move(n, i);
-        GEN1_even(n - 1, k); // S(n-1, k, 1).i
-        Move(n, i - 1);
-        NEG1_even(n - 1, k); // S'(n-1, k, 1).(i-1)
+        this->__Move(n, i);
+        this->__GEN1_even(n - 1, k); // S(n-1, k, 1).i
+        this->__Move(n, i - 1);
+        this->__NEG1_even(n - 1, k); // S'(n-1, k, 1).(i-1)
     }
 }
 
@@ -41,7 +41,7 @@ void set_partition_::GEN0_even(int n, int k)
  * @param n
  * @param k
  */
-void set_partition_::NEG0_even(int n, int k)
+void set_partition_::__NEG0_even(int n, int k)
 {
     if (!(k > 0 && k < n))
     {
@@ -50,17 +50,17 @@ void set_partition_::NEG0_even(int n, int k)
 
     for (int i = 1; i <= k - 3; i += 2)
     {
-        GEN1_even(n - 1, k); // S(n-1, k, 1).(i-1)
-        Move(n, i);
-        NEG1_even(n - 1, k); // S'(n-1, k, 1).i
-        Move(n, i + 1);
+        this->__GEN1_even(n - 1, k); // S(n-1, k, 1).(i-1)
+        this->__Move(n, i);
+        this->__NEG1_even(n - 1, k); // S'(n-1, k, 1).i
+        this->__Move(n, i + 1);
     }
 
-    GEN1_even(n - 1, k); // S(n-1, k, 1).(k-2)
-    Move(n, k - 1);
-    NEG1_even(n - 1, k); // S(n-1, k, 1).(k-1)
-    Move(n - 1, 0);
-    NEG0_odd(n - 1, k - 1); // S(n-1, k-1, 1).(k-1)
+    this->__GEN1_even(n - 1, k); // S(n-1, k, 1).(k-2)
+    this->__Move(n, k - 1);
+    this->__NEG1_even(n - 1, k); // S(n-1, k, 1).(k-1)
+    this->__Move(n - 1, 0);
+    this->__NEG0_odd(n - 1, k - 1); // S(n-1, k-1, 1).(k-1)
 }
 
 /**
@@ -69,25 +69,25 @@ void set_partition_::NEG0_even(int n, int k)
  * @param n
  * @param k
  */
-void set_partition_::GEN1_even(int n, int k)
+void set_partition_::__GEN1_even(int n, int k)
 {
     if (!(k > 0 && k < n))
     {
         return;
     }
 
-    GEN1_odd(n - 1, k - 1);
-    Move(k, k - 1);
-    NEG1_even(n - 1, k);
-    Move(n, k - 2);
-    GEN1_even(n - 1, k);
+    this->__GEN1_odd(n - 1, k - 1);
+    this->__Move(k, k - 1);
+    this->__NEG1_even(n - 1, k);
+    this->__Move(n, k - 2);
+    this->__GEN1_even(n - 1, k);
 
     for (int i = k - 3; i > 0; i -= 2)
     {
-        Move(n, i);
-        NEG1_even(n - 1, k);
-        Move(n, i - 1);
-        GEN1_even(n - 1, k);
+        this->__Move(n, i);
+        this->__NEG1_even(n - 1, k);
+        this->__Move(n, i - 1);
+        this->__GEN1_even(n - 1, k);
     }
 }
 
@@ -97,7 +97,7 @@ void set_partition_::GEN1_even(int n, int k)
  * @param n
  * @param k
  */
-void set_partition_::NEG1_even(int n, int k)
+void set_partition_::__NEG1_even(int n, int k)
 {
     if (!(k > 0 && k < n))
     {
@@ -106,17 +106,17 @@ void set_partition_::NEG1_even(int n, int k)
 
     for (int i = 1; i <= k - 3; i += 2)
     {
-        NEG1_even(n - 1, k);
-        Move(n, i);
-        GEN1_even(n - 1, k);
-        Move(n, i + 1);
+        this->__NEG1_even(n - 1, k);
+        this->__Move(n, i);
+        this->__GEN1_even(n - 1, k);
+        this->__Move(n, i + 1);
     }
 
-    NEG1_even(n - 1, k);
-    Move(n, k - 1);
-    GEN1_even(n - 1, k);
-    Move(k, 0);
-    NEG1_odd(n - 1, k - 1);
+    this->__NEG1_even(n - 1, k);
+    this->__Move(n, k - 1);
+    this->__GEN1_even(n - 1, k);
+    this->__Move(k, 0);
+    this->__NEG1_odd(n - 1, k - 1);
 }
 
 /**
@@ -125,23 +125,23 @@ void set_partition_::NEG1_even(int n, int k)
  * @param n
  * @param k
  */
-void set_partition_::GEN0_odd(int n, int k)
+void set_partition_::__GEN0_odd(int n, int k)
 {
     if (!(k > 1 && k < n))
     {
         return;
     }
 
-    GEN1_even(n - 1, k - 1);
-    Move(k, k - 1);
-    NEG1_odd(n - 1, k);
+    this->__GEN1_even(n - 1, k - 1);
+    this->__Move(k, k - 1);
+    this->__NEG1_odd(n - 1, k);
 
     for (int i = k - 2; i > 0; i -= 2)
     {
-        Move(n, i);
-        GEN1_odd(n - 1, k);
-        Move(n, i - 1);
-        NEG1_odd(n - 1, k);
+        this->__Move(n, i);
+        this->__GEN1_odd(n - 1, k);
+        this->__Move(n, i - 1);
+        this->__NEG1_odd(n - 1, k);
     }
 }
 
@@ -151,7 +151,7 @@ void set_partition_::GEN0_odd(int n, int k)
  * @param n
  * @param k
  */
-void set_partition_::NEG0_odd(int n, int k)
+void set_partition_::__NEG0_odd(int n, int k)
 {
     if (!(k > 1 && k < n))
     {
@@ -160,15 +160,15 @@ void set_partition_::NEG0_odd(int n, int k)
 
     for (int i = 1; i <= k - 2; i += 2)
     {
-        GEN1_odd(n - 1, k);
-        Move(n, i);
-        NEG1_odd(n - 1, k);
-        Move(n, i + 1);
+        this->__GEN1_odd(n - 1, k);
+        this->__Move(n, i);
+        this->__NEG1_odd(n - 1, k);
+        this->__Move(n, i + 1);
     }
 
-    GEN1_odd(n - 1, k);
-    Move(k, 0);
-    NEG1_even(n - 1, k - 1);
+    this->__GEN1_odd(n - 1, k);
+    this->__Move(k, 0);
+    this->__NEG1_even(n - 1, k - 1);
 }
 
 /**
@@ -177,23 +177,23 @@ void set_partition_::NEG0_odd(int n, int k)
  * @param n
  * @param k
  */
-void set_partition_::GEN1_odd(int n, int k)
+void set_partition_::__GEN1_odd(int n, int k)
 {
     if (!(k > 1 && k < n))
     {
         return;
     }
 
-    GEN0_even(n - 1, k - 1);
-    Move(n - 1, k - 1);
-    GEN1_odd(n - 1, k);
+    this->__GEN0_even(n - 1, k - 1);
+    this->__Move(n - 1, k - 1);
+    this->__GEN1_odd(n - 1, k);
 
     for (int i = k - 2; i > 0; i -= 2)
     {
-        Move(n, i);
-        NEG1_odd(n - 1, k);
-        Move(n, i - 1);
-        GEN1_odd(n - 1, k);
+        this->__Move(n, i);
+        this->__NEG1_odd(n - 1, k);
+        this->__Move(n, i - 1);
+        this->__GEN1_odd(n - 1, k);
     }
 }
 
@@ -203,7 +203,7 @@ void set_partition_::GEN1_odd(int n, int k)
  * @param n
  * @param k
  */
-void set_partition_::NEG1_odd(int n, int k)
+void set_partition_::__NEG1_odd(int n, int k)
 {
     if (!(k > 1 && k < n))
     {
@@ -212,15 +212,15 @@ void set_partition_::NEG1_odd(int n, int k)
 
     for (int i = 1; i <= k - 2; i += 2)
     {
-        NEG1_odd(n - 1, k);
-        Move(n, i);
-        GEN1_odd(n - 1, k);
-        Move(n, i + 1);
+        this->__NEG1_odd(n - 1, k);
+        this->__Move(n, i);
+        this->__GEN1_odd(n - 1, k);
+        this->__Move(n, i + 1);
     }
 
-    NEG1_odd(n - 1, k);
-    Move(n - 1, 0);
-    NEG0_even(n - 1, k - 1);
+    this->__NEG1_odd(n - 1, k);
+    this->__Move(n - 1, 0);
+    this->__NEG0_even(n - 1, k - 1);
 }
 
 /**

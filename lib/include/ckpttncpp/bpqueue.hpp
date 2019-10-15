@@ -27,15 +27,17 @@
  * All the member functions assume that the keys are within the bound.
  */
 template <typename T> //
-struct bpqueue
+class bpqueue
 {
     static dllink<T> sentinel; /*!< sentinel */
 
+  private:
     T offset;                      /*!< a - 1 */
     T high;                        /*!< b - a + 1 */
     T max {0};                     /*!< max value */
     std::vector<dllink<T>> bucket; /*!< bucket, array of lists */
 
+  public:
     /*!
      * @brief Construct a new bpqueue object
      *

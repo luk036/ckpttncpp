@@ -21,7 +21,7 @@ class FMGainMgr
     using index_t = typename SimpleNetlist::index_t;
 
   protected:
-    dllink<index_t> waitinglist {};
+    dllink<node_t> waitinglist {};
 
     SimpleNetlist& H;
     GainCalc gainCalc;

@@ -36,9 +36,9 @@ class FMConstrMgr
         , K {K}
         , diff(K, 0)
     {
-        for (auto i_v = 0U; i_v < this->H.number_of_modules(); ++i_v)
+        for (auto v : this->H.modules)
         {
-            weight = this->H.get_module_weight_by_id(i_v);
+            weight = this->H.get_module_weight(v);
             this->totalweight += weight;
         }
         auto totalweightK = this->totalweight * (2. / this->K);

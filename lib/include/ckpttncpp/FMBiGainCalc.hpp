@@ -17,7 +17,7 @@ class FMBiGainCalc
   private:
     SimpleNetlist& H;
     size_t num_modules {};
-    std::vector<dllink<index_t>> vertex_list;
+    std::vector<dllink<node_t>> vertex_list;
 
   public:
     int totalcost;
@@ -59,7 +59,7 @@ class FMBiGainCalc
      * @param toPart
      * @return dllink*
      */
-    auto start_ptr(uint8_t /*toPart*/) -> dllink<index_t>*
+    auto start_ptr(uint8_t /*toPart*/) -> dllink<node_t>*
     {
         return &this->vertex_list[0];
     }
@@ -85,7 +85,7 @@ class FMBiGainCalc
     auto update_move_2pin_net(const std::vector<uint8_t>& part,
         const MoveInfo& move_info) -> ret_2pin_info;
 
-    using ret_info = std::tuple<std::vector<index_t>, std::vector<int>>;
+    using ret_info = std::tuple<std::vector<node_t>, std::vector<int>>;
 
     /*!
      * @brief
@@ -116,9 +116,9 @@ class FMBiGainCalc
      * @param w
      * @param weight
      */
-    auto __modify_gain(index_t i_w, int weight) -> void
+    auto __modify_gain(node_t w, int weight) -> void
     {
-        this->vertex_list[i_w].key += weight;
+        this->vertex_list[w].key += weight;
     }
 
     /*!

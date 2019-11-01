@@ -132,14 +132,7 @@ struct Netlist
 
     auto get_module_weight(node_t v) const -> int
     {
-        auto i_v = this->module_map[v];
-        return get_module_weight_by_id(i_v);
-        // return this->module_weight[this->module_map[v]];
-    }
-
-    auto get_module_weight_by_id(index_t i_v) const -> int
-    {
-        return this->module_weight.empty() ? 1 : this->module_weight[i_v];
+        return this->module_weight.empty() ? 1 : this->module_weight[v];
     }
 
     auto get_net_weight(node_t /*net*/) const -> index_t
@@ -153,18 +146,18 @@ struct Netlist
     // auto project_down(const std::vector<uint8_t> &part,
     //                   std::vector<uint8_t> &part_down) -> void {
     //     auto &H = *this->parent;
-    //     for (auto i_v = 0U; i_v < this->modules.size(); ++i_v) {
-    //         auto v = this->modules[i_v];
+    //     for (auto i_v = 0U; i_v < this->modules.size(); ++ {
+    //         auto v = this->modules[v];
     //         if (this->cluster_down_map.contains(v)) {
     //             auto net = this->cluster_down_map[v];
     //             for (auto v2 : H.G[net]) {
     //                 auto i_v2 = H.module_map[v2];
-    //                 part_down[i_v2] = part[i_v];
+    //                 part_down[v2] = part[v];
     //             }
     //         } else {
     //             auto v2 = this->node_down_map[v];
     //             auto i_v2 = H.module_map[v2];
-    //             part_down[i_v2] = part[i_v];
+    //             part_down[v2] = part[v];
     //         }
     //     }
     // }
@@ -172,10 +165,10 @@ struct Netlist
     // auto project_up(const std::vector<uint8_t> &part,
     //                 std::vector<uint8_t> &part_up) -> void {
     //     auto &H = *this->parent;
-    //     // for (auto [i_v, v] : py::enumerate(H.modules)) {
-    //     for (auto i_v = 0U; i_v < H.number_of_modules(); ++i_v) {
-    //         auto v = H.modules[i_v];
-    //         part_up[this->node_up_map[v]] = part[i_v];
+    //     // for (auto [v, v] : py::enumerate(H.modules)) {
+    //     for (auto i_v = 0U; i_v < H.number_of_modules(); ++ {
+    //         auto v = H.modules[v];
+    //         part_up[this->node_up_map[v]] = part[v];
     //     }
     // }
 
@@ -255,7 +248,7 @@ struct MoveInfoV
     uint8_t fromPart;
     uint8_t toPart;
     // node_t v;
-    index_t i_v;
+    node_t v;
 };
 
 struct Snapshot

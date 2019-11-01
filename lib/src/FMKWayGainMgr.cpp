@@ -15,22 +15,22 @@ int FMKWayGainMgr::init(const std::vector<uint8_t>& part)
     {
         this->gainbucket[k].clear();
     }
-    for (size_t i_v = 0U; i_v < this->H.number_of_modules(); ++i_v)
+    for (auto v : this->H.modules)
     {
-        auto pv = part[i_v];
+        auto pv = part[v];
         for (auto k : this->RR.exclude(pv))
         {
-            auto& vlink = this->gainCalc.vertex_list[k][i_v];
+            auto& vlink = this->gainCalc.vertex_list[k][v];
             this->gainbucket[k].append_direct(vlink);
         }
-        auto& vlink = this->gainCalc.vertex_list[pv][i_v];
+        auto& vlink = this->gainCalc.vertex_list[pv][v];
         this->gainbucket[pv].set_key(vlink, 0);
         this->waitinglist.append(vlink);
     }
     for (auto v : this->H.module_fixed)
     {
-        auto i_v = this->H.module_map[v];
-        this->lock_all(part[i_v], i_v);
+        // auto i_v = this->H.module_map[v];
+        this->lock_all(part[v], v);
     }
     return totalcost;
 }
@@ -44,7 +44,7 @@ int FMKWayGainMgr::init(const std::vector<uint8_t>& part)
  */
 void FMKWayGainMgr::update_move_v(const MoveInfoV& move_info_v, int gain)
 {
-    auto [fromPart, toPart, i_v] = move_info_v;
+    auto [fromPart, toPart, v] = move_info_v;
 
     for (auto k = 0U; k < this->K; ++k)
     {
@@ -53,8 +53,8 @@ void FMKWayGainMgr::update_move_v(const MoveInfoV& move_info_v, int gain)
             continue;
         }
         this->gainbucket[k].modify_key(
-            this->gainCalc.vertex_list[k][i_v], this->gainCalc.deltaGainV[k]);
+            this->gainCalc.vertex_list[k][v], this->gainCalc.deltaGainV[k]);
     }
-    this->__set_key(fromPart, i_v, -gain);
+    this->__set_key(fromPart, v, -gain);
     // this->__set_key(toPart, v, -2*this->pmax);
 }

@@ -16,7 +16,7 @@ auto max_independent_net(SimpleNetlist& H, const std::vector<int>& /*weight*/,
     const py::set<node_t>& DontSelect)
 {
     // bpqueue bpq {-int(H.get_max_net_degree()), 0};
-    // auto nets = std::vector<dllink<index_t>>(H.nets.size());
+    // auto nets = std::vector<dllink<node_t>>(H.nets.size());
 
     // for (size_t i_net = 0U; i_net < H.nets.size(); ++i_net)
     // {
@@ -36,7 +36,7 @@ auto max_independent_net(SimpleNetlist& H, const std::vector<int>& /*weight*/,
     // while (!bpq.is_empty())
     for (auto net : H.nets)
     {
-        // dllink<index_t>& item = bpq.popleft();
+        // dllink<node_t>& item = bpq.popleft();
 
         if (visited.contains(net))
         {

@@ -25,18 +25,18 @@ size_t PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
     this->init(part);
 
     // Zero-weighted modules does not contribute legalization
-    for (size_t i_v = 0U; i_v < this->H.number_of_modules(); ++i_v)
+    for (auto v : this->H.modules)
     {
-        if (this->H.get_module_weight_by_id(i_v) != 0)
+        if (this->H.get_module_weight(v) != 0)
         {
             continue;
         }
-        auto v = this->H.modules[i_v];
+        // auto v = this->H.modules[i_v];
         if (this->H.module_fixed.contains(v))
         {
             continue;
         }
-        this->gainMgr.lock_all(part[i_v], i_v);
+        this->gainMgr.lock_all(part[v], v);
     }
 
     size_t legalcheck = 0;
@@ -47,11 +47,11 @@ size_t PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
         {
             break;
         }
-        auto [i_v, gainmax] = this->gainMgr.select_togo(toPart);
-        auto fromPart = part[i_v];
+        auto [v, gainmax] = this->gainMgr.select_togo(toPart);
+        auto fromPart = part[v];
         // assert(v == v);
         assert(fromPart != toPart);
-        auto move_info_v = MoveInfoV {fromPart, toPart, i_v};
+        auto move_info_v = MoveInfoV {fromPart, toPart, v};
         // Check if the move of v can notsatisfied, makebetter, or satisfied
         legalcheck = this->validator.check_legal(move_info_v);
         if (legalcheck == 0)
@@ -63,7 +63,7 @@ size_t PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
         this->gainMgr.update_move(part, move_info_v);
         this->gainMgr.update_move_v(move_info_v, gainmax);
         this->validator.update_move(move_info_v);
-        part[i_v] = toPart;
+        part[v] = toPart;
         // totalgain += gainmax;
         this->totalcost -= gainmax;
         assert(this->totalcost >= 0);
@@ -125,13 +125,13 @@ void PartMgrBase<GainMgr, ConstrMgr, Derived>::__optimize_1pass(
         }
         // Update v and its neigbours (even they are in waitinglist);
         // Put neigbours to bucket
-        auto [_, toPart, i_v] = move_info_v;
-        this->gainMgr.lock(toPart, i_v);
+        auto [_, toPart, v] = move_info_v;
+        this->gainMgr.lock(toPart, v);
         this->gainMgr.update_move(part, move_info_v);
         this->gainMgr.update_move_v(move_info_v, gainmax);
         this->validator.update_move(move_info_v);
         totalgain += gainmax;
-        part[i_v] = toPart;
+        part[v] = toPart;
     }
     if (deferredsnapshot)
     {

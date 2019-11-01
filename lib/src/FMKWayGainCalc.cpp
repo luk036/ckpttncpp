@@ -44,21 +44,21 @@ void FMKWayGainCalc::__init_gain_2pin_net(
     auto netCur = this->H.G[net].begin();
     auto w = *netCur;
     auto v = *++netCur;
-    auto i_w = this->H.module_map[w];
-    auto i_v = this->H.module_map[v];
-    auto part_w = part[i_w];
-    auto part_v = part[i_v];
+    // auto w = this->H.module_map[w];
+    // auto v = this->H.module_map[v];
+    auto part_w = part[w];
+    auto part_v = part[v];
     auto weight = this->H.get_net_weight(net);
     if (part_v == part_w)
     {
-        this->__modify_gain(i_w, part_v, -weight);
-        this->__modify_gain(i_v, part_v, -weight);
+        this->__modify_gain(w, part_v, -weight);
+        this->__modify_gain(v, part_v, -weight);
     }
     else
     {
         this->totalcost += weight;
-        this->vertex_list[part_v][i_w].key += weight;
-        this->vertex_list[part_w][i_v].key += weight;
+        this->vertex_list[part_v][w].key += weight;
+        this->vertex_list[part_w][v].key += weight;
     }
 }
 
@@ -75,52 +75,52 @@ void FMKWayGainCalc::__init_gain_3pin_net(
     auto w = *netCur;
     auto v = *++netCur;
     auto u = *++netCur;
-    auto i_w = this->H.module_map[w];
-    auto i_v = this->H.module_map[v];
-    auto i_u = this->H.module_map[u];
-    auto part_w = part[i_w];
-    auto part_v = part[i_v];
-    auto part_u = part[i_u];
+    // auto w = this->H.module_map[w];
+    // auto v = this->H.module_map[v];
+    // auto u = this->H.module_map[u];
+    auto part_w = part[w];
+    auto part_v = part[v];
+    auto part_u = part[u];
     auto weight = this->H.get_net_weight(net);
-    auto i_a = i_w;
-    auto i_b = i_v;
-    auto i_c = i_u;
+    auto a = w;
+    auto b = v;
+    auto c = u;
 
     if (part_u == part_v)
     {
         if (part_w == part_v)
         {
-            this->__modify_gain(i_u, part_v, -weight);
-            this->__modify_gain(i_v, part_v, -weight);
-            this->__modify_gain(i_w, part_v, -weight);
+            this->__modify_gain(u, part_v, -weight);
+            this->__modify_gain(v, part_v, -weight);
+            this->__modify_gain(w, part_v, -weight);
             return;
         }
     }
     else if (part_w == part_v)
     {
-        i_a = i_u, i_b = i_w, i_c = i_v;
+        a = u, b = w, c = v;
     }
     else if (part_w == part_u)
     {
-        i_a = i_v, i_b = i_u, i_c = i_w;
+        a = v, b = u, c = w;
     }
     else
     {
         this->totalcost += 2 * weight;
-        this->vertex_list[part_v][i_u].key += weight;
-        this->vertex_list[part_w][i_u].key += weight;
-        this->vertex_list[part_w][i_v].key += weight;
-        this->vertex_list[part_u][i_v].key += weight;
-        this->vertex_list[part_u][i_w].key += weight;
-        this->vertex_list[part_v][i_w].key += weight;
+        this->vertex_list[part_v][u].key += weight;
+        this->vertex_list[part_w][u].key += weight;
+        this->vertex_list[part_w][v].key += weight;
+        this->vertex_list[part_u][v].key += weight;
+        this->vertex_list[part_u][w].key += weight;
+        this->vertex_list[part_v][w].key += weight;
         return;
     }
 
-    this->vertex_list[part[i_b]][i_a].key += weight;
-    for (auto i_e : {i_b, i_c})
+    this->vertex_list[part[b]][a].key += weight;
+    for (auto e : {b, c})
     {
-        this->__modify_gain(i_e, part[i_b], -weight);
-        this->vertex_list[part[i_a]][i_e].key += weight;
+        this->__modify_gain(e, part[b], -weight);
+        this->vertex_list[part[a]][e].key += weight;
     }
     this->totalcost += weight;
 }
@@ -135,12 +135,12 @@ void FMKWayGainCalc::__init_gain_general_net(
     node_t net, const std::vector<uint8_t>& part)
 {
     auto num = std::vector<uint8_t>(this->K, 0);
-    auto IdVec = std::vector<index_t> {};
+    auto IdVec = std::vector<node_t> {};
     for (const auto& w : this->H.G[net])
     {
-        auto i_w = this->H.module_map[w];
-        num[part[i_w]] += 1;
-        IdVec.push_back(i_w);
+        // auto w = this->H.module_map[w];
+        num[part[w]] += 1;
+        IdVec.push_back(w);
     }
     auto weight = this->H.get_net_weight(net);
     for (auto k = 0U; k < this->K; ++k)
@@ -156,18 +156,18 @@ void FMKWayGainCalc::__init_gain_general_net(
     {
         if (num[k] == 0)
         {
-            for (auto i_w : IdVec)
+            for (auto w : IdVec)
             {
-                vertex_list[k][i_w].key -= weight;
+                vertex_list[k][w].key -= weight;
             }
         }
         else if (num[k] == 1)
         {
-            for (auto i_w : IdVec)
+            for (auto w : IdVec)
             {
-                if (part[i_w] == k)
+                if (part[w] == k)
                 {
-                    this->__modify_gain(i_w, part[i_w], weight);
+                    this->__modify_gain(w, part[w], weight);
                     break;
                 }
             }
@@ -189,13 +189,13 @@ FMKWayGainCalc::ret_2pin_info FMKWayGainCalc::update_move_2pin_net(
 
     auto netCur = this->H.G[net].begin();
     auto w = (*netCur != v) ? *netCur : *++netCur;
-    auto i_w = this->H.module_map[w];
+    // auto w = this->H.module_map[w];
     auto weight = this->H.get_net_weight(net);
     auto deltaGainW = std::vector(this->K, 0);
 
     for (auto l : {fromPart, toPart}) // for ...
     {
-        if (part[i_w] == l)
+        if (part[w] == l)
         {
             for (auto k = 0U; k < this->K; ++k)
             {
@@ -206,7 +206,7 @@ FMKWayGainCalc::ret_2pin_info FMKWayGainCalc::update_move_2pin_net(
         deltaGainW[l] -= weight;
         weight = -weight;
     }
-    return {i_w, std::move(deltaGainW)};
+    return {w, std::move(deltaGainW)};
 }
 
 /**
@@ -221,15 +221,15 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
 {
     auto [net, fromPart, toPart, v] = move_info;
 
-    auto IdVec = std::vector<index_t> {};
+    auto IdVec = std::vector<node_t> {};
     for (const auto& w : this->H.G[net])
     {
         if (w == v)
         {
             continue;
         }
-        auto i_w = this->H.module_map[w];
-        IdVec.push_back(i_w);
+        // auto w = this->H.module_map[w];
+        IdVec.push_back(w);
     }
     auto degree = IdVec.size();
     auto deltaGain = std::vector(degree, std::vector(this->K, 0));
@@ -310,16 +310,16 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_general_net(
     auto [net, fromPart, toPart, v] = move_info;
 
     auto num = std::vector<uint8_t>(this->K, 0);
-    auto IdVec = std::vector<index_t> {};
+    auto IdVec = std::vector<node_t> {};
     for (const auto& w : this->H.G[net])
     {
         if (w == v)
         {
             continue;
         }
-        auto i_w = this->H.module_map[w];
-        num[part[i_w]] += 1;
-        IdVec.push_back(i_w);
+        // auto w = this->H.module_map[w];
+        num[part[w]] += 1;
+        IdVec.push_back(w);
     }
     auto degree = IdVec.size();
     auto deltaGain = std::vector(degree, std::vector(this->K, 0));

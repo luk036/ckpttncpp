@@ -11,9 +11,9 @@ TEST_CASE("Test BPQueue for main", "[bpqueue]")
 
     CHECK(bpq1.is_empty());
 
-    auto d = dllink(0);
-    auto e = dllink(0);
-    auto f = dllink(0);
+    auto d = dllink{0};
+    auto e = dllink{0};
+    auto f = dllink{0};
 
     CHECK(d.key == 0);
 

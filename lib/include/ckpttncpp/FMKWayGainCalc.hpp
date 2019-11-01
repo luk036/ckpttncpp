@@ -12,7 +12,7 @@ class FMKWayGainMgr;
  */
 class FMKWayGainCalc
 {
-    friend FMKWayGainMgr;
+    friend class FMKWayGainMgr;
     using index_t = typename SimpleNetlist::index_t;
 
   private:

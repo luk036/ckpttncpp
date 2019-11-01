@@ -11,7 +11,7 @@ struct FMBiGainMgr;
  */
 class FMBiGainCalc
 {
-    friend FMBiGainMgr;
+    friend class FMBiGainMgr;
     using index_t = typename SimpleNetlist::index_t;
 
   private:

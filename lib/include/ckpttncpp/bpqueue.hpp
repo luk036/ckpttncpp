@@ -2,10 +2,8 @@
 
 #include "dllist.hpp" // import dllink
 #include <cassert>
+#include <type_traits>
 #include <vector>
-
-// Forward declaration
-// template <typename T> struct bpq_iterator;
 
 /*!
  * @brief bounded priority queue
@@ -32,9 +30,9 @@ class bpqueue
     static dllink<T> sentinel; /*!< sentinel */
 
   private:
+    T max {0};                     /*!< max value */
     T offset;                      /*!< a - 1 */
     T high;                        /*!< b - a + 1 */
-    T max {0};                     /*!< max value */
     std::vector<dllink<T>> bucket; /*!< bucket, array of lists */
 
   public:
@@ -50,6 +48,7 @@ class bpqueue
         , bucket(high + 1)
     {
         assert(a <= b);
+        static_assert(std::is_integral_v<T>);
         bucket[0].append(sentinel); // sentinel
     }
 

@@ -15,34 +15,33 @@
 auto max_independent_net(SimpleNetlist& H, const std::vector<int>& /*weight*/,
     const py::set<node_t>& DontSelect)
 {
-    bpqueue bpq {-int(H.get_max_net_degree()), 0};
-    auto nets = std::vector<dllink<index_t>>(H.nets.size());
+    // bpqueue bpq {-int(H.get_max_net_degree()), 0};
+    // auto nets = std::vector<dllink<index_t>>(H.nets.size());
 
-    for (size_t i_net = 0U; i_net < H.nets.size(); ++i_net)
-    {
-        auto net = H.nets[i_net];
-        bpq.append(nets[i_net], -H.G.degree(net));
-    }
+    // for (size_t i_net = 0U; i_net < H.nets.size(); ++i_net)
+    // {
+    //     auto net = H.nets[i_net];
+    //     bpq.append(nets[i_net], -H.G.degree(net));
+    // }
 
-    auto visited = std::vector(H.nets.size(), false);
+    auto visited = py::set<node_t>{};
     for (auto net : DontSelect)
     {
-        visited[H.net_map[net]] = true;
+        visited.insert(net);
     }
+
     auto S = py::set<node_t> {};
     auto total_cost = 0U;
 
-    // for (auto i_net = 0U; i_net < H.nets.size(); ++i_net) {
-    while (!bpq.is_empty())
+    // while (!bpq.is_empty())
+    for (auto net : H.nets)
     {
-        dllink<index_t>& item = bpq.popleft();
-        auto i_net = std::distance(&nets[0], &item);
+        // dllink<index_t>& item = bpq.popleft();
 
-        if (visited[i_net])
+        if (visited.contains(net))
         {
             continue;
         }
-        auto net = H.nets[i_net];
         if (H.G.degree(net) < 2)
         {
             continue;
@@ -53,8 +52,7 @@ auto max_independent_net(SimpleNetlist& H, const std::vector<int>& /*weight*/,
         {
             for (auto net2 : H.G[v])
             {
-                auto i_net2 = H.net_map[net2];
-                visited[i_net2] = true;
+                visited.insert(net2);
             }
         }
     }
@@ -262,7 +260,7 @@ auto create_contraction_subgraph(
 
     auto H2 = std::make_unique<SimpleNetlist>(std::move(G),
         py::range<int>(numModules), py::range<int>(numModules, num_vertices),
-        py::range<int>(numModules), py::range<int>(-numModules, numNets));
+        py::range<int>(numModules));
 
     auto node_down_map = py::dict<index_t, node_t> {};
     node_down_map.reserve(num_vertices);

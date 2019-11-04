@@ -29,7 +29,6 @@ int FMKWayGainMgr::init(const std::vector<uint8_t>& part)
     }
     for (auto v : this->H.module_fixed)
     {
-        // auto i_v = this->H.module_map[v];
         this->lock_all(part[v], v);
     }
     return totalcost;

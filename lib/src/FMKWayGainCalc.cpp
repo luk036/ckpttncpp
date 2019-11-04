@@ -44,8 +44,6 @@ void FMKWayGainCalc::__init_gain_2pin_net(
     auto netCur = this->H.G[net].begin();
     auto w = *netCur;
     auto v = *++netCur;
-    // auto w = this->H.module_map[w];
-    // auto v = this->H.module_map[v];
     auto part_w = part[w];
     auto part_v = part[v];
     auto weight = this->H.get_net_weight(net);
@@ -138,7 +136,6 @@ void FMKWayGainCalc::__init_gain_general_net(
     auto IdVec = std::vector<node_t> {};
     for (const auto& w : this->H.G[net])
     {
-        // auto w = this->H.module_map[w];
         num[part[w]] += 1;
         IdVec.push_back(w);
     }
@@ -189,7 +186,6 @@ FMKWayGainCalc::ret_2pin_info FMKWayGainCalc::update_move_2pin_net(
 
     auto netCur = this->H.G[net].begin();
     auto w = (*netCur != v) ? *netCur : *++netCur;
-    // auto w = this->H.module_map[w];
     auto weight = this->H.get_net_weight(net);
     auto deltaGainW = std::vector(this->K, 0);
 
@@ -220,7 +216,6 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
     const std::vector<uint8_t>& part, const MoveInfo& move_info)
 {
     auto [net, fromPart, toPart, v] = move_info;
-
     auto IdVec = std::vector<node_t> {};
     for (const auto& w : this->H.G[net])
     {
@@ -228,7 +223,6 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
         {
             continue;
         }
-        // auto w = this->H.module_map[w];
         IdVec.push_back(w);
     }
     auto degree = IdVec.size();
@@ -317,7 +311,6 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_general_net(
         {
             continue;
         }
-        // auto w = this->H.module_map[w];
         num[part[w]] += 1;
         IdVec.push_back(w);
     }

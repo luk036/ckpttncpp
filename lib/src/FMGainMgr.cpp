@@ -61,7 +61,6 @@ std::tuple<MoveInfoV, int> FMGainMgr<GainCalc, Derived>::select(
     this->waitinglist.append(vlink);
     // node_t v = &vlink - this->gainCalc.start_ptr(toPart);
     node_t v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);
-    // node_t v = this->H.modules[v];
     auto fromPart = part[v];
     auto move_info_v = MoveInfoV {fromPart, toPart, v};
     return {move_info_v, gainmax[toPart]};
@@ -81,7 +80,6 @@ std::tuple<index_t, int> FMGainMgr<GainCalc, Derived>::select_togo(
     auto& vlink = this->gainbucket[toPart].popleft();
     this->waitinglist.append(vlink);
     node_t v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);
-    // node_t v = this->H.modules[v];
     return {v, gainmax};
 }
 
@@ -101,7 +99,6 @@ void FMGainMgr<GainCalc, Derived>::update_move(
 
     auto [fromPart, toPart, v] = move_info_v;
 
-    // auto v = this->H.modules[i_v];
     for (node_t net : this->H.G[v])
     {
         auto degree = this->H.G.degree(net);

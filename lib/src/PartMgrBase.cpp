@@ -31,7 +31,6 @@ size_t PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
         {
             continue;
         }
-        // auto v = this->H.modules[i_v];
         if (this->H.module_fixed.contains(v))
         {
             continue;

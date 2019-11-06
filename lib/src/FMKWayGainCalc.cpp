@@ -1,10 +1,5 @@
 #include <ckpttncpp/FMKWayGainCalc.hpp>
 
-/* linux-2.6.38.8/include/linux/compiler.h */
-#include <cstdio>
-#define likely(x) __builtin_expect(!!(x), 1)
-#define unlikely(x) __builtin_expect(!!(x), 0)
-
 /**
  * @brief
  *
@@ -15,7 +10,8 @@
 void FMKWayGainCalc::__init_gain(node_t net, const std::vector<uint8_t>& part)
 {
     auto degree = this->H.G.degree(net);
-    if (unlikely(degree < 2))
+    [[unlikely]]
+    if (degree < 2)
     {
         return; // does not provide any gain when moving
     }
@@ -24,7 +20,7 @@ void FMKWayGainCalc::__init_gain(node_t net, const std::vector<uint8_t>& part)
         case 2:
             this->__init_gain_2pin_net(net, part);
             break;
-        case 3:
+        case 3: [[likely]]
             this->__init_gain_3pin_net(net, part);
             break;
         default:

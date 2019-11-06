@@ -1,10 +1,5 @@
 #include <ckpttncpp/FMGainMgr.hpp>
 
-/* linux-2.6.38.8/include/linux/compiler.h */
-#include <cstdio>
-#define likely(x) __builtin_expect(!!(x), 1)
-#define unlikely(x) __builtin_expect(!!(x), 0)
-
 /**
  * @brief Construct a new FMGainMgr object
  *
@@ -102,7 +97,8 @@ void FMGainMgr<GainCalc, Derived>::update_move(
     for (node_t net : this->H.G[v])
     {
         auto degree = this->H.G.degree(net);
-        if (unlikely(degree < 2))
+        [[unlikely]]
+        if (degree < 2)
         {
             continue; // does not provide any gain change when moving
         }
@@ -112,7 +108,7 @@ void FMGainMgr<GainCalc, Derived>::update_move(
             case 2:
                 this->__update_move_2pin_net(part, move_info);
                 break;
-            case 3:
+            case 3: [[likely]]
                 this->__update_move_3pin_net(part, move_info);
                 break;
             default:

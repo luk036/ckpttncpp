@@ -108,7 +108,7 @@ void FMGainMgr<GainCalc, Derived>::update_move(
             case 2:
                 this->__update_move_2pin_net(part, move_info);
                 break;
-            case 3: [[likely]]
+            case 3:
                 this->__update_move_3pin_net(part, move_info);
                 break;
             default:

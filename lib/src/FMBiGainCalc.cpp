@@ -20,7 +20,7 @@ void FMBiGainCalc::__init_gain( //
         case 2:
             this->__init_gain_2pin_net(net, part);
             break;
-        case 3: [[likely]]
+        case 3:
             this->__init_gain_3pin_net(net, part);
             break;
         default:

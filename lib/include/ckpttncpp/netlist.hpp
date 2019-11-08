@@ -7,6 +7,7 @@
 #include <utility>
 #include <vector>
 #include <xnetwork/classes/graph.hpp>
+#include <gsl/span>
 
 using node_t = int;
 
@@ -179,7 +180,7 @@ struct Netlist
      * @param part_down
      */
     void projection_down(
-        const std::vector<uint8_t>& part, std::vector<uint8_t>& part_down);
+        gsl::span<const uint8_t> part, gsl::span<uint8_t> part_down);
 
     /*!
      * @brief projection up
@@ -188,7 +189,7 @@ struct Netlist
      * @param part_up
      */
     void projection_up(
-        const std::vector<uint8_t>& part, std::vector<uint8_t>& part_up);
+        gsl::span<const uint8_t> part, gsl::span<uint8_t> part_up);
 };
 
 /*!

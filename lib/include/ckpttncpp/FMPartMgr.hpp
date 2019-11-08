@@ -4,6 +4,7 @@
 // Take a snapshot when a move make **negative** gain.
 // Snapshot in the form of "interface"???
 #include "PartMgrBase.hpp"
+#include <gsl/span>
 
 /*!
  * @brief FM Partition Manager
@@ -35,9 +36,14 @@ class FMPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FMPartMgr>
      * @param part
      * @return Snapshot
      */
-    auto take_snapshot(const std::vector<uint8_t>& part) -> std::vector<uint8_t>
+    auto take_snapshot(gsl::span<const uint8_t> part) -> std::vector<uint8_t>
     {
-        auto snapshot = part;
+        auto snapshot = std::vector<uint8_t>{};
+        const auto N = part.size();
+        snapshot.reserve(N);
+        for (auto i = 0U; i < N; ++i) {
+            snapshot[i] = part[i];
+        }
         return snapshot;
     }
 
@@ -48,8 +54,11 @@ class FMPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FMPartMgr>
      * @param part
      */
     auto restore_part(
-        std::vector<uint8_t>& snapshot, std::vector<uint8_t>& part) -> void
+        std::vector<uint8_t>& snapshot, gsl::span<uint8_t> part) -> void
     {
-        part.swap(snapshot);
+        const auto N = part.size();
+        for (auto i = 0U; i < N; ++i) {
+            part[i] = snapshot[i];
+        }
     }
 };

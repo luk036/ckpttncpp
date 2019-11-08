@@ -7,7 +7,7 @@
  * @param part
  */
 void FMBiGainCalc::__init_gain( //
-    node_t net, const std::vector<uint8_t>& part)
+    node_t net, gsl::span<const uint8_t> part)
 {
     auto degree = this->H.G.degree(net);
     [[unlikely]]
@@ -35,7 +35,7 @@ void FMBiGainCalc::__init_gain( //
  * @param part
  */
 void FMBiGainCalc::__init_gain_2pin_net( //
-    node_t net, const std::vector<uint8_t>& part)
+    node_t net, gsl::span<const uint8_t> part)
 {
     auto netCur = this->H.G[net].begin();
     auto w = *netCur;
@@ -61,7 +61,7 @@ void FMBiGainCalc::__init_gain_2pin_net( //
  * @param part
  */
 void FMBiGainCalc::__init_gain_3pin_net(
-    node_t net, const std::vector<uint8_t>& part)
+    node_t net, gsl::span<const uint8_t> part)
 {
     auto netCur = this->H.G[net].begin();
     auto w = *netCur;
@@ -99,7 +99,7 @@ void FMBiGainCalc::__init_gain_3pin_net(
  * @param part
  */
 void FMBiGainCalc::__init_gain_general_net(
-    node_t net, const std::vector<uint8_t>& part)
+    node_t net, gsl::span<const uint8_t> part)
 {
     // uint8_t num[2] = {0, 0};
     auto num = std::array<size_t, 2> {0U, 0U};
@@ -147,7 +147,7 @@ void FMBiGainCalc::__init_gain_general_net(
  * @return ret_2pin_info
  */
 FMBiGainCalc::ret_2pin_info FMBiGainCalc::update_move_2pin_net(
-    const std::vector<uint8_t>& part, const MoveInfo& move_info)
+    gsl::span<const uint8_t> part, const MoveInfo& move_info)
 {
     auto [net, fromPart, _, v] = move_info;
 
@@ -166,7 +166,7 @@ FMBiGainCalc::ret_2pin_info FMBiGainCalc::update_move_2pin_net(
  * @return ret_info
  */
 FMBiGainCalc::ret_info FMBiGainCalc::update_move_3pin_net(
-    const std::vector<uint8_t>& part, const MoveInfo& move_info)
+    gsl::span<const uint8_t> part, const MoveInfo& move_info)
 {
     auto [net, fromPart, _, v] = move_info;
     auto num = std::array<size_t, 2> {0U, 0U};
@@ -209,7 +209,7 @@ FMBiGainCalc::ret_info FMBiGainCalc::update_move_3pin_net(
  * @return ret_info
  */
 FMBiGainCalc::ret_info FMBiGainCalc::update_move_general_net(
-    const std::vector<uint8_t>& part, const MoveInfo& move_info)
+    gsl::span<const uint8_t> part, const MoveInfo& move_info)
 {
     auto [net, fromPart, toPart, v] = move_info;
     auto num = std::array<uint8_t, 2> {0, 0};

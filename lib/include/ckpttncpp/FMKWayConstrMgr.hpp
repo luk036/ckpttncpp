@@ -1,6 +1,7 @@
 #pragma once
 
 #include "FMConstrMgr.hpp"
+#include <gsl/span>
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
 
 /*!
@@ -42,7 +43,7 @@ class FMKWayConstrMgr : public FMConstrMgr
      *
      * @param part
      */
-    auto init(const std::vector<uint8_t>& part) -> void
+    auto init(gsl::span<const uint8_t> part) -> void
     {
         FMConstrMgr::init(part);
         for (auto k = 0U; k < this->K; ++k)

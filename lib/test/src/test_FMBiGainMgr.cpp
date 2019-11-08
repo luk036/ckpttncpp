@@ -11,7 +11,7 @@ extern SimpleNetlist create_dwarf();        // import create_dwarf
  * @param H
  * @param part_test
  */
-void run_FMBiGainMgr(SimpleNetlist& H, std::vector<uint8_t>& part)
+void run_FMBiGainMgr(SimpleNetlist& H, gsl::span<uint8_t> part)
 {
     auto mgr = FMBiGainMgr {H};
     mgr.init(part);

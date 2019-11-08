@@ -28,7 +28,7 @@ TEST_CASE("Test xnetwork", "[test_xnetwork]")
     G.add_edge(a2, n2);
 
     auto count = 0;
-    for (auto _ : G)
+    for ([[maybe_unused]] auto _ : G)
     {
         ++count;
     }
@@ -36,7 +36,7 @@ TEST_CASE("Test xnetwork", "[test_xnetwork]")
     CHECK(G.number_of_nodes() == count);
 
     auto deg = 0;
-    for (auto _ : G[a1])
+    for ([[maybe_unused]] auto _ : G[a1])
     {
         ++deg;
     }

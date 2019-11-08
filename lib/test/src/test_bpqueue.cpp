@@ -1,6 +1,7 @@
 #include <catch2/catch.hpp>
 #include <ckpttncpp/bpqueue.hpp> // import bpqueue
 #include <ckpttncpp/dllist.hpp>  // import dllink
+#include <gsl/span>
 
 TEST_CASE("Test BPQueue", "[bpqueue]")
 {
@@ -39,9 +40,13 @@ TEST_CASE("Test BPQueue", "[bpqueue]")
     bpq1.appendfrom(nodelist);
 
     auto count = 0U;
-    for (auto& _ : bpq1.items())
+    for ([[maybe_unused]] auto& _ : bpq1.items())
     {
         count += 1;
     }
     CHECK(count == 10);
+
+    const std::vector<uint8_t> a{3, 4, 5, 6};
+    gsl::span<const uint8_t> s{a};
+
 }

@@ -79,21 +79,21 @@ class PartMgrBase
      *
      * @param part
      */
-    void init(std::vector<uint8_t>& part);
+    void init(gsl::span<uint8_t> part);
 
     /*!
      * @brief
      *
      * @param part
      */
-    size_t legalize(std::vector<uint8_t>& part);
+    size_t legalize(gsl::span<uint8_t> part);
 
     /*!
      * @brief
      *
      * @param part
      */
-    void optimize(std::vector<uint8_t>& part);
+    void optimize(gsl::span<uint8_t> part);
 
   private:
     /*!
@@ -101,5 +101,5 @@ class PartMgrBase
      *
      * @param part
      */
-    void __optimize_1pass(std::vector<uint8_t>& part);
+    void __optimize_1pass(gsl::span<uint8_t> part);
 };

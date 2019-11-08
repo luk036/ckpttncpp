@@ -27,7 +27,7 @@ FMGainMgr<GainCalc, Derived>::FMGainMgr(SimpleNetlist& H, uint8_t K)
  * @param part
  */
 template <typename GainCalc, class Derived>
-int FMGainMgr<GainCalc, Derived>::init(const std::vector<uint8_t>& part)
+int FMGainMgr<GainCalc, Derived>::init(gsl::span<const uint8_t> part)
 {
     auto totalcost = this->gainCalc.init(part);
     // this->totalcost = this->gainCalc.totalcost;
@@ -43,7 +43,7 @@ int FMGainMgr<GainCalc, Derived>::init(const std::vector<uint8_t>& part)
  */
 template <typename GainCalc, class Derived>
 std::tuple<MoveInfoV, int> FMGainMgr<GainCalc, Derived>::select(
-    const std::vector<uint8_t>& part)
+    gsl::span<const uint8_t> part)
 {
     auto gainmax = std::vector<int>(this->K);
     for (auto k = 0U; k < this->K; ++k)
@@ -87,7 +87,7 @@ std::tuple<index_t, int> FMGainMgr<GainCalc, Derived>::select_togo(
  */
 template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::update_move(
-    const std::vector<uint8_t>& part, const MoveInfoV& move_info_v)
+    gsl::span<const uint8_t> part, const MoveInfoV& move_info_v)
 {
     // std::fill_n(this->deltaGainV.begin(), this->K, 0);
     this->gainCalc.update_move_init();
@@ -125,7 +125,7 @@ void FMGainMgr<GainCalc, Derived>::update_move(
  */
 template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::__update_move_2pin_net(
-    const std::vector<uint8_t>& part, const MoveInfo& move_info)
+    gsl::span<const uint8_t> part, const MoveInfo& move_info)
 {
     auto [w, deltaGainW] =
         this->gainCalc.update_move_2pin_net(part, move_info);
@@ -140,7 +140,7 @@ void FMGainMgr<GainCalc, Derived>::__update_move_2pin_net(
  */
 template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::__update_move_3pin_net(
-    const std::vector<uint8_t>& part, const MoveInfo& move_info)
+    gsl::span<const uint8_t> part, const MoveInfo& move_info)
 {
     auto [IdVec, deltaGain] =
         this->gainCalc.update_move_3pin_net(part, move_info);
@@ -160,7 +160,7 @@ void FMGainMgr<GainCalc, Derived>::__update_move_3pin_net(
  */
 template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::__update_move_general_net(
-    const std::vector<uint8_t>& part, const MoveInfo& move_info)
+    gsl::span<const uint8_t> part, const MoveInfo& move_info)
 {
     auto [IdVec, deltaGain] =
         this->gainCalc.update_move_general_net(part, move_info);

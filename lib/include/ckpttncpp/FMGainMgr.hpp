@@ -7,6 +7,7 @@
 #include <iterator>
 #include <memory>
 #include <type_traits>
+#include <gsl/span>
 
 /*!
  * @brief
@@ -45,7 +46,7 @@ class FMGainMgr
      *
      * @param part
      */
-    auto init(const std::vector<uint8_t>& part) -> int;
+    auto init(gsl::span<const uint8_t> part) -> int;
 
     /*!
      * @brief
@@ -83,7 +84,7 @@ class FMGainMgr
      * @param part
      * @return std::tuple<MoveInfoV, int>
      */
-    auto select(const std::vector<uint8_t>& part) -> std::tuple<MoveInfoV, int>;
+    auto select(gsl::span<const uint8_t> part) -> std::tuple<MoveInfoV, int>;
 
     /*!
      * @brief
@@ -100,7 +101,7 @@ class FMGainMgr
      * @param move_info_v
      */
     auto update_move(
-        const std::vector<uint8_t>& part, const MoveInfoV& move_info_v) -> void;
+        gsl::span<const uint8_t> part, const MoveInfoV& move_info_v) -> void;
 
   private:
     /*!
@@ -110,7 +111,7 @@ class FMGainMgr
      * @param move_info
      */
     auto __update_move_2pin_net(
-        const std::vector<uint8_t>& part, const MoveInfo& move_info) -> void;
+        gsl::span<const uint8_t> part, const MoveInfo& move_info) -> void;
 
     /*!
      * @brief
@@ -119,7 +120,7 @@ class FMGainMgr
      * @param move_info
      */
     auto __update_move_3pin_net(
-        const std::vector<uint8_t>& part, const MoveInfo& move_info) -> void;
+        gsl::span<const uint8_t> part, const MoveInfo& move_info) -> void;
 
     /*!
      * @brief
@@ -128,5 +129,5 @@ class FMGainMgr
      * @param move_info
      */
     auto __update_move_general_net(
-        const std::vector<uint8_t>& part, const MoveInfo& move_info) -> void;
+        gsl::span<const uint8_t> part, const MoveInfo& move_info) -> void;
 };

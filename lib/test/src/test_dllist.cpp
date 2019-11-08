@@ -22,7 +22,7 @@ TEST_CASE("Test dllist", "[dllist]")
     CHECK(!L2.is_empty());
 
     auto count = 0U;
-    for (auto& _ : L2.items())
+    for ([[maybe_unused]] auto& _ : L2.items())
     {
         count += 1;
     }
@@ -33,7 +33,7 @@ TEST_CASE("Test robin", "[robin]")
 {
     auto RR = robin<uint8_t>(6U);
     auto count = 0U;
-    for (auto _ : RR.exclude(2))
+    for ([[maybe_unused]] auto _ : RR.exclude(2))
     {
         count += 1;
     }

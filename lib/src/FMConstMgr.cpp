@@ -6,7 +6,7 @@
  *
  * @param part
  */
-void FMConstrMgr::init(const std::vector<uint8_t>& part)
+void FMConstrMgr::init(gsl::span<const uint8_t> part)
 {
     std::fill_n(this->diff.begin(), this->K, 0);
     for (auto v : this->H.modules)

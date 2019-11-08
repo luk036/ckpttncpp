@@ -68,6 +68,8 @@ if (Boost_FOUND)
     set(LIBS ${LIBS} ${Boost_LIBRARIES})
 endif (Boost_FOUND)
 
+add_subdirectory (third_party EXCLUDE_FROM_ALL)
+
 set (LIBRARY_INCLUDE_PATH  ${LIBRARY_INCLUDE_PATH} ${Boost_INCLUDE_DIRS})
 
 # Enable code coverage with -DENABLE_COVERAGE=1

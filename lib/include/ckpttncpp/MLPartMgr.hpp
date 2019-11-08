@@ -48,7 +48,7 @@ class MLPartMgr
      * @return size_t self.take_snapshot(part)
      */
     template <typename PartMgr>
-    auto run_FMPartition(SimpleNetlist& H, std::vector<uint8_t>& part,
+    auto run_FMPartition(SimpleNetlist& H, gsl::span<uint8_t> part,
         size_t limitsize = 7) -> size_t
     {
         using GainMgr = typename PartMgr::GainMgr_;
@@ -116,7 +116,7 @@ class MLPartMgr
      * @return size_t self.take_snapshot(part)
      */
     template <typename PartMgr>
-    auto run_Partition(SimpleNetlist& H, std::vector<uint8_t>& part,
+    auto run_Partition(SimpleNetlist& H, gsl::span<uint8_t> part,
         size_t limitsize = 7) -> size_t
     {
         using GainMgr = typename PartMgr::GainMgr_;
@@ -148,7 +148,7 @@ class MLPartMgr
      */
     template <typename PartMgr>
     auto run_Partition_recur(
-        SimpleNetlist& H, std::vector<uint8_t>& part, size_t limitsize) -> void
+        SimpleNetlist& H, gsl::span<uint8_t> part, size_t limitsize) -> void
     {
         if (H.number_of_modules() >= limitsize)
         { // OK

@@ -38,10 +38,11 @@ class FMPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FMPartMgr>
      */
     auto take_snapshot(gsl::span<const uint8_t> part) -> std::vector<uint8_t>
     {
-        auto snapshot = std::vector<uint8_t>{};
+        auto snapshot = std::vector<uint8_t> {};
         const auto N = part.size();
         snapshot.reserve(N);
-        for (auto i = 0U; i < N; ++i) {
+        for (auto i = 0U; i < N; ++i)
+        {
             snapshot[i] = part[i];
         }
         return snapshot;
@@ -53,11 +54,12 @@ class FMPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FMPartMgr>
      * @param snapshot
      * @param part
      */
-    auto restore_part(
-        std::vector<uint8_t>& snapshot, gsl::span<uint8_t> part) -> void
+    auto restore_part(std::vector<uint8_t>& snapshot, gsl::span<uint8_t> part)
+        -> void
     {
         const auto N = part.size();
-        for (auto i = 0U; i < N; ++i) {
+        for (auto i = 0U; i < N; ++i)
+        {
             part[i] = snapshot[i];
         }
     }

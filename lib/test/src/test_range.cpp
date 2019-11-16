@@ -1,6 +1,6 @@
+#include <array>
 #include <catch2/catch.hpp>
 #include <py2cpp/py2cpp.hpp>
-#include <array>
 
 TEST_CASE("Test Range", "[range]")
 {

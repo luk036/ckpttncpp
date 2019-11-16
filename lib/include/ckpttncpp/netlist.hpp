@@ -2,12 +2,12 @@
 
 // import networkx as nx
 #include <algorithm>
+#include <gsl/span>
 #include <iterator>
 #include <py2cpp/py2cpp.hpp>
 #include <utility>
 #include <vector>
 #include <xnetwork/classes/graph.hpp>
-#include <gsl/span>
 
 using node_t = int;
 

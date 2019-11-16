@@ -9,7 +9,7 @@ TEST_CASE("Test set partition (odd k)", "[set_partition]")
     constexpr auto k = 5;
     auto cnt = 1;
 
-    std::array<int, n + 1> b {0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 5};
+    std::array<int, n + 1> b {0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4};
 
     for (auto [x, y] : set_partition(n, k))
     {

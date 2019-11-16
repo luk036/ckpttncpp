@@ -4,10 +4,10 @@
 #include "dllist.hpp"  // import dllink
 #include "netlist.hpp" // import Netlist
 #include <cinttypes>
+#include <gsl/span>
 #include <iterator>
 #include <memory>
 #include <type_traits>
-#include <gsl/span>
 
 /*!
  * @brief

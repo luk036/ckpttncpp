@@ -4,8 +4,8 @@
 #include <algorithm>
 #include <cinttypes>
 #include <cmath>
-#include <vector>
 #include <gsl/span>
+#include <vector>
 
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
 

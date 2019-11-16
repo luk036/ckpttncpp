@@ -24,7 +24,7 @@ auto max_independent_net(SimpleNetlist& H, const std::vector<int>& /*weight*/,
     //     bpq.append(nets[i_net], -H.G.degree(net));
     // }
 
-    auto visited = py::set<node_t>{};
+    auto visited = py::set<node_t> {};
     for (auto net : DontSelect)
     {
         visited.insert(net);

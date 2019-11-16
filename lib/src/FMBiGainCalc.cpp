@@ -10,8 +10,7 @@ void FMBiGainCalc::__init_gain( //
     node_t net, gsl::span<const uint8_t> part)
 {
     auto degree = this->H.G.degree(net);
-    [[unlikely]]
-    if (degree < 2)
+    [[unlikely]] if (degree < 2)
     {
         return; // does not provide any gain when moving
     }
@@ -40,7 +39,7 @@ void FMBiGainCalc::__init_gain_2pin_net( //
     auto netCur = this->H.G[net].begin();
     auto w = *netCur;
     auto v = *++netCur;
- 
+
     auto weight = this->H.get_net_weight(net);
     if (part[w] != part[v])
     {
@@ -67,7 +66,7 @@ void FMBiGainCalc::__init_gain_3pin_net(
     auto w = *netCur;
     auto v = *++netCur;
     auto u = *++netCur;
- 
+
     auto weight = this->H.get_net_weight(net);
     if (part[u] == part[v])
     {

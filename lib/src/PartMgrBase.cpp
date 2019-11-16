@@ -90,7 +90,7 @@ void PartMgrBase<GainMgr, ConstrMgr, Derived>::__optimize_1pass(
 {
     // using SS_t = decltype(self.take_snapshot(part));
     using SS_t = std::vector<uint8_t>;
-    
+
     auto snapshot = SS_t {};
     auto totalgain = 0;
     auto deferredsnapshot = false;
@@ -152,8 +152,7 @@ void PartMgrBase<GainMgr, ConstrMgr, Derived>::__optimize_1pass(
  */
 template <typename GainMgr, typename ConstrMgr,
     template <typename _GainMgr, typename _ConstrMgr> class Derived> //
-void PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize(
-    gsl::span<uint8_t> part)
+void PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize(gsl::span<uint8_t> part)
 {
     // this->init(part);
     // auto totalcostafter = this->totalcost;

@@ -111,8 +111,8 @@ class FMKWayGainCalc
      * @param move_info
      * @return ret_info
      */
-    auto update_move_3pin_net(gsl::span<const uint8_t> part,
-        const MoveInfo& move_info) -> ret_info;
+    auto update_move_3pin_net(
+        gsl::span<const uint8_t> part, const MoveInfo& move_info) -> ret_info;
 
     /*!
      * @brief
@@ -121,8 +121,8 @@ class FMKWayGainCalc
      * @param move_info
      * @return ret_info
      */
-    auto update_move_general_net(gsl::span<const uint8_t> part,
-        const MoveInfo& move_info) -> ret_info;
+    auto update_move_general_net(
+        gsl::span<const uint8_t> part, const MoveInfo& move_info) -> ret_info;
 
   private:
     /*!

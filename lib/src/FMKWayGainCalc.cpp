@@ -10,8 +10,7 @@
 void FMKWayGainCalc::__init_gain(node_t net, gsl::span<const uint8_t> part)
 {
     auto degree = this->H.G.degree(net);
-    [[unlikely]]
-    if (degree < 2)
+    [[unlikely]] if (degree < 2)
     {
         return; // does not provide any gain when moving
     }

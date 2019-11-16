@@ -5,8 +5,10 @@
 
 TEST_CASE("Test BPQueue", "[bpqueue]")
 {
-    auto bpq1 = bpqueue {-10, 10};
-    auto bpq2 = bpqueue {-10, 10};
+    constexpr auto PMAX = 10;
+
+    auto bpq1 = bpqueue {-PMAX, PMAX};
+    auto bpq2 = bpqueue {-PMAX, PMAX};
 
     CHECK(bpq1.is_empty());
 
@@ -17,7 +19,7 @@ TEST_CASE("Test BPQueue", "[bpqueue]")
     CHECK(d.key == 0);
 
     bpq1.append(e, 3);
-    bpq1.append(f, -10);
+    bpq1.append(f, -PMAX);
     bpq1.append(d, 5);
 
     bpq2.append(bpq1.popleft(), -6); // d
@@ -46,7 +48,6 @@ TEST_CASE("Test BPQueue", "[bpqueue]")
     }
     CHECK(count == 10);
 
-    const std::vector<uint8_t> a{3, 4, 5, 6};
-    gsl::span<const uint8_t> s{a};
-
+    const std::vector<uint8_t> a {3, 4, 5, 6};
+    gsl::span<const uint8_t> s {a};
 }

@@ -101,7 +101,6 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
      */
     auto __set_key(uint8_t whichPart, node_t v, int key) -> void
     {
-        this->gainbucket[whichPart].set_key(
-            this->gainCalc.vertex_list[v], key);
+        this->gainbucket[whichPart].set_key(this->gainCalc.vertex_list[v], key);
     }
 };

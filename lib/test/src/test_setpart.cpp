@@ -20,7 +20,7 @@ TEST_CASE("Test set partition (odd k)", "[set_partition]")
         //           << "\n";
     }
 
-    auto totalNumber = Stirling2nd<n, k>();
+    auto totalNumber = decltype(Stirling2nd<n, k>())::value;
     CHECK(totalNumber == cnt);
 }
 
@@ -41,6 +41,6 @@ TEST_CASE("Test set partition (even k)", "[set_partition]")
         //           << "\n";
     }
 
-    auto totalNumber = Stirling2nd<n, k>();
+    auto totalNumber = decltype(Stirling2nd<n, k>())::value;
     CHECK(totalNumber == cnt);
 }

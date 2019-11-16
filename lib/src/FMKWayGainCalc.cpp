@@ -320,9 +320,9 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_general_net(
     {
         if (num[l] == 0)
         {
-            for (size_t idx = 0U; idx < degree; ++idx)
+            for (size_t index = 0U; index < degree; ++index)
             {
-                deltaGain[idx][l] -= weight;
+                deltaGain[index][l] -= weight;
             }
             if (num[u] > 0)
             {
@@ -334,13 +334,13 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_general_net(
         }
         else if (num[l] == 1)
         {
-            for (size_t idx = 0U; idx < degree; ++idx)
+            for (size_t index = 0U; index < degree; ++index)
             {
-                if (part[IdVec[idx]] == l)
+                if (part[IdVec[index]] == l)
                 {
                     for (auto k = 0U; k < this->K; ++k)
                     {
-                        deltaGain[idx][k] += weight;
+                        deltaGain[index][k] += weight;
                     }
                     break;
                 }

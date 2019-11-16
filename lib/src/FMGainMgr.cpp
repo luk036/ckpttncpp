@@ -145,10 +145,10 @@ void FMGainMgr<GainCalc, Derived>::__update_move_3pin_net(
     auto [IdVec, deltaGain] =
         this->gainCalc.update_move_3pin_net(part, move_info);
     auto degree = IdVec.size();
-    for (size_t idx = 0U; idx < degree; ++idx)
+    for (size_t index = 0U; index < degree; ++index)
     {
-        auto w = IdVec[idx];
-        self.modify_key(w, part[w], deltaGain[idx]);
+        auto w = IdVec[index];
+        self.modify_key(w, part[w], deltaGain[index]);
     }
 }
 
@@ -165,10 +165,10 @@ void FMGainMgr<GainCalc, Derived>::__update_move_general_net(
     auto [IdVec, deltaGain] =
         this->gainCalc.update_move_general_net(part, move_info);
     auto degree = IdVec.size();
-    for (size_t idx = 0U; idx < degree; ++idx)
+    for (size_t index = 0U; index < degree; ++index)
     {
-        auto w = IdVec[idx];
-        self.modify_key(w, part[w], deltaGain[idx]);
+        auto w = IdVec[index];
+        self.modify_key(w, part[w], deltaGain[index]);
     }
 }
 

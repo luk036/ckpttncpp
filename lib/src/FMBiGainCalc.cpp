@@ -230,19 +230,19 @@ FMBiGainCalc::ret_info FMBiGainCalc::update_move_general_net(
     {
         if (num[l] == 0)
         {
-            for (size_t idx = 0U; idx < degree; ++idx)
+            for (size_t index = 0U; index < degree; ++index)
             {
-                deltaGain[idx] -= weight;
+                deltaGain[index] -= weight;
             }
         }
         else if (num[l] == 1)
         {
-            for (size_t idx = 0U; idx < degree; ++idx)
+            for (size_t index = 0U; index < degree; ++index)
             {
-                auto part_w = part[IdVec[idx]];
+                auto part_w = part[IdVec[index]];
                 if (part_w == l)
                 {
-                    deltaGain[idx] += weight;
+                    deltaGain[index] += weight;
                     break;
                 }
             }

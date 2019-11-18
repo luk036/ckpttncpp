@@ -1,9 +1,11 @@
 # build
 .vscode/*
 build*/
+docs/source/api/*
 docs/api/*
 docs/_rst/*
 docs/_build/*
+docs/source/doxyoutput/*
 
 # Prerequisites
 *.d

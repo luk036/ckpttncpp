@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="structrobin_1_1iterable__wrapper" kind="struct" language="C++" prot="private">
+    <compoundname>robin::iterable_wrapper</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structrobin_1_1iterable__wrapper_1a9e23c77b24399e069cbcf7b960d681c4" prot="public" static="no" mutable="no">
+        <type><ref refid="classrobin" kindref="compound">robin</ref>&lt; T &gt; *</type>
+        <definition>robin&lt;T&gt;* robin&lt; T &gt;::iterable_wrapper::rr</definition>
+        <argsstring></argsstring>
+        <name>rr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" line="36" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrobin_1_1iterable__wrapper_1a035911e1aca5ad79bf87277bb50174cb" prot="public" static="no" mutable="no">
+        <type>T</type>
+        <definition>T robin&lt; T &gt;::iterable_wrapper::fromPart</definition>
+        <argsstring></argsstring>
+        <name>fromPart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" line="37" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structrobin_1_1iterable__wrapper_1ad0e4ef20c9da77c5d8b9f20f8e8bf541" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto robin&lt; T &gt;::iterable_wrapper::begin</definition>
+        <argsstring>()</argsstring>
+        <name>begin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" line="38" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" bodystart="38" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="structrobin_1_1iterable__wrapper_1a9cb22e097c2123a7b7337646af918bfb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto robin&lt; T &gt;::iterable_wrapper::end</definition>
+        <argsstring>()</argsstring>
+        <name>end</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" line="42" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" bodystart="42" bodyend="45"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" line="35" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" bodystart="34" bodyend="47"/>
+    <listofallmembers>
+      <member refid="structrobin_1_1iterable__wrapper_1ad0e4ef20c9da77c5d8b9f20f8e8bf541" prot="public" virt="non-virtual"><scope>robin::iterable_wrapper</scope><name>begin</name></member>
+      <member refid="structrobin_1_1iterable__wrapper_1a9cb22e097c2123a7b7337646af918bfb" prot="public" virt="non-virtual"><scope>robin::iterable_wrapper</scope><name>end</name></member>
+      <member refid="structrobin_1_1iterable__wrapper_1a035911e1aca5ad79bf87277bb50174cb" prot="public" virt="non-virtual"><scope>robin::iterable_wrapper</scope><name>fromPart</name></member>
+      <member refid="structrobin_1_1iterable__wrapper_1a9e23c77b24399e069cbcf7b960d681c4" prot="public" virt="non-virtual"><scope>robin::iterable_wrapper</scope><name>rr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

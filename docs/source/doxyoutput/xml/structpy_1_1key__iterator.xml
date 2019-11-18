@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="structpy_1_1key__iterator" kind="struct" language="C++" prot="public">
+    <compoundname>py::key_iterator</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Iter</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>typename Iter</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structpy_1_1key__iterator_1ad063ab1cd29cd3b5ca62ab65cb4d6665" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>py::key_iterator&lt; Iter &gt;::key_iterator</definition>
+        <argsstring>(Iter it)</argsstring>
+        <name>key_iterator</name>
+        <param>
+          <type>Iter</type>
+          <declname>it</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/py2cpp.hpp" line="297" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/py2cpp.hpp" bodystart="297" bodyend="300"/>
+      </memberdef>
+      <memberdef kind="function" id="structpy_1_1key__iterator_1aa3d0870a9e5960e863d56d908be2ef66" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto py::key_iterator&lt; Iter &gt;::operator*</definition>
+        <argsstring>() const</argsstring>
+        <name>operator*</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/py2cpp.hpp" line="301" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/py2cpp.hpp" bodystart="301" bodyend="304"/>
+      </memberdef>
+      <memberdef kind="function" id="structpy_1_1key__iterator_1ab3c9674be59e52cbef36a34c874c7e05" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structpy_1_1key__iterator" kindref="compound">key_iterator</ref> &amp;</type>
+        <definition>key_iterator&amp; py::key_iterator&lt; Iter &gt;::operator++</definition>
+        <argsstring>()</argsstring>
+        <name>operator++</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/py2cpp.hpp" line="305" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/py2cpp.hpp" bodystart="305" bodyend="309"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="195">
+        <label>py::key_iterator&lt; Iter &gt;</label>
+        <link refid="structpy_1_1key__iterator"/>
+        <childnode refid="196" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="196">
+        <label>Iter</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="197">
+        <label>py::key_iterator&lt; Iter &gt;</label>
+        <link refid="structpy_1_1key__iterator"/>
+        <childnode refid="198" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="198">
+        <label>Iter</label>
+      </node>
+    </collaborationgraph>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/py2cpp.hpp" line="296" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/py2cpp.hpp" bodystart="295" bodyend="310"/>
+    <listofallmembers>
+      <member refid="structpy_1_1key__iterator_1ad063ab1cd29cd3b5ca62ab65cb4d6665" prot="public" virt="non-virtual"><scope>py::key_iterator</scope><name>key_iterator</name></member>
+      <member refid="structpy_1_1key__iterator_1aa3d0870a9e5960e863d56d908be2ef66" prot="public" virt="non-virtual"><scope>py::key_iterator</scope><name>operator*</name></member>
+      <member refid="structpy_1_1key__iterator_1ab3c9674be59e52cbef36a34c874c7e05" prot="public" virt="non-virtual"><scope>py::key_iterator</scope><name>operator++</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

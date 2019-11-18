@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="dir_d44c64559bbebec7f509842c48db8b23" kind="dir">
+    <compoundname>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include</compoundname>
+    <innerdir refid="dir_e144d74915c56dacd0d95b02e41d2cd6">/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp</innerdir>
+    <innerdir refid="dir_082f96e8095d76a81d75271a74dff441">/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp</innerdir>
+    <innerdir refid="dir_38c00001a54616823030dadf662c376a">/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="structxn_1_1HasACycle" kind="struct" language="C++" prot="public">
+    <compoundname>xn::HasACycle</compoundname>
+    <basecompoundref refid="structxn_1_1XNetworkException" prot="public" virt="non-virtual">xn::XNetworkException</basecompoundref>
+    <includes refid="exception_8hpp" local="no">exception.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structxn_1_1HasACycle_1aa999b225e7c844c003cca2ceaf199e54" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>xn::HasACycle::HasACycle</definition>
+        <argsstring>(const char *msg)</argsstring>
+        <name>HasACycle</name>
+        <param>
+          <type>const char *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/exception.hpp" line="119" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/exception.hpp" bodystart="119" bodyend="122"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Raised if (a graph has a cycle when an algorithm expects that it will have no cycles. </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="186">
+        <label>xn::XNetworkException</label>
+        <link refid="structxn_1_1XNetworkException"/>
+        <childnode refid="187" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="187">
+        <label>std::runtime_error</label>
+      </node>
+      <node id="185">
+        <label>xn::HasACycle</label>
+        <link refid="structxn_1_1HasACycle"/>
+        <childnode refid="186" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="189">
+        <label>xn::XNetworkException</label>
+        <link refid="structxn_1_1XNetworkException"/>
+        <childnode refid="190" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="190">
+        <label>std::runtime_error</label>
+      </node>
+      <node id="188">
+        <label>xn::HasACycle</label>
+        <link refid="structxn_1_1HasACycle"/>
+        <childnode refid="189" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/exception.hpp" line="118" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/exception.hpp" bodystart="117" bodyend="123"/>
+    <listofallmembers>
+      <member refid="structxn_1_1HasACycle_1aa999b225e7c844c003cca2ceaf199e54" prot="public" virt="non-virtual"><scope>xn::HasACycle</scope><name>HasACycle</name></member>
+      <member refid="structxn_1_1XNetworkException_1adf7ac46d6cef6d2fcee880fc2f709458" prot="public" virt="non-virtual"><scope>xn::HasACycle</scope><name>XNetworkException</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

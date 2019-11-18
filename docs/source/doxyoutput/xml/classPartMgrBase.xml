@@ -1,0 +1,465 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="classPartMgrBase" kind="class" language="C++" prot="public">
+    <compoundname>PartMgrBase</compoundname>
+    <includes refid="PartMgrBase_8hpp" local="no">PartMgrBase.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>GainMgr</declname>
+        <defname>GainMgr</defname>
+      </param>
+      <param>
+        <type>typename</type>
+        <declname>ConstrMgr</declname>
+        <defname>ConstrMgr</defname>
+      </param>
+      <param>
+        <type>template&lt; typename _GainMgr, typename _ConstrMgr &gt; class</type>
+        <declname>Derived</declname>
+        <defname>Derived</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classPartMgrBase_1aa1f878e7fec9a808c218440dae76a9ea" prot="public" static="no">
+        <type>typename GainMgr::GainCalc_</type>
+        <definition>using PartMgrBase&lt; GainMgr, ConstrMgr, Derived &gt;::GainCalc_ =  typename GainMgr::GainCalc_</definition>
+        <argsstring></argsstring>
+        <name>GainCalc_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" line="44" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classPartMgrBase_1abe3196da03b048b9cde41cda3c6c3e84" prot="public" static="no">
+        <type>GainMgr</type>
+        <definition>using PartMgrBase&lt; GainMgr, ConstrMgr, Derived &gt;::GainMgr_ =  GainMgr</definition>
+        <argsstring></argsstring>
+        <name>GainMgr_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" line="45" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classPartMgrBase_1afbd1ef33b9bfb5bd67584e63ca80c58d" prot="public" static="no">
+        <type>ConstrMgr</type>
+        <definition>using PartMgrBase&lt; GainMgr, ConstrMgr, Derived &gt;::ConstrMgr_ =  ConstrMgr</definition>
+        <argsstring></argsstring>
+        <name>ConstrMgr_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" line="46" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classPartMgrBase_1a65afc8ad0d924bb849d3b09dbc8d7abc" prot="public" static="no">
+        <type>Derived&lt; GainMgr, ConstrMgr &gt;</type>
+        <definition>using PartMgrBase&lt; GainMgr, ConstrMgr, Derived &gt;::Der =  Derived&lt;GainMgr, ConstrMgr&gt;</definition>
+        <argsstring></argsstring>
+        <name>Der</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" line="48" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classPartMgrBase_1a42b7e587ed54ab8e8e50491b0ebdd264" prot="public" static="no" mutable="no">
+        <type>Der &amp;</type>
+        <definition>Der&amp; PartMgrBase&lt; GainMgr, ConstrMgr, Derived &gt;::self</definition>
+        <argsstring></argsstring>
+        <name>self</name>
+        <initializer>= *static_cast&lt;Der*&gt;(this)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" line="49" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPartMgrBase_1a3d2a862ac1329cd619831161ce73a360" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int PartMgrBase&lt; GainMgr, ConstrMgr, Derived &gt;::totalcost</definition>
+        <argsstring></argsstring>
+        <name>totalcost</name>
+        <initializer>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" line="60" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classPartMgrBase_1a30464b005f9f85be6dcf7d314b5f7cb8" prot="protected" static="no" mutable="no">
+        <type><ref refid="structNetlist" kindref="compound">SimpleNetlist</ref> &amp;</type>
+        <definition>SimpleNetlist&amp; PartMgrBase&lt; GainMgr, ConstrMgr, Derived &gt;::H</definition>
+        <argsstring></argsstring>
+        <name>H</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" line="52" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPartMgrBase_1a5b483eecebf0d1ad98014ac9f3f272cd" prot="protected" static="no" mutable="no">
+        <type>GainMgr &amp;</type>
+        <definition>GainMgr&amp; PartMgrBase&lt; GainMgr, ConstrMgr, Derived &gt;::gainMgr</definition>
+        <argsstring></argsstring>
+        <name>gainMgr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" line="53" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPartMgrBase_1a99f061c734ce5ce6efb9ff9bd6b1adce" prot="protected" static="no" mutable="no">
+        <type>ConstrMgr &amp;</type>
+        <definition>ConstrMgr&amp; PartMgrBase&lt; GainMgr, ConstrMgr, Derived &gt;::validator</definition>
+        <argsstring></argsstring>
+        <name>validator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" line="54" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPartMgrBase_1a5ce4eb9beec196f93f0944bd84243dab" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t PartMgrBase&lt; GainMgr, ConstrMgr, Derived &gt;::K</definition>
+        <argsstring></argsstring>
+        <name>K</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" line="55" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classPartMgrBase_1afa4cd50546d355329f2b1050584ce1a3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>PartMgrBase&lt; GainMgr, ConstrMgr, Derived &gt;::PartMgrBase</definition>
+        <argsstring>(SimpleNetlist &amp;H, GainMgr &amp;gainMgr, ConstrMgr &amp;constrMgr)</argsstring>
+        <name>PartMgrBase</name>
+        <param>
+          <type><ref refid="structNetlist" kindref="compound">SimpleNetlist</ref> &amp;</type>
+          <declname>H</declname>
+        </param>
+        <param>
+          <type>GainMgr &amp;</type>
+          <declname>gainMgr</declname>
+        </param>
+        <param>
+          <type>ConstrMgr &amp;</type>
+          <declname>constrMgr</declname>
+        </param>
+        <briefdescription>
+<para>Construct a new FDPartMgr object. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>H</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>gainMgr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>constrMgr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" line="69" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" bodystart="69" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="classPartMgrBase_1ac9f5656be9fd75f3f9eeca1d5df84a94" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PartMgrBase&lt; GainMgr, ConstrMgr, Derived &gt;::init</definition>
+        <argsstring>(gsl::span&lt; uint8_t &gt; part)</argsstring>
+        <name>init</name>
+        <param>
+          <type>gsl::span&lt; uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" line="82" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classPartMgrBase_1a783bf53500556ed5d63c95b9f7cbab1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t PartMgrBase&lt; GainMgr, ConstrMgr, Derived &gt;::legalize</definition>
+        <argsstring>(gsl::span&lt; uint8_t &gt; part)</argsstring>
+        <name>legalize</name>
+        <param>
+          <type>gsl::span&lt; uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" line="89" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classPartMgrBase_1a097a79b6d21260f33e1a56578e1efe6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PartMgrBase&lt; GainMgr, ConstrMgr, Derived &gt;::optimize</definition>
+        <argsstring>(gsl::span&lt; uint8_t &gt; part)</argsstring>
+        <name>optimize</name>
+        <param>
+          <type>gsl::span&lt; uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" line="96" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classPartMgrBase_1a192b30e0ac08fbf62e552a2530d8c3ab" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PartMgrBase&lt; GainMgr, ConstrMgr, Derived &gt;::__optimize_1pass</definition>
+        <argsstring>(gsl::span&lt; uint8_t &gt; part)</argsstring>
+        <name>__optimize_1pass</name>
+        <param>
+          <type>gsl::span&lt; uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" line="104" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Partition Manager Base. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>GainMgr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConstrMgr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Derived</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Iterative Improvement Partitioning Base Class. In this partitioning method, the next solution $s&apos;$ considered after solution $s$ is dervied by first applying a sequence of $t$ changes (moves) to $s$ (with $t$ dependent from $s$ and from the specific heuristic method), thus obtaining a sequence of solution $s,...,s_t$ and by successively choosing the best among these solutions.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+In order to do that, heuristics refer to a measure of the gain (and balance condition) associated to any sequence of changes performed on the current solution. Moreover, the length of the sequence generated is determined by evaluting a suitably defined $stopping rule$ at each iteration.</para><para>Reference: G. Ausiello et al., Complexity and Approximation: Combinatorial Optimization Problems and Their Approximability Properties, Section 10.3.2. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="254">
+        <label>std::unordered_map&lt; node_t, index_t &gt;</label>
+      </node>
+      <node id="243">
+        <label>ConstrMgr</label>
+      </node>
+      <node id="245">
+        <label>xn::Graph&lt; nodeview_t, nodemap_t &gt;</label>
+        <link refid="classxn_1_1Graph"/>
+        <childnode refid="246" relation="public-inheritance">
+        </childnode>
+        <childnode refid="249" relation="usage">
+          <edgelabel>_node</edgelabel>
+        </childnode>
+        <childnode refid="250" relation="usage">
+          <edgelabel>_node_map</edgelabel>
+        </childnode>
+        <childnode refid="247" relation="usage">
+          <edgelabel>graph</edgelabel>
+        </childnode>
+      </node>
+      <node id="257">
+        <label>GainMgr</label>
+      </node>
+      <node id="255">
+        <label>py::dict&lt; index_t, node_t &gt;</label>
+        <link refid="classpy_1_1dict"/>
+        <childnode refid="256" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="252">
+        <label>std::unordered_set&lt; node_t  &gt;</label>
+      </node>
+      <node id="249">
+        <label>nodeview_t</label>
+      </node>
+      <node id="246">
+        <label>xn::object</label>
+        <link refid="structxn_1_1object"/>
+        <childnode refid="247" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="250">
+        <label>nodemap_t</label>
+      </node>
+      <node id="248">
+        <label>std::unordered_map&lt; const char *, std::any &gt;</label>
+      </node>
+      <node id="251">
+        <label>py::set&lt; node_t &gt;</label>
+        <link refid="classpy_1_1set"/>
+        <childnode refid="252" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="247">
+        <label>py::dict&lt; const char *, std::any &gt;</label>
+        <link refid="classpy_1_1dict"/>
+        <childnode refid="248" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="253">
+        <label>py::dict&lt; node_t, index_t &gt;</label>
+        <link refid="classpy_1_1dict"/>
+        <childnode refid="254" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="244">
+        <label>Netlist&lt; nodeview_t, nodemap_t &gt;</label>
+        <link refid="structNetlist"/>
+        <childnode refid="245" relation="usage">
+          <edgelabel>G</edgelabel>
+        </childnode>
+        <childnode refid="249" relation="usage">
+          <edgelabel>nets</edgelabel>
+          <edgelabel>modules</edgelabel>
+        </childnode>
+        <childnode refid="251" relation="usage">
+          <edgelabel>module_fixed</edgelabel>
+        </childnode>
+        <childnode refid="253" relation="usage">
+          <edgelabel>node_up_map</edgelabel>
+        </childnode>
+        <childnode refid="255" relation="usage">
+          <edgelabel>node_down_map</edgelabel>
+          <edgelabel>cluster_down_map</edgelabel>
+        </childnode>
+        <childnode refid="250" relation="usage">
+          <edgelabel>module_map</edgelabel>
+        </childnode>
+      </node>
+      <node id="242">
+        <label>PartMgrBase&lt; GainMgr, ConstrMgr, Derived &gt;</label>
+        <link refid="classPartMgrBase"/>
+        <childnode refid="243" relation="usage">
+          <edgelabel>validator</edgelabel>
+        </childnode>
+        <childnode refid="244" relation="usage">
+          <edgelabel>H</edgelabel>
+        </childnode>
+        <childnode refid="257" relation="usage">
+          <edgelabel>gainMgr</edgelabel>
+        </childnode>
+      </node>
+      <node id="256">
+        <label>std::unordered_map&lt; index_t , node_t  &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" line="41" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp" bodystart="40" bodyend="105"/>
+    <listofallmembers>
+      <member refid="classPartMgrBase_1a192b30e0ac08fbf62e552a2530d8c3ab" prot="private" virt="non-virtual"><scope>PartMgrBase</scope><name>__optimize_1pass</name></member>
+      <member refid="classPartMgrBase_1afbd1ef33b9bfb5bd67584e63ca80c58d" prot="public" virt="non-virtual"><scope>PartMgrBase</scope><name>ConstrMgr_</name></member>
+      <member refid="classPartMgrBase_1a65afc8ad0d924bb849d3b09dbc8d7abc" prot="public" virt="non-virtual"><scope>PartMgrBase</scope><name>Der</name></member>
+      <member refid="classPartMgrBase_1aa1f878e7fec9a808c218440dae76a9ea" prot="public" virt="non-virtual"><scope>PartMgrBase</scope><name>GainCalc_</name></member>
+      <member refid="classPartMgrBase_1a5b483eecebf0d1ad98014ac9f3f272cd" prot="protected" virt="non-virtual"><scope>PartMgrBase</scope><name>gainMgr</name></member>
+      <member refid="classPartMgrBase_1abe3196da03b048b9cde41cda3c6c3e84" prot="public" virt="non-virtual"><scope>PartMgrBase</scope><name>GainMgr_</name></member>
+      <member refid="classPartMgrBase_1a30464b005f9f85be6dcf7d314b5f7cb8" prot="protected" virt="non-virtual"><scope>PartMgrBase</scope><name>H</name></member>
+      <member refid="classPartMgrBase_1ac9f5656be9fd75f3f9eeca1d5df84a94" prot="public" virt="non-virtual"><scope>PartMgrBase</scope><name>init</name></member>
+      <member refid="classPartMgrBase_1a5ce4eb9beec196f93f0944bd84243dab" prot="protected" virt="non-virtual"><scope>PartMgrBase</scope><name>K</name></member>
+      <member refid="classPartMgrBase_1a783bf53500556ed5d63c95b9f7cbab1f" prot="public" virt="non-virtual"><scope>PartMgrBase</scope><name>legalize</name></member>
+      <member refid="classPartMgrBase_1a097a79b6d21260f33e1a56578e1efe6e" prot="public" virt="non-virtual"><scope>PartMgrBase</scope><name>optimize</name></member>
+      <member refid="classPartMgrBase_1afa4cd50546d355329f2b1050584ce1a3" prot="public" virt="non-virtual"><scope>PartMgrBase</scope><name>PartMgrBase</name></member>
+      <member refid="classPartMgrBase_1a42b7e587ed54ab8e8e50491b0ebdd264" prot="public" virt="non-virtual"><scope>PartMgrBase</scope><name>self</name></member>
+      <member refid="classPartMgrBase_1a3d2a862ac1329cd619831161ce73a360" prot="public" virt="non-virtual"><scope>PartMgrBase</scope><name>totalcost</name></member>
+      <member refid="classPartMgrBase_1a99f061c734ce5ce6efb9ff9bd6b1adce" prot="protected" virt="non-virtual"><scope>PartMgrBase</scope><name>validator</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

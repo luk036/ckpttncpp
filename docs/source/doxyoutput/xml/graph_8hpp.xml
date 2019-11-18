@@ -1,0 +1,488 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="graph_8hpp" kind="file" language="C++">
+    <compoundname>graph.hpp</compoundname>
+    <includes local="no">any</includes>
+    <includes local="no">cassert</includes>
+    <includes refid="py2cpp_8hpp" local="no">py2cpp/py2cpp.hpp</includes>
+    <includes local="no">type_traits</includes>
+    <includes local="no">vector</includes>
+    <includes refid="coreviews_8hpp" local="no">xnetwork/classes/coreviews.hpp</includes>
+    <includes refid="reportviews_8hpp" local="no">xnetwork/classes/reportviews.hpp</includes>
+    <includedby refid="netlist_8hpp" local="no">/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/netlist.hpp</includedby>
+    <incdepgraph>
+      <node id="383">
+        <label>xnetwork/classes/coreviews.hpp</label>
+        <link refid="coreviews_8hpp_source"/>
+      </node>
+      <node id="384">
+        <label>xnetwork/classes/reportviews.hpp</label>
+        <link refid="reportviews_8hpp_source"/>
+        <childnode refid="376" relation="include">
+        </childnode>
+      </node>
+      <node id="374">
+        <label>cassert</label>
+      </node>
+      <node id="380">
+        <label>unordered_set</label>
+      </node>
+      <node id="373">
+        <label>any</label>
+      </node>
+      <node id="377">
+        <label>tuple</label>
+      </node>
+      <node id="372">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/graph.hpp</label>
+        <link refid="graph_8hpp"/>
+        <childnode refid="373" relation="include">
+        </childnode>
+        <childnode refid="374" relation="include">
+        </childnode>
+        <childnode refid="375" relation="include">
+        </childnode>
+        <childnode refid="378" relation="include">
+        </childnode>
+        <childnode refid="382" relation="include">
+        </childnode>
+        <childnode refid="383" relation="include">
+        </childnode>
+        <childnode refid="384" relation="include">
+        </childnode>
+      </node>
+      <node id="382">
+        <label>vector</label>
+      </node>
+      <node id="381">
+        <label>utility</label>
+      </node>
+      <node id="379">
+        <label>unordered_map</label>
+      </node>
+      <node id="378">
+        <label>type_traits</label>
+      </node>
+      <node id="375">
+        <label>py2cpp/py2cpp.hpp</label>
+        <link refid="py2cpp_8hpp_source"/>
+        <childnode refid="376" relation="include">
+        </childnode>
+        <childnode refid="377" relation="include">
+        </childnode>
+        <childnode refid="378" relation="include">
+        </childnode>
+        <childnode refid="379" relation="include">
+        </childnode>
+        <childnode refid="380" relation="include">
+        </childnode>
+        <childnode refid="381" relation="include">
+        </childnode>
+      </node>
+      <node id="376">
+        <label>initializer_list</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="390">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp</label>
+        <link refid="FMBiGainCalc_8hpp_source"/>
+        <childnode refid="391" relation="include">
+        </childnode>
+      </node>
+      <node id="397">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/MLPartMgr.hpp</label>
+        <link refid="MLPartMgr_8hpp_source"/>
+      </node>
+      <node id="389">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayConstrMgr.hpp</label>
+        <link refid="FMKWayConstrMgr_8hpp_source"/>
+      </node>
+      <node id="388">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiConstrMgr.hpp</label>
+        <link refid="FMBiConstrMgr_8hpp_source"/>
+      </node>
+      <node id="386">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/netlist.hpp</label>
+        <link refid="netlist_8hpp_source"/>
+        <childnode refid="387" relation="include">
+        </childnode>
+        <childnode refid="390" relation="include">
+        </childnode>
+        <childnode refid="392" relation="include">
+        </childnode>
+        <childnode refid="394" relation="include">
+        </childnode>
+        <childnode refid="395" relation="include">
+        </childnode>
+        <childnode refid="397" relation="include">
+        </childnode>
+      </node>
+      <node id="396">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMPartMgr.hpp</label>
+        <link refid="FMPartMgr_8hpp_source"/>
+        <childnode refid="397" relation="include">
+        </childnode>
+      </node>
+      <node id="391">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp</label>
+        <link refid="FMBiGainMgr_8hpp_source"/>
+      </node>
+      <node id="385">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/graph.hpp</label>
+        <link refid="graph_8hpp"/>
+        <childnode refid="386" relation="include">
+        </childnode>
+      </node>
+      <node id="392">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp</label>
+        <link refid="FMGainMgr_8hpp_source"/>
+        <childnode refid="391" relation="include">
+        </childnode>
+        <childnode refid="393" relation="include">
+        </childnode>
+      </node>
+      <node id="394">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp</label>
+        <link refid="FMKWayGainCalc_8hpp_source"/>
+        <childnode refid="393" relation="include">
+        </childnode>
+      </node>
+      <node id="387">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMConstrMgr.hpp</label>
+        <link refid="FMConstrMgr_8hpp_source"/>
+        <childnode refid="388" relation="include">
+        </childnode>
+        <childnode refid="389" relation="include">
+        </childnode>
+      </node>
+      <node id="395">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/PartMgrBase.hpp</label>
+        <link refid="PartMgrBase_8hpp_source"/>
+        <childnode refid="396" relation="include">
+        </childnode>
+      </node>
+      <node id="393">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp</label>
+        <link refid="FMKWayGainMgr_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structxn_1_1object" prot="public">xn::object</innerclass>
+    <innerclass refid="classxn_1_1Graph" prot="public">xn::Graph</innerclass>
+    <innernamespace refid="namespacexn">xn</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>_HOME_UBUNTU_GITHUB_XNETWORK_CLASS_GRAPH_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>_HOME_UBUNTU_GITHUB_XNETWORK_CLASS_GRAPH_HPP<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#include<sp/>&lt;boost/any.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;any&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cassert&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;py2cpp/py2cpp.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;type_traits&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xnetwork/classes/coreviews.hpp&gt;</highlight><highlight class="normal"><sp/></highlight><highlight class="comment">//<sp/>import<sp/>AtlasView,<sp/>AdjacencyView</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xnetwork/classes/reportviews.hpp&gt;</highlight><highlight class="normal"><sp/></highlight><highlight class="comment">//<sp/>import<sp/>NodeView,<sp/>EdgeView,<sp/>DegreeView</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacexn" kindref="compound">xn</ref></highlight></codeline>
+<codeline lineno="14"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198" refid="structxn_1_1object" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structxn_1_1object" kindref="compound">object</ref><sp/>:<sp/><ref refid="classpy_1_1dict" kindref="compound">py::dict</ref>&lt;const<sp/>char*,<sp/>std::any&gt;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>nodeview_t,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>nodemap_t,</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>adjlist_inner_dict_factory<sp/>=</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classpy_1_1set" kindref="compound">py::set&lt;typename nodeview_t::value_type&gt;</ref>&gt;</highlight></codeline>
+<codeline lineno="205" refid="classxn_1_1Graph" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classxn_1_1Graph" kindref="compound">Graph</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="structxn_1_1object" kindref="compound">object</ref></highlight></codeline>
+<codeline lineno="206"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>Node<sp/>=<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>nodeview_t::value_type;<sp/></highlight><highlight class="comment">//<sp/>luk</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="classpy_1_1dict" kindref="compound">dict</ref><sp/>=<sp/><ref refid="classpy_1_1dict" kindref="compound">py::dict&lt;const char*, std::any&gt;</ref>;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="classpy_1_1dict" kindref="compound">graph_attr_dict_factory</ref><sp/>=<sp/><ref refid="classpy_1_1dict_1aa7fa8bf2e9f18a3f16642566c4c595f2" kindref="member">dict</ref>;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>using<sp/>edge_attr_dict_factory<sp/>=<sp/>dict;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>using<sp/>node_attr_dict_factory<sp/>=<sp/>dict;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>using<sp/>node_dict_factory<sp/>=<sp/>py::dict&lt;Node,<sp/>node_attr_dict_factory&gt;;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>using<sp/>adjlist_inner_dict_factory<sp/>=<sp/>py::dict&lt;Node,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>edge_attr_dict_factory&gt;;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>using<sp/>adjlist_inner_dict_factory<sp/>=<sp/>py::set&lt;Node&gt;;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>adjlist_outer_dict_factory<sp/>=<sp/>std::vector&lt;adjlist_inner_dict_factory&gt;;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>key_type<sp/>=<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>adjlist_inner_dict_factory::key_type;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>value_type<sp/>=<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>adjlist_inner_dict_factory::value_type;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>std::vector&lt;Node<sp/>&gt;<sp/>_Nodes{};</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/>nodeview_t<sp/>_node;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/>nodemap_t<sp/>_node_map;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classpy_1_1dict" kindref="compound">graph_attr_dict_factory</ref><sp/>graph<sp/>{};<sp/></highlight><highlight class="comment">//<sp/>dictionary<sp/>for<sp/>graph<sp/>attributes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>node_dict_factory<sp/>_node{};<sp/><sp/>//<sp/>empty<sp/>node<sp/>attribute<sp/>dict</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/>adjlist_outer_dict_factory<sp/>_adj;<sp/></highlight><highlight class="comment">//<sp/>empty<sp/>adjacency<sp/>dict</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>auto<sp/>__getstate__(<sp/>)<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>attr<sp/>=<sp/>this-&gt;__dict__.copy();</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>//<sp/>remove<sp/>lazy<sp/>property<sp/>attributes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>if<sp/>(&quot;nodes&quot;<sp/>:<sp/>attr)<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>del<sp/>attr[&quot;nodes&quot;];</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>if<sp/>(&quot;edges&quot;<sp/>:<sp/>attr)<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>del<sp/>attr[&quot;edges&quot;];</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>if<sp/>(&quot;degree&quot;<sp/>:<sp/>attr)<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>del<sp/>attr[&quot;degree&quot;];</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>return<sp/>attr;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258" refid="classxn_1_1Graph_1aa5b3ea16ddf84a48199223496905f922" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classxn_1_1Graph_1aa5b3ea16ddf84a48199223496905f922" kindref="member">Graph</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>nodeview_t&amp;<sp/>Nodes,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>nodemap_t&amp;<sp/>node_map)</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>_node<sp/>{Nodes}</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>_node_map<sp/>{node_map}</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>_adj(Nodes.size())</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="classxn_1_1Graph" kindref="compound">Graph</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num_nodes)</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>_node<sp/>{py::range&lt;int&gt;(num_nodes)}</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>_node_map<sp/>{py::range&lt;int&gt;(num_nodes)}</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>_adj(num_nodes)</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"></codeline>
+<codeline lineno="288" refid="classxn_1_1Graph_1ab6bf1081dc0fbd769e41b3797763c18c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classxn_1_1Graph_1ab6bf1081dc0fbd769e41b3797763c18c" kindref="member">adj</ref>()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="289"><highlight class="keyword"><sp/><sp/><sp/><sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classAdjacencyView" kindref="compound">AdjacencyView</ref>(this-&gt;_adj);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294" refid="classxn_1_1Graph_1ae1d12cc44bbd983e5a92d50be43957d9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classxn_1_1Graph_1ae1d12cc44bbd983e5a92d50be43957d9" kindref="member">get_name</ref>()</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!this-&gt;graph.contains(</highlight><highlight class="stringliteral">&quot;name&quot;</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::any_cast&lt;</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*&gt;(this-&gt;graph[</highlight><highlight class="stringliteral">&quot;name&quot;</highlight><highlight class="normal">]);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>@name.setter</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>set_name(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>s)</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;graph[</highlight><highlight class="stringliteral">&quot;name&quot;</highlight><highlight class="normal">]<sp/>=<sp/>std::any(s);</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328" refid="classxn_1_1Graph_1a0eb06caefea5f60a5156e15662123d2f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classxn_1_1Graph_1a0eb06caefea5f60a5156e15662123d2f" kindref="member">begin</ref>()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="329"><highlight class="keyword"><sp/><sp/><sp/><sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::begin(this-&gt;_node);</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>end()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="334"><highlight class="keyword"><sp/><sp/><sp/><sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::end(this-&gt;_node);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="346" refid="classxn_1_1Graph_1a17854eecf334b3eea2bf7145d6905dd1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classxn_1_1Graph_1a17854eecf334b3eea2bf7145d6905dd1" kindref="member">contains</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Node&amp;<sp/>n)</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;_node.contains(n);</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight></codeline>
+<codeline lineno="374" refid="classxn_1_1Graph_1aa52862be660affb17c76e914a7e6ce27" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classxn_1_1Graph_1aa52862be660affb17c76e914a7e6ce27" kindref="member">operator[]</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Node&amp;<sp/>n)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="375"><highlight class="keyword"><sp/><sp/><sp/><sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;adj()[this-&gt;_node_map[n]];</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight></codeline>
+<codeline lineno="380" refid="classxn_1_1Graph_1abd3e6148e487a43786baab2448f975f1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classxn_1_1Graph_1abd3e6148e487a43786baab2448f975f1" kindref="member">nodes</ref>()</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>nodes<sp/>=<sp/><ref refid="classxn_1_1NodeView" kindref="compound">NodeView</ref>(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Lazy<sp/>View<sp/>creation:<sp/>overload<sp/>the<sp/>(class)<sp/>property<sp/>on<sp/>the<sp/>instance</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Then<sp/>future<sp/>G.nodes<sp/>use<sp/>the<sp/>existing<sp/>View</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>setattr<sp/>doesn&quot;t<sp/>work<sp/>because<sp/>attribute<sp/>already<sp/>exists</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;operator[](</highlight><highlight class="stringliteral">&quot;nodes&quot;</highlight><highlight class="normal">)<sp/>=<sp/>std::any(nodes);</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>nodes;</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"></highlight></codeline>
+<codeline lineno="475" refid="classxn_1_1Graph_1a59ff465d2c4744027fb12939ae162dcb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classxn_1_1Graph_1a59ff465d2c4744027fb12939ae162dcb" kindref="member">number_of_nodes</ref>()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="476"><highlight class="keyword"><sp/><sp/><sp/><sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;_node.size();</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"></highlight></codeline>
+<codeline lineno="491" refid="classxn_1_1Graph_1a5b450fc774873eb6525c9b981bfb12ff" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classxn_1_1Graph_1a5b450fc774873eb6525c9b981bfb12ff" kindref="member">order</ref>()</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;_node.size();</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"></highlight></codeline>
+<codeline lineno="510" refid="classxn_1_1Graph_1a08033908fd67a682754ae02933ba6403" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classxn_1_1Graph_1a08033908fd67a682754ae02933ba6403" kindref="member">has_node</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Node&amp;<sp/>n)</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;_node.contains(n);</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"></highlight></codeline>
+<codeline lineno="515" refid="classxn_1_1Graph_1a3b5c7079f01f9473cb81ce8ebd3d1e05" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classxn_1_1Graph_1a3b5c7079f01f9473cb81ce8ebd3d1e05" kindref="member">add_edge</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Node&amp;<sp/>u,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Node&amp;<sp/>v)</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>auto<sp/>[u,<sp/>v]<sp/>=<sp/>u_of_edge,<sp/>v_of_edge;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>add<sp/>nodes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>assert(this-&gt;_node.contains(u));</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>assert(this-&gt;_node.contains(v));</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>add<sp/>the<sp/>edge</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>datadict<sp/>=<sp/>this-&gt;_adj[u].get(v,<sp/>this-&gt;edge_attr_dict_factory());</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>datadict.update(attr);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>constexpr<sp/>(std::is_same_v&lt;key_type,<sp/>value_type&gt;)</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>set</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;_adj[this-&gt;_node_map[u]].insert(v);</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;_adj[this-&gt;_node_map[v]].insert(u);</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>T<sp/>=<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>adjlist_inner_dict_factory::mapped_type;</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>data<sp/>=<sp/>this-&gt;_adj[this-&gt;_node_map[u]].get(v,<sp/>T<sp/>{});</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;_adj[this-&gt;_node_map[u]][v]<sp/>=<sp/>data;</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;_adj[this-&gt;_node_map[v]][u]<sp/>=<sp/>data;<sp/></highlight><highlight class="comment">//<sp/>???</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"></highlight></codeline>
+<codeline lineno="583" refid="classxn_1_1Graph_1a87954129903fcccd1ae6a02a7917160b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classxn_1_1Graph_1a87954129903fcccd1ae6a02a7917160b" kindref="member">has_edge</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Node&amp;<sp/>u,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Node&amp;<sp/>v)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;_adj[this-&gt;_node_map[u]].contains(v);</highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"></highlight></codeline>
+<codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>degree(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Node&amp;<sp/>n)</highlight></codeline>
+<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;_adj[this-&gt;_node_map[n]].size();</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="627"><highlight class="normal"></highlight></codeline>
+<codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>///<sp/>@property</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>auto<sp/>edges(<sp/>)<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="630"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>/**<sp/>An<sp/>EdgeView<sp/>of<sp/>the<sp/>Graph<sp/>as<sp/>G.edges<sp/>||<sp/>G.edges().</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="631"><highlight class="normal"></highlight></codeline>
+<codeline lineno="632"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>edges(<sp/>nbunch=None,<sp/>data=false,<sp/>default=None);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="633"><highlight class="normal"></highlight></codeline>
+<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>The<sp/>EdgeView<sp/>provides<sp/>set-like<sp/>operations<sp/>on<sp/>the<sp/>edge-tuples</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>as<sp/>well<sp/>as<sp/>edge<sp/>attribute<sp/>lookup.<sp/>When<sp/>called,<sp/>it<sp/>also<sp/>provides</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>an<sp/>EdgeDataView<sp/>object<sp/>which<sp/>allows<sp/>control<sp/>of<sp/>access<sp/>to<sp/>edge</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>attributes<sp/>(but<sp/>does<sp/>not<sp/>provide<sp/>set-like<sp/>operations).</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>Hence,<sp/>`G.edges[u,<sp/>v][&quot;color&quot;]`<sp/>provides<sp/>the<sp/>value<sp/>of<sp/>the<sp/>color</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>attribute<sp/>for<sp/>edge<sp/>`(u,<sp/>v)`<sp/>while</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="640"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>`for<sp/>(auto<sp/>u,<sp/>v,<sp/>c]<sp/>:<sp/>G.edges.data(&quot;color&quot;,<sp/>default=&quot;red&quot;)<sp/>{`</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="641"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>iterates<sp/>through<sp/>all<sp/>the<sp/>edges<sp/>yielding<sp/>the<sp/>color<sp/>attribute</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>with<sp/>default<sp/>`&quot;red&quot;`<sp/>if<sp/>(no<sp/>color<sp/>attribute<sp/>exists.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="643"><highlight class="normal"></highlight></codeline>
+<codeline lineno="644"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>Parameters</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="645"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>----------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="646"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>nbunch<sp/>:<sp/>single<sp/>node,<sp/>container,<sp/>||<sp/>all<sp/>nodes<sp/>(default=<sp/>all<sp/>nodes);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="647"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>The<sp/>view<sp/>will<sp/>only<sp/>report<sp/>edges<sp/>incident<sp/>to<sp/>these<sp/>nodes.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>data<sp/>:<sp/>string<sp/>||<sp/>bool,<sp/>optional<sp/>(default=false);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="649"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>The<sp/>edge<sp/>attribute<sp/>returned<sp/>:<sp/>3-tuple<sp/>(u,<sp/>v,<sp/>ddict[data]).</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>If<sp/>true,<sp/>return<sp/>edge<sp/>attribute<sp/>dict<sp/>:<sp/>3-tuple<sp/>(u,<sp/>v,<sp/>ddict).</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="651"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>If<sp/>false,<sp/>return<sp/>2-tuple<sp/>(u,<sp/>v).</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>default<sp/>:<sp/>value,<sp/>optional<sp/>(default=None);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>used<sp/>for<sp/>edges<sp/>that<sp/>don&quot;t<sp/>have<sp/>the<sp/>requested<sp/>attribute.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Only<sp/>relevant<sp/>if<sp/>(data<sp/>is<sp/>not<sp/>true<sp/>||<sp/>false.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="655"><highlight class="normal"></highlight></codeline>
+<codeline lineno="656"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>Returns</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>-------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="658"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>edges<sp/>:<sp/>EdgeView</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="659"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>A<sp/>view<sp/>of<sp/>edge<sp/>attributes,<sp/>usually<sp/>it<sp/>iterates<sp/>over<sp/>(u,<sp/>v);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="660"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||<sp/>(u,<sp/>v,<sp/>d)<sp/>tuples<sp/>of<sp/>edges,<sp/>but<sp/>can<sp/>also<sp/>be<sp/>used<sp/>for</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="661"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>attribute<sp/>lookup<sp/>as<sp/>`edges[u,<sp/>v][&quot;foo&quot;]`.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="662"><highlight class="normal"></highlight></codeline>
+<codeline lineno="663"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>Notes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="664"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>-----</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="665"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>Nodes<sp/>:<sp/>nbunch<sp/>that<sp/>are<sp/>not<sp/>:<sp/>the<sp/>graph<sp/>will<sp/>be<sp/>(quietly)<sp/>ignored.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>For<sp/>directed<sp/>graphs<sp/>this<sp/>returns<sp/>the<sp/>out-edges.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="667"><highlight class="normal"></highlight></codeline>
+<codeline lineno="668"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>Examples</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>--------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="670"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>&gt;&gt;&gt;<sp/>G<sp/>=<sp/>xn::path_graph(3)<sp/><sp/><sp/>//<sp/>or<sp/>MultiGraph,<sp/>etc</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="671"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>&gt;&gt;&gt;<sp/>G.add_edge(2,<sp/>3,<sp/>weight=5);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="672"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>&gt;&gt;&gt;<sp/>[e<sp/>for<sp/>e<sp/>:<sp/>G.edges];</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="673"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>[(0,<sp/>1),<sp/>(1,<sp/>2),<sp/>(2,<sp/>3)];</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>&gt;&gt;&gt;<sp/>G.edges.data();<sp/><sp/>//<sp/>default<sp/>data<sp/>is<sp/>{}<sp/>(empty<sp/>dict);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="675"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>EdgeDataView([(0,<sp/>1,<sp/>{}),<sp/>(1,<sp/>2,<sp/>{}),<sp/>(2,<sp/>3,<sp/>{&quot;weight&quot;:<sp/>5})]);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="676"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>&gt;&gt;&gt;<sp/>G.edges.data(&quot;weight&quot;,<sp/>default=1);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="677"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>EdgeDataView([(0,<sp/>1,<sp/>1),<sp/>(1,<sp/>2,<sp/>1),<sp/>(2,<sp/>3,<sp/>5)]);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="678"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>&gt;&gt;&gt;<sp/>G.edges([0,<sp/>3]);<sp/><sp/>//<sp/>only<sp/>edges<sp/>incident<sp/>to<sp/>these<sp/>nodes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="679"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>EdgeDataView([(0,<sp/>1),<sp/>(3,<sp/>2)]);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="680"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>&gt;&gt;&gt;<sp/>G.edges(0);<sp/><sp/>//<sp/>only<sp/>edges<sp/>incident<sp/>to<sp/>a<sp/>single<sp/>node<sp/>(use</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>G.adj[0]?);<sp/>EdgeDataView([(0,<sp/>1)]);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="682"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="683"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>auto<sp/>edges<sp/>=<sp/>EdgeView(*this);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="684"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>this-&gt;operator[](&quot;edges&quot;)<sp/>=<sp/>std::any(edges);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="685"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>return<sp/>edges;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="686"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="687"><highlight class="normal"></highlight></codeline>
+<codeline lineno="688"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>///<sp/>@property</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="689"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>auto<sp/>degree(<sp/>)<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="690"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>/**<sp/>A<sp/>DegreeView<sp/>for<sp/>the<sp/>Graph<sp/>as<sp/>G.degree<sp/>||<sp/>G.degree().</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="691"><highlight class="normal"></highlight></codeline>
+<codeline lineno="692"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>The<sp/>node<sp/>degree<sp/>is<sp/>the<sp/>number<sp/>of<sp/>edges<sp/>adjacent<sp/>to<sp/>the<sp/>node.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="693"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>The<sp/>weighted<sp/>node<sp/>degree<sp/>is<sp/>the<sp/>sum<sp/>of<sp/>the<sp/>edge<sp/>weights<sp/>for</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="694"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>edges<sp/>incident<sp/>to<sp/>that<sp/>node.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="695"><highlight class="normal"></highlight></codeline>
+<codeline lineno="696"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>This<sp/>object<sp/>provides<sp/>an<sp/>iterator<sp/>for<sp/>(auto<sp/>node,<sp/>degree)<sp/>as<sp/>well<sp/>as</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="697"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>lookup<sp/>for<sp/>the<sp/>degree<sp/>for<sp/>a<sp/>single<sp/>node.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="698"><highlight class="normal"></highlight></codeline>
+<codeline lineno="699"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>Parameters</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="700"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>----------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="701"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>nbunch<sp/>:<sp/>single<sp/>node,<sp/>container,<sp/>||<sp/>all<sp/>nodes<sp/>(default=<sp/>all<sp/>nodes);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="702"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>The<sp/>view<sp/>will<sp/>only<sp/>report<sp/>edges<sp/>incident<sp/>to<sp/>these<sp/>nodes.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="703"><highlight class="normal"></highlight></codeline>
+<codeline lineno="704"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>weight<sp/>:<sp/>string<sp/>||<sp/>None,<sp/>optional<sp/>(default=None);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="705"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>The<sp/>name<sp/>of<sp/>an<sp/>edge<sp/>attribute<sp/>that<sp/>holds<sp/>the<sp/>numerical<sp/>value<sp/>used</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="706"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>as<sp/>a<sp/>weight.<sp/><sp/>If<sp/>None,<sp/>then<sp/>each<sp/>edge<sp/>has<sp/>weight<sp/>1.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="707"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>The<sp/>degree<sp/>is<sp/>the<sp/>sum<sp/>of<sp/>the<sp/>edge<sp/>weights<sp/>adjacent<sp/>to<sp/>the<sp/>node.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="708"><highlight class="normal"></highlight></codeline>
+<codeline lineno="709"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>Returns</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="710"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>-------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="711"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>If<sp/>a<sp/>single<sp/>node<sp/>is<sp/>requested</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="712"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>deg<sp/>:<sp/>int</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="713"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Degree<sp/>of<sp/>the<sp/>node</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="714"><highlight class="normal"></highlight></codeline>
+<codeline lineno="715"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>OR<sp/>if<sp/>(multiple<sp/>nodes<sp/>are<sp/>requested</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="716"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>nd_view<sp/>:<sp/>A<sp/>DegreeView<sp/>object<sp/>capable<sp/>of<sp/>iterating<sp/>(node,<sp/>degree)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="717"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>pairs</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="718"><highlight class="normal"></highlight></codeline>
+<codeline lineno="719"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>Examples</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="720"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>--------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="721"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>&gt;&gt;&gt;<sp/>G<sp/>=<sp/>xn::path_graph(4);<sp/><sp/>//<sp/>or<sp/>DiGraph,<sp/>MultiGraph,<sp/>MultiDiGraph,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="722"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>etc</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="723"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>&gt;&gt;&gt;<sp/>G.degree[0];<sp/><sp/>//<sp/>node<sp/>0<sp/>has<sp/>degree<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="724"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="725"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>&gt;&gt;&gt;<sp/>list(G.degree([0,<sp/>1,<sp/>2]));</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="726"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>[(0,<sp/>1),<sp/>(1,<sp/>2),<sp/>(2,<sp/>2)];</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="727"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="728"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>auto<sp/>degree<sp/>=<sp/>DegreeView(*this);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="729"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>this-&gt;operator[](&quot;degree&quot;)<sp/>=<sp/>std::any(degree);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="730"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>return<sp/>degree;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="731"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="732"><highlight class="normal"></highlight></codeline>
+<codeline lineno="733" refid="classxn_1_1Graph_1af611a2a696038170668ac86ff90166f4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classxn_1_1Graph_1af611a2a696038170668ac86ff90166f4" kindref="member">clear</ref>()</highlight></codeline>
+<codeline lineno="734"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="749"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;_adj.clear();</highlight></codeline>
+<codeline lineno="750"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>this-&gt;_node.clear();</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="751"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;graph.clear();</highlight></codeline>
+<codeline lineno="752"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="753"><highlight class="normal"></highlight></codeline>
+<codeline lineno="754" refid="classxn_1_1Graph_1ae7b94da77f99a3c86b78f02232d9e2ed" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classxn_1_1Graph_1ae7b94da77f99a3c86b78f02232d9e2ed" kindref="member">is_multigraph</ref>()</highlight></codeline>
+<codeline lineno="755"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="757"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="758"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="759"><highlight class="normal"></highlight></codeline>
+<codeline lineno="760" refid="classxn_1_1Graph_1ac0a2ebc716d2578c2b28d0e1e725e234" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classxn_1_1Graph_1ac0a2ebc716d2578c2b28d0e1e725e234" kindref="member">is_directed</ref>()</highlight></codeline>
+<codeline lineno="761"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="763"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="764"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="765"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="766"><highlight class="normal"></highlight></codeline>
+<codeline lineno="767"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="classxn_1_1Graph" kindref="compound">SimpleGraph</ref><sp/>=<sp/><ref refid="classxn_1_1Graph" kindref="compound">Graph&lt;decltype(py::range&lt;int&gt;</ref>(1)),</highlight></codeline>
+<codeline lineno="768"><highlight class="normal"><sp/><sp/><sp/><sp/>decltype(py::range&lt;int&gt;(1)),<sp/><ref refid="classpy_1_1set" kindref="compound">py::set&lt;int&gt;</ref>&gt;;</highlight></codeline>
+<codeline lineno="769"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Clang<sp/>8.0<sp/>does<sp/>not<sp/>support<sp/>the<sp/>following<sp/>deduction<sp/>rule.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="770"><highlight class="normal"></highlight><highlight class="comment">//<sp/>template<sp/>&lt;typename<sp/>nodeview_t,<sp/>typename<sp/>nodemap_t,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="771"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>typename<sp/>adjlist_inner_dict_factory&gt;<sp/>Graph(int<sp/>)-&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="772"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Graph&lt;decltype(py::range&lt;int&gt;(1)),<sp/>decltype(py::range&lt;int&gt;(1)),</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="773"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>py::set&lt;int&gt;&gt;;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="774"><highlight class="normal"></highlight></codeline>
+<codeline lineno="775"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>xn</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="776"><highlight class="normal"></highlight></codeline>
+<codeline lineno="777"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/graph.hpp"/>
+  </compounddef>
+</doxygen>

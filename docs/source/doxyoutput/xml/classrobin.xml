@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="classrobin" kind="class" language="C++" prot="public">
+    <compoundname>robin</compoundname>
+    <innerclass refid="structrobin_1_1iterable__wrapper" prot="private">robin::iterable_wrapper</innerclass>
+    <innerclass refid="structrobin_1_1iterator" prot="private">robin::iterator</innerclass>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>T</declname>
+        <defname>T</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classrobin_1abc6c7f7cf6e96584e08b94db00e6c750" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="structdllink" kindref="compound">dllink</ref>&lt; T &gt; &gt;</type>
+        <definition>std::vector&lt;dllink&lt;T&gt; &gt; robin&lt; T &gt;::cycle</definition>
+        <argsstring></argsstring>
+        <name>cycle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" line="10" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrobin_1aac48af280cf64bbf8b3ca6fe77a170e0" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>robin&lt; T &gt;::robin</definition>
+        <argsstring>(T K)</argsstring>
+        <name>robin</name>
+        <param>
+          <type>T</type>
+          <declname>K</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" line="50" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" bodystart="50" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classrobin_1a611dc76ad105db9eb9d388916f080ac6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto robin&lt; T &gt;::exclude</definition>
+        <argsstring>(T fromPart)</argsstring>
+        <name>exclude</name>
+        <param>
+          <type>T</type>
+          <declname>fromPart</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" line="63" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" bodystart="63" bodyend="66"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" line="8" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" bodystart="7" bodyend="67"/>
+    <listofallmembers>
+      <member refid="classrobin_1abc6c7f7cf6e96584e08b94db00e6c750" prot="private" virt="non-virtual"><scope>robin</scope><name>cycle</name></member>
+      <member refid="classrobin_1a611dc76ad105db9eb9d388916f080ac6" prot="public" virt="non-virtual"><scope>robin</scope><name>exclude</name></member>
+      <member refid="classrobin_1aac48af280cf64bbf8b3ca6fe77a170e0" prot="public" virt="non-virtual"><scope>robin</scope><name>robin</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

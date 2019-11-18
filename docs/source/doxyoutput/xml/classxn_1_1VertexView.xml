@@ -1,0 +1,216 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="classxn_1_1VertexView" kind="class" language="C++" prot="public">
+    <compoundname>xn::VertexView</compoundname>
+    <basecompoundref refid="classxn_1_1Graph" prot="public" virt="non-virtual">xn::Graph&lt; nodeview_t, nodemap_t, adjlist_inner_dict_factory &gt;</basecompoundref>
+    <derivedcompoundref refid="classxn_1_1grAdaptor" prot="public" virt="non-virtual">xn::grAdaptor&lt; Graph &gt;</derivedcompoundref>
+    <includes refid="nx2bgl_8hpp" local="no">nx2bgl.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename <ref refid="classxn_1_1Graph" kindref="compound">Graph</ref></type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classxn_1_1VertexView_1a682d0abebcd335e3c07ceb9b62f97513" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>xn::VertexView&lt; Graph &gt;::VertexView</definition>
+        <argsstring>(Graph &amp;G)</argsstring>
+        <name>VertexView</name>
+        <param>
+          <type><ref refid="classxn_1_1Graph" kindref="compound">Graph</ref> &amp;</type>
+          <declname>G</declname>
+        </param>
+        <briefdescription>
+<para>Construct a new Vertex View object. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>G</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/nx2bgl.hpp" line="26" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/nx2bgl.hpp" bodystart="26" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classxn_1_1VertexView_1a3832475390d69257f7fab89afcf128eb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto xn::VertexView&lt; Graph &gt;::begin</definition>
+        <argsstring>()</argsstring>
+        <name>begin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>auto </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/nx2bgl.hpp" line="36" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/nx2bgl.hpp" bodystart="36" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classxn_1_1VertexView_1ad1d40c7e0554d9056439c04cc27d8488" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto xn::VertexView&lt; Graph &gt;::end</definition>
+        <argsstring>()</argsstring>
+        <name>end</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>auto </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/nx2bgl.hpp" line="47" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/nx2bgl.hpp" bodystart="47" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classxn_1_1VertexView_1a4ea8b90884dee4f9e5d8ee917e3173c0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto xn::VertexView&lt; Graph &gt;::cbegin</definition>
+        <argsstring>() const</argsstring>
+        <name>cbegin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>auto </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/nx2bgl.hpp" line="58" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/nx2bgl.hpp" bodystart="58" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classxn_1_1VertexView_1a3e45a9ea984f28e49398c1074d815e98" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto xn::VertexView&lt; Graph &gt;::cend</definition>
+        <argsstring>() const</argsstring>
+        <name>cend</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>auto </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/nx2bgl.hpp" line="69" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/nx2bgl.hpp" bodystart="69" bodyend="73"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="classxn_1_1Graph" kindref="compound">Graph</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="272">
+        <label>xn::VertexView&lt; Graph &gt;</label>
+        <link refid="classxn_1_1VertexView"/>
+        <childnode refid="273" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="273">
+        <label>xn::Graph&lt; nodeview_t, nodemap_t, adjlist_inner_dict_factory &gt;</label>
+        <link refid="classxn_1_1Graph"/>
+        <childnode refid="274" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="274">
+        <label>xn::object</label>
+        <link refid="structxn_1_1object"/>
+        <childnode refid="275" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="276">
+        <label>std::unordered_map&lt; const char *, std::any &gt;</label>
+      </node>
+      <node id="275">
+        <label>py::dict&lt; const char *, std::any &gt;</label>
+        <link refid="classpy_1_1dict"/>
+        <childnode refid="276" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="277">
+        <label>xn::grAdaptor&lt; Graph &gt;</label>
+        <link refid="classxn_1_1grAdaptor"/>
+        <childnode refid="272" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="278">
+        <label>xn::VertexView&lt; Graph &gt;</label>
+        <link refid="classxn_1_1VertexView"/>
+        <childnode refid="279" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="279">
+        <label>xn::Graph&lt; nodeview_t, nodemap_t, adjlist_inner_dict_factory &gt;</label>
+        <link refid="classxn_1_1Graph"/>
+        <childnode refid="280" relation="public-inheritance">
+        </childnode>
+        <childnode refid="281" relation="usage">
+          <edgelabel>graph</edgelabel>
+        </childnode>
+      </node>
+      <node id="280">
+        <label>xn::object</label>
+        <link refid="structxn_1_1object"/>
+        <childnode refid="281" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="282">
+        <label>std::unordered_map&lt; const char *, std::any &gt;</label>
+      </node>
+      <node id="281">
+        <label>py::dict&lt; const char *, std::any &gt;</label>
+        <link refid="classpy_1_1dict"/>
+        <childnode refid="282" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/nx2bgl.hpp" line="19" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/nx2bgl.hpp" bodystart="18" bodyend="74"/>
+    <listofallmembers>
+      <member refid="classxn_1_1Graph_1a8c39c525beac71f75c173df176dbb3ee" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>_adj</name></member>
+      <member refid="classxn_1_1Graph_1acb3b3e3aeb40bf00f4c240890cac4a73" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>_node</name></member>
+      <member refid="classxn_1_1Graph_1ae27a103f03bf493af286ac3dec83765c" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>_node_map</name></member>
+      <member refid="classxn_1_1Graph_1a3b5c7079f01f9473cb81ce8ebd3d1e05" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>add_edge</name></member>
+      <member refid="classxn_1_1Graph_1ab6bf1081dc0fbd769e41b3797763c18c" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>adj</name></member>
+      <member refid="classxn_1_1Graph_1a195e1336b21117e86d6949d810819db5" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>adjlist_outer_dict_factory</name></member>
+      <member refid="classxn_1_1VertexView_1a3832475390d69257f7fab89afcf128eb" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>begin</name></member>
+      <member refid="classxn_1_1Graph_1a0eb06caefea5f60a5156e15662123d2f" prot="public" virt="non-virtual" ambiguityscope="xn::Graph::"><scope>xn::VertexView</scope><name>begin</name></member>
+      <member refid="classxn_1_1VertexView_1a4ea8b90884dee4f9e5d8ee917e3173c0" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>cbegin</name></member>
+      <member refid="classxn_1_1VertexView_1a3e45a9ea984f28e49398c1074d815e98" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>cend</name></member>
+      <member refid="classxn_1_1Graph_1af611a2a696038170668ac86ff90166f4" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>clear</name></member>
+      <member refid="classxn_1_1Graph_1a17854eecf334b3eea2bf7145d6905dd1" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>contains</name></member>
+      <member refid="classxn_1_1Graph_1a8190f6d88f8933f798828d8e063d6b12" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>degree</name></member>
+      <member refid="classxn_1_1Graph_1a9871382d657341b1db55419073fa6c26" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>dict</name></member>
+      <member refid="classpy_1_1dict_1aa7fa8bf2e9f18a3f16642566c4c595f2" prot="public" virt="non-virtual" ambiguityscope="xn::object::"><scope>xn::VertexView</scope><name>dict</name></member>
+      <member refid="classpy_1_1dict_1a1cea0f6dc3fd12ba2ed5c9d217141b4b" prot="public" virt="non-virtual" ambiguityscope="xn::object::"><scope>xn::VertexView</scope><name>dict</name></member>
+      <member refid="classxn_1_1VertexView_1ad1d40c7e0554d9056439c04cc27d8488" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>end</name></member>
+      <member refid="classxn_1_1Graph_1a593c1ff383ba572c10533e25eb027d4a" prot="public" virt="non-virtual" ambiguityscope="xn::Graph::"><scope>xn::VertexView</scope><name>end</name></member>
+      <member refid="classxn_1_1Graph_1ae1d12cc44bbd983e5a92d50be43957d9" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>get_name</name></member>
+      <member refid="classxn_1_1Graph_1aa5b3ea16ddf84a48199223496905f922" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>Graph</name></member>
+      <member refid="classxn_1_1Graph_1aac4986c1e92948db7df60e26187601b8" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>Graph</name></member>
+      <member refid="classxn_1_1Graph_1a85745d406fd0a8b660e715faf7a82d09" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>graph</name></member>
+      <member refid="classxn_1_1Graph_1aeb3e67398ed06969de51b2ceb0a293e7" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>graph_attr_dict_factory</name></member>
+      <member refid="classxn_1_1Graph_1a87954129903fcccd1ae6a02a7917160b" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>has_edge</name></member>
+      <member refid="classxn_1_1Graph_1a08033908fd67a682754ae02933ba6403" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>has_node</name></member>
+      <member refid="classxn_1_1Graph_1ac0a2ebc716d2578c2b28d0e1e725e234" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>is_directed</name></member>
+      <member refid="classxn_1_1Graph_1ae7b94da77f99a3c86b78f02232d9e2ed" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>is_multigraph</name></member>
+      <member refid="classxn_1_1Graph_1abe5771eb50bc5014924e0ada909badcc" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>key_type</name></member>
+      <member refid="classxn_1_1Graph_1aec24094b26e6961d31dc8debb49dcb52" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>Node</name></member>
+      <member refid="classxn_1_1Graph_1abd3e6148e487a43786baab2448f975f1" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>nodes</name></member>
+      <member refid="classxn_1_1Graph_1a59ff465d2c4744027fb12939ae162dcb" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>number_of_nodes</name></member>
+      <member refid="classpy_1_1dict_1a8fd455a25ca9e64e8d0565c3a39b6b94" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>operator=</name></member>
+      <member refid="classxn_1_1Graph_1aa52862be660affb17c76e914a7e6ce27" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>operator[]</name></member>
+      <member refid="classxn_1_1Graph_1a5b450fc774873eb6525c9b981bfb12ff" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>order</name></member>
+      <member refid="classxn_1_1Graph_1a3751b02b878b6ece8c5e54010201bebf" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>set_name</name></member>
+      <member refid="classxn_1_1Graph_1a5a1be9e7c9001ba1fc6c5a511e0f57ec" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>value_type</name></member>
+      <member refid="classxn_1_1VertexView_1a682d0abebcd335e3c07ceb9b62f97513" prot="public" virt="non-virtual"><scope>xn::VertexView</scope><name>VertexView</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

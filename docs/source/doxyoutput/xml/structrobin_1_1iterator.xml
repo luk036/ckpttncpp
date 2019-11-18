@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="structrobin_1_1iterator" kind="struct" language="C++" prot="private">
+    <compoundname>robin::iterator</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structrobin_1_1iterator_1aaff1df4aa9b1ee30116c11278f78abdf" prot="public" static="no" mutable="no">
+        <type><ref refid="structdllink" kindref="compound">dllink</ref>&lt; T &gt; *</type>
+        <definition>dllink&lt;T&gt;* robin&lt; T &gt;::iterator::cur</definition>
+        <argsstring></argsstring>
+        <name>cur</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" line="14" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structrobin_1_1iterator_1a2196bed9d85007b381826c8bff0773a2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool robin&lt; T &gt;::iterator::operator!=</definition>
+        <argsstring>(const iterator &amp;other) const</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const iterator &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" line="15" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" bodystart="15" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="structrobin_1_1iterator_1ad81406be6d89e00a7e6d94d7a2569030" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool robin&lt; T &gt;::iterator::operator==</definition>
+        <argsstring>(const iterator &amp;other) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const iterator &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" line="19" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" bodystart="19" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="structrobin_1_1iterator_1abc5e689a2846434d6fa6425dafdaa6b1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator &amp;</type>
+        <definition>iterator&amp; robin&lt; T &gt;::iterator::operator++</definition>
+        <argsstring>()</argsstring>
+        <name>operator++</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" line="23" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" bodystart="23" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="structrobin_1_1iterator_1a05a798d919dec2cd9f827c267e4c80e8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const T &amp;</type>
+        <definition>const T&amp; robin&lt; T &gt;::iterator::operator*</definition>
+        <argsstring>() const</argsstring>
+        <name>operator*</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" line="28" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" bodystart="28" bodyend="31"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" line="13" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/robin.hpp" bodystart="12" bodyend="32"/>
+    <listofallmembers>
+      <member refid="structrobin_1_1iterator_1aaff1df4aa9b1ee30116c11278f78abdf" prot="public" virt="non-virtual"><scope>robin::iterator</scope><name>cur</name></member>
+      <member refid="structrobin_1_1iterator_1a2196bed9d85007b381826c8bff0773a2" prot="public" virt="non-virtual"><scope>robin::iterator</scope><name>operator!=</name></member>
+      <member refid="structrobin_1_1iterator_1a05a798d919dec2cd9f827c267e4c80e8" prot="public" virt="non-virtual"><scope>robin::iterator</scope><name>operator*</name></member>
+      <member refid="structrobin_1_1iterator_1abc5e689a2846434d6fa6425dafdaa6b1" prot="public" virt="non-virtual"><scope>robin::iterator</scope><name>operator++</name></member>
+      <member refid="structrobin_1_1iterator_1ad81406be6d89e00a7e6d94d7a2569030" prot="public" virt="non-virtual"><scope>robin::iterator</scope><name>operator==</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

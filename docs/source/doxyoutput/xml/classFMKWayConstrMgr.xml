@@ -1,0 +1,272 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="classFMKWayConstrMgr" kind="class" language="C++" prot="public">
+    <compoundname>FMKWayConstrMgr</compoundname>
+    <basecompoundref refid="classFMConstrMgr" prot="public" virt="non-virtual">FMConstrMgr</basecompoundref>
+    <includes refid="FMKWayConstrMgr_8hpp" local="no">FMKWayConstrMgr.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classFMKWayConstrMgr_1a6104afc8369ec9c00bf5def0b26f5f9d" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; bool &gt;</type>
+        <definition>std::vector&lt;bool&gt; FMKWayConstrMgr::illegal</definition>
+        <argsstring></argsstring>
+        <name>illegal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayConstrMgr.hpp" line="14" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayConstrMgr.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classFMKWayConstrMgr_1acf612c225174be00082fe3d75daa53bd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FMKWayConstrMgr::FMKWayConstrMgr</definition>
+        <argsstring>(SimpleNetlist &amp;H, double BalTol, uint8_t K)</argsstring>
+        <name>FMKWayConstrMgr</name>
+        <param>
+          <type><ref refid="structNetlist" kindref="compound">SimpleNetlist</ref> &amp;</type>
+          <declname>H</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>BalTol</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>K</declname>
+        </param>
+        <briefdescription>
+<para>Construct a new <ref refid="classFMKWayConstrMgr" kindref="compound">FMKWayConstrMgr</ref> object. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>H</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BalTol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>K</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayConstrMgr.hpp" line="24" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayConstrMgr.hpp" bodystart="24" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMKWayConstrMgr_1a74f518226283c54c0b3701e0ed695842" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMKWayConstrMgr::select_togo</definition>
+        <argsstring>() const -&gt; uint8_t</argsstring>
+        <name>select_togo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>uint8_t </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayConstrMgr.hpp" line="35" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayConstrMgr.hpp" bodystart="35" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMKWayConstrMgr_1a53dc6fb86d0383e9db9dbb5a592f294f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMKWayConstrMgr::init</definition>
+        <argsstring>(gsl::span&lt; const uint8_t &gt; part) -&gt; void</argsstring>
+        <name>init</name>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayConstrMgr.hpp" line="46" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayConstrMgr.hpp" bodystart="46" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMKWayConstrMgr_1a590f81787b05c53fae6de2e477bcb6f2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMKWayConstrMgr::check_legal</definition>
+        <argsstring>(const MoveInfoV &amp;move_info_v) -&gt; size_t</argsstring>
+        <name>check_legal</name>
+        <param>
+          <type>const <ref refid="structMoveInfoV" kindref="compound">MoveInfoV</ref> &amp;</type>
+          <declname>move_info_v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>move_info_v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>size_t </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayConstrMgr.hpp" line="61" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayConstrMgr.hpp" bodystart="61" bodyend="79"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>FM K-Way Partition Constraint Manager. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="104">
+        <label>FMKWayConstrMgr</label>
+        <link refid="classFMKWayConstrMgr"/>
+        <childnode refid="105" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="105">
+        <label>FMConstrMgr</label>
+        <link refid="classFMConstrMgr"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="118">
+        <label>std::unordered_map&lt; node_t, index_t &gt;</label>
+      </node>
+      <node id="109">
+        <label>xn::Graph&lt; nodeview_t, nodemap_t &gt;</label>
+        <link refid="classxn_1_1Graph"/>
+        <childnode refid="110" relation="public-inheritance">
+        </childnode>
+        <childnode refid="113" relation="usage">
+          <edgelabel>_node</edgelabel>
+        </childnode>
+        <childnode refid="114" relation="usage">
+          <edgelabel>_node_map</edgelabel>
+        </childnode>
+        <childnode refid="111" relation="usage">
+          <edgelabel>graph</edgelabel>
+        </childnode>
+      </node>
+      <node id="106">
+        <label>FMKWayConstrMgr</label>
+        <link refid="classFMKWayConstrMgr"/>
+        <childnode refid="107" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="119">
+        <label>py::dict&lt; index_t, node_t &gt;</label>
+        <link refid="classpy_1_1dict"/>
+        <childnode refid="120" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="116">
+        <label>std::unordered_set&lt; node_t  &gt;</label>
+      </node>
+      <node id="113">
+        <label>nodeview_t</label>
+      </node>
+      <node id="110">
+        <label>xn::object</label>
+        <link refid="structxn_1_1object"/>
+        <childnode refid="111" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="114">
+        <label>nodemap_t</label>
+      </node>
+      <node id="112">
+        <label>std::unordered_map&lt; const char *, std::any &gt;</label>
+      </node>
+      <node id="115">
+        <label>py::set&lt; node_t &gt;</label>
+        <link refid="classpy_1_1set"/>
+        <childnode refid="116" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="111">
+        <label>py::dict&lt; const char *, std::any &gt;</label>
+        <link refid="classpy_1_1dict"/>
+        <childnode refid="112" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="117">
+        <label>py::dict&lt; node_t, index_t &gt;</label>
+        <link refid="classpy_1_1dict"/>
+        <childnode refid="118" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="108">
+        <label>Netlist&lt; nodeview_t, nodemap_t &gt;</label>
+        <link refid="structNetlist"/>
+        <childnode refid="109" relation="usage">
+          <edgelabel>G</edgelabel>
+        </childnode>
+        <childnode refid="113" relation="usage">
+          <edgelabel>nets</edgelabel>
+          <edgelabel>modules</edgelabel>
+        </childnode>
+        <childnode refid="115" relation="usage">
+          <edgelabel>module_fixed</edgelabel>
+        </childnode>
+        <childnode refid="117" relation="usage">
+          <edgelabel>node_up_map</edgelabel>
+        </childnode>
+        <childnode refid="119" relation="usage">
+          <edgelabel>node_down_map</edgelabel>
+          <edgelabel>cluster_down_map</edgelabel>
+        </childnode>
+        <childnode refid="114" relation="usage">
+          <edgelabel>module_map</edgelabel>
+        </childnode>
+      </node>
+      <node id="107">
+        <label>FMConstrMgr</label>
+        <link refid="classFMConstrMgr"/>
+        <childnode refid="108" relation="usage">
+          <edgelabel>H</edgelabel>
+        </childnode>
+      </node>
+      <node id="120">
+        <label>std::unordered_map&lt; index_t , node_t  &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayConstrMgr.hpp" line="12" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayConstrMgr.hpp" bodystart="11" bodyend="80"/>
+    <listofallmembers>
+      <member refid="classFMConstrMgr_1ae4387efb5b96f9a17d386e0a863af8b0" prot="protected" virt="non-virtual"><scope>FMKWayConstrMgr</scope><name>BalTol</name></member>
+      <member refid="classFMConstrMgr_1a951a868885eaecdf750aef3fed0c92fe" prot="public" virt="non-virtual"><scope>FMKWayConstrMgr</scope><name>check_constraints</name></member>
+      <member refid="classFMKWayConstrMgr_1a590f81787b05c53fae6de2e477bcb6f2" prot="public" virt="non-virtual"><scope>FMKWayConstrMgr</scope><name>check_legal</name></member>
+      <member refid="classFMConstrMgr_1a1cac597280cf6ff2f847ed388113c05a" prot="protected" virt="non-virtual"><scope>FMKWayConstrMgr</scope><name>diff</name></member>
+      <member refid="classFMConstrMgr_1ac6326f062b0c4c757f171d8423f645c0" prot="protected" virt="non-virtual"><scope>FMKWayConstrMgr</scope><name>FMConstrMgr</name></member>
+      <member refid="classFMKWayConstrMgr_1acf612c225174be00082fe3d75daa53bd" prot="public" virt="non-virtual"><scope>FMKWayConstrMgr</scope><name>FMKWayConstrMgr</name></member>
+      <member refid="classFMConstrMgr_1a51b7f585819ee6d011f513effdb40829" prot="protected" virt="non-virtual"><scope>FMKWayConstrMgr</scope><name>H</name></member>
+      <member refid="classFMKWayConstrMgr_1a6104afc8369ec9c00bf5def0b26f5f9d" prot="private" virt="non-virtual"><scope>FMKWayConstrMgr</scope><name>illegal</name></member>
+      <member refid="classFMKWayConstrMgr_1a53dc6fb86d0383e9db9dbb5a592f294f" prot="public" virt="non-virtual"><scope>FMKWayConstrMgr</scope><name>init</name></member>
+      <member refid="classFMConstrMgr_1a2cd10def51f15c789ac166ba54ef2390" prot="protected" virt="non-virtual"><scope>FMKWayConstrMgr</scope><name>K</name></member>
+      <member refid="classFMConstrMgr_1a204edb066874ced1010fc12044b60e45" prot="protected" virt="non-virtual"><scope>FMKWayConstrMgr</scope><name>lowerbound</name></member>
+      <member refid="classFMKWayConstrMgr_1a74f518226283c54c0b3701e0ed695842" prot="public" virt="non-virtual"><scope>FMKWayConstrMgr</scope><name>select_togo</name></member>
+      <member refid="classFMConstrMgr_1aca29065085facd555e7b42e4ecae7c55" prot="protected" virt="non-virtual"><scope>FMKWayConstrMgr</scope><name>totalweight</name></member>
+      <member refid="classFMConstrMgr_1a60ee5ff96c0ec1879229fe262581afcf" prot="public" virt="non-virtual"><scope>FMKWayConstrMgr</scope><name>update_move</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

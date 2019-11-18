@@ -1,0 +1,568 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="classFMBiGainCalc" kind="class" language="C++" prot="public">
+    <compoundname>FMBiGainCalc</compoundname>
+    <includes refid="FMBiGainCalc_8hpp" local="no">FMBiGainCalc.hpp</includes>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classFMBiGainCalc_1a6a9a9a35cb4d55107e963a9ba57a2671" prot="private" static="no">
+        <type>typename SimpleNetlist::index_t</type>
+        <definition>using FMBiGainCalc::index_t =  typename SimpleNetlist::index_t</definition>
+        <argsstring></argsstring>
+        <name>index_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="16" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classFMBiGainCalc_1ad6f79789ce8b0c7063dfdc2c6202bacc" prot="public" static="no">
+        <type>std::tuple&lt; index_t, int &gt;</type>
+        <definition>using FMBiGainCalc::ret_2pin_info =  std::tuple&lt;index_t, int&gt;</definition>
+        <argsstring></argsstring>
+        <name>ret_2pin_info</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="77" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classFMBiGainCalc_1ab20cc009f1f20b25c9d6924d5b737d3e" prot="public" static="no">
+        <type>std::tuple&lt; std::vector&lt; node_t &gt;, std::vector&lt; int &gt; &gt;</type>
+        <definition>using FMBiGainCalc::ret_info =  std::tuple&lt;std::vector&lt;node_t&gt;, std::vector&lt;int&gt; &gt;</definition>
+        <argsstring></argsstring>
+        <name>ret_info</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="89" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classFMBiGainCalc_1a32fc616cab7ae8067022b8c97be65905" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class FMBiGainMgr</definition>
+        <argsstring></argsstring>
+        <name>FMBiGainMgr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="15" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classFMBiGainCalc_1ace670c9a12e4bc6ba496a6364e8f400d" prot="private" static="no" mutable="no">
+        <type><ref refid="structNetlist" kindref="compound">SimpleNetlist</ref> &amp;</type>
+        <definition>SimpleNetlist&amp; FMBiGainCalc::H</definition>
+        <argsstring></argsstring>
+        <name>H</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="19" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classFMBiGainCalc_1aa33186476db279ab4d3fb41cdd428847" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t FMBiGainCalc::num_modules</definition>
+        <argsstring></argsstring>
+        <name>num_modules</name>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="20" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classFMBiGainCalc_1a0fcb301e56a37537660ab71b2c3eca07" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="structdllink" kindref="compound">dllink</ref>&lt; node_t &gt; &gt;</type>
+        <definition>std::vector&lt;dllink&lt;node_t&gt; &gt; FMBiGainCalc::vertex_list</definition>
+        <argsstring></argsstring>
+        <name>vertex_list</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="21" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classFMBiGainCalc_1a5b80f9d3d9eefa43de013e6488eb28ce" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int FMBiGainCalc::totalcost</definition>
+        <argsstring></argsstring>
+        <name>totalcost</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="24" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classFMBiGainCalc_1a372e640c3d67007d25381437abdbcbe3" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FMBiGainCalc::FMBiGainCalc</definition>
+        <argsstring>(SimpleNetlist &amp;H, uint8_t)</argsstring>
+        <name>FMBiGainCalc</name>
+        <param>
+          <type><ref refid="structNetlist" kindref="compound">SimpleNetlist</ref> &amp;</type>
+          <declname>H</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+        </param>
+        <briefdescription>
+<para>Construct a new <ref refid="classFMBiGainCalc" kindref="compound">FMBiGainCalc</ref> object. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>H</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>K</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="32" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" bodystart="32" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMBiGainCalc_1ac0c5f892f186adc2c2058e37512b9a6b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMBiGainCalc::init</definition>
+        <argsstring>(gsl::span&lt; const uint8_t &gt; part) -&gt; int</argsstring>
+        <name>init</name>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="43" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" bodystart="43" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMBiGainCalc_1ac4f1bbf98b59111b3ae49302ad36ebd8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMBiGainCalc::start_ptr</definition>
+        <argsstring>(uint8_t) -&gt; dllink&lt; node_t &gt; *</argsstring>
+        <name>start_ptr</name>
+        <param>
+          <type>uint8_t</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>toPart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>dllink* </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="63" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" bodystart="63" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMBiGainCalc_1a00a1b3c105a1bc67e9e91b7e57529326" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMBiGainCalc::update_move_init</definition>
+        <argsstring>() -&gt; void</argsstring>
+        <name>update_move_init</name>
+        <briefdescription>
+<para>update move init </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="72" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" bodystart="72" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMBiGainCalc_1aba6966694786480dbe83206f1b0b3e88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMBiGainCalc::update_move_2pin_net</definition>
+        <argsstring>(gsl::span&lt; const uint8_t &gt; part, const MoveInfo &amp;move_info) -&gt; ret_2pin_info</argsstring>
+        <name>update_move_2pin_net</name>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structMoveInfo" kindref="compound">MoveInfo</ref> &amp;</type>
+          <declname>move_info</declname>
+        </param>
+        <briefdescription>
+<para>update move 2-pin net </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>move_info</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>ret_2pin_info </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="86" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMBiGainCalc_1a30014df4cb39e628fc5c0f96698c114f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMBiGainCalc::update_move_3pin_net</definition>
+        <argsstring>(gsl::span&lt; const uint8_t &gt; part, const MoveInfo &amp;move_info) -&gt; ret_info</argsstring>
+        <name>update_move_3pin_net</name>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structMoveInfo" kindref="compound">MoveInfo</ref> &amp;</type>
+          <declname>move_info</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>net</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fromPart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="99" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMBiGainCalc_1a31132642c99101380afc532dfa336f15" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMBiGainCalc::update_move_general_net</definition>
+        <argsstring>(gsl::span&lt; const uint8_t &gt; part, const MoveInfo &amp;move_info) -&gt; ret_info</argsstring>
+        <name>update_move_general_net</name>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structMoveInfo" kindref="compound">MoveInfo</ref> &amp;</type>
+          <declname>move_info</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>net</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fromPart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="110" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classFMBiGainCalc_1aa0c6de3e9a7d0107c816c523b2bc6eb6" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMBiGainCalc::__modify_gain</definition>
+        <argsstring>(node_t w, int weight) -&gt; void</argsstring>
+        <name>__modify_gain</name>
+        <param>
+          <type>node_t</type>
+          <declname>w</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>weight</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>w</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="120" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" bodystart="120" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMBiGainCalc_1a7eb6f55d04cb2869e6cb7fb26497e6c1" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMBiGainCalc::__init_gain</definition>
+        <argsstring>(node_t net, gsl::span&lt; const uint8_t &gt; part) -&gt; void</argsstring>
+        <name>__init_gain</name>
+        <param>
+          <type>node_t</type>
+          <declname>net</declname>
+        </param>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>net</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="131" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMBiGainCalc_1ae8944019432cd9ba0f7a23430d963fdf" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMBiGainCalc::__init_gain_2pin_net</definition>
+        <argsstring>(node_t net, gsl::span&lt; const uint8_t &gt; part) -&gt; void</argsstring>
+        <name>__init_gain_2pin_net</name>
+        <param>
+          <type>node_t</type>
+          <declname>net</declname>
+        </param>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>net</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="139" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMBiGainCalc_1af67ee3f1a73cb182891458173c624296" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMBiGainCalc::__init_gain_3pin_net</definition>
+        <argsstring>(node_t net, gsl::span&lt; const uint8_t &gt; part) -&gt; void</argsstring>
+        <name>__init_gain_3pin_net</name>
+        <param>
+          <type>node_t</type>
+          <declname>net</declname>
+        </param>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>net</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="148" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMBiGainCalc_1ac283318eee1e7202ff3cd425c2468fdb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMBiGainCalc::__init_gain_general_net</definition>
+        <argsstring>(node_t net, gsl::span&lt; const uint8_t &gt; part) -&gt; void</argsstring>
+        <name>__init_gain_general_net</name>
+        <param>
+          <type>node_t</type>
+          <declname>net</declname>
+        </param>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>net</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="157" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="classFMBiGainCalc" kindref="compound">FMBiGainCalc</ref>. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" line="14" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp" bodystart="13" bodyend="159"/>
+    <listofallmembers>
+      <member refid="classFMBiGainCalc_1a7eb6f55d04cb2869e6cb7fb26497e6c1" prot="private" virt="non-virtual"><scope>FMBiGainCalc</scope><name>__init_gain</name></member>
+      <member refid="classFMBiGainCalc_1ae8944019432cd9ba0f7a23430d963fdf" prot="private" virt="non-virtual"><scope>FMBiGainCalc</scope><name>__init_gain_2pin_net</name></member>
+      <member refid="classFMBiGainCalc_1af67ee3f1a73cb182891458173c624296" prot="private" virt="non-virtual"><scope>FMBiGainCalc</scope><name>__init_gain_3pin_net</name></member>
+      <member refid="classFMBiGainCalc_1ac283318eee1e7202ff3cd425c2468fdb" prot="private" virt="non-virtual"><scope>FMBiGainCalc</scope><name>__init_gain_general_net</name></member>
+      <member refid="classFMBiGainCalc_1aa0c6de3e9a7d0107c816c523b2bc6eb6" prot="private" virt="non-virtual"><scope>FMBiGainCalc</scope><name>__modify_gain</name></member>
+      <member refid="classFMBiGainCalc_1a372e640c3d67007d25381437abdbcbe3" prot="public" virt="non-virtual"><scope>FMBiGainCalc</scope><name>FMBiGainCalc</name></member>
+      <member refid="classFMBiGainCalc_1a32fc616cab7ae8067022b8c97be65905" prot="private" virt="non-virtual"><scope>FMBiGainCalc</scope><name>FMBiGainMgr</name></member>
+      <member refid="classFMBiGainCalc_1ace670c9a12e4bc6ba496a6364e8f400d" prot="private" virt="non-virtual"><scope>FMBiGainCalc</scope><name>H</name></member>
+      <member refid="classFMBiGainCalc_1a6a9a9a35cb4d55107e963a9ba57a2671" prot="private" virt="non-virtual"><scope>FMBiGainCalc</scope><name>index_t</name></member>
+      <member refid="classFMBiGainCalc_1ac0c5f892f186adc2c2058e37512b9a6b" prot="public" virt="non-virtual"><scope>FMBiGainCalc</scope><name>init</name></member>
+      <member refid="classFMBiGainCalc_1aa33186476db279ab4d3fb41cdd428847" prot="private" virt="non-virtual"><scope>FMBiGainCalc</scope><name>num_modules</name></member>
+      <member refid="classFMBiGainCalc_1ad6f79789ce8b0c7063dfdc2c6202bacc" prot="public" virt="non-virtual"><scope>FMBiGainCalc</scope><name>ret_2pin_info</name></member>
+      <member refid="classFMBiGainCalc_1ab20cc009f1f20b25c9d6924d5b737d3e" prot="public" virt="non-virtual"><scope>FMBiGainCalc</scope><name>ret_info</name></member>
+      <member refid="classFMBiGainCalc_1ac4f1bbf98b59111b3ae49302ad36ebd8" prot="public" virt="non-virtual"><scope>FMBiGainCalc</scope><name>start_ptr</name></member>
+      <member refid="classFMBiGainCalc_1a5b80f9d3d9eefa43de013e6488eb28ce" prot="public" virt="non-virtual"><scope>FMBiGainCalc</scope><name>totalcost</name></member>
+      <member refid="classFMBiGainCalc_1aba6966694786480dbe83206f1b0b3e88" prot="public" virt="non-virtual"><scope>FMBiGainCalc</scope><name>update_move_2pin_net</name></member>
+      <member refid="classFMBiGainCalc_1a30014df4cb39e628fc5c0f96698c114f" prot="public" virt="non-virtual"><scope>FMBiGainCalc</scope><name>update_move_3pin_net</name></member>
+      <member refid="classFMBiGainCalc_1a31132642c99101380afc532dfa336f15" prot="public" virt="non-virtual"><scope>FMBiGainCalc</scope><name>update_move_general_net</name></member>
+      <member refid="classFMBiGainCalc_1a00a1b3c105a1bc67e9e91b7e57529326" prot="public" virt="non-virtual"><scope>FMBiGainCalc</scope><name>update_move_init</name></member>
+      <member refid="classFMBiGainCalc_1a0fcb301e56a37537660ab71b2c3eca07" prot="private" virt="non-virtual"><scope>FMBiGainCalc</scope><name>vertex_list</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

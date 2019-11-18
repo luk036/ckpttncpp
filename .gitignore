@@ -1,6 +1,9 @@
 # build
+.vscode/*
 build*/
-docs/
+docs/api/*
+docs/_rst/*
+docs/_build/*
 
 # Prerequisites
 *.d

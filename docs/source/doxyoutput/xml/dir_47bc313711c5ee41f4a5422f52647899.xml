@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="dir_47bc313711c5ee41f4a5422f52647899" kind="dir">
+    <compoundname>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes</compoundname>
+    <innerfile refid="coreviews_8hpp">coreviews.hpp</innerfile>
+    <innerfile refid="graph_8hpp">graph.hpp</innerfile>
+    <innerfile refid="reportviews_8hpp">reportviews.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/"/>
+  </compounddef>
+</doxygen>

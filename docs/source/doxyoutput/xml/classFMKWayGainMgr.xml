@@ -1,0 +1,498 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="classFMKWayGainMgr" kind="class" language="C++" prot="public">
+    <compoundname>FMKWayGainMgr</compoundname>
+    <basecompoundref refid="classFMGainMgr" prot="public" virt="non-virtual">FMGainMgr&lt; FMKWayGainCalc, FMKWayGainMgr &gt;</basecompoundref>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classFMKWayGainMgr_1ae85b3b4f084a35f73aa7df8ccabf0c79" prot="public" static="no">
+        <type><ref refid="classFMGainMgr" kindref="compound">FMGainMgr</ref>&lt; <ref refid="classFMKWayGainCalc" kindref="compound">FMKWayGainCalc</ref>, <ref refid="classFMKWayGainMgr" kindref="compound">FMKWayGainMgr</ref> &gt;</type>
+        <definition>using FMKWayGainMgr::Base =  FMGainMgr&lt;FMKWayGainCalc, FMKWayGainMgr&gt;</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" line="20" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classFMKWayGainMgr_1a537e7f28c0665df10289e7ffd5a83199" prot="public" static="no">
+        <type><ref refid="classFMKWayGainCalc" kindref="compound">FMKWayGainCalc</ref></type>
+        <definition>using FMKWayGainMgr::GainCalc_ =  FMKWayGainCalc</definition>
+        <argsstring></argsstring>
+        <name>GainCalc_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" line="21" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classFMKWayGainMgr_1a6d892d73b79bb16bfc8090eaaf24752c" prot="public" static="no">
+        <type>typename SimpleNetlist::index_t</type>
+        <definition>using FMKWayGainMgr::index_t =  typename SimpleNetlist::index_t</definition>
+        <argsstring></argsstring>
+        <name>index_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" line="22" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classFMKWayGainMgr_1adade611efe85392c932fa31faa50361b" prot="private" static="no" mutable="no">
+        <type><ref refid="classrobin" kindref="compound">robin</ref>&lt; uint8_t &gt;</type>
+        <definition>robin&lt;uint8_t&gt; FMKWayGainMgr::RR</definition>
+        <argsstring></argsstring>
+        <name>RR</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" line="17" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classFMKWayGainMgr_1a528af78530720b5cd17666536fb01aa3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FMKWayGainMgr::FMKWayGainMgr</definition>
+        <argsstring>(SimpleNetlist &amp;H, uint8_t K)</argsstring>
+        <name>FMKWayGainMgr</name>
+        <param>
+          <type><ref refid="structNetlist" kindref="compound">SimpleNetlist</ref> &amp;</type>
+          <declname>H</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>K</declname>
+        </param>
+        <briefdescription>
+<para>Construct a new <ref refid="classFMKWayGainMgr" kindref="compound">FMKWayGainMgr</ref> object. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>H</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>K</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" line="30" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" bodystart="30" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMKWayGainMgr_1a4e36d8906fc8aea0bb960a465a40d40f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMKWayGainMgr::init</definition>
+        <argsstring>(gsl::span&lt; const uint8_t &gt; part) -&gt; int</argsstring>
+        <name>init</name>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" line="41" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMKWayGainMgr_1a9cedc496fb0b764727c9943ca4566fae" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMKWayGainMgr::modify_key</definition>
+        <argsstring>(node_t w, uint8_t part_w, const std::vector&lt; int &gt; &amp;keys) -&gt; void</argsstring>
+        <name>modify_key</name>
+        <param>
+          <type>node_t</type>
+          <declname>w</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>part_w</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; int &gt; &amp;</type>
+          <declname>keys</declname>
+        </param>
+        <briefdescription>
+<para>(needed by base class) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>w</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>keys</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" line="50" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" bodystart="50" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMKWayGainMgr_1ace48d7ff85b2692ab8407d0d5c2f98c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMKWayGainMgr::update_move_v</definition>
+        <argsstring>(const MoveInfoV &amp;move_info_v, int gain) -&gt; void</argsstring>
+        <name>update_move_v</name>
+        <param>
+          <type>const <ref refid="structMoveInfoV" kindref="compound">MoveInfoV</ref> &amp;</type>
+          <declname>move_info_v</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>gain</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>move_info_v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>gain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" line="67" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMKWayGainMgr_1ac5d65d3f152d3a66a641ea64f1b948f7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMKWayGainMgr::lock</definition>
+        <argsstring>(index_t whichPart, node_t v) -&gt; void</argsstring>
+        <name>lock</name>
+        <param>
+          <type>index_t</type>
+          <declname>whichPart</declname>
+        </param>
+        <param>
+          <type>node_t</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+<para>lock </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>whichPart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" line="75" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" bodystart="75" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMKWayGainMgr_1a541be6db1cd86419cb38bfb557e04d5a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMKWayGainMgr::lock_all</definition>
+        <argsstring>(index_t, node_t v) -&gt; void</argsstring>
+        <name>lock_all</name>
+        <param>
+          <type>index_t</type>
+        </param>
+        <param>
+          <type>node_t</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+<para>lock_all </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fromPart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" line="88" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" bodystart="88" bodyend="94"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classFMKWayGainMgr_1a4bdd7d4922ebe9cd214beca60627b2be" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMKWayGainMgr::__set_key</definition>
+        <argsstring>(index_t whichPart, node_t v, int key) -&gt; void</argsstring>
+        <name>__set_key</name>
+        <param>
+          <type>index_t</type>
+          <declname>whichPart</declname>
+        </param>
+        <param>
+          <type>node_t</type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>Set the key object. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>whichPart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" line="104" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" bodystart="104" bodyend="108"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="124">
+        <label>FMGainMgr&lt; FMKWayGainCalc, FMKWayGainMgr &gt;</label>
+        <link refid="classFMGainMgr"/>
+      </node>
+      <node id="123">
+        <label>FMKWayGainMgr</label>
+        <link refid="classFMKWayGainMgr"/>
+        <childnode refid="124" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="138">
+        <label>std::unordered_map&lt; node_t, index_t &gt;</label>
+      </node>
+      <node id="126">
+        <label>FMGainMgr&lt; FMKWayGainCalc, FMKWayGainMgr &gt;</label>
+        <link refid="classFMGainMgr"/>
+        <childnode refid="127" relation="usage">
+          <edgelabel>gainCalc</edgelabel>
+        </childnode>
+        <childnode refid="128" relation="usage">
+          <edgelabel>H</edgelabel>
+        </childnode>
+        <childnode refid="141" relation="usage">
+          <edgelabel>waitinglist</edgelabel>
+        </childnode>
+      </node>
+      <node id="141">
+        <label>dllink&lt; node_t &gt;</label>
+        <link refid="structdllink"/>
+        <childnode refid="141" relation="usage">
+          <edgelabel>prev</edgelabel>
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="129">
+        <label>xn::Graph&lt; nodeview_t, nodemap_t &gt;</label>
+        <link refid="classxn_1_1Graph"/>
+        <childnode refid="130" relation="public-inheritance">
+        </childnode>
+        <childnode refid="133" relation="usage">
+          <edgelabel>_node</edgelabel>
+        </childnode>
+        <childnode refid="134" relation="usage">
+          <edgelabel>_node_map</edgelabel>
+        </childnode>
+        <childnode refid="131" relation="usage">
+          <edgelabel>graph</edgelabel>
+        </childnode>
+      </node>
+      <node id="139">
+        <label>py::dict&lt; index_t, node_t &gt;</label>
+        <link refid="classpy_1_1dict"/>
+        <childnode refid="140" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="136">
+        <label>std::unordered_set&lt; node_t  &gt;</label>
+      </node>
+      <node id="133">
+        <label>nodeview_t</label>
+      </node>
+      <node id="130">
+        <label>xn::object</label>
+        <link refid="structxn_1_1object"/>
+        <childnode refid="131" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="134">
+        <label>nodemap_t</label>
+      </node>
+      <node id="125">
+        <label>FMKWayGainMgr</label>
+        <link refid="classFMKWayGainMgr"/>
+        <childnode refid="126" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="127">
+        <label>FMKWayGainCalc</label>
+        <link refid="classFMKWayGainCalc"/>
+      </node>
+      <node id="132">
+        <label>std::unordered_map&lt; const char *, std::any &gt;</label>
+      </node>
+      <node id="135">
+        <label>py::set&lt; node_t &gt;</label>
+        <link refid="classpy_1_1set"/>
+        <childnode refid="136" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="131">
+        <label>py::dict&lt; const char *, std::any &gt;</label>
+        <link refid="classpy_1_1dict"/>
+        <childnode refid="132" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="137">
+        <label>py::dict&lt; node_t, index_t &gt;</label>
+        <link refid="classpy_1_1dict"/>
+        <childnode refid="138" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="128">
+        <label>Netlist&lt; nodeview_t, nodemap_t &gt;</label>
+        <link refid="structNetlist"/>
+        <childnode refid="129" relation="usage">
+          <edgelabel>G</edgelabel>
+        </childnode>
+        <childnode refid="133" relation="usage">
+          <edgelabel>nets</edgelabel>
+          <edgelabel>modules</edgelabel>
+        </childnode>
+        <childnode refid="135" relation="usage">
+          <edgelabel>module_fixed</edgelabel>
+        </childnode>
+        <childnode refid="137" relation="usage">
+          <edgelabel>node_up_map</edgelabel>
+        </childnode>
+        <childnode refid="139" relation="usage">
+          <edgelabel>node_down_map</edgelabel>
+          <edgelabel>cluster_down_map</edgelabel>
+        </childnode>
+        <childnode refid="134" relation="usage">
+          <edgelabel>module_map</edgelabel>
+        </childnode>
+      </node>
+      <node id="140">
+        <label>std::unordered_map&lt; index_t , node_t  &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" line="14" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp" bodystart="13" bodyend="109"/>
+    <listofallmembers>
+      <member refid="classFMKWayGainMgr_1a4bdd7d4922ebe9cd214beca60627b2be" prot="private" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>__set_key</name></member>
+      <member refid="classFMKWayGainMgr_1ae85b3b4f084a35f73aa7df8ccabf0c79" prot="public" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>Base</name></member>
+      <member refid="classFMGainMgr_1a21193519fd9bb3fcd1db54c07d2cf70f" prot="public" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>FMGainMgr</name></member>
+      <member refid="classFMKWayGainMgr_1a528af78530720b5cd17666536fb01aa3" prot="public" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>FMKWayGainMgr</name></member>
+      <member refid="classFMGainMgr_1a90ef5c4514b64fb79e859d2a67019f46" prot="protected" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>gainbucket</name></member>
+      <member refid="classFMGainMgr_1acd4d647ac1194e892fe5f8f7ad8e6247" prot="protected" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>gainCalc</name></member>
+      <member refid="classFMKWayGainMgr_1a537e7f28c0665df10289e7ffd5a83199" prot="public" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>GainCalc_</name></member>
+      <member refid="classFMGainMgr_1a3b62d434fce427ecd7c992e0d94233e9" prot="protected" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>H</name></member>
+      <member refid="classFMKWayGainMgr_1a6d892d73b79bb16bfc8090eaaf24752c" prot="public" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>index_t</name></member>
+      <member refid="classFMKWayGainMgr_1a4e36d8906fc8aea0bb960a465a40d40f" prot="public" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>init</name></member>
+      <member refid="classFMGainMgr_1ad8183b3ad8260ae1df56e5f584850d9f" prot="public" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>is_empty</name></member>
+      <member refid="classFMGainMgr_1abd8ac72ee8a724fa1b79675ad5d0f95b" prot="public" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>is_empty_togo</name></member>
+      <member refid="classFMGainMgr_1aec4518a631369c7ebc342a78ab76ac94" prot="public" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>K</name></member>
+      <member refid="classFMKWayGainMgr_1ac5d65d3f152d3a66a641ea64f1b948f7" prot="public" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>lock</name></member>
+      <member refid="classFMKWayGainMgr_1a541be6db1cd86419cb38bfb557e04d5a" prot="public" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>lock_all</name></member>
+      <member refid="classFMKWayGainMgr_1a9cedc496fb0b764727c9943ca4566fae" prot="public" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>modify_key</name></member>
+      <member refid="classFMGainMgr_1a89ae4202805f113bf04ba3fd83bdc88a" prot="protected" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>pmax</name></member>
+      <member refid="classFMKWayGainMgr_1adade611efe85392c932fa31faa50361b" prot="private" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>RR</name></member>
+      <member refid="classFMGainMgr_1a673fbd2e22dae6822f8f816cb909939b" prot="public" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>select</name></member>
+      <member refid="classFMGainMgr_1a24395f43b445ff2391cf0710555fec82" prot="public" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>select_togo</name></member>
+      <member refid="classFMGainMgr_1a11a7cc89b775313d75a0a490a0d4e411" prot="public" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>update_move</name></member>
+      <member refid="classFMKWayGainMgr_1ace48d7ff85b2692ab8407d0d5c2f98c7" prot="public" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>update_move_v</name></member>
+      <member refid="classFMGainMgr_1a0b6aa42ded30b7aa585a815f7a94dc6d" prot="protected" virt="non-virtual"><scope>FMKWayGainMgr</scope><name>waitinglist</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

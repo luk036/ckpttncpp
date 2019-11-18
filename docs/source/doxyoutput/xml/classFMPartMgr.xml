@@ -1,0 +1,308 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="classFMPartMgr" kind="class" language="C++" prot="public">
+    <compoundname>FMPartMgr</compoundname>
+    <basecompoundref refid="classPartMgrBase" prot="public" virt="non-virtual">PartMgrBase&lt; GainMgr, ConstrMgr, FMPartMgr &gt;</basecompoundref>
+    <includes refid="FMPartMgr_8hpp" local="no">FMPartMgr.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename GainMgr</type>
+      </param>
+      <param>
+        <type>typename ConstrMgr</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classFMPartMgr_1ac7d76f9a9e37152a6a2223cbb2280fcf" prot="private" static="no">
+        <type><ref refid="classPartMgrBase" kindref="compound">PartMgrBase</ref>&lt; GainMgr, ConstrMgr, <ref refid="classFMPartMgr" kindref="compound">FMPartMgr</ref> &gt;</type>
+        <definition>using FMPartMgr&lt; GainMgr, ConstrMgr &gt;::Base =  PartMgrBase&lt;GainMgr, ConstrMgr, FMPartMgr&gt;</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMPartMgr.hpp" line="18" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMPartMgr.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classFMPartMgr_1a6e0b951fa5e6f1549bc07db2d2bc2278" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FMPartMgr&lt; GainMgr, ConstrMgr &gt;::FMPartMgr</definition>
+        <argsstring>(SimpleNetlist &amp;H, GainMgr &amp;gainMgr, ConstrMgr &amp;constrMgr)</argsstring>
+        <name>FMPartMgr</name>
+        <param>
+          <type><ref refid="structNetlist" kindref="compound">SimpleNetlist</ref> &amp;</type>
+          <declname>H</declname>
+        </param>
+        <param>
+          <type>GainMgr &amp;</type>
+          <declname>gainMgr</declname>
+        </param>
+        <param>
+          <type>ConstrMgr &amp;</type>
+          <declname>constrMgr</declname>
+        </param>
+        <briefdescription>
+<para>Construct a new <ref refid="classFMPartMgr" kindref="compound">FMPartMgr</ref> object. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>H</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>gainMgr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>constrMgr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMPartMgr.hpp" line="28" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMPartMgr.hpp" bodystart="28" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMPartMgr_1acb2e49b5e100b35889eb777df427b616" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMPartMgr&lt; GainMgr, ConstrMgr &gt;::take_snapshot</definition>
+        <argsstring>(gsl::span&lt; const uint8_t &gt; part) -&gt; std::vector&lt; uint8_t &gt;</argsstring>
+        <name>take_snapshot</name>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="structSnapshot" kindref="compound">Snapshot</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMPartMgr.hpp" line="39" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMPartMgr.hpp" bodystart="39" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMPartMgr_1a92cee52700311ad47aa6b3a0b870023c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMPartMgr&lt; GainMgr, ConstrMgr &gt;::restore_part</definition>
+        <argsstring>(std::vector&lt; uint8_t &gt; &amp;snapshot, gsl::span&lt; uint8_t &gt; part) -&gt; void</argsstring>
+        <name>restore_part</name>
+        <param>
+          <type>std::vector&lt; uint8_t &gt; &amp;</type>
+          <declname>snapshot</declname>
+        </param>
+        <param>
+          <type>gsl::span&lt; uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>snapshot</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMPartMgr.hpp" line="57" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMPartMgr.hpp" bodystart="57" bodyend="65"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>FM Partition Manager. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>GainMgr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConstrMgr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="142">
+        <label>FMPartMgr&lt; GainMgr, ConstrMgr &gt;</label>
+        <link refid="classFMPartMgr"/>
+        <childnode refid="143" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="143">
+        <label>PartMgrBase&lt; GainMgr, ConstrMgr, FMPartMgr &gt;</label>
+        <link refid="classPartMgrBase"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="157">
+        <label>std::unordered_map&lt; node_t, index_t &gt;</label>
+      </node>
+      <node id="146">
+        <label>ConstrMgr</label>
+      </node>
+      <node id="144">
+        <label>FMPartMgr&lt; GainMgr, ConstrMgr &gt;</label>
+        <link refid="classFMPartMgr"/>
+        <childnode refid="145" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="148">
+        <label>xn::Graph&lt; nodeview_t, nodemap_t &gt;</label>
+        <link refid="classxn_1_1Graph"/>
+        <childnode refid="149" relation="public-inheritance">
+        </childnode>
+        <childnode refid="152" relation="usage">
+          <edgelabel>_node</edgelabel>
+        </childnode>
+        <childnode refid="153" relation="usage">
+          <edgelabel>_node_map</edgelabel>
+        </childnode>
+        <childnode refid="150" relation="usage">
+          <edgelabel>graph</edgelabel>
+        </childnode>
+      </node>
+      <node id="160">
+        <label>GainMgr</label>
+      </node>
+      <node id="158">
+        <label>py::dict&lt; index_t, node_t &gt;</label>
+        <link refid="classpy_1_1dict"/>
+        <childnode refid="159" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="155">
+        <label>std::unordered_set&lt; node_t  &gt;</label>
+      </node>
+      <node id="152">
+        <label>nodeview_t</label>
+      </node>
+      <node id="149">
+        <label>xn::object</label>
+        <link refid="structxn_1_1object"/>
+        <childnode refid="150" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="153">
+        <label>nodemap_t</label>
+      </node>
+      <node id="151">
+        <label>std::unordered_map&lt; const char *, std::any &gt;</label>
+      </node>
+      <node id="154">
+        <label>py::set&lt; node_t &gt;</label>
+        <link refid="classpy_1_1set"/>
+        <childnode refid="155" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="150">
+        <label>py::dict&lt; const char *, std::any &gt;</label>
+        <link refid="classpy_1_1dict"/>
+        <childnode refid="151" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="156">
+        <label>py::dict&lt; node_t, index_t &gt;</label>
+        <link refid="classpy_1_1dict"/>
+        <childnode refid="157" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="147">
+        <label>Netlist&lt; nodeview_t, nodemap_t &gt;</label>
+        <link refid="structNetlist"/>
+        <childnode refid="148" relation="usage">
+          <edgelabel>G</edgelabel>
+        </childnode>
+        <childnode refid="152" relation="usage">
+          <edgelabel>nets</edgelabel>
+          <edgelabel>modules</edgelabel>
+        </childnode>
+        <childnode refid="154" relation="usage">
+          <edgelabel>module_fixed</edgelabel>
+        </childnode>
+        <childnode refid="156" relation="usage">
+          <edgelabel>node_up_map</edgelabel>
+        </childnode>
+        <childnode refid="158" relation="usage">
+          <edgelabel>node_down_map</edgelabel>
+          <edgelabel>cluster_down_map</edgelabel>
+        </childnode>
+        <childnode refid="153" relation="usage">
+          <edgelabel>module_map</edgelabel>
+        </childnode>
+      </node>
+      <node id="145">
+        <label>PartMgrBase&lt; GainMgr, ConstrMgr, FMPartMgr &gt;</label>
+        <link refid="classPartMgrBase"/>
+        <childnode refid="146" relation="usage">
+          <edgelabel>validator</edgelabel>
+        </childnode>
+        <childnode refid="147" relation="usage">
+          <edgelabel>H</edgelabel>
+        </childnode>
+        <childnode refid="160" relation="usage">
+          <edgelabel>gainMgr</edgelabel>
+        </childnode>
+      </node>
+      <node id="159">
+        <label>std::unordered_map&lt; index_t , node_t  &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMPartMgr.hpp" line="17" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMPartMgr.hpp" bodystart="16" bodyend="66"/>
+    <listofallmembers>
+      <member refid="classFMPartMgr_1ac7d76f9a9e37152a6a2223cbb2280fcf" prot="private" virt="non-virtual"><scope>FMPartMgr</scope><name>Base</name></member>
+      <member refid="classPartMgrBase_1afbd1ef33b9bfb5bd67584e63ca80c58d" prot="public" virt="non-virtual"><scope>FMPartMgr</scope><name>ConstrMgr_</name></member>
+      <member refid="classPartMgrBase_1a65afc8ad0d924bb849d3b09dbc8d7abc" prot="public" virt="non-virtual"><scope>FMPartMgr</scope><name>Der</name></member>
+      <member refid="classFMPartMgr_1a6e0b951fa5e6f1549bc07db2d2bc2278" prot="public" virt="non-virtual"><scope>FMPartMgr</scope><name>FMPartMgr</name></member>
+      <member refid="classPartMgrBase_1aa1f878e7fec9a808c218440dae76a9ea" prot="public" virt="non-virtual"><scope>FMPartMgr</scope><name>GainCalc_</name></member>
+      <member refid="classPartMgrBase_1a5b483eecebf0d1ad98014ac9f3f272cd" prot="protected" virt="non-virtual"><scope>FMPartMgr</scope><name>gainMgr</name></member>
+      <member refid="classPartMgrBase_1abe3196da03b048b9cde41cda3c6c3e84" prot="public" virt="non-virtual"><scope>FMPartMgr</scope><name>GainMgr_</name></member>
+      <member refid="classPartMgrBase_1a30464b005f9f85be6dcf7d314b5f7cb8" prot="protected" virt="non-virtual"><scope>FMPartMgr</scope><name>H</name></member>
+      <member refid="classPartMgrBase_1ac9f5656be9fd75f3f9eeca1d5df84a94" prot="public" virt="non-virtual"><scope>FMPartMgr</scope><name>init</name></member>
+      <member refid="classPartMgrBase_1a5ce4eb9beec196f93f0944bd84243dab" prot="protected" virt="non-virtual"><scope>FMPartMgr</scope><name>K</name></member>
+      <member refid="classPartMgrBase_1a783bf53500556ed5d63c95b9f7cbab1f" prot="public" virt="non-virtual"><scope>FMPartMgr</scope><name>legalize</name></member>
+      <member refid="classPartMgrBase_1a097a79b6d21260f33e1a56578e1efe6e" prot="public" virt="non-virtual"><scope>FMPartMgr</scope><name>optimize</name></member>
+      <member refid="classPartMgrBase_1afa4cd50546d355329f2b1050584ce1a3" prot="public" virt="non-virtual"><scope>FMPartMgr</scope><name>PartMgrBase</name></member>
+      <member refid="classFMPartMgr_1a92cee52700311ad47aa6b3a0b870023c" prot="public" virt="non-virtual"><scope>FMPartMgr</scope><name>restore_part</name></member>
+      <member refid="classPartMgrBase_1a42b7e587ed54ab8e8e50491b0ebdd264" prot="public" virt="non-virtual"><scope>FMPartMgr</scope><name>self</name></member>
+      <member refid="classFMPartMgr_1acb2e49b5e100b35889eb777df427b616" prot="public" virt="non-virtual"><scope>FMPartMgr</scope><name>take_snapshot</name></member>
+      <member refid="classPartMgrBase_1a3d2a862ac1329cd619831161ce73a360" prot="public" virt="non-virtual"><scope>FMPartMgr</scope><name>totalcost</name></member>
+      <member refid="classPartMgrBase_1a99f061c734ce5ce6efb9ff9bd6b1adce" prot="protected" virt="non-virtual"><scope>FMPartMgr</scope><name>validator</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

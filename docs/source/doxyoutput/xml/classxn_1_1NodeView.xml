@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="classxn_1_1NodeView" kind="class" language="C++" prot="public">
+    <compoundname>xn::NodeView</compoundname>
+    <includes refid="reportviews_8hpp" local="no">reportviews.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename nodeview_t</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classxn_1_1NodeView_1a2ff8327911cee0d0ee2c645ac0147367" prot="private" static="no">
+        <type><ref refid="classxn_1_1NodeView" kindref="compound">NodeView</ref>&lt; nodeview_t &gt;</type>
+        <definition>using xn::NodeView&lt; nodeview_t &gt;::_Self =  NodeView&lt;nodeview_t&gt;</definition>
+        <argsstring></argsstring>
+        <name>_Self</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/reportviews.hpp" line="181" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/reportviews.hpp" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classxn_1_1NodeView_1a94671835c91f7093aa4f929ee8e19467" prot="private" static="no">
+        <type>typename nodeview_t::value_type</type>
+        <definition>using xn::NodeView&lt; nodeview_t &gt;::Node =  typename nodeview_t::value_type</definition>
+        <argsstring></argsstring>
+        <name>Node</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/reportviews.hpp" line="182" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/reportviews.hpp" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classxn_1_1NodeView_1aa2ab5c843fe0680b30e13baaf133bac5" prot="private" static="no" mutable="no">
+        <type>nodeview_t &amp;</type>
+        <definition>nodeview_t&amp; xn::NodeView&lt; nodeview_t &gt;::_nodes</definition>
+        <argsstring></argsstring>
+        <name>_nodes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/reportviews.hpp" line="184" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/reportviews.hpp" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classxn_1_1NodeView_1a9f93a7aa3e6bc6afc6f46e7101712490" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>xn::NodeView&lt; nodeview_t &gt;::NodeView</definition>
+        <argsstring>(nodeview_t &amp;nodes)</argsstring>
+        <name>NodeView</name>
+        <param>
+          <type>nodeview_t &amp;</type>
+          <declname>nodes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/reportviews.hpp" line="194" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/reportviews.hpp" bodystart="194" bodyend="197"/>
+      </memberdef>
+      <memberdef kind="function" id="classxn_1_1NodeView_1ab87338647811e6f3e3b781d4fe765743" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto xn::NodeView&lt; nodeview_t &gt;::size</definition>
+        <argsstring>()</argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/reportviews.hpp" line="200" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/reportviews.hpp" bodystart="200" bodyend="203"/>
+      </memberdef>
+      <memberdef kind="function" id="classxn_1_1NodeView_1aaa7d7c44d2c22c59d733530903a601bf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto xn::NodeView&lt; nodeview_t &gt;::begin</definition>
+        <argsstring>()</argsstring>
+        <name>begin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/reportviews.hpp" line="205" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/reportviews.hpp" bodystart="205" bodyend="208"/>
+      </memberdef>
+      <memberdef kind="function" id="classxn_1_1NodeView_1a21ba849bd2e43ba255e4979ed3cc9e6a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto xn::NodeView&lt; nodeview_t &gt;::end</definition>
+        <argsstring>()</argsstring>
+        <name>end</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/reportviews.hpp" line="210" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/reportviews.hpp" bodystart="210" bodyend="213"/>
+      </memberdef>
+      <memberdef kind="function" id="classxn_1_1NodeView_1a47b7580aaa0fd448634abb8d894baab5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto xn::NodeView&lt; nodeview_t &gt;::operator[]</definition>
+        <argsstring>(const Node &amp;n)</argsstring>
+        <name>operator[]</name>
+        <param>
+          <type>const Node &amp;</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/reportviews.hpp" line="215" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/reportviews.hpp" bodystart="215" bodyend="218"/>
+      </memberdef>
+      <memberdef kind="function" id="classxn_1_1NodeView_1a950fcebc8741907c3705e8a37f0f4e6f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool xn::NodeView&lt; nodeview_t &gt;::contains</definition>
+        <argsstring>(const Node &amp;n)</argsstring>
+        <name>contains</name>
+        <param>
+          <type>const Node &amp;</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/reportviews.hpp" line="221" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/reportviews.hpp" bodystart="221" bodyend="224"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>A <ref refid="classxn_1_1NodeView" kindref="compound">NodeView</ref> class to act as G.nodes for a XNetwork <ref refid="classxn_1_1Graph" kindref="compound">Graph</ref> Set operations act on the nodes without considering data. Iteration is over nodes. Node data can be looked up like a dict. Use NodeDataView to iterate over node data || to specify a data attribute for lookup. NodeDataView is created by calling the <ref refid="classxn_1_1NodeView" kindref="compound">NodeView</ref>.</para><para><heading level="2">Parameters </heading>
+</para><para>graph : XNetwork graph-like class</para><para><heading level="2">Examples </heading>
+</para><para><blockquote><para><blockquote><para><blockquote><para>G = xn::path_graph(3); NV = G.nodes(); 2 : NV </para></blockquote></para></blockquote></para></blockquote>true <blockquote><para><blockquote><para><blockquote><para>for n : NV: print(n); </para></blockquote></para></blockquote></para></blockquote>0 1 2 <blockquote><para><blockquote><para><blockquote><para>assert(NV &amp; {1, 2, 3} == {1, 2}); G.add_node(2, color=&quot;blue&quot;); NV[2]; </para></blockquote></para></blockquote></para></blockquote>{&quot;color&quot;: &quot;blue&quot;} <blockquote><para><blockquote><para><blockquote><para>G.add_node(8, color=&quot;red&quot;); NDV = G.nodes(data=true); (2, NV[2]] : NDV </para></blockquote></para></blockquote></para></blockquote>true <blockquote><para><blockquote><para><blockquote><para>for n, dd : NDV: print((n, dd.get(&quot;color&quot;, &quot;aqua&quot;))); </para></blockquote></para></blockquote></para></blockquote>(0, &quot;aqua&quot;); (1, &quot;aqua&quot;); (2, &quot;blue&quot;); (8, &quot;red&quot;); <blockquote><para><blockquote><para><blockquote><para>NDV[2] == NV[2]; </para></blockquote></para></blockquote></para></blockquote>true <blockquote><para><blockquote><para><blockquote><para>NVdata = G.nodes(data=&quot;color&quot;, default=&quot;aqua&quot;); (2, NVdata[2]] : NVdata </para></blockquote></para></blockquote></para></blockquote>true <blockquote><para><blockquote><para><blockquote><para>for n, dd : NVdata: print((n, dd)); </para></blockquote></para></blockquote></para></blockquote>(0, &quot;aqua&quot;); (1, &quot;aqua&quot;); (2, &quot;blue&quot;); (8, &quot;red&quot;); <blockquote><para><blockquote><para><blockquote><para>NVdata[2] == NV[2]; // NVdata gets &quot;color&quot;, NV gets datadict </para></blockquote></para></blockquote></para></blockquote>false </para>    </detaileddescription>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/reportviews.hpp" line="179" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/reportviews.hpp" bodystart="178" bodyend="253"/>
+    <listofallmembers>
+      <member refid="classxn_1_1NodeView_1aa2ab5c843fe0680b30e13baaf133bac5" prot="private" virt="non-virtual"><scope>xn::NodeView</scope><name>_nodes</name></member>
+      <member refid="classxn_1_1NodeView_1a2ff8327911cee0d0ee2c645ac0147367" prot="private" virt="non-virtual"><scope>xn::NodeView</scope><name>_Self</name></member>
+      <member refid="classxn_1_1NodeView_1aaa7d7c44d2c22c59d733530903a601bf" prot="public" virt="non-virtual"><scope>xn::NodeView</scope><name>begin</name></member>
+      <member refid="classxn_1_1NodeView_1a950fcebc8741907c3705e8a37f0f4e6f" prot="public" virt="non-virtual"><scope>xn::NodeView</scope><name>contains</name></member>
+      <member refid="classxn_1_1NodeView_1a21ba849bd2e43ba255e4979ed3cc9e6a" prot="public" virt="non-virtual"><scope>xn::NodeView</scope><name>end</name></member>
+      <member refid="classxn_1_1NodeView_1a94671835c91f7093aa4f929ee8e19467" prot="private" virt="non-virtual"><scope>xn::NodeView</scope><name>Node</name></member>
+      <member refid="classxn_1_1NodeView_1a9f93a7aa3e6bc6afc6f46e7101712490" prot="public" virt="non-virtual"><scope>xn::NodeView</scope><name>NodeView</name></member>
+      <member refid="classxn_1_1NodeView_1a47b7580aaa0fd448634abb8d894baab5" prot="public" virt="non-virtual"><scope>xn::NodeView</scope><name>operator[]</name></member>
+      <member refid="classxn_1_1NodeView_1ab87338647811e6f3e3b781d4fe765743" prot="public" virt="non-virtual"><scope>xn::NodeView</scope><name>size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="classAdjacencyView" kind="class" language="C++" prot="public">
+    <compoundname>AdjacencyView</compoundname>
+    <basecompoundref refid="classAtlasView" prot="public" virt="non-virtual">AtlasView&lt; Atlas &gt;</basecompoundref>
+    <includes refid="coreviews_8hpp" local="no">coreviews.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename Atlas</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classAdjacencyView_1a334355d54106a13e02b2070dfbd4d816" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>AdjacencyView&lt; Atlas &gt;::AdjacencyView</definition>
+        <argsstring>(Atlas &amp;d)</argsstring>
+        <name>AdjacencyView</name>
+        <param>
+          <type>Atlas &amp;</type>
+          <declname>d</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/coreviews.hpp" line="99" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/coreviews.hpp" bodystart="99" bodyend="100"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>An <ref refid="classAdjacencyView" kindref="compound">AdjacencyView</ref> is a Read-only Map of Maps of Maps.</para><para>It is a View into a dict-of-dict-of-dict data structure. The inner level of dict is read-write. But the outer levels are read-only.</para><para><heading level="1">See Also </heading>
+</para><para><ref refid="classAtlasView" kindref="compound">AtlasView</ref> - View into dict-of-dict MultiAdjacencyView - View into dict-of-dict-of-dict-of-dict </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="0">
+        <label>AdjacencyView&lt; Atlas &gt;</label>
+        <link refid="classAdjacencyView"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>AtlasView&lt; Atlas &gt;</label>
+        <link refid="classAtlasView"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>AdjacencyView&lt; Atlas &gt;</label>
+        <link refid="classAdjacencyView"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>AtlasView&lt; Atlas &gt;</label>
+        <link refid="classAtlasView"/>
+      </node>
+    </collaborationgraph>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/coreviews.hpp" line="97" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes/coreviews.hpp" bodystart="96" bodyend="113"/>
+    <listofallmembers>
+      <member refid="classAtlasView_1ad284dc1488458cf4041d461be7fec102" prot="public" virt="non-virtual"><scope>AdjacencyView</scope><name>_atlas</name></member>
+      <member refid="classAdjacencyView_1a334355d54106a13e02b2070dfbd4d816" prot="public" virt="non-virtual"><scope>AdjacencyView</scope><name>AdjacencyView</name></member>
+      <member refid="classAtlasView_1acbb57b02c4a90a5949cc28f92e8ef0fe" prot="public" virt="non-virtual"><scope>AdjacencyView</scope><name>AtlasView</name></member>
+      <member refid="classAtlasView_1a216fadc9ce618dce7fdeb1ab468acfaf" prot="public" virt="non-virtual"><scope>AdjacencyView</scope><name>begin</name></member>
+      <member refid="classAtlasView_1a5af3cb2193940a068024f65474c7463d" prot="public" virt="non-virtual"><scope>AdjacencyView</scope><name>end</name></member>
+      <member refid="classAtlasView_1a51b77f783bf4a04cbe451027ccc8ab59" prot="public" virt="non-virtual"><scope>AdjacencyView</scope><name>operator[]</name></member>
+      <member refid="classAtlasView_1a0cb9c987b191966a41f8de13510b61e7" prot="public" virt="non-virtual"><scope>AdjacencyView</scope><name>size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

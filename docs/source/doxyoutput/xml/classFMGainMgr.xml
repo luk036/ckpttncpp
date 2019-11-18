@@ -1,0 +1,589 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="classFMGainMgr" kind="class" language="C++" prot="public">
+    <compoundname>FMGainMgr</compoundname>
+    <includes refid="FMGainMgr_8hpp" local="no">FMGainMgr.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>GainCalc</declname>
+        <defname>GainCalc</defname>
+      </param>
+      <param>
+        <type>class</type>
+        <declname>Derived</declname>
+        <defname>Derived</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classFMGainMgr_1a2e8cf40a62f2f21049ed9ad95c24b86c" prot="private" static="no">
+        <type>typename SimpleNetlist::index_t</type>
+        <definition>using FMGainMgr&lt; GainCalc, Derived &gt;::index_t =  typename SimpleNetlist::index_t</definition>
+        <argsstring></argsstring>
+        <name>index_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" line="22" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classFMGainMgr_1a96cd1f21aa06d69f599b473c8877a243" prot="private" static="no" mutable="no">
+        <type>Derived &amp;</type>
+        <definition>Derived&amp; FMGainMgr&lt; GainCalc, Derived &gt;::self</definition>
+        <argsstring></argsstring>
+        <name>self</name>
+        <initializer>= *static_cast&lt;Derived*&gt;(this)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" line="21" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classFMGainMgr_1a0b6aa42ded30b7aa585a815f7a94dc6d" prot="protected" static="no" mutable="no">
+        <type><ref refid="structdllink" kindref="compound">dllink</ref>&lt; node_t &gt;</type>
+        <definition>dllink&lt;node_t&gt; FMGainMgr&lt; GainCalc, Derived &gt;::waitinglist</definition>
+        <argsstring></argsstring>
+        <name>waitinglist</name>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" line="25" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classFMGainMgr_1a3b62d434fce427ecd7c992e0d94233e9" prot="protected" static="no" mutable="no">
+        <type><ref refid="structNetlist" kindref="compound">SimpleNetlist</ref> &amp;</type>
+        <definition>SimpleNetlist&amp; FMGainMgr&lt; GainCalc, Derived &gt;::H</definition>
+        <argsstring></argsstring>
+        <name>H</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" line="27" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classFMGainMgr_1acd4d647ac1194e892fe5f8f7ad8e6247" prot="protected" static="no" mutable="no">
+        <type>GainCalc</type>
+        <definition>GainCalc FMGainMgr&lt; GainCalc, Derived &gt;::gainCalc</definition>
+        <argsstring></argsstring>
+        <name>gainCalc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" line="28" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classFMGainMgr_1a89ae4202805f113bf04ba3fd83bdc88a" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t FMGainMgr&lt; GainCalc, Derived &gt;::pmax</definition>
+        <argsstring></argsstring>
+        <name>pmax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" line="29" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classFMGainMgr_1a90ef5c4514b64fb79e859d2a67019f46" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classbpqueue" kindref="compound">bpqueue</ref>&lt; int &gt; &gt;</type>
+        <definition>std::vector&lt;bpqueue&lt;int&gt; &gt; FMGainMgr&lt; GainCalc, Derived &gt;::gainbucket</definition>
+        <argsstring></argsstring>
+        <name>gainbucket</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" line="30" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classFMGainMgr_1aec4518a631369c7ebc342a78ab76ac94" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t FMGainMgr&lt; GainCalc, Derived &gt;::K</definition>
+        <argsstring></argsstring>
+        <name>K</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" line="33" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classFMGainMgr_1a21193519fd9bb3fcd1db54c07d2cf70f" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FMGainMgr&lt; GainCalc, Derived &gt;::FMGainMgr</definition>
+        <argsstring>(SimpleNetlist &amp;H, uint8_t K)</argsstring>
+        <name>FMGainMgr</name>
+        <param>
+          <type><ref refid="structNetlist" kindref="compound">SimpleNetlist</ref> &amp;</type>
+          <declname>H</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>K</declname>
+        </param>
+        <briefdescription>
+<para>Construct a new <ref refid="classFMGainMgr" kindref="compound">FMGainMgr</ref> object. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>H</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>K</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" line="42" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMGainMgr_1a49ad3a29c09bcb2f35b792c22afd11df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMGainMgr&lt; GainCalc, Derived &gt;::init</definition>
+        <argsstring>(gsl::span&lt; const uint8_t &gt; part) -&gt; int</argsstring>
+        <name>init</name>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" line="49" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMGainMgr_1abd8ac72ee8a724fa1b79675ad5d0f95b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMGainMgr&lt; GainCalc, Derived &gt;::is_empty_togo</definition>
+        <argsstring>(uint8_t toPart) const -&gt; bool</argsstring>
+        <name>is_empty_togo</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>toPart</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>toPart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true </para></simplesect>
+<simplesect kind="return"><para>false </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" line="58" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" bodystart="58" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMGainMgr_1ad8183b3ad8260ae1df56e5f584850d9f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMGainMgr&lt; GainCalc, Derived &gt;::is_empty</definition>
+        <argsstring>() const -&gt; bool</argsstring>
+        <name>is_empty</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true </para></simplesect>
+<simplesect kind="return"><para>false </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" line="69" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" bodystart="69" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMGainMgr_1a673fbd2e22dae6822f8f816cb909939b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMGainMgr&lt; GainCalc, Derived &gt;::select</definition>
+        <argsstring>(gsl::span&lt; const uint8_t &gt; part) -&gt; std::tuple&lt; MoveInfoV, int &gt;</argsstring>
+        <name>select</name>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>std::tuple&lt;MoveInfoV, int&gt; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" line="87" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMGainMgr_1a24395f43b445ff2391cf0710555fec82" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMGainMgr&lt; GainCalc, Derived &gt;::select_togo</definition>
+        <argsstring>(uint8_t toPart) -&gt; std::tuple&lt; index_t, int &gt;</argsstring>
+        <name>select_togo</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>toPart</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>toPart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>std::tuple&lt;index_t, int&gt; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" line="95" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMGainMgr_1a11a7cc89b775313d75a0a490a0d4e411" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMGainMgr&lt; GainCalc, Derived &gt;::update_move</definition>
+        <argsstring>(gsl::span&lt; const uint8_t &gt; part, const MoveInfoV &amp;move_info_v) -&gt; void</argsstring>
+        <name>update_move</name>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structMoveInfoV" kindref="compound">MoveInfoV</ref> &amp;</type>
+          <declname>move_info_v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>move_info_v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" line="103" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classFMGainMgr_1ab898264f608431a46d426e24053354ae" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMGainMgr&lt; GainCalc, Derived &gt;::__update_move_2pin_net</definition>
+        <argsstring>(gsl::span&lt; const uint8_t &gt; part, const MoveInfo &amp;move_info) -&gt; void</argsstring>
+        <name>__update_move_2pin_net</name>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structMoveInfo" kindref="compound">MoveInfo</ref> &amp;</type>
+          <declname>move_info</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>move_info</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" line="113" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMGainMgr_1aacc6a2721ab0f9ff318e28446b682658" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMGainMgr&lt; GainCalc, Derived &gt;::__update_move_3pin_net</definition>
+        <argsstring>(gsl::span&lt; const uint8_t &gt; part, const MoveInfo &amp;move_info) -&gt; void</argsstring>
+        <name>__update_move_3pin_net</name>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structMoveInfo" kindref="compound">MoveInfo</ref> &amp;</type>
+          <declname>move_info</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>move_info</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" line="122" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMGainMgr_1a834d1cba4e112b22d6ee4667661c065d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMGainMgr&lt; GainCalc, Derived &gt;::__update_move_general_net</definition>
+        <argsstring>(gsl::span&lt; const uint8_t &gt; part, const MoveInfo &amp;move_info) -&gt; void</argsstring>
+        <name>__update_move_general_net</name>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structMoveInfo" kindref="compound">MoveInfo</ref> &amp;</type>
+          <declname>move_info</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>move_info</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" line="131" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>GainCalc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Derived</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="99">
+        <label>std::unordered_map&lt; node_t, index_t &gt;</label>
+      </node>
+      <node id="103">
+        <label>dllink&lt; node_t &gt;</label>
+        <link refid="structdllink"/>
+        <childnode refid="103" relation="usage">
+          <edgelabel>prev</edgelabel>
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="90">
+        <label>xn::Graph&lt; nodeview_t, nodemap_t &gt;</label>
+        <link refid="classxn_1_1Graph"/>
+        <childnode refid="91" relation="public-inheritance">
+        </childnode>
+        <childnode refid="94" relation="usage">
+          <edgelabel>_node</edgelabel>
+        </childnode>
+        <childnode refid="95" relation="usage">
+          <edgelabel>_node_map</edgelabel>
+        </childnode>
+        <childnode refid="92" relation="usage">
+          <edgelabel>graph</edgelabel>
+        </childnode>
+      </node>
+      <node id="102">
+        <label>GainCalc</label>
+      </node>
+      <node id="100">
+        <label>py::dict&lt; index_t, node_t &gt;</label>
+        <link refid="classpy_1_1dict"/>
+        <childnode refid="101" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="97">
+        <label>std::unordered_set&lt; node_t  &gt;</label>
+      </node>
+      <node id="94">
+        <label>nodeview_t</label>
+      </node>
+      <node id="91">
+        <label>xn::object</label>
+        <link refid="structxn_1_1object"/>
+        <childnode refid="92" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="95">
+        <label>nodemap_t</label>
+      </node>
+      <node id="93">
+        <label>std::unordered_map&lt; const char *, std::any &gt;</label>
+      </node>
+      <node id="96">
+        <label>py::set&lt; node_t &gt;</label>
+        <link refid="classpy_1_1set"/>
+        <childnode refid="97" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="92">
+        <label>py::dict&lt; const char *, std::any &gt;</label>
+        <link refid="classpy_1_1dict"/>
+        <childnode refid="93" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="98">
+        <label>py::dict&lt; node_t, index_t &gt;</label>
+        <link refid="classpy_1_1dict"/>
+        <childnode refid="99" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="89">
+        <label>Netlist&lt; nodeview_t, nodemap_t &gt;</label>
+        <link refid="structNetlist"/>
+        <childnode refid="90" relation="usage">
+          <edgelabel>G</edgelabel>
+        </childnode>
+        <childnode refid="94" relation="usage">
+          <edgelabel>nets</edgelabel>
+          <edgelabel>modules</edgelabel>
+        </childnode>
+        <childnode refid="96" relation="usage">
+          <edgelabel>module_fixed</edgelabel>
+        </childnode>
+        <childnode refid="98" relation="usage">
+          <edgelabel>node_up_map</edgelabel>
+        </childnode>
+        <childnode refid="100" relation="usage">
+          <edgelabel>node_down_map</edgelabel>
+          <edgelabel>cluster_down_map</edgelabel>
+        </childnode>
+        <childnode refid="95" relation="usage">
+          <edgelabel>module_map</edgelabel>
+        </childnode>
+      </node>
+      <node id="88">
+        <label>FMGainMgr&lt; GainCalc, Derived &gt;</label>
+        <link refid="classFMGainMgr"/>
+        <childnode refid="89" relation="usage">
+          <edgelabel>H</edgelabel>
+        </childnode>
+        <childnode refid="102" relation="usage">
+          <edgelabel>gainCalc</edgelabel>
+        </childnode>
+        <childnode refid="103" relation="usage">
+          <edgelabel>waitinglist</edgelabel>
+        </childnode>
+      </node>
+      <node id="101">
+        <label>std::unordered_map&lt; index_t , node_t  &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" line="20" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMGainMgr.hpp" bodystart="19" bodyend="133"/>
+    <listofallmembers>
+      <member refid="classFMGainMgr_1ab898264f608431a46d426e24053354ae" prot="private" virt="non-virtual"><scope>FMGainMgr</scope><name>__update_move_2pin_net</name></member>
+      <member refid="classFMGainMgr_1aacc6a2721ab0f9ff318e28446b682658" prot="private" virt="non-virtual"><scope>FMGainMgr</scope><name>__update_move_3pin_net</name></member>
+      <member refid="classFMGainMgr_1a834d1cba4e112b22d6ee4667661c065d" prot="private" virt="non-virtual"><scope>FMGainMgr</scope><name>__update_move_general_net</name></member>
+      <member refid="classFMGainMgr_1a21193519fd9bb3fcd1db54c07d2cf70f" prot="public" virt="non-virtual"><scope>FMGainMgr</scope><name>FMGainMgr</name></member>
+      <member refid="classFMGainMgr_1a90ef5c4514b64fb79e859d2a67019f46" prot="protected" virt="non-virtual"><scope>FMGainMgr</scope><name>gainbucket</name></member>
+      <member refid="classFMGainMgr_1acd4d647ac1194e892fe5f8f7ad8e6247" prot="protected" virt="non-virtual"><scope>FMGainMgr</scope><name>gainCalc</name></member>
+      <member refid="classFMGainMgr_1a3b62d434fce427ecd7c992e0d94233e9" prot="protected" virt="non-virtual"><scope>FMGainMgr</scope><name>H</name></member>
+      <member refid="classFMGainMgr_1a2e8cf40a62f2f21049ed9ad95c24b86c" prot="private" virt="non-virtual"><scope>FMGainMgr</scope><name>index_t</name></member>
+      <member refid="classFMGainMgr_1a49ad3a29c09bcb2f35b792c22afd11df" prot="public" virt="non-virtual"><scope>FMGainMgr</scope><name>init</name></member>
+      <member refid="classFMGainMgr_1ad8183b3ad8260ae1df56e5f584850d9f" prot="public" virt="non-virtual"><scope>FMGainMgr</scope><name>is_empty</name></member>
+      <member refid="classFMGainMgr_1abd8ac72ee8a724fa1b79675ad5d0f95b" prot="public" virt="non-virtual"><scope>FMGainMgr</scope><name>is_empty_togo</name></member>
+      <member refid="classFMGainMgr_1aec4518a631369c7ebc342a78ab76ac94" prot="public" virt="non-virtual"><scope>FMGainMgr</scope><name>K</name></member>
+      <member refid="classFMGainMgr_1a89ae4202805f113bf04ba3fd83bdc88a" prot="protected" virt="non-virtual"><scope>FMGainMgr</scope><name>pmax</name></member>
+      <member refid="classFMGainMgr_1a673fbd2e22dae6822f8f816cb909939b" prot="public" virt="non-virtual"><scope>FMGainMgr</scope><name>select</name></member>
+      <member refid="classFMGainMgr_1a24395f43b445ff2391cf0710555fec82" prot="public" virt="non-virtual"><scope>FMGainMgr</scope><name>select_togo</name></member>
+      <member refid="classFMGainMgr_1a96cd1f21aa06d69f599b473c8877a243" prot="private" virt="non-virtual"><scope>FMGainMgr</scope><name>self</name></member>
+      <member refid="classFMGainMgr_1a11a7cc89b775313d75a0a490a0d4e411" prot="public" virt="non-virtual"><scope>FMGainMgr</scope><name>update_move</name></member>
+      <member refid="classFMGainMgr_1a0b6aa42ded30b7aa585a815f7a94dc6d" prot="protected" virt="non-virtual"><scope>FMGainMgr</scope><name>waitinglist</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="classpy_1_1set" kind="class" language="C++" prot="public">
+    <compoundname>py::set</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">std::unordered_set&lt; Key &gt;</basecompoundref>
+    <includes refid="py2cpp_8hpp" local="no">py2cpp.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>Key</declname>
+        <defname>Key</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classpy_1_1set_1a5e202da37d9903c138bc921616af7c1f" prot="private" static="no">
+        <type><ref refid="classpy_1_1set" kindref="compound">set</ref>&lt; Key &gt;</type>
+        <definition>using py::set&lt; Key &gt;::_Self =  set&lt;Key&gt;</definition>
+        <argsstring></argsstring>
+        <name>_Self</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/py2cpp.hpp" line="172" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/py2cpp.hpp" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classpy_1_1set_1aab926edfb6f43f36cdb1ba0d73e62177" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>py::set&lt; Key &gt;::set</definition>
+        <argsstring>()</argsstring>
+        <name>set</name>
+        <briefdescription>
+<para>Construct a new set object. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/py2cpp.hpp" line="179" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/py2cpp.hpp" bodystart="179" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="classpy_1_1set_1ae01ec71da6574881260d9a4a78d73f0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classpy_1_1set" kindref="compound">_Self</ref> &amp;</type>
+        <definition>_Self&amp; py::set&lt; Key &gt;::operator=</definition>
+        <argsstring>(_Self &amp;&amp;)=default</argsstring>
+        <name>operator=</name>
+        <param>
+          <type><ref refid="classpy_1_1set" kindref="compound">_Self</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>_Self&amp; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/py2cpp.hpp" line="238" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classpy_1_1set_1a9e7ad1611101cef02b6b6653bb44b5c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>py::set&lt; Key &gt;::set</definition>
+        <argsstring>(set&lt; Key &gt; &amp;&amp;)=default</argsstring>
+        <name>set</name>
+        <param>
+          <type><ref refid="classpy_1_1set" kindref="compound">set</ref>&lt; Key &gt; &amp;&amp;</type>
+        </param>
+        <briefdescription>
+<para>Move Constructor (default) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/py2cpp.hpp" line="244" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classpy_1_1set_1a799076059574f20dac7e8bd7c57561d2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>py::set&lt; Key &gt;::set</definition>
+        <argsstring>(const set&lt; Key &gt; &amp;)=default</argsstring>
+        <name>set</name>
+        <param>
+          <type>const <ref refid="classpy_1_1set" kindref="compound">set</ref>&lt; Key &gt; &amp;</type>
+        </param>
+        <briefdescription>
+<para>Copy Constructor (deleted) </para>        </briefdescription>
+        <detaileddescription>
+<para>Copy through explicitly the public copy() function!!! </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/py2cpp.hpp" line="252" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="261">
+        <label>std::unordered_set&lt; Key &gt;</label>
+      </node>
+      <node id="260">
+        <label>py::set&lt; Key &gt;</label>
+        <link refid="classpy_1_1set"/>
+        <childnode refid="261" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="263">
+        <label>std::unordered_set&lt; Key &gt;</label>
+      </node>
+      <node id="262">
+        <label>py::set&lt; Key &gt;</label>
+        <link refid="classpy_1_1set"/>
+        <childnode refid="263" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/py2cpp.hpp" line="171" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/py2cpp.hpp" bodystart="170" bodyend="253"/>
+    <listofallmembers>
+      <member refid="classpy_1_1set_1a5e202da37d9903c138bc921616af7c1f" prot="private" virt="non-virtual"><scope>py::set</scope><name>_Self</name></member>
+      <member refid="classpy_1_1set_1ae01ec71da6574881260d9a4a78d73f0a" prot="public" virt="non-virtual"><scope>py::set</scope><name>operator=</name></member>
+      <member refid="classpy_1_1set_1aab926edfb6f43f36cdb1ba0d73e62177" prot="public" virt="non-virtual"><scope>py::set</scope><name>set</name></member>
+      <member refid="classpy_1_1set_1a9e7ad1611101cef02b6b6653bb44b5c0" prot="public" virt="non-virtual"><scope>py::set</scope><name>set</name></member>
+      <member refid="classpy_1_1set_1a799076059574f20dac7e8bd7c57561d2" prot="private" virt="non-virtual"><scope>py::set</scope><name>set</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

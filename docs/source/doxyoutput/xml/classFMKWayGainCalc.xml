@@ -1,0 +1,590 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="classFMKWayGainCalc" kind="class" language="C++" prot="public">
+    <compoundname>FMKWayGainCalc</compoundname>
+    <includes refid="FMKWayGainCalc_8hpp" local="no">FMKWayGainCalc.hpp</includes>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classFMKWayGainCalc_1a2f2d62f8c61ee18c8def53d0e97b68d7" prot="private" static="no">
+        <type>typename SimpleNetlist::index_t</type>
+        <definition>using FMKWayGainCalc::index_t =  typename SimpleNetlist::index_t</definition>
+        <argsstring></argsstring>
+        <name>index_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="17" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classFMKWayGainCalc_1a78b5a910a60f672feb5b00fc17f7bb03" prot="public" static="no">
+        <type>std::tuple&lt; index_t, std::vector&lt; int &gt; &gt;</type>
+        <definition>using FMKWayGainCalc::ret_2pin_info =  std::tuple&lt;index_t, std::vector&lt;int&gt; &gt;</definition>
+        <argsstring></argsstring>
+        <name>ret_2pin_info</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="92" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classFMKWayGainCalc_1a1bcce63158439ad2ede74acacff2825b" prot="public" static="no">
+        <type>std::tuple&lt; std::vector&lt; node_t &gt;, std::vector&lt; std::vector&lt; int &gt; &gt;&gt;</type>
+        <definition>using FMKWayGainCalc::ret_info =  std::tuple&lt;std::vector&lt;node_t&gt;, std::vector&lt;std::vector&lt;int&gt; &gt;&gt;</definition>
+        <argsstring></argsstring>
+        <name>ret_info</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="104" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classFMKWayGainCalc_1a6b4cb49b0c70d8c19495a7f1964ce707" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class FMKWayGainMgr</definition>
+        <argsstring></argsstring>
+        <name>FMKWayGainMgr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="16" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classFMKWayGainCalc_1a9334b8adf8f47a6b8d78823f6c272c76" prot="private" static="no" mutable="no">
+        <type><ref refid="structNetlist" kindref="compound">SimpleNetlist</ref> &amp;</type>
+        <definition>SimpleNetlist&amp; FMKWayGainCalc::H</definition>
+        <argsstring></argsstring>
+        <name>H</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="20" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classFMKWayGainCalc_1ac17e4240d6541f3330ddd3ea0dafb719" prot="private" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t FMKWayGainCalc::K</definition>
+        <argsstring></argsstring>
+        <name>K</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="21" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classFMKWayGainCalc_1a25f2c856747f944c043949a339d1433d" prot="private" static="no" mutable="no">
+        <type><ref refid="classrobin" kindref="compound">robin</ref>&lt; uint8_t &gt;</type>
+        <definition>robin&lt;uint8_t&gt; FMKWayGainCalc::RR</definition>
+        <argsstring></argsstring>
+        <name>RR</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="22" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classFMKWayGainCalc_1aaaae459b99b80a0095b12c1d2d41b63e" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t FMKWayGainCalc::num_modules</definition>
+        <argsstring></argsstring>
+        <name>num_modules</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="23" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classFMKWayGainCalc_1a94a52f49c88c6fd44290b12ea0251b4d" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::vector&lt; <ref refid="structdllink" kindref="compound">dllink</ref>&lt; node_t &gt; &gt; &gt;</type>
+        <definition>std::vector&lt;std::vector&lt;dllink&lt;node_t&gt; &gt; &gt; FMKWayGainCalc::vertex_list</definition>
+        <argsstring></argsstring>
+        <name>vertex_list</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="24" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classFMKWayGainCalc_1afe33e1943f93433b1a40b29d361f7ec0" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt;int&gt; FMKWayGainCalc::deltaGainV</definition>
+        <argsstring></argsstring>
+        <name>deltaGainV</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="25" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classFMKWayGainCalc_1a5bf33b8482c2563aad423fbb9d930191" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int FMKWayGainCalc::totalcost</definition>
+        <argsstring></argsstring>
+        <name>totalcost</name>
+        <initializer>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="28" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classFMKWayGainCalc_1a6f136e1ffb0f8ca1c2879d9e709dfe14" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FMKWayGainCalc::FMKWayGainCalc</definition>
+        <argsstring>(SimpleNetlist &amp;H, uint8_t K)</argsstring>
+        <name>FMKWayGainCalc</name>
+        <param>
+          <type><ref refid="structNetlist" kindref="compound">SimpleNetlist</ref> &amp;</type>
+          <declname>H</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>K</declname>
+        </param>
+        <briefdescription>
+<para>Construct a new <ref refid="classFMKWayGainCalc" kindref="compound">FMKWayGainCalc</ref> object. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>H</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="structNetlist" kindref="compound">Netlist</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>K</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of partitions </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="36" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" bodystart="36" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMKWayGainCalc_1a9dd29dd99d095ac49be222c450107a1b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMKWayGainCalc::start_ptr</definition>
+        <argsstring>(uint8_t toPart) -&gt; dllink&lt; node_t &gt; *</argsstring>
+        <name>start_ptr</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>toPart</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>toPart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>dllink* </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="56" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" bodystart="56" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMKWayGainCalc_1a90ac9b44385bb59b4e03258ed44b17e6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMKWayGainCalc::init</definition>
+        <argsstring>(gsl::span&lt; const uint8_t &gt; part) -&gt; int</argsstring>
+        <name>init</name>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="66" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" bodystart="66" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMKWayGainCalc_1a0176877d4e4fb2e6009fa7877f551a5d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMKWayGainCalc::update_move_init</definition>
+        <argsstring>() -&gt; void</argsstring>
+        <name>update_move_init</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="87" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" bodystart="87" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMKWayGainCalc_1ac435f1d423859444cb06705352e228f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMKWayGainCalc::update_move_2pin_net</definition>
+        <argsstring>(gsl::span&lt; const uint8_t &gt; part, const MoveInfo &amp;move_info) -&gt; ret_2pin_info</argsstring>
+        <name>update_move_2pin_net</name>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structMoveInfo" kindref="compound">MoveInfo</ref> &amp;</type>
+          <declname>move_info</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>move_info</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>ret_2pin_info </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="101" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMKWayGainCalc_1a61cf72174afe16a5374957ba2b1178a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMKWayGainCalc::update_move_3pin_net</definition>
+        <argsstring>(gsl::span&lt; const uint8_t &gt; part, const MoveInfo &amp;move_info) -&gt; ret_info</argsstring>
+        <name>update_move_3pin_net</name>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structMoveInfo" kindref="compound">MoveInfo</ref> &amp;</type>
+          <declname>move_info</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>move_info</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>ret_info </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="114" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMKWayGainCalc_1aa132fec9bf2fe686829e522138ddb1f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMKWayGainCalc::update_move_general_net</definition>
+        <argsstring>(gsl::span&lt; const uint8_t &gt; part, const MoveInfo &amp;move_info) -&gt; ret_info</argsstring>
+        <name>update_move_general_net</name>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structMoveInfo" kindref="compound">MoveInfo</ref> &amp;</type>
+          <declname>move_info</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>move_info</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>ret_info </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="124" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classFMKWayGainCalc_1ac4e6255c0ffc3141805628779fa45e41" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMKWayGainCalc::__modify_gain</definition>
+        <argsstring>(node_t v, uint8_t part_v, int weight) -&gt; void</argsstring>
+        <name>__modify_gain</name>
+        <param>
+          <type>node_t</type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>part_v</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>weight</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="134" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" bodystart="134" bodyend="140"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMKWayGainCalc_1ad909d0ff7baffed4a520697c828628b8" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMKWayGainCalc::__init_gain</definition>
+        <argsstring>(node_t net, gsl::span&lt; const uint8_t &gt; part) -&gt; void</argsstring>
+        <name>__init_gain</name>
+        <param>
+          <type>node_t</type>
+          <declname>net</declname>
+        </param>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>net</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="148" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMKWayGainCalc_1a022941cadd14ec02d1f945b9aeda1ce3" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMKWayGainCalc::__init_gain_2pin_net</definition>
+        <argsstring>(node_t net, gsl::span&lt; const uint8_t &gt; part) -&gt; void</argsstring>
+        <name>__init_gain_2pin_net</name>
+        <param>
+          <type>node_t</type>
+          <declname>net</declname>
+        </param>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>net</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="156" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMKWayGainCalc_1a98dbec6a381dec556193d52334aae98f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMKWayGainCalc::__init_gain_3pin_net</definition>
+        <argsstring>(node_t net, gsl::span&lt; const uint8_t &gt; part) -&gt; void</argsstring>
+        <name>__init_gain_3pin_net</name>
+        <param>
+          <type>node_t</type>
+          <declname>net</declname>
+        </param>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>net</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="165" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classFMKWayGainCalc_1a17d92b05169fd2472e7d35f0ab25e631" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMKWayGainCalc::__init_gain_general_net</definition>
+        <argsstring>(node_t net, gsl::span&lt; const uint8_t &gt; part) -&gt; void</argsstring>
+        <name>__init_gain_general_net</name>
+        <param>
+          <type>node_t</type>
+          <declname>net</declname>
+        </param>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>net</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="174" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="classFMKWayGainCalc" kindref="compound">FMKWayGainCalc</ref>. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" line="15" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainCalc.hpp" bodystart="14" bodyend="176"/>
+    <listofallmembers>
+      <member refid="classFMKWayGainCalc_1ad909d0ff7baffed4a520697c828628b8" prot="private" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>__init_gain</name></member>
+      <member refid="classFMKWayGainCalc_1a022941cadd14ec02d1f945b9aeda1ce3" prot="private" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>__init_gain_2pin_net</name></member>
+      <member refid="classFMKWayGainCalc_1a98dbec6a381dec556193d52334aae98f" prot="private" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>__init_gain_3pin_net</name></member>
+      <member refid="classFMKWayGainCalc_1a17d92b05169fd2472e7d35f0ab25e631" prot="private" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>__init_gain_general_net</name></member>
+      <member refid="classFMKWayGainCalc_1ac4e6255c0ffc3141805628779fa45e41" prot="private" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>__modify_gain</name></member>
+      <member refid="classFMKWayGainCalc_1afe33e1943f93433b1a40b29d361f7ec0" prot="private" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>deltaGainV</name></member>
+      <member refid="classFMKWayGainCalc_1a6f136e1ffb0f8ca1c2879d9e709dfe14" prot="public" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>FMKWayGainCalc</name></member>
+      <member refid="classFMKWayGainCalc_1a6b4cb49b0c70d8c19495a7f1964ce707" prot="private" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>FMKWayGainMgr</name></member>
+      <member refid="classFMKWayGainCalc_1a9334b8adf8f47a6b8d78823f6c272c76" prot="private" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>H</name></member>
+      <member refid="classFMKWayGainCalc_1a2f2d62f8c61ee18c8def53d0e97b68d7" prot="private" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>index_t</name></member>
+      <member refid="classFMKWayGainCalc_1a90ac9b44385bb59b4e03258ed44b17e6" prot="public" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>init</name></member>
+      <member refid="classFMKWayGainCalc_1ac17e4240d6541f3330ddd3ea0dafb719" prot="private" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>K</name></member>
+      <member refid="classFMKWayGainCalc_1aaaae459b99b80a0095b12c1d2d41b63e" prot="private" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>num_modules</name></member>
+      <member refid="classFMKWayGainCalc_1a78b5a910a60f672feb5b00fc17f7bb03" prot="public" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>ret_2pin_info</name></member>
+      <member refid="classFMKWayGainCalc_1a1bcce63158439ad2ede74acacff2825b" prot="public" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>ret_info</name></member>
+      <member refid="classFMKWayGainCalc_1a25f2c856747f944c043949a339d1433d" prot="private" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>RR</name></member>
+      <member refid="classFMKWayGainCalc_1a9dd29dd99d095ac49be222c450107a1b" prot="public" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>start_ptr</name></member>
+      <member refid="classFMKWayGainCalc_1a5bf33b8482c2563aad423fbb9d930191" prot="public" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>totalcost</name></member>
+      <member refid="classFMKWayGainCalc_1ac435f1d423859444cb06705352e228f0" prot="public" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>update_move_2pin_net</name></member>
+      <member refid="classFMKWayGainCalc_1a61cf72174afe16a5374957ba2b1178a2" prot="public" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>update_move_3pin_net</name></member>
+      <member refid="classFMKWayGainCalc_1aa132fec9bf2fe686829e522138ddb1f1" prot="public" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>update_move_general_net</name></member>
+      <member refid="classFMKWayGainCalc_1a0176877d4e4fb2e6009fa7877f551a5d" prot="public" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>update_move_init</name></member>
+      <member refid="classFMKWayGainCalc_1a94a52f49c88c6fd44290b12ea0251b4d" prot="private" virt="non-virtual"><scope>FMKWayGainCalc</scope><name>vertex_list</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

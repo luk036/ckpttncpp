@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="structxn_1_1NodeNotFound" kind="struct" language="C++" prot="public">
+    <compoundname>xn::NodeNotFound</compoundname>
+    <basecompoundref refid="structxn_1_1XNetworkException" prot="public" virt="non-virtual">xn::XNetworkException</basecompoundref>
+    <includes refid="exception_8hpp" local="no">exception.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structxn_1_1NodeNotFound_1a9a550d828516dc1bb0c8f07f93d0d531" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>xn::NodeNotFound::NodeNotFound</definition>
+        <argsstring>(const char *msg)</argsstring>
+        <name>NodeNotFound</name>
+        <param>
+          <type>const char *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/exception.hpp" line="147" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/exception.hpp" bodystart="147" bodyend="150"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Exception raised if (requested node is not present : the graph </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="220">
+        <label>xn::XNetworkException</label>
+        <link refid="structxn_1_1XNetworkException"/>
+        <childnode refid="221" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="221">
+        <label>std::runtime_error</label>
+      </node>
+      <node id="219">
+        <label>xn::NodeNotFound</label>
+        <link refid="structxn_1_1NodeNotFound"/>
+        <childnode refid="220" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="223">
+        <label>xn::XNetworkException</label>
+        <link refid="structxn_1_1XNetworkException"/>
+        <childnode refid="224" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="224">
+        <label>std::runtime_error</label>
+      </node>
+      <node id="222">
+        <label>xn::NodeNotFound</label>
+        <link refid="structxn_1_1NodeNotFound"/>
+        <childnode refid="223" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/exception.hpp" line="146" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/exception.hpp" bodystart="145" bodyend="151"/>
+    <listofallmembers>
+      <member refid="structxn_1_1NodeNotFound_1a9a550d828516dc1bb0c8f07f93d0d531" prot="public" virt="non-virtual"><scope>xn::NodeNotFound</scope><name>NodeNotFound</name></member>
+      <member refid="structxn_1_1XNetworkException_1adf7ac46d6cef6d2fcee880fc2f709458" prot="public" virt="non-virtual"><scope>xn::NodeNotFound</scope><name>XNetworkException</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

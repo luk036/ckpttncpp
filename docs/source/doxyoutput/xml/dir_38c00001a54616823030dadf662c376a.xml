@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="dir_38c00001a54616823030dadf662c376a" kind="dir">
+    <compoundname>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork</compoundname>
+    <innerdir refid="dir_a816b66f854c935cd1b5f829f213b409">/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/classes</innerdir>
+    <innerfile refid="exception_8hpp">exception.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/"/>
+  </compounddef>
+</doxygen>

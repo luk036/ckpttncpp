@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="FMConstrMgr_8hpp" kind="file" language="C++">
+    <compoundname>FMConstrMgr.hpp</compoundname>
+    <includes refid="netlist_8hpp" local="yes">netlist.hpp</includes>
+    <includes local="no">algorithm</includes>
+    <includes local="no">cinttypes</includes>
+    <includes local="no">cmath</includes>
+    <includes local="no">gsl/span</includes>
+    <includes local="no">vector</includes>
+    <includedby refid="FMBiConstrMgr_8hpp" local="yes">/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiConstrMgr.hpp</includedby>
+    <includedby refid="FMKWayConstrMgr_8hpp" local="yes">/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayConstrMgr.hpp</includedby>
+    <incdepgraph>
+      <node id="107">
+        <label>xnetwork/classes/coreviews.hpp</label>
+        <link refid="coreviews_8hpp_source"/>
+      </node>
+      <node id="95">
+        <label>iterator</label>
+      </node>
+      <node id="108">
+        <label>xnetwork/classes/reportviews.hpp</label>
+        <link refid="reportviews_8hpp_source"/>
+        <childnode refid="97" relation="include">
+        </childnode>
+      </node>
+      <node id="110">
+        <label>cmath</label>
+      </node>
+      <node id="106">
+        <label>cassert</label>
+      </node>
+      <node id="109">
+        <label>cinttypes</label>
+      </node>
+      <node id="101">
+        <label>unordered_set</label>
+      </node>
+      <node id="92">
+        <label>netlist.hpp</label>
+        <link refid="netlist_8hpp_source"/>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+      </node>
+      <node id="105">
+        <label>any</label>
+      </node>
+      <node id="98">
+        <label>tuple</label>
+      </node>
+      <node id="104">
+        <label>xnetwork/classes/graph.hpp</label>
+        <link refid="graph_8hpp_source"/>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+      </node>
+      <node id="103">
+        <label>vector</label>
+      </node>
+      <node id="102">
+        <label>utility</label>
+      </node>
+      <node id="100">
+        <label>unordered_map</label>
+      </node>
+      <node id="91">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMConstrMgr.hpp</label>
+        <link refid="FMConstrMgr_8hpp"/>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+      </node>
+      <node id="99">
+        <label>type_traits</label>
+      </node>
+      <node id="94">
+        <label>gsl/span</label>
+      </node>
+      <node id="96">
+        <label>py2cpp/py2cpp.hpp</label>
+        <link refid="py2cpp_8hpp_source"/>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+      </node>
+      <node id="93">
+        <label>algorithm</label>
+      </node>
+      <node id="97">
+        <label>initializer_list</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="113">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayConstrMgr.hpp</label>
+        <link refid="FMKWayConstrMgr_8hpp_source"/>
+      </node>
+      <node id="112">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiConstrMgr.hpp</label>
+        <link refid="FMBiConstrMgr_8hpp_source"/>
+      </node>
+      <node id="111">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMConstrMgr.hpp</label>
+        <link refid="FMConstrMgr_8hpp"/>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classFMConstrMgr" prot="public">FMConstrMgr</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;netlist.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;algorithm&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cinttypes&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cmath&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;gsl/span&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Check<sp/>if<sp/>(the<sp/>move<sp/>of<sp/>v<sp/>can<sp/>satisfied,<sp/>makebetter,<sp/>or<sp/>notsatisfied</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="classFMConstrMgr" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classFMConstrMgr" kindref="compound">FMConstrMgr</ref></highlight></codeline>
+<codeline lineno="17"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>weight;<sp/></highlight><highlight class="comment">//<sp/>cache<sp/>value</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structNetlist" kindref="compound">SimpleNetlist</ref>&amp;<sp/>H;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>BalTol;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>K;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;int&gt;<sp/>diff;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>lowerbound<sp/>{0};</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>totalweight<sp/>{0};</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="classFMConstrMgr_1ac6326f062b0c4c757f171d8423f645c0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classFMConstrMgr_1ac6326f062b0c4c757f171d8423f645c0" kindref="member">FMConstrMgr</ref>(<ref refid="structNetlist" kindref="compound">SimpleNetlist</ref>&amp;<sp/>H,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>BalTol,<sp/>uint8_t<sp/>K<sp/>=<sp/>2)</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>H<sp/>{H}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>BalTol<sp/>{BalTol}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>K<sp/>{K}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>diff(K,<sp/>0)</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>v<sp/>:<sp/>this-&gt;H.modules)</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>weight<sp/>=<sp/>this-&gt;H.get_module_weight(v);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;totalweight<sp/>+=<sp/>weight;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>totalweightK<sp/>=<sp/>this-&gt;totalweight<sp/>*<sp/>(2.<sp/>/<sp/>this-&gt;K);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;lowerbound<sp/>=<sp/>std::round(totalweightK<sp/>*<sp/>this-&gt;BalTol);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classFMConstrMgr_1ab70f6dafede28e237cb8301de1543d46" kindref="member">init</ref>(gsl::span&lt;const<sp/>uint8_t&gt;<sp/>part)<sp/>-&gt;<sp/>void;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classFMConstrMgr_1abb7ab7430e60bdf40e64f836f486b011" kindref="member">check_legal</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structMoveInfoV" kindref="compound">MoveInfoV</ref>&amp;<sp/>move_info_v)<sp/>-&gt;<sp/>size_t;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classFMConstrMgr_1a951a868885eaecdf750aef3fed0c92fe" kindref="member">check_constraints</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structMoveInfoV" kindref="compound">MoveInfoV</ref>&amp;<sp/>move_info_v)<sp/>-&gt;<sp/>bool;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classFMConstrMgr_1a60ee5ff96c0ec1879229fe262581afcf" kindref="member">update_move</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structMoveInfoV" kindref="compound">MoveInfoV</ref>&amp;<sp/>move_info_v)<sp/>-&gt;<sp/>void;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMConstrMgr.hpp"/>
+  </compounddef>
+</doxygen>

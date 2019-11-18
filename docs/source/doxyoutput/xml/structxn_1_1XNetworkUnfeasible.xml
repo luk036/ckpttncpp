@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="structxn_1_1XNetworkUnfeasible" kind="struct" language="C++" prot="public">
+    <compoundname>xn::XNetworkUnfeasible</compoundname>
+    <basecompoundref refid="structxn_1_1XNetworkAlgorithmError" prot="public" virt="non-virtual">xn::XNetworkAlgorithmError</basecompoundref>
+    <derivedcompoundref refid="structxn_1_1XNetworkNoCycle" prot="public" virt="non-virtual">xn::XNetworkNoCycle</derivedcompoundref>
+    <derivedcompoundref refid="structxn_1_1XNetworkNoPath" prot="public" virt="non-virtual">xn::XNetworkNoPath</derivedcompoundref>
+    <includes refid="exception_8hpp" local="no">exception.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structxn_1_1XNetworkUnfeasible_1a495616a03dce4b145e1eaf389cd84892" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>xn::XNetworkUnfeasible::XNetworkUnfeasible</definition>
+        <argsstring>(const char *msg)</argsstring>
+        <name>XNetworkUnfeasible</name>
+        <param>
+          <type>const char *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/exception.hpp" line="89" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/exception.hpp" bodystart="89" bodyend="92"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Exception raised by algorithms trying to solve a problem instance that has no feasible solution. </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="355">
+        <label>xn::XNetworkUnfeasible</label>
+        <link refid="structxn_1_1XNetworkUnfeasible"/>
+        <childnode refid="356" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="357">
+        <label>xn::XNetworkException</label>
+        <link refid="structxn_1_1XNetworkException"/>
+        <childnode refid="358" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="356">
+        <label>xn::XNetworkAlgorithmError</label>
+        <link refid="structxn_1_1XNetworkAlgorithmError"/>
+        <childnode refid="357" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="358">
+        <label>std::runtime_error</label>
+      </node>
+      <node id="360">
+        <label>xn::XNetworkNoPath</label>
+        <link refid="structxn_1_1XNetworkNoPath"/>
+        <childnode refid="355" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="359">
+        <label>xn::XNetworkNoCycle</label>
+        <link refid="structxn_1_1XNetworkNoCycle"/>
+        <childnode refid="355" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="361">
+        <label>xn::XNetworkUnfeasible</label>
+        <link refid="structxn_1_1XNetworkUnfeasible"/>
+        <childnode refid="362" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="363">
+        <label>xn::XNetworkException</label>
+        <link refid="structxn_1_1XNetworkException"/>
+        <childnode refid="364" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="362">
+        <label>xn::XNetworkAlgorithmError</label>
+        <link refid="structxn_1_1XNetworkAlgorithmError"/>
+        <childnode refid="363" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="364">
+        <label>std::runtime_error</label>
+      </node>
+    </collaborationgraph>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/exception.hpp" line="88" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/xnetwork/exception.hpp" bodystart="87" bodyend="93"/>
+    <listofallmembers>
+      <member refid="structxn_1_1XNetworkAlgorithmError_1afe29660b0b98f56d1d36027c0dfbb16c" prot="public" virt="non-virtual"><scope>xn::XNetworkUnfeasible</scope><name>XNetworkAlgorithmError</name></member>
+      <member refid="structxn_1_1XNetworkException_1adf7ac46d6cef6d2fcee880fc2f709458" prot="public" virt="non-virtual"><scope>xn::XNetworkUnfeasible</scope><name>XNetworkException</name></member>
+      <member refid="structxn_1_1XNetworkUnfeasible_1a495616a03dce4b145e1eaf389cd84892" prot="public" virt="non-virtual"><scope>xn::XNetworkUnfeasible</scope><name>XNetworkUnfeasible</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

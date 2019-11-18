@@ -1,0 +1,232 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="FMBiGainCalc_8hpp" kind="file" language="C++">
+    <compoundname>FMBiGainCalc.hpp</compoundname>
+    <includes refid="dllist_8hpp" local="yes">dllist.hpp</includes>
+    <includes refid="netlist_8hpp" local="yes">netlist.hpp</includes>
+    <includes local="no">gsl/span</includes>
+    <includedby refid="FMBiGainMgr_8hpp" local="yes">/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp</includedby>
+    <incdepgraph>
+      <node id="61">
+        <label>xnetwork/classes/coreviews.hpp</label>
+        <link refid="coreviews_8hpp_source"/>
+      </node>
+      <node id="43">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp</label>
+        <link refid="FMBiGainCalc_8hpp"/>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>iterator</label>
+      </node>
+      <node id="62">
+        <label>xnetwork/classes/reportviews.hpp</label>
+        <link refid="reportviews_8hpp_source"/>
+        <childnode refid="52" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>cassert</label>
+      </node>
+      <node id="56">
+        <label>unordered_set</label>
+      </node>
+      <node id="47">
+        <label>netlist.hpp</label>
+        <link refid="netlist_8hpp_source"/>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>dllist.hpp</label>
+        <link refid="dllist_8hpp_source"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
+        <label>any</label>
+      </node>
+      <node id="53">
+        <label>tuple</label>
+      </node>
+      <node id="59">
+        <label>xnetwork/classes/graph.hpp</label>
+        <link refid="graph_8hpp_source"/>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>vector</label>
+      </node>
+      <node id="57">
+        <label>utility</label>
+      </node>
+      <node id="45">
+        <label>boost/coroutine2/all.hpp</label>
+      </node>
+      <node id="55">
+        <label>unordered_map</label>
+      </node>
+      <node id="54">
+        <label>type_traits</label>
+      </node>
+      <node id="49">
+        <label>gsl/span</label>
+      </node>
+      <node id="51">
+        <label>py2cpp/py2cpp.hpp</label>
+        <link refid="py2cpp_8hpp_source"/>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>algorithm</label>
+      </node>
+      <node id="52">
+        <label>initializer_list</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="63">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp</label>
+        <link refid="FMBiGainCalc_8hpp"/>
+        <childnode refid="64" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp</label>
+        <link refid="FMBiGainMgr_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classFMBiGainCalc" prot="public">FMBiGainCalc</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;dllist.hpp&quot;</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>import<sp/>dllink</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;netlist.hpp&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="comment">//<sp/>import<sp/>Netlist</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;gsl/span&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structFMBiGainMgr" kindref="compound">FMBiGainMgr</ref>;</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13" refid="classFMBiGainCalc" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classFMBiGainCalc" kindref="compound">FMBiGainCalc</ref></highlight></codeline>
+<codeline lineno="14"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="structFMBiGainMgr" kindref="compound">FMBiGainMgr</ref>;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>index_t<sp/>=<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>SimpleNetlist::index_t;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structNetlist" kindref="compound">SimpleNetlist</ref>&amp;<sp/>H;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>num_modules<sp/>{};</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;dllink&lt;node_t&gt;&gt;<sp/>vertex_list;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>totalcost;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32" refid="classFMBiGainCalc_1a372e640c3d67007d25381437abdbcbe3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="classFMBiGainCalc_1a372e640c3d67007d25381437abdbcbe3" kindref="member">FMBiGainCalc</ref>(<ref refid="structNetlist" kindref="compound">SimpleNetlist</ref>&amp;<sp/>H,<sp/>uint8_t<sp/></highlight><highlight class="comment">/*K*/</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>H<sp/>{H}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>vertex_list(H.<ref refid="structNetlist_1a95539d9ee2a37778d98a227807c87463" kindref="member">number_of_modules</ref>())</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="classFMBiGainCalc_1ac0c5f892f186adc2c2058e37512b9a6b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classFMBiGainCalc_1ac0c5f892f186adc2c2058e37512b9a6b" kindref="member">init</ref>(gsl::span&lt;const<sp/>uint8_t&gt;<sp/>part)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;totalcost<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>vlink<sp/>:<sp/>this-&gt;vertex_list)</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vlink.key<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>net<sp/>:<sp/>this-&gt;H.nets)</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;__init_gain(net,<sp/>part);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;totalcost;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="classFMBiGainCalc_1ac4f1bbf98b59111b3ae49302ad36ebd8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classFMBiGainCalc_1ac4f1bbf98b59111b3ae49302ad36ebd8" kindref="member">start_ptr</ref>(uint8_t<sp/></highlight><highlight class="comment">/*toPart*/</highlight><highlight class="normal">)<sp/>-&gt;<sp/><ref refid="structdllink" kindref="compound">dllink&lt;node_t&gt;</ref>*</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>&amp;this-&gt;vertex_list[0];</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="classFMBiGainCalc_1a00a1b3c105a1bc67e9e91b7e57529326" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classFMBiGainCalc_1a00a1b3c105a1bc67e9e91b7e57529326" kindref="member">update_move_init</ref>()<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>nothing<sp/>to<sp/>do<sp/>in<sp/>2-way<sp/>partitioning</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>ret_2pin_info<sp/>=<sp/>std::tuple&lt;index_t,<sp/>int&gt;;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classFMBiGainCalc_1aba6966694786480dbe83206f1b0b3e88" kindref="member">update_move_2pin_net</ref>(gsl::span&lt;const<sp/>uint8_t&gt;<sp/>part,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structMoveInfo" kindref="compound">MoveInfo</ref>&amp;<sp/>move_info)<sp/>-&gt;<sp/>ret_2pin_info;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>ret_info<sp/>=<sp/>std::tuple&lt;std::vector&lt;node_t&gt;,<sp/>std::vector&lt;int&gt;&gt;;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classFMBiGainCalc_1a30014df4cb39e628fc5c0f96698c114f" kindref="member">update_move_3pin_net</ref>(</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>gsl::span&lt;const<sp/>uint8_t&gt;<sp/>part,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structMoveInfo" kindref="compound">MoveInfo</ref>&amp;<sp/>move_info)<sp/>-&gt;<sp/>ret_info;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classFMBiGainCalc_1a31132642c99101380afc532dfa336f15" kindref="member">update_move_general_net</ref>(</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>gsl::span&lt;const<sp/>uint8_t&gt;<sp/>part,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structMoveInfo" kindref="compound">MoveInfo</ref>&amp;<sp/>move_info)<sp/>-&gt;<sp/>ret_info;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>__modify_gain(node_t<sp/>w,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>weight)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;vertex_list[w].key<sp/>+=<sp/>weight;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>__init_gain(node_t<sp/>net,<sp/>gsl::span&lt;const<sp/>uint8_t&gt;<sp/>part)<sp/>-&gt;<sp/>void;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>__init_gain_2pin_net(node_t<sp/>net,<sp/>gsl::span&lt;const<sp/>uint8_t&gt;<sp/>part)</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;<sp/>void;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>__init_gain_3pin_net(node_t<sp/>net,<sp/>gsl::span&lt;const<sp/>uint8_t&gt;<sp/>part)</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;<sp/>void;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>__init_gain_general_net(node_t<sp/>net,<sp/>gsl::span&lt;const<sp/>uint8_t&gt;<sp/>part)</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;<sp/>void;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainCalc.hpp"/>
+  </compounddef>
+</doxygen>

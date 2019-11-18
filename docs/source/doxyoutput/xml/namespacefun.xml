@@ -1,0 +1,426 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="namespacefun" kind="namespace" language="C++">
+    <compoundname>fun</compoundname>
+    <innerclass refid="structfun_1_1Fraction" prot="public">fun::Fraction</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="fractions_8hpp_1a52c8d41af3d655fa234a01937dc7355d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename _Mn</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr _Mn</type>
+        <definition>constexpr _Mn fun::gcd</definition>
+        <argsstring>(_Mn __m, _Mn __n)</argsstring>
+        <name>gcd</name>
+        <param>
+          <type>_Mn</type>
+          <declname>__m</declname>
+        </param>
+        <param>
+          <type>_Mn</type>
+          <declname>__n</declname>
+        </param>
+        <briefdescription>
+<para>Greatest common divider. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>_Mn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>_Mn </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/fractions.hpp" line="24" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/fractions.hpp" bodystart="24" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="fractions_8hpp_1ae008af2fd23196ea4c564ace14af8bb5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename _Mn</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr _Mn</type>
+        <definition>constexpr _Mn fun::lcm</definition>
+        <argsstring>(_Mn __m, _Mn __n)</argsstring>
+        <name>lcm</name>
+        <param>
+          <type>_Mn</type>
+          <declname>__m</declname>
+        </param>
+        <param>
+          <type>_Mn</type>
+          <declname>__n</declname>
+        </param>
+        <briefdescription>
+<para>Least common multiple. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>_Mn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>_Mn </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/fractions.hpp" line="38" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/fractions.hpp" bodystart="38" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="fractions_8hpp_1a4df14070898b4630a0bcf5c0540645c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Z</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr <ref refid="structfun_1_1Fraction" kindref="compound">Fraction</ref>&lt; Z &gt;</type>
+        <definition>constexpr Fraction&lt;Z&gt; fun::operator+</definition>
+        <argsstring>(const Z &amp;c, const Fraction&lt; Z &gt; &amp;frac)</argsstring>
+        <name>operator+</name>
+        <param>
+          <type>const Z &amp;</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structfun_1_1Fraction" kindref="compound">Fraction</ref>&lt; Z &gt; &amp;</type>
+          <declname>frac</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>frac</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Fraction&lt;Z&gt; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/fractions.hpp" line="530" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/fractions.hpp" bodystart="530" bodyend="533"/>
+      </memberdef>
+      <memberdef kind="function" id="fractions_8hpp_1ad48c8a73ba7b630e824b205b753b72d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Z</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr <ref refid="structfun_1_1Fraction" kindref="compound">Fraction</ref>&lt; Z &gt;</type>
+        <definition>constexpr Fraction&lt;Z&gt; fun::operator-</definition>
+        <argsstring>(const Z &amp;c, const Fraction&lt; Z &gt; &amp;frac)</argsstring>
+        <name>operator-</name>
+        <param>
+          <type>const Z &amp;</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structfun_1_1Fraction" kindref="compound">Fraction</ref>&lt; Z &gt; &amp;</type>
+          <declname>frac</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>frac</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Fraction&lt;Z&gt; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/fractions.hpp" line="543" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/fractions.hpp" bodystart="543" bodyend="546"/>
+      </memberdef>
+      <memberdef kind="function" id="fractions_8hpp_1a501a8e4f752a46d9e2db8daa04a5ba6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Z</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr <ref refid="structfun_1_1Fraction" kindref="compound">Fraction</ref>&lt; Z &gt;</type>
+        <definition>constexpr Fraction&lt;Z&gt; fun::operator*</definition>
+        <argsstring>(const Z &amp;c, const Fraction&lt; Z &gt; &amp;frac)</argsstring>
+        <name>operator*</name>
+        <param>
+          <type>const Z &amp;</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structfun_1_1Fraction" kindref="compound">Fraction</ref>&lt; Z &gt; &amp;</type>
+          <declname>frac</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>frac</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Fraction&lt;Z&gt; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/fractions.hpp" line="556" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/fractions.hpp" bodystart="556" bodyend="559"/>
+      </memberdef>
+      <memberdef kind="function" id="fractions_8hpp_1a89839cd668ab6e717f20f86005d75207" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Z</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr <ref refid="structfun_1_1Fraction" kindref="compound">Fraction</ref>&lt; Z &gt;</type>
+        <definition>constexpr Fraction&lt;Z&gt; fun::operator+</definition>
+        <argsstring>(int &amp;&amp;c, const Fraction&lt; Z &gt; &amp;frac)</argsstring>
+        <name>operator+</name>
+        <param>
+          <type>int &amp;&amp;</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structfun_1_1Fraction" kindref="compound">Fraction</ref>&lt; Z &gt; &amp;</type>
+          <declname>frac</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>frac</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Fraction&lt;Z&gt; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/fractions.hpp" line="569" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/fractions.hpp" bodystart="569" bodyend="572"/>
+      </memberdef>
+      <memberdef kind="function" id="fractions_8hpp_1aacc930a9031c2ed8a7e809cc06706c9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Z</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr <ref refid="structfun_1_1Fraction" kindref="compound">Fraction</ref>&lt; Z &gt;</type>
+        <definition>constexpr Fraction&lt;Z&gt; fun::operator-</definition>
+        <argsstring>(int &amp;&amp;c, const Fraction&lt; Z &gt; &amp;frac)</argsstring>
+        <name>operator-</name>
+        <param>
+          <type>int &amp;&amp;</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structfun_1_1Fraction" kindref="compound">Fraction</ref>&lt; Z &gt; &amp;</type>
+          <declname>frac</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>frac</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Fraction&lt;Z&gt; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/fractions.hpp" line="582" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/fractions.hpp" bodystart="582" bodyend="585"/>
+      </memberdef>
+      <memberdef kind="function" id="fractions_8hpp_1af9654ff534e219be2db80d0eea489f17" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Z</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr <ref refid="structfun_1_1Fraction" kindref="compound">Fraction</ref>&lt; Z &gt;</type>
+        <definition>constexpr Fraction&lt;Z&gt; fun::operator*</definition>
+        <argsstring>(int &amp;&amp;c, const Fraction&lt; Z &gt; &amp;frac)</argsstring>
+        <name>operator*</name>
+        <param>
+          <type>int &amp;&amp;</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structfun_1_1Fraction" kindref="compound">Fraction</ref>&lt; Z &gt; &amp;</type>
+          <declname>frac</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>frac</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Fraction&lt;Z&gt; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/fractions.hpp" line="595" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/fractions.hpp" bodystart="595" bodyend="598"/>
+      </memberdef>
+      <memberdef kind="function" id="fractions_8hpp_1a9b7b5bf1e588f5595b9fc5a055931b33" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename _Stream</type>
+          </param>
+          <param>
+            <type>typename Z</type>
+          </param>
+        </templateparamlist>
+        <type>_Stream &amp;</type>
+        <definition>_Stream&amp; fun::operator&lt;&lt;</definition>
+        <argsstring>(_Stream &amp;os, const Fraction&lt; Z &gt; &amp;frac)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>_Stream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structfun_1_1Fraction" kindref="compound">Fraction</ref>&lt; Z &gt; &amp;</type>
+          <declname>frac</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>_Stream</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Z</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>os</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>frac</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>_Stream&amp; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/fractions.hpp" line="610" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/fractions.hpp" bodystart="610" bodyend="614"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/py2cpp/fractions.hpp" line="13" column="1"/>
+  </compounddef>
+</doxygen>

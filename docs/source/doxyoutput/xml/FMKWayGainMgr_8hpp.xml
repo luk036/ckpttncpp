@@ -1,0 +1,257 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="FMKWayGainMgr_8hpp" kind="file" language="C++">
+    <compoundname>FMKWayGainMgr.hpp</compoundname>
+    <includes refid="FMGainMgr_8hpp" local="yes">FMGainMgr.hpp</includes>
+    <includes refid="FMKWayGainCalc_8hpp" local="yes">FMKWayGainCalc.hpp</includes>
+    <includes local="no">gsl/span</includes>
+    <incdepgraph>
+      <node id="205">
+        <label>xnetwork/classes/coreviews.hpp</label>
+        <link refid="coreviews_8hpp_source"/>
+      </node>
+      <node id="187">
+        <label>bpqueue.hpp</label>
+        <link refid="bpqueue_8hpp_source"/>
+        <childnode refid="188" relation="include">
+        </childnode>
+        <childnode refid="190" relation="include">
+        </childnode>
+        <childnode refid="191" relation="include">
+        </childnode>
+        <childnode refid="192" relation="include">
+        </childnode>
+      </node>
+      <node id="196">
+        <label>iterator</label>
+      </node>
+      <node id="206">
+        <label>xnetwork/classes/reportviews.hpp</label>
+        <link refid="reportviews_8hpp_source"/>
+        <childnode refid="198" relation="include">
+        </childnode>
+      </node>
+      <node id="210">
+        <label>robin.hpp</label>
+        <link refid="robin_8hpp_source"/>
+        <childnode refid="188" relation="include">
+        </childnode>
+        <childnode refid="192" relation="include">
+        </childnode>
+      </node>
+      <node id="190">
+        <label>cassert</label>
+      </node>
+      <node id="207">
+        <label>cinttypes</label>
+      </node>
+      <node id="201">
+        <label>unordered_set</label>
+      </node>
+      <node id="193">
+        <label>netlist.hpp</label>
+        <link refid="netlist_8hpp_source"/>
+        <childnode refid="194" relation="include">
+        </childnode>
+        <childnode refid="195" relation="include">
+        </childnode>
+        <childnode refid="196" relation="include">
+        </childnode>
+        <childnode refid="197" relation="include">
+        </childnode>
+        <childnode refid="202" relation="include">
+        </childnode>
+        <childnode refid="192" relation="include">
+        </childnode>
+        <childnode refid="203" relation="include">
+        </childnode>
+      </node>
+      <node id="188">
+        <label>dllist.hpp</label>
+        <link refid="dllist_8hpp_source"/>
+        <childnode refid="189" relation="include">
+        </childnode>
+        <childnode refid="190" relation="include">
+        </childnode>
+      </node>
+      <node id="204">
+        <label>any</label>
+      </node>
+      <node id="199">
+        <label>tuple</label>
+      </node>
+      <node id="203">
+        <label>xnetwork/classes/graph.hpp</label>
+        <link refid="graph_8hpp_source"/>
+        <childnode refid="204" relation="include">
+        </childnode>
+        <childnode refid="190" relation="include">
+        </childnode>
+        <childnode refid="197" relation="include">
+        </childnode>
+        <childnode refid="191" relation="include">
+        </childnode>
+        <childnode refid="192" relation="include">
+        </childnode>
+        <childnode refid="205" relation="include">
+        </childnode>
+        <childnode refid="206" relation="include">
+        </childnode>
+      </node>
+      <node id="192">
+        <label>vector</label>
+      </node>
+      <node id="186">
+        <label>FMGainMgr.hpp</label>
+        <link refid="FMGainMgr_8hpp_source"/>
+        <childnode refid="187" relation="include">
+        </childnode>
+        <childnode refid="188" relation="include">
+        </childnode>
+        <childnode refid="193" relation="include">
+        </childnode>
+        <childnode refid="207" relation="include">
+        </childnode>
+        <childnode refid="195" relation="include">
+        </childnode>
+        <childnode refid="196" relation="include">
+        </childnode>
+        <childnode refid="208" relation="include">
+        </childnode>
+        <childnode refid="191" relation="include">
+        </childnode>
+      </node>
+      <node id="202">
+        <label>utility</label>
+      </node>
+      <node id="189">
+        <label>boost/coroutine2/all.hpp</label>
+      </node>
+      <node id="209">
+        <label>FMKWayGainCalc.hpp</label>
+        <link refid="FMKWayGainCalc_8hpp_source"/>
+        <childnode refid="188" relation="include">
+        </childnode>
+        <childnode refid="193" relation="include">
+        </childnode>
+        <childnode refid="210" relation="include">
+        </childnode>
+        <childnode refid="195" relation="include">
+        </childnode>
+      </node>
+      <node id="200">
+        <label>unordered_map</label>
+      </node>
+      <node id="191">
+        <label>type_traits</label>
+      </node>
+      <node id="195">
+        <label>gsl/span</label>
+      </node>
+      <node id="197">
+        <label>py2cpp/py2cpp.hpp</label>
+        <link refid="py2cpp_8hpp_source"/>
+        <childnode refid="198" relation="include">
+        </childnode>
+        <childnode refid="199" relation="include">
+        </childnode>
+        <childnode refid="191" relation="include">
+        </childnode>
+        <childnode refid="200" relation="include">
+        </childnode>
+        <childnode refid="201" relation="include">
+        </childnode>
+        <childnode refid="202" relation="include">
+        </childnode>
+      </node>
+      <node id="194">
+        <label>algorithm</label>
+      </node>
+      <node id="185">
+        <label>/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp</label>
+        <link refid="FMKWayGainMgr_8hpp"/>
+        <childnode refid="186" relation="include">
+        </childnode>
+        <childnode refid="209" relation="include">
+        </childnode>
+        <childnode refid="195" relation="include">
+        </childnode>
+      </node>
+      <node id="208">
+        <label>memory</label>
+      </node>
+      <node id="198">
+        <label>initializer_list</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="classFMKWayGainMgr" prot="public">FMKWayGainMgr</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;FMGainMgr.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;FMKWayGainCalc.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;gsl/span&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classFMKWayGainMgr" kindref="compound">FMKWayGainMgr</ref>;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13" refid="classFMKWayGainMgr" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classFMKWayGainMgr" kindref="compound">FMKWayGainMgr</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classFMGainMgr" kindref="compound">FMGainMgr</ref>&lt;FMKWayGainCalc,<sp/>FMKWayGainMgr&gt;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrobin" kindref="compound">robin&lt;uint8_t&gt;</ref><sp/>RR;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="classFMGainMgr" kindref="compound">Base</ref><sp/>=<sp/><ref refid="classFMGainMgr" kindref="compound">FMGainMgr&lt;FMKWayGainCalc, FMKWayGainMgr&gt;</ref>;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="classFMKWayGainCalc" kindref="compound">GainCalc_</ref><sp/>=<sp/><ref refid="classFMKWayGainCalc" kindref="compound">FMKWayGainCalc</ref>;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>index_t<sp/>=<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>SimpleNetlist::index_t;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30" refid="classFMKWayGainMgr_1a528af78530720b5cd17666536fb01aa3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classFMKWayGainMgr_1a528af78530720b5cd17666536fb01aa3" kindref="member">FMKWayGainMgr</ref>(<ref refid="structNetlist" kindref="compound">SimpleNetlist</ref>&amp;<sp/>H,<sp/>uint8_t<sp/>K)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classFMGainMgr" kindref="compound">Base</ref><sp/>{H,<sp/>K}</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>RR<sp/>{K}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classFMKWayGainMgr_1a4e36d8906fc8aea0bb960a465a40d40f" kindref="member">init</ref>(gsl::span&lt;const<sp/>uint8_t&gt;<sp/>part)<sp/>-&gt;<sp/>int;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="classFMKWayGainMgr_1a9cedc496fb0b764727c9943ca4566fae" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classFMKWayGainMgr_1a9cedc496fb0b764727c9943ca4566fae" kindref="member">modify_key</ref>(node_t<sp/>w,<sp/>uint8_t<sp/>part_w,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;int&gt;&amp;<sp/>keys)</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>k<sp/>:<sp/>this-&gt;RR.exclude(part_w))</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;gainbucket[k].modify_key(</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;gainCalc.vertex_list[k][w],<sp/>keys[k]);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classFMKWayGainMgr_1ace48d7ff85b2692ab8407d0d5c2f98c7" kindref="member">update_move_v</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structMoveInfoV" kindref="compound">MoveInfoV</ref>&amp;<sp/>move_info_v,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>gain)<sp/>-&gt;<sp/>void;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75" refid="classFMKWayGainMgr_1ac5d65d3f152d3a66a641ea64f1b948f7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classFMKWayGainMgr_1ac5d65d3f152d3a66a641ea64f1b948f7" kindref="member">lock</ref>(index_t<sp/>whichPart,<sp/>node_t<sp/>v)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>vlink<sp/>=<sp/>this-&gt;gainCalc.vertex_list[whichPart][v];</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;gainbucket[whichPart].detach(vlink);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vlink.lock();</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88" refid="classFMKWayGainMgr_1a541be6db1cd86419cb38bfb557e04d5a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classFMKWayGainMgr_1a541be6db1cd86419cb38bfb557e04d5a" kindref="member">lock_all</ref>(index_t<sp/></highlight><highlight class="comment">/*fromPart*/</highlight><highlight class="normal">,<sp/>node_t<sp/>v)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0U;<sp/>k<sp/>&lt;<sp/>this-&gt;K;<sp/>++k)</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="classFMKWayGainMgr_1ac5d65d3f152d3a66a641ea64f1b948f7" kindref="member">lock</ref>(k,<sp/>v);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>__set_key(index_t<sp/>whichPart,<sp/>node_t<sp/>v,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>key)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;gainbucket[whichPart].set_key(</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;gainCalc.vertex_list[whichPart][v],<sp/>key);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMKWayGainMgr.hpp"/>
+  </compounddef>
+</doxygen>

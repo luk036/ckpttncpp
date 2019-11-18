@@ -1,0 +1,495 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="structFMBiGainMgr" kind="struct" language="C++" prot="public">
+    <compoundname>FMBiGainMgr</compoundname>
+    <basecompoundref refid="classFMGainMgr" prot="public" virt="non-virtual">FMGainMgr&lt; FMBiGainCalc, FMBiGainMgr &gt;</basecompoundref>
+    <includes refid="FMBiGainMgr_8hpp" local="no">FMBiGainMgr.hpp</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structFMBiGainMgr_1a5ff0c5415e1a357437a33bac577edf84" prot="public" static="no">
+        <type><ref refid="classFMGainMgr" kindref="compound">FMGainMgr</ref>&lt; <ref refid="classFMBiGainCalc" kindref="compound">FMBiGainCalc</ref>, <ref refid="structFMBiGainMgr" kindref="compound">FMBiGainMgr</ref> &gt;</type>
+        <definition>using FMBiGainMgr::Base =  FMGainMgr&lt;FMBiGainCalc, FMBiGainMgr&gt;</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" line="15" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structFMBiGainMgr_1acec3e2e05bb372d334375d95eca21b87" prot="public" static="no">
+        <type><ref refid="classFMBiGainCalc" kindref="compound">FMBiGainCalc</ref></type>
+        <definition>using FMBiGainMgr::GainCalc_ =  FMBiGainCalc</definition>
+        <argsstring></argsstring>
+        <name>GainCalc_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" line="16" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structFMBiGainMgr_1ad6d3721295acd7e2495ca8a3107e93ee" prot="public" static="no">
+        <type>typename SimpleNetlist::index_t</type>
+        <definition>using FMBiGainMgr::index_t =  typename SimpleNetlist::index_t</definition>
+        <argsstring></argsstring>
+        <name>index_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" line="17" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structFMBiGainMgr_1a374cc4381a7c857b3a7fb91d197736fd" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FMBiGainMgr::FMBiGainMgr</definition>
+        <argsstring>(SimpleNetlist &amp;H)</argsstring>
+        <name>FMBiGainMgr</name>
+        <param>
+          <type><ref refid="structNetlist" kindref="compound">SimpleNetlist</ref> &amp;</type>
+          <declname>H</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" line="19" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" bodystart="19" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="structFMBiGainMgr_1a5c5dcb68405e5916f2d39517e4deb4bb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FMBiGainMgr::FMBiGainMgr</definition>
+        <argsstring>(SimpleNetlist &amp;H, uint8_t)</argsstring>
+        <name>FMBiGainMgr</name>
+        <param>
+          <type><ref refid="structNetlist" kindref="compound">SimpleNetlist</ref> &amp;</type>
+          <declname>H</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+        </param>
+        <briefdescription>
+<para>Construct a new <ref refid="structFMBiGainMgr" kindref="compound">FMBiGainMgr</ref> object. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>H</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" line="29" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" bodystart="29" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="function" id="structFMBiGainMgr_1a8d8074c079094b23dde05ddc3d979673" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMBiGainMgr::init</definition>
+        <argsstring>(gsl::span&lt; const uint8_t &gt; part) -&gt; int</argsstring>
+        <name>init</name>
+        <param>
+          <type>gsl::span&lt; const uint8_t &gt;</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" line="40" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structFMBiGainMgr_1ae12a4257d317e95f052242e480f92a07" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMBiGainMgr::modify_key</definition>
+        <argsstring>(node_t w, uint8_t part_w, int key) -&gt; void</argsstring>
+        <name>modify_key</name>
+        <param>
+          <type>node_t</type>
+          <declname>w</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>part_w</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>(needed by base class) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>w</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" line="49" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" bodystart="49" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="structFMBiGainMgr_1acae70ad5de7307b191dba39c2d30bba9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMBiGainMgr::update_move_v</definition>
+        <argsstring>(const MoveInfoV &amp;move_info_v, int gain) -&gt; void</argsstring>
+        <name>update_move_v</name>
+        <param>
+          <type>const <ref refid="structMoveInfoV" kindref="compound">MoveInfoV</ref> &amp;</type>
+          <declname>move_info_v</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>gain</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>move_info_v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>gain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" line="62" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" bodystart="62" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="structFMBiGainMgr_1a053ba4d39712d9fd3e7b4865ab05d3df" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMBiGainMgr::lock</definition>
+        <argsstring>(uint8_t whichPart, node_t v) -&gt; void</argsstring>
+        <name>lock</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>whichPart</declname>
+        </param>
+        <param>
+          <type>node_t</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+<para>lock </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>whichPart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" line="75" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" bodystart="75" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="structFMBiGainMgr_1af64250dbdf9041cd4f90458b0498b362" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMBiGainMgr::lock_all</definition>
+        <argsstring>(uint8_t fromPart, node_t v) -&gt; void</argsstring>
+        <name>lock_all</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>fromPart</declname>
+        </param>
+        <param>
+          <type>node_t</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+<para>lock_all </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fromPart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" line="88" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" bodystart="88" bodyend="92"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="structFMBiGainMgr_1a62478265c9cdf971001646bd57033465" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto FMBiGainMgr::__set_key</definition>
+        <argsstring>(uint8_t whichPart, node_t v, int key) -&gt; void</argsstring>
+        <name>__set_key</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>whichPart</declname>
+        </param>
+        <param>
+          <type>node_t</type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>Set the key object. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>whichPart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" line="102" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" bodystart="102" bodyend="105"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="structFMBiGainMgr" kindref="compound">FMBiGainMgr</ref>. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="52">
+        <label>FMGainMgr&lt; FMBiGainCalc, FMBiGainMgr &gt;</label>
+        <link refid="classFMGainMgr"/>
+      </node>
+      <node id="51">
+        <label>FMBiGainMgr</label>
+        <link refid="structFMBiGainMgr"/>
+        <childnode refid="52" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="65">
+        <label>std::unordered_map&lt; node_t, index_t &gt;</label>
+      </node>
+      <node id="54">
+        <label>FMGainMgr&lt; FMBiGainCalc, FMBiGainMgr &gt;</label>
+        <link refid="classFMGainMgr"/>
+        <childnode refid="55" relation="usage">
+          <edgelabel>H</edgelabel>
+        </childnode>
+        <childnode refid="68" relation="usage">
+          <edgelabel>waitinglist</edgelabel>
+        </childnode>
+        <childnode refid="69" relation="usage">
+          <edgelabel>gainCalc</edgelabel>
+        </childnode>
+      </node>
+      <node id="68">
+        <label>dllink&lt; node_t &gt;</label>
+        <link refid="structdllink"/>
+        <childnode refid="68" relation="usage">
+          <edgelabel>prev</edgelabel>
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="56">
+        <label>xn::Graph&lt; nodeview_t, nodemap_t &gt;</label>
+        <link refid="classxn_1_1Graph"/>
+        <childnode refid="57" relation="public-inheritance">
+        </childnode>
+        <childnode refid="60" relation="usage">
+          <edgelabel>_node</edgelabel>
+        </childnode>
+        <childnode refid="61" relation="usage">
+          <edgelabel>_node_map</edgelabel>
+        </childnode>
+        <childnode refid="58" relation="usage">
+          <edgelabel>graph</edgelabel>
+        </childnode>
+      </node>
+      <node id="66">
+        <label>py::dict&lt; index_t, node_t &gt;</label>
+        <link refid="classpy_1_1dict"/>
+        <childnode refid="67" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="63">
+        <label>std::unordered_set&lt; node_t  &gt;</label>
+      </node>
+      <node id="60">
+        <label>nodeview_t</label>
+      </node>
+      <node id="57">
+        <label>xn::object</label>
+        <link refid="structxn_1_1object"/>
+        <childnode refid="58" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>nodemap_t</label>
+      </node>
+      <node id="59">
+        <label>std::unordered_map&lt; const char *, std::any &gt;</label>
+      </node>
+      <node id="62">
+        <label>py::set&lt; node_t &gt;</label>
+        <link refid="classpy_1_1set"/>
+        <childnode refid="63" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>py::dict&lt; const char *, std::any &gt;</label>
+        <link refid="classpy_1_1dict"/>
+        <childnode refid="59" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>py::dict&lt; node_t, index_t &gt;</label>
+        <link refid="classpy_1_1dict"/>
+        <childnode refid="65" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="69">
+        <label>FMBiGainCalc</label>
+        <link refid="classFMBiGainCalc"/>
+      </node>
+      <node id="55">
+        <label>Netlist&lt; nodeview_t, nodemap_t &gt;</label>
+        <link refid="structNetlist"/>
+        <childnode refid="56" relation="usage">
+          <edgelabel>G</edgelabel>
+        </childnode>
+        <childnode refid="60" relation="usage">
+          <edgelabel>nets</edgelabel>
+          <edgelabel>modules</edgelabel>
+        </childnode>
+        <childnode refid="62" relation="usage">
+          <edgelabel>module_fixed</edgelabel>
+        </childnode>
+        <childnode refid="64" relation="usage">
+          <edgelabel>node_up_map</edgelabel>
+        </childnode>
+        <childnode refid="66" relation="usage">
+          <edgelabel>node_down_map</edgelabel>
+          <edgelabel>cluster_down_map</edgelabel>
+        </childnode>
+        <childnode refid="61" relation="usage">
+          <edgelabel>module_map</edgelabel>
+        </childnode>
+      </node>
+      <node id="53">
+        <label>FMBiGainMgr</label>
+        <link refid="structFMBiGainMgr"/>
+        <childnode refid="54" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="67">
+        <label>std::unordered_map&lt; index_t , node_t  &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" line="14" column="1" bodyfile="/media/lubuntu/USBDISK/github/ckpttncpp/lib/include/ckpttncpp/FMBiGainMgr.hpp" bodystart="13" bodyend="106"/>
+    <listofallmembers>
+      <member refid="structFMBiGainMgr_1a62478265c9cdf971001646bd57033465" prot="private" virt="non-virtual"><scope>FMBiGainMgr</scope><name>__set_key</name></member>
+      <member refid="structFMBiGainMgr_1a5ff0c5415e1a357437a33bac577edf84" prot="public" virt="non-virtual"><scope>FMBiGainMgr</scope><name>Base</name></member>
+      <member refid="structFMBiGainMgr_1a374cc4381a7c857b3a7fb91d197736fd" prot="public" virt="non-virtual"><scope>FMBiGainMgr</scope><name>FMBiGainMgr</name></member>
+      <member refid="structFMBiGainMgr_1a5c5dcb68405e5916f2d39517e4deb4bb" prot="public" virt="non-virtual"><scope>FMBiGainMgr</scope><name>FMBiGainMgr</name></member>
+      <member refid="classFMGainMgr_1a21193519fd9bb3fcd1db54c07d2cf70f" prot="public" virt="non-virtual"><scope>FMBiGainMgr</scope><name>FMGainMgr</name></member>
+      <member refid="classFMGainMgr_1a90ef5c4514b64fb79e859d2a67019f46" prot="protected" virt="non-virtual"><scope>FMBiGainMgr</scope><name>gainbucket</name></member>
+      <member refid="classFMGainMgr_1acd4d647ac1194e892fe5f8f7ad8e6247" prot="protected" virt="non-virtual"><scope>FMBiGainMgr</scope><name>gainCalc</name></member>
+      <member refid="structFMBiGainMgr_1acec3e2e05bb372d334375d95eca21b87" prot="public" virt="non-virtual"><scope>FMBiGainMgr</scope><name>GainCalc_</name></member>
+      <member refid="classFMGainMgr_1a3b62d434fce427ecd7c992e0d94233e9" prot="protected" virt="non-virtual"><scope>FMBiGainMgr</scope><name>H</name></member>
+      <member refid="structFMBiGainMgr_1ad6d3721295acd7e2495ca8a3107e93ee" prot="public" virt="non-virtual"><scope>FMBiGainMgr</scope><name>index_t</name></member>
+      <member refid="structFMBiGainMgr_1a8d8074c079094b23dde05ddc3d979673" prot="public" virt="non-virtual"><scope>FMBiGainMgr</scope><name>init</name></member>
+      <member refid="classFMGainMgr_1ad8183b3ad8260ae1df56e5f584850d9f" prot="public" virt="non-virtual"><scope>FMBiGainMgr</scope><name>is_empty</name></member>
+      <member refid="classFMGainMgr_1abd8ac72ee8a724fa1b79675ad5d0f95b" prot="public" virt="non-virtual"><scope>FMBiGainMgr</scope><name>is_empty_togo</name></member>
+      <member refid="classFMGainMgr_1aec4518a631369c7ebc342a78ab76ac94" prot="public" virt="non-virtual"><scope>FMBiGainMgr</scope><name>K</name></member>
+      <member refid="structFMBiGainMgr_1a053ba4d39712d9fd3e7b4865ab05d3df" prot="public" virt="non-virtual"><scope>FMBiGainMgr</scope><name>lock</name></member>
+      <member refid="structFMBiGainMgr_1af64250dbdf9041cd4f90458b0498b362" prot="public" virt="non-virtual"><scope>FMBiGainMgr</scope><name>lock_all</name></member>
+      <member refid="structFMBiGainMgr_1ae12a4257d317e95f052242e480f92a07" prot="public" virt="non-virtual"><scope>FMBiGainMgr</scope><name>modify_key</name></member>
+      <member refid="classFMGainMgr_1a89ae4202805f113bf04ba3fd83bdc88a" prot="protected" virt="non-virtual"><scope>FMBiGainMgr</scope><name>pmax</name></member>
+      <member refid="classFMGainMgr_1a673fbd2e22dae6822f8f816cb909939b" prot="public" virt="non-virtual"><scope>FMBiGainMgr</scope><name>select</name></member>
+      <member refid="classFMGainMgr_1a24395f43b445ff2391cf0710555fec82" prot="public" virt="non-virtual"><scope>FMBiGainMgr</scope><name>select_togo</name></member>
+      <member refid="classFMGainMgr_1a11a7cc89b775313d75a0a490a0d4e411" prot="public" virt="non-virtual"><scope>FMBiGainMgr</scope><name>update_move</name></member>
+      <member refid="structFMBiGainMgr_1acae70ad5de7307b191dba39c2d30bba9" prot="public" virt="non-virtual"><scope>FMBiGainMgr</scope><name>update_move_v</name></member>
+      <member refid="classFMGainMgr_1a0b6aa42ded30b7aa585a815f7a94dc6d" prot="protected" virt="non-virtual"><scope>FMBiGainMgr</scope><name>waitinglist</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

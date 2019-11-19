@@ -2,7 +2,6 @@
 # git+git://github.com/svenevs/exhale.git#egg=exhale
 # See: https://exhale.readthedocs.io/en/latest/#exhale-version-compatibility-with-python-sphinx-and-breathe
 sphinx>=2.0
-sphinx-intl>=0.9.11
-sphinx-rtd-theme>=0.4.2
+sphinx-rtd-theme>=0.4.0
 breathe>=4.13.0
 exhale

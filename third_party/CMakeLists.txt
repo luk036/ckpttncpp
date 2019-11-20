@@ -12,6 +12,9 @@ set (THIRD_PARTY_MODULE_PATH "${PROJECT_SOURCE_DIR}/third_party")
 set (GSL_MODULE_PATH "${THIRD_PARTY_MODULE_PATH}/GSL")
 set (GSL_INCLUDE_PATH "${GSL_MODULE_PATH}/include")
 
+set (argparse_MODULE_PATH "${THIRD_PARTY_MODULE_PATH}/argparse")
+set (argparse_INCLUDE_PATH "${argparse_MODULE_PATH}/include")
+
 #include custom cmake function
 ## include ( "${CATCH_MODULE_PATH}/contrib/ParseAndAddCatchTests.cmake")
 
@@ -26,7 +29,7 @@ set (GSL_INCLUDE_PATH "${GSL_MODULE_PATH}/include")
 # -------------------------------------------------------------------------
 
 #set variables
-set (THIRD_PARTY_INCLUDE_PATH  ${GSL_INCLUDE_PATH})
+set (THIRD_PARTY_INCLUDE_PATH  ${GSL_INCLUDE_PATH} ${argparse_INCLUDE_PATH})
 
 #set variables for tests
 set (TEST_THIRD_PARTY_INCLUDE_PATH  ${GSL_INCLUDE_PATH})

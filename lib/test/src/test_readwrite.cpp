@@ -1,10 +1,11 @@
 // -*- coding: utf-8 -*-
 #include <catch2/catch.hpp>
 #include <ckpttncpp/netlist.hpp>
+#include <string_view>
 
-extern SimpleNetlist readNetD(const char* netDFileName);
-extern void readAre(SimpleNetlist& H, const char* areFileName);
-extern void writeJSON(const char* jsonFileName, const SimpleNetlist& H);
+extern SimpleNetlist readNetD(std::string_view netDFileName);
+extern void readAre(SimpleNetlist& H, std::string_view areFileName);
+extern void writeJSON(std::string_view jsonFileName, const SimpleNetlist& H);
 
 TEST_CASE("Test Read Dwarf", "[test_readwrite]")
 {

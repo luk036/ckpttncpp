@@ -5,6 +5,7 @@
 #include <py2cpp/py2cpp.hpp>
 #include <utility> // for std::pair
 #include <vector>
+#include <string_view>
 
 // using graph_t =
 //     boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS>;
@@ -15,9 +16,9 @@ using std::ifstream;
 using std::ofstream;
 
 // Read the IBM .netD/.net format. Precondition: Netlist is empty.
-void writeJSON(const char* jsonFileName, const SimpleNetlist& H)
+void writeJSON(std::string_view jsonFileName, const SimpleNetlist& H)
 {
-    auto json = ofstream {jsonFileName};
+    auto json = ofstream {jsonFileName.data()};
     if (json.fail())
     {
         std::cerr << "Error: Can't open file " << jsonFileName << ".\n";
@@ -60,9 +61,9 @@ void writeJSON(const char* jsonFileName, const SimpleNetlist& H)
 }
 
 // Read the IBM .netD/.net format. Precondition: Netlist is empty.
-SimpleNetlist readNetD(const char* netDFileName)
+SimpleNetlist readNetD(std::string_view netDFileName)
 {
-    auto netD = ifstream {netDFileName};
+    auto netD = ifstream {netDFileName.data()};
     if (netD.fail())
     {
         std::cerr << "Error: Can't open file " << netDFileName << ".\n";
@@ -170,9 +171,9 @@ SimpleNetlist readNetD(const char* netDFileName)
 }
 
 // Read the IBM .are format
-void readAre(SimpleNetlist& H, const char* areFileName)
+void readAre(SimpleNetlist& H, std::string_view areFileName)
 {
-    auto are = ifstream {areFileName};
+    auto are = ifstream {areFileName.data()};
     if (are.fail())
     {
         std::cerr << " Could not open " << areFileName << std::endl;

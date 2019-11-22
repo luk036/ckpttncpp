@@ -13,8 +13,8 @@
 
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
 extern SimpleNetlist create_dwarf();        // import create_dwarf
-extern SimpleNetlist readNetD(const char* netDFileName);
-extern void readAre(SimpleNetlist& H, const char* areFileName);
+extern SimpleNetlist readNetD(std::string_view netDFileName);
+extern void readAre(SimpleNetlist& H, std::string_view areFileName);
 
 TEST_CASE("Test MLBiPartMgr dwarf", "[test_MLBiPartMgr]")
 {

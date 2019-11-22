@@ -21,7 +21,8 @@ class FMBiGainCalc
     std::vector<dllink<node_t>> vertex_list;
 
   public:
-    int totalcost;
+    int totalcost {0};
+    bool special_handle_2pin_nets {true};
 
     /*!
      * @brief Construct a new FMBiGainCalc object

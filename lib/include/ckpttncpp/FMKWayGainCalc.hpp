@@ -26,6 +26,7 @@ class FMKWayGainCalc
 
   public:
     int totalcost {0};
+    bool special_handle_2pin_nets {true};
 
     /*!
      * @brief Construct a new FMKWayGainCalc object

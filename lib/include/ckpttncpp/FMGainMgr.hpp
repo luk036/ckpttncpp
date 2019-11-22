@@ -25,12 +25,13 @@ class FMGainMgr
     dllink<node_t> waitinglist {};
 
     SimpleNetlist& H;
-    GainCalc gainCalc;
     size_t pmax;
     std::vector<bpqueue<int>> gainbucket;
 
   public:
     uint8_t K;
+    GainCalc gainCalc;
+
     // int totalcost;
 
     /*!

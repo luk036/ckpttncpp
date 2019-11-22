@@ -17,10 +17,24 @@ void FMKWayGainCalc::__init_gain(node_t net, gsl::span<const uint8_t> part)
     switch (degree)
     {
         case 2:
-            this->__init_gain_2pin_net(net, part);
+            if (special_handle_2pin_nets)
+            {
+                this->__init_gain_2pin_net(net, part);
+            }
+            else
+            {
+                this->__init_gain_general_net(net, part);
+            }
             break;
         case 3:
-            this->__init_gain_3pin_net(net, part);
+            if (special_handle_2pin_nets)
+            {
+                this->__init_gain_3pin_net(net, part);
+            }
+            else
+            {
+                this->__init_gain_general_net(net, part);
+            }
             break;
         default:
             this->__init_gain_general_net(net, part);

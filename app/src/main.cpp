@@ -41,7 +41,7 @@ TEST_CASE("Test BPQueue for main", "[bpqueue]")
     bpq1.appendfrom(nodelist);
 
     auto count = 0U;
-    for (auto& node : bpq1.items())
+    for ([[maybe_unused]] auto& node : bpq1.items())
     {
         count += 1;
     }

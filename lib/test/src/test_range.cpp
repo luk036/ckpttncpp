@@ -11,7 +11,7 @@ TEST_CASE("Test Range", "[range]")
     CHECK(R[3] == 3U);
 
     auto count = 0;
-    for (auto a : R)
+    for ([[maybe_unused]] auto a : R)
     {
         ++count;
     }
@@ -27,7 +27,7 @@ TEST_CASE("Test Range2", "[range]")
     CHECK(R[3] == -7);
 
     auto count = 0;
-    for (auto a : R)
+    for ([[maybe_unused]] auto a : R)
     {
         ++count;
     }
@@ -43,7 +43,7 @@ TEST_CASE("Test Range (char)", "[range]")
     CHECK(R[3] == 'D');
 
     auto count = 0;
-    for (auto a : R)
+    for ([[maybe_unused]] auto a : R)
     {
         ++count;
     }

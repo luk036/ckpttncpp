@@ -92,7 +92,7 @@ class MLPartMgr
                     }
                 }
             }
-            catch (std::bad_alloc)
+            catch (const std::bad_alloc&)
             {
                 std::cerr << "Warning: Insufficient memory."
                           << " Discard one level." << '\n';
@@ -168,7 +168,7 @@ class MLPartMgr
                     H2->projection_down(part2, part);
                 }
             }
-            catch (std::bad_alloc)
+            catch (const std::bad_alloc&)
             {
                 std::cerr << "Warning: Insufficient memory."
                           << " Discard one level." << '\n';

@@ -40,7 +40,7 @@ class FMGainMgr
      * @param H
      * @param K
      */
-    explicit FMGainMgr(SimpleNetlist& H, uint8_t K);
+    FMGainMgr(SimpleNetlist& H, uint8_t K);
 
     /*!
      * @brief

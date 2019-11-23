@@ -9,9 +9,9 @@
 template <typename GainCalc, class Derived>
 FMGainMgr<GainCalc, Derived>::FMGainMgr(SimpleNetlist& H, uint8_t K)
     : H {H}
-    , gainCalc {H, K}
     , pmax {H.get_max_degree()}
     , K {K}
+    , gainCalc {H, K}
 {
     static_assert(
         std::is_base_of<FMGainMgr<GainCalc, Derived>, Derived>::value);

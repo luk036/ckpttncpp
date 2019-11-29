@@ -4,7 +4,7 @@
 #include "FMGainMgr.hpp"
 #include <gsl/span>
 
-struct FMBiGainMgr;
+// struct FMBiGainMgr;
 
 /*!
  * @brief FMBiGainMgr

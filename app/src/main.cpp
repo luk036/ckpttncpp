@@ -1,50 +1,55 @@
-#define CATCH_CONFIG_MAIN
-#include <catch2/catch.hpp>
-#include <fmt/format.h>
-#include <ckpttncpp/bpqueue.hpp> // import bpqueue
-#include <ckpttncpp/dllist.hpp>  // import dllink
+#include <argparse.hpp>
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/stdout_sinks.h>
 
-TEST_CASE("Test BPQueue for main", "[bpqueue]")
+int main(int argc, char *argv[])
 {
-    auto bpq1 = bpqueue(-10, 10);
-    auto bpq2 = bpqueue(-10, 10);
+    auto parser = argparse::ArgumentParser("Multilevel Circuit Partitioning");
 
-    CHECK(bpq1.is_empty());
+    parser.add_argument("square")
+      .help("display the square of a given integer")
+      .action([](const std::string& value) { return std::stoi(value); });
 
-    auto d = dllink{0};
-    auto e = dllink{0};
-    auto f = dllink{0};
+    parser.add_argument("-v", "--verbose")
+      .help("increase output verbosity")
+      .default_value(false)
+      .implicit_value(true);
 
-    CHECK(d.key == 0);
+    parser.add_argument("-vv", "--very-verbose")
+      .help("increase output verbosity to DEBUG")
+      .default_value(false)
+      .implicit_value(true);
 
-    bpq1.append(e, 3);
-    bpq1.append(f, -10);
-    bpq1.append(d, 5);
-
-    bpq2.append(bpq1.popleft(), -6); // d
-    bpq2.append(bpq1.popleft(), 3);
-    bpq2.append(bpq1.popleft(), 0);
-
-    bpq2.modify_key(d, 15);
-    bpq2.modify_key(d, -3);
-    CHECK(bpq1.is_empty());
-    CHECK(bpq2.get_max() == 6);
-
-    auto nodelist = std::vector<dllink<int>>(10);
-
-    auto i = 0U;
-    for (auto& it : nodelist)
+    try
     {
-        it.key = 2 * i - 10;
-        i += 1;
+        parser.parse_args(argc, argv);
     }
-    bpq1.appendfrom(nodelist);
-
-    auto count = 0U;
-    for ([[maybe_unused]] auto& node : bpq1.items())
+    catch (const std::runtime_error& err)
     {
-        count += 1;
+        std::cout << err.what() << std::endl;
+        std::cout << parser;
+        exit(0);
     }
-    CHECK(count == 10);
-    fmt::print("The answer is {}.\n", count);
+
+    auto console = spdlog::stdout_color_mt("console");
+    console->set_pattern("[%H:%M:%S %z] [%n] [thread %t] %v");
+    console->set_level(spdlog::level::warn);
+
+    if (parser["--verbose"] == true)
+    {
+        console->set_level(spdlog::level::info);
+    }
+    if (parser["--very-verbose"] == true)
+    {
+        console->set_level(spdlog::level::debug);
+    }
+
+    console->info("program begin...");
+
+    auto input = parser.get<int>("square");
+    std::cout << (input * input) << std::endl;
+    console->debug("The square of {} is {}.", input, (input*input));
+
+    console->info("program end...");
+    return 0;
 }

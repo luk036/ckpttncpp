@@ -4,12 +4,12 @@
 #include "FMKWayGainCalc.hpp"
 #include <gsl/span>
 
+// class FMKWayGainMgr;
+
 /*!
  * @brief FMKWayGainMgr
- *
+ * 
  */
-class FMKWayGainMgr;
-
 class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
 {
 

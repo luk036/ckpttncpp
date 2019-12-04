@@ -18,7 +18,7 @@ extern void readAre(SimpleNetlist& H, std::string_view areFileName);
 
 TEST_CASE("Test MLBiPartMgr dwarf", "[test_MLBiPartMgr]")
 {
-    auto H = create_dwarf();
+    const auto H = create_dwarf();
     auto partMgr = MLPartMgr {0.3};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part);
@@ -27,7 +27,7 @@ TEST_CASE("Test MLBiPartMgr dwarf", "[test_MLBiPartMgr]")
 
 TEST_CASE("Test MLKWayPartMgr dwarf", "[test_MLKWayPartMgr]")
 {
-    auto H = create_dwarf();
+    const auto H = create_dwarf();
     auto partMgr = MLPartMgr {0.4, 3}; // 0.3???
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     partMgr.run_FMPartition<FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>>(H, part);
@@ -36,7 +36,7 @@ TEST_CASE("Test MLKWayPartMgr dwarf", "[test_MLKWayPartMgr]")
 
 TEST_CASE("Test MLBiPartMgr p1", "[test_MLBiPartMgr]")
 {
-    auto H = readNetD("../../../testcases/p1.net");
+    const auto H = readNetD("../../../testcases/p1.net");
     auto partMgr = MLPartMgr {0.3};
 
     auto mincost = 1000;

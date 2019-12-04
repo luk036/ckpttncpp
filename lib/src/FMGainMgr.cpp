@@ -7,7 +7,7 @@
  * @param K
  */
 template <typename GainCalc, class Derived>
-FMGainMgr<GainCalc, Derived>::FMGainMgr(SimpleNetlist& H, uint8_t K)
+FMGainMgr<GainCalc, Derived>::FMGainMgr(const SimpleNetlist& H, uint8_t K)
     : H {H}
     , pmax {H.get_max_degree()}
     , K {K}
@@ -50,31 +50,30 @@ std::tuple<MoveInfoV, int> FMGainMgr<GainCalc, Derived>::select(
     {
         gainmax[k] = this->gainbucket[k].get_max();
     }
-    auto it = std::max_element(gainmax.cbegin(), gainmax.cend());
-    uint8_t toPart = std::distance(gainmax.cbegin(), it);
+    const auto it = std::max_element(gainmax.cbegin(), gainmax.cend());
+    const uint8_t toPart = std::distance(gainmax.cbegin(), it);
     auto& vlink = this->gainbucket[toPart].popleft();
     this->waitinglist.append(vlink);
     // node_t v = &vlink - this->gainCalc.start_ptr(toPart);
-    node_t v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);
-    auto fromPart = part[v];
-    auto move_info_v = MoveInfoV {fromPart, toPart, v};
-    return {move_info_v, gainmax[toPart]};
+    const node_t v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);
+    // auto move_info_v = MoveInfoV {part[v], toPart, v};
+    return {{part[v], toPart, v}, gainmax[toPart]};
 }
 
 /**
  * @brief
  *
  * @param toPart
- * @return std::tuple<index_t, int>
+ * @return std::tuple<node_t, int>
  */
 template <typename GainCalc, class Derived>
-std::tuple<index_t, int> FMGainMgr<GainCalc, Derived>::select_togo(
+std::tuple<node_t, int> FMGainMgr<GainCalc, Derived>::select_togo(
     uint8_t toPart)
 {
-    auto gainmax = this->gainbucket[toPart].get_max();
+    const auto gainmax = this->gainbucket[toPart].get_max();
     auto& vlink = this->gainbucket[toPart].popleft();
     this->waitinglist.append(vlink);
-    node_t v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);
+    const node_t v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);
     return {v, gainmax};
 }
 
@@ -92,16 +91,16 @@ void FMGainMgr<GainCalc, Derived>::update_move(
     // std::fill_n(this->deltaGainV.begin(), this->K, 0);
     this->gainCalc.update_move_init();
 
-    auto [fromPart, toPart, v] = move_info_v;
+    const auto& [fromPart, toPart, v] = move_info_v;
 
     for (node_t net : this->H.G[v])
     {
-        auto degree = this->H.G.degree(net);
+        const auto degree = this->H.G.degree(net);
         [[unlikely]] if (degree < 2)
         {
             continue; // does not provide any gain change when moving
         }
-        auto move_info = MoveInfo {net, fromPart, toPart, v};
+        const auto move_info = MoveInfo {net, fromPart, toPart, v};
         switch (degree)
         {
             case 2:
@@ -140,7 +139,7 @@ template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::__update_move_2pin_net(
     gsl::span<const uint8_t> part, const MoveInfo& move_info)
 {
-    auto [w, deltaGainW] = this->gainCalc.update_move_2pin_net(part, move_info);
+    const auto [w, deltaGainW] = this->gainCalc.update_move_2pin_net(part, move_info);
     self.modify_key(w, part[w], deltaGainW);
 }
 
@@ -154,12 +153,12 @@ template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::__update_move_3pin_net(
     gsl::span<const uint8_t> part, const MoveInfo& move_info)
 {
-    auto [IdVec, deltaGain] =
+    const auto [IdVec, deltaGain] =
         this->gainCalc.update_move_3pin_net(part, move_info);
-    auto degree = IdVec.size();
+    const auto degree = IdVec.size();
     for (size_t index = 0U; index < degree; ++index)
     {
-        auto w = IdVec[index];
+        const auto w = IdVec[index];
         self.modify_key(w, part[w], deltaGain[index]);
     }
 }
@@ -174,12 +173,12 @@ template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::__update_move_general_net(
     gsl::span<const uint8_t> part, const MoveInfo& move_info)
 {
-    auto [IdVec, deltaGain] =
+    const auto [IdVec, deltaGain] =
         this->gainCalc.update_move_general_net(part, move_info);
-    auto degree = IdVec.size();
+    const auto degree = IdVec.size();
     for (size_t index = 0U; index < degree; ++index)
     {
-        auto w = IdVec[index];
+        const auto w = IdVec[index];
         self.modify_key(w, part[w], deltaGain[index]);
     }
 }

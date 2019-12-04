@@ -620,7 +620,7 @@ class Graph : public object
         return this->_adj[this->_node_map[u]].contains(v);
     }
 
-    auto degree(const Node& n)
+    auto degree(const Node& n) const
     {
         return this->_adj[this->_node_map[n]].size();
     }

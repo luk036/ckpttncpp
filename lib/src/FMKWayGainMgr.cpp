@@ -15,9 +15,9 @@ int FMKWayGainMgr::init(gsl::span<const uint8_t> part)
     {
         this->gainbucket[k].clear();
     }
-    for (auto v : this->H.modules)
+    for (const auto& v : this->H.modules)
     {
-        auto pv = part[v];
+        const auto pv = part[v];
         for (auto k : this->RR.exclude(pv))
         {
             auto& vlink = this->gainCalc.vertex_list[k][v];
@@ -43,7 +43,7 @@ int FMKWayGainMgr::init(gsl::span<const uint8_t> part)
  */
 void FMKWayGainMgr::update_move_v(const MoveInfoV& move_info_v, int gain)
 {
-    auto [fromPart, toPart, v] = move_info_v;
+    const auto& [fromPart, toPart, v] = move_info_v;
 
     for (auto k = 0U; k < this->K; ++k)
     {

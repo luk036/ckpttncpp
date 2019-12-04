@@ -4,7 +4,7 @@
 
 TEST_CASE("Test Range", "[range]")
 {
-    auto R = py::range(0U, 10U);
+    const auto R = py::range(0U, 10U);
 
     CHECK(!R.empty());
     CHECK(R.contains(4U));
@@ -20,7 +20,7 @@ TEST_CASE("Test Range", "[range]")
 
 TEST_CASE("Test Range2", "[range]")
 {
-    auto R = py::range(-10, 10);
+    const auto R = py::range(-10, 10);
 
     CHECK(!R.empty());
     CHECK(R.contains(4));
@@ -36,7 +36,7 @@ TEST_CASE("Test Range2", "[range]")
 
 TEST_CASE("Test Range (char)", "[range]")
 {
-    auto R = py::range('A', 'W');
+    const auto R = py::range('A', 'W');
 
     CHECK(!R.empty());
     CHECK(R.contains('B'));

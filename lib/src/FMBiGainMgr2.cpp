@@ -16,8 +16,8 @@ int FMBiGainMgr::init(gsl::span<const uint8_t> part)
     for (auto v : this->H.modules)
     {
         auto& vlink = this->gainCalc.vertex_list[v];
-        auto toPart = 1 - part[v];
-        this->gainbucket[toPart].append_direct(vlink);
+        // auto toPart = 1 - part[v];
+        this->gainbucket[1 - part[v]].append_direct(vlink);
     }
     for (auto v : this->H.module_fixed)
     {

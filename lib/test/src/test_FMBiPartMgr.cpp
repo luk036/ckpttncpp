@@ -13,14 +13,14 @@ extern void readAre(SimpleNetlist& H, std::string_view areFileName);
  *
  * @param H
  */
-void run_FMBiPartMgr(SimpleNetlist& H)
+void run_FMBiPartMgr(const SimpleNetlist& H)
 {
     auto gainMgr = FMBiGainMgr {H};
     auto constrMgr = FMBiConstrMgr {H, 0.4};
     auto partMgr = FMPartMgr {H, gainMgr, constrMgr};
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
     partMgr.legalize(part);
-    auto totalcostbefore = partMgr.totalcost;
+    const auto totalcostbefore = partMgr.totalcost;
     partMgr.optimize(part);
     CHECK(totalcostbefore >= 0);
     CHECK(partMgr.totalcost <= totalcostbefore);
@@ -29,19 +29,19 @@ void run_FMBiPartMgr(SimpleNetlist& H)
 
 TEST_CASE("Test FMBiPartMgr", "[test_FMBiPartMgr]")
 {
-    auto H = create_test_netlist();
+    const auto H = create_test_netlist();
     run_FMBiPartMgr(H);
 }
 
 TEST_CASE("Test FMBiPartMgr dwarf", "[test_FMBiPartMgr]")
 {
-    auto H = create_dwarf();
+    const auto H = create_dwarf();
     run_FMBiPartMgr(H);
 }
 
 TEST_CASE("Test FMBiPartMgr p1", "[test_FMBiPartMgr]")
 {
-    auto H = readNetD("../../../testcases/p1.net");
+    const auto H = readNetD("../../../testcases/p1.net");
     run_FMBiPartMgr(H);
 }
 

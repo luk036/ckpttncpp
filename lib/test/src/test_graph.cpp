@@ -10,7 +10,7 @@
  */
 TEST_CASE("Test xnetwork", "[test_xnetwork]")
 {
-    auto num_nodes = 6;
+    constexpr auto num_nodes = 6;
     enum nodes
     {
         a1,
@@ -20,7 +20,7 @@ TEST_CASE("Test xnetwork", "[test_xnetwork]")
         n2,
         n3
     };
-    auto R = py::range<uint8_t>(0, num_nodes);
+    const auto R = py::range<uint8_t>(0, num_nodes);
     auto G = xn::Graph {R, R};
     G.add_edge(a1, n1);
     G.add_edge(a1, n1);

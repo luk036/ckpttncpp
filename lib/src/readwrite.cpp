@@ -81,8 +81,8 @@ SimpleNetlist readNetD(std::string_view netDFileName)
 
     // using Edge = std::pair<int, int>;
 
-    auto num_vertices = numModules + numNets;
-    auto R = py::range<node_t>(0, num_vertices);
+    const auto num_vertices = numModules + numNets;
+    const auto R = py::range<node_t>(0, num_vertices);
     auto g = graph_t {R, R};
 
     constexpr index_t bufferSize = 100;

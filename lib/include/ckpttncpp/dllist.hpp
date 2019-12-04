@@ -48,8 +48,8 @@ struct dllink
     auto detach() -> void
     {
         assert(!this->is_locked());
-        auto n = this->next;
-        auto p = this->prev;
+        const auto n = this->next;
+        const auto p = this->prev;
         p->next = n;
         n->prev = p;
     }

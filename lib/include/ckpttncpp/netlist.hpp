@@ -11,11 +11,11 @@
 
 using node_t = int;
 
-struct PartInfo
-{
-    std::vector<uint8_t> part;
-    py::set<node_t> extern_nets;
-};
+// struct PartInfo
+// {
+//     std::vector<uint8_t> part;
+//     py::set<node_t> extern_nets;
+// };
 
 /*!
  * @brief Netlist
@@ -47,7 +47,7 @@ struct Netlist
     py::set<node_t> module_fixed;
 
     /* For multi-level algorithms */
-    Netlist<nodeview_t, nodemap_t>* parent;
+    const Netlist<nodeview_t, nodemap_t>* parent;
     py::dict<node_t, index_t> node_up_map;
     py::dict<index_t, node_t> node_down_map;
     py::dict<index_t, node_t> cluster_down_map;
@@ -180,7 +180,7 @@ struct Netlist
      * @param part_down
      */
     void projection_down(
-        gsl::span<const uint8_t> part, gsl::span<uint8_t> part_down);
+        gsl::span<const uint8_t> part, gsl::span<uint8_t> part_down) const;
 
     /*!
      * @brief projection up
@@ -189,7 +189,7 @@ struct Netlist
      * @param part_up
      */
     void projection_up(
-        gsl::span<const uint8_t> part, gsl::span<uint8_t> part_up);
+        gsl::span<const uint8_t> part, gsl::span<uint8_t> part_up) const;
 };
 
 /*!
@@ -214,10 +214,10 @@ Netlist<nodeview_t, nodemap_t>::Netlist(graph_t&& G, const nodeview_t& modules,
     auto deg_cmp = [this](node_t v, node_t w) -> index_t {
         return this->G.degree(v) < this->G.degree(w);
     };
-    auto result1 =
+    const auto result1 =
         std::max_element(this->modules.begin(), this->modules.end(), deg_cmp);
     this->max_degree = this->G.degree(*result1);
-    auto result2 =
+    const auto result2 =
         std::max_element(this->nets.begin(), this->nets.end(), deg_cmp);
     this->max_net_degree = this->G.degree(*result2);
 }

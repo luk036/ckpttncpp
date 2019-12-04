@@ -3,25 +3,25 @@
 
 template <typename nodeview_t, typename nodemap_t>
 void Netlist<nodeview_t, nodemap_t>::projection_up(
-    gsl::span<const uint8_t> part, gsl::span<uint8_t> part_up)
+    gsl::span<const uint8_t> part, gsl::span<uint8_t> part_up) const
 {
-    auto& H = *this->parent;
+    const auto& H = *this->parent;
     for (auto v : H.modules)
     {
-        part_up[this->node_up_map[v]] = part[v];
+        part_up[this->node_up_map.at(v)] = part[v];
     }
 }
 
 template <typename nodeview_t, typename nodemap_t>
 void Netlist<nodeview_t, nodemap_t>::projection_down(
-    gsl::span<const uint8_t> part, gsl::span<uint8_t> part_down)
+    gsl::span<const uint8_t> part, gsl::span<uint8_t> part_down) const
 {
-    auto& H = *this->parent;
+    const auto& H = *this->parent;
     for (auto v : this->modules)
     {
         if (this->cluster_down_map.contains(v))
         {
-            auto net = this->cluster_down_map[v];
+            const auto net = this->cluster_down_map.at(v);
             for (auto v2 : H.G[net])
             {
                 part_down[v2] = part[v];
@@ -29,7 +29,7 @@ void Netlist<nodeview_t, nodemap_t>::projection_down(
         }
         else
         {
-            auto v2 = this->node_down_map[v];
+            const auto v2 = this->node_down_map.at(v);
             part_down[v2] = part[v];
         }
     }

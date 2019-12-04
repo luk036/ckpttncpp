@@ -14,7 +14,7 @@ extern void readAre(SimpleNetlist& H, std::string_view areFileName);
  * @param H
  * @param K
  */
-void run_FMKWayPartMgr(SimpleNetlist& H, uint8_t K)
+void run_FMKWayPartMgr(const SimpleNetlist& H, uint8_t K)
 {
     auto gainMgr = FMKWayGainMgr {H, K};
     auto constrMgr = FMKWayConstrMgr {H, 0.4, K};
@@ -22,7 +22,7 @@ void run_FMKWayPartMgr(SimpleNetlist& H, uint8_t K)
     auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
 
     partMgr.legalize(part);
-    auto totalcostbefore = partMgr.totalcost;
+    const auto totalcostbefore = partMgr.totalcost;
     partMgr.optimize(part);
     CHECK(totalcostbefore >= 0);
     CHECK(partMgr.totalcost <= totalcostbefore);
@@ -31,18 +31,18 @@ void run_FMKWayPartMgr(SimpleNetlist& H, uint8_t K)
 
 TEST_CASE("Test FMKWayPartMgr", "[test_FMKWayPartMgr]")
 {
-    auto H = create_dwarf();
+    const auto H = create_dwarf();
     run_FMKWayPartMgr(H, 3);
 }
 
 TEST_CASE("Test FMKWayPartMgr p1", "[test_FMKWayPartMgr]")
 {
-    auto H = readNetD("../../../testcases/p1.net");
+    const auto H = readNetD("../../../testcases/p1.net");
     run_FMKWayPartMgr(H, 3);
 }
 
 // TEST_CASE("Test FMKWayPartMgr ibm01", "[test_FMKWayPartMgr]") {
-//     auto H = readNetD("../../../testcases/ibm01.net");
+//     const auto H = readNetD("../../../testcases/ibm01.net");
 //     readAre(H, "../../../testcases/ibm01.are");
 //     run_FMKWayPartMgr(H, 3);
 // }

@@ -48,7 +48,7 @@ auto create_dwarf() -> SimpleNetlist
     // auto R = py::range<int>(num_nodes);
     // graph_t g{R, R};
     auto g = xn::SimpleGraph(num_nodes);
-    for (auto [u, v] : edge_array)
+    for (const auto& [u, v] : edge_array)
     {
         g.add_edge(u, v);
     }
@@ -97,9 +97,9 @@ auto create_test_netlist() -> SimpleNetlist
     // auto num_arcs = sizeof(edge_array) / sizeof(Edge);
     // auto g = graph_t{edge_array, edge_array + num_arcs, num_nodes};
     // auto G = xn::grAdaptor<graph_t>{std::move(g)};
-    auto R = py::range<int>(num_nodes);
+    const auto R = py::range<int>(num_nodes);
     graph_t g {R, R};
-    for (auto [u, v] : edge_array)
+    for (const auto& [u, v] : edge_array)
     {
         g.add_edge(u, v);
     }
@@ -112,7 +112,7 @@ auto create_test_netlist() -> SimpleNetlist
 
 TEST_CASE("Test Netlist", "[test_netlist]")
 {
-    auto H = create_test_netlist();
+    const auto H = create_test_netlist();
 
     CHECK(H.number_of_modules() == 3);
     CHECK(H.number_of_nets() == 3);
@@ -124,7 +124,7 @@ TEST_CASE("Test Netlist", "[test_netlist]")
 
 TEST_CASE("Test dwarf", "[test_dwarf]")
 {
-    auto H = create_dwarf();
+    const auto H = create_dwarf();
 
     CHECK(H.number_of_modules() == 7);
     CHECK(H.number_of_nets() == 6);

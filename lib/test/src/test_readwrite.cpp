@@ -23,7 +23,7 @@ TEST_CASE("Test Read Dwarf", "[test_readwrite]")
 
 TEST_CASE("Test Read p1", "[test_readwrite]")
 {
-    auto H = readNetD("../../../testcases/p1.net");
+    const auto H = readNetD("../../../testcases/p1.net");
 
     CHECK(H.number_of_modules() == 833);
     CHECK(H.number_of_nets() == 902);
@@ -47,6 +47,6 @@ TEST_CASE("Test Write Dwarf", "[test_readwrite]")
 
 TEST_CASE("Test Write p1", "[test_readwrite]")
 {
-    auto H = readNetD("../../../testcases/p1.net");
+    const auto H = readNetD("../../../testcases/p1.net");
     writeJSON("../../../testcases/p1.json", H);
 }

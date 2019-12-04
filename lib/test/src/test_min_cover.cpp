@@ -9,9 +9,9 @@ extern void readAre(SimpleNetlist& H, std::string_view areFileName);
 // extern std::tuple<py::set<node_t>, int>
 // min_net_cover_pd(SimpleNetlist &, const std::vector<int> &);
 extern std::tuple<py::set<node_t>, int> max_independent_net(
-    SimpleNetlist&, const std::vector<int>&, const py::set<node_t>&);
+    const SimpleNetlist&, const std::vector<int>&, const py::set<node_t>&);
 extern std::unique_ptr<SimpleNetlist> create_contraction_subgraph(
-    SimpleNetlist&, const py::set<node_t>&);
+    const SimpleNetlist&, const py::set<node_t>&);
 
 //
 // Primal-dual algorithm for minimum vertex cover problem
@@ -32,8 +32,8 @@ extern std::unique_ptr<SimpleNetlist> create_contraction_subgraph(
 
 TEST_CASE("Test max_independent_net dwarf", "[test_max_independent_net]")
 {
-    auto H = create_dwarf();
-    auto [_, cost] =
+    const auto H = create_dwarf();
+    const auto [_, cost] =
         max_independent_net(H, H.module_weight, py::set<node_t> {});
     CHECK(cost == 3);
 }
@@ -47,9 +47,9 @@ TEST_CASE("Test max_independent_net dwarf", "[test_max_independent_net]")
 
 TEST_CASE("Test contraction subgraph dwarf", "[test_contractio_subgraph]")
 {
-    auto H = create_dwarf();
-    auto H2 = create_contraction_subgraph(H, py::set<node_t> {});
-    auto H3 = create_contraction_subgraph(*H2, py::set<node_t> {});
+    const auto H = create_dwarf();
+    const auto H2 = create_contraction_subgraph(H, py::set<node_t> {});
+    // auto H3 = create_contraction_subgraph(*H2, py::set<node_t> {});
     CHECK(H2->number_of_modules() < 7);
     CHECK(H2->number_of_nets() == 3);
     // CHECK(H2->number_of_pins() < 14);

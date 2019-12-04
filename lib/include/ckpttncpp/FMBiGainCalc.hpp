@@ -4,7 +4,7 @@
 #include "netlist.hpp" // import Netlist
 #include <gsl/span>
 
-struct FMBiGainMgr;
+// struct FMBiGainMgr;
 
 /*!
  * @brief FMBiGainCalc
@@ -13,10 +13,10 @@ struct FMBiGainMgr;
 class FMBiGainCalc
 {
     friend class FMBiGainMgr;
-    using index_t = typename SimpleNetlist::index_t;
+    using node_t = typename SimpleNetlist::node_t;
 
   private:
-    SimpleNetlist& H;
+    const SimpleNetlist& H;
     size_t num_modules {};
     std::vector<dllink<node_t>> vertex_list;
 
@@ -30,7 +30,7 @@ class FMBiGainCalc
      * @param H
      * @param K
      */
-    explicit FMBiGainCalc(SimpleNetlist& H, uint8_t /*K*/)
+    explicit FMBiGainCalc(const SimpleNetlist& H, uint8_t /*K*/)
         : H {H}
         , vertex_list(H.number_of_modules())
     {
@@ -75,7 +75,7 @@ class FMBiGainCalc
         // nothing to do in 2-way partitioning
     }
 
-    using ret_2pin_info = std::tuple<index_t, int>;
+    using ret_2pin_info = std::tuple<node_t, int>;
 
     /*!
      * @brief update move 2-pin net

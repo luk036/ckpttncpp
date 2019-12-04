@@ -21,7 +21,7 @@ class FMKWayConstrMgr : public FMConstrMgr
      * @param BalTol
      * @param K
      */
-    FMKWayConstrMgr(SimpleNetlist& H, double BalTol, uint8_t K)
+    FMKWayConstrMgr(const SimpleNetlist& H, double BalTol, uint8_t K)
         : FMConstrMgr {H, BalTol, K}
         , illegal(K, true)
     {
@@ -34,7 +34,7 @@ class FMKWayConstrMgr : public FMConstrMgr
      */
     auto select_togo() const -> uint8_t
     {
-        auto it = std::min_element(this->diff.cbegin(), this->diff.cend());
+        const auto it = std::min_element(this->diff.cbegin(), this->diff.cend());
         return std::distance(this->diff.cbegin(), it);
     }
 
@@ -60,7 +60,7 @@ class FMKWayConstrMgr : public FMConstrMgr
      */
     auto check_legal(const MoveInfoV& move_info_v) -> size_t
     {
-        auto status = FMConstrMgr::check_legal(move_info_v);
+        const auto status = FMConstrMgr::check_legal(move_info_v);
         if (status != 2)
         {
             return status;

@@ -5,7 +5,7 @@
 #include "robin.hpp"   // import robin
 #include <gsl/span>
 
-class FMKWayGainMgr;
+// class FMKWayGainMgr;
 
 /*!
  * @brief FMKWayGainCalc
@@ -14,10 +14,10 @@ class FMKWayGainMgr;
 class FMKWayGainCalc
 {
     friend class FMKWayGainMgr;
-    using index_t = typename SimpleNetlist::index_t;
+    using node_t = typename SimpleNetlist::node_t;
 
   private:
-    SimpleNetlist& H;
+    const SimpleNetlist& H;
     uint8_t K;
     robin<uint8_t> RR;
     size_t num_modules;
@@ -34,7 +34,7 @@ class FMKWayGainCalc
      * @param H Netlist
      * @param K number of partitions
      */
-    FMKWayGainCalc(SimpleNetlist& H, uint8_t K)
+    FMKWayGainCalc(const SimpleNetlist& H, uint8_t K)
         : H {H}
         , K {K}
         , RR {K}
@@ -90,7 +90,7 @@ class FMKWayGainCalc
         std::fill_n(this->deltaGainV.begin(), this->K, 0);
     }
 
-    using ret_2pin_info = std::tuple<index_t, std::vector<int>>;
+    using ret_2pin_info = std::tuple<node_t, std::vector<int>>;
 
     /*!
      * @brief

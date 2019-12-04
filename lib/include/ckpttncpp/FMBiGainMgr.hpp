@@ -14,9 +14,9 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
 {
     using Base = FMGainMgr<FMBiGainCalc, FMBiGainMgr>;
     using GainCalc_ = FMBiGainCalc;
-    using index_t = typename SimpleNetlist::index_t;
+    using node_t = typename SimpleNetlist::node_t;
 
-    explicit FMBiGainMgr(SimpleNetlist& H)
+    explicit FMBiGainMgr(const SimpleNetlist& H)
         : Base {H, 2}
     {
     }
@@ -26,7 +26,7 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
      *
      * @param H
      */
-    FMBiGainMgr(SimpleNetlist& H, uint8_t /* K */)
+    FMBiGainMgr(const SimpleNetlist& H, uint8_t /* K */)
         : Base {H, 2}
     {
     }
@@ -87,8 +87,7 @@ struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
      */
     auto lock_all(uint8_t fromPart, node_t v) -> void
     {
-        auto toPart = 1 - fromPart;
-        this->lock(toPart, v);
+        this->lock(1 - fromPart, v);
     }
 
   private:

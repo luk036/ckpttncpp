@@ -18,7 +18,7 @@ class FMConstrMgr
     int weight; // cache value
 
   protected:
-    SimpleNetlist& H;
+    const SimpleNetlist& H;
     double BalTol;
     uint8_t K;
     std::vector<int> diff;
@@ -32,7 +32,7 @@ class FMConstrMgr
      * @param K
      * @param BalTol
      */
-    FMConstrMgr(SimpleNetlist& H, double BalTol, uint8_t K = 2)
+    FMConstrMgr(const SimpleNetlist& H, double BalTol, uint8_t K = 2)
         : H {H}
         , BalTol {BalTol}
         , K {K}
@@ -43,7 +43,7 @@ class FMConstrMgr
             weight = this->H.get_module_weight(v);
             this->totalweight += weight;
         }
-        auto totalweightK = this->totalweight * (2. / this->K);
+        const auto totalweightK = this->totalweight * (2. / this->K);
         this->lowerbound = std::round(totalweightK * this->BalTol);
     }
 

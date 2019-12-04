@@ -25,7 +25,7 @@ class FMPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FMPartMgr>
      * @param gainMgr
      * @param constrMgr
      */
-    FMPartMgr(SimpleNetlist& H, GainMgr& gainMgr, ConstrMgr& constrMgr)
+    FMPartMgr(const SimpleNetlist& H, GainMgr& gainMgr, ConstrMgr& constrMgr)
         : Base {H, gainMgr, constrMgr}
     {
     }

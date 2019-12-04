@@ -3,12 +3,19 @@
 // **Special code for two-pin nets**
 // Take a snapshot when a move make **negative** gain.
 // Snapshot in the form of "interface"???
-#include "netlist.hpp"
+// #include "netlist.hpp"
 #include <cinttypes>
 #include <iterator>
 #include <py2cpp/py2cpp.hpp>
 #include <type_traits>
 #include <vector>
+#include <gsl/span>
+
+// forward declare
+template <typename nodeview_t, typename nodemap_t>
+struct Netlist;
+using RngIter = decltype(py::range<int>(0, 1));
+using SimpleNetlist = Netlist<RngIter, RngIter>;
 
 /*!
  * @brief Partition Manager Base
@@ -49,7 +56,7 @@ class PartMgrBase
     Der& self = *static_cast<Der*>(this);
 
   protected:
-    SimpleNetlist& H;
+    const SimpleNetlist& H;
     GainMgr& gainMgr;
     ConstrMgr& validator;
     uint8_t K;
@@ -66,7 +73,7 @@ class PartMgrBase
      * @param gainMgr
      * @param constrMgr
      */
-    PartMgrBase(SimpleNetlist& H, GainMgr& gainMgr, ConstrMgr& constrMgr)
+    PartMgrBase(const SimpleNetlist& H, GainMgr& gainMgr, ConstrMgr& constrMgr)
         : H {H}
         , gainMgr {gainMgr}
         , validator {constrMgr}

@@ -19,7 +19,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
   public:
     using Base = FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>;
     using GainCalc_ = FMKWayGainCalc;
-    using index_t = typename SimpleNetlist::index_t;
+    using node_t = typename SimpleNetlist::node_t;
 
     /*!
      * @brief Construct a new FMKWayGainMgr object
@@ -27,7 +27,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
      * @param H
      * @param K
      */
-    FMKWayGainMgr(SimpleNetlist& H, uint8_t K)
+    FMKWayGainMgr(const SimpleNetlist& H, uint8_t K)
         : Base {H, K}
         , RR {K}
     {
@@ -72,7 +72,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
      * @param whichPart
      * @param v
      */
-    auto lock(index_t whichPart, node_t v) -> void
+    auto lock(uint8_t whichPart, node_t v) -> void
     {
         auto& vlink = this->gainCalc.vertex_list[whichPart][v];
         this->gainbucket[whichPart].detach(vlink);
@@ -85,7 +85,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
      * @param fromPart
      * @param v
      */
-    auto lock_all(index_t /*fromPart*/, node_t v) -> void
+    auto lock_all(uint8_t /*fromPart*/, node_t v) -> void
     {
         for (auto k = 0U; k < this->K; ++k)
         {
@@ -101,7 +101,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
      * @param v
      * @param key
      */
-    auto __set_key(index_t whichPart, node_t v, int key) -> void
+    auto __set_key(uint8_t whichPart, node_t v, int key) -> void
     {
         this->gainbucket[whichPart].set_key(
             this->gainCalc.vertex_list[whichPart][v], key);

@@ -11,8 +11,8 @@ void FMConstrMgr::init(gsl::span<const uint8_t> part)
     std::fill_n(this->diff.begin(), this->K, 0);
     for (auto v : this->H.modules)
     {
-        auto weight_v = this->H.get_module_weight(v);
-        this->diff[part[v]] += weight_v;
+        // auto weight_v = this->H.get_module_weight(v);
+        this->diff[part[v]] += this->H.get_module_weight(v);
     }
 }
 
@@ -24,15 +24,15 @@ void FMConstrMgr::init(gsl::span<const uint8_t> part)
  */
 size_t FMConstrMgr::check_legal(const MoveInfoV& move_info_v)
 {
-    auto [fromPart, toPart, v] = move_info_v;
+    const auto& [fromPart, toPart, v] = move_info_v;
 
     this->weight = this->H.get_module_weight(v);
-    auto diffFrom = this->diff[fromPart] - this->weight;
+    const auto diffFrom = this->diff[fromPart] - this->weight;
     if (diffFrom < this->lowerbound)
     {
         return 0; // not ok, don't move
     }
-    auto diffTo = this->diff[toPart] + this->weight;
+    const auto diffTo = this->diff[toPart] + this->weight;
     if (diffTo < this->lowerbound)
     {
         return 1; // get better, but still illegal
@@ -49,11 +49,11 @@ size_t FMConstrMgr::check_legal(const MoveInfoV& move_info_v)
  */
 bool FMConstrMgr::check_constraints(const MoveInfoV& move_info_v)
 {
-    auto [fromPart, toPart, v] = move_info_v;
+    const auto& [fromPart, toPart, v] = move_info_v;
 
     this->weight = this->H.get_module_weight(v);
     // auto diffTo = this->diff[toPart] + this->weight;
-    auto diffFrom = this->diff[fromPart] - this->weight;
+    const auto diffFrom = this->diff[fromPart] - this->weight;
     return diffFrom >= this->lowerbound;
 }
 

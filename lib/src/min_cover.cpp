@@ -12,7 +12,7 @@
  * @param DontSelect
  * @return auto
  */
-auto max_independent_net(SimpleNetlist& H, const std::vector<int>& /*weight*/,
+auto max_independent_net(const SimpleNetlist& H, const std::vector<int>& /*weight*/,
     const py::set<node_t>& DontSelect)
 {
     // bpqueue bpq {-int(H.get_max_net_degree()), 0};
@@ -148,7 +148,7 @@ auto max_independent_net(SimpleNetlist& H, const std::vector<int>& /*weight*/,
  * @return auto
  */
 auto create_contraction_subgraph(
-    SimpleNetlist& H, const py::set<node_t>& DontSelect)
+    const SimpleNetlist& H, const py::set<node_t>& DontSelect)
 {
     auto [S, _] = max_independent_net(H, H.module_weight, DontSelect);
 
@@ -281,7 +281,7 @@ auto create_contraction_subgraph(
     {
         if (cluster_down_map.contains(i_v))
         {
-            auto net = cluster_down_map[i_v];
+            const auto net = cluster_down_map[i_v];
             auto cluster_weight = 0U;
             for (auto v2 : H.G[net])
             {
@@ -291,7 +291,7 @@ auto create_contraction_subgraph(
         }
         else
         {
-            auto v2 = node_down_map[i_v];
+            const auto v2 = node_down_map[i_v];
             module_weight.push_back(H.get_module_weight(v2));
         }
     }

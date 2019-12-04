@@ -11,21 +11,21 @@ extern SimpleNetlist create_dwarf();        // import create_dwarf
  * @param H
  * @param part_test
  */
-void run_FMBiGainMgr(SimpleNetlist& H, gsl::span<uint8_t> part)
+void run_FMBiGainMgr(const SimpleNetlist& H, gsl::span<uint8_t> part)
 {
     auto mgr = FMBiGainMgr {H};
     mgr.init(part);
     while (!mgr.is_empty())
     {
         // Take the gainmax with v from gainbucket
-        auto [move_info_v, gainmax] = mgr.select(part);
+        const auto [move_info_v, gainmax] = mgr.select(part);
         if (gainmax <= 0)
         {
             continue;
         }
         mgr.update_move(part, move_info_v);
         mgr.update_move_v(move_info_v, gainmax);
-        auto [_, toPart, v] = move_info_v;
+        const auto& [_, toPart, v] = move_info_v;
 
         part[v] = toPart;
     }
@@ -33,14 +33,14 @@ void run_FMBiGainMgr(SimpleNetlist& H, gsl::span<uint8_t> part)
 
 TEST_CASE("Test FMBiGainMgr", "[test_FMBiGainMgr]")
 {
-    auto H = create_test_netlist();
+    const auto H = create_test_netlist();
     auto part_test = std::vector<uint8_t> {0, 1, 0};
     run_FMBiGainMgr(H, part_test);
 }
 
 TEST_CASE("Test FMBiGainMgr 2", "[test_FMBiGainMgr2]")
 {
-    auto H = create_dwarf();
+    const auto H = create_dwarf();
     auto part_test = std::vector<uint8_t> {0, 0, 0, 0, 1, 1, 1};
     run_FMBiGainMgr(H, part_test);
 }

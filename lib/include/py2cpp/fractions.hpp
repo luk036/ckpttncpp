@@ -141,8 +141,8 @@ struct Fraction
         {
             return _Self(_numerator + frac._numerator, _denominator);
         }
-        auto common = lcm(_denominator, frac._denominator);
-        auto n = common / _denominator * _numerator +
+        constexpr auto common = lcm(_denominator, frac._denominator);
+        constexpr auto n = common / _denominator * _numerator +
             common / frac._denominator * frac._numerator;
         return _Self(n, common);
     }
@@ -166,8 +166,8 @@ struct Fraction
      */
     constexpr _Self operator*(const _Self& frac) const
     {
-        auto n = _numerator * frac._numerator;
-        auto d = _denominator * frac._denominator;
+        constexpr auto n = _numerator * frac._numerator;
+        constexpr auto d = _denominator * frac._denominator;
         return _Self(n, d);
     }
 
@@ -191,7 +191,7 @@ struct Fraction
      */
     constexpr _Self operator+(const Z& i) const
     {
-        auto n = _numerator + _denominator * i;
+        constexpr auto n = _numerator + _denominator * i;
         return _Self(n, _denominator);
     }
 
@@ -214,7 +214,7 @@ struct Fraction
      */
     constexpr _Self operator*(const Z& i) const
     {
-        auto n = _numerator * i;
+        constexpr auto n = _numerator * i;
         return _Self(n, _denominator);
     }
 
@@ -226,7 +226,7 @@ struct Fraction
      */
     constexpr _Self operator/(const Z& i) const
     {
-        auto d = _denominator * i;
+        constexpr auto d = _denominator * i;
         return _Self(_numerator, d);
     }
 

@@ -8,7 +8,7 @@
 
 /*!
  * @brief FMKWayGainMgr
- * 
+ *
  */
 class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
 {

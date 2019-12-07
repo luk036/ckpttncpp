@@ -10,8 +10,9 @@
  * @brief FMBiGainMgr
  *
  */
-struct FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
+class FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
 {
+  public:
     using Base = FMGainMgr<FMBiGainCalc, FMBiGainMgr>;
     using GainCalc_ = FMBiGainCalc;
     using node_t = typename SimpleNetlist::node_t;

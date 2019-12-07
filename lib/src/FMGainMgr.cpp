@@ -96,9 +96,10 @@ void FMGainMgr<GainCalc, Derived>::update_move(
     for (node_t net : this->H.G[v])
     {
         const auto degree = this->H.G.degree(net);
-        [[unlikely]] if (degree < 2)
+        if (degree < 2)
         {
-            continue; // does not provide any gain change when moving
+            [[unlikely]] continue; // does not provide any gain change when
+                                   // moving
         }
         const auto move_info = MoveInfo {net, fromPart, toPart, v};
         switch (degree)
@@ -139,7 +140,8 @@ template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::__update_move_2pin_net(
     gsl::span<const uint8_t> part, const MoveInfo& move_info)
 {
-    const auto [w, deltaGainW] = this->gainCalc.update_move_2pin_net(part, move_info);
+    const auto [w, deltaGainW] =
+        this->gainCalc.update_move_2pin_net(part, move_info);
     self.modify_key(w, part[w], deltaGainW);
 }
 

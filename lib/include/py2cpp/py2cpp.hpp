@@ -120,8 +120,8 @@ inline constexpr auto range(T start, T stop)
 
     struct iterable_wrapper
     {
-        using value_type [[maybe_unused]] = T;        // luk
-        using iterator = __iterator; // luk
+        using value_type [[maybe_unused]] = T; // luk
+        using iterator = __iterator;           // luk
         T start;
         T stop;
         constexpr auto begin() const

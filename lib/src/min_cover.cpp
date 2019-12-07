@@ -12,8 +12,8 @@
  * @param DontSelect
  * @return auto
  */
-auto max_independent_net(const SimpleNetlist& H, const std::vector<int>& /*weight*/,
-    const py::set<node_t>& DontSelect)
+auto max_independent_net(const SimpleNetlist& H,
+    const std::vector<int>& /*weight*/, const py::set<node_t>& DontSelect)
 {
     // bpqueue bpq {-int(H.get_max_net_degree()), 0};
     // auto nets = std::vector<dllink<node_t>>(H.nets.size());

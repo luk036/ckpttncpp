@@ -30,10 +30,10 @@ class bpqueue
     static dllink<T> sentinel; /*!< sentinel */
 
   private:
-    T max {0};                     /*!< max value */
-    T offset;                      /*!< a - 1 */
-    T high;                        /*!< b - a + 1 */
-    std::vector<dllink<T>> bucket; /*!< bucket, array of lists */
+    T max {0};                     //!< max value
+    T offset;                      //!< a - 1
+    T high;                        //!< b - a + 1
+    std::vector<dllink<T>> bucket; //!< bucket, array of lists
 
   public:
     /*!

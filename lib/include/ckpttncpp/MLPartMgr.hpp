@@ -6,9 +6,9 @@
 // #include "FMPartMgr.hpp" // import FMPartMgr
 // #include "netlist.hpp"
 #include <cassert>
+#include <gsl/span>
 #include <iostream>
 #include <vector>
-#include <gsl/span>
 
 // forward declare
 template <typename nodeview_t, typename nodemap_t>
@@ -81,7 +81,8 @@ class MLPartMgr
         { // OK
             try
             {
-                const auto H2 = create_contraction_subgraph(H, py::set<node_t> {});
+                const auto H2 =
+                    create_contraction_subgraph(H, py::set<node_t> {});
                 if (5 * H2->number_of_modules() <= 3 * H.number_of_modules())
                 {
                     auto part2 =
@@ -154,14 +155,15 @@ class MLPartMgr
      * @return size_t self.take_snapshot(part)
      */
     template <typename PartMgr>
-    auto run_Partition_recur(
-        const SimpleNetlist& H, gsl::span<uint8_t> part, size_t limitsize) -> void
+    auto run_Partition_recur(const SimpleNetlist& H, gsl::span<uint8_t> part,
+        size_t limitsize) -> void
     {
         if (H.number_of_modules() >= limitsize)
         { // OK
             try
             {
-                const auto H2 = create_contraction_subgraph(H, py::set<node_t> {});
+                const auto H2 =
+                    create_contraction_subgraph(H, py::set<node_t> {});
                 if (5 * H2->number_of_modules() <= 3 * H.number_of_modules())
                 {
                     auto part2 =

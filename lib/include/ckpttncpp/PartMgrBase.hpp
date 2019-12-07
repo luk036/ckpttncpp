@@ -5,11 +5,11 @@
 // Snapshot in the form of "interface"???
 // #include "netlist.hpp"
 #include <cinttypes>
+#include <gsl/span>
 #include <iterator>
 #include <py2cpp/py2cpp.hpp>
 #include <type_traits>
 #include <vector>
-#include <gsl/span>
 
 // forward declare
 template <typename nodeview_t, typename nodemap_t>

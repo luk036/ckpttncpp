@@ -34,7 +34,8 @@ class FMKWayConstrMgr : public FMConstrMgr
      */
     auto select_togo() const -> uint8_t
     {
-        const auto it = std::min_element(this->diff.cbegin(), this->diff.cend());
+        const auto it =
+            std::min_element(this->diff.cbegin(), this->diff.cend());
         return std::distance(this->diff.cbegin(), it);
     }
 

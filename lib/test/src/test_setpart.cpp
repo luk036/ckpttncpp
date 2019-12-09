@@ -11,7 +11,7 @@ TEST_CASE("Test set partition (odd k)", "[set_partition]")
 
     std::array<int, n + 1> b {0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4};
 
-    for (auto [x, y] : set_partition(n, k))
+    for (auto&& [x, y] : set_partition(n, k))
     {
         // auto old = b[x];
         b[x] = y;
@@ -32,7 +32,7 @@ TEST_CASE("Test set partition (even k)", "[set_partition]")
 
     std::array<int, n + 1> b {0, 0, 0, 0, 0, 0, 0, 1, 2};
 
-    for (auto [x, y] : set_partition(n, k))
+    for (auto&& [x, y] : set_partition(n, k))
     {
         // auto old = b[x];
         b[x] = y;

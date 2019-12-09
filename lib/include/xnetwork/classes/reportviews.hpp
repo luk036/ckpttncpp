@@ -52,7 +52,7 @@ DegreeView
 
     `V = G.degree` allows iteration over (node, degree) pairs as well
     as lookup: `deg=V[n]`. There are many flavors of DegreeView
-    for (auto In/Out/Directed/Multi. For Directed Graphs, `G.degree`
+    for In/Out/Directed/Multi. For Directed Graphs, `G.degree`
     counts both : && out going edges. `G.out_degree` &&
     `G.in_degree` count only specific directions.
     Weighted degree using edge data attributes is provide via

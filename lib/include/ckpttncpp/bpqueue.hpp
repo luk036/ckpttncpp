@@ -2,6 +2,7 @@
 
 #include "dllist.hpp" // import dllink
 #include <cassert>
+#include <gsl/span>
 #include <type_traits>
 #include <vector>
 
@@ -130,9 +131,9 @@ class bpqueue
      * @param nodes
      * @param keys
      */
-    auto appendfrom(std::vector<dllink<T>>& nodes) -> void
+    auto appendfrom(gsl::span<dllink<T>> nodes) -> void
     {
-        for (auto& it : nodes)
+        for (auto&& it : nodes)
         {
             it.key -= this->offset;
             assert(it.key > 0);
@@ -279,7 +280,7 @@ class bpqueue
             auto curkey = this->max;
             while (curkey > 0)
             {
-                for (auto& item : this->bucket[curkey].items())
+                for (auto&& item : this->bucket[curkey].items())
                 {
                     yield(item);
                 }

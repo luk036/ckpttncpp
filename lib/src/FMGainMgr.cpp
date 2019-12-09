@@ -15,7 +15,7 @@ FMGainMgr<GainCalc, Derived>::FMGainMgr(const SimpleNetlist& H, uint8_t K)
 {
     static_assert(
         std::is_base_of<FMGainMgr<GainCalc, Derived>, Derived>::value);
-    for (auto k = 0U; k < this->K; ++k)
+    for (auto k = 0U; k != this->K; ++k)
     {
         this->gainbucket.emplace_back(-this->pmax, this->pmax);
     }
@@ -46,7 +46,7 @@ std::tuple<MoveInfoV, int> FMGainMgr<GainCalc, Derived>::select(
     gsl::span<const uint8_t> part)
 {
     auto gainmax = std::vector<int>(this->K);
-    for (auto k = 0U; k < this->K; ++k)
+    for (auto k = 0U; k != this->K; ++k)
     {
         gainmax[k] = this->gainbucket[k].get_max();
     }
@@ -96,9 +96,9 @@ void FMGainMgr<GainCalc, Derived>::update_move(
     for (node_t net : this->H.G[v])
     {
         const auto degree = this->H.G.degree(net);
-        if (degree < 2)
+        [[unlikely]] if (degree < 2)
         {
-            [[unlikely]] continue; // does not provide any gain change when
+            continue; // does not provide any gain change when
                                    // moving
         }
         const auto move_info = MoveInfo {net, fromPart, toPart, v};

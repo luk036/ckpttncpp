@@ -51,7 +51,7 @@ class robin
         : cycle(K)
     {
         K -= 1;
-        for (auto k = 0U; k < K; ++k)
+        for (auto k = 0U; k != K; ++k)
         {
             this->cycle[k].next = &this->cycle[k + 1];
             this->cycle[k].key = k;

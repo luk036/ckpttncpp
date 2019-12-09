@@ -693,7 +693,7 @@ class Graph : public object
     //     The weighted node degree is the sum of the edge weights for
     //     edges incident to that node.
 
-    //     This object provides an iterator for (auto node, degree) as well as
+    //     This object provides an iterator for (node, degree) as well as
     //     lookup for the degree for a single node.
 
     //     Parameters

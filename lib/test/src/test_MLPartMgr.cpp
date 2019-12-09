@@ -40,11 +40,11 @@ TEST_CASE("Test MLBiPartMgr p1", "[test_MLBiPartMgr]")
     auto partMgr = MLPartMgr {0.3};
 
     auto mincost = 1000;
-    for (auto i = 0; i < 10; ++i)
+    for (auto i = 0; i != 10; ++i)
     {
         auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
         auto whichPart = 0U;
-        for (auto& elem : part)
+        for (auto&& elem : part)
         {
             whichPart ^= 1;
             elem = whichPart;
@@ -68,11 +68,11 @@ TEST_CASE("Test MLBiPartMgr ibm01", "[test_MLBiPartMgr]")
     readAre(H, "../../../testcases/ibm01.are");
     auto partMgr = MLPartMgr {0.4};
     auto mincost = 1000;
-    for (auto i = 0; i < 10; ++i)
+    for (auto i = 0; i != 10; ++i)
     {
         auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
         auto whichPart = 0U;
-        for (auto& elem : part)
+        for (auto&& elem : part)
         {
             whichPart ^= 1;
             elem = whichPart;

@@ -44,11 +44,11 @@ class FMBiGainCalc
     auto init(gsl::span<const uint8_t> part) -> int
     {
         this->totalcost = 0;
-        for (auto& vlink : this->vertex_list)
+        for (auto&& vlink : this->vertex_list)
         {
             vlink.key = 0;
         }
-        for (auto net : this->H.nets)
+        for (auto&& net : this->H.nets)
         {
             this->__init_gain(net, part);
         }

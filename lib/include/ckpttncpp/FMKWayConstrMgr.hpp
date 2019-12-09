@@ -47,7 +47,7 @@ class FMKWayConstrMgr : public FMConstrMgr
     auto init(gsl::span<const uint8_t> part) -> void
     {
         FMConstrMgr::init(part);
-        for (auto k = 0U; k < this->K; ++k)
+        for (auto k = 0U; k != this->K; ++k)
         {
             this->illegal[k] = (this->diff[k] < this->lowerbound);
         }
@@ -69,7 +69,7 @@ class FMKWayConstrMgr : public FMConstrMgr
         // auto [fromPart, toPart, _] = move_info_v;
         this->illegal[move_info_v.fromPart] = false;
         this->illegal[move_info_v.toPart] = false;
-        for (auto b : this->illegal)
+        for (auto&& b : this->illegal)
         {
             if (b)
             {

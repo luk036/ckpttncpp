@@ -69,7 +69,7 @@ class FMGainMgr
      */
     [[nodiscard]] auto is_empty() const -> bool
     {
-        for (auto k = 0U; k < this->K; ++k)
+        for (auto k = 0U; k != this->K; ++k)
         {
             if (!this->gainbucket[k].is_empty())
             {

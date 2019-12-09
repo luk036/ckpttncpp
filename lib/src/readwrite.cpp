@@ -37,7 +37,7 @@ void writeJSON(std::string_view jsonFileName, const SimpleNetlist& H)
 
     json << R"( "nodes": [)"
          << "\n";
-    for (auto node : H.G)
+    for (auto&& node : H.G)
     {
         json << "  { \"id\": " << node << " },\n";
     }
@@ -45,9 +45,9 @@ void writeJSON(std::string_view jsonFileName, const SimpleNetlist& H)
 
     json << R"( "links": [)"
          << "\n";
-    for (auto v : H.modules)
+    for (auto&& v : H.modules)
     {
-        for (auto net : H.G[v])
+        for (auto&& net : H.G[v])
         {
             json << "  {\n";
             json << "   \"source\": " << v << ",\n";

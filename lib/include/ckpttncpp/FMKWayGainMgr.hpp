@@ -87,7 +87,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
      */
     auto lock_all(uint8_t /*fromPart*/, node_t v) -> void
     {
-        for (auto k = 0U; k < this->K; ++k)
+        for (auto k = 0U; k != this->K; ++k)
         {
             this->lock(k, v);
         }

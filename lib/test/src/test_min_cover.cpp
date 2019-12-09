@@ -78,7 +78,7 @@ TEST_CASE("Test contraction subgraph dwarf", "[test_contractio_subgraph]")
 //     auto part2 = std::vector<uint8_t>(H2->number_of_modules(), 0);
 //     auto part3 = std::vector<uint8_t>(H3.number_of_modules(), 0);
 //     auto part4 = std::vector<uint8_t>(H3.number_of_modules(), 0);
-//     for (auto i = 0u; i < H3.number_of_modules(); ++i) {
+//     for (auto i = 0u; i != H3.number_of_modules(); ++i) {
 //         part3[i] = i;
 //     }
 //     H3.project_down(part3, part2);

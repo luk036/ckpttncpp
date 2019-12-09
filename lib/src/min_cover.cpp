@@ -25,7 +25,7 @@ auto max_independent_net(const SimpleNetlist& H,
     // }
 
     auto visited = py::set<node_t> {};
-    for (auto net : DontSelect)
+    for (auto&& net : DontSelect)
     {
         visited.insert(net);
     }
@@ -34,7 +34,7 @@ auto max_independent_net(const SimpleNetlist& H,
     auto total_cost = 0U;
 
     // while (!bpq.is_empty())
-    for (auto net : H.nets)
+    for (auto&& net : H.nets)
     {
         // dllink<node_t>& item = bpq.popleft();
 
@@ -48,9 +48,9 @@ auto max_independent_net(const SimpleNetlist& H,
         }
         S.insert(net);
         total_cost += H.get_net_weight(net);
-        for (auto v : H.G[net])
+        for (auto&& v : H.G[net])
         {
-            for (auto net2 : H.G[v])
+            for (auto&& net2 : H.G[v])
             {
                 visited.insert(net2);
             }
@@ -76,13 +76,13 @@ auto max_independent_net(const SimpleNetlist& H,
 //     auto total_dual_cost = 0;
 //     auto offset = H.number_of_modules();
 
-//     for (auto v : H.modules) {
+//     for (auto&& v : H.modules) {
 //         if (is_covered.contains(v)) {
 //             continue;
 //         }
 //         auto s = *H.G[v].begin();
 //         auto min_gap = gap[H.net_map[s]];
-//         for (auto net : H.G[v]) {
+//         for (auto&& net : H.G[v]) {
 //             auto i_net = H.net_map[net];
 //             if (min_gap > gap[i_net]) {
 //                 s = net;
@@ -94,12 +94,12 @@ auto max_independent_net(const SimpleNetlist& H,
 //         // S.append(i_s)
 //         // S.insert(s);
 //         L.push_back(s);
-//         for (auto net : H.G[v]) {
+//         for (auto&& net : H.G[v]) {
 //             auto i_net = H.net_map[net];
 //             gap[i_net] -= min_gap;
 //         }
 //         assert(gap[H.net_map[s]] == 0);
-//         for (auto v2 : H.G[s]) {
+//         for (auto&& v2 : H.G[s]) {
 //             is_covered.insert(v2);
 //         }
 //         total_primal_cost += H.get_net_weight(s);
@@ -111,12 +111,12 @@ auto max_independent_net(const SimpleNetlist& H,
 
 //     // auto S2 = py::set<node_t>{S.copy()};
 //     py::set<node_t> S(L.cbegin(), L.cend());
-//     // for (auto net : S2) {
-//     for (auto net : L) {
+//     // for (auto&& net : S2) {
+//     for (auto&& net : L) {
 //         auto found = false;
-//         for (auto v : H.G[net]) {
+//         for (auto&& v : H.G[net]) {
 //             auto covered = false;
-//             for (auto net2 : H.G[v]) {
+//             for (auto&& net2 : H.G[v]) {
 //                 if (net2 == net) {
 //                     continue;
 // }
@@ -154,7 +154,7 @@ auto create_contraction_subgraph(
 
     auto module_up_map = py::dict<node_t, node_t> {};
     module_up_map.reserve(H.number_of_modules());
-    for (auto v : H.modules)
+    for (auto&& v : H.modules)
     {
         module_up_map[v] = v;
     }
@@ -175,14 +175,14 @@ auto create_contraction_subgraph(
         C.reserve(3 * S.size()); // ???
         clusters.reserve(S.size());
 
-        for (auto net : H.nets)
+        for (auto&& net : H.nets)
         {
             if (S.contains(net))
             {
                 auto netCur = H.G[net].begin();
                 auto master = *netCur;
                 clusters.push_back(master);
-                for (auto v : H.G[net])
+                for (auto&& v : H.G[net])
                 {
                     module_up_map[v] = master;
                     C.insert(v);
@@ -195,7 +195,7 @@ auto create_contraction_subgraph(
             }
         }
         modules.reserve(H.modules.size() - C.size() + clusters.size());
-        for (auto v : H.modules)
+        for (auto&& v : H.modules)
         {
             if (C.contains(v))
             {
@@ -216,25 +216,25 @@ auto create_contraction_subgraph(
     { // localize module_map and net_map
         auto module_map = py::dict<node_t, index_t> {};
         module_map.reserve(numModules);
-        for (auto [i_v, v] : py::enumerate(modules))
+        for (auto&& [i_v, v] : py::enumerate(modules))
         {
             module_map[v] = i_v;
         }
 
         auto net_map = py::dict<node_t, index_t> {};
         net_map.reserve(numNets);
-        for (auto [i_net, net] : py::enumerate(nets))
+        for (auto&& [i_net, net] : py::enumerate(nets))
         {
             net_map[net] = i_net;
         }
 
         node_up_map.reserve(H.number_of_modules() + nets.size());
 
-        for (auto v : H.modules)
+        for (auto&& v : H.modules)
         {
             node_up_map[v] = module_map[module_up_map[v]];
         }
-        for (auto net : nets)
+        for (auto&& net : nets)
         {
             node_up_map[net] = net_map[net] + numModules;
         }
@@ -244,9 +244,9 @@ auto create_contraction_subgraph(
     auto R = py::range<node_t>(0, num_vertices);
     auto g = graph_t {R, R};
     // G.add_nodes_from(nodes);
-    for (auto v : H.modules)
+    for (auto&& v : H.modules)
     {
-        for (auto net : H.G[v])
+        for (auto&& net : H.G[v])
         {
             if (S.contains(net))
             {
@@ -264,26 +264,26 @@ auto create_contraction_subgraph(
 
     auto node_down_map = py::dict<index_t, node_t> {};
     node_down_map.reserve(num_vertices);
-    for (auto [v1, v2] : node_up_map.items())
+    for (auto&& [v1, v2] : node_up_map.items())
     {
         node_down_map[v2] = v1;
     }
     auto cluster_down_map = py::dict<index_t, node_t> {};
     cluster_down_map.reserve(cluster_map.size()); // ???
-    for (auto [v, net] : cluster_map.items())
+    for (auto&& [v, net] : cluster_map.items())
     {
         cluster_down_map[node_up_map[v]] = net;
     }
 
     auto module_weight = std::vector<int> {};
     module_weight.reserve(numModules);
-    for (auto i_v : py::range<int>(numModules))
+    for (auto&& i_v : py::range<int>(numModules))
     {
         if (cluster_down_map.contains(i_v))
         {
             const auto net = cluster_down_map[i_v];
             auto cluster_weight = 0U;
-            for (auto v2 : H.G[net])
+            for (auto&& v2 : H.G[net])
             {
                 cluster_weight += H.get_module_weight(v2);
             }

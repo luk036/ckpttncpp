@@ -41,7 +41,7 @@ class FMKWayGainCalc
         , num_modules {H.number_of_modules()}
         , deltaGainV(K, 0)
     {
-        for (auto k = 0U; k < this->K; ++k)
+        for (auto k = 0U; k != this->K; ++k)
         {
             this->vertex_list.emplace_back(
                 std::vector<dllink<node_t>>(this->num_modules));
@@ -67,14 +67,14 @@ class FMKWayGainCalc
     auto init(gsl::span<const uint8_t> part) -> int
     {
         this->totalcost = 0;
-        for (auto k = 0U; k < this->K; ++k)
+        for (auto k = 0U; k != this->K; ++k)
         {
-            for (auto& vlink : this->vertex_list[k])
+            for (auto&& vlink : this->vertex_list[k])
             {
                 vlink.key = 0;
             }
         }
-        for (auto net : this->H.nets)
+        for (auto&& net : this->H.nets)
         {
             this->__init_gain(net, part);
         }
@@ -134,7 +134,7 @@ class FMKWayGainCalc
      */
     auto __modify_gain(node_t v, uint8_t part_v, int weight) -> void
     {
-        for (auto k : this->RR.exclude(part_v))
+        for (auto&& k : this->RR.exclude(part_v))
         {
             this->vertex_list[k][v].key += weight;
         }

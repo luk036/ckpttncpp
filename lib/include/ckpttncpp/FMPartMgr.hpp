@@ -41,7 +41,7 @@ class FMPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FMPartMgr>
         auto snapshot = std::vector<uint8_t> {};
         const auto N = part.size();
         snapshot.reserve(N);
-        for (auto i = 0U; i < N; ++i)
+        for (auto i = 0U; i != N; ++i)
         {
             snapshot[i] = part[i];
         }
@@ -58,7 +58,7 @@ class FMPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FMPartMgr>
         -> void
     {
         const auto N = part.size();
-        for (auto i = 0U; i < N; ++i)
+        for (auto i = 0U; i != N; ++i)
         {
             part[i] = snapshot[i];
         }

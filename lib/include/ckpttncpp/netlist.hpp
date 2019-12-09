@@ -60,7 +60,7 @@ struct Netlist
      * @param net_list
      * @param module_fixed
      */
-    Netlist(graph_t&& G, const nodeview_t& modules, const nodeview_t& nets,
+    Netlist(graph_t G, const nodeview_t& modules, const nodeview_t& nets,
         const nodemap_t& module_map);
 
     /*!
@@ -71,7 +71,7 @@ struct Netlist
      * @param net_list
      * @param module_fixed
      */
-    Netlist(graph_t&& G, size_t num_modules, size_t num_nets);
+    Netlist(graph_t G, size_t num_modules, size_t num_nets);
 
     /*!
      * @brief
@@ -201,9 +201,9 @@ struct Netlist
  * @param module_fixed
  */
 template <typename nodeview_t, typename nodemap_t>
-Netlist<nodeview_t, nodemap_t>::Netlist(graph_t&& G, const nodeview_t& modules,
+Netlist<nodeview_t, nodemap_t>::Netlist(graph_t G, const nodeview_t& modules,
     const nodeview_t& nets, const nodemap_t& module_map)
-    : G {std::forward<graph_t>(G)}
+    : G {std::move(G)}
     , modules {modules}
     , nets {nets}
     , module_map {module_map}
@@ -224,8 +224,8 @@ Netlist<nodeview_t, nodemap_t>::Netlist(graph_t&& G, const nodeview_t& modules,
 
 template <typename nodeview_t, typename nodemap_t>
 Netlist<nodeview_t, nodemap_t>::Netlist(
-    graph_t&& G, size_t numModules, size_t numNets)
-    : Netlist {std::forward<graph_t>(G), py::range<int>(numModules),
+    graph_t G, size_t numModules, size_t numNets)
+    : Netlist {std::move(G), py::range<int>(numModules),
           py::range<int>(numModules, numModules + numNets),
           py::range<int>(numModules)}
 {

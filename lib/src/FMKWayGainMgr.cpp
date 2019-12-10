@@ -43,7 +43,7 @@ int FMKWayGainMgr::init(gsl::span<const uint8_t> part)
  */
 void FMKWayGainMgr::update_move_v(const MoveInfoV& move_info_v, int gain)
 {
-    const auto& [fromPart, toPart, v] = move_info_v;
+    const auto& [v, fromPart, toPart] = move_info_v;
 
     for (auto k = 0U; k != this->K; ++k)
     {

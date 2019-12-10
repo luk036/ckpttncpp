@@ -25,7 +25,7 @@ void run_FMBiGainMgr(const SimpleNetlist& H, gsl::span<uint8_t> part)
         }
         mgr.update_move(part, move_info_v);
         mgr.update_move_v(move_info_v, gainmax);
-        const auto& [_, toPart, v] = move_info_v;
+        const auto& [v, _, toPart] = move_info_v;
 
         part[v] = toPart;
     }

@@ -195,7 +195,7 @@ namespace xn
     a dictionary-like object.
 */
 
-struct object : py::dict<const char*, std::any>
+struct object : public py::dict<const char*, std::any>
 {
 };
 

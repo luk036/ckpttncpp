@@ -17,7 +17,7 @@ FMGainMgr<GainCalc, Derived>::FMGainMgr(const SimpleNetlist& H, uint8_t K)
         std::is_base_of<FMGainMgr<GainCalc, Derived>, Derived>::value);
     for (auto k = 0U; k != this->K; ++k)
     {
-        this->gainbucket.emplace_back(-this->pmax, this->pmax);
+        this->gainbucket.emplace_back(bpqueue<int>(-this->pmax, this->pmax));
     }
 }
 
@@ -56,8 +56,8 @@ std::tuple<MoveInfoV, int> FMGainMgr<GainCalc, Derived>::select(
     this->waitinglist.append(vlink);
     // node_t v = &vlink - this->gainCalc.start_ptr(toPart);
     const node_t v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);
-    // auto move_info_v = MoveInfoV {part[v], toPart, v};
-    return {{part[v], toPart, v}, gainmax[toPart]};
+    // auto move_info_v = MoveInfoV {v, part[v], toPart};
+    return {{v, part[v], toPart}, gainmax[toPart]};
 }
 
 /**
@@ -91,9 +91,8 @@ void FMGainMgr<GainCalc, Derived>::update_move(
     // std::fill_n(this->deltaGainV.begin(), this->K, 0);
     this->gainCalc.update_move_init();
 
-    const auto& [fromPart, toPart, v] = move_info_v;
-
-    for (node_t net : this->H.G[v])
+    const auto& [v, fromPart, toPart] = move_info_v;
+    for (const node_t& net : this->H.G[v])
     {
         const auto degree = this->H.G.degree(net);
         [[unlikely]] if (degree < 2)
@@ -101,7 +100,7 @@ void FMGainMgr<GainCalc, Derived>::update_move(
             continue; // does not provide any gain change when
                                    // moving
         }
-        const auto move_info = MoveInfo {net, fromPart, toPart, v};
+        const auto move_info = MoveInfo {net, v, fromPart, toPart};
         switch (degree)
         {
             case 2:

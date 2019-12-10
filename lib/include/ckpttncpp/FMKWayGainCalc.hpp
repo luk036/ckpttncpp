@@ -146,7 +146,7 @@ class FMKWayGainCalc
      * @param net
      * @param part
      */
-    auto __init_gain(node_t net, gsl::span<const uint8_t> part) -> void;
+    auto __init_gain(const node_t& net, gsl::span<const uint8_t> part) -> void;
 
     /*!
      * @brief
@@ -154,7 +154,7 @@ class FMKWayGainCalc
      * @param net
      * @param part
      */
-    auto __init_gain_2pin_net(node_t net, gsl::span<const uint8_t> part)
+    auto __init_gain_2pin_net(const node_t& net, gsl::span<const uint8_t> part)
         -> void;
 
     /*!
@@ -163,7 +163,7 @@ class FMKWayGainCalc
      * @param net
      * @param part
      */
-    auto __init_gain_3pin_net(node_t net, gsl::span<const uint8_t> part)
+    auto __init_gain_3pin_net(const node_t& net, gsl::span<const uint8_t> part)
         -> void;
 
     /*!
@@ -172,6 +172,6 @@ class FMKWayGainCalc
      * @param net
      * @param part
      */
-    auto __init_gain_general_net(node_t net, gsl::span<const uint8_t> part)
+    auto __init_gain_general_net(const node_t& net, gsl::span<const uint8_t> part)
         -> void;
 };

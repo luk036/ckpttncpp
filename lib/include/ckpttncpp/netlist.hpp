@@ -239,17 +239,17 @@ using SimpleNetlist = Netlist<RngIter, RngIter>;
 struct MoveInfo
 {
     node_t net;
+    node_t v;
     uint8_t fromPart;
     uint8_t toPart;
-    node_t v;
 };
 
 struct MoveInfoV
 {
+    node_t v;
     uint8_t fromPart;
     uint8_t toPart;
     // node_t v;
-    node_t v;
 };
 
 struct Snapshot

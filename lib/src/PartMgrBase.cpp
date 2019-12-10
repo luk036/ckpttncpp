@@ -50,7 +50,7 @@ size_t PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
         const auto fromPart = part[v];
         // assert(v == v);
         assert(fromPart != toPart);
-        const auto move_info_v = MoveInfoV {fromPart, toPart, v};
+        const auto move_info_v = MoveInfoV {v, fromPart, toPart};
         // Check if the move of v can notsatisfied, makebetter, or satisfied
         legalcheck = this->validator.check_legal(move_info_v);
         if (legalcheck == 0)
@@ -125,7 +125,7 @@ void PartMgrBase<GainMgr, ConstrMgr, Derived>::__optimize_1pass(
         }
         // Update v and its neigbours (even they are in waitinglist);
         // Put neigbours to bucket
-        const auto& [_, toPart, v] = move_info_v;
+        const auto& [v, _, toPart] = move_info_v;
         this->gainMgr.lock(toPart, v);
         this->gainMgr.update_move(part, move_info_v);
         this->gainMgr.update_move_v(move_info_v, gainmax);

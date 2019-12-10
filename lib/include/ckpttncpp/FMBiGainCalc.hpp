@@ -90,23 +90,21 @@ class FMBiGainCalc
     using ret_info = std::tuple<std::vector<node_t>, std::vector<int>>;
 
     /*!
-     * @brief
-     *
-     * @param net
-     * @param part
-     * @param fromPart
-     * @param v
+     * @brief update move 3-pin net
+     * 
+     * @param part 
+     * @param move_info 
+     * @return ret_info 
      */
     auto update_move_3pin_net(
         gsl::span<const uint8_t> part, const MoveInfo& move_info) -> ret_info;
 
     /*!
-     * @brief
-     *
-     * @param net
-     * @param part
-     * @param fromPart
-     * @param v
+     * @brief update move general net
+     * 
+     * @param part 
+     * @param move_info 
+     * @return ret_info 
      */
     auto update_move_general_net(
         gsl::span<const uint8_t> part, const MoveInfo& move_info) -> ret_info;
@@ -129,7 +127,7 @@ class FMBiGainCalc
      * @param net
      * @param part
      */
-    auto __init_gain(node_t net, gsl::span<const uint8_t> part) -> void;
+    auto __init_gain(const node_t& net, gsl::span<const uint8_t> part) -> void;
 
     /*!
      * @brief
@@ -137,7 +135,7 @@ class FMBiGainCalc
      * @param net
      * @param part
      */
-    auto __init_gain_2pin_net(node_t net, gsl::span<const uint8_t> part)
+    auto __init_gain_2pin_net(const node_t& net, gsl::span<const uint8_t> part)
         -> void;
 
     /*!
@@ -146,7 +144,7 @@ class FMBiGainCalc
      * @param net
      * @param part
      */
-    auto __init_gain_3pin_net(node_t net, gsl::span<const uint8_t> part)
+    auto __init_gain_3pin_net(const node_t& net, gsl::span<const uint8_t> part)
         -> void;
 
     /*!
@@ -155,6 +153,6 @@ class FMBiGainCalc
      * @param net
      * @param part
      */
-    auto __init_gain_general_net(node_t net, gsl::span<const uint8_t> part)
+    auto __init_gain_general_net(const node_t& net, gsl::span<const uint8_t> part)
         -> void;
 };

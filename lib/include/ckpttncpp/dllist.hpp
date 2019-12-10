@@ -39,7 +39,8 @@ struct dllink
      * @brief Copy construct a new dllink object (deleted intentionally)
      *
      */
-    dllink(dllink<T>&) = delete;
+    dllink(const dllink<T>& ) = delete;
+    dllink& operator=(const dllink<T>& ) = delete;
 
     /*!
      * @brief detach from a list

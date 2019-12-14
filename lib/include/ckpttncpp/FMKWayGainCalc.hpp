@@ -76,7 +76,7 @@ class FMKWayGainCalc
         }
         for (auto&& net : this->H.nets)
         {
-            this->__init_gain(net, part);
+            this->_init_gain(net, part);
         }
         return this->totalcost;
     }
@@ -132,7 +132,7 @@ class FMKWayGainCalc
      * @param v
      * @param weight
      */
-    auto __modify_gain(node_t v, uint8_t part_v, int weight) -> void
+    auto _modify_gain(node_t v, uint8_t part_v, int weight) -> void
     {
         for (auto&& k : this->RR.exclude(part_v))
         {
@@ -146,7 +146,7 @@ class FMKWayGainCalc
      * @param net
      * @param part
      */
-    auto __init_gain(const node_t& net, gsl::span<const uint8_t> part) -> void;
+    auto _init_gain(const node_t& net, gsl::span<const uint8_t> part) -> void;
 
     /*!
      * @brief
@@ -154,7 +154,7 @@ class FMKWayGainCalc
      * @param net
      * @param part
      */
-    auto __init_gain_2pin_net(const node_t& net, gsl::span<const uint8_t> part)
+    auto _init_gain_2pin_net(const node_t& net, gsl::span<const uint8_t> part)
         -> void;
 
     /*!
@@ -163,7 +163,7 @@ class FMKWayGainCalc
      * @param net
      * @param part
      */
-    auto __init_gain_3pin_net(const node_t& net, gsl::span<const uint8_t> part)
+    auto _init_gain_3pin_net(const node_t& net, gsl::span<const uint8_t> part)
         -> void;
 
     /*!
@@ -172,6 +172,6 @@ class FMKWayGainCalc
      * @param net
      * @param part
      */
-    auto __init_gain_general_net(const node_t& net, gsl::span<const uint8_t> part)
+    auto _init_gain_general_net(const node_t& net, gsl::span<const uint8_t> part)
         -> void;
 };

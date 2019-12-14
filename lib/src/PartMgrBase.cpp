@@ -85,7 +85,7 @@ size_t PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
  */
 template <typename GainMgr, typename ConstrMgr,
     template <typename _GainMgr, typename _ConstrMgr> class Derived> //
-void PartMgrBase<GainMgr, ConstrMgr, Derived>::__optimize_1pass(
+void PartMgrBase<GainMgr, ConstrMgr, Derived>::_optimize_1pass(
     gsl::span<uint8_t> part)
 {
     // using SS_t = decltype(self.take_snapshot(part));
@@ -161,7 +161,7 @@ void PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize(gsl::span<uint8_t> part)
         this->init(part);
         auto totalcostbefore = this->totalcost;
         // assert(totalcostafter == totalcostbefore);
-        this->__optimize_1pass(part);
+        this->_optimize_1pass(part);
         assert(this->totalcost <= totalcostbefore);
         if (this->totalcost == totalcostbefore)
         {

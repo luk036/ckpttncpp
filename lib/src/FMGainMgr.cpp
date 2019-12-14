@@ -106,25 +106,25 @@ void FMGainMgr<GainCalc, Derived>::update_move(
             case 2:
                 if (this->gainCalc.special_handle_2pin_nets)
                 {
-                    this->__update_move_2pin_net(part, move_info);
+                    this->_update_move_2pin_net(part, move_info);
                 }
                 else
                 {
-                    this->__update_move_general_net(part, move_info);
+                    this->_update_move_general_net(part, move_info);
                 }
                 break;
             case 3:
                 if (this->gainCalc.special_handle_2pin_nets)
                 {
-                    this->__update_move_3pin_net(part, move_info);
+                    this->_update_move_3pin_net(part, move_info);
                 }
                 else
                 {
-                    this->__update_move_general_net(part, move_info);
+                    this->_update_move_general_net(part, move_info);
                 }
                 break;
             default:
-                this->__update_move_general_net(part, move_info);
+                this->_update_move_general_net(part, move_info);
         }
     }
 }
@@ -136,7 +136,7 @@ void FMGainMgr<GainCalc, Derived>::update_move(
  * @param move_info
  */
 template <typename GainCalc, class Derived>
-void FMGainMgr<GainCalc, Derived>::__update_move_2pin_net(
+void FMGainMgr<GainCalc, Derived>::_update_move_2pin_net(
     gsl::span<const uint8_t> part, const MoveInfo& move_info)
 {
     const auto [w, deltaGainW] =
@@ -151,7 +151,7 @@ void FMGainMgr<GainCalc, Derived>::__update_move_2pin_net(
  * @param move_info
  */
 template <typename GainCalc, class Derived>
-void FMGainMgr<GainCalc, Derived>::__update_move_3pin_net(
+void FMGainMgr<GainCalc, Derived>::_update_move_3pin_net(
     gsl::span<const uint8_t> part, const MoveInfo& move_info)
 {
     const auto [IdVec, deltaGain] =
@@ -171,7 +171,7 @@ void FMGainMgr<GainCalc, Derived>::__update_move_3pin_net(
  * @param move_info
  */
 template <typename GainCalc, class Derived>
-void FMGainMgr<GainCalc, Derived>::__update_move_general_net(
+void FMGainMgr<GainCalc, Derived>::_update_move_general_net(
     gsl::span<const uint8_t> part, const MoveInfo& move_info)
 {
     const auto [IdVec, deltaGain] =

@@ -22,8 +22,8 @@ class FMConstrMgr
     double BalTol;
     uint8_t K;
     std::vector<int> diff;
-    int lowerbound {0};
-    int totalweight {0};
+    int lowerbound {};
+    int totalweight {};
 
     /*!
      * @brief Construct a new FMConstrMgr object

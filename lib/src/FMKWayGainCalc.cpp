@@ -7,7 +7,7 @@
  * @param part
  * @param vertex_list
  */
-void FMKWayGainCalc::__init_gain(const node_t& net, gsl::span<const uint8_t> part)
+void FMKWayGainCalc::_init_gain(const node_t& net, gsl::span<const uint8_t> part)
 {
     const auto degree = this->H.G.degree(net);
     [[unlikely]] if (degree < 2)
@@ -19,25 +19,25 @@ void FMKWayGainCalc::__init_gain(const node_t& net, gsl::span<const uint8_t> par
         case 2:
             if (special_handle_2pin_nets)
             {
-                this->__init_gain_2pin_net(net, part);
+                this->_init_gain_2pin_net(net, part);
             }
             else
             {
-                this->__init_gain_general_net(net, part);
+                this->_init_gain_general_net(net, part);
             }
             break;
         case 3:
             if (special_handle_2pin_nets)
             {
-                this->__init_gain_3pin_net(net, part);
+                this->_init_gain_3pin_net(net, part);
             }
             else
             {
-                this->__init_gain_general_net(net, part);
+                this->_init_gain_general_net(net, part);
             }
             break;
         default:
-            this->__init_gain_general_net(net, part);
+            this->_init_gain_general_net(net, part);
     }
 }
 
@@ -47,7 +47,7 @@ void FMKWayGainCalc::__init_gain(const node_t& net, gsl::span<const uint8_t> par
  * @param net
  * @param part
  */
-void FMKWayGainCalc::__init_gain_2pin_net(
+void FMKWayGainCalc::_init_gain_2pin_net(
     const node_t& net, gsl::span<const uint8_t> part)
 {
     auto netCur = this->H.G[net].begin();
@@ -58,8 +58,8 @@ void FMKWayGainCalc::__init_gain_2pin_net(
     const auto weight = this->H.get_net_weight(net);
     if (part_v == part_w)
     {
-        this->__modify_gain(w, part_v, -weight);
-        this->__modify_gain(v, part_v, -weight);
+        this->_modify_gain(w, part_v, -weight);
+        this->_modify_gain(v, part_v, -weight);
     }
     else
     {
@@ -75,7 +75,7 @@ void FMKWayGainCalc::__init_gain_2pin_net(
  * @param net
  * @param part
  */
-void FMKWayGainCalc::__init_gain_3pin_net(
+void FMKWayGainCalc::_init_gain_3pin_net(
     const node_t& net, gsl::span<const uint8_t> part)
 {
     auto netCur = this->H.G[net].begin();
@@ -94,9 +94,9 @@ void FMKWayGainCalc::__init_gain_3pin_net(
     {
         if (part_w == part_v)
         {
-            this->__modify_gain(u, part_v, -weight);
-            this->__modify_gain(v, part_v, -weight);
-            this->__modify_gain(w, part_v, -weight);
+            this->_modify_gain(u, part_v, -weight);
+            this->_modify_gain(v, part_v, -weight);
+            this->_modify_gain(w, part_v, -weight);
             return;
         }
     }
@@ -123,7 +123,7 @@ void FMKWayGainCalc::__init_gain_3pin_net(
     this->vertex_list[part[b]][a].key += weight;
     for (auto&& e : {b, c})
     {
-        this->__modify_gain(e, part[b], -weight);
+        this->_modify_gain(e, part[b], -weight);
         this->vertex_list[part[a]][e].key += weight;
     }
     this->totalcost += weight;
@@ -135,7 +135,7 @@ void FMKWayGainCalc::__init_gain_3pin_net(
  * @param net
  * @param part
  */
-void FMKWayGainCalc::__init_gain_general_net(
+void FMKWayGainCalc::_init_gain_general_net(
     const node_t& net, gsl::span<const uint8_t> part)
 {
     auto num = std::vector<uint8_t>(this->K, 0);
@@ -170,7 +170,7 @@ void FMKWayGainCalc::__init_gain_general_net(
             {
                 if (part[w] == k)
                 {
-                    this->__modify_gain(w, part[w], weight);
+                    this->_modify_gain(w, part[w], weight);
                     break;
                 }
             }

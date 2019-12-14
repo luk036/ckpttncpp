@@ -64,7 +64,7 @@ class PartMgrBase
     // std::vector<uint8_t> part;
 
   public:
-    int totalcost {0};
+    int totalcost {};
 
     /*!
      * @brief Construct a new FDPartMgr object
@@ -108,5 +108,5 @@ class PartMgrBase
      *
      * @param part
      */
-    void __optimize_1pass(gsl::span<uint8_t> part);
+    void _optimize_1pass(gsl::span<uint8_t> part);
 };

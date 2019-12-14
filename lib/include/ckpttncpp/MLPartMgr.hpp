@@ -30,7 +30,7 @@ class MLPartMgr
     uint8_t K;
 
   public:
-    int totalcost {0};
+    int totalcost {};
 
     /*!
      * @brief Construct a new MLPartMgr object

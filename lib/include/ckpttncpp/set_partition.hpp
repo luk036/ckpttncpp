@@ -62,7 +62,7 @@ class set_partition_
 
   private:
     // int b[100 + 1]; /* maximum value of n */
-    // int cnt{0};
+    // int cnt{};
     Fun yield;
 
   public:
@@ -85,9 +85,9 @@ class set_partition_
     void run(int n, int k)
     {
         if (k % 2 == 0)
-            this->__GEN0_even(n, k);
+            this->_GEN0_even(n, k);
         else
-            this->__GEN0_odd(n, k);
+            this->_GEN0_odd(n, k);
     }
 
   private:
@@ -97,7 +97,7 @@ class set_partition_
      * @param x
      * @param y
      */
-    void __Move(int x, int y)
+    void _Move(int x, int y)
     {
         yield(std::tuple {x, y});
     }
@@ -108,7 +108,7 @@ class set_partition_
      * @param n
      * @param k
      */
-    void __GEN0_even(int n, int k);
+    void _GEN0_even(int n, int k);
 
     /**
      * @brief S'(n,k,0) even k
@@ -116,7 +116,7 @@ class set_partition_
      * @param n
      * @param k
      */
-    void __NEG0_even(int n, int k);
+    void _NEG0_even(int n, int k);
 
     /**
      * @brief S(n,k,1) even k
@@ -124,7 +124,7 @@ class set_partition_
      * @param n
      * @param k
      */
-    void __GEN1_even(int n, int k);
+    void _GEN1_even(int n, int k);
 
     /**
      * @brief S'(n,k,1) even k
@@ -132,7 +132,7 @@ class set_partition_
      * @param n
      * @param k
      */
-    void __NEG1_even(int n, int k);
+    void _NEG1_even(int n, int k);
 
     /**
      * @brief S(n,k,0) odd k
@@ -140,7 +140,7 @@ class set_partition_
      * @param n
      * @param k
      */
-    void __GEN0_odd(int n, int k);
+    void _GEN0_odd(int n, int k);
 
     /**
      * @brief S'(n,k,0) odd k
@@ -148,7 +148,7 @@ class set_partition_
      * @param n
      * @param k
      */
-    void __NEG0_odd(int n, int k);
+    void _NEG0_odd(int n, int k);
 
     /**
      * @brief S(n,k,1) odd k
@@ -156,7 +156,7 @@ class set_partition_
      * @param n
      * @param k
      */
-    void __GEN1_odd(int n, int k);
+    void _GEN1_odd(int n, int k);
 
     /**
      * @brief S'(n,k,1) odd k
@@ -164,7 +164,7 @@ class set_partition_
      * @param n
      * @param k
      */
-    void __NEG1_odd(int n, int k);
+    void _NEG1_odd(int n, int k);
 };
 
 using ret_t = std::tuple<int, int>;

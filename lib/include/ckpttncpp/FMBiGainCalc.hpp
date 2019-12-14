@@ -50,7 +50,7 @@ class FMBiGainCalc
         }
         for (auto&& net : this->H.nets)
         {
-            this->__init_gain(net, part);
+            this->_init_gain(net, part);
         }
         return this->totalcost;
     }
@@ -116,7 +116,7 @@ class FMBiGainCalc
      * @param w
      * @param weight
      */
-    auto __modify_gain(node_t w, int weight) -> void
+    auto _modify_gain(node_t w, int weight) -> void
     {
         this->vertex_list[w].key += weight;
     }
@@ -127,7 +127,7 @@ class FMBiGainCalc
      * @param net
      * @param part
      */
-    auto __init_gain(const node_t& net, gsl::span<const uint8_t> part) -> void;
+    auto _init_gain(const node_t& net, gsl::span<const uint8_t> part) -> void;
 
     /*!
      * @brief
@@ -135,7 +135,7 @@ class FMBiGainCalc
      * @param net
      * @param part
      */
-    auto __init_gain_2pin_net(const node_t& net, gsl::span<const uint8_t> part)
+    auto _init_gain_2pin_net(const node_t& net, gsl::span<const uint8_t> part)
         -> void;
 
     /*!
@@ -144,7 +144,7 @@ class FMBiGainCalc
      * @param net
      * @param part
      */
-    auto __init_gain_3pin_net(const node_t& net, gsl::span<const uint8_t> part)
+    auto _init_gain_3pin_net(const node_t& net, gsl::span<const uint8_t> part)
         -> void;
 
     /*!
@@ -153,6 +153,6 @@ class FMBiGainCalc
      * @param net
      * @param part
      */
-    auto __init_gain_general_net(const node_t& net, gsl::span<const uint8_t> part)
+    auto _init_gain_general_net(const node_t& net, gsl::span<const uint8_t> part)
         -> void;
 };

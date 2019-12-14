@@ -54,6 +54,6 @@ void FMKWayGainMgr::update_move_v(const MoveInfoV& move_info_v, int gain)
         this->gainbucket[k].modify_key(
             this->gainCalc.vertex_list[k][v], this->gainCalc.deltaGainV[k]);
     }
-    this->__set_key(fromPart, v, -gain);
-    // this->__set_key(toPart, v, -2*this->pmax);
+    this->_set_key(fromPart, v, -gain);
+    // this->_set_key(toPart, v, -2*this->pmax);
 }

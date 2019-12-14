@@ -101,7 +101,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
      * @param v
      * @param key
      */
-    auto __set_key(uint8_t whichPart, node_t v, int key) -> void
+    auto _set_key(uint8_t whichPart, node_t v, int key) -> void
     {
         this->gainbucket[whichPart].set_key(
             this->gainCalc.vertex_list[whichPart][v], key);

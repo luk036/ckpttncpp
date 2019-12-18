@@ -59,23 +59,5 @@ class FMKWayConstrMgr : public FMConstrMgr
      * @param move_info_v
      * @return size_t
      */
-    auto check_legal(const MoveInfoV& move_info_v) -> size_t
-    {
-        const auto status = FMConstrMgr::check_legal(move_info_v);
-        if (status != 2)
-        {
-            return status;
-        }
-        // auto [fromPart, toPart, _] = move_info_v;
-        this->illegal[move_info_v.fromPart] = false;
-        this->illegal[move_info_v.toPart] = false;
-        for (auto&& b : this->illegal)
-        {
-            if (b)
-            {
-                return 1; // get better, but still illegal
-            }
-        }
-        return 2; // all satisfied
-    }
+    auto check_legal(const MoveInfoV& move_info_v) -> size_t;
 };

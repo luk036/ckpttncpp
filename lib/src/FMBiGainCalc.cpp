@@ -124,7 +124,7 @@ void FMBiGainCalc::_init_gain_general_net(
     }
     const auto weight = this->H.get_net_weight(net);
 
-    if (num[0] > 0 && num[1] > 0)
+    if (num[0] > 0 and num[1] > 0)
     {
         this->totalcost += weight;
     }

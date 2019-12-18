@@ -47,7 +47,7 @@ void FMKWayGainMgr::update_move_v(const MoveInfoV& move_info_v, int gain)
 
     for (auto k = 0U; k != this->K; ++k)
     {
-        if (fromPart == k || toPart == k)
+        if (fromPart == k or toPart == k)
         {
             continue;
         }

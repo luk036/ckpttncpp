@@ -5,7 +5,7 @@
 template <int N, int K>
 constexpr auto Stirling2nd()
 {
-    if constexpr (K >= N || K <= 1)
+    if constexpr (K >= N or K <= 1)
     {
         return std::integral_constant<int, 1> {};
     }

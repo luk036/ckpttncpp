@@ -141,9 +141,9 @@ class AdjacencyView : public AtlasView<Atlas>
 //     /** A read-only union of two atlases (dict-of-dict).
 
 //     The two dict-of-dicts represent the inner dict of
-//     an Adjacency:  `G.succ[node]` && `G.pred[node]`.
+//     an Adjacency:  `G.succ[node]` and `G.pred[node]`.
 //     The inner level of dict of both hold attribute key:value
-//     pairs && is read-write. But the outer level is read-only.
+//     pairs and is read-write. But the outer level is read-only.
 
 //     See Also
 //     ========
@@ -210,9 +210,9 @@ class AdjacencyView : public AtlasView<Atlas>
 //     /** A read-only union of dict Adjacencies as a Map of Maps of Maps.
 
 //     The two input dict-of-dict-of-dicts represent the union of
-//     `G.succ` && `G.pred`. Return values are UnionAtlas
+//     `G.succ` and `G.pred`. Return values are UnionAtlas
 //     The inner level of dict is read-write. But the
-//     middle && outer levels are read-only.
+//     middle and outer levels are read-only.
 
 //     succ : a dict-of-dict-of-dict {node: nbrdict}
 //     pred : a dict-of-dict-of-dict {node: nbrdict}
@@ -274,7 +274,7 @@ class AdjacencyView : public AtlasView<Atlas>
 //     /** A read-only union of two inner dicts of MultiAdjacencies.
 
 //     The two input dict-of-dict-of-dicts represent the union of
-//     `G.succ[node]` && `G.pred[node]` for MultiDiGraphs.
+//     `G.succ[node]` and `G.pred[node]` for MultiDiGraphs.
 //     Return values are UnionAtlas.
 //     The inner level of dict is read-write. But the outer levels are
 //     read-only.
@@ -309,7 +309,7 @@ class AdjacencyView : public AtlasView<Atlas>
 //     /** A read-only union of two dict MultiAdjacencies.
 
 //     The two input dict-of-dict-of-dict-of-dicts represent the union of
-//     `G.succ` && `G.pred` for MultiDiGraphs. Return values are UnionAdjacency.
+//     `G.succ` and `G.pred` for MultiDiGraphs. Return values are UnionAdjacency.
 //     The inner level of dict is read-write. But the outer levels are
 //     read-only.
 
@@ -367,7 +367,7 @@ class AdjacencyView : public AtlasView<Atlas>
 //     }
 
 //     auto operator[]( key) {
-//         if (key : this->_atlas && this->NODE_OK(key) {
+//         if (key : this->_atlas and this->NODE_OK(key) {
 //             return this->_atlas[key];
 //         }
 //         throw KeyError("Key {} not found".format(key));
@@ -412,9 +412,9 @@ class AdjacencyView : public AtlasView<Atlas>
 //     }
 
 //     auto operator[]( node) {
-//         if (node : this->_atlas && this->NODE_OK(node) {
+//         if (node : this->_atlas and this->NODE_OK(node) {
 //             auto new_node_ok(nbr) {
-//                 return this->NODE_OK(nbr) && this->EDGE_OK(node, nbr);
+//                 return this->NODE_OK(nbr) and this->EDGE_OK(node, nbr);
 //             }
 //             return FilterAtlas(this->_atlas[node], new_node_ok);
 //         }
@@ -465,7 +465,7 @@ class AdjacencyView : public AtlasView<Atlas>
 //     }
 
 //     auto operator[]( nbr) {
-//         if (nbr : this->_atlas && this->NODE_OK(nbr) {
+//         if (nbr : this->_atlas and this->NODE_OK(nbr) {
 //             auto new_node_ok(key) {
 //                 return this->EDGE_OK(nbr, key);
 //             }
@@ -488,9 +488,9 @@ class AdjacencyView : public AtlasView<Atlas>
 
 // class FilterMultiAdjacency(FilterAdjacency) {  // multiedgedict
 //     auto operator[]( node) {
-//         if (node : this->_atlas && this->NODE_OK(node) {
+//         if (node : this->_atlas and this->NODE_OK(node) {
 //             auto edge_ok(nbr, key) {
-//                 return this->NODE_OK(nbr) && this->EDGE_OK(node, nbr, key);
+//                 return this->NODE_OK(nbr) and this->EDGE_OK(node, nbr, key);
 //             }
 //             return FilterMultiInner(this->_atlas[node], this->NODE_OK,
 //             edge_ok);

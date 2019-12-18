@@ -33,7 +33,7 @@ auto max_independent_net(const SimpleNetlist& H,
     auto S = py::set<node_t> {};
     auto total_cost = 0U;
 
-    // while (!bpq.is_empty())
+    // while (not bpq.is_empty())
     for (auto&& net : H.nets)
     {
         // dllink<node_t>& item = bpq.popleft();
@@ -125,7 +125,7 @@ auto max_independent_net(const SimpleNetlist& H,
 //                     break;
 //                 }
 //             }
-//             if (!covered) {
+//             if (not covered) {
 //                 found = true;
 //                 break;
 //             }

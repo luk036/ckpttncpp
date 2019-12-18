@@ -119,7 +119,7 @@ TEST_CASE("Test Netlist", "[test_netlist]")
     // CHECK(H.number_of_pins() == 6);
     CHECK(H.get_max_degree() == 3);
     CHECK(H.get_max_net_degree() == 3);
-    CHECK(!H.has_fixed_modules);
+    CHECK(not H.has_fixed_modules);
 }
 
 TEST_CASE("Test dwarf", "[test_dwarf]")
@@ -131,6 +131,6 @@ TEST_CASE("Test dwarf", "[test_dwarf]")
     // CHECK(H.number_of_pins() == 14);
     CHECK(H.get_max_degree() == 3);
     CHECK(H.get_max_net_degree() == 3);
-    CHECK(!H.has_fixed_modules);
+    CHECK(not H.has_fixed_modules);
     CHECK(H.get_module_weight(1) == 3);
 }

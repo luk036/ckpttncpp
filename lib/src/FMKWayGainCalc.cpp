@@ -282,7 +282,7 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
         {
             deltaGain[0][l] -= weight;
             deltaGain[1][l] -= weight;
-            if (part_w == u || part_u == u)
+            if (part_w == u or part_u == u)
             {
                 for (auto k = 0U; k != this->K; ++k)
                 {

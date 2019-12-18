@@ -15,7 +15,7 @@
  */
 void set_partition_::_GEN0_even(int n, int k)
 {
-    if (!(k > 0 && k < n))
+    if (not (k > 0 and k < n))
     {
         return;
     }
@@ -43,7 +43,7 @@ void set_partition_::_GEN0_even(int n, int k)
  */
 void set_partition_::_NEG0_even(int n, int k)
 {
-    if (!(k > 0 && k < n))
+    if (not (k > 0 and k < n))
     {
         return;
     }
@@ -71,7 +71,7 @@ void set_partition_::_NEG0_even(int n, int k)
  */
 void set_partition_::_GEN1_even(int n, int k)
 {
-    if (!(k > 0 && k < n))
+    if (not (k > 0 and k < n))
     {
         return;
     }
@@ -99,7 +99,7 @@ void set_partition_::_GEN1_even(int n, int k)
  */
 void set_partition_::_NEG1_even(int n, int k)
 {
-    if (!(k > 0 && k < n))
+    if (not (k > 0 and k < n))
     {
         return;
     }
@@ -127,7 +127,7 @@ void set_partition_::_NEG1_even(int n, int k)
  */
 void set_partition_::_GEN0_odd(int n, int k)
 {
-    if (!(k > 1 && k < n))
+    if (not (k > 1 and k < n))
     {
         return;
     }
@@ -153,7 +153,7 @@ void set_partition_::_GEN0_odd(int n, int k)
  */
 void set_partition_::_NEG0_odd(int n, int k)
 {
-    if (!(k > 1 && k < n))
+    if (not (k > 1 and k < n))
     {
         return;
     }
@@ -179,7 +179,7 @@ void set_partition_::_NEG0_odd(int n, int k)
  */
 void set_partition_::_GEN1_odd(int n, int k)
 {
-    if (!(k > 1 && k < n))
+    if (not (k > 1 and k < n))
     {
         return;
     }
@@ -205,7 +205,7 @@ void set_partition_::_GEN1_odd(int n, int k)
  */
 void set_partition_::_NEG1_odd(int n, int k)
 {
-    if (!(k > 1 && k < n))
+    if (not (k > 1 and k < n))
     {
         return;
     }

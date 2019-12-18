@@ -210,7 +210,7 @@ Netlist<nodeview_t, nodemap_t>::Netlist(graph_t G, const nodeview_t& modules,
     , num_modules(modules.size())
     , num_nets(nets.size())
 {
-    this->has_fixed_modules = (!this->module_fixed.empty());
+    this->has_fixed_modules = (not this->module_fixed.empty());
     auto deg_cmp = [this](node_t v, node_t w) -> index_t {
         return this->G.degree(v) < this->G.degree(w);
     };

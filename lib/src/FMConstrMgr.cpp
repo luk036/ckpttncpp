@@ -20,9 +20,9 @@ void FMConstrMgr::init(gsl::span<const uint8_t> part)
  * @brief
  *
  * @param move_info_v
- * @return size_t
+ * @return LegalCheck
  */
-size_t FMConstrMgr::check_legal(const MoveInfoV& move_info_v)
+LegalCheck FMConstrMgr::check_legal(const MoveInfoV& move_info_v)
 {
     const auto& [v, fromPart, toPart] = move_info_v;
 
@@ -30,14 +30,14 @@ size_t FMConstrMgr::check_legal(const MoveInfoV& move_info_v)
     const auto diffFrom = this->diff[fromPart] - this->weight;
     if (diffFrom < this->lowerbound)
     {
-        return 0; // not ok, don't move
+        return LegalCheck::notsatisfied; // not ok, don't move
     }
     const auto diffTo = this->diff[toPart] + this->weight;
     if (diffTo < this->lowerbound)
     {
-        return 1; // get better, but still illegal
+        return LegalCheck::getbetter; // get better, but still illegal
     }
-    return 2; // all satisfied
+    return LegalCheck::allsatisfied; // all satisfied
 }
 
 /**

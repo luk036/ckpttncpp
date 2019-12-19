@@ -52,11 +52,11 @@ class MLPartMgr
      * @param H
      * @param part
      * @param limitsize
-     * @return size_t self.take_snapshot(part)
+     * @return LegalCheck
      */
     template <typename PartMgr>
     auto run_FMPartition(const SimpleNetlist& H, gsl::span<uint8_t> part,
-        size_t limitsize = 7) -> size_t
+        size_t limitsize = 7) -> LegalCheck
     {
         using GainMgr = typename PartMgr::GainMgr_;
         using ConstrMgr = typename PartMgr::ConstrMgr_;
@@ -72,7 +72,7 @@ class MLPartMgr
 
         // partMgrPtr->init(part);
         auto legalcheck = partMgrPtr->legalize(part);
-        if (legalcheck != 2)
+        if (legalcheck != LegalCheck::allsatisfied)
         {
             this->totalcost = partMgrPtr->totalcost;
             return legalcheck;
@@ -94,7 +94,7 @@ class MLPartMgr
                     H2->projection_up(part, part2);
                     legalcheck =
                         this->run_FMPartition<PartMgr>(*H2, part2, limitsize);
-                    if (legalcheck == 2)
+                    if (legalcheck == LegalCheck::allsatisfied)
                     {
                         H2->projection_down(part2, part);
                     }
@@ -135,7 +135,7 @@ class MLPartMgr
         auto partMgr = PartMgr {H, gainMgr, constrMgr};
         // partMgr.init(part);
         auto legalcheck = partMgr.legalize(part);
-        if (legalcheck != 2)
+        if (legalcheck != LegalCheck::allsatisfied)
         {
             this->totalcost = partMgr.totalcost;
             return legalcheck;

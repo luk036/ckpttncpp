@@ -16,6 +16,7 @@ template <typename nodeview_t, typename nodemap_t>
 struct Netlist;
 using RngIter = decltype(py::range<int>(0, 1));
 using SimpleNetlist = Netlist<RngIter, RngIter>;
+enum class LegalCheck;
 
 /*!
  * @brief Partition Manager Base
@@ -92,8 +93,9 @@ class PartMgrBase
      * @brief
      *
      * @param part
+     * @return LegalCheck
      */
-    size_t legalize(gsl::span<uint8_t> part);
+    LegalCheck legalize(gsl::span<uint8_t> part);
 
     /*!
      * @brief

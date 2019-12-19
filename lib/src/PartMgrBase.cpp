@@ -1,6 +1,7 @@
 #include <cassert>
 #include <ckpttncpp/PartMgrBase.hpp>
 #include <ckpttncpp/netlist.hpp>
+#include <ckpttncpp/FMConstrMgr.hpp> // import LegalCheck
 
 /**
  * @brief
@@ -17,9 +18,18 @@ void PartMgrBase<GainMgr, ConstrMgr, Derived>::init(gsl::span<uint8_t> part)
     this->validator.init(part);
 }
 
+/**
+ * @brief 
+ * 
+ * @tparam GainMgr 
+ * @tparam ConstrMgr 
+ * @tparam Derived 
+ * @param part 
+ * @return LegalCheck 
+ */
 template <typename GainMgr, typename ConstrMgr,
     template <typename _GainMgr, typename _ConstrMgr> class Derived> //
-size_t PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
+LegalCheck PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
     gsl::span<uint8_t> part)
 {
     this->init(part);
@@ -38,8 +48,8 @@ size_t PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
         this->gainMgr.lock_all(part[v], v);
     }
 
-    size_t legalcheck = 0;
-    while (true)
+    auto legalcheck = LegalCheck::notsatisfied;
+    while (legalcheck != LegalCheck::allsatisfied)
     {
         const auto toPart = this->validator.select_togo();
         if (this->gainMgr.is_empty_togo(toPart))
@@ -53,7 +63,7 @@ size_t PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
         const auto move_info_v = MoveInfoV {v, fromPart, toPart};
         // Check if the move of v can notsatisfied, makebetter, or satisfied
         legalcheck = this->validator.check_legal(move_info_v);
-        if (legalcheck == 0)
+        if (legalcheck == LegalCheck::notsatisfied)
         { // notsatisfied
             continue;
         }
@@ -66,12 +76,6 @@ size_t PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
         // totalgain += gainmax;
         this->totalcost -= gainmax;
         assert(this->totalcost >= 0);
-        if (legalcheck == 2)
-        { // satisfied
-            // this->totalcost -= totalgain;
-            // totalgain = 0; // reset to zero
-            break;
-        }
     }
     return legalcheck;
 }

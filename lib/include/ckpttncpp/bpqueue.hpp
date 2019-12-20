@@ -53,9 +53,9 @@ class bpqueue
         bucket[0].append(sentinel); // sentinel
     }
 
-    bpqueue(const bpqueue<T>& ) = delete; // don't copy
-    bpqueue& operator=(const bpqueue<T>& ) = delete; // don't assign
-    bpqueue(bpqueue<T>&& ) = default;
+    bpqueue(const bpqueue<T>&) = delete;            // don't copy
+    bpqueue& operator=(const bpqueue<T>&) = delete; // don't assign
+    bpqueue(bpqueue<T>&&) = default;
 
     /*!
      * @brief Set the key object

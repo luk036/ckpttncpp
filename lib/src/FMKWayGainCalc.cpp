@@ -7,7 +7,8 @@
  * @param part
  * @param vertex_list
  */
-void FMKWayGainCalc::_init_gain(const node_t& net, gsl::span<const uint8_t> part)
+void FMKWayGainCalc::_init_gain(
+    const node_t& net, gsl::span<const uint8_t> part)
 {
     const auto degree = this->H.G.degree(net);
     [[unlikely]] if (degree < 2)
@@ -189,8 +190,9 @@ FMKWayGainCalc::ret_2pin_info FMKWayGainCalc::update_move_2pin_net(
     gsl::span<const uint8_t> part, const MoveInfo& move_info)
 {
     const auto& [net, v, fromPart, toPart] = move_info;
-    if (part[v] != fromPart) exit(1);
-    
+    if (part[v] != fromPart)
+        exit(1);
+
     auto netCur = this->H.G[net].begin();
     const auto w = (*netCur != v) ? *netCur : *++netCur;
     auto weight = this->H.get_net_weight(net);

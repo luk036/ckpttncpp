@@ -172,6 +172,6 @@ class FMKWayGainCalc
      * @param net
      * @param part
      */
-    auto _init_gain_general_net(const node_t& net, gsl::span<const uint8_t> part)
-        -> void;
+    auto _init_gain_general_net(
+        const node_t& net, gsl::span<const uint8_t> part) -> void;
 };

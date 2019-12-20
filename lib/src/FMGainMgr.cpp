@@ -98,7 +98,7 @@ void FMGainMgr<GainCalc, Derived>::update_move(
         [[unlikely]] if (degree < 2)
         {
             continue; // does not provide any gain change when
-                                   // moving
+                      // moving
         }
         const auto move_info = MoveInfo {net, v, fromPart, toPart};
         switch (degree)

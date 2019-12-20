@@ -1,15 +1,15 @@
-#include <ckpttncpp/FMKWayConstrMgr.hpp>
 #include <algorithm> // import std::any_of()
+#include <ckpttncpp/FMKWayConstrMgr.hpp>
 #include <functional> // import std::identity
 
 /**
- * @brief identity function object (coming in C++20) 
- * 
+ * @brief identity function object (coming in C++20)
+ *
  */
 struct identity
 {
-    template< class T>
-    constexpr T&& operator()( T&& t ) const noexcept
+    template <class T>
+    constexpr T&& operator()(T&& t) const noexcept
     {
         return std::forward<T>(t);
     }
@@ -30,8 +30,7 @@ LegalCheck FMKWayConstrMgr::check_legal(const MoveInfoV& move_info_v)
     }
     this->illegal[move_info_v.fromPart] = false;
     this->illegal[move_info_v.toPart] = false;
-    if (std::any_of(this->illegal.cbegin(),
-                    this->illegal.cend(), identity{}))
+    if (std::any_of(this->illegal.cbegin(), this->illegal.cend(), identity {}))
     {
         return LegalCheck::getbetter; // get better, but still illegal
     }

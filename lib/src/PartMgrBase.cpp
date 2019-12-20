@@ -1,7 +1,7 @@
 #include <cassert>
+#include <ckpttncpp/FMConstrMgr.hpp> // import LegalCheck
 #include <ckpttncpp/PartMgrBase.hpp>
 #include <ckpttncpp/netlist.hpp>
-#include <ckpttncpp/FMConstrMgr.hpp> // import LegalCheck
 
 /**
  * @brief
@@ -19,13 +19,13 @@ void PartMgrBase<GainMgr, ConstrMgr, Derived>::init(gsl::span<uint8_t> part)
 }
 
 /**
- * @brief 
- * 
- * @tparam GainMgr 
- * @tparam ConstrMgr 
- * @tparam Derived 
- * @param part 
- * @return LegalCheck 
+ * @brief
+ *
+ * @tparam GainMgr
+ * @tparam ConstrMgr
+ * @tparam Derived
+ * @param part
+ * @return LegalCheck
  */
 template <typename GainMgr, typename ConstrMgr,
     template <typename _GainMgr, typename _ConstrMgr> class Derived> //

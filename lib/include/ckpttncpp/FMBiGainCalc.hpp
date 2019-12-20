@@ -91,20 +91,20 @@ class FMBiGainCalc
 
     /*!
      * @brief update move 3-pin net
-     * 
-     * @param part 
-     * @param move_info 
-     * @return ret_info 
+     *
+     * @param part
+     * @param move_info
+     * @return ret_info
      */
     auto update_move_3pin_net(
         gsl::span<const uint8_t> part, const MoveInfo& move_info) -> ret_info;
 
     /*!
      * @brief update move general net
-     * 
-     * @param part 
-     * @param move_info 
-     * @return ret_info 
+     *
+     * @param part
+     * @param move_info
+     * @return ret_info
      */
     auto update_move_general_net(
         gsl::span<const uint8_t> part, const MoveInfo& move_info) -> ret_info;
@@ -153,6 +153,6 @@ class FMBiGainCalc
      * @param net
      * @param part
      */
-    auto _init_gain_general_net(const node_t& net, gsl::span<const uint8_t> part)
-        -> void;
+    auto _init_gain_general_net(
+        const node_t& net, gsl::span<const uint8_t> part) -> void;
 };

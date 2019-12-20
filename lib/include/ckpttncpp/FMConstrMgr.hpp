@@ -9,7 +9,7 @@
 
 /*!
  * @brief Check if the move of v can satisfied, getbetter, or notsatisfied
- * 
+ *
  */
 enum class LegalCheck
 {

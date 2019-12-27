@@ -41,7 +41,19 @@ class FMConstrMgr
      * @param K
      * @param BalTol
      */
-    FMConstrMgr(const SimpleNetlist& H, double BalTol, uint8_t K = 2)
+    FMConstrMgr(const SimpleNetlist& H, double BalTol)
+        : FMConstrMgr(H, BalTol, 2)
+    {
+    }
+
+    /*!
+     * @brief Construct a new FMConstrMgr object
+     *
+     * @param H
+     * @param K
+     * @param BalTol
+     */
+    FMConstrMgr(const SimpleNetlist& H, double BalTol, uint8_t K)
         : H {H}
         , BalTol {BalTol}
         , K {K}

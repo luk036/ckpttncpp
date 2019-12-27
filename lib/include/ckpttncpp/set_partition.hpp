@@ -74,7 +74,7 @@ class set_partition_
      * @param yield_
      */
     explicit set_partition_(Fun yield_)
-        : yield(yield_)
+        : yield(std::move(yield_))
     {
     }
 

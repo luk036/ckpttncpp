@@ -38,7 +38,16 @@ class MLPartMgr
      * @param BalTol
      * @param K
      */
-    explicit MLPartMgr(double BalTol, uint8_t K = 2)
+    explicit MLPartMgr(double BalTol)
+        : MLPartMgr(BalTol, 2) {}
+
+    /*!
+     * @brief Construct a new MLPartMgr object
+     *
+     * @param BalTol
+     * @param K
+     */
+    MLPartMgr(double BalTol, uint8_t K)
         : BalTol {BalTol}
         , K {K}
     {
@@ -56,7 +65,7 @@ class MLPartMgr
      */
     template <typename PartMgr>
     auto run_FMPartition(const SimpleNetlist& H, gsl::span<uint8_t> part,
-        size_t limitsize = 7) -> LegalCheck
+        size_t limitsize) -> LegalCheck
     {
         using GainMgr = typename PartMgr::GainMgr_;
         using ConstrMgr = typename PartMgr::ConstrMgr_;
@@ -120,12 +129,27 @@ class MLPartMgr
      * @tparam ConstrMgr
      * @param H
      * @param part
+     * @return LegalCheck
+     */
+    template <typename PartMgr>
+    auto run_FMPartition(const SimpleNetlist& H, gsl::span<uint8_t> part) -> LegalCheck
+    {
+        return this->run_FMPartition<PartMgr>(H, part, 7);
+    }
+
+    /*!
+     * @brief run_Partition
+     *
+     * @tparam GainMgr
+     * @tparam ConstrMgr
+     * @param H
+     * @param part
      * @param limitsize
-     * @return size_t self.take_snapshot(part)
+     * @return LegalCheck
      */
     template <typename PartMgr>
     auto run_Partition(const SimpleNetlist& H, gsl::span<uint8_t> part,
-        size_t limitsize = 7) -> size_t
+        size_t limitsize) -> LegalCheck
     {
         using GainMgr = typename PartMgr::GainMgr_;
         using ConstrMgr = typename PartMgr::ConstrMgr_;
@@ -142,6 +166,21 @@ class MLPartMgr
         }
         this->run_Partition_recur<PartMgr>(H, part, limitsize);
         return legalcheck;
+    }
+
+    /*!
+     * @brief run_Partition
+     *
+     * @tparam GainMgr
+     * @tparam ConstrMgr
+     * @param H
+     * @param part
+     * @return LegalCheck
+     */
+    template <typename PartMgr>
+    auto run_Partition(const SimpleNetlist& H, gsl::span<uint8_t> part) -> LegalCheck
+    {
+        return this->run_Partition<PartMgr>(H, part, 7);
     }
 
     /*!

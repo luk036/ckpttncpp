@@ -2,6 +2,7 @@
 
 Circuit Partitioning C++ Code
 
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/luk036/ckpttncpp)
 [![Build Status](https://travis-ci.org/luk036/ckpttncpp.svg?branch=master)](https://travis-ci.org/luk036/ckpttncpp)
 [![Documentation Status](https://readthedocs.org/projects/ckpttncpp/badge/?version=latest)](https://ckpttncpp.readthedocs.io/en/latest/?badge=latest)
 [![codecov](https://codecov.io/gh/luk036/ckpttncpp/branch/master/graph/badge.svg)](https://codecov.io/gh/luk036/ckpttncpp)

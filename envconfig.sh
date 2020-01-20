@@ -15,6 +15,7 @@ export SHELL=/bin/bash
 export CONDA_PREFIX=/workspace/conda/arcw
 
 #Install conda packages for to run jupyterlab
+conda install -y ninja
 conda install -y -c conda-forge libboost
 conda install -y -c conda-forge catch2
 

@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
         exit(0);
     }
 
-    auto console = spdlog::stdout_color_mt("console");
+    auto console = spdlog::stdout_logger_mt("console");
     console->set_pattern("[%H:%M:%S %z] [%n] [thread %t] %v");
     console->set_level(spdlog::level::warn);
 

@@ -8,9 +8,6 @@ RUN apt-get update \
   sudo \
   git \
   less \
-  libfmt-dev \
-  libspdlog-dev \
-  lcov \
   wget
 
 RUN mkdir -p /workspace/data \
@@ -39,7 +36,10 @@ RUN /opt/conda/bin/conda install -y \
 
 RUN /opt/conda/bin/conda install -y -c conda-forge \
     catch2 \
+    cppcheck \
+    fmt \
+    lcov \
     libboost \
-    cppcheck
+    spdlog
 
 RUN apt-get clean && rm -rf /var/cache/apt/* && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*

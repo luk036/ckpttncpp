@@ -17,3 +17,20 @@ Circuit Partitioning C++ Code
 -   Powered by C++17.
 -   Support multi-level bi-partitioning and K-way partitioning
 -   Special handle two-pin nets (and three-pin nets).
+
+## Installation and Run
+
+To run in gitpod.io:
+
+    ./envconfig.sh  # first time when gitpod image is built
+
+To build with Ninja:
+
+    mkdir build && cd build
+    cmake -GNinja ..
+    ninja all
+
+To run CTest:
+
+    ninja test
+

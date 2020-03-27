@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <doctest.h>
 #include <ckpttncpp/FMBiGainMgr.hpp> // import FMBiGainMgr
 #include <ckpttncpp/netlist.hpp>     // import Netlist
 
@@ -31,14 +31,14 @@ void run_FMBiGainMgr(const SimpleNetlist& H, gsl::span<uint8_t> part)
     }
 }
 
-TEST_CASE("Test FMBiGainMgr", "[test_FMBiGainMgr]")
+TEST_CASE("Test FMBiGainMgr")
 {
     const auto H = create_test_netlist();
     auto part_test = std::vector<uint8_t> {0, 1, 0};
     run_FMBiGainMgr(H, part_test);
 }
 
-TEST_CASE("Test FMBiGainMgr 2", "[test_FMBiGainMgr2]")
+TEST_CASE("Test FMBiGainMgr 2")
 {
     const auto H = create_dwarf();
     auto part_test = std::vector<uint8_t> {0, 0, 0, 0, 1, 1, 1};

@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <doctest.h>
 #include <chrono>
 #include <ckpttncpp/FMBiConstrMgr.hpp>   // import FMBiConstrMgr
 #include <ckpttncpp/FMBiGainMgr.hpp>     // import FMBiGainMgr
@@ -16,7 +16,7 @@ extern SimpleNetlist create_dwarf();        // import create_dwarf
 extern SimpleNetlist readNetD(std::string_view netDFileName);
 extern void readAre(SimpleNetlist& H, std::string_view areFileName);
 
-TEST_CASE("Test MLBiPartMgr dwarf", "[test_MLBiPartMgr]")
+TEST_CASE("Test MLBiPartMgr dwarf")
 {
     const auto H = create_dwarf();
     auto partMgr = MLPartMgr {0.3};
@@ -25,7 +25,7 @@ TEST_CASE("Test MLBiPartMgr dwarf", "[test_MLBiPartMgr]")
     CHECK(partMgr.totalcost == 2);
 }
 
-TEST_CASE("Test MLKWayPartMgr dwarf", "[test_MLKWayPartMgr]")
+TEST_CASE("Test MLKWayPartMgr dwarf")
 {
     const auto H = create_dwarf();
     auto partMgr = MLPartMgr {0.4, 3}; // 0.3???
@@ -34,7 +34,7 @@ TEST_CASE("Test MLKWayPartMgr dwarf", "[test_MLKWayPartMgr]")
     CHECK(partMgr.totalcost == 4);
 }
 
-TEST_CASE("Test MLBiPartMgr p1", "[test_MLBiPartMgr]")
+TEST_CASE("Test MLBiPartMgr p1")
 {
     const auto H = readNetD("../../../testcases/p1.net");
     auto partMgr = MLPartMgr {0.3};
@@ -62,7 +62,7 @@ TEST_CASE("Test MLBiPartMgr p1", "[test_MLBiPartMgr]")
     CHECK(mincost <= 73);
 }
 
-TEST_CASE("Test MLBiPartMgr ibm01", "[test_MLBiPartMgr]")
+TEST_CASE("Test MLBiPartMgr ibm01")
 {
     auto H = readNetD("../../../testcases/ibm01.net");
     readAre(H, "../../../testcases/ibm01.are");
@@ -90,7 +90,7 @@ TEST_CASE("Test MLBiPartMgr ibm01", "[test_MLBiPartMgr]")
     CHECK(mincost <= 555);
 }
 
-TEST_CASE("Test MLBiPartMgr ibm03", "[test_MLBiPartMgr]")
+TEST_CASE("Test MLBiPartMgr ibm03")
 {
     auto H = readNetD("../../../testcases/ibm03.net");
     readAre(H, "../../../testcases/ibm03.are");

@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-#include <catch2/catch.hpp>
+#include <doctest.h>
 #include <ckpttncpp/netlist.hpp>
 #include <py2cpp/py2cpp.hpp>
 #include <utility> // for std::pair
@@ -110,7 +110,7 @@ auto create_test_netlist() -> SimpleNetlist
     return H;
 }
 
-TEST_CASE("Test Netlist", "[test_netlist]")
+TEST_CASE("Test Netlist")
 {
     const auto H = create_test_netlist();
 
@@ -122,7 +122,7 @@ TEST_CASE("Test Netlist", "[test_netlist]")
     CHECK(not H.has_fixed_modules);
 }
 
-TEST_CASE("Test dwarf", "[test_dwarf]")
+TEST_CASE("Test dwarf")
 {
     const auto H = create_dwarf();
 

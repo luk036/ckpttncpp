@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <doctest.h>
 #include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
 #include <ckpttncpp/FMBiGainMgr.hpp>   // import FMBiGainMgr
 #include <ckpttncpp/FMPartMgr.hpp>     // import FMBiPartMgr
@@ -27,25 +27,25 @@ void run_FMBiPartMgr(const SimpleNetlist& H)
     CHECK(partMgr.totalcost >= 0);
 }
 
-TEST_CASE("Test FMBiPartMgr", "[test_FMBiPartMgr]")
+TEST_CASE("Test FMBiPartMgr")
 {
     const auto H = create_test_netlist();
     run_FMBiPartMgr(H);
 }
 
-TEST_CASE("Test FMBiPartMgr dwarf", "[test_FMBiPartMgr]")
+TEST_CASE("Test FMBiPartMgr dwarf")
 {
     const auto H = create_dwarf();
     run_FMBiPartMgr(H);
 }
 
-TEST_CASE("Test FMBiPartMgr p1", "[test_FMBiPartMgr]")
+TEST_CASE("Test FMBiPartMgr p1")
 {
     const auto H = readNetD("../../../testcases/p1.net");
     run_FMBiPartMgr(H);
 }
 
-TEST_CASE("Test FMBiPartMgr ibm01", "[test_FMBiPartMgr]")
+TEST_CASE("Test FMBiPartMgr ibm01")
 {
     auto H = readNetD("../../../testcases/ibm01.net");
     readAre(H, "../../../testcases/ibm01.are");

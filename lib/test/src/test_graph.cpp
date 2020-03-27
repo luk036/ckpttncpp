@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-#include <catch2/catch.hpp>
+#include <doctest.h>
 #include <py2cpp/py2cpp.hpp>
 #include <xnetwork/classes/graph.hpp>
 
@@ -8,7 +8,7 @@
  *
  * @return Netlist
  */
-TEST_CASE("Test xnetwork", "[test_xnetwork]")
+TEST_CASE("Test xnetwork")
 {
     constexpr auto num_nodes = 6;
     enum nodes

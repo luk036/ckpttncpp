@@ -1,9 +1,9 @@
-#include <catch2/catch.hpp>
+#include <doctest.h>
 #include <ckpttncpp/bpqueue.hpp> // import bpqueue
 #include <ckpttncpp/dllist.hpp>  // import dllink
 #include <gsl/span>
 
-TEST_CASE("Test BPQueue", "[bpqueue]")
+TEST_CASE("Test BPQueue")
 {
     constexpr auto PMAX = 10;
 

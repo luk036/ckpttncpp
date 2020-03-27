@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-#include <catch2/catch.hpp>
+#include <doctest.h>
 #include <ckpttncpp/netlist.hpp>
 #include <string_view>
 
@@ -7,7 +7,7 @@ extern SimpleNetlist readNetD(std::string_view netDFileName);
 extern void readAre(SimpleNetlist& H, std::string_view areFileName);
 extern void writeJSON(std::string_view jsonFileName, const SimpleNetlist& H);
 
-TEST_CASE("Test Read Dwarf", "[test_readwrite]")
+TEST_CASE("Test Read Dwarf")
 {
     auto H = readNetD("../../../testcases/dwarf1.netD");
     readAre(H, "../../../testcases/dwarf1.are");
@@ -21,7 +21,7 @@ TEST_CASE("Test Read Dwarf", "[test_readwrite]")
     CHECK(H.get_module_weight(1) == 2);
 }
 
-TEST_CASE("Test Read p1", "[test_readwrite]")
+TEST_CASE("Test Read p1")
 {
     const auto H = readNetD("../../../testcases/p1.net");
 
@@ -34,7 +34,7 @@ TEST_CASE("Test Read p1", "[test_readwrite]")
     CHECK(H.get_module_weight(1) == 1);
 }
 
-TEST_CASE("Test Write Dwarf", "[test_readwrite]")
+TEST_CASE("Test Write Dwarf")
 {
     auto H = readNetD("../../../testcases/dwarf1.netD");
     readAre(H, "../../../testcases/dwarf1.are");
@@ -45,7 +45,7 @@ TEST_CASE("Test Write Dwarf", "[test_readwrite]")
     // CHECK(H.number_of_pins() == 13);
 }
 
-TEST_CASE("Test Write p1", "[test_readwrite]")
+TEST_CASE("Test Write p1")
 {
     const auto H = readNetD("../../../testcases/p1.net");
     writeJSON("../../../testcases/p1.json", H);

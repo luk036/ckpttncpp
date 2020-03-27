@@ -1,8 +1,8 @@
 #include <array>
-#include <catch2/catch.hpp>
+#include <doctest.h>
 #include <py2cpp/py2cpp.hpp>
 
-TEST_CASE("Test Range", "[range]")
+TEST_CASE("Test Range")
 {
     const auto R = py::range(0U, 10U);
 
@@ -18,7 +18,7 @@ TEST_CASE("Test Range", "[range]")
     CHECK(count == R.size());
 }
 
-TEST_CASE("Test Range2", "[range]")
+TEST_CASE("Test Range2")
 {
     const auto R = py::range(-10, 10);
 
@@ -34,7 +34,7 @@ TEST_CASE("Test Range2", "[range]")
     CHECK(count == R.size());
 }
 
-TEST_CASE("Test Range (char)", "[range]")
+TEST_CASE("Test Range (char)")
 {
     const auto R = py::range('A', 'W');
 
@@ -50,7 +50,7 @@ TEST_CASE("Test Range (char)", "[range]")
     CHECK(count == R.size());
 }
 
-TEST_CASE("Test Range (pointer)", "[range]")
+TEST_CASE("Test Range (pointer)")
 {
     auto A = std::array {0.2, 0.4, 0.1, 0.9};
     auto R = py::range(&A, &A + 4);

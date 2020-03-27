@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <doctest.h>
 #include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr
 #include <ckpttncpp/FMKWayGainMgr.hpp>   // import FMKWayGainMgr
 #include <ckpttncpp/FMPartMgr.hpp>       // import FMKWayPartMgr
@@ -29,13 +29,13 @@ void run_FMKWayPartMgr(const SimpleNetlist& H, uint8_t K)
     CHECK(partMgr.totalcost >= 0);
 }
 
-TEST_CASE("Test FMKWayPartMgr", "[test_FMKWayPartMgr]")
+TEST_CASE("Test FMKWayPartMgr")
 {
     const auto H = create_dwarf();
     run_FMKWayPartMgr(H, 3);
 }
 
-TEST_CASE("Test FMKWayPartMgr p1", "[test_FMKWayPartMgr]")
+TEST_CASE("Test FMKWayPartMgr p1")
 {
     const auto H = readNetD("../../../testcases/p1.net");
     run_FMKWayPartMgr(H, 3);

@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <doctest.h>
 #include <ckpttncpp/netlist.hpp> // import Netlist
 #include <py2cpp/py2cpp.hpp>
 
@@ -30,7 +30,7 @@ extern std::unique_ptr<SimpleNetlist> create_contraction_subgraph(
 //     CHECK(cost == 4053);
 // }
 
-TEST_CASE("Test max_independent_net dwarf", "[test_max_independent_net]")
+TEST_CASE("Test max_independent_net dwarf")
 {
     const auto H = create_dwarf();
     const auto [_, cost] =
@@ -45,7 +45,7 @@ TEST_CASE("Test max_independent_net dwarf", "[test_max_independent_net]")
 //     CHECK(cost == 3157);
 // }
 
-TEST_CASE("Test contraction subgraph dwarf", "[test_contractio_subgraph]")
+TEST_CASE("Test contraction subgraph dwarf")
 {
     const auto H = create_dwarf();
     const auto H2 = create_contraction_subgraph(H, py::set<node_t> {});

@@ -1,8 +1,8 @@
-#include <catch2/catch.hpp>
+#include <doctest.h>
 #include <ckpttncpp/dllist.hpp> // import  dllink
 #include <ckpttncpp/robin.hpp>  // import  robin
 
-TEST_CASE("Test dllist", "[dllist]")
+TEST_CASE("Test dllist")
 {
     auto L1 = dllink {0};
     auto L2 = dllink {0};
@@ -29,7 +29,7 @@ TEST_CASE("Test dllist", "[dllist]")
     CHECK(count == 2);
 }
 
-TEST_CASE("Test robin", "[robin]")
+TEST_CASE("Test robin")
 {
     auto RR = robin<uint8_t>(6U);
     auto count = 0U;

@@ -1,9 +1,9 @@
 #include <array>
-#include <catch2/catch.hpp>
+#include <doctest.h>
 #include <ckpttncpp/set_partition.hpp> // import  setpart
 // #include <iostream>
 
-TEST_CASE("Test set partition (odd k)", "[set_partition]")
+TEST_CASE("Test set partition (odd k)")
 {
     constexpr auto n = 10;
     constexpr auto k = 5;
@@ -24,7 +24,7 @@ TEST_CASE("Test set partition (odd k)", "[set_partition]")
     CHECK(totalNumber == cnt);
 }
 
-TEST_CASE("Test set partition (even k)", "[set_partition]")
+TEST_CASE("Test set partition (even k)")
 {
     constexpr auto n = 9;
     constexpr auto k = 4;

@@ -12,7 +12,9 @@ endif()
 
 project (CkPttnCpp LANGUAGES CXX)
 
-option(ENABLE_COVERAGE "Generates the coverage build" OFF)
+option(ENABLE_COVERAGE "Generates the coverage build" ON)
+option(ENABLE_DOCTESTS "Include tests in the library. Setting this to OFF will remove all doctest related code.
+                        Tests in tests/*.cpp will still be enabled." OFF)
 
 include(CTest) # Must be called before adding tests but after calling project(). This automatically calls enable_testing() and configures ctest targets when using Make/Ninja
 include(CMakeDependentOption)# This is a really useful scripts that creates options that depends on other options. It can even be used with generator expressions !
@@ -20,6 +22,8 @@ include(CMakeDependentOption)# This is a really useful scripts that creates opti
 # Custom modules and scripts
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_LIST_DIR}/cmake")
+include(Colors)
+include(Doctest)
 include(LTO)
 include(Warnings)
 include(CopyDllsForDebug)
@@ -68,18 +72,18 @@ if (Boost_FOUND)
     set(LIBS ${LIBS} ${Boost_LIBRARIES})
 endif (Boost_FOUND)
 
-add_subdirectory (third_party EXCLUDE_FROM_ALL)
-
 set (LIBRARY_INCLUDE_PATH  ${LIBRARY_INCLUDE_PATH} ${Boost_INCLUDE_DIRS})
 
-# Enable code coverage with -DENABLE_COVERAGE=1
-if(ENABLE_COVERAGE)
-    set(CMAKE_BUILD_TYPE "Coverage")
-    include(CodeCoverage)
-    setup_target_for_coverage(${PROJECT_NAME}_coverage ${PROJECT_NAME}_test coverage)
-endif()
+add_subdirectory (external EXCLUDE_FROM_ALL)
 
-add_subdirectory (doc)
+# Enable code coverage with -DENABLE_COVERAGE=1
+# if(ENABLE_COVERAGE)
+#     set(CMAKE_BUILD_TYPE "Coverage")
+#     include(CodeCoverage)
+#     setup_target_for_coverage(${PROJECT_NAME}_coverage ${PROJECT_NAME}_test coverage)
+# endif()
+
+# add_subdirectory (doc)
 add_subdirectory (lib)
 add_subdirectory (app)
 

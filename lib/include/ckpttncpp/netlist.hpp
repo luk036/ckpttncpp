@@ -211,15 +211,31 @@ Netlist<nodeview_t, nodemap_t>::Netlist(graph_t G, const nodeview_t& modules,
     , num_nets(nets.size())
 {
     this->has_fixed_modules = (not this->module_fixed.empty());
-    auto deg_cmp = [this](node_t v, node_t w) -> index_t {
-        return this->G.degree(v) < this->G.degree(w);
-    };
-    const auto result1 =
-        std::max_element(this->modules.begin(), this->modules.end(), deg_cmp);
-    this->max_degree = this->G.degree(*result1);
-    const auto result2 =
-        std::max_element(this->nets.begin(), this->nets.end(), deg_cmp);
-    this->max_net_degree = this->G.degree(*result2);
+
+    // Some compilers does not accept py::range()->iterator as a forward iterator
+    // auto deg_cmp = [this](node_t v, node_t w) -> index_t {
+    //     return this->G.degree(v) < this->G.degree(w);
+    // };
+    // const auto result1 =
+    //     std::max_element(this->modules.begin(), this->modules.end(), deg_cmp);
+    // this->max_degree = this->G.degree(*result1);
+    // const auto result2 =
+    //     std::max_element(this->nets.begin(), this->nets.end(), deg_cmp);
+    // this->max_net_degree = this->G.degree(*result2);
+
+    this->max_degree = 0U;
+    for (const auto& v: this->modules) {
+        if (this->max_degree < this->G.degree(v)) {
+            this->max_degree = this->G.degree(v);
+        } 
+    }    
+
+    this->max_net_degree = 0U;
+    for (const auto& net: this->nets) {
+        if (this->max_net_degree < this->G.degree(net)) {
+            this->max_net_degree = this->G.degree(net);
+        } 
+    }    
 }
 
 template <typename nodeview_t, typename nodemap_t>

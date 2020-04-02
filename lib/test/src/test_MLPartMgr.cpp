@@ -8,6 +8,7 @@
 #include <ckpttncpp/MLPartMgr.hpp>       // import MLBiPartMgr
 // #include <experimental/random>
 #include <iostream>
+#include <string_view>
 
 // using std::experimental::randint;
 
@@ -20,7 +21,7 @@ TEST_CASE("Test MLBiPartMgr dwarf")
 {
     const auto H = create_dwarf();
     auto partMgr = MLPartMgr {0.3};
-    auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
+    auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
     partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part);
     CHECK(partMgr.totalcost == 2);
 }
@@ -29,7 +30,7 @@ TEST_CASE("Test MLKWayPartMgr dwarf")
 {
     const auto H = create_dwarf();
     auto partMgr = MLPartMgr {0.4, 3}; // 0.3???
-    auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
+    auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
     partMgr.run_FMPartition<FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>>(H, part);
     CHECK(partMgr.totalcost == 4);
 }
@@ -42,7 +43,7 @@ TEST_CASE("Test MLBiPartMgr p1")
     auto mincost = 1000;
     for (auto i = 0; i != 10; ++i)
     {
-        auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
+        auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
         auto whichPart = 0U;
         for (auto&& elem : part)
         {
@@ -70,7 +71,7 @@ TEST_CASE("Test MLBiPartMgr ibm01")
     auto mincost = 1000;
     for (auto i = 0; i != 10; ++i)
     {
-        auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
+        auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
         auto whichPart = 0U;
         for (auto&& elem : part)
         {
@@ -95,7 +96,7 @@ TEST_CASE("Test MLBiPartMgr ibm03")
     auto H = readNetD("../../../testcases/ibm03.net");
     readAre(H, "../../../testcases/ibm03.are");
     auto partMgr = MLPartMgr {0.45};
-    auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
+    auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
     // auto part_info = PartInfo{std::move(part), py::set<node_t>()};
     auto begin = std::chrono::steady_clock::now();
     partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(

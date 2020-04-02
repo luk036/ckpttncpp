@@ -48,6 +48,6 @@ TEST_CASE("Test BPQueue")
     }
     CHECK(count == 10);
 
-    const std::vector<uint8_t> a {3, 4, 5, 6};
-    gsl::span<const uint8_t> s {a};
+    const std::vector<std::uint8_t> a {3, 4, 5, 6};
+    gsl::span<const std::uint8_t> s {a};
 }

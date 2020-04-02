@@ -60,9 +60,9 @@ class PartMgrBase
     const SimpleNetlist& H;
     GainMgr& gainMgr;
     ConstrMgr& validator;
-    uint8_t K;
-    // std::vector<uint8_t> snapshot;
-    // std::vector<uint8_t> part;
+    std::uint8_t K;
+    // std::vector<std::uint8_t> snapshot;
+    // std::vector<std::uint8_t> part;
 
   public:
     int totalcost {};
@@ -87,7 +87,7 @@ class PartMgrBase
      *
      * @param part
      */
-    void init(gsl::span<uint8_t> part);
+    void init(gsl::span<std::uint8_t> part);
 
     /*!
      * @brief
@@ -95,14 +95,14 @@ class PartMgrBase
      * @param part
      * @return LegalCheck
      */
-    LegalCheck legalize(gsl::span<uint8_t> part);
+    LegalCheck legalize(gsl::span<std::uint8_t> part);
 
     /*!
      * @brief
      *
      * @param part
      */
-    void optimize(gsl::span<uint8_t> part);
+    void optimize(gsl::span<std::uint8_t> part);
 
   private:
     /*!
@@ -110,5 +110,5 @@ class PartMgrBase
      *
      * @param part
      */
-    void _optimize_1pass(gsl::span<uint8_t> part);
+    void _optimize_1pass(gsl::span<std::uint8_t> part);
 };

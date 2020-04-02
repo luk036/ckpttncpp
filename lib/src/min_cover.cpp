@@ -31,7 +31,7 @@ auto max_independent_net(const SimpleNetlist& H,
     }
 
     auto S = py::set<node_t> {};
-    auto total_cost = 0U;
+    int total_cost = 0;
 
     // while (not bpq.is_empty())
     for (auto&& net : H.nets)
@@ -56,7 +56,7 @@ auto max_independent_net(const SimpleNetlist& H,
             }
         }
     }
-    return std::tuple {std::move(S), total_cost};
+    return std::make_tuple(std::move(S), total_cost);
 }
 
 // /**

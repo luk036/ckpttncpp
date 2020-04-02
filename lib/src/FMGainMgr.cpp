@@ -7,7 +7,7 @@
  * @param K
  */
 template <typename GainCalc, class Derived>
-FMGainMgr<GainCalc, Derived>::FMGainMgr(const SimpleNetlist& H, uint8_t K)
+FMGainMgr<GainCalc, Derived>::FMGainMgr(const SimpleNetlist& H, std::uint8_t K)
     : H {H}
     , pmax {H.get_max_degree()}
     , K {K}
@@ -27,7 +27,7 @@ FMGainMgr<GainCalc, Derived>::FMGainMgr(const SimpleNetlist& H, uint8_t K)
  * @param part
  */
 template <typename GainCalc, class Derived>
-int FMGainMgr<GainCalc, Derived>::init(gsl::span<const uint8_t> part)
+int FMGainMgr<GainCalc, Derived>::init(gsl::span<const std::uint8_t> part)
 {
     auto totalcost = this->gainCalc.init(part);
     // this->totalcost = this->gainCalc.totalcost;
@@ -43,7 +43,7 @@ int FMGainMgr<GainCalc, Derived>::init(gsl::span<const uint8_t> part)
  */
 template <typename GainCalc, class Derived>
 std::tuple<MoveInfoV, int> FMGainMgr<GainCalc, Derived>::select(
-    gsl::span<const uint8_t> part)
+    gsl::span<const std::uint8_t> part)
 {
     auto gainmax = std::vector<int>(this->K);
     for (auto k = 0U; k != this->K; ++k)
@@ -51,7 +51,7 @@ std::tuple<MoveInfoV, int> FMGainMgr<GainCalc, Derived>::select(
         gainmax[k] = this->gainbucket[k].get_max();
     }
     const auto it = std::max_element(gainmax.cbegin(), gainmax.cend());
-    const uint8_t toPart = std::distance(gainmax.cbegin(), it);
+    const std::uint8_t toPart = std::distance(gainmax.cbegin(), it);
     auto& vlink = this->gainbucket[toPart].popleft();
     this->waitinglist.append(vlink);
     // node_t v = &vlink - this->gainCalc.start_ptr(toPart);
@@ -68,7 +68,7 @@ std::tuple<MoveInfoV, int> FMGainMgr<GainCalc, Derived>::select(
  */
 template <typename GainCalc, class Derived>
 std::tuple<node_t, int> FMGainMgr<GainCalc, Derived>::select_togo(
-    uint8_t toPart)
+    std::uint8_t toPart)
 {
     const auto gainmax = this->gainbucket[toPart].get_max();
     auto& vlink = this->gainbucket[toPart].popleft();
@@ -86,7 +86,7 @@ std::tuple<node_t, int> FMGainMgr<GainCalc, Derived>::select_togo(
  */
 template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::update_move(
-    gsl::span<const uint8_t> part, const MoveInfoV& move_info_v)
+    gsl::span<const std::uint8_t> part, const MoveInfoV& move_info_v)
 {
     // std::fill_n(this->deltaGainV.begin(), this->K, 0);
     this->gainCalc.update_move_init();
@@ -137,7 +137,7 @@ void FMGainMgr<GainCalc, Derived>::update_move(
  */
 template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::_update_move_2pin_net(
-    gsl::span<const uint8_t> part, const MoveInfo& move_info)
+    gsl::span<const std::uint8_t> part, const MoveInfo& move_info)
 {
     const auto [w, deltaGainW] =
         this->gainCalc.update_move_2pin_net(part, move_info);
@@ -152,7 +152,7 @@ void FMGainMgr<GainCalc, Derived>::_update_move_2pin_net(
  */
 template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::_update_move_3pin_net(
-    gsl::span<const uint8_t> part, const MoveInfo& move_info)
+    gsl::span<const std::uint8_t> part, const MoveInfo& move_info)
 {
     const auto [IdVec, deltaGain] =
         this->gainCalc.update_move_3pin_net(part, move_info);
@@ -172,7 +172,7 @@ void FMGainMgr<GainCalc, Derived>::_update_move_3pin_net(
  */
 template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::_update_move_general_net(
-    gsl::span<const uint8_t> part, const MoveInfo& move_info)
+    gsl::span<const std::uint8_t> part, const MoveInfo& move_info)
 {
     const auto [IdVec, deltaGain] =
         this->gainCalc.update_move_general_net(part, move_info);

@@ -3,7 +3,7 @@
 
 template <typename nodeview_t, typename nodemap_t>
 void Netlist<nodeview_t, nodemap_t>::projection_up(
-    gsl::span<const uint8_t> part, gsl::span<uint8_t> part_up) const
+    gsl::span<const std::uint8_t> part, gsl::span<std::uint8_t> part_up) const
 {
     const auto& H = *this->parent;
     for (auto&& v : H.modules)
@@ -14,7 +14,7 @@ void Netlist<nodeview_t, nodemap_t>::projection_up(
 
 template <typename nodeview_t, typename nodemap_t>
 void Netlist<nodeview_t, nodemap_t>::projection_down(
-    gsl::span<const uint8_t> part, gsl::span<uint8_t> part_down) const
+    gsl::span<const std::uint8_t> part, gsl::span<std::uint8_t> part_down) const
 {
     const auto& H = *this->parent;
     for (auto&& v : this->modules)

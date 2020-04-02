@@ -1,4 +1,5 @@
 // -*- coding: utf-8 -*-
+#include <cinttypes>
 #include <doctest.h>
 #include <py2cpp/py2cpp.hpp>
 #include <xnetwork/classes/graph.hpp>
@@ -20,7 +21,7 @@ TEST_CASE("Test xnetwork")
         n2,
         n3
     };
-    const auto R = py::range<uint8_t>(0, num_nodes);
+    const auto R = py::range<std::uint8_t>(0, num_nodes);
     auto G = xn::Graph {R, R};
     G.add_edge(a1, n1);
     G.add_edge(a1, n1);

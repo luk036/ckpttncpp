@@ -14,7 +14,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
 {
 
   private:
-    robin<uint8_t> RR;
+    robin<std::uint8_t> RR;
 
   public:
     using Base = FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>;
@@ -27,7 +27,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
      * @param H
      * @param K
      */
-    FMKWayGainMgr(const SimpleNetlist& H, uint8_t K)
+    FMKWayGainMgr(const SimpleNetlist& H, std::uint8_t K)
         : Base {H, K}
         , RR {K}
     {
@@ -38,7 +38,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
      *
      * @param part
      */
-    auto init(gsl::span<const uint8_t> part) -> int;
+    auto init(gsl::span<const std::uint8_t> part) -> int;
 
     /*!
      * @brief (needed by base class)
@@ -47,7 +47,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
      * @param w
      * @param keys
      */
-    auto modify_key(node_t w, uint8_t part_w, const std::vector<int>& keys)
+    auto modify_key(node_t w, std::uint8_t part_w, const std::vector<int>& keys)
         -> void
     {
         for (auto k : this->RR.exclude(part_w))

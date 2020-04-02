@@ -13,7 +13,7 @@ using node_t = int;
 
 // struct PartInfo
 // {
-//     std::vector<uint8_t> part;
+//     std::vector<std::uint8_t> part;
 //     py::set<node_t> extern_nets;
 // };
 
@@ -41,7 +41,7 @@ struct Netlist
     size_t max_degree {};
     size_t max_net_degree {};
     bool has_fixed_modules {};
-    uint8_t cost_model = 0;
+    std::uint8_t cost_model = 0;
     std::vector<int> module_weight;
     std::vector<int> net_weight;
     py::set<node_t> module_fixed;
@@ -144,8 +144,8 @@ struct Netlist
         return 1;
     }
 
-    // auto project_down(const std::vector<uint8_t> &part,
-    //                   std::vector<uint8_t> &part_down) -> void {
+    // auto project_down(const std::vector<std::uint8_t> &part,
+    //                   std::vector<std::uint8_t> &part_down) -> void {
     //     auto &H = *this->parent;
     //     for (auto i_v = 0U; i_v < this->modules.size(); ++ {
     //         auto v = this->modules[v];
@@ -163,8 +163,8 @@ struct Netlist
     //     }
     // }
 
-    // auto project_up(const std::vector<uint8_t> &part,
-    //                 std::vector<uint8_t> &part_up) -> void {
+    // auto project_up(const std::vector<std::uint8_t> &part,
+    //                 std::vector<std::uint8_t> &part_up) -> void {
     //     auto &H = *this->parent;
     //     // for (auto [v, v] : py::enumerate(H.modules)) {
     //     for (auto i_v = 0U; i_v < H.number_of_modules(); ++ {
@@ -180,7 +180,7 @@ struct Netlist
      * @param part_down
      */
     void projection_down(
-        gsl::span<const uint8_t> part, gsl::span<uint8_t> part_down) const;
+        gsl::span<const std::uint8_t> part, gsl::span<std::uint8_t> part_down) const;
 
     /*!
      * @brief projection up
@@ -189,7 +189,7 @@ struct Netlist
      * @param part_up
      */
     void projection_up(
-        gsl::span<const uint8_t> part, gsl::span<uint8_t> part_up) const;
+        gsl::span<const std::uint8_t> part, gsl::span<std::uint8_t> part_up) const;
 };
 
 /*!
@@ -256,20 +256,20 @@ struct MoveInfo
 {
     node_t net;
     node_t v;
-    uint8_t fromPart;
-    uint8_t toPart;
+    std::uint8_t fromPart;
+    std::uint8_t toPart;
 };
 
 struct MoveInfoV
 {
     node_t v;
-    uint8_t fromPart;
-    uint8_t toPart;
+    std::uint8_t fromPart;
+    std::uint8_t toPart;
     // node_t v;
 };
 
 struct Snapshot
 {
     py::set<node_t> extern_nets;
-    py::dict<index_t, uint8_t> extern_modules;
+    py::dict<index_t, std::uint8_t> extern_modules;
 };

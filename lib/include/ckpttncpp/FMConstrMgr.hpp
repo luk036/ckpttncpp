@@ -29,7 +29,7 @@ class FMConstrMgr
   protected:
     const SimpleNetlist& H;
     double BalTol;
-    uint8_t K;
+    std::uint8_t K;
     std::vector<int> diff;
     int lowerbound {};
     int totalweight {};
@@ -53,7 +53,7 @@ class FMConstrMgr
      * @param K
      * @param BalTol
      */
-    FMConstrMgr(const SimpleNetlist& H, double BalTol, uint8_t K)
+    FMConstrMgr(const SimpleNetlist& H, double BalTol, std::uint8_t K)
         : H {H}
         , BalTol {BalTol}
         , K {K}
@@ -74,7 +74,7 @@ class FMConstrMgr
      *
      * @param part
      */
-    auto init(gsl::span<const uint8_t> part) -> void;
+    auto init(gsl::span<const std::uint8_t> part) -> void;
 
     /*!
      * @brief

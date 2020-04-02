@@ -27,7 +27,7 @@ class FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
      *
      * @param H
      */
-    FMBiGainMgr(const SimpleNetlist& H, uint8_t /* K */)
+    FMBiGainMgr(const SimpleNetlist& H, std::uint8_t /* K */)
         : Base {H, 2}
     {
     }
@@ -38,7 +38,7 @@ class FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
      * @param part
      * @return int
      */
-    auto init(gsl::span<const uint8_t> part) -> int;
+    auto init(gsl::span<const std::uint8_t> part) -> int;
 
     /*!
      * @brief (needed by base class)
@@ -47,7 +47,7 @@ class FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
      * @param w
      * @param key
      */
-    auto modify_key(node_t w, uint8_t part_w, int key) -> void
+    auto modify_key(node_t w, std::uint8_t part_w, int key) -> void
     {
         this->gainbucket[1 - part_w].modify_key(
             this->gainCalc.vertex_list[w], key);

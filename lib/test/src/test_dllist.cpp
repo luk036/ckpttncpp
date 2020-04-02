@@ -31,7 +31,7 @@ TEST_CASE("Test dllist")
 
 TEST_CASE("Test robin")
 {
-    auto RR = robin<uint8_t>(6U);
+    auto RR = robin<std::uint8_t>(6U);
     auto count = 0U;
     for ([[maybe_unused]] auto _ : RR.exclude(2))
     {

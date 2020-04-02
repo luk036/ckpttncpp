@@ -2,6 +2,7 @@
 #include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr
 #include <ckpttncpp/FMKWayGainMgr.hpp>   // import FMKWayGainMgr
 #include <ckpttncpp/FMPartMgr.hpp>       // import FMKWayPartMgr
+#include <string_view>
 
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
 extern SimpleNetlist create_dwarf();        // import create_dwarf
@@ -14,14 +15,14 @@ extern void readAre(SimpleNetlist& H, std::string_view areFileName);
  * @param H
  * @param K
  */
-void run_FMKWayPartMgr(SimpleNetlist& H, uint8_t K, bool option)
+void run_FMKWayPartMgr(SimpleNetlist& H, std::uint8_t K, bool option)
 {
     auto gainMgr = FMKWayGainMgr {H, K};
     gainMgr.gainCalc.special_handle_2pin_nets = option;
 
     auto constrMgr = FMKWayConstrMgr {H, 0.4, K};
     auto partMgr = FMPartMgr {H, gainMgr, constrMgr};
-    auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
+    auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
 
     partMgr.legalize(part);
     // auto totalcostbefore = partMgr.totalcost;

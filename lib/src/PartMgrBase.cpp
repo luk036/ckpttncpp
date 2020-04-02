@@ -12,7 +12,7 @@
  */
 template <typename GainMgr, typename ConstrMgr,
     template <typename _GainMgr, typename _ConstrMgr> class Derived> //
-void PartMgrBase<GainMgr, ConstrMgr, Derived>::init(gsl::span<uint8_t> part)
+void PartMgrBase<GainMgr, ConstrMgr, Derived>::init(gsl::span<std::uint8_t> part)
 {
     this->totalcost = this->gainMgr.init(part);
     this->validator.init(part);
@@ -30,7 +30,7 @@ void PartMgrBase<GainMgr, ConstrMgr, Derived>::init(gsl::span<uint8_t> part)
 template <typename GainMgr, typename ConstrMgr,
     template <typename _GainMgr, typename _ConstrMgr> class Derived> //
 LegalCheck PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
-    gsl::span<uint8_t> part)
+    gsl::span<std::uint8_t> part)
 {
     this->init(part);
 
@@ -90,10 +90,10 @@ LegalCheck PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
 template <typename GainMgr, typename ConstrMgr,
     template <typename _GainMgr, typename _ConstrMgr> class Derived> //
 void PartMgrBase<GainMgr, ConstrMgr, Derived>::_optimize_1pass(
-    gsl::span<uint8_t> part)
+    gsl::span<std::uint8_t> part)
 {
     // using SS_t = decltype(self.take_snapshot(part));
-    using SS_t = std::vector<uint8_t>;
+    using SS_t = std::vector<std::uint8_t>;
 
     auto snapshot = SS_t {};
     auto totalgain = 0;
@@ -156,7 +156,7 @@ void PartMgrBase<GainMgr, ConstrMgr, Derived>::_optimize_1pass(
  */
 template <typename GainMgr, typename ConstrMgr,
     template <typename _GainMgr, typename _ConstrMgr> class Derived> //
-void PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize(gsl::span<uint8_t> part)
+void PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize(gsl::span<std::uint8_t> part)
 {
     // this->init(part);
     // auto totalcostafter = this->totalcost;

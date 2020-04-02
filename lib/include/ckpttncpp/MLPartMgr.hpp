@@ -27,7 +27,7 @@ class MLPartMgr
 {
   private:
     double BalTol;
-    uint8_t K;
+    std::uint8_t K;
 
   public:
     int totalcost {};
@@ -47,7 +47,7 @@ class MLPartMgr
      * @param BalTol
      * @param K
      */
-    MLPartMgr(double BalTol, uint8_t K)
+    MLPartMgr(double BalTol, std::uint8_t K)
         : BalTol {BalTol}
         , K {K}
     {
@@ -64,7 +64,7 @@ class MLPartMgr
      * @return LegalCheck
      */
     template <typename PartMgr>
-    auto run_FMPartition(const SimpleNetlist& H, gsl::span<uint8_t> part,
+    auto run_FMPartition(const SimpleNetlist& H, gsl::span<std::uint8_t> part,
         size_t limitsize) -> LegalCheck
     {
         using GainMgr = typename PartMgr::GainMgr_;
@@ -95,7 +95,7 @@ class MLPartMgr
                 if (5 * H2->number_of_modules() <= 3 * H.number_of_modules())
                 {
                     auto part2 =
-                        std::vector<uint8_t>(H2->number_of_modules(), 0);
+                        std::vector<std::uint8_t>(H2->number_of_modules(), 0);
                     // auto extern_nets_ss = py::set<node_t>{};
                     // auto part2_info =
                     //     PartInfo{std::move(part2),
@@ -132,7 +132,7 @@ class MLPartMgr
      * @return LegalCheck
      */
     template <typename PartMgr>
-    auto run_FMPartition(const SimpleNetlist& H, gsl::span<uint8_t> part) -> LegalCheck
+    auto run_FMPartition(const SimpleNetlist& H, gsl::span<std::uint8_t> part) -> LegalCheck
     {
         return this->run_FMPartition<PartMgr>(H, part, 7);
     }
@@ -148,7 +148,7 @@ class MLPartMgr
      * @return LegalCheck
      */
     template <typename PartMgr>
-    auto run_Partition(const SimpleNetlist& H, gsl::span<uint8_t> part,
+    auto run_Partition(const SimpleNetlist& H, gsl::span<std::uint8_t> part,
         size_t limitsize) -> LegalCheck
     {
         using GainMgr = typename PartMgr::GainMgr_;
@@ -178,7 +178,7 @@ class MLPartMgr
      * @return LegalCheck
      */
     template <typename PartMgr>
-    auto run_Partition(const SimpleNetlist& H, gsl::span<uint8_t> part) -> LegalCheck
+    auto run_Partition(const SimpleNetlist& H, gsl::span<std::uint8_t> part) -> LegalCheck
     {
         return this->run_Partition<PartMgr>(H, part, 7);
     }
@@ -194,7 +194,7 @@ class MLPartMgr
      * @return size_t self.take_snapshot(part)
      */
     template <typename PartMgr>
-    auto run_Partition_recur(const SimpleNetlist& H, gsl::span<uint8_t> part,
+    auto run_Partition_recur(const SimpleNetlist& H, gsl::span<std::uint8_t> part,
         size_t limitsize) -> void
     {
         if (H.number_of_modules() >= limitsize)
@@ -206,7 +206,7 @@ class MLPartMgr
                 if (5 * H2->number_of_modules() <= 3 * H.number_of_modules())
                 {
                     auto part2 =
-                        std::vector<uint8_t>(H2->number_of_modules(), 0);
+                        std::vector<std::uint8_t>(H2->number_of_modules(), 0);
                     // auto extern_nets_ss = py::set<node_t>{};
                     // auto part2_info =
                     //     PartInfo{std::move(part2),

@@ -2,6 +2,7 @@
 #include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
 #include <ckpttncpp/FMBiGainMgr.hpp>   // import FMBiGainMgr
 #include <ckpttncpp/FMPartMgr.hpp>     // import FMBiPartMgr
+#include <string_view>
 
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
 extern SimpleNetlist create_dwarf();        // import create_dwarf
@@ -20,7 +21,7 @@ void run_FMBiPartMgr(SimpleNetlist& H, bool option)
 
     auto constrMgr = FMBiConstrMgr {H, 0.45};
     auto partMgr = FMPartMgr {H, gainMgr, constrMgr};
-    auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
+    auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
     partMgr.legalize(part);
     // auto totalcostbefore = partMgr.totalcost;
     partMgr.optimize(part);

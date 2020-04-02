@@ -27,7 +27,7 @@ struct FMBiConstrMgr : FMConstrMgr
      * @param BalTol
      * @param K (for compatability only)
      */
-    FMBiConstrMgr(const SimpleNetlist& H, double BalTol, uint8_t /*K*/)
+    FMBiConstrMgr(const SimpleNetlist& H, double BalTol, std::uint8_t /*K*/)
         : FMConstrMgr {H, BalTol, 2}
     {
     }
@@ -35,9 +35,9 @@ struct FMBiConstrMgr : FMConstrMgr
     /*!
      * @brief
      *
-     * @return uint8_t
+     * @return std::uint8_t
      */
-    auto select_togo() const -> uint8_t
+    auto select_togo() const -> std::uint8_t
     {
         return this->diff[0] < this->diff[1] ? 0 : 1;
     }

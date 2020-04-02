@@ -1,6 +1,7 @@
 #include <doctest.h>
 #include <ckpttncpp/netlist.hpp> // import Netlist
 #include <py2cpp/py2cpp.hpp>
+#include <string_view>
 
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
 extern SimpleNetlist create_dwarf();        // import create_dwarf
@@ -55,9 +56,9 @@ TEST_CASE("Test contraction subgraph dwarf")
     // CHECK(H2->number_of_pins() < 14);
     CHECK(H2->get_max_net_degree() <= 3);
 
-    // auto part = std::vector<uint8_t>(H.number_of_modules(), 0);
-    // auto part2 = std::vector<uint8_t>(H2->number_of_modules(), 0);
-    // auto part3 = std::vector<uint8_t>(H2->number_of_modules(), 0);
+    // auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
+    // auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
+    // auto part3 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
     // part2[0] = part2[2] = 1;
     // part2[1] = 2;
     // // H2->project_down(part2, part);
@@ -75,9 +76,9 @@ TEST_CASE("Test contraction subgraph dwarf")
 //     CHECK(H2->number_of_pins() < H.number_of_pins());
 //     CHECK(H2->get_max_net_degree() <= H.get_max_net_degree());
 
-//     auto part2 = std::vector<uint8_t>(H2->number_of_modules(), 0);
-//     auto part3 = std::vector<uint8_t>(H3.number_of_modules(), 0);
-//     auto part4 = std::vector<uint8_t>(H3.number_of_modules(), 0);
+//     auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
+//     auto part3 = std::vector<std::uint8_t>(H3.number_of_modules(), 0);
+//     auto part4 = std::vector<std::uint8_t>(H3.number_of_modules(), 0);
 //     for (auto i = 0u; i != H3.number_of_modules(); ++i) {
 //         part3[i] = i;
 //     }

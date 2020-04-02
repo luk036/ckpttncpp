@@ -63,7 +63,7 @@ endif()
 set (THREADS_PREFER_PTHREAD_FLAG ON)
 find_package (Threads REQUIRED)
 find_package (fmt REQUIRED)
-find_package (spdlog REQUIRED)
+# find_package (spdlog REQUIRED)
 
 # set (Boost_DIR $ENV{CONDA_PREFIX}/include)
 find_package (Boost REQUIRED COMPONENTS coroutine context)

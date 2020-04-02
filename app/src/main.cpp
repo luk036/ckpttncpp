@@ -1,6 +1,6 @@
 #include <argparse.hpp>
-#include <spdlog/spdlog.h>
-#include <spdlog/sinks/stdout_sinks.h>
+// #include <spdlog/spdlog.h>
+// #include <spdlog/sinks/stdout_sinks.h>
 
 int main(int argc, char *argv[])
 {
@@ -31,25 +31,25 @@ int main(int argc, char *argv[])
         exit(0);
     }
 
-    auto console = spdlog::stdout_logger_mt("console");
-    console->set_pattern("[%H:%M:%S %z] [%n] [thread %t] %v");
-    console->set_level(spdlog::level::warn);
+    // auto console = spdlog::stdout_logger_mt("console");
+    // console->set_pattern("[%H:%M:%S %z] [%n] [thread %t] %v");
+    // console->set_level(spdlog::level::warn);
 
-    if (parser["--verbose"] == true)
-    {
-        console->set_level(spdlog::level::info);
-    }
-    if (parser["--very-verbose"] == true)
-    {
-        console->set_level(spdlog::level::debug);
-    }
+    // if (parser["--verbose"] == true)
+    // {
+    //     console->set_level(spdlog::level::info);
+    // }
+    // if (parser["--very-verbose"] == true)
+    // {
+    //     console->set_level(spdlog::level::debug);
+    // }
 
-    console->info("program begin...");
+    // console->info("program begin...");
 
     auto input = parser.get<int>("square");
     std::cout << (input * input) << std::endl;
-    console->debug("The square of {} is {}.", input, (input*input));
+    // console->debug("The square of {} is {}.", input, (input*input));
 
-    console->info("program end...");
+    // console->info("program end...");
     return 0;
 }

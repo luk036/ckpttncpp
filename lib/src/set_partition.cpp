@@ -10,8 +10,8 @@
 /**
  * @brief S(n,k,0) even k
  *
- * @param n
- * @param k
+ * @param[in] n
+ * @param[in] k
  */
 void set_partition_::_GEN0_even(int n, int k)
 {
@@ -38,8 +38,8 @@ void set_partition_::_GEN0_even(int n, int k)
 /**
  * @brief S'(n,k,0) even k
  *
- * @param n
- * @param k
+ * @param[in] n
+ * @param[in] k
  */
 void set_partition_::_NEG0_even(int n, int k)
 {
@@ -66,8 +66,8 @@ void set_partition_::_NEG0_even(int n, int k)
 /**
  * @brief S(n,k,1) even k
  *
- * @param n
- * @param k
+ * @param[in] n
+ * @param[in] k
  */
 void set_partition_::_GEN1_even(int n, int k)
 {
@@ -94,8 +94,8 @@ void set_partition_::_GEN1_even(int n, int k)
 /**
  * @brief S'(n,k,1) even k
  *
- * @param n
- * @param k
+ * @param[in] n
+ * @param[in] k
  */
 void set_partition_::_NEG1_even(int n, int k)
 {
@@ -122,8 +122,8 @@ void set_partition_::_NEG1_even(int n, int k)
 /**
  * @brief S(n,k,0) odd k
  *
- * @param n
- * @param k
+ * @param[in] n
+ * @param[in] k
  */
 void set_partition_::_GEN0_odd(int n, int k)
 {
@@ -148,8 +148,8 @@ void set_partition_::_GEN0_odd(int n, int k)
 /**
  * @brief S'(n,k,0) odd k
  *
- * @param n
- * @param k
+ * @param[in] n
+ * @param[in] k
  */
 void set_partition_::_NEG0_odd(int n, int k)
 {
@@ -174,8 +174,8 @@ void set_partition_::_NEG0_odd(int n, int k)
 /**
  * @brief S(n,k,1) odd k
  *
- * @param n
- * @param k
+ * @param[in] n
+ * @param[in] k
  */
 void set_partition_::_GEN1_odd(int n, int k)
 {
@@ -200,8 +200,8 @@ void set_partition_::_GEN1_odd(int n, int k)
 /**
  * @brief S'(n,k,1) odd k
  *
- * @param n
- * @param k
+ * @param[in] n
+ * @param[in] k
  */
 void set_partition_::_NEG1_odd(int n, int k)
 {
@@ -226,8 +226,8 @@ void set_partition_::_NEG1_odd(int n, int k)
 /**
  * @brief Set Partition
  *
- * @param n
- * @param k
+ * @param[in] n
+ * @param[in] k
  * @return coro_t::pull_type
  */
 coro_t::pull_type set_partition(int n, int k)

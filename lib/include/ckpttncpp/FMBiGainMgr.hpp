@@ -25,7 +25,7 @@ class FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
     /*!
      * @brief Construct a new FMBiGainMgr object
      *
-     * @param H
+     * @param[in] H
      */
     FMBiGainMgr(const SimpleNetlist& H, std::uint8_t /* K */)
         : Base {H, 2}
@@ -35,7 +35,7 @@ class FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
     /*!
      * @brief
      *
-     * @param part
+     * @param[in] part
      * @return int
      */
     auto init(gsl::span<const std::uint8_t> part) -> int;
@@ -43,9 +43,9 @@ class FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
     /*!
      * @brief (needed by base class)
      *
-     * @param part
-     * @param w
-     * @param key
+     * @param[in] w
+     * @param[in] part_w
+     * @param[in] key
      */
     auto modify_key(node_t w, std::uint8_t part_w, int key) -> void
     {
@@ -56,9 +56,8 @@ class FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
     /*!
      * @brief
      *
-     * @param part
-     * @param move_info_v
-     * @param gain
+     * @param[in] move_info_v
+     * @param[in] gain
      */
     auto update_move_v(const MoveInfoV& move_info_v, int gain) -> void
     {
@@ -70,8 +69,8 @@ class FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
     /*!
      * @brief lock
      *
-     * @param whichPart
-     * @param v
+     * @param[in] whichPart
+     * @param[in] v
      */
     auto lock(uint8_t whichPart, node_t v) -> void
     {
@@ -83,8 +82,8 @@ class FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
     /*!
      * @brief lock_all
      *
-     * @param fromPart
-     * @param v
+     * @param[in] fromPart
+     * @param[in] v
      */
     auto lock_all(uint8_t fromPart, node_t v) -> void
     {
@@ -95,9 +94,9 @@ class FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
     /*!
      * @brief Set the key object
      *
-     * @param whichPart
-     * @param v
-     * @param key
+     * @param[in] whichPart
+     * @param[in] v
+     * @param[in] key
      */
     auto _set_key(uint8_t whichPart, node_t v, int key) -> void
     {

@@ -24,8 +24,8 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
     /*!
      * @brief Construct a new FMKWayGainMgr object
      *
-     * @param H
-     * @param K
+     * @param[in] H
+     * @param[in] K
      */
     FMKWayGainMgr(const SimpleNetlist& H, std::uint8_t K)
         : Base {H, K}
@@ -36,16 +36,16 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
     /*!
      * @brief
      *
-     * @param part
+     * @param[in] part
      */
     auto init(gsl::span<const std::uint8_t> part) -> int;
 
     /*!
      * @brief (needed by base class)
      *
-     * @param part
-     * @param w
-     * @param keys
+     * @param[in] w
+     * @param[in] part_w
+     * @param[in] keys
      */
     auto modify_key(node_t w, std::uint8_t part_w, const std::vector<int>& keys)
         -> void
@@ -60,17 +60,16 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
     /*!
      * @brief
      *
-     * @param part
-     * @param move_info_v
-     * @param gain
+     * @param[in] move_info_v
+     * @param[in] gain
      */
     auto update_move_v(const MoveInfoV& move_info_v, int gain) -> void;
 
     /*!
      * @brief lock
      *
-     * @param whichPart
-     * @param v
+     * @param[in] whichPart
+     * @param[in] v
      */
     auto lock(uint8_t whichPart, node_t v) -> void
     {
@@ -82,8 +81,8 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
     /*!
      * @brief lock_all
      *
-     * @param fromPart
-     * @param v
+     * @param[in] fromPart
+     * @param[in] v
      */
     auto lock_all(uint8_t /*fromPart*/, node_t v) -> void
     {
@@ -97,9 +96,9 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
     /*!
      * @brief Set the key object
      *
-     * @param whichPart
-     * @param v
-     * @param key
+     * @param[in] whichPart
+     * @param[in] v
+     * @param[in] key
      */
     auto _set_key(uint8_t whichPart, node_t v, int key) -> void
     {

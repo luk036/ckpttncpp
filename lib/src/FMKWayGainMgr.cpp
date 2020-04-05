@@ -4,7 +4,7 @@
 /**
  * @brief
  *
- * @param part
+ * @param[in] part
  * @return int
  */
 int FMKWayGainMgr::init(gsl::span<const std::uint8_t> part)
@@ -37,9 +37,9 @@ int FMKWayGainMgr::init(gsl::span<const std::uint8_t> part)
 /**
  * @brief
  *
- * @param part
- * @param move_info_v
- * @param gain
+ * @param[in] part
+ * @param[in] move_info_v
+ * @param[in] gain
  */
 void FMKWayGainMgr::update_move_v(const MoveInfoV& move_info_v, int gain)
 {

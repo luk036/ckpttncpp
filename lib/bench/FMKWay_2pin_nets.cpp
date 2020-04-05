@@ -10,10 +10,11 @@ extern SimpleNetlist readNetD(std::string_view netDFileName);
 extern void readAre(SimpleNetlist& H, std::string_view areFileName);
 
 /**
- * @brief Run test cases
+ * @brief Run FM K-way partitioning
  *
- * @param H
- * @param K
+ * @param[in] H
+ * @param[in] K
+ * @param[in] option
  */
 void run_FMKWayPartMgr(SimpleNetlist& H, std::uint8_t K, bool option)
 {
@@ -35,7 +36,7 @@ void run_FMKWayPartMgr(SimpleNetlist& H, std::uint8_t K, bool option)
 /*!
  * @brief
  *
- * @param state
+ * @param[in] state
  */
 static void BM_with_2pin_nets(benchmark::State& state)
 {
@@ -56,7 +57,7 @@ BENCHMARK(BM_with_2pin_nets);
 /*!
  * @brief Define another benchmark
  *
- * @param state
+ * @param[in] state
  */
 static void BM_without_2pin_nets(benchmark::State& state)
 {

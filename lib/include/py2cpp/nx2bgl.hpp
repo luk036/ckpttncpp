@@ -21,7 +21,7 @@ class VertexView : public Graph
     /*!
      * @brief Construct a new Vertex View object
      *
-     * @param G
+     * @param[in] G
      */
     explicit VertexView(Graph& G)
         : Graph(G)
@@ -88,7 +88,7 @@ class EdgeView
     /*!
      * @brief Construct a new Edge View object
      *
-     * @param G
+     * @param[in] G
      */
     explicit EdgeView(const Graph& G)
         : _G {G}
@@ -157,8 +157,8 @@ class AtlasView
     /*!
      * @brief Construct a new Atlas View object
      *
-     * @param v
-     * @param G
+     * @param[in] v
+     * @param[in] G
      */
     explicit AtlasView(Vertex v, const Graph& G)
         : _v {v}
@@ -236,7 +236,7 @@ class grAdaptor : public VertexView<Graph>
     /*!
      * @brief Construct a new gr Adaptor object
      *
-     * @param G
+     * @param[in] G
      */
     explicit grAdaptor(Graph& G)
         : VertexView<Graph>(G)
@@ -266,7 +266,7 @@ class grAdaptor : public VertexView<Graph>
     /*!
      * @brief
      *
-     * @param v
+     * @param[in] v
      * @return AtlasView<Vertex, Graph>
      */
     AtlasView<Vertex, Graph> neighbors(Vertex v) const
@@ -277,8 +277,8 @@ class grAdaptor : public VertexView<Graph>
     /*!
      * @brief
      *
-     * @param u
-     * @param v
+     * @param[in] u
+     * @param[in] v
      * @return auto
      */
     auto add_edge(int u, int v)
@@ -300,7 +300,7 @@ class grAdaptor : public VertexView<Graph>
      * @brief
      *
      * @tparam Edge
-     * @param e
+     * @param[in] e
      * @return Vertex
      */
     template <typename Edge>
@@ -313,7 +313,7 @@ class grAdaptor : public VertexView<Graph>
      * @brief
      *
      * @tparam Edge
-     * @param e
+     * @param[in] e
      * @return Vertex
      */
     template <typename Edge>
@@ -326,7 +326,7 @@ class grAdaptor : public VertexView<Graph>
      * @brief
      *
      * @tparam Edge
-     * @param e
+     * @param[in] e
      * @return auto
      */
     template <typename Edge>

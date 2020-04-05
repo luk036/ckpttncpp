@@ -55,28 +55,27 @@ struct Netlist
     /*!
      * @brief Construct a new Netlist object
      *
-     * @param G
-     * @param module_list
-     * @param net_list
-     * @param module_fixed
+     * @param[in] G
+     * @param[in] module_list
+     * @param[in] net_list
+     * @param[in] module_fixed
      */
     Netlist(graph_t G, const nodeview_t& modules, const nodeview_t& nets,
         const nodemap_t& module_map);
 
-    /*!
+    /**
      * @brief Construct a new Netlist object
-     *
-     * @param G
-     * @param module_list
-     * @param net_list
-     * @param module_fixed
+     * 
+     * @param[in] G 
+     * @param[in] num_modules 
+     * @param[in] num_nets 
      */
     Netlist(graph_t G, size_t num_modules, size_t num_nets);
 
-    /*!
-     * @brief
-     *
-     * @return index_t
+    /**
+     * @brief Get the number of modules
+     * 
+     * @return size_t 
      */
     auto number_of_modules() const -> size_t
     {
@@ -84,9 +83,9 @@ struct Netlist
     }
 
     /*!
-     * @brief
+     * @brief Get the number of nets
      *
-     * @return index_t
+     * @return size_t
      */
     auto number_of_nets() const -> size_t
     {
@@ -94,9 +93,9 @@ struct Netlist
     }
 
     /*!
-     * @brief
+     * @brief Get the number of nodes
      *
-     * @return index_t
+     * @return size_t
      */
     auto number_of_nodes() const -> size_t
     {
@@ -114,7 +113,7 @@ struct Netlist
     /*!
      * @brief Get the max degree
      *
-     * @return index_t
+     * @return size_t
      */
     auto get_max_degree() const -> size_t
     {
@@ -131,12 +130,23 @@ struct Netlist
         return this->max_net_degree;
     }
 
+    /**
+     * @brief Get the module weight
+     * 
+     * @param[in] v 
+     * @return int 
+     */
     auto get_module_weight(node_t v) const -> int
     {
         return this->module_weight.empty() ? 1 : this->module_weight[v];
     }
 
-    auto get_net_weight(node_t /*net*/) const -> index_t
+    /**
+     * @brief Get the net weight
+     * 
+     * @return int 
+     */
+    auto get_net_weight(node_t /*net*/) const -> int
     {
         // return this->net_weight.empty() ? 1
         //                                 :
@@ -176,8 +186,8 @@ struct Netlist
     /*!
      * @brief projection down
      *
-     * @param part
-     * @param part_down
+     * @param[in] part
+     * @param[out] part_down
      */
     void projection_down(
         gsl::span<const std::uint8_t> part, gsl::span<std::uint8_t> part_down) const;
@@ -185,20 +195,22 @@ struct Netlist
     /*!
      * @brief projection up
      *
-     * @param part
-     * @param part_up
+     * @param[in] part
+     * @param[out] part_up
      */
     void projection_up(
         gsl::span<const std::uint8_t> part, gsl::span<std::uint8_t> part_up) const;
 };
 
-/*!
+/**
  * @brief Construct a new Netlist object
- *
- * @param G
- * @param module_list
- * @param net_list
- * @param module_fixed
+ * 
+ * @tparam nodeview_t 
+ * @tparam nodemap_t 
+ * @param[in] G 
+ * @param[in] modules 
+ * @param[in] nets 
+ * @param[in] module_map 
  */
 template <typename nodeview_t, typename nodemap_t>
 Netlist<nodeview_t, nodemap_t>::Netlist(graph_t G, const nodeview_t& modules,

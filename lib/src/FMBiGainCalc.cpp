@@ -3,8 +3,8 @@
 /**
  * @brief
  *
- * @param net
- * @param part
+ * @param[in] net
+ * @param[in] part
  */
 void FMBiGainCalc::_init_gain( //
     const node_t& net, gsl::span<const std::uint8_t> part)
@@ -44,8 +44,8 @@ void FMBiGainCalc::_init_gain( //
 /**
  * @brief
  *
- * @param net
- * @param part
+ * @param[in] net
+ * @param[in] part
  */
 void FMBiGainCalc::_init_gain_2pin_net( //
     const node_t& net, gsl::span<const std::uint8_t> part)
@@ -70,8 +70,8 @@ void FMBiGainCalc::_init_gain_2pin_net( //
 /**
  * @brief
  *
- * @param net
- * @param part
+ * @param[in] net
+ * @param[in] part
  */
 void FMBiGainCalc::_init_gain_3pin_net(
     const node_t& net, gsl::span<const std::uint8_t> part)
@@ -108,8 +108,8 @@ void FMBiGainCalc::_init_gain_3pin_net(
 /**
  * @brief
  *
- * @param net
- * @param part
+ * @param[in] net
+ * @param[in] part
  */
 void FMBiGainCalc::_init_gain_general_net(
     const node_t& net, gsl::span<const std::uint8_t> part)
@@ -155,8 +155,8 @@ void FMBiGainCalc::_init_gain_general_net(
 /**
  * @brief
  *
- * @param part
- * @param move_info
+ * @param[in] part
+ * @param[in] move_info
  * @return ret_2pin_info
  */
 FMBiGainCalc::ret_2pin_info FMBiGainCalc::update_move_2pin_net(
@@ -174,8 +174,8 @@ FMBiGainCalc::ret_2pin_info FMBiGainCalc::update_move_2pin_net(
 /**
  * @brief
  *
- * @param part
- * @param move_info
+ * @param[in] part
+ * @param[in] move_info
  * @return ret_info
  */
 FMBiGainCalc::ret_info FMBiGainCalc::update_move_3pin_net(
@@ -217,8 +217,8 @@ FMBiGainCalc::ret_info FMBiGainCalc::update_move_3pin_net(
 /**
  * @brief
  *
- * @param part
- * @param move_info
+ * @param[in] part
+ * @param[in] move_info
  * @return ret_info
  */
 FMBiGainCalc::ret_info FMBiGainCalc::update_move_general_net(

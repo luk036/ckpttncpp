@@ -35,8 +35,7 @@ class MLPartMgr
     /*!
      * @brief Construct a new MLPartMgr object
      *
-     * @param BalTol
-     * @param K
+     * @param[in] BalTol
      */
     explicit MLPartMgr(double BalTol)
         : MLPartMgr(BalTol, 2) {}
@@ -44,8 +43,8 @@ class MLPartMgr
     /*!
      * @brief Construct a new MLPartMgr object
      *
-     * @param BalTol
-     * @param K
+     * @param[in] BalTol
+     * @param[in] K
      */
     MLPartMgr(double BalTol, std::uint8_t K)
         : BalTol {BalTol}
@@ -58,9 +57,9 @@ class MLPartMgr
      *
      * @tparam GainMgr
      * @tparam ConstrMgr
-     * @param H
-     * @param part
-     * @param limitsize
+     * @param[in] H
+     * @param[in,out] part
+     * @param[in] limitsize
      * @return LegalCheck
      */
     template <typename PartMgr>
@@ -127,8 +126,8 @@ class MLPartMgr
      *
      * @tparam GainMgr
      * @tparam ConstrMgr
-     * @param H
-     * @param part
+     * @param[in] H
+     * @param[in,out] part
      * @return LegalCheck
      */
     template <typename PartMgr>
@@ -142,9 +141,9 @@ class MLPartMgr
      *
      * @tparam GainMgr
      * @tparam ConstrMgr
-     * @param H
-     * @param part
-     * @param limitsize
+     * @param[in] H
+     * @param[in,out] part
+     * @param[in] limitsize
      * @return LegalCheck
      */
     template <typename PartMgr>
@@ -173,8 +172,8 @@ class MLPartMgr
      *
      * @tparam GainMgr
      * @tparam ConstrMgr
-     * @param H
-     * @param part
+     * @param[in] H
+     * @param[in,out] part
      * @return LegalCheck
      */
     template <typename PartMgr>
@@ -188,9 +187,9 @@ class MLPartMgr
      *
      * @tparam GainMgr
      * @tparam ConstrMgr
-     * @param H
-     * @param part
-     * @param limitsize
+     * @param[in] H
+     * @param[in,out] part
+     * @param[in] limitsize
      * @return size_t self.take_snapshot(part)
      */
     template <typename PartMgr>

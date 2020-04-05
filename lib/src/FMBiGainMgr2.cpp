@@ -4,7 +4,7 @@
 /**
  * @brief
  *
- * @param part
+ * @param[in] part
  */
 int FMBiGainMgr::init(gsl::span<const std::uint8_t> part)
 {

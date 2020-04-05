@@ -69,9 +69,7 @@ class set_partition_
     /**
      * @brief Construct object
      *
-     * @param n_
-     * @param k_
-     * @param yield_
+     * @param[in] yield_
      */
     explicit set_partition_(Fun yield_)
         : yield(std::move(yield_))
@@ -79,8 +77,10 @@ class set_partition_
     }
 
     /**
-     * @brief run
-     *
+     * @brief 
+     * 
+     * @param[in] n 
+     * @param[in] k 
      */
     void run(int n, int k)
     {
@@ -94,8 +94,8 @@ class set_partition_
     /**
      * @brief Move
      *
-     * @param x
-     * @param y
+     * @param[in] x
+     * @param[in] y
      */
     void _Move(int x, int y)
     {
@@ -105,64 +105,64 @@ class set_partition_
     /**
      * @brief S(n,k,0) even k
      *
-     * @param n
-     * @param k
+     * @param[in] n
+     * @param[in] k
      */
     void _GEN0_even(int n, int k);
 
     /**
      * @brief S'(n,k,0) even k
      *
-     * @param n
-     * @param k
+     * @param[in] n
+     * @param[in] k
      */
     void _NEG0_even(int n, int k);
 
     /**
      * @brief S(n,k,1) even k
      *
-     * @param n
-     * @param k
+     * @param[in] n
+     * @param[in] k
      */
     void _GEN1_even(int n, int k);
 
     /**
      * @brief S'(n,k,1) even k
      *
-     * @param n
-     * @param k
+     * @param[in] n
+     * @param[in] k
      */
     void _NEG1_even(int n, int k);
 
     /**
      * @brief S(n,k,0) odd k
      *
-     * @param n
-     * @param k
+     * @param[in] n
+     * @param[in] k
      */
     void _GEN0_odd(int n, int k);
 
     /**
      * @brief S'(n,k,0) odd k
      *
-     * @param n
-     * @param k
+     * @param[in] n
+     * @param[in] k
      */
     void _NEG0_odd(int n, int k);
 
     /**
      * @brief S(n,k,1) odd k
      *
-     * @param n
-     * @param k
+     * @param[in] n
+     * @param[in] k
      */
     void _GEN1_odd(int n, int k);
 
     /**
      * @brief S'(n,k,1) odd k
      *
-     * @param n
-     * @param k
+     * @param[in] n
+     * @param[in] k
      */
     void _NEG1_odd(int n, int k);
 };

@@ -3,8 +3,8 @@
 /**
  * @brief Construct a new FMGainMgr object
  *
- * @param H
- * @param K
+ * @param[in] H
+ * @param[in] K
  */
 template <typename GainCalc, class Derived>
 FMGainMgr<GainCalc, Derived>::FMGainMgr(const SimpleNetlist& H, std::uint8_t K)
@@ -24,7 +24,7 @@ FMGainMgr<GainCalc, Derived>::FMGainMgr(const SimpleNetlist& H, std::uint8_t K)
 /**
  * @brief
  *
- * @param part
+ * @param[in] part
  */
 template <typename GainCalc, class Derived>
 int FMGainMgr<GainCalc, Derived>::init(gsl::span<const std::uint8_t> part)
@@ -38,7 +38,7 @@ int FMGainMgr<GainCalc, Derived>::init(gsl::span<const std::uint8_t> part)
 /**
  * @brief
  *
- * @param part
+ * @param[in] part
  * @return std::tuple<MoveInfoV, int>
  */
 template <typename GainCalc, class Derived>
@@ -63,7 +63,7 @@ std::tuple<MoveInfoV, int> FMGainMgr<GainCalc, Derived>::select(
 /**
  * @brief
  *
- * @param toPart
+ * @param[in] toPart
  * @return std::tuple<node_t, int>
  */
 template <typename GainCalc, class Derived>
@@ -80,9 +80,9 @@ std::tuple<node_t, int> FMGainMgr<GainCalc, Derived>::select_togo(
 /**
  * @brief
  *
- * @param part
- * @param move_info_v
- * @param gain
+ * @param[in] part
+ * @param[in] move_info_v
+ * @param[in] gain
  */
 template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::update_move(
@@ -132,8 +132,8 @@ void FMGainMgr<GainCalc, Derived>::update_move(
 /**
  * @brief
  *
- * @param part
- * @param move_info
+ * @param[in] part
+ * @param[in] move_info
  */
 template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::_update_move_2pin_net(
@@ -147,8 +147,8 @@ void FMGainMgr<GainCalc, Derived>::_update_move_2pin_net(
 /**
  * @brief
  *
- * @param part
- * @param move_info
+ * @param[in] part
+ * @param[in] move_info
  */
 template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::_update_move_3pin_net(
@@ -167,8 +167,8 @@ void FMGainMgr<GainCalc, Derived>::_update_move_3pin_net(
 /**
  * @brief
  *
- * @param part
- * @param move_info
+ * @param[in] part
+ * @param[in] move_info
  */
 template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::_update_move_general_net(

@@ -8,7 +8,7 @@
  *
  * @tparam GainMgr
  * @tparam ConstrMgr
- * @param part
+ * @param[in] part
  */
 template <typename GainMgr, typename ConstrMgr,
     template <typename _GainMgr, typename _ConstrMgr> class Derived> //
@@ -24,7 +24,7 @@ void PartMgrBase<GainMgr, ConstrMgr, Derived>::init(gsl::span<std::uint8_t> part
  * @tparam GainMgr
  * @tparam ConstrMgr
  * @tparam Derived
- * @param part
+ * @param[in] part
  * @return LegalCheck
  */
 template <typename GainMgr, typename ConstrMgr,
@@ -85,7 +85,7 @@ LegalCheck PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
  *
  * @tparam GainMgr
  * @tparam ConstrMgr
- * @param part
+ * @param[in] part
  */
 template <typename GainMgr, typename ConstrMgr,
     template <typename _GainMgr, typename _ConstrMgr> class Derived> //
@@ -152,7 +152,7 @@ void PartMgrBase<GainMgr, ConstrMgr, Derived>::_optimize_1pass(
  *
  * @tparam GainMgr
  * @tparam ConstrMgr
- * @param part
+ * @param[in] part
  */
 template <typename GainMgr, typename ConstrMgr,
     template <typename _GainMgr, typename _ConstrMgr> class Derived> //

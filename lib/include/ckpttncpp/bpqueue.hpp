@@ -40,8 +40,8 @@ class bpqueue
     /*!
      * @brief Construct a new bpqueue object
      *
-     * @param a lower bound
-     * @param b upper bound
+     * @param[in] a lower bound
+     * @param[in] b upper bound
      */
     bpqueue(T a, T b)
         : offset {a - 1}
@@ -60,8 +60,8 @@ class bpqueue
     /*!
      * @brief Set the key object
      *
-     * @param it   the item
-     * @param gain the key of it
+     * @param[out] it   the item
+     * @param[in] gain the key of it
      */
     auto set_key(dllink<T>& it, T gain) -> void
     {
@@ -104,7 +104,7 @@ class bpqueue
     /*!
      * @brief append item with internal key
      *
-     * @param it the item
+     * @param[in,out] it the item
      */
     auto append_direct(dllink<T>& it) -> void
     {
@@ -115,8 +115,8 @@ class bpqueue
     /*!
      * @brief append item with external key
      *
-     * @param it the item
-     * @param k  the key
+     * @param[in,out] it the item
+     * @param[in] k  the key
      */
     auto append(dllink<T>& it, T k) -> void
     {
@@ -132,8 +132,7 @@ class bpqueue
     /*!
      * @brief append from list
      *
-     * @param nodes
-     * @param keys
+     * @param[in,out] nodes
      */
     auto appendfrom(gsl::span<dllink<T>> nodes) -> void
     {
@@ -168,8 +167,8 @@ class bpqueue
     /*!
      * @brief decrease key by delta
      *
-     * @param it the item
-     * @param delta the change of the key
+     * @param[in,out] it the item
+     * @param[in] delta the change of the key
      *
      * Note that the order of items with same key will not be preserved.
      * For FM algorithm, this is a prefered behavior.
@@ -196,8 +195,8 @@ class bpqueue
     /*!
      * @brief increase key by delta
      *
-     * @param it the item
-     * @param delta the change of the key
+     * @param[in,out] it the item
+     * @param[in] delta the change of the key
      *
      * Note that the order of items with same key will not be preserved.
      * For FM algorithm, this is a prefered behavior.
@@ -219,8 +218,8 @@ class bpqueue
     /*!
      * @brief modify key by delta
      *
-     * @param it the item
-     * @param delta the change of the key
+     * @param[in,out] it the item
+     * @param[in] delta the change of the key
      *
      * Note that the order of items with same key will not be preserved.
      * For FM algorithm, this is a prefered behavior.
@@ -244,7 +243,7 @@ class bpqueue
     /*!
      * @brief detach the item from bpqueue
      *
-     * @param it the item
+     * @param[in,out] it the item
      */
     auto detach(dllink<T>& it) -> void
     {
@@ -331,8 +330,8 @@ inline dllink<T> bpqueue<T>::sentinel {};
 //     /*!
 //      * @brief Construct a new bpq iterator object
 //      *
-//      * @param bpq
-//      * @param curkey
+//      * @param[in] bpq
+//      * @param[in] curkey
 //      */
 //     bpq_iterator(bpqueue<T> &bpq, T curkey)
 //         : bpq{bpq}, curkey{curkey}, curitem{bpq.bucket[curkey].begin()} {}
@@ -363,7 +362,7 @@ inline dllink<T> bpqueue<T>::sentinel {};
 //     /*!
 //      * @brief eq operator
 //      *
-//      * @param rhs
+//      * @param[in] rhs
 //      * @return true
 //      * @return false
 //      */
@@ -374,7 +373,7 @@ inline dllink<T> bpqueue<T>::sentinel {};
 //     /*!
 //      * @brief neq operator
 //      *
-//      * @param rhs
+//      * @param[in] rhs
 //      * @return true
 //      * @return false
 //      */

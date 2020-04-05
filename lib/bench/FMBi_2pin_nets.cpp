@@ -10,11 +10,12 @@ extern SimpleNetlist readNetD(std::string_view netDFileName);
 extern void readAre(SimpleNetlist& H, std::string_view areFileName);
 
 /**
- * @brief Run test cases
- *
- * @param H
+ * @brief run FM Bi-partitioning 
+ * 
+ * @param[in] H 
+ * @param[in] option 
  */
-void run_FMBiPartMgr(SimpleNetlist& H, bool option)
+void run_FMBiPartMgr(const SimpleNetlist& H, bool option)
 {
     auto gainMgr = FMBiGainMgr {H};
     gainMgr.gainCalc.special_handle_2pin_nets = option;
@@ -33,7 +34,7 @@ void run_FMBiPartMgr(SimpleNetlist& H, bool option)
 /*!
  * @brief
  *
- * @param state
+ * @param[in] state
  */
 static void BM_with_2pin_nets(benchmark::State& state)
 {
@@ -54,7 +55,7 @@ BENCHMARK(BM_with_2pin_nets);
 /*!
  * @brief Define another benchmark
  *
- * @param state
+ * @param[in] state
  */
 static void BM_without_2pin_nets(benchmark::State& state)
 {

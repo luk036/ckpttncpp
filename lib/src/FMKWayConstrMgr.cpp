@@ -18,7 +18,7 @@ struct identity
 /*!
  * @brief
  *
- * @param move_info_v
+ * @param[in] move_info_v
  * @return LegalCheck
  */
 LegalCheck FMKWayConstrMgr::check_legal(const MoveInfoV& move_info_v)

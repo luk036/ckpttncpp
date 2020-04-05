@@ -17,9 +17,9 @@ class FMKWayConstrMgr : public FMConstrMgr
     /*!
      * @brief Construct a new FMKWayConstrMgr object
      *
-     * @param H
-     * @param BalTol
-     * @param K
+     * @param[in] H
+     * @param[in] BalTol
+     * @param[in] K
      */
     FMKWayConstrMgr(const SimpleNetlist& H, double BalTol, std::uint8_t K)
         : FMConstrMgr {H, BalTol, K}
@@ -42,7 +42,7 @@ class FMKWayConstrMgr : public FMConstrMgr
     /*!
      * @brief
      *
-     * @param part
+     * @param[in] part
      */
     auto init(gsl::span<const std::uint8_t> part) -> void
     {
@@ -56,7 +56,7 @@ class FMKWayConstrMgr : public FMConstrMgr
     /*!
      * @brief
      *
-     * @param move_info_v
+     * @param[in] move_info_v
      * @return LegalCheck
      */
     auto check_legal(const MoveInfoV& move_info_v) -> LegalCheck;

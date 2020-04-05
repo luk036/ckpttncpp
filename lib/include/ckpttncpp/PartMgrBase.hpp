@@ -70,9 +70,9 @@ class PartMgrBase
     /*!
      * @brief Construct a new FDPartMgr object
      *
-     * @param H
-     * @param gainMgr
-     * @param constrMgr
+     * @param[in] H
+     * @param[in,out] gainMgr
+     * @param[in,out] constrMgr
      */
     PartMgrBase(const SimpleNetlist& H, GainMgr& gainMgr, ConstrMgr& constrMgr)
         : H {H}
@@ -85,14 +85,14 @@ class PartMgrBase
     /*!
      * @brief
      *
-     * @param part
+     * @param[in,out] part
      */
     void init(gsl::span<std::uint8_t> part);
 
     /*!
      * @brief
      *
-     * @param part
+     * @param[in,out] part
      * @return LegalCheck
      */
     LegalCheck legalize(gsl::span<std::uint8_t> part);
@@ -100,7 +100,7 @@ class PartMgrBase
     /*!
      * @brief
      *
-     * @param part
+     * @param[in,out] part
      */
     void optimize(gsl::span<std::uint8_t> part);
 
@@ -108,7 +108,7 @@ class PartMgrBase
     /*!
      * @brief
      *
-     * @param part
+     * @param[in,out] part
      */
     void _optimize_1pass(gsl::span<std::uint8_t> part);
 };

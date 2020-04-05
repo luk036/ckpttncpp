@@ -4,7 +4,7 @@
 /**
  * @brief
  *
- * @param part
+ * @param[in] part
  */
 void FMConstrMgr::init(gsl::span<const std::uint8_t> part)
 {
@@ -19,7 +19,7 @@ void FMConstrMgr::init(gsl::span<const std::uint8_t> part)
 /**
  * @brief
  *
- * @param move_info_v
+ * @param[in] move_info_v
  * @return LegalCheck
  */
 LegalCheck FMConstrMgr::check_legal(const MoveInfoV& move_info_v)
@@ -43,7 +43,7 @@ LegalCheck FMConstrMgr::check_legal(const MoveInfoV& move_info_v)
 /**
  * @brief
  *
- * @param move_info_v
+ * @param[in] move_info_v
  * @return true
  * @return false
  */
@@ -60,7 +60,7 @@ bool FMConstrMgr::check_constraints(const MoveInfoV& move_info_v)
 /**
  * @brief
  *
- * @param move_info_v
+ * @param[in] move_info_v
  */
 void FMConstrMgr::update_move(const MoveInfoV& move_info_v)
 {

@@ -3,9 +3,9 @@
 /**
  * @brief
  *
- * @param net
- * @param part
- * @param vertex_list
+ * @param[in] net
+ * @param[in] part
+ * @param[in] vertex_list
  */
 void FMKWayGainCalc::_init_gain(
     const node_t& net, gsl::span<const std::uint8_t> part)
@@ -45,8 +45,8 @@ void FMKWayGainCalc::_init_gain(
 /**
  * @brief
  *
- * @param net
- * @param part
+ * @param[in] net
+ * @param[in] part
  */
 void FMKWayGainCalc::_init_gain_2pin_net(
     const node_t& net, gsl::span<const std::uint8_t> part)
@@ -73,8 +73,8 @@ void FMKWayGainCalc::_init_gain_2pin_net(
 /**
  * @brief
  *
- * @param net
- * @param part
+ * @param[in] net
+ * @param[in] part
  */
 void FMKWayGainCalc::_init_gain_3pin_net(
     const node_t& net, gsl::span<const std::uint8_t> part)
@@ -133,8 +133,8 @@ void FMKWayGainCalc::_init_gain_3pin_net(
 /**
  * @brief
  *
- * @param net
- * @param part
+ * @param[in] net
+ * @param[in] part
  */
 void FMKWayGainCalc::_init_gain_general_net(
     const node_t& net, gsl::span<const std::uint8_t> part)
@@ -182,8 +182,8 @@ void FMKWayGainCalc::_init_gain_general_net(
 /**
  * @brief
  *
- * @param part
- * @param move_info
+ * @param[in] part
+ * @param[in] move_info
  * @return ret_2pin_info
  */
 FMKWayGainCalc::ret_2pin_info FMKWayGainCalc::update_move_2pin_net(
@@ -217,8 +217,8 @@ FMKWayGainCalc::ret_2pin_info FMKWayGainCalc::update_move_2pin_net(
 /**
  * @brief
  *
- * @param part
- * @param move_info
+ * @param[in] part
+ * @param[in] move_info
  * @return ret_info
  */
 FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
@@ -303,8 +303,8 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
 /**
  * @brief
  *
- * @param part
- * @param move_info
+ * @param[in] part
+ * @param[in] move_info
  * @return ret_info
  */
 FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_general_net(

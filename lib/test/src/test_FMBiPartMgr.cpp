@@ -12,7 +12,7 @@ extern void readAre(SimpleNetlist& H, std::string_view areFileName);
 /**
  * @brief Run test cases
  *
- * @param H
+ * @param[in] H
  */
 void run_FMBiPartMgr(const SimpleNetlist& H)
 {

@@ -37,22 +37,22 @@ class FMGainMgr
     /*!
      * @brief Construct a new FMGainMgr object
      *
-     * @param H
-     * @param K
+     * @param[in] H
+     * @param[in] K
      */
     FMGainMgr(const SimpleNetlist& H, std::uint8_t K);
 
     /*!
      * @brief
      *
-     * @param part
+     * @param[in] part
      */
     auto init(gsl::span<const std::uint8_t> part) -> int;
 
     /*!
      * @brief
      *
-     * @param toPart
+     * @param[in] toPart
      * @return true
      * @return false
      */
@@ -82,7 +82,7 @@ class FMGainMgr
     /*!
      * @brief
      *
-     * @param part
+     * @param[in] part
      * @return std::tuple<MoveInfoV, int>
      */
     auto select(gsl::span<const std::uint8_t> part) -> std::tuple<MoveInfoV, int>;
@@ -90,7 +90,7 @@ class FMGainMgr
     /*!
      * @brief
      *
-     * @param toPart
+     * @param[in] toPart
      * @return std::tuple<node_t, int>
      */
     auto select_togo(uint8_t toPart) -> std::tuple<node_t, int>;
@@ -98,8 +98,8 @@ class FMGainMgr
     /*!
      * @brief
      *
-     * @param part
-     * @param move_info_v
+     * @param[in] part
+     * @param[in] move_info_v
      */
     auto update_move(
         gsl::span<const std::uint8_t> part, const MoveInfoV& move_info_v) -> void;
@@ -108,8 +108,8 @@ class FMGainMgr
     /*!
      * @brief
      *
-     * @param part
-     * @param move_info
+     * @param[in] part
+     * @param[in] move_info
      */
     auto _update_move_2pin_net(
         gsl::span<const std::uint8_t> part, const MoveInfo& move_info) -> void;
@@ -117,8 +117,8 @@ class FMGainMgr
     /*!
      * @brief
      *
-     * @param part
-     * @param move_info
+     * @param[in] part
+     * @param[in] move_info
      */
     auto _update_move_3pin_net(
         gsl::span<const std::uint8_t> part, const MoveInfo& move_info) -> void;
@@ -126,8 +126,8 @@ class FMGainMgr
     /*!
      * @brief
      *
-     * @param part
-     * @param move_info
+     * @param[in] part
+     * @param[in] move_info
      */
     auto _update_move_general_net(
         gsl::span<const std::uint8_t> part, const MoveInfo& move_info) -> void;

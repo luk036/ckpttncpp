@@ -8,8 +8,8 @@ extern SimpleNetlist create_dwarf();        // import create_dwarf
 /**
  * @brief
  *
- * @param H
- * @param part_test
+ * @param[in] H
+ * @param[in] part_test
  */
 void run_FMBiGainMgr(const SimpleNetlist& H, gsl::span<std::uint8_t> part)
 {

@@ -37,9 +37,8 @@ class FMConstrMgr
     /*!
      * @brief Construct a new FMConstrMgr object
      *
-     * @param H
-     * @param K
-     * @param BalTol
+     * @param[in] H
+     * @param[in] BalTol
      */
     FMConstrMgr(const SimpleNetlist& H, double BalTol)
         : FMConstrMgr(H, BalTol, 2)
@@ -49,9 +48,9 @@ class FMConstrMgr
     /*!
      * @brief Construct a new FMConstrMgr object
      *
-     * @param H
-     * @param K
-     * @param BalTol
+     * @param[in] H
+     * @param[in] BalTol
+     * @param[in] K
      */
     FMConstrMgr(const SimpleNetlist& H, double BalTol, std::uint8_t K)
         : H {H}
@@ -72,14 +71,14 @@ class FMConstrMgr
     /*!
      * @brief
      *
-     * @param part
+     * @param[in] part
      */
     auto init(gsl::span<const std::uint8_t> part) -> void;
 
     /*!
      * @brief
      *
-     * @param move_info_v
+     * @param[in] move_info_v
      * @return LegalCheck
      */
     auto check_legal(const MoveInfoV& move_info_v) -> LegalCheck;
@@ -87,7 +86,7 @@ class FMConstrMgr
     /*!
      * @brief
      *
-     * @param move_info_v
+     * @param[in] move_info_v
      * @return true
      * @return false
      */
@@ -96,7 +95,7 @@ class FMConstrMgr
     /*!
      * @brief
      *
-     * @param move_info_v
+     * @param[in] move_info_v
      */
     auto update_move(const MoveInfoV& move_info_v) -> void;
 };

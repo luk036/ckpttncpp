@@ -8,8 +8,8 @@
 /**
  * @brief
  *
- * @param H
- * @param DontSelect
+ * @param[in] H
+ * @param[in] DontSelect
  * @return auto
  */
 auto max_independent_net(const SimpleNetlist& H,
@@ -62,7 +62,7 @@ auto max_independent_net(const SimpleNetlist& H,
 // /**
 //  * @brief
 //  *
-//  * @param H
+//  * @param[in] H
 //  * @return auto
 //  */
 // auto min_net_cover_pd(SimpleNetlist &H, const std::vector<int> & /*weight*/)
@@ -143,8 +143,8 @@ auto max_independent_net(const SimpleNetlist& H,
 /**
  * @brief Create a contraction subgraph object
  *
- * @param H
- * @param DontSelect
+ * @param[in] H
+ * @param[in] DontSelect
  * @return auto
  */
 auto create_contraction_subgraph(

@@ -12,8 +12,8 @@ extern void readAre(SimpleNetlist& H, std::string_view areFileName);
 /**
  * @brief Run test cases
  *
- * @param H
- * @param K
+ * @param[in] H
+ * @param[in] K
  */
 void run_FMKWayPartMgr(const SimpleNetlist& H, std::uint8_t K)
 {

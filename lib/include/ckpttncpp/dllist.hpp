@@ -27,7 +27,7 @@ struct dllink
     /*!
      * @brief Construct a new dllink object
      *
-     * @param key the key
+     * @param[in] key the key
      */
     explicit dllink(T key = T(0))
         : key {key}
@@ -98,7 +98,7 @@ struct dllink
     /*!
      * @brief append the node to the front
      *
-     * @param node
+     * @param[in,out] node
      */
     auto appendleft(dllink<T>& node) -> void
     {
@@ -111,7 +111,7 @@ struct dllink
     /*!
      * @brief append the node to the back
      *
-     * @param node
+     * @param[in,out] node
      */
     auto append(dllink<T>& node) -> void
     {
@@ -204,7 +204,7 @@ struct dllink
 //     /*!
 //      * @brief Construct a new dll iterator object
 //      *
-//      * @param cur
+//      * @param[in] cur
 //      */
 //     explicit dll_iterator(dllink<T> *cur) : cur{cur} {}
 
@@ -228,7 +228,7 @@ struct dllink
 //     /*!
 //      * @brief eq operator
 //      *
-//      * @param rhs
+//      * @param[in] rhs
 //      * @return true
 //      * @return false
 //      */
@@ -239,7 +239,7 @@ struct dllink
 //     /*!
 //      * @brief neq operator
 //      *
-//      * @param rhs
+//      * @param[in] rhs
 //      * @return true
 //      * @return false
 //      */

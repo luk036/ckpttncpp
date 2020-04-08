@@ -1,5 +1,5 @@
-#include <doctest.h>
 #include <ckpttncpp/netlist.hpp> // import Netlist
+#include <doctest.h>
 #include <py2cpp/py2cpp.hpp>
 #include <string_view>
 

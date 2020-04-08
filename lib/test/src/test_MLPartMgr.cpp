@@ -1,4 +1,3 @@
-#include <doctest.h>
 #include <chrono>
 #include <ckpttncpp/FMBiConstrMgr.hpp>   // import FMBiConstrMgr
 #include <ckpttncpp/FMBiGainMgr.hpp>     // import FMBiGainMgr
@@ -6,6 +5,7 @@
 #include <ckpttncpp/FMKWayGainMgr.hpp>   // import FMKWayGainMgr
 #include <ckpttncpp/FMPartMgr.hpp>       // import FMBiPartMgr
 #include <ckpttncpp/MLPartMgr.hpp>       // import MLBiPartMgr
+#include <doctest.h>
 // #include <experimental/random>
 #include <iostream>
 #include <string_view>

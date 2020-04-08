@@ -10,10 +10,10 @@ extern SimpleNetlist readNetD(std::string_view netDFileName);
 extern void readAre(SimpleNetlist& H, std::string_view areFileName);
 
 /**
- * @brief run FM Bi-partitioning 
- * 
- * @param[in] H 
- * @param[in] option 
+ * @brief run FM Bi-partitioning
+ *
+ * @param[in] H
+ * @param[in] option
  */
 void run_FMBiPartMgr(const SimpleNetlist& H, bool option)
 {

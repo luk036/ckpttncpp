@@ -38,7 +38,9 @@ class MLPartMgr
      * @param[in] BalTol
      */
     explicit MLPartMgr(double BalTol)
-        : MLPartMgr(BalTol, 2) {}
+        : MLPartMgr(BalTol, 2)
+    {
+    }
 
     /*!
      * @brief Construct a new MLPartMgr object
@@ -131,7 +133,8 @@ class MLPartMgr
      * @return LegalCheck
      */
     template <typename PartMgr>
-    auto run_FMPartition(const SimpleNetlist& H, gsl::span<std::uint8_t> part) -> LegalCheck
+    auto run_FMPartition(const SimpleNetlist& H, gsl::span<std::uint8_t> part)
+        -> LegalCheck
     {
         return this->run_FMPartition<PartMgr>(H, part, 7);
     }
@@ -177,7 +180,8 @@ class MLPartMgr
      * @return LegalCheck
      */
     template <typename PartMgr>
-    auto run_Partition(const SimpleNetlist& H, gsl::span<std::uint8_t> part) -> LegalCheck
+    auto run_Partition(const SimpleNetlist& H, gsl::span<std::uint8_t> part)
+        -> LegalCheck
     {
         return this->run_Partition<PartMgr>(H, part, 7);
     }
@@ -193,8 +197,8 @@ class MLPartMgr
      * @return size_t self.take_snapshot(part)
      */
     template <typename PartMgr>
-    auto run_Partition_recur(const SimpleNetlist& H, gsl::span<std::uint8_t> part,
-        size_t limitsize) -> void
+    auto run_Partition_recur(const SimpleNetlist& H,
+        gsl::span<std::uint8_t> part, size_t limitsize) -> void
     {
         if (H.number_of_modules() >= limitsize)
         { // OK

@@ -12,7 +12,8 @@
  */
 template <typename GainMgr, typename ConstrMgr,
     template <typename _GainMgr, typename _ConstrMgr> class Derived> //
-void PartMgrBase<GainMgr, ConstrMgr, Derived>::init(gsl::span<std::uint8_t> part)
+void PartMgrBase<GainMgr, ConstrMgr, Derived>::init(
+    gsl::span<std::uint8_t> part)
 {
     this->totalcost = this->gainMgr.init(part);
     this->validator.init(part);
@@ -156,7 +157,8 @@ void PartMgrBase<GainMgr, ConstrMgr, Derived>::_optimize_1pass(
  */
 template <typename GainMgr, typename ConstrMgr,
     template <typename _GainMgr, typename _ConstrMgr> class Derived> //
-void PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize(gsl::span<std::uint8_t> part)
+void PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize(
+    gsl::span<std::uint8_t> part)
 {
     // this->init(part);
     // auto totalcostafter = this->totalcost;

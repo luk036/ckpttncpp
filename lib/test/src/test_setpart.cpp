@@ -1,6 +1,6 @@
 #include <array>
-#include <doctest.h>
 #include <ckpttncpp/set_partition.hpp> // import  setpart
+#include <doctest.h>
 // #include <iostream>
 
 TEST_CASE("Test set partition (odd k)")

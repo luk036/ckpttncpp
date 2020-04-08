@@ -1,6 +1,6 @@
-#include <doctest.h>
 #include <ckpttncpp/dllist.hpp> // import  dllink
 #include <ckpttncpp/robin.hpp>  // import  robin
+#include <doctest.h>
 
 TEST_CASE("Test dllist")
 {

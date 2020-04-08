@@ -85,7 +85,8 @@ class FMGainMgr
      * @param[in] part
      * @return std::tuple<MoveInfoV, int>
      */
-    auto select(gsl::span<const std::uint8_t> part) -> std::tuple<MoveInfoV, int>;
+    auto select(gsl::span<const std::uint8_t> part)
+        -> std::tuple<MoveInfoV, int>;
 
     /*!
      * @brief
@@ -101,8 +102,8 @@ class FMGainMgr
      * @param[in] part
      * @param[in] move_info_v
      */
-    auto update_move(
-        gsl::span<const std::uint8_t> part, const MoveInfoV& move_info_v) -> void;
+    auto update_move(gsl::span<const std::uint8_t> part,
+        const MoveInfoV& move_info_v) -> void;
 
   private:
     /*!

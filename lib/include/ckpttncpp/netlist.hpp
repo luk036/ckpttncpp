@@ -65,17 +65,17 @@ struct Netlist
 
     /**
      * @brief Construct a new Netlist object
-     * 
-     * @param[in] G 
-     * @param[in] num_modules 
-     * @param[in] num_nets 
+     *
+     * @param[in] G
+     * @param[in] num_modules
+     * @param[in] num_nets
      */
     Netlist(graph_t G, size_t num_modules, size_t num_nets);
 
     /**
      * @brief Get the number of modules
-     * 
-     * @return size_t 
+     *
+     * @return size_t
      */
     auto number_of_modules() const -> size_t
     {
@@ -132,9 +132,9 @@ struct Netlist
 
     /**
      * @brief Get the module weight
-     * 
-     * @param[in] v 
-     * @return int 
+     *
+     * @param[in] v
+     * @return int
      */
     auto get_module_weight(node_t v) const -> int
     {
@@ -143,8 +143,8 @@ struct Netlist
 
     /**
      * @brief Get the net weight
-     * 
-     * @return int 
+     *
+     * @return int
      */
     auto get_net_weight(node_t /*net*/) const -> int
     {
@@ -189,8 +189,8 @@ struct Netlist
      * @param[in] part
      * @param[out] part_down
      */
-    void projection_down(
-        gsl::span<const std::uint8_t> part, gsl::span<std::uint8_t> part_down) const;
+    void projection_down(gsl::span<const std::uint8_t> part,
+        gsl::span<std::uint8_t> part_down) const;
 
     /*!
      * @brief projection up
@@ -198,19 +198,19 @@ struct Netlist
      * @param[in] part
      * @param[out] part_up
      */
-    void projection_up(
-        gsl::span<const std::uint8_t> part, gsl::span<std::uint8_t> part_up) const;
+    void projection_up(gsl::span<const std::uint8_t> part,
+        gsl::span<std::uint8_t> part_up) const;
 };
 
 /**
  * @brief Construct a new Netlist object
- * 
- * @tparam nodeview_t 
- * @tparam nodemap_t 
- * @param[in] G 
- * @param[in] modules 
- * @param[in] nets 
- * @param[in] module_map 
+ *
+ * @tparam nodeview_t
+ * @tparam nodemap_t
+ * @param[in] G
+ * @param[in] modules
+ * @param[in] nets
+ * @param[in] module_map
  */
 template <typename nodeview_t, typename nodemap_t>
 Netlist<nodeview_t, nodemap_t>::Netlist(graph_t G, const nodeview_t& modules,
@@ -224,30 +224,35 @@ Netlist<nodeview_t, nodemap_t>::Netlist(graph_t G, const nodeview_t& modules,
 {
     this->has_fixed_modules = (not this->module_fixed.empty());
 
-    // Some compilers does not accept py::range()->iterator as a forward iterator
-    // auto deg_cmp = [this](node_t v, node_t w) -> index_t {
+    // Some compilers does not accept py::range()->iterator as a forward
+    // iterator auto deg_cmp = [this](node_t v, node_t w) -> index_t {
     //     return this->G.degree(v) < this->G.degree(w);
     // };
     // const auto result1 =
-    //     std::max_element(this->modules.begin(), this->modules.end(), deg_cmp);
+    //     std::max_element(this->modules.begin(), this->modules.end(),
+    //     deg_cmp);
     // this->max_degree = this->G.degree(*result1);
     // const auto result2 =
     //     std::max_element(this->nets.begin(), this->nets.end(), deg_cmp);
     // this->max_net_degree = this->G.degree(*result2);
 
     this->max_degree = 0U;
-    for (const auto& v: this->modules) {
-        if (this->max_degree < this->G.degree(v)) {
+    for (const auto& v : this->modules)
+    {
+        if (this->max_degree < this->G.degree(v))
+        {
             this->max_degree = this->G.degree(v);
-        } 
-    }    
+        }
+    }
 
     this->max_net_degree = 0U;
-    for (const auto& net: this->nets) {
-        if (this->max_net_degree < this->G.degree(net)) {
+    for (const auto& net : this->nets)
+    {
+        if (this->max_net_degree < this->G.degree(net))
+        {
             this->max_net_degree = this->G.degree(net);
-        } 
-    }    
+        }
+    }
 }
 
 template <typename nodeview_t, typename nodemap_t>

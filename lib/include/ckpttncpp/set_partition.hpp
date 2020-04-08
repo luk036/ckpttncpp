@@ -77,10 +77,10 @@ class set_partition_
     }
 
     /**
-     * @brief 
-     * 
-     * @param[in] n 
-     * @param[in] k 
+     * @brief
+     *
+     * @param[in] n
+     * @param[in] k
      */
     void run(int n, int k)
     {

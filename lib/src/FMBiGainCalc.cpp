@@ -10,7 +10,7 @@ void FMBiGainCalc::_init_gain( //
     const node_t& net, gsl::span<const std::uint8_t> part)
 {
     const auto degree = this->H.G.degree(net);
-    [[unlikely]] if (degree < 2)
+    if (degree < 2) [[unlikely]] 
     {
         return; // does not provide any gain when moving
     }

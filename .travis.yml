@@ -46,14 +46,14 @@ matrix:
     - os: linux
       addons: *clang8
       env: COMPILER=clang CLANG=8 BUILD_TYPE='Release'
-    - os: osx
-      osx_image: xcode10.1
-      addons:
-        homebrew:
-          packages:
-          - lcov
-          update: true
-      env: COMPILER=clang CLANG=8 BUILD_TYPE='Release'
+#     - os: osx
+#       osx_image: xcode10.1
+#       addons:
+#         homebrew:
+#           packages:
+#           - lcov
+#           update: true
+#       env: COMPILER=clang CLANG=8 BUILD_TYPE='Release'
 
 
 env:

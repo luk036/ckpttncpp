@@ -11,6 +11,7 @@ RUN apt-get update \
   less \
   neofetch \
   asciinema \
+  tmux \
   wget
 
 RUN mkdir -p /workspace/data \
@@ -38,6 +39,7 @@ RUN /opt/conda/bin/conda install -y \
     ninja
 
 RUN /opt/conda/bin/conda install -y -c conda-forge \
+    benchmark \
     catch2 \
     cppcheck \
     fmt \

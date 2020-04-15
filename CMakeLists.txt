@@ -66,7 +66,7 @@ find_package (fmt REQUIRED)
 # find_package (spdlog REQUIRED)
 
 # set (Boost_DIR $ENV{CONDA_PREFIX}/include)
-find_package (Boost REQUIRED COMPONENTS coroutine context)
+find_package (Boost REQUIRED)
 if (Boost_FOUND)
     message(STATUS "Found boost: ${Boost_INCLUDE_DIRS}")
     set(LIBS ${LIBS} ${Boost_LIBRARIES})

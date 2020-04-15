@@ -10,7 +10,7 @@ set (APP_MODULE_PATH "${PROJECT_SOURCE_DIR}/app")
 set (APP_SRC_PATH  "${APP_MODULE_PATH}/src" )
 
 #set includes
-include_directories (${LIBRARY_INCLUDE_PATH} ${THIRD_PARTY_INCLUDE_PATH} "${Boost_INCLUDE_DIRS}")
+include_directories (${LIBRARY_INCLUDE_PATH} ${THIRD_PARTY_INCLUDE_PATH} "$ENV{CONDA_PREFIX}/include")
 
 
 #set sources

@@ -6,6 +6,9 @@
 #include <type_traits>
 #include <vector>
 
+// Forward declaration for begin() end()
+template <typename T> class bpq_iterator;
+
 /*!
  * @brief bounded priority queue
  *
@@ -34,9 +37,10 @@ class bpqueue
     T max {};                      //!< max value
     T offset;                      //!< a - 1
     T high;                        //!< b - a + 1
-    std::vector<dllink<T>> bucket; //!< bucket, array of lists
 
   public:
+    std::vector<dllink<T>> bucket; //!< bucket, array of lists
+
     /*!
      * @brief Construct a new bpqueue object
      *
@@ -255,46 +259,47 @@ class bpqueue
         }
     }
 
-    // /*!
-    //  * @brief iterator point to begin
-    //  *
-    //  * @return bpq_iterator
-    //  */
-    // auto begin() -> bpq_iterator<T>;
-
-    // /*!
-    //  * @brief iterator point to end
-    //  *
-    //  * @return bpq_iterator
-    //  */
-    // auto end() -> bpq_iterator<T>;
-
-    using coro_t = boost::coroutines2::coroutine<dllink<T>&>;
-    using pull_t = typename coro_t::pull_type;
-
-    /**
-     * @brief item generator
+    /*!
+     * @brief iterator point to begin
      *
-     * @return pull_t
+     * @return bpq_iterator
      */
-    auto items() -> pull_t
-    {
-        auto func = [&](typename coro_t::push_type& yield) {
-            auto curkey = this->max;
-            while (curkey > 0)
-            {
-                for (auto&& item : this->bucket[curkey].items())
-                {
-                    yield(item);
-                }
-                curkey -= 1;
-            }
-        };
-        return pull_t(func);
-    }
+    auto begin() -> bpq_iterator<T>;
 
-    // auto& items() { return *this; }
-    // const auto& items() const { return *this; }
+    /*!
+     * @brief iterator point to end
+     *
+     * @return bpq_iterator
+     */
+    auto end() -> bpq_iterator<T>;
+
+    auto& items() { return *this; }
+
+    const auto& items() const { return *this; }
+
+    // using coro_t = boost::coroutines2::coroutine<dllink<T>&>;
+    // using pull_t = typename coro_t::pull_type;
+
+    // /**
+    //  * @brief item generator
+    //  *
+    //  * @return pull_t
+    //  */
+    // auto items() -> pull_t
+    // {
+    //     auto func = [&](typename coro_t::push_type& yield) {
+    //         auto curkey = this->max;
+    //         while (curkey > 0)
+    //         {
+    //             for (auto&& item : this->bucket[curkey].items())
+    //             {
+    //                 yield(item);
+    //             }
+    //             curkey -= 1;
+    //         }
+    //     };
+    //     return pull_t(func);
+    // }
 };
 
 /**
@@ -305,96 +310,96 @@ class bpqueue
 template <typename T>
 inline dllink<T> bpqueue<T>::sentinel {};
 
-// /*!
-//  * @brief Bounded Priority Queue Iterator
-//  *
-//  * Bounded Priority Queue Iterator. Traverse the queue in descending
-//  * order. Detaching queue items may invalidate the iterator because
-//  * the iterator makes a copy of current key.
-//  */
-// template <typename T> class bpq_iterator {
-//   private:
-//     bpqueue<T> &bpq;         /*!< the priority queue */
-//     T curkey;                /*!< the current key value */
-//     dll_iterator<T> curitem; /*!< list iterator pointed to the current item.
-//     */
+/*!
+ * @brief Bounded Priority Queue Iterator
+ *
+ * Bounded Priority Queue Iterator. Traverse the queue in descending
+ * order. Detaching queue items may invalidate the iterator because
+ * the iterator makes a copy of current key.
+ */
+template <typename T> class bpq_iterator {
+  private:
+    bpqueue<T> &bpq;         /*!< the priority queue */
+    T curkey;                /*!< the current key value */
+    dll_iterator<T> curitem; /*!< list iterator pointed to the current item.
+    */
 
-//     /*!
-//      * @brief get the reference of the current list
-//      *
-//      * @return dllink&
-//      */
-//     auto curlist() -> dllink<T> & { return this->bpq.bucket[this->curkey]; }
+    /*!
+     * @brief get the reference of the current list
+     *
+     * @return dllink&
+     */
+    auto curlist() -> dllink<T> & { return this->bpq.bucket[this->curkey]; }
 
-//   public:
-//     /*!
-//      * @brief Construct a new bpq iterator object
-//      *
-//      * @param[in] bpq
-//      * @param[in] curkey
-//      */
-//     bpq_iterator(bpqueue<T> &bpq, T curkey)
-//         : bpq{bpq}, curkey{curkey}, curitem{bpq.bucket[curkey].begin()} {}
+  public:
+    /*!
+     * @brief Construct a new bpq iterator object
+     *
+     * @param[in] bpq
+     * @param[in] curkey
+     */
+    bpq_iterator(bpqueue<T> &bpq, T curkey)
+        : bpq{bpq}, curkey{curkey}, curitem{bpq.bucket[curkey].begin()} {}
 
-//     /*!
-//      * @brief move to the next item
-//      *
-//      * @return bpq_iterator&
-//      */
-//     auto operator++() -> bpq_iterator<T> & {
-//         ++this->curitem;
-//         while (this->curitem == this->curlist().end()) {
-//             do {
-//                 this->curkey -= 1;
-//             } while (this->curlist().is_empty());
-//             this->curitem = this->curlist().begin();
-//         }
-//         return *this;
-//     }
+    /*!
+     * @brief move to the next item
+     *
+     * @return bpq_iterator&
+     */
+    auto operator++() -> bpq_iterator<T> & {
+        ++this->curitem;
+        while (this->curitem == this->curlist().end()) {
+            do {
+                this->curkey -= 1;
+            } while (this->curlist().is_empty());
+            this->curitem = this->curlist().begin();
+        }
+        return *this;
+    }
 
-//     /*!
-//      * @brief get the reference of the current item
-//      *
-//      * @return bpq_iterator&
-//      */
-//     auto operator*() -> dllink<T> & { return *this->curitem; }
+    /*!
+     * @brief get the reference of the current item
+     *
+     * @return bpq_iterator&
+     */
+    auto operator*() -> dllink<T> & { return *this->curitem; }
 
-//     /*!
-//      * @brief eq operator
-//      *
-//      * @param[in] rhs
-//      * @return true
-//      * @return false
-//      */
-//     auto operator==(const bpq_iterator &rhs) -> bool {
-//         return this->curitem == rhs.curitem;
-//     }
+    /*!
+     * @brief eq operator
+     *
+     * @param[in] rhs
+     * @return true
+     * @return false
+     */
+    auto operator==(const bpq_iterator &rhs) -> bool {
+        return this->curitem == rhs.curitem;
+    }
 
-//     /*!
-//      * @brief neq operator
-//      *
-//      * @param[in] rhs
-//      * @return true
-//      * @return false
-//      */
-//     auto operator!=(const bpq_iterator &rhs) -> bool { return !(*this ==
-//     rhs); }
-// };
+    /*!
+     * @brief neq operator
+     *
+     * @param[in] rhs
+     * @return true
+     * @return false
+     */
+    auto operator!=(const bpq_iterator &rhs) -> bool { return !(*this ==
+    rhs); }
+};
 
-// /*!
-//  * @brief
-//  *
-//  * @return bpq_iterator
-//  */
-// template <typename T> inline auto bpqueue<T>::begin() -> bpq_iterator<T> {
-//     return bpq_iterator(*this, this->max);
-// }
+/*!
+ * @brief
+ *
+ * @return bpq_iterator
+ */
+template <typename T> inline auto bpqueue<T>::begin() -> bpq_iterator<T> {
+    return bpq_iterator(*this, this->max);
+}
 
-// /*!
-//  * @brief
-//  *
-//  * @return bpq_iterator
-//  */
-// template <typename T> inline auto bpqueue<T>::end() -> bpq_iterator<T> {
-//     return bpq_iterator(*this, 0);
-// }
+/*!
+ * @brief
+ *
+ * @return bpq_iterator
+ */
+template <typename T> inline auto bpqueue<T>::end() -> bpq_iterator<T> {
+    return bpq_iterator(*this, 0);
+}

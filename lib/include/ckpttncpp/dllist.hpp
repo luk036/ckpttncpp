@@ -1,10 +1,10 @@
 #pragma once
 
-#include <boost/coroutine2/all.hpp>
+// #include <boost/coroutine2/all.hpp>
 #include <cassert>
 
-// forward declare
-// template <typename T> struct dll_iterator;
+// Forward declaration for begin() end()
+template <typename T> struct dll_iterator;
 
 /*!
  * @brief doubly linked node (that may also be a "head" a list)
@@ -153,115 +153,116 @@ struct dllink
 
     // For iterator
 
-    // /*!
-    //  * @brief
-    //  *
-    //  * @return dll_iterator
-    //  */
-    // auto begin() -> dll_iterator<T>;
-
-    // /*!
-    //  * @brief
-    //  *
-    //  * @return dll_iterator
-    //  */
-    // auto end() -> dll_iterator<T>;
-
-    using coro_t = boost::coroutines2::coroutine<dllink<T>&>;
-    using pull_t = typename coro_t::pull_type;
-
-    /**
-     * @brief item generator
+    /*!
+     * @brief
      *
-     * @return pull_t
+     * @return dll_iterator
      */
-    auto items() -> pull_t
-    {
-        auto func = [&](typename coro_t::push_type& yield) {
-            auto cur = this->next;
-            while (cur != this)
-            {
-                yield(*cur);
-                cur = cur->next;
-            }
-        };
-        return pull_t(func);
-    }
+    auto begin() -> dll_iterator<T>;
 
-    // auto& items() { return *this; }
-    // const auto& items() const { return *this; }
+    /*!
+     * @brief
+     *
+     * @return dll_iterator
+     */
+    auto end() -> dll_iterator<T>;
+
+    auto& items() { return *this; }
+
+    const auto& items() const { return *this; }
+
+    // using coro_t = boost::coroutines2::coroutine<dllink<T>&>;
+    // using pull_t = typename coro_t::pull_type;
+
+    // /**
+    //  * @brief item generator
+    //  *
+    //  * @return pull_t
+    //  */
+    // auto items() -> pull_t
+    // {
+    //     auto func = [&](typename coro_t::push_type& yield) {
+    //         auto cur = this->next;
+    //         while (cur != this)
+    //         {
+    //             yield(*cur);
+    //             cur = cur->next;
+    //         }
+    //     };
+    //     return pull_t(func);
+    // }
 };
 
-// /*!
-//  * @brief list iterator
-//  *
-//  * List iterator. Traverse the list from the first item. Usually it is
-//  * safe to attach/detach list items during the iterator is active.
-//  */
-// template <typename T> struct dll_iterator {
-//     dllink<T> *cur; /*!< pointer to the current item */
+/*!
+ * @brief list iterator
+ *
+ * List iterator. Traverse the list from the first item. Usually it is
+ * safe to attach/detach list items during the iterator is active.
+ */
+template <typename T> struct dll_iterator {
+    dllink<T> *cur; /*!< pointer to the current item */
 
-//     /*!
-//      * @brief Construct a new dll iterator object
-//      *
-//      * @param[in] cur
-//      */
-//     explicit dll_iterator(dllink<T> *cur) : cur{cur} {}
+    /*!
+     * @brief Construct a new dll iterator object
+     *
+     * @param[in] cur
+     */
+    explicit dll_iterator(dllink<T> *cur) : cur{cur} {}
 
-//     /*!
-//      * @brief move to the next item
-//      *
-//      * @return dllink&
-//      */
-//     auto operator++() -> dll_iterator<T> & {
-//         this->cur = this->cur->next;
-//         return *this;
-//     }
+    /*!
+     * @brief move to the next item
+     *
+     * @return dllink&
+     */
+    auto operator++() -> dll_iterator<T> & {
+        this->cur = this->cur->next;
+        return *this;
+    }
 
-//     /*!
-//      * @brief get the reference of the current item
-//      *
-//      * @return dllink&
-//      */
-//     auto operator*() -> dllink<T> & { return *this->cur; }
+    /*!
+     * @brief get the reference of the current item
+     *
+     * @return dllink&
+     */
+    auto operator*() -> dllink<T> & { return *this->cur; }
 
-//     /*!
-//      * @brief eq operator
-//      *
-//      * @param[in] rhs
-//      * @return true
-//      * @return false
-//      */
-//     auto operator==(const dll_iterator<T> &rhs) -> bool {
-//         return this->cur == rhs.cur;
-//     }
+    /*!
+     * @brief eq operator
+     *
+     * @param[in] rhs
+     * @return true
+     * @return false
+     */
+    auto operator==(const dll_iterator<T> &rhs) -> bool {
+        return this->cur == rhs.cur;
+    }
 
-//     /*!
-//      * @brief neq operator
-//      *
-//      * @param[in] rhs
-//      * @return true
-//      * @return false
-//      */
-//     auto operator!=(const dll_iterator<T> &rhs) -> bool {
-//         return !(*this == rhs);
-//     }
-// };
+    /*!
+     * @brief neq operator
+     *
+     * @param[in] rhs
+     * @return true
+     * @return false
+     */
+    auto operator!=(const dll_iterator<T> &rhs) -> bool {
+        return !(*this == rhs);
+    }
+};
 
-// /*!
-//  * @brief begin
-//  *
-//  * @return dll_iterator
-//  */
-// template <typename T> inline auto dllink<T>::begin() -> dll_iterator<T> {
-//     return dll_iterator{this->next};
-// }
+/*!
+ * @brief begin
+ *
+ * @return dll_iterator
+ */
+template <typename T> inline auto dllink<T>::begin() -> dll_iterator<T> {
+    return dll_iterator{this->next};
+}
 
-// /*!
-//  * @brief end
-//  *
-//  * @return dll_iterator
-//  */
-// template <typename T> inline auto dllink<T>::end() -> dll_iterator<T> {
-//     return dll_iterator{this};
-// }
+/*!
+ * @brief end
+ *
+ * @return dll_iterator
+ */
+template <typename T> inline auto dllink<T>::end() -> dll_iterator<T> {
+    return dll_iterator{this};
+}

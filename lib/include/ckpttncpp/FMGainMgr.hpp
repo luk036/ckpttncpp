@@ -71,7 +71,7 @@ class FMGainMgr
     {
         for (auto k = 0U; k != this->K; ++k)
         {
-            if (not this->gainbucket[k].is_empty())
+            if (!this->gainbucket[k].is_empty())
             {
                 return false;
             }

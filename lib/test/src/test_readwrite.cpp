@@ -17,7 +17,7 @@ TEST_CASE("Test Read Dwarf")
     // CHECK(H.number_of_pins() == 13);
     CHECK(H.get_max_degree() == 3);
     CHECK(H.get_max_net_degree() == 3);
-    CHECK(not H.has_fixed_modules);
+    CHECK(!H.has_fixed_modules);
     CHECK(H.get_module_weight(1) == 2);
 }
 
@@ -30,7 +30,7 @@ TEST_CASE("Test Read p1")
     // CHECK(H.number_of_pins() == 2908);
     CHECK(H.get_max_degree() == 9);
     CHECK(H.get_max_net_degree() == 18);
-    CHECK(not H.has_fixed_modules);
+    CHECK(!H.has_fixed_modules);
     CHECK(H.get_module_weight(1) == 1);
 }
 

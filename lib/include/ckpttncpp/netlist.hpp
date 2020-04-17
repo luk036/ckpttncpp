@@ -70,7 +70,7 @@ struct Netlist
      * @param[in] num_modules
      * @param[in] num_nets
      */
-    Netlist(graph_t G, size_t num_modules, size_t num_nets);
+    Netlist(graph_t G, int num_modules, int num_nets);
 
     /**
      * @brief Get the number of modules
@@ -222,7 +222,7 @@ Netlist<nodeview_t, nodemap_t>::Netlist(graph_t G, const nodeview_t& modules,
     , num_modules(modules.size())
     , num_nets(nets.size())
 {
-    this->has_fixed_modules = (not this->module_fixed.empty());
+    this->has_fixed_modules = (!this->module_fixed.empty());
 
     // Some compilers does not accept py::range()->iterator as a forward
     // iterator auto deg_cmp = [this](node_t v, node_t w) -> index_t {
@@ -257,7 +257,7 @@ Netlist<nodeview_t, nodemap_t>::Netlist(graph_t G, const nodeview_t& modules,
 
 template <typename nodeview_t, typename nodemap_t>
 Netlist<nodeview_t, nodemap_t>::Netlist(
-    graph_t G, size_t numModules, size_t numNets)
+    graph_t G, int numModules, int numNets)
     : Netlist {std::move(G), py::range<int>(numModules),
           py::range<int>(numModules, numModules + numNets),
           py::range<int>(numModules)}

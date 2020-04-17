@@ -13,14 +13,14 @@ TEST_CASE("Test dllist")
     CHECK(L1.is_empty());
 
     L1.appendleft(e);
-    CHECK(not L1.is_empty());
+    CHECK(!L1.is_empty());
 
     L1.appendleft(f);
     L1.append(d);
     L2.append(L1.pop());
     L2.append(L1.popleft());
-    CHECK(not L1.is_empty());
-    CHECK(not L2.is_empty());
+    CHECK(!L1.is_empty());
+    CHECK(!L2.is_empty());
 
     auto count = 0U;
     for ([[maybe_unused]] auto& _ : L2.items())

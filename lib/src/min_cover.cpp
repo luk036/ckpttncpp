@@ -33,7 +33,7 @@ auto max_independent_net(const SimpleNetlist& H,
     auto S = py::set<node_t> {};
     int total_cost = 0;
 
-    // while (not bpq.is_empty())
+    // while (!bpq.is_empty())
     for (auto&& net : H.nets)
     {
         // dllink<node_t>& item = bpq.popleft();
@@ -125,7 +125,7 @@ auto max_independent_net(const SimpleNetlist& H,
 //                     break;
 //                 }
 //             }
-//             if (not covered) {
+//             if (!covered) {
 //                 found = true;
 //                 break;
 //             }
@@ -162,8 +162,8 @@ auto create_contraction_subgraph(
     auto cluster_map = py::dict<node_t, node_t> {};
     cluster_map.reserve(S.size());
     auto node_up_map = py::dict<node_t, index_t> {};
-    size_t numModules;
-    size_t numNets;
+    int numModules;
+    int numNets;
 
     auto modules = std::vector<node_t> {};
     auto nets = std::vector<node_t> {};
@@ -210,22 +210,22 @@ auto create_contraction_subgraph(
 
     // nodes.insert(nodes.end(), modules.begin(), modules.end());
     // nodes.insert(nodes.end(), nets.begin(), nets.end());
-    numModules = modules.size();
-    numNets = nets.size();
+    numModules = int(modules.size());
+    numNets = int(nets.size());
 
     { // localize module_map and net_map
         auto module_map = py::dict<node_t, index_t> {};
         module_map.reserve(numModules);
         for (auto&& [i_v, v] : py::enumerate(modules))
         {
-            module_map[v] = i_v;
+            module_map[v] = index_t(i_v);
         }
 
         auto net_map = py::dict<node_t, index_t> {};
         net_map.reserve(numNets);
         for (auto&& [i_net, net] : py::enumerate(nets))
         {
-            net_map[net] = i_net;
+            net_map[net] = index_t(i_net);
         }
 
         node_up_map.reserve(H.number_of_modules() + nets.size());

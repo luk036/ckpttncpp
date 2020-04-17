@@ -17,7 +17,8 @@ FMGainMgr<GainCalc, Derived>::FMGainMgr(const SimpleNetlist& H, std::uint8_t K)
         std::is_base_of<FMGainMgr<GainCalc, Derived>, Derived>::value);
     for (auto k = 0U; k != this->K; ++k)
     {
-        this->gainbucket.emplace_back(bpqueue<int>(-this->pmax, this->pmax));
+        const auto pmax = int(this->pmax);
+        this->gainbucket.emplace_back(bpqueue<int>(-pmax, pmax));
     }
 }
 
@@ -51,11 +52,11 @@ std::tuple<MoveInfoV, int> FMGainMgr<GainCalc, Derived>::select(
         gainmax[k] = this->gainbucket[k].get_max();
     }
     const auto it = std::max_element(gainmax.cbegin(), gainmax.cend());
-    const std::uint8_t toPart = std::distance(gainmax.cbegin(), it);
+    const auto toPart = std::uint8_t(std::distance(gainmax.cbegin(), it));
     auto& vlink = this->gainbucket[toPart].popleft();
     this->waitinglist.append(vlink);
     // node_t v = &vlink - this->gainCalc.start_ptr(toPart);
-    const node_t v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);
+    const auto v = node_t(std::distance(this->gainCalc.start_ptr(toPart), &vlink));
     // auto move_info_v = MoveInfoV {v, part[v], toPart};
     return {{v, part[v], toPart}, gainmax[toPart]};
 }
@@ -73,7 +74,7 @@ std::tuple<node_t, int> FMGainMgr<GainCalc, Derived>::select_togo(
     const auto gainmax = this->gainbucket[toPart].get_max();
     auto& vlink = this->gainbucket[toPart].popleft();
     this->waitinglist.append(vlink);
-    const node_t v = std::distance(this->gainCalc.start_ptr(toPart), &vlink);
+    const auto v = node_t(std::distance(this->gainCalc.start_ptr(toPart), &vlink));
     return {v, gainmax};
 }
 
@@ -95,7 +96,7 @@ void FMGainMgr<GainCalc, Derived>::update_move(
     for (const node_t& net : this->H.G[v])
     {
         const auto degree = this->H.G.degree(net);
-        if (degree < 2) [[unlikely]]
+        if (degree < 2) // [[unlikely]] 
         {
             continue; // does not provide any gain change when
                       // moving

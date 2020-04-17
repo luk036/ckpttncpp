@@ -71,9 +71,9 @@ SimpleNetlist readNetD(std::string_view netDFileName)
     }
 
     char t;
-    size_t numPins;
-    size_t numNets;
-    size_t numModules;
+    int numPins;
+    int numNets;
+    int numModules;
     index_t padOffset;
 
     netD >> t; // eat 1st 0
@@ -103,7 +103,7 @@ SimpleNetlist readNetD(std::string_view netDFileName)
         do
         {
             netD.get(c);
-        } while ((isspace(c) != 0) and c != EOF);
+        } while ((isspace(c) != 0) && c != EOF);
         if (c == '\n')
         {
             continue;
@@ -120,7 +120,7 @@ SimpleNetlist readNetD(std::string_view netDFileName)
         do
         {
             netD.get(c);
-        } while ((isspace(c) != 0) and c != EOF);
+        } while ((isspace(c) != 0) && c != EOF);
         if (c == 's')
         {
             ++e;
@@ -132,7 +132,7 @@ SimpleNetlist readNetD(std::string_view netDFileName)
         do
         {
             netD.get(c);
-        } while ((isspace(c) != 0) and c != '\n' and c != EOF);
+        } while ((isspace(c) != 0) && c != '\n' && c != EOF);
         // switch (c) {
         // case 'O': aPin.setDirection(Pin::OUTPUT); break;
         // case 'I': aPin.setDirection(Pin::INPUT); break;
@@ -202,7 +202,7 @@ void readAre(SimpleNetlist& H, std::string_view areFileName)
         do
         {
             are.get(c);
-        } while ((isspace(c) != 0) and c != EOF);
+        } while ((isspace(c) != 0) && c != EOF);
         if (c == '\n')
         {
             lineno++;
@@ -227,7 +227,7 @@ void readAre(SimpleNetlist& H, std::string_view areFileName)
         do
         {
             are.get(c);
-        } while ((isspace(c) != 0) and c != EOF);
+        } while ((isspace(c) != 0) && c != EOF);
         if (isdigit(c) != 0)
         {
             are.putback(c);

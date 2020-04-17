@@ -64,7 +64,7 @@ class FMConstrMgr
             this->totalweight += weight;
         }
         const auto totalweightK = this->totalweight * (2. / this->K);
-        this->lowerbound = std::round(totalweightK * this->BalTol);
+        this->lowerbound = int(std::round(totalweightK * this->BalTol));
     }
 
   public:

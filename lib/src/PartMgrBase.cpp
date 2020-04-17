@@ -101,20 +101,20 @@ void PartMgrBase<GainMgr, ConstrMgr, Derived>::_optimize_1pass(
     auto deferredsnapshot = false;
     auto besttotalgain = 0;
 
-    while (not this->gainMgr.is_empty())
+    while (!this->gainMgr.is_empty())
     {
         // Take the gainmax with v from gainbucket
         const auto [move_info_v, gainmax] = this->gainMgr.select(part);
         // Check if the move of v can satisfied or notsatisfied
         const auto satisfiedOK = this->validator.check_constraints(move_info_v);
-        if (not satisfiedOK)
+        if (!satisfiedOK)
         {
             continue;
         }
         if (gainmax < 0)
         {
             // become down turn
-            if (not deferredsnapshot or totalgain > besttotalgain)
+            if (!deferredsnapshot || totalgain > besttotalgain)
             {
                 // Take a snapshot before move
                 // snapshot = part;

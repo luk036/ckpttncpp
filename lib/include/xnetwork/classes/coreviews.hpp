@@ -63,7 +63,13 @@ class AtlasView
     }
 
     template <typename T>
-    auto operator[](const T& key) const
+    const auto& operator[](const T& key) const
+    {
+        return this->_atlas[key];
+    }
+
+    template <typename T>
+    auto& operator[](const T& key)
     {
         return this->_atlas[key];
     }
@@ -101,11 +107,11 @@ class AdjacencyView : public AtlasView<Atlas>
     {
     }
 
-    template <typename T>
-    auto operator[](const T& name) const
-    {
-        return AtlasView(this->_atlas[name]);
-    }
+    // template <typename T>
+    // auto operator[](const T& name) const
+    // {
+    //     return AtlasView(this->_atlas[name]);
+    // }
 
     // auto copy( ) {
     //     return {n: self[n].copy() for n : this->_atlas};

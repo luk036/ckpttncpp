@@ -36,7 +36,7 @@ class FMKWayConstrMgr : public FMConstrMgr
     {
         const auto it =
             std::min_element(this->diff.cbegin(), this->diff.cend());
-        return std::distance(this->diff.cbegin(), it);
+        return std::uint8_t(std::distance(this->diff.cbegin(), it));
     }
 
     /*!

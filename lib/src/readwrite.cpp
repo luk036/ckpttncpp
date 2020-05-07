@@ -215,7 +215,7 @@ void readAre(SimpleNetlist& H, std::string_view areFileName)
         else if (c == 'p')
         {
             are >> w;
-            w += padOffset;
+            w += node_t(padOffset);
         }
         else
         {

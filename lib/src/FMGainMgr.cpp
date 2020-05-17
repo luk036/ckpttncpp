@@ -105,7 +105,7 @@ void FMGainMgr<GainCalc, Derived>::update_move(
         if (!this->gainCalc.special_handle_2pin_nets)
         {
             this->_update_move_general_net(part, move_info);
-            return;
+            continue;
         }
         switch (degree)
         {

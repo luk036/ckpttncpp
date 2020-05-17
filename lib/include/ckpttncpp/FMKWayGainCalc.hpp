@@ -26,7 +26,7 @@ class FMKWayGainCalc
 
   public:
     int totalcost {0};
-    bool special_handle_2pin_nets {true};
+    bool special_handle_2pin_nets {true}; // @TODO should be template parameter
 
     /*!
      * @brief Construct a new FMKWayGainCalc object

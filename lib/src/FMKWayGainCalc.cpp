@@ -15,27 +15,18 @@ void FMKWayGainCalc::_init_gain(
     {
         return; // does not provide any gain when moving
     }
+    if (!special_handle_2pin_nets)
+    {
+        this->_init_gain_general_net(net, part);
+        return;
+    }
     switch (degree)
     {
         case 2:
-            if (special_handle_2pin_nets)
-            {
-                this->_init_gain_2pin_net(net, part);
-            }
-            else
-            {
-                this->_init_gain_general_net(net, part);
-            }
+            this->_init_gain_2pin_net(net, part);
             break;
         case 3:
-            if (special_handle_2pin_nets)
-            {
-                this->_init_gain_3pin_net(net, part);
-            }
-            else
-            {
-                this->_init_gain_general_net(net, part);
-            }
+            this->_init_gain_3pin_net(net, part);
             break;
         default:
             this->_init_gain_general_net(net, part);
@@ -59,8 +50,9 @@ void FMKWayGainCalc::_init_gain_2pin_net(
     const auto weight = this->H.get_net_weight(net);
     if (part_v == part_w)
     {
-        this->_modify_gain(w, part_v, -weight);
-        this->_modify_gain(v, part_v, -weight);
+        // this->_modify_gain(w, part_v, -weight);
+        // this->_modify_gain(v, part_v, -weight);
+        this->_modify_gain_va(-weight, part_v, w, v);
     }
     else
     {
@@ -95,9 +87,10 @@ void FMKWayGainCalc::_init_gain_3pin_net(
     {
         if (part_w == part_v)
         {
-            this->_modify_gain(u, part_v, -weight);
-            this->_modify_gain(v, part_v, -weight);
-            this->_modify_gain(w, part_v, -weight);
+            // this->_modify_gain(u, part_v, -weight);
+            // this->_modify_gain(v, part_v, -weight);
+            // this->_modify_gain(w, part_v, -weight);
+            this->_modify_gain_va(-weight, part_v, u, v, w);
             return;
         }
     }
@@ -121,12 +114,16 @@ void FMKWayGainCalc::_init_gain_3pin_net(
         return;
     }
 
+    // for (auto&& e : {b, c})
+    // {
+    //     this->_modify_gain(e, part[b], -weight);
+    //     this->vertex_list[part[a]][e].key += weight;
+    // }
+    this->_modify_gain_va(-weight, part[b], b, c);
+    this->vertex_list[part[a]][b].key += weight;
+    this->vertex_list[part[a]][c].key += weight;
     this->vertex_list[part[b]][a].key += weight;
-    for (auto&& e : {b, c})
-    {
-        this->_modify_gain(e, part[b], -weight);
-        this->vertex_list[part[a]][e].key += weight;
-    }
+
     this->totalcost += weight;
 }
 

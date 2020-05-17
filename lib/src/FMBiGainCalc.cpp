@@ -14,27 +14,18 @@ void FMBiGainCalc::_init_gain( //
     {
         return; // does not provide any gain when moving
     }
+    if (!special_handle_2pin_nets)
+    {
+        this->_init_gain_general_net(net, part);
+        return;
+    }
     switch (degree)
     {
         case 2:
-            if (special_handle_2pin_nets)
-            {
-                this->_init_gain_2pin_net(net, part);
-            }
-            else
-            {
-                this->_init_gain_general_net(net, part);
-            }
+            this->_init_gain_2pin_net(net, part);
             break;
         case 3:
-            if (special_handle_2pin_nets)
-            {
-                this->_init_gain_3pin_net(net, part);
-            }
-            else
-            {
-                this->_init_gain_general_net(net, part);
-            }
+            this->_init_gain_3pin_net(net, part);
             break;
         default:
             this->_init_gain_general_net(net, part);
@@ -63,8 +54,9 @@ void FMBiGainCalc::_init_gain_2pin_net( //
     {
         weight = -weight;
     }
-    this->_modify_gain(w, weight);
-    this->_modify_gain(v, weight);
+    // this->_modify_gain(w, weight);
+    // this->_modify_gain(v, weight);
+    this->_modify_gain_va(weight, w, v);
 }
 
 /**
@@ -86,13 +78,14 @@ void FMBiGainCalc::_init_gain_3pin_net(
     {
         if (part[w] == part[v])
         {
-            for (auto&& a : {u, v, w})
-            {
-                this->_modify_gain(a, -weight);
-            }
+            // for (auto&& a : {u, v, w})
+            // {
+            //     this->_modify_gain(a, -weight);
+            // }
+	        this->_modify_gain_va(-weight, u, v, w);
             return;
         }
-        this->_modify_gain(w, weight);
+        this->_modify_gain_va(weight, w);
     }
     else if (part[w] == part[v])
     {

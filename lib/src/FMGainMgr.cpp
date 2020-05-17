@@ -102,27 +102,18 @@ void FMGainMgr<GainCalc, Derived>::update_move(
                       // moving
         }
         const auto move_info = MoveInfo {net, v, fromPart, toPart};
+        if (!this->gainCalc.special_handle_2pin_nets)
+        {
+            this->_update_move_general_net(part, move_info);
+            return;
+        }
         switch (degree)
         {
             case 2:
-                if (this->gainCalc.special_handle_2pin_nets)
-                {
-                    this->_update_move_2pin_net(part, move_info);
-                }
-                else
-                {
-                    this->_update_move_general_net(part, move_info);
-                }
+                this->_update_move_2pin_net(part, move_info);
                 break;
             case 3:
-                if (this->gainCalc.special_handle_2pin_nets)
-                {
-                    this->_update_move_3pin_net(part, move_info);
-                }
-                else
-                {
-                    this->_update_move_general_net(part, move_info);
-                }
+                this->_update_move_3pin_net(part, move_info);
                 break;
             default:
                 this->_update_move_general_net(part, move_info);

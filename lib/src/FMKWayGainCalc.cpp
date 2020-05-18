@@ -105,12 +105,9 @@ void FMKWayGainCalc::_init_gain_3pin_net(
     else
     {
         this->totalcost += 2 * weight;
-        this->vertex_list[part_v][u].key += weight;
-        this->vertex_list[part_w][u].key += weight;
-        this->vertex_list[part_w][v].key += weight;
-        this->vertex_list[part_u][v].key += weight;
-        this->vertex_list[part_u][w].key += weight;
-        this->vertex_list[part_v][w].key += weight;
+        this->_modify_vertex_va(weight, part_v, u, w);
+        this->_modify_vertex_va(weight, part_w, u, v);
+        this->_modify_vertex_va(weight, part_u, v, w);
         return;
     }
 
@@ -120,9 +117,8 @@ void FMKWayGainCalc::_init_gain_3pin_net(
     //     this->vertex_list[part[a]][e].key += weight;
     // }
     this->_modify_gain_va(-weight, part[b], b, c);
-    this->vertex_list[part[a]][b].key += weight;
-    this->vertex_list[part[a]][c].key += weight;
-    this->vertex_list[part[b]][a].key += weight;
+    this->_modify_vertex_va(weight, part[a], b, c);
+    this->_modify_vertex_va(weight, part[b], a);
 
     this->totalcost += weight;
 }

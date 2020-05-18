@@ -45,18 +45,16 @@ void FMBiGainCalc::_init_gain_2pin_net( //
     const auto w = *netCur;
     const auto v = *++netCur;
 
-    auto weight = this->H.get_net_weight(net);
+    const auto weight = this->H.get_net_weight(net);
     if (part[w] != part[v])
     {
         this->totalcost += weight;
+        this->_modify_gain_va(weight, w, v);
     }
     else
     {
-        weight = -weight;
+        this->_modify_gain_va(-weight, w, v);
     }
-    // this->_modify_gain(w, weight);
-    // this->_modify_gain(v, weight);
-    this->_modify_gain_va(weight, w, v);
 }
 
 /**
@@ -78,10 +76,6 @@ void FMBiGainCalc::_init_gain_3pin_net(
     {
         if (part[w] == part[v])
         {
-            // for (auto&& a : {u, v, w})
-            // {
-            //     this->_modify_gain(a, -weight);
-            // }
 	        this->_modify_gain_va(-weight, u, v, w);
             return;
         }

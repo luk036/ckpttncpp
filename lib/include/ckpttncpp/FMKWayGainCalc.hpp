@@ -141,19 +141,34 @@ class FMKWayGainCalc
         }
     }
 
-    /*!
-     * @brief
-     *
-     * @param[in] v
-     * @param[in] part_v
-     * @param[in] weight
+    /**
+     * @brief 
+     * 
+     * @tparam Ts 
+     * @param weight 
+     * @param part_v 
+     * @param v 
+     */
+    template <typename ... Ts>
+    auto _modify_vertex_va(int weight, std::uint8_t k, Ts... v) -> void
+    {
+        ((this->vertex_list[k][v].key += weight), ...);
+    }
+
+    /**
+     * @brief 
+     * 
+     * @tparam Ts 
+     * @param weight 
+     * @param part_v 
+     * @param v 
      */
     template <typename ... Ts>
     auto _modify_gain_va(int weight, std::uint8_t part_v, Ts... v) -> void
     {
         for (auto&& k : this->RR.exclude(part_v))
         {
-            ((this->vertex_list[k][v].key += weight), ...);
+            _modify_vertex_va(weight, k, v...);
         }
     }
 

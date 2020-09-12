@@ -35,17 +35,15 @@ matrix:
       addons: *gcc10
       env: COMPILER=gcc GCC=10 BUILD_TYPE='Release'
     - os: linux
-      addons: &clang11
+      addons: &clang9
         apt:
-          sources: ['llvm-toolchain-focal-11', 'ubuntu-toolchain-r-test']
           packages:
-            - clang-11
-            - libstdc++-10-dev
+            - clang-9
             - lcov
-      env: COMPILER=clang CLANG=11 BUILD_TYPE='Debug'
+      env: COMPILER=clang CLANG=9 BUILD_TYPE='Debug'
     - os: linux
-      addons: *clang11
-      env: COMPILER=clang CLANG=11 BUILD_TYPE='Release'
+      addons: *clang9
+      env: COMPILER=clang CLANG=9 BUILD_TYPE='Release'
 #     - os: osx
 #       osx_image: xcode10.1
 #       addons:

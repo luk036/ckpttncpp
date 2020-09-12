@@ -40,7 +40,7 @@ matrix:
           sources: ['llvm-toolchain-focal-11', 'ubuntu-toolchain-r-test']
           packages:
             - clang-11
-            - libstdc++-11-dev
+            - libstdc++-10-dev
             - lcov
       env: COMPILER=clang CLANG=11 BUILD_TYPE='Debug'
     - os: linux

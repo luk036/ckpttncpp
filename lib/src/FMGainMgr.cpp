@@ -56,7 +56,8 @@ std::tuple<MoveInfoV, int> FMGainMgr<GainCalc, Derived>::select(
     auto& vlink = this->gainbucket[toPart].popleft();
     this->waitinglist.append(vlink);
     // node_t v = &vlink - this->gainCalc.start_ptr(toPart);
-    const auto v = node_t(std::distance(this->gainCalc.start_ptr(toPart), &vlink));
+    const auto v =
+        node_t(std::distance(this->gainCalc.start_ptr(toPart), &vlink));
     // auto move_info_v = MoveInfoV {v, part[v], toPart};
     return {{v, part[v], toPart}, gainmax[toPart]};
 }
@@ -74,7 +75,8 @@ std::tuple<node_t, int> FMGainMgr<GainCalc, Derived>::select_togo(
     const auto gainmax = this->gainbucket[toPart].get_max();
     auto& vlink = this->gainbucket[toPart].popleft();
     this->waitinglist.append(vlink);
-    const auto v = node_t(std::distance(this->gainCalc.start_ptr(toPart), &vlink));
+    const auto v =
+        node_t(std::distance(this->gainCalc.start_ptr(toPart), &vlink));
     return {v, gainmax};
 }
 
@@ -96,7 +98,7 @@ void FMGainMgr<GainCalc, Derived>::update_move(
     for (const node_t& net : this->H.G[v])
     {
         const auto degree = this->H.G.degree(net);
-        if (degree < 2) // // [[unlikely]] 
+        if (degree < 2) // // [[unlikely]]
         {
             continue; // does not provide any gain change when
                       // moving

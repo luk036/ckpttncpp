@@ -122,18 +122,18 @@ class FMBiGainCalc
     }
 
     /**
-     * @brief 
-     * 
-     * @tparam Ts 
-     * @param weight 
-     * @param w 
+     * @brief
+     *
+     * @tparam Ts
+     * @param weight
+     * @param w
      */
-    template <typename ... Ts>
+    template <typename... Ts>
     auto _modify_gain_va(int weight, Ts... w) -> void
     {
         ((this->vertex_list[w].key += weight), ...);
     }
-    
+
     /*!
      * @brief
      *

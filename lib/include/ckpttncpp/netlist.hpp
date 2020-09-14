@@ -256,8 +256,7 @@ Netlist<nodeview_t, nodemap_t>::Netlist(graph_t G, const nodeview_t& modules,
 }
 
 template <typename nodeview_t, typename nodemap_t>
-Netlist<nodeview_t, nodemap_t>::Netlist(
-    graph_t G, int numModules, int numNets)
+Netlist<nodeview_t, nodemap_t>::Netlist(graph_t G, int numModules, int numNets)
     : Netlist {std::move(G), py::range<int>(numModules),
           py::range<int>(numModules, numModules + numNets),
           py::range<int>(numModules)}

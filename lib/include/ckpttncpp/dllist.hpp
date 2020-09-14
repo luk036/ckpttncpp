@@ -4,7 +4,8 @@
 #include <cassert>
 
 // Forward declaration for begin() end()
-template <typename T> struct dll_iterator;
+template <typename T>
+struct dll_iterator;
 
 /*!
  * @brief doubly linked node (that may also be a "head" a list)
@@ -167,9 +168,15 @@ struct dllink
      */
     auto end() -> dll_iterator<T>;
 
-    auto& items() { return *this; }
+    auto& items()
+    {
+        return *this;
+    }
 
-    const auto& items() const { return *this; }
+    const auto& items() const
+    {
+        return *this;
+    }
 
     // using coro_t = boost::coroutines2::coroutine<dllink<T>&>;
     // using pull_t = typename coro_t::pull_type;
@@ -199,22 +206,28 @@ struct dllink
  * List iterator. Traverse the list from the first item. Usually it is
  * safe to attach/detach list items during the iterator is active.
  */
-template <typename T> struct dll_iterator {
-    dllink<T> *cur; /*!< pointer to the current item */
+template <typename T>
+struct dll_iterator
+{
+    dllink<T>* cur; /*!< pointer to the current item */
 
     /*!
      * @brief Construct a new dll iterator object
      *
      * @param[in] cur
      */
-    explicit dll_iterator(dllink<T> *cur) : cur{cur} {}
+    explicit dll_iterator(dllink<T>* cur)
+        : cur {cur}
+    {
+    }
 
     /*!
      * @brief move to the next item
      *
      * @return dllink&
      */
-    auto operator++() -> dll_iterator<T> & {
+    auto operator++() -> dll_iterator<T>&
+    {
         this->cur = this->cur->next;
         return *this;
     }
@@ -224,7 +237,10 @@ template <typename T> struct dll_iterator {
      *
      * @return dllink&
      */
-    auto operator*() -> dllink<T> & { return *this->cur; }
+    auto operator*() -> dllink<T>&
+    {
+        return *this->cur;
+    }
 
     /*!
      * @brief eq operator
@@ -233,8 +249,10 @@ template <typename T> struct dll_iterator {
      * @return true
      * @return false
      */
-    auto operator==(const dll_iterator<T> &rhs) -> bool {
-        return this->cur == rhs.cur;
+    friend auto operator==(
+        const dll_iterator<T>& lhs, const dll_iterator<T>& rhs) -> bool
+    {
+        return lhs.cur == rhs.cur;
     }
 
     /*!
@@ -244,8 +262,10 @@ template <typename T> struct dll_iterator {
      * @return true
      * @return false
      */
-    auto operator!=(const dll_iterator<T> &rhs) -> bool {
-        return !(*this == rhs);
+    friend auto operator!=(
+        const dll_iterator<T>& lhs, const dll_iterator<T>& rhs) -> bool
+    {
+        return !(lhs == rhs);
     }
 };
 
@@ -254,8 +274,10 @@ template <typename T> struct dll_iterator {
  *
  * @return dll_iterator
  */
-template <typename T> inline auto dllink<T>::begin() -> dll_iterator<T> {
-    return dll_iterator{this->next};
+template <typename T>
+inline auto dllink<T>::begin() -> dll_iterator<T>
+{
+    return dll_iterator {this->next};
 }
 
 /*!
@@ -263,6 +285,8 @@ template <typename T> inline auto dllink<T>::begin() -> dll_iterator<T> {
  *
  * @return dll_iterator
  */
-template <typename T> inline auto dllink<T>::end() -> dll_iterator<T> {
-    return dll_iterator{this};
+template <typename T>
+inline auto dllink<T>::end() -> dll_iterator<T>
+{
+    return dll_iterator {this};
 }

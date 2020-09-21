@@ -1,12 +1,12 @@
+#include <boost/utility/string_view.hpp>
 #include <ckpttncpp/netlist.hpp> // import Netlist
 #include <doctest.h>
 #include <py2cpp/py2cpp.hpp>
-#include <string_view>
 
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
 extern SimpleNetlist create_dwarf();        // import create_dwarf
-extern SimpleNetlist readNetD(std::string_view netDFileName);
-extern void readAre(SimpleNetlist& H, std::string_view areFileName);
+extern SimpleNetlist readNetD(boost::string_view netDFileName);
+extern void readAre(SimpleNetlist& H, boost::string_view areFileName);
 // extern std::tuple<py::set<node_t>, int>
 // min_net_cover_pd(SimpleNetlist &, const std::vector<int> &);
 extern std::tuple<py::set<node_t>, int> max_independent_net(
@@ -34,9 +34,9 @@ extern std::unique_ptr<SimpleNetlist> create_contraction_subgraph(
 TEST_CASE("Test max_independent_net dwarf")
 {
     const auto H = create_dwarf();
-    const auto [_, cost] =
+    const auto rslt =
         max_independent_net(H, H.module_weight, py::set<node_t> {});
-    CHECK(cost == 3);
+    CHECK(std::get<1>(rslt) == 3);
 }
 
 // TEST_CASE("Test max_independent_net ibm01", "[test_max_independent_net]") {

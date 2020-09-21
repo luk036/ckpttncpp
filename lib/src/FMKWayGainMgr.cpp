@@ -43,17 +43,18 @@ int FMKWayGainMgr::init(gsl::span<const std::uint8_t> part)
  */
 void FMKWayGainMgr::update_move_v(const MoveInfoV& move_info_v, int gain)
 {
-    const auto& [v, fromPart, toPart] = move_info_v;
+    // const auto& [v, fromPart, toPart] = move_info_v;
 
     for (auto k = 0U; k != this->K; ++k)
     {
-        if (fromPart == k || toPart == k)
+        if (move_info_v.fromPart == k || move_info_v.toPart == k)
         {
             continue;
         }
         this->gainbucket[k].modify_key(
-            this->gainCalc.vertex_list[k][v], this->gainCalc.deltaGainV[k]);
+            this->gainCalc.vertex_list[k][move_info_v.v],
+            this->gainCalc.deltaGainV[k]);
     }
-    this->_set_key(fromPart, v, -gain);
+    this->_set_key(move_info_v.fromPart, move_info_v.v, -gain);
     // this->_set_key(toPart, v, -2*this->pmax);
 }

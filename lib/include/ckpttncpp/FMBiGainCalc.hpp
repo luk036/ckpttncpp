@@ -128,10 +128,49 @@ class FMBiGainCalc
      * @param weight
      * @param w
      */
-    template <typename... Ts>
-    auto _modify_gain_va(int weight, Ts... w) -> void
+    // template <typename... Ts>
+    // auto _modify_gain_va(int weight, Ts... w) -> void
+    // {
+    //     ((this->vertex_list[w].key += weight), ...);
+    // }
+
+    /**
+     * @brief
+     *
+     * @tparam Ts
+     * @param weight
+     * @param w
+     */
+    auto _modify_gain_va(int weight, node_t w1) -> void
     {
-        ((this->vertex_list[w].key += weight), ...);
+        this->vertex_list[w1].key += weight;
+    }
+
+    /**
+     * @brief
+     *
+     * @tparam Ts
+     * @param weight
+     * @param w
+     */
+    auto _modify_gain_va(int weight, node_t w1, node_t w2) -> void
+    {
+        this->vertex_list[w1].key += weight;
+        this->vertex_list[w2].key += weight;
+    }
+
+    /**
+     * @brief
+     *
+     * @tparam Ts
+     * @param weight
+     * @param w
+     */
+    auto _modify_gain_va(int weight, node_t w1, node_t w2, node_t w3) -> void
+    {
+        this->vertex_list[w1].key += weight;
+        this->vertex_list[w2].key += weight;
+        this->vertex_list[w3].key += weight;
     }
 
     /*!

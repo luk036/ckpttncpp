@@ -7,15 +7,15 @@
 #include <ckpttncpp/MLPartMgr.hpp>       // import MLBiPartMgr
 #include <doctest.h>
 // #include <experimental/random>
+#include <boost/utility/string_view.hpp>
 #include <iostream>
-#include <string_view>
 
 // using std::experimental::randint;
 
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
 extern SimpleNetlist create_dwarf();        // import create_dwarf
-extern SimpleNetlist readNetD(std::string_view netDFileName);
-extern void readAre(SimpleNetlist& H, std::string_view areFileName);
+extern SimpleNetlist readNetD(boost::string_view netDFileName);
+extern void readAre(SimpleNetlist& H, boost::string_view areFileName);
 
 TEST_CASE("Test MLBiPartMgr dwarf")
 {

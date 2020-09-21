@@ -1,4 +1,3 @@
-// -*- coding: utf-8 -*-
 #pragma once
 
 #include <initializer_list>
@@ -101,57 +100,61 @@ inline constexpr auto range(T start, T stop)
         T i;
         constexpr bool operator!=(const __iterator& other) const
         {
-            return i != other.i;
+            return this->i != other.i;
         }
         constexpr bool operator==(const __iterator& other) const
         {
-            return i == other.i;
+            return this->i == other.i;
         }
         constexpr T operator*() const
         {
-            return i;
+            return this->i;
         }
         constexpr __iterator& operator++()
         {
-            ++i;
+            ++this->i;
             return *this;
         }
     };
 
     struct iterable_wrapper
     {
-        using value_type [[maybe_unused]] = T; // luk
+      public:
+        using value_type [[maybe_unused]] = T; // luk:
+        using key_type [[maybe_unused]] = T;   // luk:
         using iterator = __iterator;           // luk
         T start;
         T stop;
-        constexpr auto begin() const
+        [[nodiscard]] constexpr auto begin() const
         {
-            return iterator {start};
+            return iterator {this->start};
         }
-        constexpr auto end() const
+        [[nodiscard]] constexpr auto end() const
         {
-            return iterator {stop};
+            return iterator {this->stop};
         }
-        constexpr auto empty() const -> bool
+        [[nodiscard]] constexpr auto empty() const -> bool
         {
-            return stop == start;
+            return this->stop == this->start;
         }
-        constexpr auto size() const -> size_t
+        [[nodiscard]] constexpr auto size() const -> size_t
         {
-            return stop - start;
+            return this->stop - this->start;
         }
         constexpr auto operator[](size_t n) const -> T
         {
-            return T(start + n);
+            return T(this->start + n);
         } // no bounds checking
-        constexpr auto contains(T n) const -> bool
+        [[nodiscard]] constexpr auto contains(T n) const -> bool
         {
-            return !(n < start) && n < stop;
+            return !(n < this->start) && n < this->stop;
         }
     };
 
-    if (stop < start)
-        stop = start;
+    stop = std::max(stop, start);
+    // if (stop < start) {
+    //     stop = start;
+    // }
     return iterable_wrapper {start, stop};
 }
 
@@ -196,7 +199,7 @@ class set : public std::unordered_set<Key>
      *
      * @param[in] init
      */
-    explicit set(std::initializer_list<Key> init)
+    set(std::initializer_list<Key> init)
         : std::unordered_set<Key> {init}
     {
     }
@@ -235,13 +238,13 @@ class set : public std::unordered_set<Key>
      *
      * @return _Self&
      */
-    _Self& operator=(_Self&&) = default;
+    _Self& operator=(_Self&&) noexcept = default;
 
     /*!
      * @brief Move Constructor (default)
      *
      */
-    set(set<Key>&&) = default;
+    set(set<Key>&&) noexcept = default;
 
   private:
     /*!
@@ -285,8 +288,8 @@ inline size_t len(const set<Key>& m)
  *
  * @tparam Key
  */
-template <typename Key>
-set(std::initializer_list<Key>) -> set<Key>;
+// template <typename Key>
+// set(std::initializer_list<Key>) -> set<Key>;
 
 // template <typename Key>
 // set(std::initializer_list<const char*> ) -> set<std::string>;
@@ -338,7 +341,7 @@ class dict : public std::unordered_map<Key, T>
      *
      * @param[in] init
      */
-    explicit dict(std::initializer_list<value_type> init)
+    dict(std::initializer_list<value_type> init)
         : std::unordered_map<Key, T> {init}
     {
     }
@@ -352,7 +355,7 @@ class dict : public std::unordered_map<Key, T>
     // template <class Sequence>
     // explicit dict(const Sequence &S) {
     //     this->reserve(S.size());
-    //     for (auto [i_v, v] : py::enumerate(S)) {
+    //     for (auto&& [i_v, v] : py::enumerate(S)) {
     //         (*this)[v] = i_v;
     //     }
     // }
@@ -392,7 +395,8 @@ class dict : public std::unordered_map<Key, T>
      */
     auto begin() const
     {
-        return key_iterator {std::unordered_map<Key, T>::begin()};
+        using Iter = decltype(std::unordered_map<Key, T>::begin());
+        return key_iterator<Iter> {std::unordered_map<Key, T>::begin()};
     }
 
     /*!
@@ -402,7 +406,8 @@ class dict : public std::unordered_map<Key, T>
      */
     auto end() const
     {
-        return key_iterator {std::unordered_map<Key, T>::end()};
+        using Iter = decltype(std::unordered_map<Key, T>::end());
+        return key_iterator<Iter> {std::unordered_map<Key, T>::end()};
     }
 
     /*!
@@ -447,13 +452,13 @@ class dict : public std::unordered_map<Key, T>
      *
      * @return _Self&
      */
-    _Self& operator=(_Self&&) = default;
+    _Self& operator=(_Self&&) noexcept = default;
 
     /*!
      * @brief Move Constructor (default)
      *
      */
-    dict(dict<Key, T>&&) = default;
+    dict(dict<Key, T>&&) noexcept = default;
 
   private:
     /*!
@@ -500,11 +505,11 @@ inline size_t len(const dict<Key, T>& m)
  * @tparam Key
  * @tparam T
  */
-template <typename Key, typename T>
-dict(std::initializer_list<std::pair<const Key, T>>) -> dict<Key, T>;
+// template <typename Key, typename T>
+// dict(std::initializer_list<std::pair<const Key, T>>) -> dict<Key, T>;
 
-template <class Sequence>
-dict(const Sequence& S)
-    -> dict<std::remove_cv_t<decltype(*std::begin(S))>, size_t>;
+// template <class Sequence>
+// dict(const Sequence& S)
+//     -> dict<std::remove_cv_t<decltype(*std::begin(S))>, size_t>;
 
 } // namespace py

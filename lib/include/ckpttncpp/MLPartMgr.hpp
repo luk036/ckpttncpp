@@ -6,9 +6,9 @@
 // #include "FMPartMgr.hpp" // import FMPartMgr
 // #include "netlist.hpp"
 #include <cassert>
+#include <ckpttncpp/netlist.hpp>
 #include <gsl/span>
 #include <vector>
-#include <ckpttncpp/netlist.hpp>
 // #include <ckpttncpp/FMConstrMgr.hpp>   // import LegalCheck
 
 // forward declare
@@ -68,8 +68,8 @@ class MLPartMgr
      * @return LegalCheck
      */
     template <typename PartMgr>
-    LegalCheck run_FMPartition(const SimpleNetlist& H, gsl::span<std::uint8_t> part,
-        size_t limitsize);
+    LegalCheck run_FMPartition(
+        const SimpleNetlist& H, gsl::span<std::uint8_t> part, size_t limitsize);
 
     /*!
      * @brief run_Partition
@@ -82,8 +82,8 @@ class MLPartMgr
      * @return LegalCheck
      */
     template <typename PartMgr>
-    LegalCheck run_Partition(const SimpleNetlist& H, gsl::span<std::uint8_t> part,
-        size_t limitsize);
+    LegalCheck run_Partition(
+        const SimpleNetlist& H, gsl::span<std::uint8_t> part, size_t limitsize);
 
     /*!
      * @brief run_Partition
@@ -128,6 +128,6 @@ class MLPartMgr
      * @return size_t self.take_snapshot(part)
      */
     template <typename PartMgr>
-    void run_Partition_recur(const SimpleNetlist& H,
-        gsl::span<std::uint8_t> part, size_t limitsize);
+    void run_Partition_recur(
+        const SimpleNetlist& H, gsl::span<std::uint8_t> part, size_t limitsize);
 };

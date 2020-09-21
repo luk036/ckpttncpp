@@ -5,11 +5,11 @@
 
 TEST_CASE("Test dllist")
 {
-    auto L1 = dllink {0};
-    auto L2 = dllink {0};
-    auto d = dllink {0};
-    auto e = dllink {0};
-    auto f = dllink {0};
+    auto L1 = dllink<int> {0};
+    auto L2 = dllink<int> {0};
+    auto d = dllink<int> {0};
+    auto e = dllink<int> {0};
+    auto f = dllink<int> {0};
     CHECK(L1.is_empty());
 
     L1.appendleft(e);

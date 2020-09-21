@@ -1,13 +1,13 @@
+#include <boost/utility/string_view.hpp>
 #include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
 #include <ckpttncpp/FMBiGainMgr.hpp>   // import FMBiGainMgr
 #include <ckpttncpp/FMPartMgr.hpp>     // import FMBiPartMgr
 #include <doctest.h>
-#include <string_view>
 
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
 extern SimpleNetlist create_dwarf();        // import create_dwarf
-extern SimpleNetlist readNetD(std::string_view netDFileName);
-extern void readAre(SimpleNetlist& H, std::string_view areFileName);
+extern SimpleNetlist readNetD(boost::string_view netDFileName);
+extern void readAre(SimpleNetlist& H, boost::string_view areFileName);
 
 /**
  * @brief Run test cases
@@ -18,7 +18,8 @@ void run_FMBiPartMgr(const SimpleNetlist& H)
 {
     auto gainMgr = FMBiGainMgr {H};
     auto constrMgr = FMBiConstrMgr {H, 0.4};
-    auto partMgr = FMPartMgr {H, gainMgr, constrMgr};
+    auto partMgr =
+        FMPartMgr<FMBiGainMgr, FMBiConstrMgr> {H, gainMgr, constrMgr};
     auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
     partMgr.legalize(part);
     const auto totalcostbefore = partMgr.totalcost;

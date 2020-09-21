@@ -7,14 +7,14 @@ TEST_CASE("Test BPQueue")
 {
     constexpr auto PMAX = 10;
 
-    auto bpq1 = bpqueue {-PMAX, PMAX};
-    auto bpq2 = bpqueue {-PMAX, PMAX};
+    auto bpq1 = bpqueue<int> {-PMAX, PMAX};
+    auto bpq2 = bpqueue<int> {-PMAX, PMAX};
 
     CHECK(bpq1.is_empty());
 
-    auto d = dllink {0};
-    auto e = dllink {0};
-    auto f = dllink {0};
+    auto d = dllink<int> {0};
+    auto e = dllink<int> {0};
+    auto f = dllink<int> {0};
 
     CHECK(d.key == 0);
 

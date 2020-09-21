@@ -1,5 +1,4 @@
-#ifndef _HOME_UBUNTU_GITHUB_XNETWORK_CLASS_COREVIEWS_HPP
-#define _HOME_UBUNTU_GITHUB_XNETWORK_CLASS_COREVIEWS_HPP 1
+#pragma once
 
 //    Copyright (C) 2004-2018 by
 //    Wai-Shing Luk <luk036@gmail.com>
@@ -11,19 +10,29 @@
 // Authors: Wai-Shing Luk (luk036@gmail.com),
 //          Pieter Swart (swart@lanl.gov),
 //          Dan Schult(dschult@colgate.edu);
-/**
+/*!
  */
 // from collections import Mapping
 // #include <xnetwork.hpp> // as xn
 
-// static const auto __all__ = {
-//     "AtlasView",           "AdjacencyView",        "MultiAdjacencyView",
-//     "UnionAtlas",          "UnionAdjacency",       "UnionMultiInner",
-//     "UnionMultiAdjacency", "FilterAtlas",          "FilterAdjacency",
-//     "FilterMultiInner",    "FilterMultiAdjacency", "ReadOnlyGraph",
-// };
+/*
+static const auto __all__ = {
+    "AtlasView",
+    "AdjacencyView",
+    "MultiAdjacencyView",
+    "UnionAtlas",
+    "UnionAdjacency",
+    "UnionMultiInner",
+    "UnionMultiAdjacency",
+    "FilterAtlas",
+    "FilterAdjacency",
+    "FilterMultiInner",
+    "FilterMultiAdjacency",
+    "ReadOnlyGraph",
+};
+*/
 
-/** An AtlasView is a Read-only Mapping of Mappings.
+/*! An AtlasView is a Read-only Mapping of Mappings.
 
     It is a View into a dict-of-dict data structure.
     The inner level of dict is read-write. But the
@@ -47,17 +56,17 @@ class AtlasView
     {
     }
 
-    auto size() const
+    [[nodiscard]] auto size() const
     {
         return this->_atlas.size();
     }
 
-    auto begin() const
+    [[nodiscard]] auto begin() const
     {
         return std::begin(this->_atlas);
     }
 
-    auto end() const
+    [[nodiscard]] auto end() const
     {
         return std::end(this->_atlas);
     }
@@ -65,17 +74,17 @@ class AtlasView
     template <typename T>
     const auto& operator[](const T& key) const
     {
-        return this->_atlas[key];
+        return this->_atlas.at(key);
     }
 
     template <typename T>
     auto& operator[](const T& key)
     {
-        return this->_atlas[key];
+        return this->_atlas.at(key);
     }
 
     // auto copy( ) {
-    //     return {n: self[n].copy() for n : this->_atlas};
+    //     return std::tuple{n: self[n].copy() for n : this->_atlas};
     // }
 
     // auto __str__( ) {
@@ -87,7 +96,7 @@ class AtlasView
     // }
 };
 
-/** An AdjacencyView is a Read-only Map of Maps of Maps.
+/*! An AdjacencyView is a Read-only Map of Maps of Maps.
 
     It is a View into a dict-of-dict-of-dict data structure.
     The inner level of dict is read-write. But the
@@ -114,12 +123,12 @@ class AdjacencyView : public AtlasView<Atlas>
     // }
 
     // auto copy( ) {
-    //     return {n: self[n].copy() for n : this->_atlas};
+    //     return std::tuple{n: self[n].copy() for n : this->_atlas};
     // }
 };
 
 // class MultiAdjacencyView(AdjacencyView) {
-//     /** An MultiAdjacencyView is a Read-only Map of Maps of Maps of Maps.
+//     /*! An MultiAdjacencyView is a Read-only Map of Maps of Maps of Maps.
 
 //     It is a View into a dict-of-dict-of-dict-of-dict data structure.
 //     The inner level of dict is read-write. But the
@@ -139,12 +148,12 @@ class AdjacencyView : public AtlasView<Atlas>
 //     }
 
 //     auto copy( ) {
-//         return {n: self[n].copy() for n : this->_atlas};
+//         return std::tuple{n: self[n].copy() for n : this->_atlas};
 //     }
 // };
 
 // class UnionAtlas : public Mapping {
-//     /** A read-only union of two atlases (dict-of-dict).
+//     /*! A read-only union of two atlases (dict-of-dict).
 
 //     The two dict-of-dicts represent the inner dict of
 //     an Adjacency:  `G.succ[node]` and `G.pred[node]`.
@@ -161,7 +170,7 @@ class AdjacencyView : public AtlasView<Atlas>
 //     static const auto __slots__ = {"_succ", "_pred"};
 
 //     auto __getstate__( ) {
-//         return {"_succ": this->_succ, "_pred": this->_pred};
+//         return std::tuple{"_succ": this->_succ, "_pred": this->_pred};
 //     }
 
 //     auto __setstate__( state) {
@@ -213,7 +222,7 @@ class AdjacencyView : public AtlasView<Atlas>
 // };
 
 // class UnionAdjacency : public Mapping {
-//     /** A read-only union of dict Adjacencies as a Map of Maps of Maps.
+//     /*! A read-only union of dict Adjacencies as a Map of Maps of Maps.
 
 //     The two input dict-of-dict-of-dicts represent the union of
 //     `G.succ` and `G.pred`. Return values are UnionAtlas
@@ -234,7 +243,7 @@ class AdjacencyView : public AtlasView<Atlas>
 //     static const auto __slots__ = {"_succ", "_pred"};
 
 //     auto __getstate__( ) {
-//         return {"_succ": this->_succ, "_pred": this->_pred};
+//         return std::tuple{"_succ": this->_succ, "_pred": this->_pred};
 //     }
 
 //     auto __setstate__( state) {
@@ -263,7 +272,7 @@ class AdjacencyView : public AtlasView<Atlas>
 //     }
 
 //     auto copy( ) {
-//         return {n: self[n].copy() for n : this->_succ};
+//         return std::tuple{n: self[n].copy() for n : this->_succ};
 //     }
 
 //     auto __str__( ) {
@@ -277,7 +286,7 @@ class AdjacencyView : public AtlasView<Atlas>
 // };
 
 // class UnionMultiInner(UnionAtlas) {
-//     /** A read-only union of two inner dicts of MultiAdjacencies.
+//     /*! A read-only union of two inner dicts of MultiAdjacencies.
 
 //     The two input dict-of-dict-of-dicts represent the union of
 //     `G.succ[node]` and `G.pred[node]` for MultiDiGraphs.
@@ -308,11 +317,11 @@ class AdjacencyView : public AtlasView<Atlas>
 
 //     auto copy( ) {
 //         nodes = set(this->_succ.keys()) | set(this->_pred.keys());
-//         return {n: self[n].copy() for n : nodes};
+//         return std::tuple{n: self[n].copy() for n : nodes};
 //     }
 
 // class UnionMultiAdjacency(UnionAdjacency) {
-//     /** A read-only union of two dict MultiAdjacencies.
+//     /*! A read-only union of two dict MultiAdjacencies.
 
 //     The two input dict-of-dict-of-dict-of-dicts represent the union of
 //     `G.succ` and `G.pred` for MultiDiGraphs. Return values are
@@ -332,7 +341,7 @@ class AdjacencyView : public AtlasView<Atlas>
 //     }
 
 // class ReadOnlyGraph: public object {
-//     /** A Mixin Class to mask the write methods of a graph class. */
+//     /*! A Mixin Class to mask the write methods of a graph class. */
 
 //     auto not_allowed( *args, **kwds) {
 //         const auto msg = "SubGraph Views are readonly. Mutations not
@@ -381,10 +390,10 @@ class AdjacencyView : public AtlasView<Atlas>
 
 //     auto copy( ) {
 //         if (hasattr(this->NODE_OK, "nodes") {
-//             return {u: this->_atlas[u] for u : this->NODE_OK.nodes
+//             return std::tuple{u: this->_atlas[u] for u : this->NODE_OK.nodes
 //                     if (u : this->_atlas};
 //         }
-//         return {u: d for u, d : this->_atlas.items();
+//         return std::tuple{u: d for u, d : this->_atlas.items();
 //                 if (this->NODE_OK(u)};
 //     }
 
@@ -429,11 +438,12 @@ class AdjacencyView : public AtlasView<Atlas>
 
 //     auto copy( ) {
 //         if (hasattr(this->NODE_OK, "nodes") {
-//             return {u: {v: d for v, d : this->_atlas[u].items()
+//             return std::tuple{u: {v: d for v, d : this->_atlas[u].items()
 //                         if (this->NODE_OK(v) if (this->EDGE_OK(u, v)}
 //                     for (auto u : this->NODE_OK.nodes if (u : this->_atlas};
 //         }
-//         return {u: {v: d for v, d : nbrs.items() if (this->NODE_OK(v)
+//         return std::tuple{u: {v: d for v, d : nbrs.items() if
+//         (this->NODE_OK(v)
 //                     if (this->EDGE_OK(u, v)}
 //                 for (auto u, nbrs : this->_atlas.items()
 //                 if (this->NODE_OK(u)};
@@ -482,11 +492,12 @@ class AdjacencyView : public AtlasView<Atlas>
 
 //     auto copy( ) {
 //         if (hasattr(this->NODE_OK, "nodes") {
-//             return {v: {k: d for k, d : this->_atlas[v].items()
+//             return std::tuple{v: {k: d for k, d : this->_atlas[v].items()
 //                         if (this->EDGE_OK(v, k)}
 //                     for (auto v : this->NODE_OK.nodes if (v : this->_atlas}
 //         }
-//         return {v: {k: d for k, d : nbrs.items() if (this->EDGE_OK(v, k)}
+//         return std::tuple{v: {k: d for k, d : nbrs.items() if
+//         (this->EDGE_OK(v, k)}
 //                 for (auto v, nbrs : this->_atlas.items() if
 //                 (this->NODE_OK(v)};
 //     }
@@ -507,18 +518,16 @@ class AdjacencyView : public AtlasView<Atlas>
 //     auto copy( ) {
 //         if (hasattr(this->NODE_OK, "nodes") {
 //             my_nodes = this->NODE_OK.nodes;
-//             return {u: {v: {k: d for k, d : kd.items()
+//             return std::tuple{u: {v: {k: d for k, d : kd.items()
 //                             if (this->EDGE_OK(u, v, k)}
 //                         for (auto v, kd : this->_atlas[u].items() if (v :
 //                         my_nodes}
 //                     for (auto u : my_nodes if (u : this->_atlas};
 //         }
-//         return {u: {v: {k: d for k, d : kd.items()
+//         return std::tuple{u: {v: {k: d for k, d : kd.items()
 //                         if (this->EDGE_OK(u, v, k)}
 //                     for (auto v, kd : nbrs.items() if (this->NODE_OK(v)}
 //                 for (auto u, nbrs : this->_atlas.items() if
 //                 (this->NODE_OK(u)};
 //     }
 // };
-
-#endif

@@ -52,12 +52,12 @@ TEST_CASE("Test Range (char)")
 
 TEST_CASE("Test Range (pointer)")
 {
-    auto A = std::array {0.2, 0.4, 0.1, 0.9};
-    auto R = py::range(&A, &A + 4);
+    auto A = std::array<double, 4> {0.2, 0.4, 0.1, 0.9};
+    auto R = py::range(&A[0], &A[0] + 4);
 
     CHECK(!R.empty());
     // CHECK(R.contains(&A + 2));
-    CHECK(R[1] == &A + 1);
+    CHECK(R[1] == &A[0] + 1);
 
     auto count = 0;
     for ([[maybe_unused]] auto _ : R)

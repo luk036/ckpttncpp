@@ -1,5 +1,5 @@
+#include <ckpttncpp/FMConstrMgr.hpp> // import LegalCheck
 #include <ckpttncpp/MLPartMgr.hpp>
-#include <ckpttncpp/FMConstrMgr.hpp>   // import LegalCheck
 #include <iostream>
 
 /*!
@@ -13,8 +13,8 @@
  * @return LegalCheck
  */
 template <typename PartMgr>
-LegalCheck MLPartMgr::run_FMPartition(const SimpleNetlist& H, gsl::span<std::uint8_t> part,
-    size_t limitsize)
+LegalCheck MLPartMgr::run_FMPartition(
+    const SimpleNetlist& H, gsl::span<std::uint8_t> part, size_t limitsize)
 {
     using GainMgr = typename PartMgr::GainMgr_;
     using ConstrMgr = typename PartMgr::ConstrMgr_;
@@ -37,8 +37,7 @@ LegalCheck MLPartMgr::run_FMPartition(const SimpleNetlist& H, gsl::span<std::uin
     { // OK
         try
         {
-            const auto H2 =
-                create_contraction_subgraph(H, py::set<node_t> {});
+            const auto H2 = create_contraction_subgraph(H, py::set<node_t> {});
             if (5 * H2->number_of_modules() <= 3 * H.number_of_modules())
             {
                 auto part2 =
@@ -80,12 +79,12 @@ LegalCheck MLPartMgr::run_FMPartition(const SimpleNetlist& H, gsl::span<std::uin
  * @return LegalCheck
  */
 template <typename PartMgr>
-LegalCheck MLPartMgr::run_Partition(const SimpleNetlist& H, gsl::span<std::uint8_t> part,
-    size_t limitsize)
+LegalCheck MLPartMgr::run_Partition(
+    const SimpleNetlist& H, gsl::span<std::uint8_t> part, size_t limitsize)
 {
     using GainMgr = typename PartMgr::GainMgr_;
     using ConstrMgr = typename PartMgr::ConstrMgr_;
-    
+
     auto gainMgr = GainMgr {H, this->K};
     auto constrMgr = ConstrMgr {H, this->BalTol, this->K};
     auto partMgr = PartMgr {H, gainMgr, constrMgr};
@@ -112,15 +111,14 @@ LegalCheck MLPartMgr::run_Partition(const SimpleNetlist& H, gsl::span<std::uint8
  * @return size_t self.take_snapshot(part)
  */
 template <typename PartMgr>
-void MLPartMgr::run_Partition_recur(const SimpleNetlist& H,
-    gsl::span<std::uint8_t> part, size_t limitsize)
+void MLPartMgr::run_Partition_recur(
+    const SimpleNetlist& H, gsl::span<std::uint8_t> part, size_t limitsize)
 {
     if (H.number_of_modules() >= limitsize)
     { // OK
         try
         {
-            const auto H2 =
-                create_contraction_subgraph(H, py::set<node_t> {});
+            const auto H2 = create_contraction_subgraph(H, py::set<node_t> {});
             if (5 * H2->number_of_modules() <= 3 * H.number_of_modules())
             {
                 auto part2 =
@@ -155,18 +153,18 @@ void MLPartMgr::run_Partition_recur(const SimpleNetlist& H,
     this->totalcost = partMgrPtr->totalcost;
 }
 
-#include <ckpttncpp/FMPartMgr.hpp>       // import FMBiPartMgr
+#include <ckpttncpp/FMPartMgr.hpp> // import FMBiPartMgr
 
-#include <ckpttncpp/FMBiConstrMgr.hpp>   // import FMBiConstrMgr
-#include <ckpttncpp/FMBiGainMgr.hpp>     // import FMBiGainMgr
+#include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
+#include <ckpttncpp/FMBiGainMgr.hpp>   // import FMBiGainMgr
 
-template
-LegalCheck MLPartMgr::run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(
+template LegalCheck
+MLPartMgr::run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(
     const SimpleNetlist& H, gsl::span<std::uint8_t> part, size_t limitsize);
 
 #include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr
 #include <ckpttncpp/FMKWayGainMgr.hpp>   // import FMKWayGainMgr
 
-template
-LegalCheck MLPartMgr::run_FMPartition<FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>>(
+template LegalCheck
+MLPartMgr::run_FMPartition<FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>>(
     const SimpleNetlist& H, gsl::span<std::uint8_t> part, size_t limitsize);

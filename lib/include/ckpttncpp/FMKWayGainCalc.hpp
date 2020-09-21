@@ -149,10 +149,52 @@ class FMKWayGainCalc
      * @param part_v
      * @param v
      */
-    template <typename... Ts>
-    auto _modify_vertex_va(int weight, std::uint8_t k, Ts... v) -> void
+    // template <typename... Ts>
+    // auto _modify_vertex_va(int weight, std::uint8_t k, Ts... v) -> void
+    // {
+    //     ((this->vertex_list[k][v].key += weight), ...);
+    // }
+
+    /**
+     * @brief
+     *
+     * @tparam Ts
+     * @param weight
+     * @param part_v
+     * @param v
+     */
+    auto _modify_vertex_va(int weight, std::uint8_t k, node_t v1) -> void
     {
-        ((this->vertex_list[k][v].key += weight), ...);
+        this->vertex_list[k][v1].key += weight;
+    }
+
+    /**
+     * @brief
+     *
+     * @tparam Ts
+     * @param weight
+     * @param part_v
+     * @param v
+     */
+    auto _modify_vertex_va(int weight, std::uint8_t k, node_t v1, node_t v2) -> void
+    {
+        this->vertex_list[k][v1].key += weight;
+        this->vertex_list[k][v2].key += weight;
+    }
+
+    /**
+     * @brief
+     *
+     * @tparam Ts
+     * @param weight
+     * @param part_v
+     * @param v
+     */
+    auto _modify_vertex_va(int weight, std::uint8_t k, node_t v1, node_t v2, node_t v3) -> void
+    {
+        this->vertex_list[k][v1].key += weight;
+        this->vertex_list[k][v2].key += weight;
+        this->vertex_list[k][v3].key += weight;
     }
 
     /**

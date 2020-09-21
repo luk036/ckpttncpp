@@ -54,7 +54,7 @@ class bpqueue
         , bucket(high + 1)
     {
         assert(a <= b);
-        static_assert(std::is_integral_v<T>);
+        static_assert(std::is_integral<T>::value, "");
         bucket[0].append(sentinel); // sentinel
     }
 
@@ -309,14 +309,6 @@ class bpqueue
     // }
 };
 
-/**
- * @brief sentinel
- *
- * @tparam T
- */
-template <typename T>
-inline dllink<T> bpqueue<T>::sentinel {};
-
 /*!
  * @brief Bounded Priority Queue Iterator
  *
@@ -421,7 +413,7 @@ class bpq_iterator
 template <typename T>
 inline auto bpqueue<T>::begin() -> bpq_iterator<T>
 {
-    return bpq_iterator(*this, this->max);
+    return {*this, this->max};
 }
 
 /*!
@@ -432,5 +424,5 @@ inline auto bpqueue<T>::begin() -> bpq_iterator<T>
 template <typename T>
 inline auto bpqueue<T>::end() -> bpq_iterator<T>
 {
-    return bpq_iterator(*this, 0);
+    return {*this, 0};
 }

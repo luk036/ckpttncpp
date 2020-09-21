@@ -14,7 +14,7 @@ Circuit Partitioning C++ Code
 ## Highlights
 
 -   Direct port from [Python version](https://github.com/luk036/ckpttnpy)
--   Powered by C++17.
+-   Work for C++20/17/14.
 -   Support multi-level bi-partitioning and K-way partitioning
 -   Special handle two-pin nets (and three-pin nets).
 

@@ -1,9 +1,9 @@
+#include <boost/utility/string_view.hpp>
 #include <ckpttncpp/netlist.hpp>
 #include <climits>
 #include <fstream>
 #include <iostream>
 #include <py2cpp/py2cpp.hpp>
-#include <string_view>
 #include <utility> // for std::pair
 #include <vector>
 
@@ -16,7 +16,7 @@ using std::ifstream;
 using std::ofstream;
 
 // Read the IBM .netD/.net format. Precondition: Netlist is empty.
-void writeJSON(std::string_view jsonFileName, const SimpleNetlist& H)
+void writeJSON(boost::string_view jsonFileName, const SimpleNetlist& H)
 {
     auto json = ofstream {jsonFileName.data()};
     if (json.fail())
@@ -61,7 +61,7 @@ void writeJSON(std::string_view jsonFileName, const SimpleNetlist& H)
 }
 
 // Read the IBM .netD/.net format. Precondition: Netlist is empty.
-SimpleNetlist readNetD(std::string_view netDFileName)
+SimpleNetlist readNetD(boost::string_view netDFileName)
 {
     auto netD = ifstream {netDFileName.data()};
     if (netD.fail())
@@ -165,13 +165,13 @@ SimpleNetlist readNetD(std::string_view netDFileName)
     //     typename boost::property_map<graph_t, boost::vertex_index_t>::type;
     // auto index = boost::get(boost::vertex_index, g);
     // auto G = xn::grAdaptor<graph_t>{std::move(g)};
-    auto H = Netlist {std::move(g), numModules, numNets};
+    auto H = SimpleNetlist {std::move(g), numModules, numNets};
     H.num_pads = numModules - padOffset - 1;
     return H;
 }
 
 // Read the IBM .are format
-void readAre(SimpleNetlist& H, std::string_view areFileName)
+void readAre(SimpleNetlist& H, boost::string_view areFileName)
 {
     auto are = ifstream {areFileName.data()};
     if (are.fail())

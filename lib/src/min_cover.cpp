@@ -150,7 +150,8 @@ auto max_independent_net(const SimpleNetlist& H,
 auto create_contraction_subgraph(
     const SimpleNetlist& H, const py::set<node_t>& DontSelect)
 {
-    auto [S, _] = max_independent_net(H, H.module_weight, DontSelect);
+    auto rslt = max_independent_net(H, H.module_weight, DontSelect);
+    auto&& S = std::get<0>(rslt);
 
     auto module_up_map = py::dict<node_t, node_t> {};
     module_up_map.reserve(H.number_of_modules());
@@ -216,15 +217,19 @@ auto create_contraction_subgraph(
     { // localize module_map and net_map
         auto module_map = py::dict<node_t, index_t> {};
         module_map.reserve(numModules);
-        for (auto&& [i_v, v] : py::enumerate(modules))
+        // for (auto&& [i_v, v] : py::enumerate(modules))
+        for (auto i_v = 0U; i_v != modules.size(); ++i_v)
         {
+            const auto& v = modules[i_v];
             module_map[v] = index_t(i_v);
         }
 
         auto net_map = py::dict<node_t, index_t> {};
         net_map.reserve(numNets);
-        for (auto&& [i_net, net] : py::enumerate(nets))
+        // for (auto&& [i_net, net] : py::enumerate(nets))
+        for (auto i_net = 0U; i_net != nets.size(); ++i_net)
         {
+            const auto& net = nets[i_net];
             net_map[net] = index_t(i_net);
         }
 
@@ -264,14 +269,20 @@ auto create_contraction_subgraph(
 
     auto node_down_map = py::dict<index_t, node_t> {};
     node_down_map.reserve(num_vertices);
-    for (auto&& [v1, v2] : node_up_map.items())
+    // for (auto&& [v1, v2] : node_up_map.items())
+    for (auto&& keyvalue : node_up_map.items())
     {
+        auto&& v1 = std::get<0>(keyvalue);
+        auto&& v2 = std::get<1>(keyvalue);
         node_down_map[v2] = v1;
     }
     auto cluster_down_map = py::dict<index_t, node_t> {};
     cluster_down_map.reserve(cluster_map.size()); // ???
-    for (auto&& [v, net] : cluster_map.items())
+    // for (auto&& [v, net] : cluster_map.items())
+    for (auto&& keyvalue : cluster_map.items())
     {
+        auto&& v = std::get<0>(keyvalue);
+        auto&& net = std::get<1>(keyvalue);
         cluster_down_map[node_up_map[v]] = net;
     }
 

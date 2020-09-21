@@ -39,7 +39,7 @@ auto create_dwarf() -> SimpleNetlist
     // static std::vector<nodes> net__name_list = {n1, n2, n3};
 
     // char name[] = "ABCDE";
-    auto edge_array = std::vector {Edge(p1, n1), Edge(a0, n1), Edge(a1, n1),
+    auto edge_array = std::vector<Edge> {Edge(p1, n1), Edge(a0, n1), Edge(a1, n1),
         Edge(a0, n2), Edge(a2, n2), Edge(a3, n2), Edge(a1, n3), Edge(a2, n3),
         Edge(a3, n3), Edge(a2, n4), Edge(p2, n4), Edge(a3, n5), Edge(p3, n5),
         Edge(a0, n6)};
@@ -48,9 +48,9 @@ auto create_dwarf() -> SimpleNetlist
     // auto R = py::range<int>(num_nodes);
     // graph_t g{R, R};
     auto g = xn::SimpleGraph(num_nodes);
-    for (auto&& [u, v] : edge_array)
+    for (auto&& e : edge_array)
     {
-        g.add_edge(u, v);
+        g.add_edge(e.first, e.second);
     }
     // using node_t = typename boost::graph_traits<graph_t>::vertex_descriptor;
     // using IndexMap =
@@ -64,7 +64,7 @@ auto create_dwarf() -> SimpleNetlist
     // auto H = Netlist{std::move(g), py::range(7), py::range(7, 13),
     // py::range(7),
     //                  py::range(-7, 6)};
-    auto H = Netlist {std::move(g), 7, 6};
+    auto H = SimpleNetlist {std::move(g), 7, 6};
 
     H.module_weight = module_weight;
     H.num_pads = 3;
@@ -91,7 +91,7 @@ auto create_test_netlist() -> SimpleNetlist
     };
 
     // char name[] = "ABCDE";
-    auto edge_array = std::vector {Edge(a1, n1), Edge(a1, n2), Edge(a2, n1),
+    auto edge_array = std::vector<Edge> {Edge(a1, n1), Edge(a1, n2), Edge(a2, n1),
         Edge(a2, n2), Edge(a3, n2), Edge(a1, n3)};
     // std::index_t indices[] = {0, 1, 2, 3, 4, 5};
     // auto num_arcs = sizeof(edge_array) / sizeof(Edge);
@@ -99,13 +99,13 @@ auto create_test_netlist() -> SimpleNetlist
     // auto G = xn::grAdaptor<graph_t>{std::move(g)};
     const auto R = py::range<int>(num_nodes);
     graph_t g {R, R};
-    for (auto&& [u, v] : edge_array)
+    for (auto&& e : edge_array)
     {
-        g.add_edge(u, v);
+        g.add_edge(e.first, e.second);
     }
 
     auto module_weight = std::vector<int> {3, 4, 2};
-    auto H = Netlist {std::move(g), 3, 3};
+    auto H = SimpleNetlist {std::move(g), 3, 3};
     H.module_weight = std::move(module_weight);
     return H;
 }

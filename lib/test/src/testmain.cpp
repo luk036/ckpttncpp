@@ -6,7 +6,7 @@
 
 TEST_CASE("Test span")
 {
-    auto k = std::array {3, 4, 5};
+    auto k = std::array<int, 3> {3, 4, 5};
     auto s = gsl::span<int> {k};
 
     std::cout << s[1] << '\n';

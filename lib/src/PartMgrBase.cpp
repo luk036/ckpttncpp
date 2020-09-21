@@ -57,7 +57,9 @@ LegalCheck PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
         {
             break;
         }
-        const auto [v, gainmax] = this->gainMgr.select_togo(toPart);
+        const auto rslt = this->gainMgr.select_togo(toPart);
+        auto&& v = std::get<0>(rslt);
+        auto&& gainmax = std::get<1>(rslt);
         const auto fromPart = part[v];
         // assert(v == v);
         assert(fromPart != toPart);
@@ -104,7 +106,10 @@ void PartMgrBase<GainMgr, ConstrMgr, Derived>::_optimize_1pass(
     while (!this->gainMgr.is_empty())
     {
         // Take the gainmax with v from gainbucket
-        const auto [move_info_v, gainmax] = this->gainMgr.select(part);
+        const auto rslt = this->gainMgr.select(part);
+        auto&& move_info_v = std::get<0>(rslt);
+        auto&& gainmax = std::get<1>(rslt);
+
         // Check if the move of v can satisfied or notsatisfied
         const auto satisfiedOK = this->validator.check_constraints(move_info_v);
         if (!satisfiedOK)
@@ -130,13 +135,13 @@ void PartMgrBase<GainMgr, ConstrMgr, Derived>::_optimize_1pass(
         }
         // Update v and its neigbours (even they are in waitinglist);
         // Put neigbours to bucket
-        const auto& [v, _, toPart] = move_info_v;
-        this->gainMgr.lock(toPart, v);
+        // const auto& [v, _, toPart] = move_info_v;
+        this->gainMgr.lock(move_info_v.toPart, move_info_v.v);
         this->gainMgr.update_move(part, move_info_v);
         this->gainMgr.update_move_v(move_info_v, gainmax);
         this->validator.update_move(move_info_v);
         totalgain += gainmax;
-        part[v] = toPart;
+        part[move_info_v.v] = move_info_v.toPart;
     }
     if (deferredsnapshot)
     {

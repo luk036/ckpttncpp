@@ -24,15 +24,13 @@ void FMConstrMgr::init(gsl::span<const std::uint8_t> part)
  */
 LegalCheck FMConstrMgr::check_legal(const MoveInfoV& move_info_v)
 {
-    const auto& [v, fromPart, toPart] = move_info_v;
-
-    this->weight = this->H.get_module_weight(v);
-    const auto diffFrom = this->diff[fromPart] - this->weight;
+    this->weight = this->H.get_module_weight(move_info_v.v);
+    const auto diffFrom = this->diff[move_info_v.fromPart] - this->weight;
     if (diffFrom < this->lowerbound)
     {
         return LegalCheck::notsatisfied; // not ok, don't move
     }
-    const auto diffTo = this->diff[toPart] + this->weight;
+    const auto diffTo = this->diff[move_info_v.toPart] + this->weight;
     if (diffTo < this->lowerbound)
     {
         return LegalCheck::getbetter; // get better, but still illegal
@@ -49,11 +47,11 @@ LegalCheck FMConstrMgr::check_legal(const MoveInfoV& move_info_v)
  */
 bool FMConstrMgr::check_constraints(const MoveInfoV& move_info_v)
 {
-    const auto& [v, fromPart, toPart] = move_info_v;
+    // const auto& [v, fromPart, toPart] = move_info_v;
 
-    this->weight = this->H.get_module_weight(v);
+    this->weight = this->H.get_module_weight(move_info_v.v);
     // auto diffTo = this->diff[toPart] + this->weight;
-    const auto diffFrom = this->diff[fromPart] - this->weight;
+    const auto diffFrom = this->diff[move_info_v.fromPart] - this->weight;
     return diffFrom >= this->lowerbound;
 }
 

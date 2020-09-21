@@ -18,16 +18,18 @@ void run_FMBiGainMgr(const SimpleNetlist& H, gsl::span<std::uint8_t> part)
     while (!mgr.is_empty())
     {
         // Take the gainmax with v from gainbucket
-        const auto [move_info_v, gainmax] = mgr.select(part);
+        const auto rslt = mgr.select(part);
+        auto&& move_info_v = std::get<0>(rslt);
+        auto&& gainmax = std::get<1>(rslt);
         if (gainmax <= 0)
         {
             continue;
         }
         mgr.update_move(part, move_info_v);
         mgr.update_move_v(move_info_v, gainmax);
-        const auto& [v, _, toPart] = move_info_v;
+        // const auto& [v, _, toPart] = move_info_v;
 
-        part[v] = toPart;
+        part[move_info_v.v] = move_info_v.toPart;
     }
 }
 

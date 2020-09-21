@@ -21,8 +21,8 @@ TEST_CASE("Test xnetwork")
         n2,
         n3
     };
-    const auto R = py::range<std::uint8_t>(0, num_nodes);
-    auto G = xn::Graph {R, R};
+    //const auto R = py::range<std::uint8_t>(0, num_nodes);
+    auto G = xn::SimpleGraph {num_nodes};
     G.add_edge(a1, n1);
     G.add_edge(a1, n1);
     G.add_edge(a1, n2);

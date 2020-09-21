@@ -33,7 +33,7 @@ struct dllink
     explicit dllink(T key = T(0))
         : key {key}
     {
-        static_assert(sizeof(dllink<T>) <= 24);
+        static_assert(sizeof(dllink<T>) <= 24, "");
     }
 
     /*!
@@ -42,6 +42,7 @@ struct dllink
      */
     dllink(const dllink<T>&) = delete;
     dllink& operator=(const dllink<T>&) = delete;
+    dllink(dllink<T>&&) = default;
 
     /*!
      * @brief detach from a list
@@ -277,7 +278,7 @@ struct dll_iterator
 template <typename T>
 inline auto dllink<T>::begin() -> dll_iterator<T>
 {
-    return dll_iterator {this->next};
+    return dll_iterator<T> {this->next};
 }
 
 /*!
@@ -288,5 +289,5 @@ inline auto dllink<T>::begin() -> dll_iterator<T>
 template <typename T>
 inline auto dllink<T>::end() -> dll_iterator<T>
 {
-    return dll_iterator {this};
+    return dll_iterator<T> {this};
 }

@@ -1,8 +1,8 @@
 #include <ckpttncpp/netlist.hpp>
 #include <py2cpp/py2cpp.hpp>
 
-template <typename nodeview_t, typename nodemap_t>
-void Netlist<nodeview_t, nodemap_t>::projection_up(
+template <typename nodeview_t>
+void Netlist<nodeview_t>::projection_up(
     gsl::span<const std::uint8_t> part, gsl::span<std::uint8_t> part_up) const
 {
     const auto& H = *this->parent;
@@ -12,8 +12,8 @@ void Netlist<nodeview_t, nodemap_t>::projection_up(
     }
 }
 
-template <typename nodeview_t, typename nodemap_t>
-void Netlist<nodeview_t, nodemap_t>::projection_down(
+template <typename nodeview_t>
+void Netlist<nodeview_t>::projection_down(
     gsl::span<const std::uint8_t> part, gsl::span<std::uint8_t> part_down) const
 {
     const auto& H = *this->parent;
@@ -43,4 +43,4 @@ void Netlist<nodeview_t, nodemap_t>::projection_down(
     // }
 }
 
-template struct Netlist<RngIter, RngIter>;
+template struct Netlist<RngIter>;

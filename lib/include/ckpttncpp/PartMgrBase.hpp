@@ -12,10 +12,10 @@
 #include <vector>
 
 // forward declare
-template <typename nodeview_t, typename nodemap_t>
+template <typename nodeview_t>
 struct Netlist;
 using RngIter = decltype(py::range<int>(0, 1));
-using SimpleNetlist = Netlist<RngIter, RngIter>;
+using SimpleNetlist = Netlist<RngIter>;
 enum class LegalCheck;
 
 /*!

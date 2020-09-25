@@ -23,18 +23,16 @@ using node_t = int;
  * Netlist is implemented by xn::Graph, which is a networkx-like graph.
  *
  */
-template <typename nodeview_t, typename nodemap_t>
+template <typename nodeview_t>
 struct Netlist
 {
     using node_t = typename nodeview_t::value_type;
-    using index_t = typename nodemap_t::value_type;
-    using graph_t = xn::Graph<nodeview_t, nodemap_t>;
+    using index_t = typename nodeview_t::key_type;
+    using graph_t = xn::Graph<nodeview_t>;
 
     graph_t G;
     nodeview_t modules;
     nodeview_t nets;
-    nodemap_t module_map;
-    // nodemap_t net_map;
     size_t num_modules;
     size_t num_nets;
     size_t num_pads = 0U;
@@ -47,7 +45,7 @@ struct Netlist
     py::set<node_t> module_fixed;
 
     /* For multi-level algorithms */
-    const Netlist<nodeview_t, nodemap_t>* parent;
+    const Netlist<nodeview_t>* parent;
     py::dict<node_t, index_t> node_up_map;
     py::dict<index_t, node_t> node_down_map;
     py::dict<index_t, node_t> cluster_down_map;
@@ -60,8 +58,7 @@ struct Netlist
      * @param[in] net_list
      * @param[in] module_fixed
      */
-    Netlist(graph_t G, const nodeview_t& modules, const nodeview_t& nets,
-        const nodemap_t& module_map);
+    Netlist(graph_t G, const nodeview_t& modules, const nodeview_t& nets);
 
     /**
      * @brief Construct a new Netlist object
@@ -154,35 +151,6 @@ struct Netlist
         return 1;
     }
 
-    // auto project_down(const std::vector<std::uint8_t> &part,
-    //                   std::vector<std::uint8_t> &part_down) -> void {
-    //     auto &H = *this->parent;
-    //     for (auto i_v = 0U; i_v < this->modules.size(); ++ {
-    //         auto v = this->modules[v];
-    //         if (this->cluster_down_map.contains(v)) {
-    //             auto net = this->cluster_down_map[v];
-    //             for (auto v2 : H.G[net]) {
-    //                 auto i_v2 = H.module_map[v2];
-    //                 part_down[v2] = part[v];
-    //             }
-    //         } else {
-    //             auto v2 = this->node_down_map[v];
-    //             auto i_v2 = H.module_map[v2];
-    //             part_down[v2] = part[v];
-    //         }
-    //     }
-    // }
-
-    // auto project_up(const std::vector<std::uint8_t> &part,
-    //                 std::vector<std::uint8_t> &part_up) -> void {
-    //     auto &H = *this->parent;
-    //     // for (auto [v, v] : py::enumerate(H.modules)) {
-    //     for (auto i_v = 0U; i_v < H.number_of_modules(); ++ {
-    //         auto v = H.modules[v];
-    //         part_up[this->node_up_map[v]] = part[v];
-    //     }
-    // }
-
     /*!
      * @brief projection down
      *
@@ -210,15 +178,13 @@ struct Netlist
  * @param[in] G
  * @param[in] modules
  * @param[in] nets
- * @param[in] module_map
  */
-template <typename nodeview_t, typename nodemap_t>
-Netlist<nodeview_t, nodemap_t>::Netlist(graph_t G, const nodeview_t& modules,
-    const nodeview_t& nets, const nodemap_t& module_map)
+template <typename nodeview_t>
+Netlist<nodeview_t>::Netlist(graph_t G, const nodeview_t& modules,
+    const nodeview_t& nets)
     : G {std::move(G)}
     , modules {modules}
     , nets {nets}
-    , module_map {module_map}
     , num_modules(modules.size())
     , num_nets(nets.size())
 {
@@ -255,18 +221,17 @@ Netlist<nodeview_t, nodemap_t>::Netlist(graph_t G, const nodeview_t& modules,
     }
 }
 
-template <typename nodeview_t, typename nodemap_t>
-Netlist<nodeview_t, nodemap_t>::Netlist(graph_t G, int numModules, int numNets)
+template <typename nodeview_t>
+Netlist<nodeview_t>::Netlist(graph_t G, int numModules, int numNets)
     : Netlist {std::move(G), py::range<int>(numModules),
-          py::range<int>(numModules, numModules + numNets),
-          py::range<int>(numModules)}
+          py::range<int>(numModules, numModules + numNets)}
 {
 }
 
 using RngIter = decltype(py::range<int>(0, 1));
-using graph_t = xn::Graph<RngIter, RngIter>;
+using graph_t = xn::Graph<RngIter>;
 using index_t = int;
-using SimpleNetlist = Netlist<RngIter, RngIter>;
+using SimpleNetlist = Netlist<RngIter>;
 
 struct MoveInfo
 {

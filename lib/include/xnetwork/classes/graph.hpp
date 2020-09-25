@@ -198,7 +198,7 @@ struct object : py::dict<const char*, boost::any>
 {
 };
 
-template <typename __nodeview_t, typename nodemap_t,
+template <typename __nodeview_t,
     typename adjlist_t = py::set<Value_type<__nodeview_t>>>
 class Graph : public object
 {
@@ -224,7 +224,6 @@ class Graph : public object
 
     // std::vector<Node > _Nodes{};
     nodeview_t _node;
-    nodemap_t _node_map;
     graph_attr_dict_factory graph {}; // dictionary for graph attributes
     // node_dict_factory _node{};  // empty node attribute dict
     adjlist_outer_dict_factory _adj; // empty adjacency dict
@@ -258,16 +257,14 @@ class Graph : public object
         >>> r = py::range(100);
         >>> G = xn::Graph(r);  // or DiGraph, MultiGraph, MultiDiGraph, etc
     */
-    explicit Graph(const nodeview_t& Nodes, const nodemap_t& node_map)
+    explicit Graph(const nodeview_t& Nodes)
         : _node {Nodes}
-        , _node_map {node_map}
         , _adj(Nodes.size())
     {
     }
 
     explicit Graph(int num_nodes)
         : _node {py::range<int>(num_nodes)}
-        , _node_map {py::range<int>(num_nodes)}
         , _adj(num_nodes)
     {
     }
@@ -421,12 +418,12 @@ class Graph : public object
      */
     const auto& operator[](const Node& n) const
     {
-        return this->adj()[this->_node_map[n]];
+        return this->adj()[n];
     }
 
     auto& operator[](const Node& n)
     {
-        return this->adj()[this->_node_map[n]];
+        return this->adj()[n];
     }
 
 
@@ -617,8 +614,8 @@ class Graph : public object
         >>> G.edges()[1, 2].update({0: 5});
      */
     template <typename U = key_type>
-    typename std::enable_if<std::is_same<U, value_type>::value>::type add_edge(
-        const Node& u, const Node& v)
+    typename std::enable_if<std::is_same<U, value_type>::value>::type
+    add_edge(const Node& u, const Node& v)
     {
         // auto [u, v] = u_of_edge, v_of_edge;
         // add nodes
@@ -628,14 +625,14 @@ class Graph : public object
         // datadict = this->_adj[u].get(v, this->edge_attr_dict_factory());
         // datadict.update(attr);
         // set
-        this->_adj[this->_node_map[u]].insert(v);
-        this->_adj[this->_node_map[v]].insert(u);
+        this->_adj[u].insert(v);
+        this->_adj[v].insert(u);
         this->_num_of_edges += 1;
     }
 
     template <typename U = key_type>
-    typename std::enable_if<!std::is_same<U, value_type>::value>::type add_edge(
-        const Node& u, const Node& v)
+    typename std::enable_if<!std::is_same<U, value_type>::value>::type
+    add_edge(const Node& u, const Node& v)
     {
         // auto [u, v] = u_of_edge, v_of_edge;
         // add nodes
@@ -645,9 +642,9 @@ class Graph : public object
         // datadict = this->_adj[u].get(v, this->edge_attr_dict_factory());
         // datadict.update(attr);
         using T = typename adjlist_t::mapped_type;
-        auto data = this->_adj[this->_node_map[u]].get(v, T {});
-        this->_adj[this->_node_map[u]][v] = data;
-        this->_adj[this->_node_map[v]][u] = data; // ???
+        auto data = this->_adj[u].get(v, T {});
+        this->_adj[u][v] = data;
+        this->_adj[v][u] = data; // ???
         this->_num_of_edges += 1;
     }
 
@@ -709,12 +706,12 @@ class Graph : public object
         true
 
          */
-        return this->_adj[this->_node_map[u]].contains(v);
+        return this->_adj[u].contains(v);
     }
 
     auto degree(const Node& n) const
     {
-        return this->_adj[this->_node_map[n]].size();
+        return this->_adj[n].size();
     }
 
     /// @property
@@ -856,8 +853,7 @@ class Graph : public object
     }
 };
 
-using SimpleGraph = Graph<decltype(py::range<int>(1)),
-    decltype(py::range<int>(1)), py::set<int>>;
+using SimpleGraph = Graph<decltype(py::range<int>(1)), py::set<int>>;
 
 // template <typename nodeview_t,
 //           typename adjlist_t> Graph(int )

@@ -247,7 +247,7 @@ auto create_contraction_subgraph(
 
     auto num_vertices = numModules + numNets;
     auto R = py::range<node_t>(0, num_vertices);
-    auto g = graph_t {R, R};
+    auto g = graph_t {R};
     // G.add_nodes_from(nodes);
     for (auto&& v : H.modules)
     {
@@ -264,8 +264,7 @@ auto create_contraction_subgraph(
     auto G = std::move(g);
 
     auto H2 = std::make_unique<SimpleNetlist>(std::move(G),
-        py::range<int>(numModules), py::range<int>(numModules, num_vertices),
-        py::range<int>(numModules));
+        py::range<int>(numModules), py::range<int>(numModules, num_vertices));
 
     auto node_down_map = py::dict<index_t, node_t> {};
     node_down_map.reserve(num_vertices);

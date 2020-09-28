@@ -75,39 +75,40 @@ class FMBiGainCalc
         // nothing to do in 2-way partitioning
     }
 
-    using ret_2pin_info = std::tuple<node_t, int>;
-
     /*!
      * @brief update move 2-pin net
      *
      * @param[in] part
      * @param[in] move_info
-     * @return ret_2pin_info
+     * @param[out] w
+     * @return int
      */
     auto update_move_2pin_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo& move_info) -> ret_2pin_info;
-
-    using ret_info = std::tuple<std::vector<node_t>, std::vector<int>>;
+        const MoveInfo& move_info, node_t& w) -> int;
 
     /*!
      * @brief update move 3-pin net
      *
      * @param[in] part
      * @param[in] move_info
+     * @param[out] IdVec
      * @return ret_info
      */
     auto update_move_3pin_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo& move_info) -> ret_info;
+        const MoveInfo& move_info, std::pmr::vector<node_t>& IdVec)
+        -> std::vector<int>;
 
     /*!
      * @brief update move general net
      *
      * @param[in] part
      * @param[in] move_info
+     * @param[out] IdVec
      * @return ret_info
      */
     auto update_move_general_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo& move_info) -> ret_info;
+        const MoveInfo& move_info, std::pmr::vector<node_t>& IdVec)
+        -> std::vector<int>;
 
   private:
     /*!

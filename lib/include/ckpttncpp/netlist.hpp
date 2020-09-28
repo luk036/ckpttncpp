@@ -180,8 +180,8 @@ struct Netlist
  * @param[in] nets
  */
 template <typename nodeview_t>
-Netlist<nodeview_t>::Netlist(graph_t G, const nodeview_t& modules,
-    const nodeview_t& nets)
+Netlist<nodeview_t>::Netlist(
+    graph_t G, const nodeview_t& modules, const nodeview_t& nets)
     : G {std::move(G)}
     , modules {modules}
     , nets {nets}

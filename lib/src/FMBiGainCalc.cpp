@@ -1,4 +1,6 @@
 #include <ckpttncpp/FMBiGainCalc.hpp>
+#include <memory_resource>
+#include <vector>
 
 /**
  * @brief
@@ -101,9 +103,11 @@ void FMBiGainCalc::_init_gain_3pin_net(
 void FMBiGainCalc::_init_gain_general_net(
     const node_t& net, gsl::span<const std::uint8_t> part)
 {
-    // std::uint8_t num[2] = {0, 0};
+    std::byte StackBuf[2048];
+    std::pmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
+    auto IdVec = std::pmr::vector<node_t>(&rsrc);
+
     auto num = std::array<size_t, 2> {0U, 0U};
-    auto IdVec = std::vector<node_t> {};
     for (auto&& w : this->H.G[net])
     {
         num[part[w]] += 1;
@@ -146,16 +150,17 @@ void FMBiGainCalc::_init_gain_general_net(
  *
  * @param[in] part
  * @param[in] move_info
- * @return ret_2pin_info
+ * @param[out] w
+ * @return int
  */
-FMBiGainCalc::ret_2pin_info FMBiGainCalc::update_move_2pin_net(
-    gsl::span<const std::uint8_t> part, const MoveInfo& move_info)
+int FMBiGainCalc::update_move_2pin_net(
+    gsl::span<const std::uint8_t> part, const MoveInfo& move_info, node_t& w)
 {
     auto netCur = this->H.G[move_info.net].begin();
-    const auto w = (*netCur != move_info.v) ? *netCur : *++netCur;
+    w = (*netCur != move_info.v) ? *netCur : *++netCur;
     const auto weight = this->H.get_net_weight(move_info.net);
     const auto delta = (part[w] == move_info.fromPart) ? weight : -weight;
-    return {w, 2 * delta};
+    return 2 * delta;
 }
 
 /**
@@ -165,12 +170,13 @@ FMBiGainCalc::ret_2pin_info FMBiGainCalc::update_move_2pin_net(
  * @param[in] move_info
  * @return ret_info
  */
-FMBiGainCalc::ret_info FMBiGainCalc::update_move_3pin_net(
-    gsl::span<const std::uint8_t> part, const MoveInfo& move_info)
+std::vector<int> FMBiGainCalc::update_move_3pin_net(
+    gsl::span<const std::uint8_t> part, const MoveInfo& move_info,
+    std::pmr::vector<node_t>& IdVec)
 {
     // const auto& [net, v, fromPart, _] = move_info;
     auto num = std::array<size_t, 2> {0U, 0U};
-    auto IdVec = std::vector<node_t> {};
+    // auto IdVec = std::vector<node_t> {};
     for (auto&& w : this->H.G[move_info.net])
     {
         if (w == move_info.v)
@@ -198,7 +204,7 @@ FMBiGainCalc::ret_info FMBiGainCalc::update_move_3pin_net(
         deltaGain[0] += weight;
         deltaGain[1] -= weight;
     }
-    return {std::move(IdVec), std::move(deltaGain)};
+    return deltaGain;
 }
 
 /**
@@ -206,14 +212,16 @@ FMBiGainCalc::ret_info FMBiGainCalc::update_move_3pin_net(
  *
  * @param[in] part
  * @param[in] move_info
+ * @param[out] IdVec
  * @return ret_info
  */
-FMBiGainCalc::ret_info FMBiGainCalc::update_move_general_net(
-    gsl::span<const std::uint8_t> part, const MoveInfo& move_info)
+std::vector<int> FMBiGainCalc::update_move_general_net(
+    gsl::span<const std::uint8_t> part, const MoveInfo& move_info,
+    std::pmr::vector<node_t>& IdVec)
 {
     // const auto& [net, v, fromPart, toPart] = move_info;
     auto num = std::array<std::uint8_t, 2> {0, 0};
-    auto IdVec = std::vector<node_t> {};
+    // auto IdVec = std::vector<node_t> {};
     for (auto&& w : this->H.G[move_info.net])
     {
         if (w == move_info.v)
@@ -252,5 +260,5 @@ FMBiGainCalc::ret_info FMBiGainCalc::update_move_general_net(
     repeat(move_info.fromPart);
     repeat(move_info.toPart);
 
-    return {std::move(IdVec), std::move(deltaGain)};
+    return deltaGain;
 }

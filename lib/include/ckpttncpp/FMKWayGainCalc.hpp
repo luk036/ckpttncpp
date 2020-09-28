@@ -90,40 +90,40 @@ class FMKWayGainCalc
         std::fill_n(this->deltaGainV.begin(), this->K, 0);
     }
 
-    using ret_2pin_info = std::tuple<node_t, std::vector<int>>;
-
     /*!
      * @brief
      *
      * @param[in] part
      * @param[in] move_info
-     * @return ret_2pin_info
+     * @param[out] w
+     * @return std::vector<int>
      */
     auto update_move_2pin_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo& move_info) -> ret_2pin_info;
+        const MoveInfo& move_info, node_t& w) -> std::vector<int>;
 
-    using ret_info =
-        std::tuple<std::vector<node_t>, std::vector<std::vector<int>>>;
+    using ret_info = std::vector<std::vector<int>>;
 
     /*!
      * @brief
      *
      * @param[in] part
      * @param[in] move_info
+     * @param[out] IdVec
      * @return ret_info
      */
     auto update_move_3pin_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo& move_info) -> ret_info;
+        const MoveInfo& move_info, std::pmr::vector<node_t>& IdVec) -> ret_info;
 
     /*!
      * @brief
      *
      * @param[in] part
      * @param[in] move_info
+     * @param[out] IdVec
      * @return ret_info
      */
     auto update_move_general_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo& move_info) -> ret_info;
+        const MoveInfo& move_info, std::pmr::vector<node_t>& IdVec) -> ret_info;
 
   private:
     /*!
@@ -176,7 +176,8 @@ class FMKWayGainCalc
      * @param part_v
      * @param v
      */
-    auto _modify_vertex_va(int weight, std::uint8_t k, node_t v1, node_t v2) -> void
+    auto _modify_vertex_va(int weight, std::uint8_t k, node_t v1, node_t v2)
+        -> void
     {
         this->vertex_list[k][v1].key += weight;
         this->vertex_list[k][v2].key += weight;
@@ -190,7 +191,8 @@ class FMKWayGainCalc
      * @param part_v
      * @param v
      */
-    auto _modify_vertex_va(int weight, std::uint8_t k, node_t v1, node_t v2, node_t v3) -> void
+    auto _modify_vertex_va(
+        int weight, std::uint8_t k, node_t v1, node_t v2, node_t v3) -> void
     {
         this->vertex_list[k][v1].key += weight;
         this->vertex_list[k][v2].key += weight;

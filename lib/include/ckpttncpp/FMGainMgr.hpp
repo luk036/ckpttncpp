@@ -117,15 +117,14 @@ class FMGainMgr
     auto _update_move_2pin_net(
         gsl::span<const std::uint8_t> part, const MoveInfo& move_info) -> void;
 
-    // /*!
-    //  * @brief
-    //  *
-    //  * @param[in] part
-    //  * @param[in] move_info
-    //  */
-    // auto _update_move_3pin_net(
-    //     gsl::span<const std::uint8_t> part, const MoveInfo& move_info) ->
-    //     void;
+    /*!
+     * @brief
+     *
+     * @param[in] part
+     * @param[in] move_info
+     */
+    auto _update_move_3pin_net(
+        gsl::span<const std::uint8_t> part, const MoveInfo& move_info) -> void;
 
     /*!
      * @brief

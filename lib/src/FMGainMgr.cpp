@@ -1,4 +1,6 @@
 #include <ckpttncpp/FMGainMgr.hpp>
+#include <memory_resource>
+#include <vector>
 
 /**
  * @brief Construct a new FMGainMgr object
@@ -115,9 +117,9 @@ void FMGainMgr<GainCalc, Derived>::update_move(
             case 2:
                 this->_update_move_2pin_net(part, move_info);
                 break;
-            // case 3:
-            //     this->_update_move_3pin_net(part, move_info);
-            //     break;
+            case 3:
+                this->_update_move_3pin_net(part, move_info);
+                break;
             default:
                 this->_update_move_general_net(part, move_info);
         }
@@ -136,34 +138,35 @@ void FMGainMgr<GainCalc, Derived>::_update_move_2pin_net(
 {
     // const auto [w, deltaGainW] =
     //     this->gainCalc.update_move_2pin_net(part, move_info);
-    const auto infoW = this->gainCalc.update_move_2pin_net(part, move_info);
-    const auto& w = std::get<0>(infoW);
-    const auto& deltaGainW = std::get<1>(infoW);
+    node_t w;
+    const auto deltaGainW =
+        this->gainCalc.update_move_2pin_net(part, move_info, w);
     self.modify_key(w, part[w], deltaGainW);
 }
 
-// /**
-//  * @brief
-//  *
-//  * @param[in] part
-//  * @param[in] move_info
-//  */
-// template <typename GainCalc, class Derived>
-// void FMGainMgr<GainCalc, Derived>::_update_move_3pin_net(
-//     gsl::span<const std::uint8_t> part, const MoveInfo& move_info)
-// {
-//     // const auto [IdVec, deltaGain] =
-//     const auto infoW =
-//         this->gainCalc.update_move_3pin_net(part, move_info);
-//     const auto& IdVec = std::get<0>(infoW);
-//     const auto& deltaGain = std::get<1>(infoW);
-//     const auto degree = IdVec.size();
-//     for (size_t index = 0U; index != degree; ++index)
-//     {
-//         const auto w = IdVec[index];
-//         self.modify_key(w, part[w], deltaGain[index]);
-//     }
-// }
+/**
+ * @brief
+ *
+ * @param[in] part
+ * @param[in] move_info
+ */
+template <typename GainCalc, class Derived>
+void FMGainMgr<GainCalc, Derived>::_update_move_3pin_net(
+    gsl::span<const std::uint8_t> part, const MoveInfo& move_info)
+{
+    std::byte StackBuf[2048];
+    std::pmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
+    auto IdVec = std::pmr::vector<node_t>(&rsrc);
+
+    const auto deltaGain =
+        this->gainCalc.update_move_3pin_net(part, move_info, IdVec);
+    const auto degree = IdVec.size();
+    for (size_t index = 0U; index != degree; ++index)
+    {
+        const auto w = IdVec[index];
+        self.modify_key(w, part[w], deltaGain[index]);
+    }
+}
 
 /**
  * @brief
@@ -175,10 +178,15 @@ template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::_update_move_general_net(
     gsl::span<const std::uint8_t> part, const MoveInfo& move_info)
 {
+    std::byte StackBuf[2048];
+    std::pmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
+    auto IdVec = std::pmr::vector<node_t>(&rsrc);
+
     // const auto [IdVec, deltaGain] =
-    const auto infoW = this->gainCalc.update_move_general_net(part, move_info);
-    const auto& IdVec = std::get<0>(infoW);
-    const auto& deltaGain = std::get<1>(infoW);
+    const auto deltaGain =
+        this->gainCalc.update_move_general_net(part, move_info, IdVec);
+    // const auto& IdVec = std::get<0>(infoW);
+    // const auto& deltaGain = std::get<1>(infoW);
     const auto degree = IdVec.size();
     for (size_t index = 0U; index != degree; ++index)
     {

@@ -92,8 +92,8 @@ SimpleNetlist readNetD(boost::string_view netDFileName)
     node_t w;
     index_t e = numModules - 1;
     char c;
-    size_t i = 0U;
-    for (; std::cmp_less(i, numPins); ++i)
+    int i = 0;
+    for (; i < numPins; ++i)
     {
         if (netD.eof())
         {
@@ -155,7 +155,7 @@ SimpleNetlist readNetD(boost::string_view netDFileName)
         std::cerr << "Error: number of nets is not " << numNets << ".\n";
         exit(1);
     }
-    if (std::cmp_less(i, numPins))
+    if (i < numPins)
     {
         std::cerr << "Error: number of pins is not " << numPins << ".\n";
         exit(1);

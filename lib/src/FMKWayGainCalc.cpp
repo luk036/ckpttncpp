@@ -321,8 +321,10 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_general_net(
     std::pmr::vector<node_t>& IdVec)
 {
     // const auto& [net, v, fromPart, toPart] = move_info;
+    std::byte StackBuf[256];
+    std::pmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
+    auto num = std::pmr::vector<std::uint8_t>(this->K, 0, &rsrc);
 
-    auto num = std::vector<std::uint8_t>(this->K, 0);
     // auto IdVec = std::vector<node_t> {};
     for (auto&& w : this->H.G[move_info.net])
     {

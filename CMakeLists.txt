@@ -55,7 +55,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 if(MSVC)
     add_compile_options(/std:c++latest /W3 /WX )
 else()
-    add_compile_options(-Wall -Wnon-virtual-dtor -Wunused -pedantic)
+    add_compile_options(-fno-exceptions -Wall -Wnon-virtual-dtor -Wunused -pedantic)
 endif()
 
 # set(LIBS ${LIBS} "-L$ENV{CONDA_PREFIX}/lib")

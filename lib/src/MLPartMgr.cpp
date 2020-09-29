@@ -1,6 +1,6 @@
 #include <ckpttncpp/FMConstrMgr.hpp> // import LegalCheck
 #include <ckpttncpp/MLPartMgr.hpp>
-#include <iostream>
+// #include <iostream>
 
 /*!
  * @brief run_Partition
@@ -35,8 +35,8 @@ LegalCheck MLPartMgr::run_FMPartition(
     }
     if (H.number_of_modules() >= limitsize)
     { // OK
-        try
-        {
+        // try
+        // {
             const auto H2 = create_contraction_subgraph(H, py::set<node_t> {});
             if (5 * H2->number_of_modules() <= 3 * H.number_of_modules())
             {
@@ -54,12 +54,12 @@ LegalCheck MLPartMgr::run_FMPartition(
                     H2->projection_down(part2, part);
                 }
             }
-        }
-        catch (const std::bad_alloc&)
-        {
-            std::cerr << "Warning: Insufficient memory."
-                      << " Discard one level." << '\n';
-        }
+        // }
+        // catch (const std::bad_alloc&)
+        // {
+        //     std::cerr << "Warning: Insufficient memory."
+        //               << " Discard one level." << '\n';
+        // }
     }
     partMgrPtr->optimize(part);
     assert(partMgrPtr->totalcost >= 0);
@@ -116,8 +116,8 @@ void MLPartMgr::run_Partition_recur(
 {
     if (H.number_of_modules() >= limitsize)
     { // OK
-        try
-        {
+        // try
+        // {
             const auto H2 = create_contraction_subgraph(H, py::set<node_t> {});
             if (5 * H2->number_of_modules() <= 3 * H.number_of_modules())
             {
@@ -131,12 +131,12 @@ void MLPartMgr::run_Partition_recur(
                 this->run_Partition_recur<PartMgr>(*H2, part2, limitsize);
                 H2->projection_down(part2, part);
             }
-        }
-        catch (const std::bad_alloc&)
-        {
-            std::cerr << "Warning: Insufficient memory."
-                      << " Discard one level." << '\n';
-        }
+        // }
+        // catch (const std::bad_alloc&)
+        // {
+        //     std::cerr << "Warning: Insufficient memory."
+        //               << " Discard one level." << '\n';
+        // }
     }
     using GainMgr = typename PartMgr::GainMgr_;
     using ConstrMgr = typename PartMgr::ConstrMgr_;

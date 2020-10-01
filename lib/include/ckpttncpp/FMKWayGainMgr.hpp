@@ -47,7 +47,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
      * @param[in] part_w
      * @param[in] keys
      */
-    auto modify_key(node_t w, std::uint8_t part_w, const std::vector<int>& keys)
+    auto modify_key(const node_t& w, std::uint8_t part_w, const std::vector<int>& keys)
         -> void
     {
         for (auto k : this->RR.exclude(part_w))
@@ -63,7 +63,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
      * @param[in] move_info_v
      * @param[in] gain
      */
-    auto update_move_v(const MoveInfoV& move_info_v, int gain) -> void;
+    auto update_move_v(const MoveInfoV<node_t>& move_info_v, int gain) -> void;
 
     /*!
      * @brief lock
@@ -71,7 +71,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
      * @param[in] whichPart
      * @param[in] v
      */
-    auto lock(uint8_t whichPart, node_t v) -> void
+    auto lock(uint8_t whichPart, const node_t& v) -> void
     {
         auto& vlink = this->gainCalc.vertex_list[whichPart][v];
         this->gainbucket[whichPart].detach(vlink);
@@ -84,7 +84,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
      * @param[in] fromPart
      * @param[in] v
      */
-    auto lock_all(uint8_t /*fromPart*/, node_t v) -> void
+    auto lock_all(uint8_t /*fromPart*/, const node_t& v) -> void
     {
         for (auto k = 0U; k != this->K; ++k)
         {
@@ -100,7 +100,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
      * @param[in] v
      * @param[in] key
      */
-    auto _set_key(uint8_t whichPart, node_t v, int key) -> void
+    auto _set_key(uint8_t whichPart, const node_t& v, int key) -> void
     {
         this->gainbucket[whichPart].set_key(
             this->gainCalc.vertex_list[whichPart][v], key);

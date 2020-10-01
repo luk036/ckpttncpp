@@ -59,5 +59,5 @@ class FMKWayConstrMgr : public FMConstrMgr
      * @param[in] move_info_v
      * @return LegalCheck
      */
-    auto check_legal(const MoveInfoV& move_info_v) -> LegalCheck;
+    auto check_legal(const MoveInfoV<node_t>& move_info_v) -> LegalCheck;
 };

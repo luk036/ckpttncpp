@@ -22,7 +22,7 @@ class FMGainMgr
     using node_t = typename SimpleNetlist::node_t;
 
   protected:
-    dllink<node_t> waitinglist {};
+    dllink<int> waitinglist {};
 
     const SimpleNetlist& H;
     size_t pmax;
@@ -85,10 +85,10 @@ class FMGainMgr
      * @brief
      *
      * @param[in] part
-     * @return std::tuple<MoveInfoV, int>
+     * @return std::tuple<MoveInfoV<node_t>, int>
      */
     auto select(gsl::span<const std::uint8_t> part)
-        -> std::tuple<MoveInfoV, int>;
+        -> std::tuple<MoveInfoV<node_t>, int>;
 
     /*!
      * @brief
@@ -105,7 +105,7 @@ class FMGainMgr
      * @param[in] move_info_v
      */
     auto update_move(gsl::span<const std::uint8_t> part,
-        const MoveInfoV& move_info_v) -> void;
+        const MoveInfoV<node_t>& move_info_v) -> void;
 
   private:
     /*!
@@ -115,7 +115,7 @@ class FMGainMgr
      * @param[in] move_info
      */
     auto _update_move_2pin_net(
-        gsl::span<const std::uint8_t> part, const MoveInfo& move_info) -> void;
+        gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info) -> void;
 
     /*!
      * @brief
@@ -124,7 +124,7 @@ class FMGainMgr
      * @param[in] move_info
      */
     auto _update_move_3pin_net(
-        gsl::span<const std::uint8_t> part, const MoveInfo& move_info) -> void;
+        gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info) -> void;
 
     /*!
      * @brief
@@ -133,5 +133,5 @@ class FMGainMgr
      * @param[in] move_info
      */
     auto _update_move_general_net(
-        gsl::span<const std::uint8_t> part, const MoveInfo& move_info) -> void;
+        gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info) -> void;
 };

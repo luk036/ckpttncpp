@@ -21,7 +21,7 @@ class FMKWayGainCalc
     std::uint8_t K;
     robin<std::uint8_t> RR;
     size_t num_modules;
-    std::vector<std::vector<dllink<node_t>>> vertex_list;
+    std::vector<std::vector<dllink<int>>> vertex_list;
     std::vector<int> deltaGainV;
 
   public:
@@ -44,7 +44,7 @@ class FMKWayGainCalc
         for (auto k = 0U; k != this->K; ++k)
         {
             this->vertex_list.emplace_back(
-                std::vector<dllink<node_t>>(this->num_modules));
+                std::vector<dllink<int>>(this->num_modules));
         }
     }
 
@@ -54,7 +54,7 @@ class FMKWayGainCalc
      * @param[in] toPart
      * @return dllink*
      */
-    auto start_ptr(uint8_t toPart) -> dllink<node_t>*
+    auto start_ptr(uint8_t toPart) -> dllink<int>*
     {
         return &this->vertex_list[toPart][0];
     }
@@ -99,7 +99,7 @@ class FMKWayGainCalc
      * @return std::vector<int>
      */
     auto update_move_2pin_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo& move_info, node_t& w) -> std::vector<int>;
+        const MoveInfo<node_t>& move_info, const node_t*& w) -> std::vector<int>;
 
     using ret_info = std::vector<std::vector<int>>;
 
@@ -112,7 +112,7 @@ class FMKWayGainCalc
      * @return ret_info
      */
     auto update_move_3pin_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo& move_info, std::pmr::vector<node_t>& IdVec) -> ret_info;
+        const MoveInfo<node_t>& move_info, std::pmr::vector<const node_t*>& IdVec) -> ret_info;
 
     /*!
      * @brief
@@ -123,7 +123,7 @@ class FMKWayGainCalc
      * @return ret_info
      */
     auto update_move_general_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo& move_info, std::pmr::vector<node_t>& IdVec) -> ret_info;
+        const MoveInfo<node_t>& move_info, std::pmr::vector<const node_t*>& IdVec) -> ret_info;
 
   private:
     /*!
@@ -133,7 +133,7 @@ class FMKWayGainCalc
      * @param[in] part_v
      * @param[in] weight
      */
-    auto _modify_gain(node_t v, std::uint8_t part_v, int weight) -> void
+    auto _modify_gain(const node_t& v, std::uint8_t part_v, int weight) -> void
     {
         for (auto&& k : this->RR.exclude(part_v))
         {
@@ -163,7 +163,7 @@ class FMKWayGainCalc
      * @param part_v
      * @param v
      */
-    auto _modify_vertex_va(int weight, std::uint8_t k, node_t v1) -> void
+    auto _modify_vertex_va(int weight, std::uint8_t k, const node_t& v1) -> void
     {
         this->vertex_list[k][v1].key += weight;
     }
@@ -176,7 +176,7 @@ class FMKWayGainCalc
      * @param part_v
      * @param v
      */
-    auto _modify_vertex_va(int weight, std::uint8_t k, node_t v1, node_t v2)
+    auto _modify_vertex_va(int weight, std::uint8_t k, const node_t& v1, const node_t& v2)
         -> void
     {
         this->vertex_list[k][v1].key += weight;
@@ -192,7 +192,7 @@ class FMKWayGainCalc
      * @param v
      */
     auto _modify_vertex_va(
-        int weight, std::uint8_t k, node_t v1, node_t v2, node_t v3) -> void
+        int weight, std::uint8_t k, const node_t& v1, const node_t& v2, const node_t& v3) -> void
     {
         this->vertex_list[k][v1].key += weight;
         this->vertex_list[k][v2].key += weight;

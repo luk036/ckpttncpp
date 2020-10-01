@@ -9,7 +9,7 @@
 #include <vector>
 #include <xnetwork/classes/graph.hpp>
 
-using node_t = int;
+// using node_t = int;
 
 // struct PartInfo
 // {
@@ -133,7 +133,7 @@ struct Netlist
      * @param[in] v
      * @return int
      */
-    auto get_module_weight(node_t v) const -> int
+    auto get_module_weight(const node_t& v) const -> int
     {
         return this->module_weight.empty() ? 1 : this->module_weight[v];
     }
@@ -143,7 +143,7 @@ struct Netlist
      *
      * @return int
      */
-    auto get_net_weight(node_t /*net*/) const -> int
+    auto get_net_weight(const node_t& /*net*/) const -> int
     {
         // return this->net_weight.empty() ? 1
         //                                 :
@@ -191,7 +191,7 @@ Netlist<nodeview_t>::Netlist(
     this->has_fixed_modules = (!this->module_fixed.empty());
 
     // Some compilers does not accept py::range()->iterator as a forward
-    // iterator auto deg_cmp = [this](node_t v, node_t w) -> index_t {
+    // iterator auto deg_cmp = [this](const node_t& v, const node_t& w) -> index_t {
     //     return this->G.degree(v) < this->G.degree(w);
     // };
     // const auto result1 =
@@ -233,24 +233,27 @@ using graph_t = xn::Graph<RngIter>;
 using index_t = int;
 using SimpleNetlist = Netlist<RngIter>;
 
+template <typename Node>
 struct MoveInfo
 {
-    node_t net;
-    node_t v;
+    Node net;
+    Node v;
     std::uint8_t fromPart;
     std::uint8_t toPart;
 };
 
+template <typename Node>
 struct MoveInfoV
 {
-    node_t v;
+    Node v;
     std::uint8_t fromPart;
     std::uint8_t toPart;
     // node_t v;
 };
 
+template <typename Node>
 struct Snapshot
 {
-    py::set<node_t> extern_nets;
+    py::set<Node> extern_nets;
     py::dict<index_t, std::uint8_t> extern_modules;
 };

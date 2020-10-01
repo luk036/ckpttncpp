@@ -22,7 +22,7 @@ void FMConstrMgr::init(gsl::span<const std::uint8_t> part)
  * @param[in] move_info_v
  * @return LegalCheck
  */
-LegalCheck FMConstrMgr::check_legal(const MoveInfoV& move_info_v)
+LegalCheck FMConstrMgr::check_legal(const MoveInfoV<node_t>& move_info_v)
 {
     this->weight = this->H.get_module_weight(move_info_v.v);
     const auto diffFrom = this->diff[move_info_v.fromPart] - this->weight;
@@ -45,7 +45,7 @@ LegalCheck FMConstrMgr::check_legal(const MoveInfoV& move_info_v)
  * @return true
  * @return false
  */
-bool FMConstrMgr::check_constraints(const MoveInfoV& move_info_v)
+bool FMConstrMgr::check_constraints(const MoveInfoV<node_t>& move_info_v)
 {
     // const auto& [v, fromPart, toPart] = move_info_v;
 
@@ -60,7 +60,7 @@ bool FMConstrMgr::check_constraints(const MoveInfoV& move_info_v)
  *
  * @param[in] move_info_v
  */
-void FMConstrMgr::update_move(const MoveInfoV& move_info_v)
+void FMConstrMgr::update_move(const MoveInfoV<node_t>& move_info_v)
 {
     // auto [v, fromPart, toPart] = move_info_v;
     this->diff[move_info_v.toPart] += this->weight;

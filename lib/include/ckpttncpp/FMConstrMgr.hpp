@@ -68,6 +68,8 @@ class FMConstrMgr
     }
 
   public:
+    using node_t = typename SimpleNetlist::node_t;
+
     /*!
      * @brief
      *
@@ -81,7 +83,7 @@ class FMConstrMgr
      * @param[in] move_info_v
      * @return LegalCheck
      */
-    auto check_legal(const MoveInfoV& move_info_v) -> LegalCheck;
+    auto check_legal(const MoveInfoV<node_t>& move_info_v) -> LegalCheck;
 
     /*!
      * @brief
@@ -90,12 +92,12 @@ class FMConstrMgr
      * @return true
      * @return false
      */
-    auto check_constraints(const MoveInfoV& move_info_v) -> bool;
+    auto check_constraints(const MoveInfoV<node_t>& move_info_v) -> bool;
 
     /*!
      * @brief
      *
      * @param[in] move_info_v
      */
-    auto update_move(const MoveInfoV& move_info_v) -> void;
+    auto update_move(const MoveInfoV<node_t>& move_info_v) -> void;
 };

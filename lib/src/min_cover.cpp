@@ -5,6 +5,8 @@
 #include <tuple>
 #include <vector>
 
+using node_t = typename SimpleNetlist::node_t;
+
 /**
  * @brief
  *
@@ -16,7 +18,7 @@ auto max_independent_net(const SimpleNetlist& H,
     const std::vector<int>& /*weight*/, const py::set<node_t>& DontSelect)
 {
     // bpqueue bpq {-int(H.get_max_net_degree()), 0};
-    // auto nets = std::vector<dllink<node_t>>(H.nets.size());
+    // auto nets = std::vector<dllink<int>>(H.nets.size());
 
     // for (size_t i_net = 0U; i_net < H.nets.size(); ++i_net)
     // {
@@ -36,7 +38,7 @@ auto max_independent_net(const SimpleNetlist& H,
     // while (!bpq.is_empty())
     for (auto&& net : H.nets)
     {
-        // dllink<node_t>& item = bpq.popleft();
+        // dllink<int>& item = bpq.popleft();
 
         if (visited.contains(net))
         {

@@ -18,7 +18,7 @@ class FMBiGainCalc
   private:
     const SimpleNetlist& H;
     size_t num_modules {};
-    std::vector<dllink<node_t>> vertex_list;
+    std::vector<dllink<int>> vertex_list;
 
   public:
     int totalcost {0};
@@ -61,7 +61,7 @@ class FMBiGainCalc
      * @param[in] toPart
      * @return dllink*
      */
-    auto start_ptr(std::uint8_t /*toPart*/) -> dllink<node_t>*
+    auto start_ptr(std::uint8_t /*toPart*/) -> dllink<int>*
     {
         return &this->vertex_list[0];
     }
@@ -84,7 +84,7 @@ class FMBiGainCalc
      * @return int
      */
     auto update_move_2pin_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo& move_info, node_t& w) -> int;
+        const MoveInfo<node_t>& move_info, const node_t*& w) -> int;
 
     /*!
      * @brief update move 3-pin net
@@ -95,7 +95,7 @@ class FMBiGainCalc
      * @return ret_info
      */
     auto update_move_3pin_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo& move_info, std::pmr::vector<node_t>& IdVec)
+        const MoveInfo<node_t>& move_info, std::pmr::vector<const node_t*>& IdVec)
         -> std::vector<int>;
 
     /*!
@@ -107,7 +107,7 @@ class FMBiGainCalc
      * @return ret_info
      */
     auto update_move_general_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo& move_info, std::pmr::vector<node_t>& IdVec)
+        const MoveInfo<node_t>& move_info, std::pmr::vector<const node_t*>& IdVec)
         -> std::vector<int>;
 
   private:
@@ -117,7 +117,7 @@ class FMBiGainCalc
      * @param[in] w
      * @param[in] weight
      */
-    auto _modify_gain(node_t w, int weight) -> void
+    auto _modify_gain(const node_t& w, int weight) -> void
     {
         this->vertex_list[w].key += weight;
     }
@@ -142,7 +142,7 @@ class FMBiGainCalc
      * @param weight
      * @param w
      */
-    auto _modify_gain_va(int weight, node_t w1) -> void
+    auto _modify_gain_va(int weight, const node_t& w1) -> void
     {
         this->vertex_list[w1].key += weight;
     }
@@ -154,7 +154,7 @@ class FMBiGainCalc
      * @param weight
      * @param w
      */
-    auto _modify_gain_va(int weight, node_t w1, node_t w2) -> void
+    auto _modify_gain_va(int weight, const node_t& w1, const node_t& w2) -> void
     {
         this->vertex_list[w1].key += weight;
         this->vertex_list[w2].key += weight;
@@ -167,7 +167,7 @@ class FMBiGainCalc
      * @param weight
      * @param w
      */
-    auto _modify_gain_va(int weight, node_t w1, node_t w2, node_t w3) -> void
+    auto _modify_gain_va(int weight, const node_t& w1, const node_t& w2, const node_t& w3) -> void
     {
         this->vertex_list[w1].key += weight;
         this->vertex_list[w2].key += weight;

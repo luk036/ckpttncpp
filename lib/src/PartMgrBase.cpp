@@ -3,6 +3,8 @@
 #include <ckpttncpp/PartMgrBase.hpp>
 #include <ckpttncpp/netlist.hpp>
 
+using node_t = typename SimpleNetlist::node_t;
+
 /**
  * @brief
  *
@@ -63,7 +65,7 @@ LegalCheck PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
         const auto fromPart = part[v];
         // assert(v == v);
         assert(fromPart != toPart);
-        const auto move_info_v = MoveInfoV {v, fromPart, toPart};
+        const auto move_info_v = MoveInfoV<node_t> {v, fromPart, toPart};
         // Check if the move of v can notsatisfied, makebetter, or satisfied
         legalcheck = this->validator.check_legal(move_info_v);
         if (legalcheck == LegalCheck::notsatisfied)

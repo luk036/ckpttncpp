@@ -9,6 +9,8 @@ extern SimpleNetlist readNetD(boost::string_view netDFileName);
 extern void readAre(SimpleNetlist& H, boost::string_view areFileName);
 // extern std::tuple<py::set<node_t>, int>
 // min_net_cover_pd(SimpleNetlist &, const std::vector<int> &);
+
+using node_t = SimpleNetlist::node_t;
 extern std::tuple<py::set<node_t>, int> max_independent_net(
     const SimpleNetlist&, const std::vector<int>&, const py::set<node_t>&);
 extern std::unique_ptr<SimpleNetlist> create_contraction_subgraph(

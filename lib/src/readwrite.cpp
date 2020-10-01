@@ -70,6 +70,8 @@ SimpleNetlist readNetD(boost::string_view netDFileName)
         exit(1);
     }
 
+    using node_t = int;
+    
     char t;
     int numPins;
     int numNets;
@@ -180,6 +182,7 @@ void readAre(SimpleNetlist& H, boost::string_view areFileName)
         exit(1);
     }
 
+    using node_t = int;
     constexpr index_t bufferSize = 100;
     char lineBuffer[bufferSize];
 

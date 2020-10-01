@@ -17,6 +17,7 @@
 // using RngIter = decltype(py::range<int>(0, 1));
 // using SimpleNetlist = Netlist<RngIter, RngIter>;
 
+using node_t = typename SimpleNetlist::node_t;
 extern std::unique_ptr<SimpleNetlist> create_contraction_subgraph(
     const SimpleNetlist&, const py::set<node_t>&);
 

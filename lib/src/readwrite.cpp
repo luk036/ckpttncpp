@@ -1,4 +1,4 @@
-#include <boost/utility/string_view.hpp>
+#include <string_view>
 #include <ckpttncpp/netlist.hpp>
 #include <climits>
 #include <fstream>
@@ -16,7 +16,7 @@ using std::ifstream;
 using std::ofstream;
 
 // Read the IBM .netD/.net format. Precondition: Netlist is empty.
-void writeJSON(boost::string_view jsonFileName, const SimpleNetlist& H)
+void writeJSON(std::string_view jsonFileName, const SimpleNetlist& H)
 {
     auto json = ofstream {jsonFileName.data()};
     if (json.fail())
@@ -61,7 +61,7 @@ void writeJSON(boost::string_view jsonFileName, const SimpleNetlist& H)
 }
 
 // Read the IBM .netD/.net format. Precondition: Netlist is empty.
-SimpleNetlist readNetD(boost::string_view netDFileName)
+SimpleNetlist readNetD(std::string_view netDFileName)
 {
     auto netD = ifstream {netDFileName.data()};
     if (netD.fail())
@@ -173,7 +173,7 @@ SimpleNetlist readNetD(boost::string_view netDFileName)
 }
 
 // Read the IBM .are format
-void readAre(SimpleNetlist& H, boost::string_view areFileName)
+void readAre(SimpleNetlist& H, std::string_view areFileName)
 {
     auto are = ifstream {areFileName.data()};
     if (are.fail())

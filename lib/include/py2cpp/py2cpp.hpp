@@ -445,6 +445,26 @@ class dict : public std::unordered_map<Key, T>
      *
      * @return _Self&
      */
+    const T& operator[](const Key& k) const
+    {
+        return this->at(k); // luk: a bug in std::unordered_map?
+    }
+
+    /*!
+     * @brief
+     *
+     * @return _Self&
+     */
+    T& operator[](const Key& k)
+    {
+        return _Base::operator[](k);
+    }
+
+    /*!
+     * @brief
+     *
+     * @return _Self&
+     */
     _Self& operator=(const _Self&) = delete;
 
     /*!

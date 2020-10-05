@@ -1,13 +1,13 @@
 #include "benchmark/benchmark.h"
-#include <boost/utility/string_view.hpp>
+#include <string_view>
 #include <ckpttncpp/FMKWayConstrMgr.hpp> // import FMKWayConstrMgr
 #include <ckpttncpp/FMKWayGainMgr.hpp>   // import FMKWayGainMgr
 #include <ckpttncpp/FMPartMgr.hpp>       // import FMKWayPartMgr
 
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
 extern SimpleNetlist create_dwarf();        // import create_dwarf
-extern SimpleNetlist readNetD(boost::string_view netDFileName);
-extern void readAre(SimpleNetlist& H, boost::string_view areFileName);
+extern SimpleNetlist readNetD(std::string_view netDFileName);
+extern void readAre(SimpleNetlist& H, std::string_view areFileName);
 
 /**
  * @brief Run FM K-way partitioning

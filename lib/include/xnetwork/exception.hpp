@@ -36,7 +36,7 @@ namespace xn
 /*! Base class for exceptions : XNetwork. */
 struct XNetworkException : std::runtime_error
 {
-    explicit XNetworkException(boost::string_view msg)
+    explicit XNetworkException(std::string_view msg)
         : std::runtime_error(msg)
     {
     }
@@ -45,7 +45,7 @@ struct XNetworkException : std::runtime_error
 /*! Exception for a serious error : XNetwork */
 struct XNetworkError : XNetworkException
 {
-    explicit XNetworkError(boost::string_view msg)
+    explicit XNetworkError(std::string_view msg)
         : XNetworkException(msg)
     {
     }
@@ -66,7 +66,7 @@ References
  */
 struct XNetworkPointlessConcept : XNetworkException
 {
-    explicit XNetworkPointlessConcept(boost::string_view msg)
+    explicit XNetworkPointlessConcept(std::string_view msg)
         : XNetworkException(msg)
     {
     }
@@ -75,7 +75,7 @@ struct XNetworkPointlessConcept : XNetworkException
 /*! Exception for unexpected termination of algorithms. */
 struct XNetworkAlgorithmError : XNetworkException
 {
-    explicit XNetworkAlgorithmError(boost::string_view msg)
+    explicit XNetworkAlgorithmError(std::string_view msg)
         : XNetworkException(msg)
     {
     }
@@ -85,7 +85,7 @@ struct XNetworkAlgorithmError : XNetworkException
 instance that has no feasible solution. */
 struct XNetworkUnfeasible : XNetworkAlgorithmError
 {
-    explicit XNetworkUnfeasible(boost::string_view msg)
+    explicit XNetworkUnfeasible(std::string_view msg)
         : XNetworkAlgorithmError(msg)
     {
     }
@@ -95,7 +95,7 @@ struct XNetworkUnfeasible : XNetworkAlgorithmError
 on graphs where such a path does not exist. */
 struct XNetworkNoPath : XNetworkUnfeasible
 {
-    explicit XNetworkNoPath(boost::string_view msg)
+    explicit XNetworkNoPath(std::string_view msg)
         : XNetworkUnfeasible(msg)
     {
     }
@@ -105,7 +105,7 @@ struct XNetworkNoPath : XNetworkUnfeasible
 on graphs where such a cycle does not exist. */
 struct XNetworkNoCycle : XNetworkUnfeasible
 {
-    explicit XNetworkNoCycle(boost::string_view msg)
+    explicit XNetworkNoCycle(std::string_view msg)
         : XNetworkUnfeasible(msg)
     {
     }
@@ -115,7 +115,7 @@ struct XNetworkNoCycle : XNetworkUnfeasible
 will have no cycles. */
 struct HasACycle : XNetworkException
 {
-    explicit HasACycle(boost::string_view msg)
+    explicit HasACycle(std::string_view msg)
         : XNetworkException(msg)
     {
     }
@@ -125,7 +125,7 @@ struct HasACycle : XNetworkException
 or a minimization problem instance that is unbounded. */
 struct XNetworkUnbounded : XNetworkAlgorithmError
 {
-    explicit XNetworkUnbounded(boost::string_view msg)
+    explicit XNetworkUnbounded(std::string_view msg)
         : XNetworkAlgorithmError(msg)
     {
     }
@@ -134,7 +134,7 @@ struct XNetworkUnbounded : XNetworkAlgorithmError
 /*! Exception raised by algorithms not implemented for a type of graph. */
 struct XNetworkNotImplemented : XNetworkException
 {
-    explicit XNetworkNotImplemented(boost::string_view msg)
+    explicit XNetworkNotImplemented(std::string_view msg)
         : XNetworkException(msg)
     {
     }
@@ -143,7 +143,7 @@ struct XNetworkNotImplemented : XNetworkException
 /*! Exception raised if (requested node is not present : the graph */
 struct NodeNotFound : XNetworkException
 {
-    explicit NodeNotFound(boost::string_view msg)
+    explicit NodeNotFound(std::string_view msg)
         : XNetworkException(msg)
     {
     }
@@ -159,7 +159,7 @@ computing bipartite matchings.
  */
 struct AmbiguousSolution : XNetworkException
 {
-    explicit AmbiguousSolution(boost::string_view msg)
+    explicit AmbiguousSolution(std::string_view msg)
         : XNetworkException(msg)
     {
     }
@@ -172,7 +172,7 @@ iteration bound specified by the user.
  */
 struct ExceededMaxIterations : XNetworkException
 {
-    explicit ExceededMaxIterations(boost::string_view msg)
+    explicit ExceededMaxIterations(std::string_view msg)
         : XNetworkException(msg)
     {
     }

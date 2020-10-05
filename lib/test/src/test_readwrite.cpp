@@ -1,11 +1,11 @@
 // -*- coding: utf-8 -*-
-#include <boost/utility/string_view.hpp>
+#include <string_view>
 #include <ckpttncpp/netlist.hpp>
 #include <doctest.h>
 
-extern SimpleNetlist readNetD(boost::string_view netDFileName);
-extern void readAre(SimpleNetlist& H, boost::string_view areFileName);
-extern void writeJSON(boost::string_view jsonFileName, const SimpleNetlist& H);
+extern SimpleNetlist readNetD(std::string_view netDFileName);
+extern void readAre(SimpleNetlist& H, std::string_view areFileName);
+extern void writeJSON(std::string_view jsonFileName, const SimpleNetlist& H);
 
 TEST_CASE("Test Read Dwarf")
 {

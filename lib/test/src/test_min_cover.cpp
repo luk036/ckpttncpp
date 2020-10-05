@@ -1,12 +1,12 @@
-#include <boost/utility/string_view.hpp>
+#include <string_view>
 #include <ckpttncpp/netlist.hpp> // import Netlist
 #include <doctest.h>
 #include <py2cpp/py2cpp.hpp>
 
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
 extern SimpleNetlist create_dwarf();        // import create_dwarf
-extern SimpleNetlist readNetD(boost::string_view netDFileName);
-extern void readAre(SimpleNetlist& H, boost::string_view areFileName);
+extern SimpleNetlist readNetD(std::string_view netDFileName);
+extern void readAre(SimpleNetlist& H, std::string_view areFileName);
 // extern std::tuple<py::set<node_t>, int>
 // min_net_cover_pd(SimpleNetlist &, const std::vector<int> &);
 

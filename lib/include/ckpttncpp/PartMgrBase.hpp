@@ -10,12 +10,15 @@
 #include <py2cpp/py2cpp.hpp>
 #include <type_traits>
 #include <vector>
+#include <xnetwork/classes/graph.hpp>
 
 // forward declare
-template <typename nodeview_t>
+template <typename graph_t>
 struct Netlist;
-using RngIter = decltype(py::range<int>(0, 1));
-using SimpleNetlist = Netlist<RngIter>;
+// using RngIter = decltype(py::range<int>(0, 1));
+// //using graph_t = xn::SimpleGraph;
+using SimpleNetlist = Netlist<xn::SimpleGraph>;
+
 enum class LegalCheck;
 
 /*!

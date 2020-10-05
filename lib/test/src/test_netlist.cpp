@@ -97,8 +97,8 @@ auto create_test_netlist() -> SimpleNetlist
     // auto num_arcs = sizeof(edge_array) / sizeof(Edge);
     // auto g = graph_t{edge_array, edge_array + num_arcs, num_nodes};
     // auto G = xn::grAdaptor<graph_t>{std::move(g)};
-    const auto R = py::range<int>(num_nodes);
-    graph_t g {R};
+    // const auto R = py::range<int>(num_nodes);
+    graph_t g {num_nodes};
     for (auto&& e : edge_array)
     {
         g.add_edge(e.first, e.second);

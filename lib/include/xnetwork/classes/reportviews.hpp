@@ -210,7 +210,12 @@ class NodeView
         return std::end(this->_nodes);
     }
 
-    auto operator[](const Node& n)
+    const auto& operator[](const Node& n) const
+    {
+        return this->_nodes[n];
+    }
+
+    auto& operator[](const Node& n)
     {
         return this->_nodes[n];
     }

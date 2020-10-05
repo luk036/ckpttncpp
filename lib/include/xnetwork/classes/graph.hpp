@@ -199,7 +199,9 @@ struct object : py::dict<const char*, std::any>
 };
 
 template <typename __nodeview_t,
-    typename adjlist_t = py::set<Value_type<__nodeview_t>>>
+    typename adjlist_t = py::set<Value_type<__nodeview_t>>,
+    typename adjlist_outer_dict_factory = py::dict<Value_type<__nodeview_t>, adjlist_t>
+    >
 class Graph : public object
 {
   public:
@@ -213,7 +215,6 @@ class Graph : public object
     // using adjlist_inner_dict_factory = py::dict<Node,
     // edge_attr_dict_factory>;
     using adjlist_inner_dict_factory = adjlist_t;
-    using adjlist_outer_dict_factory = std::vector<adjlist_t>;
     using key_type = typename adjlist_t::key_type;
     using value_type = typename adjlist_t::value_type;
     using edge_t = std::pair<Node, Node>;
@@ -259,13 +260,13 @@ class Graph : public object
     */
     explicit Graph(const nodeview_t& Nodes)
         : _node {Nodes}
-        , _adj(Nodes.size())
+        , _adj{} // py::dict???
     {
     }
 
     explicit Graph(int num_nodes)
         : _node {py::range<int>(num_nodes)}
-        , _adj(num_nodes)
+        , _adj(num_nodes) // std::vector
     {
     }
 
@@ -325,10 +326,16 @@ class Graph : public object
 
     auto _nodes_nbrs() const
     {
+        // @TODO support py:dict
         return py::enumerate(this->_adj);
     }
 
-    Node null_vertex() const
+    const Node& null_vertex() const
+    {
+        return *(this->_node.end());
+    }
+
+    Node& null_vertex()
     {
         return *(this->_node.end());
     }
@@ -614,13 +621,13 @@ class Graph : public object
         >>> G.edges()[1, 2].update({0: 5});
      */
     template <typename U = key_type>
-    typename std::enable_if<std::is_same<U, value_type>::value>::type add_edge(
-        const Node& u, const Node& v)
+    typename std::enable_if<std::is_same<U, value_type>::value>::type
+    add_edge(const Node& u, const Node& v)
     {
         // auto [u, v] = u_of_edge, v_of_edge;
         // add nodes
-        assert(this->_node.contains(u));
-        assert(this->_node.contains(v));
+        // assert(this->_node.contains(u));
+        // assert(this->_node.contains(v));
         // add the edge
         // datadict = this->_adj[u].get(v, this->edge_attr_dict_factory());
         // datadict.update(attr);
@@ -631,13 +638,13 @@ class Graph : public object
     }
 
     template <typename U = key_type>
-    typename std::enable_if<!std::is_same<U, value_type>::value>::type add_edge(
-        const Node& u, const Node& v)
+    typename std::enable_if<!std::is_same<U, value_type>::value>::type
+    add_edge(const Node& u, const Node& v)
     {
         // auto [u, v] = u_of_edge, v_of_edge;
         // add nodes
-        assert(this->_node.contains(u));
-        assert(this->_node.contains(v));
+        // assert(this->_node.contains(u));
+        // assert(this->_node.contains(v));
         // add the edge
         // datadict = this->_adj[u].get(v, this->edge_attr_dict_factory());
         // datadict.update(attr);
@@ -651,8 +658,8 @@ class Graph : public object
     template <typename T>
     auto add_edge(const Node& u, const Node& v, const T& data)
     {
-        assert(this->_node.contains(u));
-        assert(this->_node.contains(v));
+        // assert(this->_node.contains(u));
+        // assert(this->_node.contains(v));
         this->_adj[u][v] = data;
         this->_adj[v][u] = data;
         this->_num_of_edges += 1;
@@ -853,7 +860,7 @@ class Graph : public object
     }
 };
 
-using SimpleGraph = Graph<decltype(py::range<int>(1)), py::set<int>>;
+using SimpleGraph = Graph<decltype(py::range<int>(1)), py::set<int>, std::vector<py::set<int>> >;
 
 // template <typename nodeview_t,
 //           typename adjlist_t> Graph(int )

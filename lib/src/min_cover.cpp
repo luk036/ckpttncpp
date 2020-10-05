@@ -248,8 +248,8 @@ auto create_contraction_subgraph(
     }
 
     auto num_vertices = numModules + numNets;
-    auto R = py::range<node_t>(0, num_vertices);
-    auto g = graph_t {R};
+    // auto R = py::range<node_t>(0, num_vertices);
+    auto g = graph_t {num_vertices};
     // G.add_nodes_from(nodes);
     for (auto&& v : H.modules)
     {

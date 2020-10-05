@@ -23,12 +23,13 @@
  * Netlist is implemented by xn::Graph, which is a networkx-like graph.
  *
  */
-template <typename nodeview_t>
+template <typename graph_t>
 struct Netlist
 {
-    using node_t = typename nodeview_t::value_type;
+    using nodeview_t = typename graph_t::nodeview_t;
+    using node_t = typename graph_t::node_t;
     using index_t = typename nodeview_t::key_type;
-    using graph_t = xn::Graph<nodeview_t>;
+    //using graph_t = xn::Graph<graph_t>;
 
     graph_t G;
     nodeview_t modules;
@@ -45,7 +46,7 @@ struct Netlist
     py::set<node_t> module_fixed;
 
     /* For multi-level algorithms */
-    const Netlist<nodeview_t>* parent;
+    const Netlist<graph_t>* parent;
     py::dict<node_t, index_t> node_up_map;
     py::dict<index_t, node_t> node_down_map;
     py::dict<index_t, node_t> cluster_down_map;
@@ -179,8 +180,8 @@ struct Netlist
  * @param[in] modules
  * @param[in] nets
  */
-template <typename nodeview_t>
-Netlist<nodeview_t>::Netlist(
+template <typename graph_t>
+Netlist<graph_t>::Netlist(
     graph_t G, const nodeview_t& modules, const nodeview_t& nets)
     : G {std::move(G)}
     , modules {modules}
@@ -221,17 +222,17 @@ Netlist<nodeview_t>::Netlist(
     }
 }
 
-template <typename nodeview_t>
-Netlist<nodeview_t>::Netlist(graph_t G, int numModules, int numNets)
+template <typename graph_t>
+Netlist<graph_t>::Netlist(graph_t G, int numModules, int numNets)
     : Netlist {std::move(G), py::range<int>(numModules),
           py::range<int>(numModules, numModules + numNets)}
 {
 }
 
-using RngIter = decltype(py::range<int>(0, 1));
-using graph_t = xn::Graph<RngIter>;
+// using RngIter = decltype(py::range<int>(0, 1));
+using graph_t = xn::SimpleGraph;
 using index_t = int;
-using SimpleNetlist = Netlist<RngIter>;
+using SimpleNetlist = Netlist<graph_t>;
 
 template <typename Node>
 struct MoveInfo

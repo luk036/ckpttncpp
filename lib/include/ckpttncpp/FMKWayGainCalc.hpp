@@ -99,7 +99,7 @@ class FMKWayGainCalc
      * @return std::vector<int>
      */
     auto update_move_2pin_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo<node_t>& move_info, const node_t*& w) -> std::vector<int>;
+        const MoveInfo<node_t>& move_info, node_t& w) -> std::vector<int>;
 
     using ret_info = std::vector<std::vector<int>>;
 
@@ -112,7 +112,7 @@ class FMKWayGainCalc
      * @return ret_info
      */
     auto update_move_3pin_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo<node_t>& move_info, std::pmr::vector<const node_t*>& IdVec) -> ret_info;
+        const MoveInfo<node_t>& move_info, std::pmr::vector<node_t>& IdVec) -> ret_info;
 
     /*!
      * @brief
@@ -123,7 +123,7 @@ class FMKWayGainCalc
      * @return ret_info
      */
     auto update_move_general_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo<node_t>& move_info, std::pmr::vector<const node_t*>& IdVec) -> ret_info;
+        const MoveInfo<node_t>& move_info, std::pmr::vector<node_t>& IdVec) -> ret_info;
 
   private:
     /*!

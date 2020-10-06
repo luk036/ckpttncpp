@@ -140,10 +140,10 @@ void FMGainMgr<GainCalc, Derived>::_update_move_2pin_net(
 {
     // const auto [w, deltaGainW] =
     //     this->gainCalc.update_move_2pin_net(part, move_info);
-    const node_t* w = nullptr;
+    node_t w;
     const auto deltaGainW =
         this->gainCalc.update_move_2pin_net(part, move_info, w);
-    self.modify_key(*w, part[*w], deltaGainW);
+    self.modify_key(w, part[w], deltaGainW);
 }
 
 /**
@@ -158,14 +158,14 @@ void FMGainMgr<GainCalc, Derived>::_update_move_3pin_net(
 {
     std::byte StackBuf[4096];
     std::pmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
-    auto IdVec = std::pmr::vector<const node_t*>(&rsrc);
+    auto IdVec = std::pmr::vector<node_t>(&rsrc);
 
     const auto deltaGain =
         this->gainCalc.update_move_3pin_net(part, move_info, IdVec);
     const auto degree = IdVec.size();
     for (size_t index = 0U; index != degree; ++index)
     {
-        const auto& w = *IdVec[index];
+        const auto& w = IdVec[index];
         self.modify_key(w, part[w], deltaGain[index]);
     }
 }
@@ -182,7 +182,7 @@ void FMGainMgr<GainCalc, Derived>::_update_move_general_net(
 {
     std::byte StackBuf[2048];
     std::pmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
-    auto IdVec = std::pmr::vector<const node_t*>(&rsrc);
+    auto IdVec = std::pmr::vector<node_t>(&rsrc);
 
     // const auto [IdVec, deltaGain] =
     const auto deltaGain =
@@ -192,7 +192,7 @@ void FMGainMgr<GainCalc, Derived>::_update_move_general_net(
     const auto degree = IdVec.size();
     for (size_t index = 0U; index != degree; ++index)
     {
-        const auto& w = *IdVec[index];
+        const auto& w = IdVec[index];
         self.modify_key(w, part[w], deltaGain[index]);
     }
 }

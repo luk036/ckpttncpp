@@ -84,7 +84,7 @@ class FMBiGainCalc
      * @return int
      */
     auto update_move_2pin_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo<node_t>& move_info, const node_t*& w) -> int;
+        const MoveInfo<node_t>& move_info, node_t& w) -> int;
 
     /*!
      * @brief update move 3-pin net
@@ -95,7 +95,7 @@ class FMBiGainCalc
      * @return ret_info
      */
     auto update_move_3pin_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo<node_t>& move_info, std::pmr::vector<const node_t*>& IdVec)
+        const MoveInfo<node_t>& move_info, std::pmr::vector<node_t>& IdVec)
         -> std::vector<int>;
 
     /*!
@@ -107,7 +107,7 @@ class FMBiGainCalc
      * @return ret_info
      */
     auto update_move_general_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo<node_t>& move_info, std::pmr::vector<const node_t*>& IdVec)
+        const MoveInfo<node_t>& move_info, std::pmr::vector<node_t>& IdVec)
         -> std::vector<int>;
 
   private:

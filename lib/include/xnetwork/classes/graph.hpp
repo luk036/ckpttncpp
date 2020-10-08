@@ -270,9 +270,9 @@ class Graph : public object
     {
     }
 
-    Graph(const Graph&) = delete;            // don't copy
-    Graph& operator=(const Graph&) = delete; // don't copy
-    Graph(Graph&&) noexcept = default;
+    // Graph(const Graph&) = delete;            // don't copy
+    // Graph& operator=(const Graph&) = delete; // don't copy
+    // Graph(Graph&&) noexcept = default;
 
     /*!
      * @brief For compatible with BGL adaptor

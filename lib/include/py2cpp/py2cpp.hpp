@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
+#include <algorithm> // std::max
 
 template <typename T>
 using Value_type = typename T::value_type;
@@ -246,7 +247,7 @@ class set : public std::unordered_set<Key>
      */
     set(set<Key>&&) noexcept = default;
 
-  private:
+  // private:
     /*!
      * @brief Copy Constructor (deleted)
      *
@@ -480,7 +481,7 @@ class dict : public std::unordered_map<Key, T>
      */
     dict(dict<Key, T>&&) noexcept = default;
 
-  private:
+  // private:
     /*!
      * @brief Construct a new dict object
      *

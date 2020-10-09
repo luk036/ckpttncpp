@@ -1,7 +1,7 @@
 // -*- coding: utf-8 -*-
-#include <string_view>
 #include <ckpttncpp/netlist.hpp>
 #include <doctest.h>
+#include <string_view>
 
 extern SimpleNetlist readNetD(std::string_view netDFileName);
 extern void readAre(SimpleNetlist& H, std::string_view areFileName);

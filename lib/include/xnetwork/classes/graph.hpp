@@ -1,9 +1,9 @@
 #pragma once
 
 #include <any>
-#include <string_view>
 #include <cassert>
 #include <py2cpp/py2cpp.hpp>
+#include <string_view>
 #include <type_traits>
 #include <vector>
 #include <xnetwork/classes/coreviews.hpp> // import AtlasView, AdjacencyView
@@ -200,8 +200,8 @@ struct object : py::dict<const char*, std::any>
 
 template <typename __nodeview_t,
     typename adjlist_t = py::set<Value_type<__nodeview_t>>,
-    typename adjlist_outer_dict_factory = py::dict<Value_type<__nodeview_t>, adjlist_t>
-    >
+    typename adjlist_outer_dict_factory =
+        py::dict<Value_type<__nodeview_t>, adjlist_t>>
 class Graph : public object
 {
   public:
@@ -260,7 +260,7 @@ class Graph : public object
     */
     explicit Graph(const nodeview_t& Nodes)
         : _node {Nodes}
-        , _adj{} // py::dict???
+        , _adj {} // py::dict???
     {
     }
 
@@ -621,8 +621,8 @@ class Graph : public object
         >>> G.edges()[1, 2].update({0: 5});
      */
     template <typename U = key_type>
-    typename std::enable_if<std::is_same<U, value_type>::value>::type
-    add_edge(const Node& u, const Node& v)
+    typename std::enable_if<std::is_same<U, value_type>::value>::type add_edge(
+        const Node& u, const Node& v)
     {
         // auto [u, v] = u_of_edge, v_of_edge;
         // add nodes
@@ -638,8 +638,8 @@ class Graph : public object
     }
 
     template <typename U = key_type>
-    typename std::enable_if<!std::is_same<U, value_type>::value>::type
-    add_edge(const Node& u, const Node& v)
+    typename std::enable_if<!std::is_same<U, value_type>::value>::type add_edge(
+        const Node& u, const Node& v)
     {
         // auto [u, v] = u_of_edge, v_of_edge;
         // add nodes
@@ -860,7 +860,8 @@ class Graph : public object
     }
 };
 
-using SimpleGraph = Graph<decltype(py::range<int>(1)), py::set<int>, std::vector<py::set<int>> >;
+using SimpleGraph =
+    Graph<decltype(py::range<int>(1)), py::set<int>, std::vector<py::set<int>>>;
 
 // template <typename nodeview_t,
 //           typename adjlist_t> Graph(int )

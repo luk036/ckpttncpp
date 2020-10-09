@@ -1,9 +1,9 @@
-#include <string_view>
 #include <ckpttncpp/netlist.hpp>
 #include <climits>
 #include <fstream>
 #include <iostream>
 #include <py2cpp/py2cpp.hpp>
+#include <string_view>
 #include <utility> // for std::pair
 #include <vector>
 
@@ -71,7 +71,7 @@ SimpleNetlist readNetD(std::string_view netDFileName)
     }
 
     using node_t = int;
-    
+
     char t;
     int numPins;
     int numNets;

@@ -47,8 +47,8 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
      * @param[in] part_w
      * @param[in] keys
      */
-    auto modify_key(const node_t& w, std::uint8_t part_w, const std::vector<int>& keys)
-        -> void
+    auto modify_key(const node_t& w, std::uint8_t part_w,
+        const std::vector<int>& keys) -> void
     {
         for (auto k : this->RR.exclude(part_w))
         {

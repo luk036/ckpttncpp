@@ -167,7 +167,8 @@ class FMBiGainCalc
      * @param weight
      * @param w
      */
-    auto _modify_gain_va(int weight, const node_t& w1, const node_t& w2, const node_t& w3) -> void
+    auto _modify_gain_va(int weight, const node_t& w1, const node_t& w2,
+        const node_t& w3) -> void
     {
         this->vertex_list[w1].key += weight;
         this->vertex_list[w2].key += weight;

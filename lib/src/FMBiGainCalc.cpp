@@ -153,8 +153,8 @@ void FMBiGainCalc::_init_gain_general_net(
  * @param[out] w
  * @return int
  */
-int FMBiGainCalc::update_move_2pin_net(
-    gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info, node_t& w)
+int FMBiGainCalc::update_move_2pin_net(gsl::span<const std::uint8_t> part,
+    const MoveInfo<node_t>& move_info, node_t& w)
 {
     auto netCur = this->H.G[move_info.net].begin();
     w = (*netCur != move_info.v) ? *netCur : *++netCur;

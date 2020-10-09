@@ -29,7 +29,7 @@ struct Netlist
     using nodeview_t = typename graph_t::nodeview_t;
     using node_t = typename graph_t::node_t;
     using index_t = typename nodeview_t::key_type;
-    //using graph_t = xn::Graph<graph_t>;
+    // using graph_t = xn::Graph<graph_t>;
 
     graph_t G;
     nodeview_t modules;
@@ -192,7 +192,8 @@ Netlist<graph_t>::Netlist(
     this->has_fixed_modules = (!this->module_fixed.empty());
 
     // Some compilers does not accept py::range()->iterator as a forward
-    // iterator auto deg_cmp = [this](const node_t& v, const node_t& w) -> index_t {
+    // iterator auto deg_cmp = [this](const node_t& v, const node_t& w) ->
+    // index_t {
     //     return this->G.degree(v) < this->G.degree(w);
     // };
     // const auto result1 =

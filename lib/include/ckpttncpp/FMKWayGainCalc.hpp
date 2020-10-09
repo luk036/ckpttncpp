@@ -112,7 +112,8 @@ class FMKWayGainCalc
      * @return ret_info
      */
     auto update_move_3pin_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo<node_t>& move_info, std::pmr::vector<node_t>& IdVec) -> ret_info;
+        const MoveInfo<node_t>& move_info, std::pmr::vector<node_t>& IdVec)
+        -> ret_info;
 
     /*!
      * @brief
@@ -123,7 +124,8 @@ class FMKWayGainCalc
      * @return ret_info
      */
     auto update_move_general_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo<node_t>& move_info, std::pmr::vector<node_t>& IdVec) -> ret_info;
+        const MoveInfo<node_t>& move_info, std::pmr::vector<node_t>& IdVec)
+        -> ret_info;
 
   private:
     /*!
@@ -176,8 +178,8 @@ class FMKWayGainCalc
      * @param part_v
      * @param v
      */
-    auto _modify_vertex_va(int weight, std::uint8_t k, const node_t& v1, const node_t& v2)
-        -> void
+    auto _modify_vertex_va(
+        int weight, std::uint8_t k, const node_t& v1, const node_t& v2) -> void
     {
         this->vertex_list[k][v1].key += weight;
         this->vertex_list[k][v2].key += weight;
@@ -191,8 +193,8 @@ class FMKWayGainCalc
      * @param part_v
      * @param v
      */
-    auto _modify_vertex_va(
-        int weight, std::uint8_t k, const node_t& v1, const node_t& v2, const node_t& v3) -> void
+    auto _modify_vertex_va(int weight, std::uint8_t k, const node_t& v1,
+        const node_t& v2, const node_t& v3) -> void
     {
         this->vertex_list[k][v1].key += weight;
         this->vertex_list[k][v2].key += weight;

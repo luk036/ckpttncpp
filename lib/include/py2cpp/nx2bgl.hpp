@@ -23,7 +23,7 @@ class VertexView : public Graph
      * @param[in] G
      */
     explicit VertexView(Graph&& G) noexcept
-        : Graph{std::forward<Graph>(G)}
+        : Graph {std::forward<Graph>(G)}
     {
     }
 
@@ -250,7 +250,7 @@ class grAdaptor : public VertexView<Graph>
      * @param[in] G
      */
     explicit grAdaptor(Graph&& G) noexcept
-        : VertexView<Graph>{std::forward<Graph>(G)}
+        : VertexView<Graph> {std::forward<Graph>(G)}
     {
     }
 

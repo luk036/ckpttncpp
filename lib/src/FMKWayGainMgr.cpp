@@ -41,7 +41,8 @@ int FMKWayGainMgr::init(gsl::span<const std::uint8_t> part)
  * @param[in] move_info_v
  * @param[in] gain
  */
-void FMKWayGainMgr::update_move_v(const MoveInfoV<node_t>& move_info_v, int gain)
+void FMKWayGainMgr::update_move_v(
+    const MoveInfoV<node_t>& move_info_v, int gain)
 {
     // const auto& [v, fromPart, toPart] = move_info_v;
 

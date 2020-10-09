@@ -37,25 +37,23 @@ LegalCheck MLPartMgr::run_FMPartition(
     }
     if (H.number_of_modules() >= limitsize)
     { // OK
-        // try
-        // {
-            const auto H2 = create_contraction_subgraph(H, py::set<node_t> {});
-            if (5 * H2->number_of_modules() <= 3 * H.number_of_modules())
+      // try
+      // {
+        const auto H2 = create_contraction_subgraph(H, py::set<node_t> {});
+        if (5 * H2->number_of_modules() <= 3 * H.number_of_modules())
+        {
+            auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
+            // auto extern_nets_ss = py::set<node_t>{};
+            // auto part2_info =
+            //     PartInfo{std::move(part2),
+            //     std::move(extern_nets_ss)};
+            H2->projection_up(part, part2);
+            legalcheck = this->run_FMPartition<PartMgr>(*H2, part2, limitsize);
+            if (legalcheck == LegalCheck::allsatisfied)
             {
-                auto part2 =
-                    std::vector<std::uint8_t>(H2->number_of_modules(), 0);
-                // auto extern_nets_ss = py::set<node_t>{};
-                // auto part2_info =
-                //     PartInfo{std::move(part2),
-                //     std::move(extern_nets_ss)};
-                H2->projection_up(part, part2);
-                legalcheck =
-                    this->run_FMPartition<PartMgr>(*H2, part2, limitsize);
-                if (legalcheck == LegalCheck::allsatisfied)
-                {
-                    H2->projection_down(part2, part);
-                }
+                H2->projection_down(part2, part);
             }
+        }
         // }
         // catch (const std::bad_alloc&)
         // {
@@ -118,21 +116,20 @@ void MLPartMgr::run_Partition_recur(
 {
     if (H.number_of_modules() >= limitsize)
     { // OK
-        // try
-        // {
-            const auto H2 = create_contraction_subgraph(H, py::set<node_t> {});
-            if (5 * H2->number_of_modules() <= 3 * H.number_of_modules())
-            {
-                auto part2 =
-                    std::vector<std::uint8_t>(H2->number_of_modules(), 0);
-                // auto extern_nets_ss = py::set<node_t>{};
-                // auto part2_info =
-                //     PartInfo{std::move(part2),
-                //     std::move(extern_nets_ss)};
-                H2->projection_up(part, part2);
-                this->run_Partition_recur<PartMgr>(*H2, part2, limitsize);
-                H2->projection_down(part2, part);
-            }
+      // try
+      // {
+        const auto H2 = create_contraction_subgraph(H, py::set<node_t> {});
+        if (5 * H2->number_of_modules() <= 3 * H.number_of_modules())
+        {
+            auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
+            // auto extern_nets_ss = py::set<node_t>{};
+            // auto part2_info =
+            //     PartInfo{std::move(part2),
+            //     std::move(extern_nets_ss)};
+            H2->projection_up(part, part2);
+            this->run_Partition_recur<PartMgr>(*H2, part2, limitsize);
+            H2->projection_down(part2, part);
+        }
         // }
         // catch (const std::bad_alloc&)
         // {

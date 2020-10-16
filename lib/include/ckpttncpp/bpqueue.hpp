@@ -54,7 +54,7 @@ class bpqueue
         , bucket(high + 1)
     {
         assert(a <= b);
-        static_assert(std::is_integral<T>::value, "");
+        static_assert(std::is_integral<T>::value, "bucket's key must be an integer");
         bucket[0].append(sentinel); // sentinel
     }
 

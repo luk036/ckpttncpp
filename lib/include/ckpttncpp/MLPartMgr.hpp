@@ -9,6 +9,7 @@
 #include <ckpttncpp/netlist.hpp>
 #include <gsl/span>
 #include <vector>
+#include <memory> // std::unique_ptr
 // #include <ckpttncpp/FMConstrMgr.hpp>   // import LegalCheck
 
 // forward declare

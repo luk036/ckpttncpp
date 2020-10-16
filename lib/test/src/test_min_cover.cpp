@@ -2,6 +2,7 @@
 #include <doctest.h>
 #include <py2cpp/py2cpp.hpp>
 #include <string_view>
+#include <memory> //std::unique_ptr
 
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
 extern SimpleNetlist create_dwarf();        // import create_dwarf

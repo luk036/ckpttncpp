@@ -46,7 +46,7 @@ class FMPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FMPartMgr>
         // {
         //     snapshot[i] = part[i];
         // }
-        auto snapshot = std::vector<std::uint8_t>(part.cbegin(), part.cend());
+        auto snapshot = std::vector<std::uint8_t>(part.begin(), part.end());
         return snapshot;
     }
 

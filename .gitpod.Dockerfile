@@ -44,7 +44,7 @@ RUN /opt/conda/bin/conda install -y -c conda-forge \
     cppcheck \
     fmt \
     lcov \
-    libboost \
+    boost \
     spdlog
 
 RUN apt-get clean && rm -rf /var/cache/apt/* && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*

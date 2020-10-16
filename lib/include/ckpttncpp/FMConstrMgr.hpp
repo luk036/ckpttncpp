@@ -24,15 +24,16 @@ enum class LegalCheck
  */
 class FMConstrMgr
 {
-    int weight; // cache value
-
-  protected:
+  private:
     const SimpleNetlist& H;
     double BalTol;
-    std::uint8_t K;
+    int totalweight {};
+    int weight {}; // cache value
+
+  protected:
     std::vector<int> diff;
     int lowerbound {};
-    int totalweight {};
+    std::uint8_t K;
 
     /*!
      * @brief Construct a new FMConstrMgr object
@@ -55,8 +56,8 @@ class FMConstrMgr
     FMConstrMgr(const SimpleNetlist& H, double BalTol, std::uint8_t K)
         : H {H}
         , BalTol {BalTol}
-        , K {K}
         , diff(K, 0)
+        , K {K}
     {
         for (auto&& v : this->H.modules)
         {

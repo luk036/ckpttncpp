@@ -33,16 +33,17 @@ struct dllink
     explicit dllink(T key = T(0))
         : key {key}
     {
-        static_assert(sizeof(dllink<T>) <= 24, "");
+        static_assert(sizeof(dllink<T>) <= 20, "keep this class small");
     }
 
     /*!
      * @brief Copy construct a new dllink object (deleted intentionally)
      *
      */
-    dllink(const dllink<T>&) = delete;
-    dllink& operator=(const dllink<T>&) = delete;
+    dllink(const dllink<T>&) = delete; // don't copy
+    dllink& operator=(const dllink<T>&) = delete; // don't assign
     dllink(dllink<T>&&) = default;
+    ~dllink() = default;
 
     /*!
      * @brief detach from a list
@@ -199,7 +200,7 @@ struct dllink
     //     };
     //     return pull_t(func);
     // }
-};
+} __attribute__((packed));
 
 /*!
  * @brief list iterator

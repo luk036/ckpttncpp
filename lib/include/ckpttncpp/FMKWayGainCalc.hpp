@@ -20,12 +20,12 @@ class FMKWayGainCalc
     const SimpleNetlist& H;
     std::uint8_t K;
     robin<std::uint8_t> RR;
-    size_t num_modules;
+    // size_t num_modules;
     std::vector<std::vector<dllink<int>>> vertex_list;
     std::vector<int> deltaGainV;
+    int totalcost {0};
 
   public:
-    int totalcost {0};
     bool special_handle_2pin_nets {true}; // @TODO should be template parameter
 
     /*!
@@ -38,13 +38,12 @@ class FMKWayGainCalc
         : H {H}
         , K {K}
         , RR {K}
-        , num_modules {H.number_of_modules()}
         , deltaGainV(K, 0)
     {
         for (auto k = 0U; k != this->K; ++k)
         {
             this->vertex_list.emplace_back(
-                std::vector<dllink<int>>(this->num_modules));
+                std::vector<dllink<int>>(H.number_of_modules()));
         }
     }
 

@@ -32,12 +32,11 @@ class bpq_iterator;
 template <typename T> //
 class bpqueue
 {
-    static dllink<T> sentinel; /*!< sentinel */
-
   private:
     T max {}; //!< max value
     T offset; //!< a - 1
     T high;   //!< b - a + 1
+    dllink<T> sentinel{}; /*!< sentinel */
 
   public:
     std::vector<dllink<T>> bucket; //!< bucket, array of lists
@@ -55,7 +54,7 @@ class bpqueue
     {
         assert(a <= b);
         static_assert(std::is_integral<T>::value, "bucket's key must be an integer");
-        bucket[0].append(sentinel); // sentinel
+        bucket[0].append(this->sentinel); // sentinel
     }
 
     bpqueue(const bpqueue<T>&) = delete;            // don't copy

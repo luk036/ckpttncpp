@@ -40,7 +40,7 @@ struct Netlist
     size_t max_degree {};
     size_t max_net_degree {};
     bool has_fixed_modules {};
-    std::uint8_t cost_model = 0;
+    // std::uint8_t cost_model = 0;
     std::vector<int> module_weight;
     std::vector<int> net_weight;
     py::set<node_t> module_fixed;

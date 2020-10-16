@@ -17,11 +17,10 @@ class FMBiGainCalc
 
   private:
     const SimpleNetlist& H;
-    size_t num_modules {};
     std::vector<dllink<int>> vertex_list;
+    int totalcost {0};
 
   public:
-    int totalcost {0};
     bool special_handle_2pin_nets {true};
 
     /*!

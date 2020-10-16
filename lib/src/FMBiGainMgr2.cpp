@@ -6,7 +6,7 @@
  *
  * @param[in] part
  */
-int FMBiGainMgr::init(gsl::span<const std::uint8_t> part)
+auto FMBiGainMgr::init(gsl::span<const std::uint8_t> part) -> int
 {
     auto totalcost = Base::init(part);
     for (auto k = 0U; k != this->K; ++k)

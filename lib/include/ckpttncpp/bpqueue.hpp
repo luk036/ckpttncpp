@@ -58,9 +58,11 @@ class bpqueue
     }
 
     bpqueue(const bpqueue<T>&) = delete;            // don't copy
-    bpqueue& operator=(const bpqueue<T>&) = delete; // don't assign
-    bpqueue(bpqueue<T>&&) = default;
-
+    auto operator=(const bpqueue<T>&) -> bpqueue& = delete; // don't assign
+    bpqueue(bpqueue<T>&&)  noexcept = default;
+    auto operator=(bpqueue<T>&&)  noexcept -> bpqueue& = default; // don't assign
+    ~bpqueue() = default;
+    
     /*!
      * @brief Set the key object
      *
@@ -88,7 +90,7 @@ class bpqueue
      * @return true
      * @return false
      */
-    auto is_empty() const -> bool
+    [[nodiscard]] auto is_empty() const -> bool
     {
         return this->max == 0;
     }

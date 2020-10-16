@@ -34,16 +34,16 @@ struct Netlist
     graph_t G;
     nodeview_t modules;
     nodeview_t nets;
-    size_t num_modules;
-    size_t num_nets;
+    size_t num_modules{};
+    size_t num_nets{};
     size_t num_pads = 0U;
     size_t max_degree {};
     size_t max_net_degree {};
     bool has_fixed_modules {};
     // std::uint8_t cost_model = 0;
+    py::set<node_t> module_fixed;
     std::vector<int> module_weight;
     std::vector<int> net_weight;
-    py::set<node_t> module_fixed;
 
     /* For multi-level algorithms */
     const Netlist<graph_t>* parent;
@@ -51,6 +51,7 @@ struct Netlist
     py::dict<index_t, node_t> node_down_map;
     py::dict<index_t, node_t> cluster_down_map;
 
+  public:
     /*!
      * @brief Construct a new Netlist object
      *
@@ -68,14 +69,14 @@ struct Netlist
      * @param[in] num_modules
      * @param[in] num_nets
      */
-    Netlist(graph_t G, int num_modules, int num_nets);
+    Netlist(graph_t G, int numModules, int numNets);
 
     /**
      * @brief Get the number of modules
      *
      * @return size_t
      */
-    auto number_of_modules() const -> size_t
+    [[nodiscard]] auto number_of_modules() const -> size_t
     {
         return this->num_modules;
     }
@@ -85,7 +86,7 @@ struct Netlist
      *
      * @return size_t
      */
-    auto number_of_nets() const -> size_t
+    [[nodiscard]] auto number_of_nets() const -> size_t
     {
         return this->num_nets;
     }
@@ -95,7 +96,7 @@ struct Netlist
      *
      * @return size_t
      */
-    auto number_of_nodes() const -> size_t
+    [[nodiscard]] auto number_of_nodes() const -> size_t
     {
         return this->G.number_of_nodes();
     }
@@ -113,7 +114,7 @@ struct Netlist
      *
      * @return size_t
      */
-    auto get_max_degree() const -> size_t
+    [[nodiscard]] auto get_max_degree() const -> size_t
     {
         return this->max_degree;
     }
@@ -123,7 +124,7 @@ struct Netlist
      *
      * @return index_t
      */
-    auto get_max_net_degree() const -> size_t
+    [[nodiscard]] auto get_max_net_degree() const -> size_t
     {
         return this->max_net_degree;
     }

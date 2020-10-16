@@ -12,20 +12,20 @@ class robin
     struct iterator
     {
         dllink<T>* cur;
-        bool operator!=(const iterator& other) const
+        auto operator!=(const iterator& other) const -> bool
         {
             return cur != other.cur;
         }
-        bool operator==(const iterator& other) const
+        auto operator==(const iterator& other) const -> bool
         {
             return cur == other.cur;
         }
-        iterator& operator++()
+        auto operator++() -> iterator&
         {
             cur = cur->next;
             return *this;
         }
-        const T& operator*() const
+        auto operator*() const -> const T&
         {
             return cur->key;
         }

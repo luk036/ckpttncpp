@@ -47,7 +47,7 @@ enum class LegalCheck;
  * Optimization Problems and Their Approximability Properties, Section 10.3.2.
  */
 template <typename GainMgr, typename ConstrMgr,
-    template <typename _GainMgr, typename _ConstrMgr> class Derived> //
+    template <typename _gainMgr, typename _constrMgr> class Derived> //
 class PartMgrBase
 {
 
@@ -57,9 +57,10 @@ class PartMgrBase
     using ConstrMgr_ = ConstrMgr;
 
     using Der = Derived<GainMgr, ConstrMgr>;
-    Der& self = *static_cast<Der*>(this);
 
   protected:
+    Der& self = *static_cast<Der*>(this);
+
     const SimpleNetlist& H;
     GainMgr& gainMgr;
     ConstrMgr& validator;
@@ -98,7 +99,7 @@ class PartMgrBase
      * @param[in,out] part
      * @return LegalCheck
      */
-    LegalCheck legalize(gsl::span<std::uint8_t> part);
+    auto legalize(gsl::span<std::uint8_t> part) -> LegalCheck;
 
     /*!
      * @brief

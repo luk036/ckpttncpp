@@ -13,7 +13,7 @@ using node_t = typename SimpleNetlist::node_t;
  * @param[in] part
  */
 template <typename GainMgr, typename ConstrMgr,
-    template <typename _GainMgr, typename _ConstrMgr> class Derived> //
+    template <typename _gainMgr, typename _constrMgr> class Derived> //
 void PartMgrBase<GainMgr, ConstrMgr, Derived>::init(
     gsl::span<std::uint8_t> part)
 {
@@ -31,7 +31,7 @@ void PartMgrBase<GainMgr, ConstrMgr, Derived>::init(
  * @return LegalCheck
  */
 template <typename GainMgr, typename ConstrMgr,
-    template <typename _GainMgr, typename _ConstrMgr> class Derived> //
+    template <typename _gainMgr, typename _constrMgr> class Derived> //
 LegalCheck PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
     gsl::span<std::uint8_t> part)
 {
@@ -93,7 +93,7 @@ LegalCheck PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
  * @param[in] part
  */
 template <typename GainMgr, typename ConstrMgr,
-    template <typename _GainMgr, typename _ConstrMgr> class Derived> //
+    template <typename _gainMgr, typename _constrMgr> class Derived> //
 void PartMgrBase<GainMgr, ConstrMgr, Derived>::_optimize_1pass(
     gsl::span<std::uint8_t> part)
 {
@@ -163,7 +163,7 @@ void PartMgrBase<GainMgr, ConstrMgr, Derived>::_optimize_1pass(
  * @param[in] part
  */
 template <typename GainMgr, typename ConstrMgr,
-    template <typename _GainMgr, typename _ConstrMgr> class Derived> //
+    template <typename _gainMgr, typename _constrMgr> class Derived> //
 void PartMgrBase<GainMgr, ConstrMgr, Derived>::optimize(
     gsl::span<std::uint8_t> part)
 {

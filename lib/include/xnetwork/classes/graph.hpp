@@ -198,14 +198,14 @@ struct object : py::dict<const char*, std::any>
 {
 };
 
-template <typename __nodeview_t,
-    typename adjlist_t = py::set<Value_type<__nodeview_t>>,
+template <typename _nodeview_t,
+    typename adjlist_t = py::set<Value_type<_nodeview_t>>,
     typename adjlist_outer_dict_factory =
-        py::dict<Value_type<__nodeview_t>, adjlist_t>>
+        py::dict<Value_type<_nodeview_t>, adjlist_t>>
 class Graph : public object
 {
   public:
-    using nodeview_t = __nodeview_t;
+    using nodeview_t = _nodeview_t;
     using Node = typename nodeview_t::value_type; // luk
     using dict = py::dict<const char*, std::any>;
     using graph_attr_dict_factory = dict;
@@ -220,7 +220,6 @@ class Graph : public object
     using edge_t = std::pair<Node, Node>;
     using node_t = Node;
 
-  public:
     size_t _num_of_edges = 0;
 
     // std::vector<Node > _Nodes{};
@@ -280,7 +279,7 @@ class Graph : public object
      * @param[in] e
      * @return edge_t&
      */
-    static edge_t& end_points(edge_t& e)
+    static auto end_points(edge_t& e) -> edge_t&
     {
         return e;
     }
@@ -291,7 +290,7 @@ class Graph : public object
      * @param[in] e
      * @return edge_t&
      */
-    static const edge_t& end_points(const edge_t& e)
+    static auto end_points(const edge_t& e) -> const edge_t&
     {
         return e;
     }
@@ -330,15 +329,15 @@ class Graph : public object
         return py::enumerate(this->_adj);
     }
 
-    const Node& null_vertex() const
-    {
-        return *(this->_node.end());
-    }
+    // auto null_vertex() const -> const Node&
+    // {
+    //     return *(this->_node.end());
+    // }
 
-    Node& null_vertex()
-    {
-        return *(this->_node.end());
-    }
+    // Node& null_vertex()
+    // {
+    //     return *(this->_node.end());
+    // }
 
     /// @property
     auto get_name()
@@ -395,7 +394,7 @@ class Graph : public object
     >>> 1 : G
     true
      */
-    bool contains(const Node& n)
+    auto contains(const Node& n) -> bool
     {
         return this->_node.contains(n);
     }

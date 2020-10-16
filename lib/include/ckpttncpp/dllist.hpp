@@ -41,8 +41,9 @@ struct dllink
      *
      */
     dllink(const dllink<T>&) = delete; // don't copy
-    dllink& operator=(const dllink<T>&) = delete; // don't assign
-    dllink(dllink<T>&&) = default;
+    auto operator=(const dllink<T>&) -> dllink& = delete; // don't assign
+    dllink(dllink<T>&&) noexcept = default;
+    auto operator=(dllink<T>&&) noexcept -> dllink& = default; // don't assign
     ~dllink() = default;
 
     /*!
@@ -73,7 +74,7 @@ struct dllink
      * @return true
      * @return false
      */
-    auto is_locked() const -> bool
+    [[nodiscard]] auto is_locked() const -> bool
     {
         return this->next == nullptr;
     }
@@ -84,7 +85,7 @@ struct dllink
      * @return true
      * @return false
      */
-    auto is_empty() const -> bool
+    [[nodiscard]] auto is_empty() const -> bool
     {
         return this->next == this;
     }
@@ -170,12 +171,12 @@ struct dllink
      */
     auto end() -> dll_iterator<T>;
 
-    auto& items()
+    auto items() -> dllink<T>&
     {
         return *this;
     }
 
-    const auto& items() const
+    auto items() const -> const dllink<T>&
     {
         return *this;
     }

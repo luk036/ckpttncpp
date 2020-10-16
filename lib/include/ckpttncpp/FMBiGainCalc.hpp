@@ -19,6 +19,7 @@ class FMBiGainCalc
     const SimpleNetlist& H;
     std::vector<dllink<int>> vertex_list;
     int totalcost {0};
+    uint16_t MAX_DEGREE {256};
 
   public:
     bool special_handle_2pin_nets {true};

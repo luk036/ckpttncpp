@@ -84,10 +84,11 @@ class set_partition_
      */
     void run(int n, int k)
     {
-        if (k % 2 == 0)
+        if (k % 2 == 0) {
             this->_GEN0_even(n, k);
-        else
+        } else {
             this->_GEN0_odd(n, k);
+        }
     }
 
   private:

@@ -34,7 +34,7 @@ class FMGainMgr
 
     // int totalcost;
 
-    FMGainMgr(FMGainMgr&&) = default;
+    // FMGainMgr(FMGainMgr&&) = default;
 
     /*!
      * @brief Construct a new FMGainMgr object

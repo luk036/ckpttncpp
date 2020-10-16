@@ -1,6 +1,7 @@
 # build
 .vscode/*
 build*/
+.cache/*
 
 # Generated API from Exhale
 docs/api

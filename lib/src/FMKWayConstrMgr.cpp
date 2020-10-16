@@ -9,7 +9,7 @@
 struct identity
 {
     template <class T>
-    constexpr T&& operator()(T&& t) const noexcept
+    constexpr auto operator()(T&& t) const noexcept -> T&&
     {
         return std::forward<T>(t);
     }

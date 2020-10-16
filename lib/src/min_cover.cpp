@@ -165,8 +165,8 @@ auto create_contraction_subgraph(
     auto cluster_map = py::dict<node_t, node_t> {};
     cluster_map.reserve(S.size());
     auto node_up_map = py::dict<node_t, index_t> {};
-    int numModules;
-    int numNets;
+    int numModules {};
+    int numNets {};
 
     auto modules = std::vector<node_t> {};
     auto nets = std::vector<node_t> {};

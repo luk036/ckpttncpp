@@ -176,7 +176,7 @@ template <typename nodeview_t>
 class NodeView
 {
   private:
-    using _Self = NodeView<nodeview_t>;
+    using Self = NodeView<nodeview_t>;
     using Node = typename nodeview_t::value_type;
 
     nodeview_t& _nodes;
@@ -221,7 +221,7 @@ class NodeView
     }
 
     // Set methods
-    bool contains(const Node& n)
+    auto contains(const Node& n) -> bool
     {
         return this->_nodes.contains(n);
     }

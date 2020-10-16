@@ -32,7 +32,7 @@ class FMKWayConstrMgr : public FMConstrMgr
      *
      * @return std::uint8_t
      */
-    auto select_togo() const -> std::uint8_t
+    [[nodiscard]] auto select_togo() const -> std::uint8_t
     {
         const auto it =
             std::min_element(this->diff.cbegin(), this->diff.cend());

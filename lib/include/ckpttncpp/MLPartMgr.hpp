@@ -19,8 +19,8 @@
 // using SimpleNetlist = Netlist<RngIter, RngIter>;
 
 using node_t = typename SimpleNetlist::node_t;
-extern std::unique_ptr<SimpleNetlist> create_contraction_subgraph(
-    const SimpleNetlist&, const py::set<node_t>&);
+extern auto create_contraction_subgraph(
+    const SimpleNetlist&, const py::set<node_t>&) -> std::unique_ptr<SimpleNetlist>;
 
 enum class LegalCheck;
 
@@ -33,7 +33,8 @@ class MLPartMgr
   private:
     double BalTol;
     std::uint8_t K;
-
+    std::uint8_t LIMIT_SIZE {7};
+    
   public:
     int totalcost {};
 
@@ -70,8 +71,8 @@ class MLPartMgr
      * @return LegalCheck
      */
     template <typename PartMgr>
-    LegalCheck run_FMPartition(
-        const SimpleNetlist& H, gsl::span<std::uint8_t> part, size_t limitsize);
+    auto run_FMPartition(
+        const SimpleNetlist& H, gsl::span<std::uint8_t> part, size_t limitsize) -> LegalCheck;
 
     /*!
      * @brief run_Partition
@@ -84,8 +85,8 @@ class MLPartMgr
      * @return LegalCheck
      */
     template <typename PartMgr>
-    LegalCheck run_Partition(
-        const SimpleNetlist& H, gsl::span<std::uint8_t> part, size_t limitsize);
+    auto run_Partition(
+        const SimpleNetlist& H, gsl::span<std::uint8_t> part, size_t limitsize) -> LegalCheck;
 
     /*!
      * @brief run_Partition
@@ -100,7 +101,7 @@ class MLPartMgr
     auto run_FMPartition(const SimpleNetlist& H, gsl::span<std::uint8_t> part)
         -> LegalCheck
     {
-        return this->run_FMPartition<PartMgr>(H, part, 7);
+        return this->run_FMPartition<PartMgr>(H, part, this->LIMIT_SIZE);
     }
 
     /*!
@@ -116,7 +117,7 @@ class MLPartMgr
     auto run_Partition(const SimpleNetlist& H, gsl::span<std::uint8_t> part)
         -> LegalCheck
     {
-        return this->run_Partition<PartMgr>(H, part, 7);
+        return this->run_Partition<PartMgr>(H, part, this->LIMIT_SIZE);
     }
 
     /*!

@@ -40,7 +40,7 @@ struct dllink
      * @brief Copy construct a new dllink object (deleted intentionally)
      *
      */
-    dllink(const dllink<T>&) = delete; // don't copy
+    dllink(const dllink<T>&) = delete;                    // don't copy
     auto operator=(const dllink<T>&) -> dllink& = delete; // don't assign
     dllink(dllink<T>&&) noexcept = default;
     auto operator=(dllink<T>&&) noexcept -> dllink& = default; // don't assign

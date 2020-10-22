@@ -17,8 +17,8 @@ FMGainMgr<GainCalc, Derived>::FMGainMgr(const SimpleNetlist& H, std::uint8_t K)
     , K {K}
     , gainCalc {H, K}
 {
-    static_assert(
-        std::is_base_of<FMGainMgr<GainCalc, Derived>, Derived>::value, "base derived consistence");
+    static_assert(std::is_base_of<FMGainMgr<GainCalc, Derived>, Derived>::value,
+        "base derived consistence");
     for (auto k = 0U; k != this->K; ++k)
     {
         const auto pmax = int(this->pmax);

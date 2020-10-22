@@ -33,10 +33,10 @@ template <typename T> //
 class bpqueue
 {
   private:
-    T max {}; //!< max value
-    T offset; //!< a - 1
-    T high;   //!< b - a + 1
-    dllink<T> sentinel{}; /*!< sentinel */
+    T max {};              //!< max value
+    T offset;              //!< a - 1
+    T high;                //!< b - a + 1
+    dllink<T> sentinel {}; /*!< sentinel */
 
   public:
     std::vector<dllink<T>> bucket; //!< bucket, array of lists
@@ -53,16 +53,17 @@ class bpqueue
         , bucket(high + 1)
     {
         assert(a <= b);
-        static_assert(std::is_integral<T>::value, "bucket's key must be an integer");
+        static_assert(
+            std::is_integral<T>::value, "bucket's key must be an integer");
         bucket[0].append(this->sentinel); // sentinel
     }
 
-    bpqueue(const bpqueue<T>&) = delete;            // don't copy
+    bpqueue(const bpqueue<T>&) = delete;                    // don't copy
     auto operator=(const bpqueue<T>&) -> bpqueue& = delete; // don't assign
-    bpqueue(bpqueue<T>&&)  noexcept = default;
-    auto operator=(bpqueue<T>&&)  noexcept -> bpqueue& = default; // don't assign
+    bpqueue(bpqueue<T>&&) noexcept = default;
+    auto operator=(bpqueue<T>&&) noexcept -> bpqueue& = default; // don't assign
     ~bpqueue() = default;
-    
+
     /*!
      * @brief Set the key object
      *

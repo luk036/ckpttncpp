@@ -1,8 +1,8 @@
 #include <ckpttncpp/netlist.hpp> // import Netlist
 #include <doctest.h>
+#include <memory> //std::unique_ptr
 #include <py2cpp/py2cpp.hpp>
 #include <string_view>
-#include <memory> //std::unique_ptr
 
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist
 extern SimpleNetlist create_dwarf();        // import create_dwarf

@@ -34,8 +34,8 @@ struct Netlist
     graph_t G;
     nodeview_t modules;
     nodeview_t nets;
-    size_t num_modules{};
-    size_t num_nets{};
+    size_t num_modules {};
+    size_t num_nets {};
     size_t num_pads = 0U;
     size_t max_degree {};
     size_t max_net_degree {};

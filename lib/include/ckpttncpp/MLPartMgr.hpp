@@ -8,8 +8,8 @@
 #include <cassert>
 #include <ckpttncpp/netlist.hpp>
 #include <gsl/span>
-#include <vector>
 #include <memory> // std::unique_ptr
+#include <vector>
 // #include <ckpttncpp/FMConstrMgr.hpp>   // import LegalCheck
 
 // forward declare
@@ -19,8 +19,8 @@
 // using SimpleNetlist = Netlist<RngIter, RngIter>;
 
 using node_t = typename SimpleNetlist::node_t;
-extern auto create_contraction_subgraph(
-    const SimpleNetlist&, const py::set<node_t>&) -> std::unique_ptr<SimpleNetlist>;
+extern auto create_contraction_subgraph(const SimpleNetlist&,
+    const py::set<node_t>&) -> std::unique_ptr<SimpleNetlist>;
 
 enum class LegalCheck;
 
@@ -34,7 +34,7 @@ class MLPartMgr
     double BalTol;
     std::uint8_t K;
     std::uint8_t LIMIT_SIZE {7};
-    
+
   public:
     int totalcost {};
 
@@ -71,8 +71,8 @@ class MLPartMgr
      * @return LegalCheck
      */
     template <typename PartMgr>
-    auto run_FMPartition(
-        const SimpleNetlist& H, gsl::span<std::uint8_t> part, size_t limitsize) -> LegalCheck;
+    auto run_FMPartition(const SimpleNetlist& H, gsl::span<std::uint8_t> part,
+        size_t limitsize) -> LegalCheck;
 
     /*!
      * @brief run_Partition
@@ -85,8 +85,8 @@ class MLPartMgr
      * @return LegalCheck
      */
     template <typename PartMgr>
-    auto run_Partition(
-        const SimpleNetlist& H, gsl::span<std::uint8_t> part, size_t limitsize) -> LegalCheck;
+    auto run_Partition(const SimpleNetlist& H, gsl::span<std::uint8_t> part,
+        size_t limitsize) -> LegalCheck;
 
     /*!
      * @brief run_Partition

@@ -123,7 +123,7 @@ inline constexpr auto range(T start, T stop)
       public:
         using value_type [[maybe_unused]] = T; // luk:
         using key_type [[maybe_unused]] = T;   // luk:
-        using iterator = _iterator;           // luk
+        using iterator = _iterator;            // luk
         T start;
         T stop;
         [[nodiscard]] constexpr auto begin() const
@@ -482,7 +482,7 @@ class dict : public std::unordered_map<Key, T>
     dict(dict<Key, T>&&) noexcept = default;
 
     ~dict() = default;
-    
+
     // private:
     /*!
      * @brief Construct a new dict object

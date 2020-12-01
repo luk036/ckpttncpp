@@ -3,6 +3,25 @@
 // #include <boost/coroutine2/all.hpp>
 #include <cassert>
 
+#if defined __GNUC__
+#define BEGIN_PACKED_STRUCT(ST) struct ST {
+#define END_PACKED_STRUCT };
+#elif defined _MSC_VER
+  #define BEGIN_PACKET_STRUCT( ST )\
+  #pragma pack(push)\
+  #pragma pack(1)\
+  struct ST {\
+ #define END_PACKED_STRUCT\
+ };\
+ #pragma pack(pop)
+#else
+ #error "Unknown build environment"
+#endif
+
+BEGIN_PACKED_STRUCT( MyStruct )
+ long lNumber;
+END_PACKED_STRUCT
+
 // Forward declaration for begin() end()
 template <typename T>
 struct dll_iterator;
@@ -19,8 +38,7 @@ struct dll_iterator;
  * are supplied by the caller in order to better reuse the nodes.
  */
 template <typename T>
-struct dllink
-{
+BEGIN_PACKED_STRUCT( dllink )
     dllink<T>* next {this}; /*!< pointer to the next node */
     dllink<T>* prev {this}; /*!< pointer to the previous node */
     T key;                  /*!< key/data */
@@ -33,7 +51,7 @@ struct dllink
     explicit dllink(T key = T(0))
         : key {key}
     {
-        static_assert(sizeof(dllink<T>) <= 20, "keep this class small");
+        // static_assert(sizeof(dllink<T>) <= 20, "keep this class small");
     }
 
     /*!
@@ -201,7 +219,7 @@ struct dllink
     //     };
     //     return pull_t(func);
     // }
-} __attribute__((packed));
+END_PACKED_STRUCT
 
 /*!
  * @brief list iterator

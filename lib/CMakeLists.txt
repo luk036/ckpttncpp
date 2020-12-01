@@ -18,7 +18,7 @@ set (LIBRARY_INCLUDE_PATH  "${LIBRARY_MODULE_PATH}/include")
 
 #set includes
 # include_directories (${LIBRARY_INCLUDE_PATH} ${THIRD_PARTY_INCLUDE_PATH})
-include_directories (${LIBRARY_INCLUDE_PATH} ${THIRD_PARTY_INCLUDE_PATH} "${Boost_INCLUDE_DIRS}")
+include_directories (${LIBRARY_INCLUDE_PATH} ${THIRD_PARTY_INCLUDE_PATH} ${Boost_INCLUDE_DIRS})
 
 #set sources
 file (GLOB LIB_HEADER_FILES "${LIBRARY_INCLUDE_PATH}/*.hpp ${LIBRARY_INCLUDE_PATH}/*.h")
@@ -50,6 +50,7 @@ if( NOT cmake_build_type_tolower STREQUAL "coverage"
     #
     # set(BENCHMARK_DOWNLOAD_DEPENDENCIES ON CACHE BOOL "Download dependencies?")
     # include(ConfigGBench)
+
     add_subdirectory (bench)
 endif()
 

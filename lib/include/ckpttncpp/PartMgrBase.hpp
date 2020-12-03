@@ -78,7 +78,8 @@ class PartMgrBase
      * @param[in,out] gainMgr
      * @param[in,out] constrMgr
      */
-    PartMgrBase(const SimpleNetlist& H, GainMgr& gainMgr, ConstrMgr& constrMgr, size_t K)
+    PartMgrBase(const SimpleNetlist& H, GainMgr& gainMgr, ConstrMgr& constrMgr,
+        size_t K)
         : H {H}
         , gainMgr {gainMgr}
         , validator {constrMgr}

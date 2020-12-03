@@ -93,8 +93,7 @@ auto min_maximal_matching_pd(
     using T = decltype(*weight.begin());
 
     auto gap = weight;
-    [[maybe_unused]] 
-    auto total_dual_cost = T(0);
+    [[maybe_unused]] auto total_dual_cost = T(0);
     auto total_primal_cost = T(0);
     for (auto&& net : H.nets)
     {
@@ -132,7 +131,7 @@ auto min_maximal_matching_pd(
         {
             continue;
         }
-	    gap[net] -= min_val;
+        gap[net] -= min_val;
         for (auto&& v : H.G[net])
         {
             for (auto&& net2 : H.G[v])

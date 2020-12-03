@@ -17,7 +17,7 @@ class FMBiGainCalc
 
   private:
     const SimpleNetlist& H;
-    std::vector<dllink<int>> vertex_list;
+    std::vector<dllink<node_t>> vertex_list;
     int totalcost {0};
     uint16_t MAX_DEGREE {256};
 
@@ -34,6 +34,10 @@ class FMBiGainCalc
         : H {H}
         , vertex_list(H.number_of_modules())
     {
+        for (auto&& v : this->H.modules)
+        {
+            this->vertex_list[v].data = v;
+        }
     }
 
     /*!
@@ -61,7 +65,7 @@ class FMBiGainCalc
      * @param[in] toPart
      * @return dllink*
      */
-    auto start_ptr(std::uint8_t /*toPart*/) -> dllink<int>*
+    auto start_ptr(std::uint8_t /*toPart*/) -> dllink<node_t>*
     {
         return &this->vertex_list[0];
     }

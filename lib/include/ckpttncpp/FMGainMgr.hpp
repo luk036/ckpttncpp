@@ -23,7 +23,7 @@ class FMGainMgr
     // friend Derived;
 
   protected:
-    dllink<node_t> waitinglist {};
+    dllink<node_t> waitinglist {node_t{}};
     const SimpleNetlist& H;
     std::vector<bpqueue<int>> gainbucket;
     // size_t pmax;

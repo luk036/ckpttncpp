@@ -12,8 +12,7 @@ using node_t = typename SimpleNetlist::node_t;
  */
 template <typename GainCalc, class Derived>
 FMGainMgr<GainCalc, Derived>::FMGainMgr(const SimpleNetlist& H, std::uint8_t K)
-    : H {H}
-    // , pmax {H.get_max_degree()}
+    : H {H} // , pmax {H.get_max_degree()}
     , K {K}
     , gainCalc {H, K}
 {
@@ -60,8 +59,9 @@ std::tuple<MoveInfoV<node_t>, int> FMGainMgr<GainCalc, Derived>::select(
     auto& vlink = this->gainbucket[toPart].popleft();
     this->waitinglist.append(vlink);
     // node_t v = &vlink - this->gainCalc.start_ptr(toPart);
-    const auto v =
-        node_t(std::distance(this->gainCalc.start_ptr(toPart), &vlink));
+    const auto v = vlink.data;
+    // const auto v =
+    //     node_t(std::distance(this->gainCalc.start_ptr(toPart), &vlink));
     // auto move_info_v = MoveInfoV<node_t> {v, part[v], toPart};
     return {{v, part[v], toPart}, gainmax[toPart]};
 }
@@ -79,8 +79,9 @@ std::tuple<node_t, int> FMGainMgr<GainCalc, Derived>::select_togo(
     const auto gainmax = this->gainbucket[toPart].get_max();
     auto& vlink = this->gainbucket[toPart].popleft();
     this->waitinglist.append(vlink);
-    const auto v =
-        node_t(std::distance(this->gainCalc.start_ptr(toPart), &vlink));
+    const auto v = vlink.data;
+    // const auto v =
+    //     node_t(std::distance(this->gainCalc.start_ptr(toPart), &vlink));
     return {v, gainmax};
 }
 

@@ -146,7 +146,7 @@ void MLPartMgr::run_Partition_recur(
     const auto constrMgrPtr =
         std::make_unique<ConstrMgr>(H, this->BalTol, this->K);
     const auto partMgrPtr =
-        std::make_unique<PartMgr>(H, *gainMgrPtr, *constrMgrPtr);
+        std::make_unique<PartMgr>(H, *gainMgrPtr, *constrMgrPtr, this->K);
     partMgrPtr->optimize(part);
     assert(partMgrPtr->totalcost >= 0);
     this->totalcost = partMgrPtr->totalcost;

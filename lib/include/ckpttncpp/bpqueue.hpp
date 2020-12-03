@@ -7,7 +7,7 @@
 #include <vector>
 
 // Forward declaration for begin() end()
-template <typename T>
+template <typename T, typename Int>
 class bpq_iterator;
 
 /*!
@@ -29,18 +29,18 @@ class bpq_iterator;
  *
  * All the member functions assume that the keys are within the bound.
  */
-template <typename T> //
+template <typename T, typename Int = int16_t> //
 class bpqueue
 {
-  friend bpq_iterator<T>;
-  
+    friend bpq_iterator<T, Int>;
+
   private:
-    static dllink<T> sentinel; /*!< sentinel */
-    
-    std::vector<dllink<T>> bucket; //!< bucket, array of lists
-    T max {};              //!< max value
-    T offset;              //!< a - 1
-    T high;                //!< b - a + 1
+    static dllink<T, Int> sentinel; /*!< sentinel */
+
+    std::vector<dllink<T, Int>> bucket; //!< bucket, array of lists
+    Int max {};                      //!< max value
+    Int offset;                      //!< a - 1
+    Int high;                        //!< b - a + 1
 
   public:
     /*!
@@ -49,21 +49,21 @@ class bpqueue
      * @param[in] a lower bound
      * @param[in] b upper bound
      */
-    bpqueue(T a, T b)
+    bpqueue(Int a, Int b)
         : bucket(b - a + 2)
-        , offset {a - 1}
-        , high {b - offset}
+        , offset (a - 1)
+        , high (b - offset)
     {
         assert(a <= b);
         static_assert(
-            std::is_integral<T>::value, "bucket's key must be an integer");
+            std::is_integral<Int>::value, "bucket's key must be an integer");
         bucket[0].append(this->sentinel); // sentinel
     }
 
-    bpqueue(const bpqueue<T>&) = delete;                    // don't copy
-    auto operator=(const bpqueue<T>&) -> bpqueue& = delete; // don't assign
-    bpqueue(bpqueue<T>&&) noexcept = default;
-    auto operator=(bpqueue<T>&&) noexcept -> bpqueue& = default; // don't assign
+    bpqueue(const bpqueue&) = delete;                    // don't copy
+    auto operator=(const bpqueue&) -> bpqueue& = delete; // don't assign
+    bpqueue(bpqueue&&) noexcept = default;
+    auto operator=(bpqueue&&) noexcept -> bpqueue& = default; // don't assign
     ~bpqueue() = default;
 
     /*!
@@ -72,7 +72,7 @@ class bpqueue
      * @param[out] it   the item
      * @param[in] gain the key of it
      */
-    auto set_key(dllink<T>& it, T gain) -> void
+    auto set_key(dllink<T, Int>& it, Int gain) -> void
     {
         it.key = gain - this->offset;
     }
@@ -82,7 +82,7 @@ class bpqueue
      *
      * @return T maximum value
      */
-    auto get_max() const -> T
+    auto get_max() const -> Int
     {
         return this->max + this->offset;
     }
@@ -115,7 +115,7 @@ class bpqueue
      *
      * @param[in,out] it the item
      */
-    auto append_direct(dllink<T>& it) -> void
+    auto append_direct(dllink<T, Int>& it) -> void
     {
         assert(it.key > this->offset);
         this->append(it, it.key);
@@ -127,7 +127,7 @@ class bpqueue
      * @param[in,out] it the item
      * @param[in] k  the key
      */
-    auto append(dllink<T>& it, T k) -> void
+    auto append(dllink<T, Int>& it, Int k) -> void
     {
         assert(k > this->offset);
         it.key = k - this->offset;
@@ -143,7 +143,7 @@ class bpqueue
      *
      * @param[in,out] nodes
      */
-    auto appendfrom(gsl::span<dllink<T>> nodes) -> void
+    auto appendfrom(gsl::span<dllink<T, Int>> nodes) -> void
     {
         for (auto&& it : nodes)
         {
@@ -163,7 +163,7 @@ class bpqueue
      *
      * @return dllink&
      */
-    auto popleft() -> dllink<T>&
+    auto popleft() -> dllink<T, Int>&
     {
         auto& res = this->bucket[this->max].popleft();
         while (this->bucket[this->max].is_empty())
@@ -182,7 +182,7 @@ class bpqueue
      * Note that the order of items with same key will not be preserved.
      * For FM algorithm, this is a prefered behavior.
      */
-    auto decrease_key(dllink<T>& it, T delta) -> void
+    auto decrease_key(dllink<T, Int>& it, Int delta) -> void
     {
         // this->bucket[it.key].detach(it)
         it.detach();
@@ -210,7 +210,7 @@ class bpqueue
      * Note that the order of items with same key will not be preserved.
      * For FM algorithm, this is a prefered behavior.
      */
-    auto increase_key(dllink<T>& it, T delta) -> void
+    auto increase_key(dllink<T, Int>& it, Int delta) -> void
     {
         // this->bucket[it.key].detach(it)
         it.detach();
@@ -233,7 +233,7 @@ class bpqueue
      * Note that the order of items with same key will not be preserved.
      * For FM algorithm, this is a prefered behavior.
      */
-    auto modify_key(dllink<T>& it, T delta) -> void
+    auto modify_key(dllink<T, Int>& it, Int delta) -> void
     {
         if (it.is_locked())
         {
@@ -254,7 +254,7 @@ class bpqueue
      *
      * @param[in,out] it the item
      */
-    auto detach(dllink<T>& it) -> void
+    auto detach(dllink<T, Int>& it) -> void
     {
         // this->bucket[it.key].detach(it)
         it.detach();
@@ -269,14 +269,14 @@ class bpqueue
      *
      * @return bpq_iterator
      */
-    auto begin() -> bpq_iterator<T>;
+    auto begin() -> bpq_iterator<T, Int>;
 
     /*!
      * @brief iterator point to end
      *
      * @return bpq_iterator
      */
-    auto end() -> bpq_iterator<T>;
+    auto end() -> bpq_iterator<T, Int>;
 
     auto& items()
     {
@@ -320,13 +320,13 @@ class bpqueue
  * order. Detaching queue items may invalidate the iterator because
  * the iterator makes a copy of current key.
  */
-template <typename T>
+template <typename T, typename Int = int16_t>
 class bpq_iterator
 {
   private:
-    bpqueue<T>& bpq;         /*!< the priority queue */
-    T curkey;                /*!< the current key value */
-    dll_iterator<T> curitem; /*!< list iterator pointed to the current item.
+    bpqueue<T, Int>& bpq;         /*!< the priority queue */
+    Int curkey;                /*!< the current key value */
+    dll_iterator<T, Int> curitem; /*!< list iterator pointed to the current item.
                               */
 
     /*!
@@ -334,7 +334,7 @@ class bpq_iterator
      *
      * @return dllink&
      */
-    auto curlist() -> dllink<T>&
+    auto curlist() -> dllink<T, Int>&
     {
         return this->bpq.bucket[this->curkey];
     }
@@ -346,7 +346,7 @@ class bpq_iterator
      * @param[in] bpq
      * @param[in] curkey
      */
-    bpq_iterator(bpqueue<T>& bpq, T curkey)
+    bpq_iterator(bpqueue<T, Int>& bpq, Int curkey)
         : bpq {bpq}
         , curkey {curkey}
         , curitem {bpq.bucket[curkey].begin()}
@@ -358,7 +358,7 @@ class bpq_iterator
      *
      * @return bpq_iterator&
      */
-    auto operator++() -> bpq_iterator<T>&
+    auto operator++() -> bpq_iterator&
     {
         ++this->curitem;
         while (this->curitem == this->curlist().end())
@@ -377,7 +377,7 @@ class bpq_iterator
      *
      * @return bpq_iterator&
      */
-    auto operator*() -> dllink<T>&
+    auto operator*() -> dllink<T, Int>&
     {
         return *this->curitem;
     }
@@ -414,8 +414,8 @@ class bpq_iterator
  *
  * @return bpq_iterator
  */
-template <typename T>
-inline auto bpqueue<T>::begin() -> bpq_iterator<T>
+template <typename T, typename Int>
+inline auto bpqueue<T, Int>::begin() -> bpq_iterator<T, Int>
 {
     return {*this, this->max};
 }
@@ -425,8 +425,8 @@ inline auto bpqueue<T>::begin() -> bpq_iterator<T>
  *
  * @return bpq_iterator
  */
-template <typename T>
-inline auto bpqueue<T>::end() -> bpq_iterator<T>
+template <typename T, typename Int>
+inline auto bpqueue<T, Int>::end() -> bpq_iterator<T, Int>
 {
     return {*this, 0};
 }

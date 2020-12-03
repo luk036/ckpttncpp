@@ -2,9 +2,11 @@
 
 // #include <boost/coroutine2/all.hpp>
 #include <cassert>
+#include <utility> // import std::move()
+#include <cstdint>
 
 // Forward declaration for begin() end()
-template <typename T>
+template <typename T, typename Int>
 struct dll_iterator;
 
 /*!
@@ -18,38 +20,41 @@ struct dll_iterator;
  * information. Note that this class does not own the list node. They
  * are supplied by the caller in order to better reuse the nodes.
  */
-#pragma pack(push,1)
-template <typename T>
+#pragma pack(push, 1)
+template <typename T, typename Int = int16_t>
 class dllink
 {
-  friend dll_iterator<T>;
+    friend dll_iterator<T, Int>;
 
   private:
-    dllink<T>* next {this}; /*!< pointer to the next node */
-    dllink<T>* prev {this}; /*!< pointer to the previous node */
+    dllink* next {this}; /*!< pointer to the next node */
+    dllink* prev {this}; /*!< pointer to the previous node */
 
   public:
-    T key; /*!< key/data */
+    T data{};  /*!< data */
+    Int key{}; /*!< key */
 
     /*!
      * @brief Construct a new dllink object
      *
      * @param[in] key the key
      */
-    explicit dllink(T key = T(0))
-        : key {key}
+    explicit dllink(T data, Int key = Int(0))
+        : data {std::move(data)}
+        , key {std::move(key)}
     {
-        static_assert(sizeof(dllink<T>) <= 20, "keep this class small");
+        static_assert(sizeof(dllink) <= 24, "keep this class small");
     }
 
     /*!
      * @brief Copy construct a new dllink object (deleted intentionally)
      *
      */
-    dllink(const dllink<T>&) = delete;                    // don't copy
-    auto operator=(const dllink<T>&) -> dllink& = delete; // don't assign
-    dllink(dllink<T>&&) noexcept = default;
-    auto operator=(dllink<T>&&) noexcept -> dllink& = default; // don't assign
+    dllink() = default;
+    dllink(const dllink&) = delete;                    // don't copy
+    auto operator=(const dllink&) -> dllink& = delete; // don't assign
+    dllink(dllink&&) noexcept = default;
+    auto operator=(dllink&&) noexcept -> dllink& = default; // don't assign
     ~dllink() = default;
 
     /*!
@@ -110,7 +115,7 @@ class dllink
      *
      * @param[in,out] node
      */
-    auto appendleft(dllink<T>& node) -> void
+    auto appendleft(dllink& node) -> void
     {
         node.next = this->next;
         this->next->prev = &node;
@@ -123,7 +128,7 @@ class dllink
      *
      * @param[in,out] node
      */
-    auto append(dllink<T>& node) -> void
+    auto append(dllink& node) -> void
     {
         node.prev = this->prev;
         this->prev->next = &node;
@@ -138,7 +143,7 @@ class dllink
      *
      * Precondition: list is not empty
      */
-    auto popleft() -> dllink<T>&
+    auto popleft() -> dllink&
     {
         auto res = this->next;
         this->next = res->next;
@@ -153,7 +158,7 @@ class dllink
      *
      * Precondition: list is not empty
      */
-    auto pop() -> dllink<T>&
+    auto pop() -> dllink&
     {
         auto res = this->prev;
         this->prev = res->prev;
@@ -168,26 +173,26 @@ class dllink
      *
      * @return dll_iterator
      */
-    auto begin() -> dll_iterator<T>;
+    auto begin() -> dll_iterator<T, Int>;
 
     /*!
      * @brief
      *
      * @return dll_iterator
      */
-    auto end() -> dll_iterator<T>;
+    auto end() -> dll_iterator<T, Int>;
 
-    auto items() -> dllink<T>&
+    auto items() -> dllink&
     {
         return *this;
     }
 
-    auto items() const -> const dllink<T>&
+    auto items() const -> const dllink&
     {
         return *this;
     }
 
-    // using coro_t = boost::coroutines2::coroutine<dllink<T>&>;
+    // using coro_t = boost::coroutines2::coroutine<dllink&>;
     // using pull_t = typename coro_t::pull_type;
 
     // /**
@@ -216,17 +221,17 @@ class dllink
  * List iterator. Traverse the list from the first item. Usually it is
  * safe to attach/detach list items during the iterator is active.
  */
-template <typename T>
+template <typename T, typename Int = int16_t>
 struct dll_iterator
 {
-    dllink<T>* cur; /*!< pointer to the current item */
+    dllink<T, Int>* cur; /*!< pointer to the current item */
 
     /*!
      * @brief Construct a new dll iterator object
      *
      * @param[in] cur
      */
-    explicit dll_iterator(dllink<T>* cur)
+    explicit dll_iterator(dllink<T, Int>* cur)
         : cur {cur}
     {
     }
@@ -236,7 +241,7 @@ struct dll_iterator
      *
      * @return dllink&
      */
-    auto operator++() -> dll_iterator<T>&
+    auto operator++() -> dll_iterator&
     {
         this->cur = this->cur->next;
         return *this;
@@ -247,7 +252,7 @@ struct dll_iterator
      *
      * @return dllink&
      */
-    auto operator*() -> dllink<T>&
+    auto operator*() -> dllink<T, Int>&
     {
         return *this->cur;
     }
@@ -260,7 +265,7 @@ struct dll_iterator
      * @return false
      */
     friend auto operator==(
-        const dll_iterator<T>& lhs, const dll_iterator<T>& rhs) -> bool
+        const dll_iterator& lhs, const dll_iterator& rhs) -> bool
     {
         return lhs.cur == rhs.cur;
     }
@@ -273,7 +278,7 @@ struct dll_iterator
      * @return false
      */
     friend auto operator!=(
-        const dll_iterator<T>& lhs, const dll_iterator<T>& rhs) -> bool
+        const dll_iterator& lhs, const dll_iterator& rhs) -> bool
     {
         return !(lhs == rhs);
     }
@@ -284,10 +289,10 @@ struct dll_iterator
  *
  * @return dll_iterator
  */
-template <typename T>
-inline auto dllink<T>::begin() -> dll_iterator<T>
+template <typename T, typename Int>
+inline auto dllink<T, Int>::begin() -> dll_iterator<T, Int>
 {
-    return dll_iterator<T> {this->next};
+    return dll_iterator<T, Int> {this->next};
 }
 
 /*!
@@ -295,8 +300,8 @@ inline auto dllink<T>::begin() -> dll_iterator<T>
  *
  * @return dll_iterator
  */
-template <typename T>
-inline auto dllink<T>::end() -> dll_iterator<T>
+template <typename T, typename Int>
+inline auto dllink<T, Int>::end() -> dll_iterator<T, Int>
 {
-    return dll_iterator<T> {this};
+    return dll_iterator<T, Int> {this};
 }

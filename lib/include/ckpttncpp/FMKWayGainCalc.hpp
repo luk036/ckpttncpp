@@ -21,7 +21,7 @@ class FMKWayGainCalc
     std::uint8_t K;
     robin<std::uint8_t> RR;
     // size_t num_modules;
-    std::vector<std::vector<dllink<int>>> vertex_list;
+    std::vector<std::vector<dllink<node_t>>> vertex_list;
     std::vector<int> deltaGainV;
     int totalcost {0};
 
@@ -43,7 +43,12 @@ class FMKWayGainCalc
         for (auto k = 0U; k != this->K; ++k)
         {
             this->vertex_list.emplace_back(
-                std::vector<dllink<int>>(H.number_of_modules()));
+                std::vector<dllink<node_t>>(H.number_of_modules()));
+
+            for (auto&& v : this->H.modules)
+            {
+                this->vertex_list[k][v].data = v;
+            }
         }
     }
 
@@ -53,7 +58,7 @@ class FMKWayGainCalc
      * @param[in] toPart
      * @return dllink*
      */
-    auto start_ptr(uint8_t toPart) -> dllink<int>*
+    auto start_ptr(uint8_t toPart) -> dllink<node_t>*
     {
         return &this->vertex_list[toPart][0];
     }

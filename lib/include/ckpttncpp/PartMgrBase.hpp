@@ -64,7 +64,7 @@ class PartMgrBase
     const SimpleNetlist& H;
     GainMgr& gainMgr;
     ConstrMgr& validator;
-    std::uint8_t K;
+    size_t K;
     // std::vector<std::uint8_t> snapshot;
     // std::vector<std::uint8_t> part;
 
@@ -78,11 +78,11 @@ class PartMgrBase
      * @param[in,out] gainMgr
      * @param[in,out] constrMgr
      */
-    PartMgrBase(const SimpleNetlist& H, GainMgr& gainMgr, ConstrMgr& constrMgr)
+    PartMgrBase(const SimpleNetlist& H, GainMgr& gainMgr, ConstrMgr& constrMgr, size_t K)
         : H {H}
         , gainMgr {gainMgr}
         , validator {constrMgr}
-        , K {gainMgr.K}
+        , K {K}
     {
     }
 

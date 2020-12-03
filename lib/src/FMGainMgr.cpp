@@ -13,15 +13,15 @@ using node_t = typename SimpleNetlist::node_t;
 template <typename GainCalc, class Derived>
 FMGainMgr<GainCalc, Derived>::FMGainMgr(const SimpleNetlist& H, std::uint8_t K)
     : H {H}
-    , pmax {H.get_max_degree()}
+    // , pmax {H.get_max_degree()}
     , K {K}
     , gainCalc {H, K}
 {
     static_assert(std::is_base_of<FMGainMgr<GainCalc, Derived>, Derived>::value,
         "base derived consistence");
+    const int pmax = H.get_max_degree();
     for (auto k = 0U; k != this->K; ++k)
     {
-        const auto pmax = int(this->pmax);
         this->gainbucket.emplace_back(bpqueue<int>(-pmax, pmax));
     }
 }

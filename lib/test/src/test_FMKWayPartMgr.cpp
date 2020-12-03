@@ -20,7 +20,7 @@ void run_FMKWayPartMgr(const SimpleNetlist& H, std::uint8_t K)
     auto gainMgr = FMKWayGainMgr {H, K};
     auto constrMgr = FMKWayConstrMgr {H, 0.4, K};
     auto partMgr =
-        FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr> {H, gainMgr, constrMgr};
+        FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr> {H, gainMgr, constrMgr, K};
     auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
 
     partMgr.legalize(part);

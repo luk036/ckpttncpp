@@ -27,7 +27,7 @@ LegalCheck MLPartMgr::run_FMPartition(
     const auto constrMgrPtr =
         std::make_unique<ConstrMgr>(H, this->BalTol, this->K);
     const auto partMgrPtr =
-        std::make_unique<PartMgr>(H, *gainMgrPtr, *constrMgrPtr);
+        std::make_unique<PartMgr>(H, *gainMgrPtr, *constrMgrPtr, this->K);
     // partMgrPtr->init(part);
     auto legalcheck = partMgrPtr->legalize(part);
     if (legalcheck != LegalCheck::allsatisfied)
@@ -87,7 +87,7 @@ LegalCheck MLPartMgr::run_Partition(
 
     auto gainMgr = GainMgr {H, this->K};
     auto constrMgr = ConstrMgr {H, this->BalTol, this->K};
-    auto partMgr = PartMgr {H, gainMgr, constrMgr};
+    auto partMgr = PartMgr {H, gainMgr, constrMgr, this->K};
     // partMgr.init(part);
     auto legalcheck = partMgr.legalize(part);
     if (legalcheck != LegalCheck::allsatisfied)

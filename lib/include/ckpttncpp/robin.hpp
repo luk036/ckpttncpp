@@ -1,17 +1,23 @@
 #pragma once
 
-#include "dllist.hpp" // import dllink
+// #include "dllist.hpp" // import dllink
 #include <vector>
 
 template <typename T>
 class robin
 {
   private:
-    std::vector<dllink<T>> cycle;
+    struct slnode
+    {
+        slnode* next;
+        T key;
+    };
+
+    std::vector<slnode> cycle;
 
     struct iterator
     {
-        dllink<T>* cur;
+        slnode* cur;
         auto operator!=(const iterator& other) const -> bool
         {
             return cur != other.cur;

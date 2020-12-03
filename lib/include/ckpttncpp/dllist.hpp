@@ -3,25 +3,6 @@
 // #include <boost/coroutine2/all.hpp>
 #include <cassert>
 
-#if defined __GNUC__
-#define BEGIN_PACKED_STRUCT(ST) struct ST {
-#define END_PACKED_STRUCT };
-#elif defined _MSC_VER
-  #define BEGIN_PACKET_STRUCT( ST )\
-  #pragma pack(push)\
-  #pragma pack(1)\
-  struct ST {\
- #define END_PACKED_STRUCT\
- };\
- #pragma pack(pop)
-#else
- #error "Unknown build environment"
-#endif
-
-BEGIN_PACKED_STRUCT( MyStruct )
- long lNumber;
-END_PACKED_STRUCT
-
 // Forward declaration for begin() end()
 template <typename T>
 struct dll_iterator;
@@ -37,11 +18,18 @@ struct dll_iterator;
  * information. Note that this class does not own the list node. They
  * are supplied by the caller in order to better reuse the nodes.
  */
+#pragma pack(push,1)
 template <typename T>
-BEGIN_PACKED_STRUCT( dllink )
+class dllink
+{
+  friend dll_iterator<T>;
+
+  private:
     dllink<T>* next {this}; /*!< pointer to the next node */
     dllink<T>* prev {this}; /*!< pointer to the previous node */
-    T key;                  /*!< key/data */
+
+  public:
+    T key; /*!< key/data */
 
     /*!
      * @brief Construct a new dllink object
@@ -51,7 +39,7 @@ BEGIN_PACKED_STRUCT( dllink )
     explicit dllink(T key = T(0))
         : key {key}
     {
-        // static_assert(sizeof(dllink<T>) <= 20, "keep this class small");
+        static_assert(sizeof(dllink<T>) <= 20, "keep this class small");
     }
 
     /*!
@@ -219,7 +207,8 @@ BEGIN_PACKED_STRUCT( dllink )
     //     };
     //     return pull_t(func);
     // }
-END_PACKED_STRUCT
+};
+#pragma pack(pop)
 
 /*!
  * @brief list iterator

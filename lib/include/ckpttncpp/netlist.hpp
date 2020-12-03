@@ -39,11 +39,11 @@ struct Netlist
     size_t num_pads = 0U;
     size_t max_degree {};
     size_t max_net_degree {};
-    bool has_fixed_modules {};
     // std::uint8_t cost_model = 0;
-    py::set<node_t> module_fixed;
     std::vector<int> module_weight;
     std::vector<int> net_weight;
+    bool has_fixed_modules {};
+    py::set<node_t> module_fixed;
 
     /* For multi-level algorithms */
     const Netlist<graph_t>* parent;

@@ -32,15 +32,17 @@ class bpq_iterator;
 template <typename T> //
 class bpqueue
 {
+  friend bpq_iterator<T>;
+  
   private:
+    static dllink<T> sentinel; /*!< sentinel */
+    
+    std::vector<dllink<T>> bucket; //!< bucket, array of lists
     T max {};              //!< max value
     T offset;              //!< a - 1
     T high;                //!< b - a + 1
-    dllink<T> sentinel {}; /*!< sentinel */
 
   public:
-    std::vector<dllink<T>> bucket; //!< bucket, array of lists
-
     /*!
      * @brief Construct a new bpqueue object
      *
@@ -48,9 +50,9 @@ class bpqueue
      * @param[in] b upper bound
      */
     bpqueue(T a, T b)
-        : offset {a - 1}
+        : bucket(b - a + 2)
+        , offset {a - 1}
         , high {b - offset}
-        , bucket(high + 1)
     {
         assert(a <= b);
         static_assert(

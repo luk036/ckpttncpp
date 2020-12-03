@@ -20,16 +20,16 @@ class FMGainMgr
 {
     Derived& self = *static_cast<Derived*>(this);
     using node_t = typename SimpleNetlist::node_t;
+    // friend Derived;
 
   protected:
-    dllink<int> waitinglist {};
-
+    dllink<node_t> waitinglist {};
     const SimpleNetlist& H;
-    size_t pmax;
     std::vector<bpqueue<int>> gainbucket;
+    // size_t pmax;
+    std::uint8_t K;
 
   public:
-    std::uint8_t K;
     GainCalc gainCalc;
 
     // int totalcost;

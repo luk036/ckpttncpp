@@ -25,7 +25,7 @@ class FMGainMgr
   protected:
     dllink<node_t> waitinglist {node_t{}};
     const SimpleNetlist& H;
-    std::vector<bpqueue<int>> gainbucket;
+    std::vector<bpqueue<node_t>> gainbucket;
     // size_t pmax;
     std::uint8_t K;
 

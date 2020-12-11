@@ -1,9 +1,8 @@
 #pragma once
 
-// #include <boost/coroutine2/all.hpp>
 #include <cassert>
-#include <utility> // import std::move()
 #include <cstdint>
+#include <utility> // import std::move()
 
 // Forward declaration for begin() end()
 template <typename T, typename Int>
@@ -37,6 +36,7 @@ class dllink
     /*!
      * @brief Construct a new dllink object
      *
+     * @param[in] data the data
      * @param[in] key the key
      */
     explicit dllink(T data, Int key = Int(0))
@@ -51,11 +51,11 @@ class dllink
      *
      */
     dllink() = default;
+    ~dllink() = default;
     dllink(const dllink&) = delete;                    // don't copy
     auto operator=(const dllink&) -> dllink& = delete; // don't assign
     dllink(dllink&&) noexcept = default;
     auto operator=(dllink&&) noexcept -> dllink& = default; // don't assign
-    ~dllink() = default;
 
     /*!
      * @brief detach from a list
@@ -283,6 +283,7 @@ struct dll_iterator
         return !(lhs == rhs);
     }
 };
+
 
 /*!
  * @brief begin

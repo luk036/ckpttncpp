@@ -28,6 +28,8 @@ class bpq_iterator;
  * sentinel) is used to reduce the boundary checking during updating.
  *
  * All the member functions assume that the keys are within the bound.
+ *
+ * @TODO: support std::pmr
  */
 template <typename T, typename Int = int16_t> //
 class bpqueue

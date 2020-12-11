@@ -10,8 +10,12 @@ RUN apt-get update \
   git \
   less \
   neofetch \
+  neovim \
   asciinema \
   tmux \
+  cmatrix \
+  tty-clock \
+  w3m \
   cppcheck \
   lcov \
   ninja-build \

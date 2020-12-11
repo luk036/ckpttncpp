@@ -20,47 +20,43 @@ LegalCheck MLPartMgr::run_FMPartition(
 {
     using GainMgr = typename PartMgr::GainMgr_;
     using ConstrMgr = typename PartMgr::ConstrMgr_;
-    // auto gainMgr = GainMgr{H, this->K};
-    // auto constrMgr = ConstrMgr{H, this->BalTol, this->K};
-    // auto partMgr = PartMgr{H, gainMgr, constrMgr};
-    const auto gainMgrPtr = std::make_unique<GainMgr>(H, this->K);
-    const auto constrMgrPtr =
-        std::make_unique<ConstrMgr>(H, this->BalTol, this->K);
-    const auto partMgrPtr =
-        std::make_unique<PartMgr>(H, *gainMgrPtr, *constrMgrPtr, this->K);
-    // partMgrPtr->init(part);
-    auto legalcheck = partMgrPtr->legalize(part);
-    if (legalcheck != LegalCheck::allsatisfied)
+
     {
-        this->totalcost = partMgrPtr->totalcost;
-        return legalcheck;
+        const auto gainMgrPtr = std::make_unique<GainMgr>(H, this->K);
+        const auto constrMgrPtr =
+            std::make_unique<ConstrMgr>(H, this->BalTol, this->K);
+        const auto partMgrPtr =
+            std::make_unique<PartMgr>(H, *gainMgrPtr, *constrMgrPtr, this->K);
+        auto legalcheck = partMgrPtr->legalize(part);
+        if (legalcheck != LegalCheck::allsatisfied)
+        {
+            this->totalcost = partMgrPtr->totalcost;
+            return legalcheck;
+        }
+        // release memory resource all memory saving
     }
+
     if (H.number_of_modules() >= limitsize)
     { // OK
-      // try
-      // {
         const auto H2 = create_contraction_subgraph(H, py::set<node_t> {});
         if (5 * H2->number_of_modules() <= 3 * H.number_of_modules())
         {
             auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
-            // auto extern_nets_ss = py::set<node_t>{};
-            // auto part2_info =
-            //     PartInfo{std::move(part2),
-            //     std::move(extern_nets_ss)};
             H2->projection_up(part, part2);
-            legalcheck = this->run_FMPartition<PartMgr>(*H2, part2, limitsize);
+            auto legalcheck = this->run_FMPartition<PartMgr>(*H2, part2, limitsize);
             if (legalcheck == LegalCheck::allsatisfied)
             {
                 H2->projection_down(part2, part);
             }
         }
-        // }
-        // catch (const std::bad_alloc&)
-        // {
-        //     std::cerr << "Warning: Insufficient memory."
-        //               << " Discard one level." << '\n';
-        // }
     }
+
+    const auto gainMgrPtr = std::make_unique<GainMgr>(H, this->K);
+    const auto constrMgrPtr =
+        std::make_unique<ConstrMgr>(H, this->BalTol, this->K);
+    const auto partMgrPtr =
+        std::make_unique<PartMgr>(H, *gainMgrPtr, *constrMgrPtr, this->K);
+    auto legalcheck = partMgrPtr->legalize(part);
     partMgrPtr->optimize(part);
     assert(partMgrPtr->totalcost >= 0);
     this->totalcost = partMgrPtr->totalcost;

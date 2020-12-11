@@ -21,7 +21,7 @@ FMGainMgr<GainCalc, Derived>::FMGainMgr(const SimpleNetlist& H, std::uint8_t K)
     const int pmax = H.get_max_degree();
     for (auto k = 0U; k != this->K; ++k)
     {
-        this->gainbucket.emplace_back(bpqueue<int>(-pmax, pmax));
+        this->gainbucket.emplace_back(bpqueue<node_t>(-pmax, pmax));
     }
 }
 

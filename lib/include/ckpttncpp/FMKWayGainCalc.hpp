@@ -21,7 +21,7 @@ class FMKWayGainCalc
     std::uint8_t K;
     robin<std::uint8_t> RR;
     // size_t num_modules;
-    std::vector<std::vector<dllink<node_t>>> vertex_list;
+    std::vector<std::vector<dllink<std::pair<node_t, int16_t>>>> vertex_list;
     std::vector<int> deltaGainV;
     int totalcost {0};
 
@@ -43,11 +43,12 @@ class FMKWayGainCalc
         for (auto k = 0U; k != this->K; ++k)
         {
             this->vertex_list.emplace_back(
-                std::vector<dllink<node_t>>(H.number_of_modules()));
+                std::vector<dllink<std::pair<node_t, int16_t>>>(
+                    H.number_of_modules()));
 
             for (auto&& v : this->H.modules)
             {
-                this->vertex_list[k][v].data = v;
+                this->vertex_list[k][v].data = std::pair {v, int16_t(0)};
             }
         }
     }
@@ -58,7 +59,7 @@ class FMKWayGainCalc
      * @param[in] toPart
      * @return dllink*
      */
-    auto start_ptr(uint8_t toPart) -> dllink<node_t>*
+    auto start_ptr(uint8_t toPart) -> dllink<std::pair<node_t, int16_t>>*
     {
         return &this->vertex_list[toPart][0];
     }
@@ -75,7 +76,7 @@ class FMKWayGainCalc
         {
             for (auto&& vlink : this->vertex_list[k])
             {
-                vlink.key = 0;
+                vlink.data.second = 0;
             }
         }
         for (auto&& net : this->H.nets)
@@ -143,7 +144,7 @@ class FMKWayGainCalc
     {
         for (auto&& k : this->RR.exclude(part_v))
         {
-            this->vertex_list[k][v].key += weight;
+            this->vertex_list[k][v].data.second += weight;
         }
     }
 
@@ -158,7 +159,7 @@ class FMKWayGainCalc
     // template <typename... Ts>
     // auto _modify_vertex_va(int weight, std::uint8_t k, Ts... v) -> void
     // {
-    //     ((this->vertex_list[k][v].key += weight), ...);
+    //     ((this->vertex_list[k][v].data.second += weight), ...);
     // }
 
     /**
@@ -171,7 +172,7 @@ class FMKWayGainCalc
      */
     auto _modify_vertex_va(int weight, std::uint8_t k, const node_t& v1) -> void
     {
-        this->vertex_list[k][v1].key += weight;
+        this->vertex_list[k][v1].data.second += weight;
     }
 
     /**
@@ -185,8 +186,8 @@ class FMKWayGainCalc
     auto _modify_vertex_va(
         int weight, std::uint8_t k, const node_t& v1, const node_t& v2) -> void
     {
-        this->vertex_list[k][v1].key += weight;
-        this->vertex_list[k][v2].key += weight;
+        this->vertex_list[k][v1].data.second += weight;
+        this->vertex_list[k][v2].data.second += weight;
     }
 
     /**
@@ -200,9 +201,9 @@ class FMKWayGainCalc
     auto _modify_vertex_va(int weight, std::uint8_t k, const node_t& v1,
         const node_t& v2, const node_t& v3) -> void
     {
-        this->vertex_list[k][v1].key += weight;
-        this->vertex_list[k][v2].key += weight;
-        this->vertex_list[k][v3].key += weight;
+        this->vertex_list[k][v1].data.second += weight;
+        this->vertex_list[k][v2].data.second += weight;
+        this->vertex_list[k][v3].data.second += weight;
     }
 
     /**

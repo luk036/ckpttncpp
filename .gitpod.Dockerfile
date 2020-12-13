@@ -13,7 +13,6 @@ RUN apt-get update \
   neovim \
   asciinema \
   tmux \
-  cmatrix \
   tty-clock \
   w3m \
   cppcheck \

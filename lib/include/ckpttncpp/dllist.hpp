@@ -5,7 +5,7 @@
 #include <utility> // import std::move()
 
 // Forward declaration for begin() end()
-template <typename T, typename Int>
+template <typename T>
 struct dll_iterator;
 
 /*!
@@ -20,28 +20,26 @@ struct dll_iterator;
  * are supplied by the caller in order to better reuse the nodes.
  */
 #pragma pack(push, 1)
-template <typename T, typename Int = int16_t>
+template <typename T>
 class dllink
 {
-    friend dll_iterator<T, Int>;
+    friend dll_iterator<T>;
 
   private:
     dllink* next {this}; /*!< pointer to the next node */
     dllink* prev {this}; /*!< pointer to the previous node */
 
   public:
-    T data{};  /*!< data */
-    Int key{}; /*!< key */
+    T data {}; /*!< data */
+    // Int key{}; /*!< key */
 
     /*!
      * @brief Construct a new dllink object
      *
      * @param[in] data the data
-     * @param[in] key the key
      */
-    explicit dllink(T data, Int key = Int(0))
+    explicit dllink(T data)
         : data {std::move(data)}
-        , key {std::move(key)}
     {
         static_assert(sizeof(dllink) <= 24, "keep this class small");
     }
@@ -173,14 +171,14 @@ class dllink
      *
      * @return dll_iterator
      */
-    auto begin() -> dll_iterator<T, Int>;
+    auto begin() -> dll_iterator<T>;
 
     /*!
      * @brief
      *
      * @return dll_iterator
      */
-    auto end() -> dll_iterator<T, Int>;
+    auto end() -> dll_iterator<T>;
 
     auto items() -> dllink&
     {
@@ -221,17 +219,17 @@ class dllink
  * List iterator. Traverse the list from the first item. Usually it is
  * safe to attach/detach list items during the iterator is active.
  */
-template <typename T, typename Int = int16_t>
+template <typename T>
 struct dll_iterator
 {
-    dllink<T, Int>* cur; /*!< pointer to the current item */
+    dllink<T>* cur; /*!< pointer to the current item */
 
     /*!
      * @brief Construct a new dll iterator object
      *
      * @param[in] cur
      */
-    explicit dll_iterator(dllink<T, Int>* cur)
+    explicit dll_iterator(dllink<T>* cur)
         : cur {cur}
     {
     }
@@ -252,7 +250,7 @@ struct dll_iterator
      *
      * @return dllink&
      */
-    auto operator*() -> dllink<T, Int>&
+    auto operator*() -> dllink<T>&
     {
         return *this->cur;
     }
@@ -264,8 +262,8 @@ struct dll_iterator
      * @return true
      * @return false
      */
-    friend auto operator==(
-        const dll_iterator& lhs, const dll_iterator& rhs) -> bool
+    friend auto operator==(const dll_iterator& lhs, const dll_iterator& rhs)
+        -> bool
     {
         return lhs.cur == rhs.cur;
     }
@@ -277,8 +275,8 @@ struct dll_iterator
      * @return true
      * @return false
      */
-    friend auto operator!=(
-        const dll_iterator& lhs, const dll_iterator& rhs) -> bool
+    friend auto operator!=(const dll_iterator& lhs, const dll_iterator& rhs)
+        -> bool
     {
         return !(lhs == rhs);
     }
@@ -290,10 +288,10 @@ struct dll_iterator
  *
  * @return dll_iterator
  */
-template <typename T, typename Int>
-inline auto dllink<T, Int>::begin() -> dll_iterator<T, Int>
+template <typename T>
+inline auto dllink<T>::begin() -> dll_iterator<T>
 {
-    return dll_iterator<T, Int> {this->next};
+    return dll_iterator<T> {this->next};
 }
 
 /*!
@@ -301,8 +299,8 @@ inline auto dllink<T, Int>::begin() -> dll_iterator<T, Int>
  *
  * @return dll_iterator
  */
-template <typename T, typename Int>
-inline auto dllink<T, Int>::end() -> dll_iterator<T, Int>
+template <typename T>
+inline auto dllink<T>::end() -> dll_iterator<T>
 {
-    return dll_iterator<T, Int> {this};
+    return dll_iterator<T> {this};
 }

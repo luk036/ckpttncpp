@@ -7,16 +7,16 @@ TEST_CASE("Test BPQueue")
 {
     constexpr auto PMAX = 10;
 
-    auto bpq1 = bpqueue<int> {-PMAX, PMAX};
-    auto bpq2 = bpqueue<int> {-PMAX, PMAX};
+    auto bpq1 = bpqueue<int, int16_t> {-PMAX, PMAX};
+    auto bpq2 = bpqueue<int, int16_t> {-PMAX, PMAX};
 
     CHECK(bpq1.is_empty());
 
-    auto d = dllink<int> {0};
-    auto e = dllink<int> {0};
-    auto f = dllink<int> {0};
+    auto d = dllink {std::pair {0, int16_t(0)}};
+    auto e = dllink {std::pair {0, int16_t(0)}};
+    auto f = dllink {std::pair {0, int16_t(0)}};
 
-    CHECK(d.key == 0);
+    CHECK(d.data.second == 0);
 
     bpq1.append(e, 3);
     bpq1.append(f, -PMAX);
@@ -31,12 +31,12 @@ TEST_CASE("Test BPQueue")
     CHECK(bpq1.is_empty());
     CHECK(bpq2.get_max() == 6);
 
-    auto nodelist = std::vector<dllink<int>>(10);
+    auto nodelist = std::vector<dllink<std::pair<int, int16_t>>>(10);
 
     auto i = 0U;
     for (auto&& it : nodelist)
     {
-        it.key = 2 * i - 10;
+        it.data.second = 2 * i - 10;
         i += 1;
     }
     bpq1.appendfrom(nodelist);

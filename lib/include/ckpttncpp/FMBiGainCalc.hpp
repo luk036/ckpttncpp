@@ -17,7 +17,7 @@ class FMBiGainCalc
 
   private:
     const SimpleNetlist& H;
-    std::vector<dllink<node_t>> vertex_list;
+    std::vector<dllink<std::pair<node_t, int16_t>>> vertex_list;
     int totalcost {0};
     uint16_t MAX_DEGREE {256};
 
@@ -36,7 +36,7 @@ class FMBiGainCalc
     {
         for (auto&& v : this->H.modules)
         {
-            this->vertex_list[v].data = v;
+            this->vertex_list[v].data = std::pair {v, int16_t(0)};
         }
     }
 
@@ -50,7 +50,7 @@ class FMBiGainCalc
         this->totalcost = 0;
         for (auto&& vlink : this->vertex_list)
         {
-            vlink.key = 0;
+            vlink.data.second = 0;
         }
         for (auto&& net : this->H.nets)
         {
@@ -62,10 +62,12 @@ class FMBiGainCalc
     /*!
      * @brief
      *
+     * @deprecated
      * @param[in] toPart
      * @return dllink*
      */
-    auto start_ptr(std::uint8_t /*toPart*/) -> dllink<node_t>*
+    auto start_ptr(std::uint8_t /*toPart*/)
+        -> dllink<std::pair<node_t, int16_t>>*
     {
         return &this->vertex_list[0];
     }
@@ -123,7 +125,7 @@ class FMBiGainCalc
      */
     auto _modify_gain(const node_t& w, int weight) -> void
     {
-        this->vertex_list[w].key += weight;
+        this->vertex_list[w].data.second += weight;
     }
 
     /**
@@ -136,7 +138,7 @@ class FMBiGainCalc
     // template <typename... Ts>
     // auto _modify_gain_va(int weight, Ts... w) -> void
     // {
-    //     ((this->vertex_list[w].key += weight), ...);
+    //     ((this->vertex_list[w].data.second += weight), ...);
     // }
 
     /**
@@ -148,7 +150,7 @@ class FMBiGainCalc
      */
     auto _modify_gain_va(int weight, const node_t& w1) -> void
     {
-        this->vertex_list[w1].key += weight;
+        this->vertex_list[w1].data.second += weight;
     }
 
     /**
@@ -160,8 +162,8 @@ class FMBiGainCalc
      */
     auto _modify_gain_va(int weight, const node_t& w1, const node_t& w2) -> void
     {
-        this->vertex_list[w1].key += weight;
-        this->vertex_list[w2].key += weight;
+        this->vertex_list[w1].data.second += weight;
+        this->vertex_list[w2].data.second += weight;
     }
 
     /**
@@ -174,9 +176,9 @@ class FMBiGainCalc
     auto _modify_gain_va(int weight, const node_t& w1, const node_t& w2,
         const node_t& w3) -> void
     {
-        this->vertex_list[w1].key += weight;
-        this->vertex_list[w2].key += weight;
-        this->vertex_list[w3].key += weight;
+        this->vertex_list[w1].data.second += weight;
+        this->vertex_list[w2].data.second += weight;
+        this->vertex_list[w3].data.second += weight;
     }
 
     /*!

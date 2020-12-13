@@ -61,7 +61,7 @@ class FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
      */
     auto update_move_v(const MoveInfoV<node_t>& move_info_v, int gain) -> void
     {
-        // this->vertex_list[v].key -= 2 * gain;
+        // this->vertex_list[v].data.second -= 2 * gain;
         // auto [fromPart, _ = move_info_v;
         this->_set_key(move_info_v.fromPart, move_info_v.v, -gain);
     }

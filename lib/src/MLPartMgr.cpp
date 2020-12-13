@@ -43,7 +43,8 @@ LegalCheck MLPartMgr::run_FMPartition(
         {
             auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
             H2->projection_up(part, part2);
-            auto legalcheck = this->run_FMPartition<PartMgr>(*H2, part2, limitsize);
+            auto legalcheck =
+                this->run_FMPartition<PartMgr>(*H2, part2, limitsize);
             if (legalcheck == LegalCheck::allsatisfied)
             {
                 H2->projection_down(part2, part);

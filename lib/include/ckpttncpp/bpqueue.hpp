@@ -3,6 +3,7 @@
 #include "dllist.hpp" // import dllink
 #include <cassert>
 #include <gsl/span>
+#include <tuple>
 #include <type_traits>
 #include <vector>
 
@@ -35,14 +36,17 @@ template <typename T, typename Int = int16_t> //
 class bpqueue
 {
     friend bpq_iterator<T, Int>;
+    using value_type = T;
+    using key_type = Int;
+    using Item = dllink<std::pair<T, Int>>;
 
   private:
-    static dllink<T, Int> sentinel; /*!< sentinel */
+    static Item sentinel; /*!< sentinel */
 
-    std::vector<dllink<T, Int>> bucket; //!< bucket, array of lists
-    Int max {};                      //!< max value
-    Int offset;                      //!< a - 1
-    Int high;                        //!< b - a + 1
+    std::vector<Item> bucket; //!< bucket, array of lists
+    Int max {};               //!< max value
+    Int offset;               //!< a - 1
+    Int high;                 //!< b - a + 1
 
   public:
     /*!
@@ -53,8 +57,8 @@ class bpqueue
      */
     bpqueue(Int a, Int b)
         : bucket(b - a + 2)
-        , offset (a - 1)
-        , high (b - offset)
+        , offset(a - 1)
+        , high(b - offset)
     {
         assert(a <= b);
         static_assert(
@@ -74,9 +78,9 @@ class bpqueue
      * @param[out] it   the item
      * @param[in] gain the key of it
      */
-    auto set_key(dllink<T, Int>& it, Int gain) -> void
+    auto set_key(Item& it, Int gain) -> void
     {
-        it.key = gain - this->offset;
+        it.data.second = gain - this->offset;
     }
 
     /*!
@@ -117,10 +121,10 @@ class bpqueue
      *
      * @param[in,out] it the item
      */
-    auto append_direct(dllink<T, Int>& it) -> void
+    auto append_direct(Item& it) -> void
     {
-        assert(it.key > this->offset);
-        this->append(it, it.key);
+        assert(it.data.second > this->offset);
+        this->append(it, it.data.second);
     }
 
     /*!
@@ -129,15 +133,15 @@ class bpqueue
      * @param[in,out] it the item
      * @param[in] k  the key
      */
-    auto append(dllink<T, Int>& it, Int k) -> void
+    auto append(Item& it, Int k) -> void
     {
         assert(k > this->offset);
-        it.key = k - this->offset;
-        if (this->max < it.key)
+        it.data.second = k - this->offset;
+        if (this->max < it.data.second)
         {
-            this->max = it.key;
+            this->max = it.data.second;
         }
-        this->bucket[it.key].append(it);
+        this->bucket[it.data.second].append(it);
     }
 
     /*!
@@ -145,13 +149,13 @@ class bpqueue
      *
      * @param[in,out] nodes
      */
-    auto appendfrom(gsl::span<dllink<T, Int>> nodes) -> void
+    auto appendfrom(gsl::span<Item> nodes) -> void
     {
         for (auto&& it : nodes)
         {
-            it.key -= this->offset;
-            assert(it.key > 0);
-            this->bucket[it.key].append(it);
+            it.data.second -= this->offset;
+            assert(it.data.second > 0);
+            this->bucket[it.data.second].append(it);
         }
         this->max = this->high;
         while (this->bucket[this->max].is_empty())
@@ -165,7 +169,7 @@ class bpqueue
      *
      * @return dllink&
      */
-    auto popleft() -> dllink<T, Int>&
+    auto popleft() -> Item&
     {
         auto& res = this->bucket[this->max].popleft();
         while (this->bucket[this->max].is_empty())
@@ -184,17 +188,17 @@ class bpqueue
      * Note that the order of items with same key will not be preserved.
      * For FM algorithm, this is a prefered behavior.
      */
-    auto decrease_key(dllink<T, Int>& it, Int delta) -> void
+    auto decrease_key(Item& it, Int delta) -> void
     {
-        // this->bucket[it.key].detach(it)
+        // this->bucket[it.data.second].detach(it)
         it.detach();
-        it.key += delta;
-        assert(it.key > 0);
-        assert(it.key <= this->high);
-        this->bucket[it.key].append(it); // FIFO
-        if (this->max < it.key)
+        it.data.second += delta;
+        assert(it.data.second > 0);
+        assert(it.data.second <= this->high);
+        this->bucket[it.data.second].append(it); // FIFO
+        if (this->max < it.data.second)
         {
-            this->max = it.key;
+            this->max = it.data.second;
             return;
         }
         while (this->bucket[this->max].is_empty())
@@ -212,17 +216,17 @@ class bpqueue
      * Note that the order of items with same key will not be preserved.
      * For FM algorithm, this is a prefered behavior.
      */
-    auto increase_key(dllink<T, Int>& it, Int delta) -> void
+    auto increase_key(Item& it, Int delta) -> void
     {
-        // this->bucket[it.key].detach(it)
+        // this->bucket[it.data.second].detach(it)
         it.detach();
-        it.key += delta;
-        assert(it.key > 0);
-        assert(it.key <= this->high);
-        this->bucket[it.key].appendleft(it); // LIFO
-        if (this->max < it.key)
+        it.data.second += delta;
+        assert(it.data.second > 0);
+        assert(it.data.second <= this->high);
+        this->bucket[it.data.second].appendleft(it); // LIFO
+        if (this->max < it.data.second)
         {
-            this->max = it.key;
+            this->max = it.data.second;
         }
     }
 
@@ -235,7 +239,7 @@ class bpqueue
      * Note that the order of items with same key will not be preserved.
      * For FM algorithm, this is a prefered behavior.
      */
-    auto modify_key(dllink<T, Int>& it, Int delta) -> void
+    auto modify_key(Item& it, Int delta) -> void
     {
         if (it.is_locked())
         {
@@ -256,9 +260,9 @@ class bpqueue
      *
      * @param[in,out] it the item
      */
-    auto detach(dllink<T, Int>& it) -> void
+    auto detach(Item& it) -> void
     {
-        // this->bucket[it.key].detach(it)
+        // this->bucket[it.data.second].detach(it)
         it.detach();
         while (this->bucket[this->max].is_empty())
         {
@@ -325,18 +329,23 @@ class bpqueue
 template <typename T, typename Int = int16_t>
 class bpq_iterator
 {
+    using value_type = T;
+    using key_type = Int;
+    using Item = dllink<std::pair<T, Int>>;
+
   private:
-    bpqueue<T, Int>& bpq;         /*!< the priority queue */
-    Int curkey;                /*!< the current key value */
-    dll_iterator<T, Int> curitem; /*!< list iterator pointed to the current item.
-                              */
+    bpqueue<T, Int>& bpq; /*!< the priority queue */
+    Int curkey;           /*!< the current key value */
+    dll_iterator<std::pair<T, Int>>
+        curitem; /*!< list iterator pointed to the current item.
+                  */
 
     /*!
      * @brief get the reference of the current list
      *
      * @return dllink&
      */
-    auto curlist() -> dllink<T, Int>&
+    auto curlist() -> Item&
     {
         return this->bpq.bucket[this->curkey];
     }
@@ -379,7 +388,7 @@ class bpq_iterator
      *
      * @return bpq_iterator&
      */
-    auto operator*() -> dllink<T, Int>&
+    auto operator*() -> Item&
     {
         return *this->curitem;
     }

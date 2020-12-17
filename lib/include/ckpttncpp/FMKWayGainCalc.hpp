@@ -23,12 +23,14 @@ class FMKWayGainCalc
     robin<std::uint8_t> RR;
     // size_t num_modules;
     std::vector<std::vector<dllink<std::pair<node_t, int16_t>>>> vertex_list;
-    std::byte StackBuf[2048];
+    std::byte StackBuf[10000];
     std::pmr::monotonic_buffer_resource rsrc;
     std::pmr::vector<int> deltaGainV;
     int totalcost {0};
 
   public:
+    std::pmr::vector<int> deltaGainW;
+    std::pmr::vector<node_t> IdVec;
     bool special_handle_2pin_nets {true}; // @TODO should be template parameter
 
     /*!
@@ -43,6 +45,8 @@ class FMKWayGainCalc
         , RR {K}
         , rsrc(StackBuf, sizeof StackBuf)
         , deltaGainV(K, 0, &rsrc)
+        , deltaGainW(K, 0, &rsrc)
+        , IdVec(&rsrc)
     {
         for (auto k = 0U; k != this->K; ++k)
         {
@@ -108,7 +112,9 @@ class FMKWayGainCalc
      * @return std::vector<int>
      */
     auto update_move_2pin_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo<node_t>& move_info, node_t& w) -> std::vector<int>;
+        const MoveInfo<node_t>& move_info) -> node_t;
+
+    void init_IdVec(const node_t& v, const node_t& net);
 
     using ret_info = std::vector<std::vector<int>>;
 
@@ -117,24 +123,20 @@ class FMKWayGainCalc
      *
      * @param[in] part
      * @param[in] move_info
-     * @param[out] IdVec
      * @return ret_info
      */
     auto update_move_3pin_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo<node_t>& move_info, std::pmr::vector<node_t>& IdVec)
-        -> ret_info;
+        const MoveInfo<node_t>& move_info) -> ret_info;
 
     /*!
      * @brief
      *
      * @param[in] part
      * @param[in] move_info
-     * @param[out] IdVec
      * @return ret_info
      */
     auto update_move_general_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo<node_t>& move_info, std::pmr::vector<node_t>& IdVec)
-        -> ret_info;
+        const MoveInfo<node_t>& move_info) -> ret_info;
 
   private:
     /*!

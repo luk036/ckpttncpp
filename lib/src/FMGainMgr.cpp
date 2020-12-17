@@ -100,31 +100,38 @@ void FMGainMgr<GainCalc, Derived>::update_move(
     this->gainCalc.update_move_init();
 
     // const auto& [v, fromPart, toPart] = move_info_v;
+    const auto& v = move_info_v.v;
     for (const node_t& net : this->H.G[move_info_v.v])
     {
         const auto degree = this->H.G.degree(net);
-        if (degree < 2 || degree > 256) // [[unlikely]]
+        if (degree < 2) // [[unlikely]]
         {
             continue; // does not provide any gain change when
                       // moving
         }
         const auto move_info = MoveInfo<node_t> {
-            net, move_info_v.v, move_info_v.fromPart, move_info_v.toPart};
+            net, v, move_info_v.fromPart, move_info_v.toPart};
         if (!this->gainCalc.special_handle_2pin_nets)
         {
+            this->gainCalc.init_IdVec(v, net);
             this->_update_move_general_net(part, move_info);
             continue;
         }
-        switch (degree)
+        if (degree == 2)
         {
-            case 2:
-                this->_update_move_2pin_net(part, move_info);
-                break;
-            case 3:
+            this->_update_move_2pin_net(part, move_info);
+        }
+        else
+        {
+            this->gainCalc.init_IdVec(v, net);
+            if (degree == 3)
+            {
                 this->_update_move_3pin_net(part, move_info);
-                break;
-            default:
+            }
+            else
+            {
                 this->_update_move_general_net(part, move_info);
+            }
         }
     }
 }
@@ -141,10 +148,9 @@ void FMGainMgr<GainCalc, Derived>::_update_move_2pin_net(
 {
     // const auto [w, deltaGainW] =
     //     this->gainCalc.update_move_2pin_net(part, move_info);
-    node_t w;
-    const auto deltaGainW =
-        this->gainCalc.update_move_2pin_net(part, move_info, w);
-    self.modify_key(w, part[w], deltaGainW);
+    const auto w =
+        this->gainCalc.update_move_2pin_net(part, move_info);
+    self.modify_key(w, part[w], this->gainCalc.deltaGainW);
 }
 
 /**
@@ -157,16 +163,16 @@ template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::_update_move_3pin_net(
     gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info)
 {
-    std::byte StackBuf[4096];
-    std::pmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
-    auto IdVec = std::pmr::vector<node_t>(&rsrc);
+    // std::byte StackBuf[4096];
+    // std::pmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
+    // auto IdVec = std::pmr::vector<node_t>(&rsrc);
 
     const auto deltaGain =
-        this->gainCalc.update_move_3pin_net(part, move_info, IdVec);
-    const auto degree = IdVec.size();
+        this->gainCalc.update_move_3pin_net(part, move_info);
+    const auto degree = this->gainCalc.IdVec.size();
     for (size_t index = 0U; index != degree; ++index)
     {
-        const auto& w = IdVec[index];
+        const auto& w = this->gainCalc.IdVec[index];
         self.modify_key(w, part[w], deltaGain[index]);
     }
 }
@@ -181,19 +187,19 @@ template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::_update_move_general_net(
     gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info)
 {
-    std::byte StackBuf[2048];
-    std::pmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
-    auto IdVec = std::pmr::vector<node_t>(&rsrc);
+    // std::byte StackBuf[2048];
+    // std::pmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
+    // auto IdVec = std::pmr::vector<node_t>(&rsrc);
 
     // const auto [IdVec, deltaGain] =
     const auto deltaGain =
-        this->gainCalc.update_move_general_net(part, move_info, IdVec);
+        this->gainCalc.update_move_general_net(part, move_info);
     // const auto& IdVec = std::get<0>(infoW);
     // const auto& deltaGain = std::get<1>(infoW);
-    const auto degree = IdVec.size();
+    const auto degree = this->gainCalc.IdVec.size();
     for (size_t index = 0U; index != degree; ++index)
     {
-        const auto& w = IdVec[index];
+        const auto& w = this->gainCalc.IdVec[index];
         self.modify_key(w, part[w], deltaGain[index]);
     }
 }

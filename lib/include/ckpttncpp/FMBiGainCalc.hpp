@@ -3,6 +3,7 @@
 #include "dllist.hpp"  // import dllink
 #include "netlist.hpp" // import Netlist
 #include <gsl/span>
+#include <memory_resource>
 
 // struct FMBiGainMgr;
 
@@ -13,6 +14,7 @@
 class FMBiGainCalc
 {
     friend class FMBiGainMgr;
+  public:  
     using node_t = typename SimpleNetlist::node_t;
 
   private:
@@ -20,8 +22,12 @@ class FMBiGainCalc
     std::vector<dllink<std::pair<node_t, int16_t>>> vertex_list;
     int totalcost {0};
     uint16_t MAX_DEGREE {256};
+    std::byte StackBuf[4096];
+    std::pmr::monotonic_buffer_resource rsrc;
 
   public:
+    int deltaGainW;
+    std::pmr::vector<node_t> IdVec;
     bool special_handle_2pin_nets {true};
 
     /*!
@@ -33,6 +39,8 @@ class FMBiGainCalc
     explicit FMBiGainCalc(const SimpleNetlist& H, std::uint8_t /*K*/)
         : H {H}
         , vertex_list(H.number_of_modules())
+        , rsrc(StackBuf, sizeof StackBuf)
+        , IdVec(&rsrc)
     {
         for (auto&& v : this->H.modules)
         {
@@ -65,6 +73,7 @@ class FMBiGainCalc
      * @deprecated
      * @param[in] toPart
      * @return dllink*
+     * @deprecated
      */
     auto start_ptr(std::uint8_t /*toPart*/)
         -> dllink<std::pair<node_t, int16_t>>*
@@ -81,6 +90,8 @@ class FMBiGainCalc
         // nothing to do in 2-way partitioning
     }
 
+    void init_IdVec(const node_t& v, const node_t& net);
+
     /*!
      * @brief update move 2-pin net
      *
@@ -90,18 +101,17 @@ class FMBiGainCalc
      * @return int
      */
     auto update_move_2pin_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo<node_t>& move_info, node_t& w) -> int;
+        const MoveInfo<node_t>& move_info) -> node_t;
 
     /*!
      * @brief update move 3-pin net
      *
      * @param[in] part
      * @param[in] move_info
-     * @param[out] IdVec
      * @return ret_info
      */
     auto update_move_3pin_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo<node_t>& move_info, std::pmr::vector<node_t>& IdVec)
+        const MoveInfo<node_t>& move_info)
         -> std::vector<int>;
 
     /*!
@@ -109,11 +119,10 @@ class FMBiGainCalc
      *
      * @param[in] part
      * @param[in] move_info
-     * @param[out] IdVec
      * @return ret_info
      */
     auto update_move_general_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo<node_t>& move_info, std::pmr::vector<node_t>& IdVec)
+        const MoveInfo<node_t>& move_info)
         -> std::vector<int>;
 
   private:

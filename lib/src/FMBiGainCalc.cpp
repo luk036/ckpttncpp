@@ -115,8 +115,8 @@ void FMBiGainCalc::_init_gain_general_net(
     }
     const auto weight = this->H.get_net_weight(net);
 
-    // for... (auto&& k : {0, 1})
-    auto repeat = [&](auto&& k) {
+    for (auto&& k : {0, 1})
+    {
         if (num[k] == 0)
         {
             for (auto&& w : this->H.G[net])
@@ -135,9 +135,7 @@ void FMBiGainCalc::_init_gain_general_net(
                 }
             }
         }
-    };
-    repeat(0);
-    repeat(1);
+    }
 
     if (num[0] > 0 && num[1] > 0)
     {
@@ -233,8 +231,8 @@ std::vector<int> FMBiGainCalc::update_move_general_net(
     auto degree = IdVec.size();
     auto deltaGain = std::vector<int>(degree, 0);
     auto weight = this->H.get_net_weight(move_info.net);
-    // for... (auto&& l : {move_info.fromPart, move_info.toPart})
-    auto repeat = [&](auto&& l) {
+    for (auto&& l : {move_info.fromPart, move_info.toPart})
+    {
         if (num[l] == 0)
         {
             for (size_t index = 0U; index != degree; ++index)
@@ -255,9 +253,6 @@ std::vector<int> FMBiGainCalc::update_move_general_net(
             }
         }
         weight = -weight;
-    };
-    repeat(move_info.fromPart);
-    repeat(move_info.toPart);
-
+    }
     return deltaGain;
 }

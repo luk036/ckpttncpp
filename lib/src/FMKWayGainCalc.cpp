@@ -198,8 +198,8 @@ std::vector<int> FMKWayGainCalc::update_move_2pin_net(
     auto netCur = this->H.G[move_info.net].begin();
     w = (*netCur != move_info.v) ? *netCur : *++netCur;
 
-    // for... (auto&& l : {move_info.fromPart, move_info.toPart})
-    auto repeat = [&](auto&& l) {
+    for (auto&& l : {move_info.fromPart, move_info.toPart})
+    {
         if (part[w] == l)
         {
             for (auto k = 0U; k != this->K; ++k)
@@ -210,10 +210,7 @@ std::vector<int> FMKWayGainCalc::update_move_2pin_net(
         }
         deltaGainW[l] -= weight;
         weight = -weight;
-    };
-    repeat(move_info.fromPart);
-    repeat(move_info.toPart);
-
+    }
     return deltaGainW;
 }
 
@@ -249,8 +246,8 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
 
     if (part_w == part_u)
     {
-        // for (auto i = 0; i != 2; ++i)
-        auto repeat = [&](auto&& l, auto&& u) {
+        for (auto i = 0; i != 2; ++i)
+        {
             if (part_w != l)
             {
                 deltaGain[0][l] -= weight;
@@ -264,16 +261,13 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
                 }
             }
             weight = -weight;
-            // std::swap(l, u);
-        };
-        repeat(l, u);
-        repeat(u, l);
-
+            std::swap(l, u);
+        }
         return deltaGain;
     }
 
-    // for (auto i = 0; i != 2; ++i)
-    auto repeat = [&](auto&& l, auto&& u) {
+    for (auto i = 0; i != 2; ++i)
+    {
         if (part_w == l)
         {
             for (auto k = 0U; k != this->K; ++k)
@@ -301,11 +295,8 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
             }
         }
         weight = -weight;
-        // std::swap(l, u);
-    };
-    repeat(l, u);
-    repeat(u, l);
-
+        std::swap(l, u);
+    }
     return deltaGain;
     // return this->update_move_general_net(part, move_info);
 }

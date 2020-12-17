@@ -135,51 +135,51 @@ class FMBiGainCalc
      * @param weight
      * @param w
      */
-    // template <typename... Ts>
-    // auto _modify_gain_va(int weight, Ts... w) -> void
+    template <typename... Ts>
+    auto _modify_gain_va(int weight, Ts... w) -> void
+    {
+        ((this->vertex_list[w].data.second += weight), ...);
+    }
+
+    // /**
+    //  * @brief
+    //  *
+    //  * @tparam Ts
+    //  * @param weight
+    //  * @param w
+    //  */
+    // auto _modify_gain_va(int weight, const node_t& w1) -> void
     // {
-    //     ((this->vertex_list[w].data.second += weight), ...);
+    //     this->vertex_list[w1].data.second += weight;
     // }
 
-    /**
-     * @brief
-     *
-     * @tparam Ts
-     * @param weight
-     * @param w
-     */
-    auto _modify_gain_va(int weight, const node_t& w1) -> void
-    {
-        this->vertex_list[w1].data.second += weight;
-    }
+    // /**
+    //  * @brief
+    //  *
+    //  * @tparam Ts
+    //  * @param weight
+    //  * @param w
+    //  */
+    // auto _modify_gain_va(int weight, const node_t& w1, const node_t& w2) -> void
+    // {
+    //     this->vertex_list[w1].data.second += weight;
+    //     this->vertex_list[w2].data.second += weight;
+    // }
 
-    /**
-     * @brief
-     *
-     * @tparam Ts
-     * @param weight
-     * @param w
-     */
-    auto _modify_gain_va(int weight, const node_t& w1, const node_t& w2) -> void
-    {
-        this->vertex_list[w1].data.second += weight;
-        this->vertex_list[w2].data.second += weight;
-    }
-
-    /**
-     * @brief
-     *
-     * @tparam Ts
-     * @param weight
-     * @param w
-     */
-    auto _modify_gain_va(int weight, const node_t& w1, const node_t& w2,
-        const node_t& w3) -> void
-    {
-        this->vertex_list[w1].data.second += weight;
-        this->vertex_list[w2].data.second += weight;
-        this->vertex_list[w3].data.second += weight;
-    }
+    // /**
+    //  * @brief
+    //  *
+    //  * @tparam Ts
+    //  * @param weight
+    //  * @param w
+    //  */
+    // auto _modify_gain_va(int weight, const node_t& w1, const node_t& w2,
+    //     const node_t& w3) -> void
+    // {
+    //     this->vertex_list[w1].data.second += weight;
+    //     this->vertex_list[w2].data.second += weight;
+    //     this->vertex_list[w3].data.second += weight;
+    // }
 
     /*!
      * @brief

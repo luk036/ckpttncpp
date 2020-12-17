@@ -4,6 +4,7 @@
 #include "netlist.hpp" // import Netlist
 #include "robin.hpp"   // import robin
 #include <gsl/span>
+#include <memory_resource>
 
 // class FMKWayGainMgr;
 
@@ -22,7 +23,9 @@ class FMKWayGainCalc
     robin<std::uint8_t> RR;
     // size_t num_modules;
     std::vector<std::vector<dllink<std::pair<node_t, int16_t>>>> vertex_list;
-    std::vector<int> deltaGainV;
+    std::byte StackBuf[2048];
+    std::pmr::monotonic_buffer_resource rsrc;
+    std::pmr::vector<int> deltaGainV;
     int totalcost {0};
 
   public:
@@ -38,7 +41,8 @@ class FMKWayGainCalc
         : H {H}
         , K {K}
         , RR {K}
-        , deltaGainV(K, 0)
+        , rsrc(StackBuf, sizeof StackBuf)
+        , deltaGainV(K, 0, &rsrc)
     {
         for (auto k = 0U; k != this->K; ++k)
         {
@@ -156,55 +160,55 @@ class FMKWayGainCalc
      * @param part_v
      * @param v
      */
-    // template <typename... Ts>
-    // auto _modify_vertex_va(int weight, std::uint8_t k, Ts... v) -> void
+    template <typename... Ts>
+    auto _modify_vertex_va(int weight, std::uint8_t k, Ts... v) -> void
+    {
+        ((this->vertex_list[k][v].data.second += weight), ...);
+    }
+
+    // /**
+    //  * @brief
+    //  *
+    //  * @tparam Ts
+    //  * @param weight
+    //  * @param part_v
+    //  * @param v
+    //  */
+    // auto _modify_vertex_va(int weight, std::uint8_t k, const node_t& v1) -> void
     // {
-    //     ((this->vertex_list[k][v].data.second += weight), ...);
+    //     this->vertex_list[k][v1].data.second += weight;
     // }
 
-    /**
-     * @brief
-     *
-     * @tparam Ts
-     * @param weight
-     * @param part_v
-     * @param v
-     */
-    auto _modify_vertex_va(int weight, std::uint8_t k, const node_t& v1) -> void
-    {
-        this->vertex_list[k][v1].data.second += weight;
-    }
+    // /**
+    //  * @brief
+    //  *
+    //  * @tparam Ts
+    //  * @param weight
+    //  * @param part_v
+    //  * @param v
+    //  */
+    // auto _modify_vertex_va(
+    //     int weight, std::uint8_t k, const node_t& v1, const node_t& v2) -> void
+    // {
+    //     this->vertex_list[k][v1].data.second += weight;
+    //     this->vertex_list[k][v2].data.second += weight;
+    // }
 
-    /**
-     * @brief
-     *
-     * @tparam Ts
-     * @param weight
-     * @param part_v
-     * @param v
-     */
-    auto _modify_vertex_va(
-        int weight, std::uint8_t k, const node_t& v1, const node_t& v2) -> void
-    {
-        this->vertex_list[k][v1].data.second += weight;
-        this->vertex_list[k][v2].data.second += weight;
-    }
-
-    /**
-     * @brief
-     *
-     * @tparam Ts
-     * @param weight
-     * @param part_v
-     * @param v
-     */
-    auto _modify_vertex_va(int weight, std::uint8_t k, const node_t& v1,
-        const node_t& v2, const node_t& v3) -> void
-    {
-        this->vertex_list[k][v1].data.second += weight;
-        this->vertex_list[k][v2].data.second += weight;
-        this->vertex_list[k][v3].data.second += weight;
-    }
+    // /**
+    //  * @brief
+    //  *
+    //  * @tparam Ts
+    //  * @param weight
+    //  * @param part_v
+    //  * @param v
+    //  */
+    // auto _modify_vertex_va(int weight, std::uint8_t k, const node_t& v1,
+    //     const node_t& v2, const node_t& v3) -> void
+    // {
+    //     this->vertex_list[k][v1].data.second += weight;
+    //     this->vertex_list[k][v2].data.second += weight;
+    //     this->vertex_list[k][v3].data.second += weight;
+    // }
 
     /**
      * @brief

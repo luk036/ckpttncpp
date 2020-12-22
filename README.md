@@ -37,4 +37,3 @@ To run CTest:
 Limits:
 
     Maximum #partitions = 256
-    The program will not optimize for nets whose pins > 256.

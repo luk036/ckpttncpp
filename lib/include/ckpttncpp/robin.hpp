@@ -2,6 +2,7 @@
 
 // #include "dllist.hpp" // import dllink
 #include <vector>
+#include <memory_resource>
 
 template <typename T>
 class robin
@@ -13,7 +14,9 @@ class robin
         T key;
     };
 
-    std::vector<slnode> cycle;
+    std::byte StackBuf[2048];
+    std::pmr::monotonic_buffer_resource rsrc;
+    std::pmr::vector<slnode> cycle;
 
     struct iterator
     {
@@ -54,7 +57,7 @@ class robin
 
   public:
     explicit robin(T K)
-        : cycle(K)
+        : cycle(K, &rsrc)
     {
         K -= 1;
         for (auto k = 0U; k != K; ++k)

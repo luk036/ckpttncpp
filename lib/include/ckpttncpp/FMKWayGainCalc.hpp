@@ -22,11 +22,11 @@ class FMKWayGainCalc
     std::uint8_t K;
     robin<std::uint8_t> RR;
     // size_t num_modules;
-    std::vector<std::vector<dllink<std::pair<node_t, int16_t>>>> vertex_list;
+    int totalcost {0};
     std::byte StackBuf[10000];
     std::pmr::monotonic_buffer_resource rsrc;
+    std::pmr::vector<std::vector<dllink<std::pair<node_t, int16_t>>>> vertex_list;
     std::pmr::vector<int> deltaGainV;
-    int totalcost {0};
 
   public:
     std::pmr::vector<int> deltaGainW;
@@ -44,6 +44,7 @@ class FMKWayGainCalc
         , K {K}
         , RR {K}
         , rsrc(StackBuf, sizeof StackBuf)
+        , vertex_list(&rsrc)
         , deltaGainV(K, 0, &rsrc)
         , deltaGainW(K, 0, &rsrc)
         , IdVec(&rsrc)

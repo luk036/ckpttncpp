@@ -2,6 +2,7 @@
 
 #include "FMConstrMgr.hpp"
 #include <gsl/span>
+#include <range/v3/view/zip.hpp>
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
 
 /*!
@@ -47,9 +48,10 @@ class FMKWayConstrMgr : public FMConstrMgr
     auto init(gsl::span<const std::uint8_t> part) -> void
     {
         FMConstrMgr::init(part);
-        for (auto k = 0U; k != this->K; ++k)
+        // for (auto k = 0U; k != this->K; ++k)
+        for (auto&& [il, d] : ranges::views::zip(this->illegal, this->diff))
         {
-            this->illegal[k] = (this->diff[k] < this->lowerbound);
+            il = (d < this->lowerbound);
         }
     }
 

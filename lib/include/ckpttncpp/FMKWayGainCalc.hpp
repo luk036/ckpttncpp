@@ -25,7 +25,8 @@ class FMKWayGainCalc
     int totalcost {0};
     std::byte StackBuf[10000];
     std::pmr::monotonic_buffer_resource rsrc;
-    std::pmr::vector<std::vector<dllink<std::pair<node_t, int16_t>>>> vertex_list;
+    std::pmr::vector<std::vector<dllink<std::pair<node_t, int16_t>>>>
+        vertex_list;
     std::pmr::vector<int> deltaGainV;
 
   public:
@@ -101,7 +102,7 @@ class FMKWayGainCalc
      */
     auto update_move_init() -> void
     {
-        std::fill_n(this->deltaGainV.begin(), this->K, 0);
+        std::fill(this->deltaGainV.begin(), this->deltaGainV.end(), 0);
     }
 
     /*!
@@ -177,7 +178,8 @@ class FMKWayGainCalc
     //  * @param part_v
     //  * @param v
     //  */
-    // auto _modify_vertex_va(int weight, std::uint8_t k, const node_t& v1) -> void
+    // auto _modify_vertex_va(int weight, std::uint8_t k, const node_t& v1) ->
+    // void
     // {
     //     this->vertex_list[k][v1].data.second += weight;
     // }
@@ -191,7 +193,8 @@ class FMKWayGainCalc
     //  * @param v
     //  */
     // auto _modify_vertex_va(
-    //     int weight, std::uint8_t k, const node_t& v1, const node_t& v2) -> void
+    //     int weight, std::uint8_t k, const node_t& v1, const node_t& v2) ->
+    //     void
     // {
     //     this->vertex_list[k][v1].data.second += weight;
     //     this->vertex_list[k][v2].data.second += weight;

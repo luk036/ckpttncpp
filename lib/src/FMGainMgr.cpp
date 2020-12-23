@@ -1,8 +1,10 @@
 #include <ckpttncpp/FMGainMgr.hpp>
 #include <memory_resource>
+#include <range/v3/view/zip.hpp>
 #include <vector>
 
 using node_t = typename SimpleNetlist::node_t;
+using namespace ranges;
 
 /**
  * @brief Construct a new FMGainMgr object
@@ -49,21 +51,22 @@ template <typename GainCalc, class Derived>
 std::tuple<MoveInfoV<node_t>, int> FMGainMgr<GainCalc, Derived>::select(
     gsl::span<const std::uint8_t> part)
 {
-    auto gainmax = std::vector<int>(this->K);
-    for (auto k = 0U; k != this->K; ++k)
-    {
-        gainmax[k] = this->gainbucket[k].get_max();
-    }
-    const auto it = std::max_element(gainmax.cbegin(), gainmax.cend());
-    const auto toPart = std::uint8_t(std::distance(gainmax.cbegin(), it));
-    auto& vlink = this->gainbucket[toPart].popleft();
+    const auto it = std::max_element(this->gainbucket.begin(),
+        this->gainbucket.end(), [](const auto& bckt1, const auto& bckt2) {
+            return bckt1.get_max() < bckt2.get_max();
+        });
+
+    const auto toPart =
+        std::uint8_t(std::distance(this->gainbucket.begin(), it));
+    const auto gainmax = it->get_max();
+    auto& vlink = it->popleft();
     this->waitinglist.append(vlink);
     // node_t v = &vlink - this->gainCalc.start_ptr(toPart);
     const auto v = vlink.data.first;
     // const auto v =
     //     node_t(std::distance(this->gainCalc.start_ptr(toPart), &vlink));
     // auto move_info_v = MoveInfoV<node_t> {v, part[v], toPart};
-    return {{v, part[v], toPart}, gainmax[toPart]};
+    return {{v, part[v], toPart}, gainmax};
 }
 
 /**
@@ -96,10 +99,7 @@ template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::update_move(
     gsl::span<const std::uint8_t> part, const MoveInfoV<node_t>& move_info_v)
 {
-    // std::fill_n(this->deltaGainV.begin(), this->K, 0);
     this->gainCalc.update_move_init();
-
-    // const auto& [v, fromPart, toPart] = move_info_v;
     const auto& v = move_info_v.v;
     for (const node_t& net : this->H.G[move_info_v.v])
     {
@@ -109,8 +109,8 @@ void FMGainMgr<GainCalc, Derived>::update_move(
             continue; // does not provide any gain change when
                       // moving
         }
-        const auto move_info = MoveInfo<node_t> {
-            net, v, move_info_v.fromPart, move_info_v.toPart};
+        const auto move_info =
+            MoveInfo<node_t> {net, v, move_info_v.fromPart, move_info_v.toPart};
         if (!this->gainCalc.special_handle_2pin_nets)
         {
             this->gainCalc.init_IdVec(v, net);
@@ -148,8 +148,7 @@ void FMGainMgr<GainCalc, Derived>::_update_move_2pin_net(
 {
     // const auto [w, deltaGainW] =
     //     this->gainCalc.update_move_2pin_net(part, move_info);
-    const auto w =
-        this->gainCalc.update_move_2pin_net(part, move_info);
+    const auto w = this->gainCalc.update_move_2pin_net(part, move_info);
     self.modify_key(w, part[w], this->gainCalc.deltaGainW);
 }
 
@@ -167,14 +166,19 @@ void FMGainMgr<GainCalc, Derived>::_update_move_3pin_net(
     // std::pmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
     // auto IdVec = std::pmr::vector<node_t>(&rsrc);
 
-    const auto deltaGain =
-        this->gainCalc.update_move_3pin_net(part, move_info);
-    const auto degree = this->gainCalc.IdVec.size();
-    for (size_t index = 0U; index != degree; ++index)
+    const auto deltaGain = this->gainCalc.update_move_3pin_net(part, move_info);
+
+    for (const auto& [dGw, w] : views::zip(deltaGain, this->gainCalc.IdVec))
     {
-        const auto& w = this->gainCalc.IdVec[index];
-        self.modify_key(w, part[w], deltaGain[index]);
+        self.modify_key(w, part[w], dGw);
     }
+
+    // const auto degree = this->gainCalc.IdVec.size();
+    // for (size_t index = 0U; index != degree; ++index)
+    // {
+    //     const auto& w = this->gainCalc.IdVec[index];
+    //     self.modify_key(w, part[w], deltaGain[index]);
+    // }
 }
 
 /**
@@ -194,13 +198,9 @@ void FMGainMgr<GainCalc, Derived>::_update_move_general_net(
     // const auto [IdVec, deltaGain] =
     const auto deltaGain =
         this->gainCalc.update_move_general_net(part, move_info);
-    // const auto& IdVec = std::get<0>(infoW);
-    // const auto& deltaGain = std::get<1>(infoW);
-    const auto degree = this->gainCalc.IdVec.size();
-    for (size_t index = 0U; index != degree; ++index)
+    for (const auto& [dGw, w] : views::zip(deltaGain, this->gainCalc.IdVec))
     {
-        const auto& w = this->gainCalc.IdVec[index];
-        self.modify_key(w, part[w], deltaGain[index]);
+        self.modify_key(w, part[w], dGw);
     }
 }
 

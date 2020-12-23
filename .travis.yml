@@ -14,6 +14,7 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-9
+            - librange-v3-dev
             - libbenchmark-dev
             - libboost-dev
             - libfmt-dev
@@ -33,6 +34,7 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-10
+            - librange-v3-dev
             - libbenchmark-dev
             - libboost-dev
             - libfmt-dev
@@ -47,6 +49,7 @@ matrix:
         apt:
           packages:
             - clang-9
+            - librange-v3-dev
             - libbenchmark-dev
             - libboost-dev
             - libfmt-dev

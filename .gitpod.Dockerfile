@@ -18,6 +18,7 @@ RUN apt-get update \
   cppcheck \
   lcov \
   ninja-build \
+  librange-v3-dev \
   libbenchmark-dev \
   libboost-dev \
   libfmt-dev \

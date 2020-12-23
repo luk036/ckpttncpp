@@ -9,10 +9,11 @@
 auto FMBiGainMgr::init(gsl::span<const std::uint8_t> part) -> int
 {
     auto totalcost = Base::init(part);
-    for (auto k = 0U; k != this->K; ++k)
+    for (auto& bckt : this->gainbucket)
     {
-        this->gainbucket[k].clear();
+        bckt.clear();
     }
+
     for (auto&& v : this->H.modules)
     {
         auto& vlink = this->gainCalc.vertex_list[v];

@@ -3,6 +3,9 @@
 #include "FMGainMgr.hpp"
 #include "FMKWayGainCalc.hpp"
 #include <gsl/span>
+#include <range/v3/view/zip.hpp>
+
+using namespace ranges;
 
 // class FMKWayGainMgr;
 
@@ -12,7 +15,6 @@
  */
 class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
 {
-
   private:
     robin<std::uint8_t> RR;
 
@@ -47,8 +49,8 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
      * @param[in] part_w
      * @param[in] keys
      */
-    auto modify_key(const node_t& w, std::uint8_t part_w,
-        gsl::span<const int> keys) -> void
+    auto modify_key(
+        const node_t& w, std::uint8_t part_w, gsl::span<const int> keys) -> void
     {
         for (auto k : this->RR.exclude(part_w))
         {
@@ -86,9 +88,12 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
      */
     auto lock_all(uint8_t /*fromPart*/, const node_t& v) -> void
     {
-        for (auto k = 0U; k != this->K; ++k)
+        for (auto&& [vlist, bckt] :
+            views::zip(this->gainCalc.vertex_list, this->gainbucket))
         {
-            this->lock(k, v);
+            auto& vlink = vlist[v];
+            bckt.detach(vlink);
+            vlink.lock(); // lock
         }
     }
 

@@ -8,7 +8,7 @@
  */
 void FMConstrMgr::init(gsl::span<const std::uint8_t> part)
 {
-    std::fill_n(this->diff.begin(), this->K, 0);
+    std::fill(this->diff.begin(), this->diff.end(), 0);
     for (auto&& v : this->H.modules)
     {
         // auto weight_v = this->H.get_module_weight(v);

@@ -1,6 +1,10 @@
 #include <ckpttncpp/FMKWayGainCalc.hpp>
 #include <memory_resource>
+#include <range/v3/view/enumerate.hpp>
+#include <range/v3/view/zip.hpp>
 #include <vector>
+
+using namespace ranges;
 
 /**
  * @brief
@@ -145,25 +149,26 @@ void FMKWayGainCalc::_init_gain_general_net(
         // IdVec.push_back(w);
     }
     const auto weight = this->H.get_net_weight(net);
-    for (auto k = 0U; k != this->K; ++k)
+    for (auto&& c : num)
     {
-        if (num[k] > 0)
+        if (c > 0)
         {
             this->totalcost += weight;
         }
     }
     this->totalcost -= weight;
 
-    for (auto k = 0U; k != this->K; ++k)
+    // auto k = 0U;
+    for (auto&& [k, c] : views::enumerate(num))
     {
-        if (num[k] == 0)
+        if (c == 0)
         {
             for (auto&& w : this->H.G[net])
             {
                 vertex_list[k][w].data.second -= weight;
             }
         }
-        else if (num[k] == 1)
+        else if (c == 1)
         {
             for (auto&& w : this->H.G[net])
             {
@@ -174,6 +179,7 @@ void FMKWayGainCalc::_init_gain_general_net(
                 }
             }
         }
+        // k += 1;
     }
 }
 
@@ -196,15 +202,15 @@ FMKWayGainCalc::node_t FMKWayGainCalc::update_move_2pin_net(
     // auto deltaGainW = std::vector<int>(this->K, 0);
     auto netCur = this->H.G[move_info.net].begin();
     auto w = (*netCur != move_info.v) ? *netCur : *++netCur;
-    std::fill_n(this->deltaGainW.begin(), this->K, 0);
+    std::fill(this->deltaGainW.begin(), this->deltaGainW.end(), 0);
     for (auto&& l : {move_info.fromPart, move_info.toPart})
     {
         if (part[w] == l)
         {
-            for (auto k = 0U; k != this->K; ++k)
+            for (auto&& [dGw, dGv] : views::zip(deltaGainW, this->deltaGainV))
             {
-                deltaGainW[k] += weight;
-                this->deltaGainV[k] += weight;
+                dGw += weight;
+                dGv += weight;
             }
         }
         deltaGainW[l] -= weight;
@@ -272,9 +278,9 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
                 deltaGain[1][l] -= weight;
                 if (part_w == u)
                 {
-                    for (auto k = 0U; k != this->K; ++k)
+                    for (auto& dGV : this->deltaGainV)
                     {
-                        this->deltaGainV[k] -= weight;
+                        dGV -= weight;
                     }
                 }
             }
@@ -288,16 +294,16 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
     {
         if (part_w == l)
         {
-            for (auto k = 0U; k != this->K; ++k)
+            for (auto& dG0 : deltaGain[0])
             {
-                deltaGain[0][k] += weight;
+                dG0 += weight;
             }
         }
         else if (part_u == l)
         {
-            for (auto k = 0U; k != this->K; ++k)
+            for (auto& dG1 : deltaGain[1])
             {
-                deltaGain[1][k] += weight;
+                dG1 += weight;
             }
         }
         else
@@ -306,9 +312,9 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
             deltaGain[1][l] -= weight;
             if (part_w == u || part_u == u)
             {
-                for (auto k = 0U; k != this->K; ++k)
+                for (auto& dGV : this->deltaGainV)
                 {
-                    this->deltaGainV[k] -= weight;
+                    dGV -= weight;
                 }
             }
         }
@@ -365,9 +371,9 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_general_net(
             }
             if (num[u] > 0)
             {
-                for (auto k = 0U; k != this->K; ++k)
+                for (auto& dGV : this->deltaGainV)
                 {
-                    this->deltaGainV[k] -= weight;
+                    dGV -= weight;
                 }
             }
         }
@@ -377,9 +383,9 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_general_net(
             {
                 if (part[this->IdVec[index]] == l)
                 {
-                    for (auto k = 0U; k != this->K; ++k)
+                    for (auto& dG : deltaGain[index])
                     {
-                        deltaGain[index][k] += weight;
+                        dG += weight;
                     }
                     break;
                 }

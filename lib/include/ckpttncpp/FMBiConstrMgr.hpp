@@ -7,8 +7,9 @@
  *
  * Check if (the move of v can satisfied, makebetter, or notsatisfied
  */
-struct FMBiConstrMgr : FMConstrMgr
+class FMBiConstrMgr : public FMConstrMgr
 {
+  public:
     /*!
      * @brief Construct a new FMBiConstrMgr object
      *

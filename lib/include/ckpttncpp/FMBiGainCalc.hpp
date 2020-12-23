@@ -14,7 +14,8 @@
 class FMBiGainCalc
 {
     friend class FMBiGainMgr;
-  public:  
+
+  public:
     using node_t = typename SimpleNetlist::node_t;
 
   private:
@@ -111,8 +112,7 @@ class FMBiGainCalc
      * @return ret_info
      */
     auto update_move_3pin_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo<node_t>& move_info)
-        -> std::vector<int>;
+        const MoveInfo<node_t>& move_info) -> std::vector<int>;
 
     /*!
      * @brief update move general net
@@ -122,8 +122,7 @@ class FMBiGainCalc
      * @return ret_info
      */
     auto update_move_general_net(gsl::span<const std::uint8_t> part,
-        const MoveInfo<node_t>& move_info)
-        -> std::vector<int>;
+        const MoveInfo<node_t>& move_info) -> std::vector<int>;
 
   private:
     /*!
@@ -169,7 +168,8 @@ class FMBiGainCalc
     //  * @param weight
     //  * @param w
     //  */
-    // auto _modify_gain_va(int weight, const node_t& w1, const node_t& w2) -> void
+    // auto _modify_gain_va(int weight, const node_t& w1, const node_t& w2) ->
+    // void
     // {
     //     this->vertex_list[w1].data.second += weight;
     //     this->vertex_list[w2].data.second += weight;

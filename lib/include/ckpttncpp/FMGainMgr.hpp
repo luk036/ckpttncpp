@@ -72,14 +72,8 @@ class FMGainMgr
      */
     [[nodiscard]] auto is_empty() const -> bool
     {
-        for (auto k = 0U; k != this->K; ++k)
-        {
-            if (!this->gainbucket[k].is_empty())
-            {
-                return false;
-            }
-        }
-        return true;
+        return std::all_of(this->gainbucket.cbegin(), this->gainbucket.cend(),
+            [&](const auto& bckt) { return bckt.is_empty(); });
     }
 
     /*!

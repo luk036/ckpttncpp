@@ -11,9 +11,9 @@ int FMKWayGainMgr::init(gsl::span<const std::uint8_t> part)
 {
     auto totalcost = Base::init(part);
 
-    for (auto k = 0U; k != this->K; ++k)
+    for (auto& bckt : this->gainbucket)
     {
-        this->gainbucket[k].clear();
+        bckt.clear();
     }
     for (auto&& v : this->H.modules)
     {

@@ -6,7 +6,7 @@
 // #include "FMPartMgr.hpp" // import FMPartMgr
 // #include "netlist.hpp"
 #include <cassert>
-#include <ckpttncpp/netlist.hpp>
+#include <ckpttncpp/HierNetlist.hpp>
 #include <gsl/span>
 #include <memory> // std::unique_ptr
 #include <vector>
@@ -20,7 +20,7 @@
 
 using node_t = typename SimpleNetlist::node_t;
 extern auto create_contraction_subgraph(const SimpleNetlist&,
-    const py::set<node_t>&) -> std::unique_ptr<SimpleNetlist>;
+    const py::set<node_t>&) -> std::unique_ptr<SimpleHierNetlist>;
 
 enum class LegalCheck;
 

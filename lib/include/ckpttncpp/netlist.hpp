@@ -45,12 +45,6 @@ struct Netlist
     bool has_fixed_modules {};
     py::set<node_t> module_fixed;
 
-    /* For multi-level algorithms */
-    const Netlist<graph_t>* parent;
-    py::dict<node_t, index_t> node_up_map;
-    py::dict<index_t, node_t> node_down_map;
-    py::dict<index_t, node_t> cluster_down_map;
-
   public:
     /*!
      * @brief Construct a new Netlist object
@@ -152,24 +146,6 @@ struct Netlist
         //                                 this->net_weight[this->net_map[net]];
         return 1;
     }
-
-    /*!
-     * @brief projection down
-     *
-     * @param[in] part
-     * @param[out] part_down
-     */
-    void projection_down(gsl::span<const std::uint8_t> part,
-        gsl::span<std::uint8_t> part_down) const;
-
-    /*!
-     * @brief projection up
-     *
-     * @param[in] part
-     * @param[out] part_up
-     */
-    void projection_up(gsl::span<const std::uint8_t> part,
-        gsl::span<std::uint8_t> part_up) const;
 };
 
 /**

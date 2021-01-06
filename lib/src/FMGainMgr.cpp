@@ -191,13 +191,9 @@ template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::_update_move_general_net(
     gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info)
 {
-    // std::byte StackBuf[2048];
-    // std::pmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
-    // auto IdVec = std::pmr::vector<node_t>(&rsrc);
-
-    // const auto [IdVec, deltaGain] =
     const auto deltaGain =
         this->gainCalc.update_move_general_net(part, move_info);
+    // Why not auto&& ?
     for (const auto& [dGw, w] : views::zip(deltaGain, this->gainCalc.IdVec))
     {
         self.modify_key(w, part[w], dGw);

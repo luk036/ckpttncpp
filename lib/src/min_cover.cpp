@@ -2,8 +2,11 @@
 #include <ckpttncpp/netlist.hpp>
 #include <memory>
 #include <py2cpp/py2cpp.hpp>
+#include <range/v3/view/enumerate.hpp>
 #include <tuple>
 #include <vector>
+
+#include <ckpttncpp/HierNetlist.hpp>
 
 using node_t = typename SimpleNetlist::node_t;
 
@@ -236,8 +239,8 @@ auto min_maximal_matching_pd(
  * @param[in] DontSelect
  * @return auto
  */
-auto create_contraction_subgraph(
-    const SimpleNetlist& H, const py::set<node_t>& DontSelect)
+auto create_contraction_subgraph(const SimpleNetlist& H,
+    const py::set<node_t>& DontSelect) -> std::unique_ptr<SimpleHierNetlist>
 {
     auto rslt = max_independent_net(H, H.module_weight, DontSelect);
     auto&& S = std::get<0>(rslt);
@@ -306,19 +309,19 @@ auto create_contraction_subgraph(
     { // localize module_map and net_map
         auto module_map = py::dict<node_t, index_t> {};
         module_map.reserve(numModules);
-        // for (auto&& [i_v, v] : py::enumerate(modules))
-        for (auto i_v = 0U; i_v != modules.size(); ++i_v)
+        for (auto&& [i_v, v] : ranges::views::enumerate(modules))
+        // for (auto i_v = 0U; i_v != modules.size(); ++i_v)
         {
-            const auto& v = modules[i_v];
+            // const auto& v = modules[i_v];
             module_map[v] = index_t(i_v);
         }
 
         auto net_map = py::dict<node_t, index_t> {};
         net_map.reserve(numNets);
-        // for (auto&& [i_net, net] : py::enumerate(nets))
-        for (auto i_net = 0U; i_net != nets.size(); ++i_net)
+        for (auto&& [i_net, net] : ranges::views::enumerate(nets))
+        // for (auto i_net = 0U; i_net != nets.size(); ++i_net)
         {
-            const auto& net = nets[i_net];
+            // const auto& net = nets[i_net];
             net_map[net] = index_t(i_net);
         }
 
@@ -352,7 +355,7 @@ auto create_contraction_subgraph(
     // auto G = xn::grAdaptor<graph_t>(std::move(g));
     auto G = std::move(g);
 
-    auto H2 = std::make_unique<SimpleNetlist>(std::move(G),
+    auto H2 = std::make_unique<SimpleHierNetlist>(std::move(G),
         py::range<int>(numModules), py::range<int>(numModules, num_vertices));
 
     auto node_down_map = py::dict<index_t, node_t> {};

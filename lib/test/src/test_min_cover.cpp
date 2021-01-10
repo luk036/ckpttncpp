@@ -1,4 +1,5 @@
 #include <ckpttncpp/netlist.hpp> // import Netlist
+#include <ckpttncpp/HierNetlist.hpp> // import Netlist
 #include <doctest.h>
 #include <memory> //std::unique_ptr
 #include <py2cpp/py2cpp.hpp>
@@ -14,7 +15,7 @@ extern void readAre(SimpleNetlist& H, std::string_view areFileName);
 using node_t = SimpleNetlist::node_t;
 extern std::tuple<py::set<node_t>, int> max_independent_net(
     const SimpleNetlist&, const std::vector<int>&, const py::set<node_t>&);
-extern std::unique_ptr<SimpleNetlist> create_contraction_subgraph(
+extern std::unique_ptr<SimpleHierNetlist> create_contraction_subgraph(
     const SimpleNetlist&, const py::set<node_t>&);
 
 //

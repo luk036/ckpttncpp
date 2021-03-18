@@ -38,7 +38,7 @@ class dllink
      *
      * @param[in] data the data
      */
-    explicit dllink(T data)
+    constexpr explicit dllink(T data) noexcept
         : data {std::move(data)}
     {
         static_assert(sizeof(dllink) <= 24, "keep this class small");
@@ -48,18 +48,18 @@ class dllink
      * @brief Copy construct a new dllink object (deleted intentionally)
      *
      */
-    dllink() = default;
+    constexpr dllink() = default;
     ~dllink() = default;
     dllink(const dllink&) = delete;                    // don't copy
-    auto operator=(const dllink&) -> dllink& = delete; // don't assign
-    dllink(dllink&&) noexcept = default;
-    auto operator=(dllink&&) noexcept -> dllink& = default; // don't assign
+    constexpr auto operator=(const dllink&) -> dllink& = delete; // don't assign
+    constexpr dllink(dllink&&) noexcept = default;
+    constexpr auto operator=(dllink&&) noexcept -> dllink& = default; // don't assign
 
     /*!
      * @brief detach from a list
      *
      */
-    auto detach() -> void
+    constexpr auto detach() noexcept -> void
     {
         assert(!this->is_locked());
         const auto n = this->next;
@@ -72,7 +72,7 @@ class dllink
      * @brief lock the node (and don't append it to any list)
      *
      */
-    auto lock() -> void
+    constexpr auto lock() noexcept -> void
     {
         this->next = nullptr;
     }
@@ -83,7 +83,7 @@ class dllink
      * @return true
      * @return false
      */
-    [[nodiscard]] auto is_locked() const -> bool
+    [[nodiscard]] constexpr auto is_locked() const noexcept -> bool
     {
         return this->next == nullptr;
     }
@@ -94,7 +94,7 @@ class dllink
      * @return true
      * @return false
      */
-    [[nodiscard]] auto is_empty() const -> bool
+    [[nodiscard]] constexpr auto is_empty() const noexcept -> bool
     {
         return this->next == this;
     }
@@ -103,7 +103,7 @@ class dllink
      * @brief reset the list
      *
      */
-    auto clear() -> void
+    constexpr auto clear() noexcept -> void
     {
         this->next = this->prev = this;
     }
@@ -113,7 +113,7 @@ class dllink
      *
      * @param[in,out] node
      */
-    auto appendleft(dllink& node) -> void
+    constexpr auto appendleft(dllink& node) noexcept -> void
     {
         node.next = this->next;
         this->next->prev = &node;
@@ -126,7 +126,7 @@ class dllink
      *
      * @param[in,out] node
      */
-    auto append(dllink& node) -> void
+    constexpr auto append(dllink& node) noexcept -> void
     {
         node.prev = this->prev;
         this->prev->next = &node;
@@ -141,7 +141,7 @@ class dllink
      *
      * Precondition: list is not empty
      */
-    auto popleft() -> dllink&
+    constexpr auto popleft() noexcept -> dllink&
     {
         auto res = this->next;
         this->next = res->next;
@@ -156,7 +156,7 @@ class dllink
      *
      * Precondition: list is not empty
      */
-    auto pop() -> dllink&
+    constexpr auto pop() noexcept -> dllink&
     {
         auto res = this->prev;
         this->prev = res->prev;
@@ -171,21 +171,21 @@ class dllink
      *
      * @return dll_iterator
      */
-    auto begin() -> dll_iterator<T>;
+    constexpr auto begin() noexcept -> dll_iterator<T>;
 
     /*!
      * @brief
      *
      * @return dll_iterator
      */
-    auto end() -> dll_iterator<T>;
+    constexpr auto end() noexcept -> dll_iterator<T>;
 
-    auto items() -> dllink&
+    constexpr auto items() noexcept -> dllink&
     {
         return *this;
     }
 
-    auto items() const -> const dllink&
+    constexpr auto items() const noexcept -> const dllink&
     {
         return *this;
     }
@@ -198,7 +198,7 @@ class dllink
     //  *
     //  * @return pull_t
     //  */
-    // auto items() -> pull_t
+    // auto items() noexcept -> pull_t
     // {
     //     auto func = [&](typename coro_t::push_type& yield) {
     //         auto cur = this->next;
@@ -229,7 +229,7 @@ struct dll_iterator
      *
      * @param[in] cur
      */
-    explicit dll_iterator(dllink<T>* cur)
+    constexpr explicit dll_iterator(dllink<T>* cur) noexcept
         : cur {cur}
     {
     }
@@ -239,7 +239,7 @@ struct dll_iterator
      *
      * @return dllink&
      */
-    auto operator++() -> dll_iterator&
+    constexpr auto operator++() noexcept -> dll_iterator&
     {
         this->cur = this->cur->next;
         return *this;
@@ -250,7 +250,7 @@ struct dll_iterator
      *
      * @return dllink&
      */
-    auto operator*() -> dllink<T>&
+    constexpr auto operator*() noexcept -> dllink<T>&
     {
         return *this->cur;
     }
@@ -263,7 +263,7 @@ struct dll_iterator
      * @return false
      */
     friend auto operator==(const dll_iterator& lhs, const dll_iterator& rhs)
-        -> bool
+        noexcept -> bool
     {
         return lhs.cur == rhs.cur;
     }
@@ -276,7 +276,7 @@ struct dll_iterator
      * @return false
      */
     friend auto operator!=(const dll_iterator& lhs, const dll_iterator& rhs)
-        -> bool
+        noexcept -> bool
     {
         return !(lhs == rhs);
     }
@@ -289,7 +289,7 @@ struct dll_iterator
  * @return dll_iterator
  */
 template <typename T>
-inline auto dllink<T>::begin() -> dll_iterator<T>
+inline constexpr auto dllink<T>::begin() noexcept -> dll_iterator<T>
 {
     return dll_iterator<T> {this->next};
 }
@@ -300,7 +300,7 @@ inline auto dllink<T>::begin() -> dll_iterator<T>
  * @return dll_iterator
  */
 template <typename T>
-inline auto dllink<T>::end() -> dll_iterator<T>
+inline constexpr auto dllink<T>::end() noexcept -> dll_iterator<T>
 {
     return dll_iterator<T> {this};
 }

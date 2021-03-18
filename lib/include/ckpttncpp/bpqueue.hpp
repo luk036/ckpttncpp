@@ -8,7 +8,7 @@
 #include <vector>
 
 // Forward declaration for begin() end()
-template <typename T, typename Int>
+template <typename _Tp, typename Int>
 class bpq_iterator;
 
 /*!
@@ -32,21 +32,33 @@ class bpq_iterator;
  *
  * @TODO: support std::pmr
  */
-template <typename T, typename Int = int16_t> //
+template <typename _Tp, typename Int = int16_t,
+          typename _Sequence = std::vector<dllink<std::pair<_Tp, Int>> > > 
+//          class Allocator = typename std::allocator<dllink<std::pair<_Tp, Int>> > > 
 class bpqueue
 {
-    friend bpq_iterator<T, Int>;
-    using value_type = T;
-    using key_type = Int;
-    using Item = dllink<std::pair<T, Int>>;
+    friend bpq_iterator<_Tp, Int>;
+    using Item = dllink<std::pair<_Tp, Int>>;
+
+    static_assert(std::is_same<Item, typename _Sequence::value_type>::value,
+          "value_type must be the same as the underlying container");
+
+    public:
+      typedef typename _Sequence::value_type            value_type;
+      typedef typename _Sequence::reference             reference;
+      typedef typename _Sequence::const_reference       const_reference;
+      typedef typename _Sequence::size_type             size_type;
+      typedef          _Sequence                        container_type;
 
   private:
     static Item sentinel; /*!< sentinel */
 
-    std::vector<Item> bucket; //!< bucket, array of lists
+    _Sequence bucket;         //!< bucket, array of lists
     Int max {};               //!< max value
     Int offset;               //!< a - 1
     Int high;                 //!< b - a + 1
+
+    // using alloc_t = decltype(bucket.get_allocator());
 
   public:
     /*!
@@ -55,7 +67,7 @@ class bpqueue
      * @param[in] a lower bound
      * @param[in] b upper bound
      */
-    bpqueue(Int a, Int b)
+    constexpr bpqueue(Int a, Int b)
         : bucket(b - a + 2)
         , offset(a - 1)
         , high(b - offset)
@@ -67,10 +79,21 @@ class bpqueue
     }
 
     bpqueue(const bpqueue&) = delete;                    // don't copy
-    auto operator=(const bpqueue&) -> bpqueue& = delete; // don't assign
-    bpqueue(bpqueue&&) noexcept = default;
-    auto operator=(bpqueue&&) noexcept -> bpqueue& = default; // don't assign
     ~bpqueue() = default;
+    constexpr auto operator=(const bpqueue&) -> bpqueue& = delete; // don't assign
+    constexpr bpqueue(bpqueue&&) noexcept = default;
+    constexpr auto operator=(bpqueue&&) noexcept -> bpqueue& = default; // don't assign
+
+    /*!
+     * @brief whether the %bpqueue is empty.
+     *
+     * @return true
+     * @return false
+     */
+    [[nodiscard]] constexpr auto is_empty() const noexcept -> bool
+    {
+        return this->max == 0;
+    }
 
     /*!
      * @brief Set the key object
@@ -78,7 +101,7 @@ class bpqueue
      * @param[out] it   the item
      * @param[in] gain the key of it
      */
-    auto set_key(Item& it, Int gain) -> void
+    constexpr auto set_key(Item& it, Int gain) noexcept -> void
     {
         it.data.second = gain - this->offset;
     }
@@ -88,26 +111,15 @@ class bpqueue
      *
      * @return T maximum value
      */
-    auto get_max() const -> Int
+    constexpr auto get_max() const noexcept -> Int
     {
         return this->max + this->offset;
     }
 
     /*!
-     * @brief whether empty
-     *
-     * @return true
-     * @return false
-     */
-    [[nodiscard]] auto is_empty() const -> bool
-    {
-        return this->max == 0;
-    }
-
-    /*!
      * @brief clear reset the PQ
      */
-    auto clear() -> void
+    constexpr auto clear() noexcept -> void
     {
         while (this->max > 0)
         {
@@ -121,7 +133,7 @@ class bpqueue
      *
      * @param[in,out] it the item
      */
-    auto append_direct(Item& it) -> void
+    constexpr auto append_direct(Item& it) noexcept -> void
     {
         assert(it.data.second > this->offset);
         this->append(it, it.data.second);
@@ -133,7 +145,7 @@ class bpqueue
      * @param[in,out] it the item
      * @param[in] k  the key
      */
-    auto append(Item& it, Int k) -> void
+    constexpr auto append(Item& it, Int k) noexcept -> void
     {
         assert(k > this->offset);
         it.data.second = k - this->offset;
@@ -149,7 +161,7 @@ class bpqueue
      *
      * @param[in,out] nodes
      */
-    auto appendfrom(gsl::span<Item> nodes) -> void
+    constexpr auto appendfrom(gsl::span<Item> nodes) noexcept -> void
     {
         for (auto&& it : nodes)
         {
@@ -169,7 +181,7 @@ class bpqueue
      *
      * @return dllink&
      */
-    auto popleft() -> Item&
+    constexpr auto popleft() noexcept -> Item&
     {
         auto& res = this->bucket[this->max].popleft();
         while (this->bucket[this->max].is_empty())
@@ -188,7 +200,7 @@ class bpqueue
      * Note that the order of items with same key will not be preserved.
      * For FM algorithm, this is a prefered behavior.
      */
-    auto decrease_key(Item& it, Int delta) -> void
+    constexpr auto decrease_key(Item& it, Int delta) noexcept -> void
     {
         // this->bucket[it.data.second].detach(it)
         it.detach();
@@ -216,7 +228,7 @@ class bpqueue
      * Note that the order of items with same key will not be preserved.
      * For FM algorithm, this is a prefered behavior.
      */
-    auto increase_key(Item& it, Int delta) -> void
+    constexpr auto increase_key(Item& it, Int delta) noexcept -> void
     {
         // this->bucket[it.data.second].detach(it)
         it.detach();
@@ -239,7 +251,7 @@ class bpqueue
      * Note that the order of items with same key will not be preserved.
      * For FM algorithm, this is a prefered behavior.
      */
-    auto modify_key(Item& it, Int delta) -> void
+    constexpr auto modify_key(Item& it, Int delta) noexcept -> void
     {
         if (it.is_locked())
         {
@@ -260,7 +272,7 @@ class bpqueue
      *
      * @param[in,out] it the item
      */
-    auto detach(Item& it) -> void
+    constexpr auto detach(Item& it) noexcept -> void
     {
         // this->bucket[it.data.second].detach(it)
         it.detach();
@@ -275,24 +287,24 @@ class bpqueue
      *
      * @return bpq_iterator
      */
-    auto begin() -> bpq_iterator<T, Int>;
+    constexpr auto begin() -> bpq_iterator<_Tp, Int>;
 
     /*!
      * @brief iterator point to end
      *
      * @return bpq_iterator
      */
-    auto end() -> bpq_iterator<T, Int>;
+    constexpr auto end() -> bpq_iterator<_Tp, Int>;
 
-    auto& items()
-    {
-        return *this;
-    }
+    // constexpr auto& items()
+    // {
+    //     return *this;
+    // }
 
-    const auto& items() const
-    {
-        return *this;
-    }
+    // constexpr const auto& items() const
+    // {
+    //     return *this;
+    // }
 
     // using coro_t = boost::coroutines2::coroutine<dllink<T>&>;
     // using pull_t = typename coro_t::pull_type;
@@ -326,17 +338,17 @@ class bpqueue
  * order. Detaching queue items may invalidate the iterator because
  * the iterator makes a copy of current key.
  */
-template <typename T, typename Int = int16_t>
+template <typename _Tp, typename Int = int16_t>
 class bpq_iterator
 {
-    using value_type = T;
-    using key_type = Int;
-    using Item = dllink<std::pair<T, Int>>;
+    // using value_type = _Tp;
+    // using key_type = Int;
+    using Item = dllink<std::pair<_Tp, Int>>;
 
   private:
-    bpqueue<T, Int>& bpq; /*!< the priority queue */
+    bpqueue<_Tp, Int>& bpq; /*!< the priority queue */
     Int curkey;           /*!< the current key value */
-    dll_iterator<std::pair<T, Int>>
+    dll_iterator<std::pair<_Tp, Int>>
         curitem; /*!< list iterator pointed to the current item.
                   */
 
@@ -345,7 +357,7 @@ class bpq_iterator
      *
      * @return dllink&
      */
-    auto curlist() -> Item&
+    constexpr auto curlist() -> Item&
     {
         return this->bpq.bucket[this->curkey];
     }
@@ -357,7 +369,7 @@ class bpq_iterator
      * @param[in] bpq
      * @param[in] curkey
      */
-    bpq_iterator(bpqueue<T, Int>& bpq, Int curkey)
+    constexpr bpq_iterator(bpqueue<_Tp, Int>& bpq, Int curkey)
         : bpq {bpq}
         , curkey {curkey}
         , curitem {bpq.bucket[curkey].begin()}
@@ -369,7 +381,7 @@ class bpq_iterator
      *
      * @return bpq_iterator&
      */
-    auto operator++() -> bpq_iterator&
+    constexpr auto operator++() -> bpq_iterator&
     {
         ++this->curitem;
         while (this->curitem == this->curlist().end())
@@ -388,7 +400,7 @@ class bpq_iterator
      *
      * @return bpq_iterator&
      */
-    auto operator*() -> Item&
+    constexpr auto operator*() -> Item&
     {
         return *this->curitem;
     }
@@ -400,7 +412,7 @@ class bpq_iterator
      * @return true
      * @return false
      */
-    friend auto operator==(const bpq_iterator& lhs, const bpq_iterator& rhs)
+    friend constexpr auto operator==(const bpq_iterator& lhs, const bpq_iterator& rhs)
         -> bool
     {
         return lhs.curitem == rhs.curitem;
@@ -413,7 +425,7 @@ class bpq_iterator
      * @return true
      * @return false
      */
-    friend auto operator!=(const bpq_iterator& lhs, const bpq_iterator& rhs)
+    friend constexpr auto operator!=(const bpq_iterator& lhs, const bpq_iterator& rhs)
         -> bool
     {
         return !(lhs == rhs);
@@ -425,8 +437,8 @@ class bpq_iterator
  *
  * @return bpq_iterator
  */
-template <typename T, typename Int>
-inline auto bpqueue<T, Int>::begin() -> bpq_iterator<T, Int>
+template <typename _Tp, typename Int, class _Sequence>
+inline constexpr auto bpqueue<_Tp, Int, _Sequence>::begin() -> bpq_iterator<_Tp, Int>
 {
     return {*this, this->max};
 }
@@ -436,8 +448,8 @@ inline auto bpqueue<T, Int>::begin() -> bpq_iterator<T, Int>
  *
  * @return bpq_iterator
  */
-template <typename T, typename Int>
-inline auto bpqueue<T, Int>::end() -> bpq_iterator<T, Int>
+template <typename _Tp, typename Int, class _Sequence>
+inline constexpr auto bpqueue<_Tp, Int, _Sequence>::end() -> bpq_iterator<_Tp, Int>
 {
     return {*this, 0};
 }

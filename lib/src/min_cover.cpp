@@ -2,7 +2,7 @@
 #include <ckpttncpp/netlist.hpp>
 #include <memory>
 #include <py2cpp/py2cpp.hpp>
-#include <range/v3/view/enumerate.hpp>
+// #include <range/v3/view/enumerate.hpp>
 #include <tuple>
 #include <vector>
 
@@ -309,20 +309,24 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
     { // localize module_map and net_map
         auto module_map = py::dict<node_t, index_t> {};
         module_map.reserve(numModules);
-        for (auto&& [i_v, v] : ranges::views::enumerate(modules))
-        // for (auto i_v = 0U; i_v != modules.size(); ++i_v)
+        // for (auto&& [i_v, v] : ranges::views::enumerate(modules))
+        auto i_v = 0U;
+        for (auto&& v : modules)
         {
             // const auto& v = modules[i_v];
             module_map[v] = index_t(i_v);
+            ++i_v;
         }
 
         auto net_map = py::dict<node_t, index_t> {};
         net_map.reserve(numNets);
-        for (auto&& [i_net, net] : ranges::views::enumerate(nets))
-        // for (auto i_net = 0U; i_net != nets.size(); ++i_net)
+        // for (auto&& [i_net, net] : ranges::views::enumerate(nets))
+        auto i_net = 0U;
+        for (auto&& net : nets)
         {
             // const auto& net = nets[i_net];
             net_map[net] = index_t(i_net);
+            ++i_net;
         }
 
         node_up_map.reserve(H.number_of_modules() + nets.size());

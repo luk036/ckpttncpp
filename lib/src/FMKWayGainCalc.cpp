@@ -1,6 +1,6 @@
 #include <ckpttncpp/FMKWayGainCalc.hpp>
 #include <memory_resource>
-#include <range/v3/view/enumerate.hpp>
+// #include <range/v3/view/enumerate.hpp>
 #include <range/v3/view/zip.hpp>
 #include <vector>
 
@@ -158,8 +158,9 @@ void FMKWayGainCalc::_init_gain_general_net(
     }
     this->totalcost -= weight;
 
-    // auto k = 0U;
-    for (auto&& [k, c] : views::enumerate(num))
+    // for (auto&& [k, c] : views::enumerate(num))
+    auto k = 0U;
+    for (auto&& c : num)
     {
         if (c == 0)
         {
@@ -179,7 +180,7 @@ void FMKWayGainCalc::_init_gain_general_net(
                 }
             }
         }
-        // k += 1;
+        ++k;
     }
 }
 

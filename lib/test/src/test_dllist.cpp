@@ -1,7 +1,7 @@
 #include <cinttypes>
 #include <ckpttncpp/dllist.hpp> // import  dllink
 #include <ckpttncpp/robin.hpp>  // import  robin
-#include <doctest.h>
+#include <doctest/doctest.h>
 
 TEST_CASE("Test dllist")
 {

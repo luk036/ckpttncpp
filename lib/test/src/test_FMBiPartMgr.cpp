@@ -1,7 +1,7 @@
 #include <ckpttncpp/FMBiConstrMgr.hpp> // import FMBiConstrMgr
 #include <ckpttncpp/FMBiGainMgr.hpp>   // import FMBiGainMgr
 #include <ckpttncpp/FMPartMgr.hpp>     // import FMBiPartMgr
-#include <doctest.h>
+#include <doctest/doctest.h>
 #include <string_view>
 
 extern SimpleNetlist create_test_netlist(); // import create_test_netlist

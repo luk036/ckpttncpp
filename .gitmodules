@@ -4,6 +4,3 @@
 [submodule "external/argparse"]
 	path = external/argparse
 	url = https://github.com/p-ranav/argparse
-[submodule "external/doctest"]
-	path = external/doctest
-	url = https://github.com/onqtam/doctest.git

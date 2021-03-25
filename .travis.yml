@@ -14,6 +14,7 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-9
+            - doctest-dev
             - librange-v3-dev
             - lcov
       env: COMPILER=gcc GCC=9 BUILD_TYPE='Debug'
@@ -30,6 +31,7 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-10
+            - doctest-dev
             - librange-v3-dev
             - lcov
       env: COMPILER=gcc GCC=10 BUILD_TYPE='Debug'
@@ -41,6 +43,7 @@ matrix:
         apt:
           packages:
             - clang-9
+            - doctest-dev
             - librange-v3-dev
             - lcov
       env: COMPILER=clang CLANG=9 BUILD_TYPE='Debug'

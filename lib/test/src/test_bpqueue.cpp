@@ -1,6 +1,6 @@
 #include <ckpttncpp/bpqueue.hpp> // import bpqueue
 #include <ckpttncpp/dllist.hpp>  // import dllink
-#include <doctest.h>
+#include <doctest/doctest.h>
 #include <gsl/span>
 
 TEST_CASE("Test BPQueue")

@@ -56,19 +56,6 @@ class dllink
     constexpr auto operator=(dllink&&) noexcept -> dllink& = default; // don't assign
 
     /*!
-     * @brief detach from a list
-     *
-     */
-    constexpr auto detach() noexcept -> void
-    {
-        assert(!this->is_locked());
-        const auto n = this->next;
-        const auto p = this->prev;
-        p->next = n;
-        n->prev = p;
-    }
-
-    /*!
      * @brief lock the node (and don't append it to any list)
      *
      */
@@ -106,6 +93,19 @@ class dllink
     constexpr auto clear() noexcept -> void
     {
         this->next = this->prev = this;
+    }
+
+    /*!
+     * @brief detach from a list
+     *
+     */
+    constexpr auto detach() noexcept -> void
+    {
+        assert(!this->is_locked());
+        const auto n = this->next;
+        const auto p = this->prev;
+        p->next = n;
+        n->prev = p;
     }
 
     /*!
@@ -179,16 +179,6 @@ class dllink
      * @return dll_iterator
      */
     constexpr auto end() noexcept -> dll_iterator<T>;
-
-    constexpr auto items() noexcept -> dllink&
-    {
-        return *this;
-    }
-
-    constexpr auto items() const noexcept -> const dllink&
-    {
-        return *this;
-    }
 
     // using coro_t = boost::coroutines2::coroutine<dllink&>;
     // using pull_t = typename coro_t::pull_type;

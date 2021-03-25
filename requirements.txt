@@ -1,0 +1,6 @@
+# all requirements 
+fmt
+spdlog
+boost
+doctest
+benchmark

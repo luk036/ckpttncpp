@@ -1,6 +1,6 @@
 // -*- coding: utf-8 -*-
 #include <cinttypes>
-#include <doctest.h>
+#include <doctest/doctest.h>
 #include <py2cpp/py2cpp.hpp>
 #include <xnetwork/classes/graph.hpp>
 

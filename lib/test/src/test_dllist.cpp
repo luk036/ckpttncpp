@@ -1,7 +1,7 @@
 #include <cinttypes>
 #include <ckpttncpp/dllist.hpp> // import  dllink
 #include <ckpttncpp/robin.hpp>  // import  robin
-#include <doctest.h>
+#include <doctest/doctest.h>
 
 TEST_CASE("Test dllist")
 {
@@ -23,7 +23,7 @@ TEST_CASE("Test dllist")
     CHECK(!L2.is_empty());
 
     auto count = 0U;
-    for ([[maybe_unused]] auto& _ : L2.items())
+    for ([[maybe_unused]] auto& _ : L2)
     {
         count += 1;
     }

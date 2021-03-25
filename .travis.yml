@@ -15,10 +15,6 @@ matrix:
           packages:
             - g++-9
             - librange-v3-dev
-            - libbenchmark-dev
-            - libboost-dev
-            - libfmt-dev
-            - libspdlog-dev
             - lcov
       env: COMPILER=gcc GCC=9 BUILD_TYPE='Debug'
     - os: linux
@@ -35,10 +31,6 @@ matrix:
           packages:
             - g++-10
             - librange-v3-dev
-            - libbenchmark-dev
-            - libboost-dev
-            - libfmt-dev
-            - libspdlog-dev
             - lcov
       env: COMPILER=gcc GCC=10 BUILD_TYPE='Debug'
     - os: linux
@@ -50,23 +42,33 @@ matrix:
           packages:
             - clang-9
             - librange-v3-dev
-            - libbenchmark-dev
-            - libboost-dev
-            - libfmt-dev
-            - libspdlog-dev
             - lcov
       env: COMPILER=clang CLANG=9 BUILD_TYPE='Debug'
     - os: linux
       addons: *clang9
       env: COMPILER=clang CLANG=9 BUILD_TYPE='Release'
-    # - os: osx
-    #   osx_image: xcode12
-    #   addons:
-    #     homebrew:
-    #       packages:
-    #       - lcov
-    #       update: true
-    #   env: COMPILER=clang CLANG=10 BUILD_TYPE='Release'
+    - os: linux
+      addons: &clang10
+        apt:
+          sources: ['llvm-toolchain-bionic-10', 'ubuntu-toolchain-r-test']
+          packages:
+            - clang-10
+            - librange-v3-dev
+            - libstdc++-10-dev
+            - lcov
+      env: COMPILER=clang CLANG=10 BUILD_TYPE='Debug'
+    - os: linux
+      addons: *clang10
+      env: COMPILER=clang CLANG=10 BUILD_TYPE='Release'
+    - os: osx
+      osx_image: xcode12
+      addons:
+        homebrew:
+          packages:
+            - librange-v3-dev
+            - lcov
+          update: true
+      env: COMPILER=clang CLANG=10 BUILD_TYPE='Release'
 
 env:
   global:
@@ -92,21 +94,22 @@ install:
   - mkdir -p $HOME/.cache
   - touch $HOME/.cache/mydependency.so
   # Define the version of miniconda to download
-  # - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-  #     MINCONDA_OS=$MINCONDA_LINUX;
-  #   elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-  #     MINCONDA_OS=$MINCONDA_OSX;
-  #   fi
-  # - wget "http://repo.continuum.io/miniconda/Miniconda3-$MINCONDA_VERSION-$MINCONDA_OS.sh" -O miniconda.sh;
-  # - export CONDA_PREFIX=$HOME/miniconda
-  # - bash miniconda.sh -b -p $CONDA_PREFIX
-  # - export PATH="$CONDA_PREFIX/bin:$PATH"
-  # #- export LD_LIBRARY_PATH="$CONDA_PREFIX/lib"
-  # - hash -r
-  # - conda config --set always_yes yes --set changeps1 no
-  # - conda update -q conda
-  # - conda info -a
-  # - conda install -c conda-forge benchmark boost fmt spdlog
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      MINCONDA_OS=$MINCONDA_LINUX;
+    elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      MINCONDA_OS=$MINCONDA_OSX;
+    fi
+  - wget "http://repo.continuum.io/miniconda/Miniconda3-$MINCONDA_VERSION-$MINCONDA_OS.sh" -O miniconda.sh;
+  - export CONDA_PREFIX=$HOME/miniconda
+  - bash miniconda.sh -b -p $CONDA_PREFIX
+  - export PATH="$CONDA_PREFIX/bin:$PATH"
+  #- export LD_LIBRARY_PATH="$CONDA_PREFIX/lib"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda config --add channels conda-forge
+  - conda update -q conda
+  - conda info -a
+  - conda install --file requirements.txt
 
 script:
   - |

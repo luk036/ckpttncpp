@@ -1,5 +1,5 @@
 #include <array>
-#include <doctest.h>
+#include <doctest/doctest.h>
 #include <py2cpp/py2cpp.hpp>
 
 TEST_CASE("Test Range")

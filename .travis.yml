@@ -63,15 +63,16 @@ matrix:
     - os: linux
       addons: *clang10
       env: COMPILER=clang CLANG=10 BUILD_TYPE='Release'
-    - os: osx
-      osx_image: xcode12
-      addons:
-        homebrew:
-          packages:
-            - librange-v3-dev
-            - lcov
-          update: true
-      env: COMPILER=clang CLANG=10 BUILD_TYPE='Release'
+    # Remove osx build as <memory_resource> not found
+    # - os: osx
+    #   osx_image: xcode12
+    #   addons:
+    #     homebrew:
+    #       packages:
+    #         - librange-v3-dev
+    #         - lcov
+    #       update: true
+    #   env: COMPILER=clang CLANG=10 BUILD_TYPE='Release'
 
 env:
   global:

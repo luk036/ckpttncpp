@@ -3,7 +3,7 @@
 #include "dllist.hpp"  // import dllink
 #include "netlist.hpp" // import Netlist
 #include <gsl/span>
-#include <memory_resource>
+#include "FMPmrConfig.hpp"
 
 // struct FMBiGainMgr;
 
@@ -24,11 +24,11 @@ class FMBiGainCalc
     int totalcost {0};
     uint16_t MAX_DEGREE {256};
     std::byte StackBuf[4096];
-    std::pmr::monotonic_buffer_resource rsrc;
+    FMPmr::monotonic_buffer_resource rsrc;
 
   public:
     int deltaGainW;
-    std::pmr::vector<node_t> IdVec;
+    FMPmr::vector<node_t> IdVec;
     bool special_handle_2pin_nets {true};
 
     /*!

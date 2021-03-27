@@ -1,5 +1,5 @@
 #include <ckpttncpp/FMKWayGainCalc.hpp>
-#include <memory_resource>
+#include <ckpttncpp/FMPmrConfig.hpp>
 // #include <range/v3/view/enumerate.hpp>
 #include <range/v3/view/zip.hpp>
 #include <vector>
@@ -139,9 +139,9 @@ void FMKWayGainCalc::_init_gain_general_net(
     const node_t& net, gsl::span<const std::uint8_t> part)
 {
     std::byte StackBuf[2048];
-    std::pmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
-    auto num = std::pmr::vector<std::uint8_t>(this->K, 0, &rsrc);
-    // auto IdVec = std::pmr::vector<node_t>(&rsrc);
+    FMPmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
+    auto num = FMPmr::vector<std::uint8_t>(this->K, 0, &rsrc);
+    // auto IdVec = FMPmr::vector<node_t>(&rsrc);
 
     for (auto&& w : this->H.G[net])
     {
@@ -338,8 +338,8 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_general_net(
 {
     // const auto& [net, v, fromPart, toPart] = move_info;
     std::byte StackBuf[256];
-    std::pmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
-    auto num = std::pmr::vector<std::uint8_t>(this->K, 0, &rsrc);
+    FMPmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
+    auto num = FMPmr::vector<std::uint8_t>(this->K, 0, &rsrc);
 
     // auto IdVec = std::vector<node_t> {};
     // for (auto&& w : this->H.G[move_info.net])

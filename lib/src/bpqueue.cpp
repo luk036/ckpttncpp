@@ -10,4 +10,4 @@ dllink<std::pair<T, Int>> bpqueue<T, Int, Container>::sentinel {};
 
 template class bpqueue<int, int16_t>;
 // template class bpqueue<int, int16_t, 
-//                std::pmr::vector<dllink<std::pair<int, int16_t>> > >;
+//                FMPmr::vector<dllink<std::pair<int, int16_t>> > >;

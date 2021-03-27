@@ -1,5 +1,5 @@
 #include <ckpttncpp/FMGainMgr.hpp>
-#include <memory_resource>
+#include <ckpttncpp/FMPmrConfig.hpp>
 #include <range/v3/view/zip.hpp>
 #include <vector>
 
@@ -163,8 +163,8 @@ void FMGainMgr<GainCalc, Derived>::_update_move_3pin_net(
     gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info)
 {
     // std::byte StackBuf[4096];
-    // std::pmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
-    // auto IdVec = std::pmr::vector<node_t>(&rsrc);
+    // FMPmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
+    // auto IdVec = FMPmr::vector<node_t>(&rsrc);
 
     const auto deltaGain = this->gainCalc.update_move_3pin_net(part, move_info);
 

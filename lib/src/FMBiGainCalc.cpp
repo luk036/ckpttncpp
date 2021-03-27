@@ -1,5 +1,5 @@
 #include <ckpttncpp/FMBiGainCalc.hpp>
-#include <memory_resource>
+#include <ckpttncpp/FMPmrConfig.hpp>
 #include <vector>
 
 /**

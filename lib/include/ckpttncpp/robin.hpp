@@ -1,7 +1,7 @@
 #pragma once
 
 // #include "dllist.hpp" // import dllink
-#include <memory_resource>
+#include "FMPmrConfig.hpp"
 #include <vector>
 
 template <typename T>
@@ -15,8 +15,8 @@ class robin
     };
 
     std::byte StackBuf[2048];
-    std::pmr::monotonic_buffer_resource rsrc;
-    std::pmr::vector<slnode> cycle;
+    FMPmr::monotonic_buffer_resource rsrc;
+    FMPmr::vector<slnode> cycle;
 
     struct iterator
     {

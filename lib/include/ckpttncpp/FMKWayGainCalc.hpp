@@ -4,7 +4,7 @@
 #include "netlist.hpp" // import Netlist
 #include "robin.hpp"   // import robin
 #include <gsl/span>
-#include <memory_resource>
+#include "FMPmrConfig.hpp"
 
 // class FMKWayGainMgr;
 
@@ -24,14 +24,14 @@ class FMKWayGainCalc
     // size_t num_modules;
     int totalcost {0};
     std::byte StackBuf[10000];
-    std::pmr::monotonic_buffer_resource rsrc;
-    std::pmr::vector<std::vector<dllink<std::pair<node_t, int16_t>>>>
+    FMPmr::monotonic_buffer_resource rsrc;
+    FMPmr::vector<std::vector<dllink<std::pair<node_t, int16_t>>>>
         vertex_list;
-    std::pmr::vector<int> deltaGainV;
+    FMPmr::vector<int> deltaGainV;
 
   public:
-    std::pmr::vector<int> deltaGainW;
-    std::pmr::vector<node_t> IdVec;
+    FMPmr::vector<int> deltaGainW;
+    FMPmr::vector<node_t> IdVec;
     bool special_handle_2pin_nets {true}; // @TODO should be template parameter
 
     /*!

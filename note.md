@@ -2,6 +2,17 @@
 
 Min-hash
 
+The package range-v3:x86-windows provides CMake targets:
+
+    find_package(range-v3 CONFIG REQUIRED)
+        # Note: 2 target(s) were omitted.
+	    target_link_libraries(main PRIVATE range-v3 range-v3-meta range-v3::meta range-v3-concepts)
+
+The package doctest:x86-windows provides CMake targets:
+
+    find_package(doctest CONFIG REQUIRED)
+        target_link_libraries(main PRIVATE doctest::doctest)
+
 
 # Backup
 

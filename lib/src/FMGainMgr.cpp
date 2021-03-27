@@ -166,11 +166,14 @@ void FMGainMgr<GainCalc, Derived>::_update_move_3pin_net(
     // std::pmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
     // auto IdVec = std::pmr::vector<node_t>(&rsrc);
 
-    const auto deltaGain = this->gainCalc.update_move_3pin_net(part, move_info);
+    auto deltaGain = this->gainCalc.update_move_3pin_net(part, move_info);
 
-    for (const auto& [dGw, w] : views::zip(deltaGain, this->gainCalc.IdVec))
+    // for (const auto& [dGw, w] : views::zip(deltaGain, this->gainCalc.IdVec))
+    auto dGw_it = deltaGain.begin();
+    for (const auto& w : this->gainCalc.IdVec)
     {
-        self.modify_key(w, part[w], dGw);
+        self.modify_key(w, part[w], *dGw_it);
+        ++dGw_it;
     }
 
     // const auto degree = this->gainCalc.IdVec.size();
@@ -194,10 +197,18 @@ void FMGainMgr<GainCalc, Derived>::_update_move_general_net(
     const auto deltaGain =
         this->gainCalc.update_move_general_net(part, move_info);
     // Why not auto&& ?
-    for (const auto& [dGw, w] : views::zip(deltaGain, this->gainCalc.IdVec))
+    // for (const auto& [dGw, w] : views::zip(deltaGain, this->gainCalc.IdVec))
+    // {
+    //     self.modify_key(w, part[w], dGw);
+    // }
+
+    auto dGw_it = deltaGain.begin();
+    for (const auto& w : this->gainCalc.IdVec)
     {
-        self.modify_key(w, part[w], dGw);
+        self.modify_key(w, part[w], *dGw_it);
+        ++dGw_it;
     }
+
 }
 
 #include <ckpttncpp/FMBiGainMgr.hpp> // import FMBiGainMgr

@@ -88,12 +88,15 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
      */
     auto lock_all(uint8_t /*fromPart*/, const node_t& v) -> void
     {
-        for (auto&& [vlist, bckt] :
-            views::zip(this->gainCalc.vertex_list, this->gainbucket))
+        // for (auto&& [vlist, bckt] :
+        //     views::zip(this->gainCalc.vertex_list, this->gainbucket))
+        auto bckt_it = this->gainbucket.begin();
+        for (auto&& vlist : this->gainCalc.vertex_list)
         {
             auto& vlink = vlist[v];
-            bckt.detach(vlink);
+            bckt_it->detach(vlink);
             vlink.lock(); // lock
+            ++bckt_it;
         }
     }
 

@@ -1,5 +1,8 @@
 {
     "C_Cpp.configurationWarnings": "Disabled",
     "C_Cpp.intelliSenseEngineFallback": "Disabled",
-    "cmake.configureOnOpen": true
+    "cmake.configureOnOpen": true,
+    "files.associations": {
+        "memory_resource": "cpp"
+    }
 }

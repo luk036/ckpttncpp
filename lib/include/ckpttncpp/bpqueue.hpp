@@ -51,7 +51,7 @@ class bpqueue
       typedef          _Sequence                        container_type;
 
   private:
-    static Item sentinel; /*!< sentinel */
+    Item sentinel{};          //!< sentinel */
 
     _Sequence bucket;         //!< bucket, array of lists
     Int max {};               //!< max value
@@ -111,7 +111,7 @@ class bpqueue
      *
      * @return T maximum value
      */
-    constexpr auto get_max() const noexcept -> Int
+    [[nodiscard]] constexpr auto get_max() const noexcept -> Int
     {
         return this->max + this->offset;
     }

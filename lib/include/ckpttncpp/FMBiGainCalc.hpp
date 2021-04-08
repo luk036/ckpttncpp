@@ -22,12 +22,12 @@ class FMBiGainCalc
     const SimpleNetlist& H;
     std::vector<dllink<std::pair<node_t, int16_t>>> vertex_list;
     int totalcost {0};
-    uint16_t MAX_DEGREE {256};
+    uint16_t MAX_DEGREE {FM_MAX_DEGREE};
     std::byte StackBuf[4096];
     FMPmr::monotonic_buffer_resource rsrc;
 
   public:
-    int deltaGainW;
+    int deltaGainW{};
     FMPmr::vector<node_t> IdVec;
     bool special_handle_2pin_nets {true};
 

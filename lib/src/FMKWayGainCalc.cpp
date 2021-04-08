@@ -204,6 +204,8 @@ FMKWayGainCalc::node_t FMKWayGainCalc::update_move_2pin_net(
     auto netCur = this->H.G[move_info.net].begin();
     auto w = (*netCur != move_info.v) ? *netCur : *++netCur;
     std::fill(this->deltaGainW.begin(), this->deltaGainW.end(), 0);
+
+#pragma unroll
     for (auto&& l : {move_info.fromPart, move_info.toPart})
     {
         if (part[w] == l)
@@ -271,6 +273,7 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
 
     if (part_w == part_u)
     {
+#pragma unroll
         for (auto i = 0; i != 2; ++i)
         {
             if (part_w != l)
@@ -291,6 +294,7 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
         return deltaGain;
     }
 
+#pragma unroll
     for (auto i = 0; i != 2; ++i)
     {
         if (part_w == l)
@@ -337,7 +341,7 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_general_net(
     gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info)
 {
     // const auto& [net, v, fromPart, toPart] = move_info;
-    std::byte StackBuf[256];
+    std::byte StackBuf[FM_MAX_NUM_PARTITIONS];
     FMPmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
     auto num = FMPmr::vector<std::uint8_t>(this->K, 0, &rsrc);
 
@@ -362,6 +366,8 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_general_net(
 
     auto l = move_info.fromPart;
     auto u = move_info.toPart;
+
+#pragma unroll
     for (auto i = 0; i != 2; ++i)
     {
         if (num[l] == 0)

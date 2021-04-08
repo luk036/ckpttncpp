@@ -6,7 +6,7 @@
 
 // Forward declaration for begin() end()
 template <typename T>
-struct dll_iterator;
+class dll_iterator;
 
 /*!
  * @brief doubly linked node (that may also be a "head" a list)
@@ -210,10 +210,12 @@ class dllink
  * safe to attach/detach list items during the iterator is active.
  */
 template <typename T>
-struct dll_iterator
+class dll_iterator
 {
+private:
     dllink<T>* cur; /*!< pointer to the current item */
 
+public:
     /*!
      * @brief Construct a new dll iterator object
      *

@@ -14,7 +14,7 @@ class robin
         T key;
     };
 
-    std::byte StackBuf[2048];
+    std::byte StackBuf[FM_MAX_NUM_PARTITIONS * sizeof(slnode)];
     FMPmr::monotonic_buffer_resource rsrc;
     FMPmr::vector<slnode> cycle;
 

@@ -25,8 +25,9 @@
  *
  */
 template <typename graph_t>
-struct HierNetlist : Netlist<graph_t>
+class HierNetlist : public Netlist<graph_t>
 {
+  public:
     using nodeview_t = typename graph_t::nodeview_t;
     using node_t = typename graph_t::node_t;
     using index_t = typename nodeview_t::key_type;

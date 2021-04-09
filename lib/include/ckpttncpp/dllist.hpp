@@ -50,10 +50,11 @@ class dllink
      */
     constexpr dllink() = default;
     ~dllink() = default;
-    dllink(const dllink&) = delete;                    // don't copy
+    dllink(const dllink&) = delete;                              // don't copy
     constexpr auto operator=(const dllink&) -> dllink& = delete; // don't assign
     constexpr dllink(dllink&&) noexcept = default;
-    constexpr auto operator=(dllink&&) noexcept -> dllink& = default; // don't assign
+    constexpr auto operator=(dllink&&) noexcept
+        -> dllink& = default; // don't assign
 
     /*!
      * @brief lock the node (and don't append it to any list)
@@ -212,10 +213,10 @@ class dllink
 template <typename T>
 class dll_iterator
 {
-private:
+  private:
     dllink<T>* cur; /*!< pointer to the current item */
 
-public:
+  public:
     /*!
      * @brief Construct a new dll iterator object
      *
@@ -254,8 +255,8 @@ public:
      * @return true
      * @return false
      */
-    friend auto operator==(const dll_iterator& lhs, const dll_iterator& rhs)
-        noexcept -> bool
+    friend auto operator==(
+        const dll_iterator& lhs, const dll_iterator& rhs) noexcept -> bool
     {
         return lhs.cur == rhs.cur;
     }
@@ -267,8 +268,8 @@ public:
      * @return true
      * @return false
      */
-    friend auto operator!=(const dll_iterator& lhs, const dll_iterator& rhs)
-        noexcept -> bool
+    friend auto operator!=(
+        const dll_iterator& lhs, const dll_iterator& rhs) noexcept -> bool
     {
         return !(lhs == rhs);
     }

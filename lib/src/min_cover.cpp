@@ -81,14 +81,16 @@ template <typename Netlist, typename C1, typename C2>
 auto min_maximal_matching_pd(
     const Netlist& H, C1& matchset, C1& dep, const C2& weight)
 {
-    auto cover = [&](const auto& net) {
+    auto cover = [&](const auto& net)
+    {
         for (auto&& v : H.G[net])
         {
             dep[v] = true;
         }
     };
 
-    auto any_of_dep = [&](const auto& net) {
+    auto any_of_dep = [&](const auto& net)
+    {
         return std::any_of(H.G[net].begin(), H.G[net].end(),
             [&](const auto& v) { return dep[v]; });
     };

@@ -51,10 +51,10 @@ template <typename GainCalc, class Derived>
 std::tuple<MoveInfoV<node_t>, int> FMGainMgr<GainCalc, Derived>::select(
     gsl::span<const std::uint8_t> part)
 {
-    const auto it = std::max_element(this->gainbucket.begin(),
-        this->gainbucket.end(), [](const auto& bckt1, const auto& bckt2) {
-            return bckt1.get_max() < bckt2.get_max();
-        });
+    const auto it =
+        std::max_element(this->gainbucket.begin(), this->gainbucket.end(),
+            [](const auto& bckt1, const auto& bckt2)
+            { return bckt1.get_max() < bckt2.get_max(); });
 
     const auto toPart =
         std::uint8_t(std::distance(this->gainbucket.begin(), it));
@@ -208,7 +208,6 @@ void FMGainMgr<GainCalc, Derived>::_update_move_general_net(
         self.modify_key(w, part[w], *dGw_it);
         ++dGw_it;
     }
-
 }
 
 #include <ckpttncpp/FMBiGainMgr.hpp> // import FMBiGainMgr

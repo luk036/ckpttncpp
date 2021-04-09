@@ -33,30 +33,31 @@ class bpq_iterator;
  * @TODO: support std::pmr
  */
 template <typename _Tp, typename Int = int16_t,
-          typename _Sequence = std::vector<dllink<std::pair<_Tp, Int>> > > 
-//          class Allocator = typename std::allocator<dllink<std::pair<_Tp, Int>> > > 
+    typename _Sequence = std::vector<dllink<std::pair<_Tp, Int>>>>
+//          class Allocator = typename std::allocator<dllink<std::pair<_Tp,
+//          Int>> > >
 class bpqueue
 {
     friend bpq_iterator<_Tp, Int>;
     using Item = dllink<std::pair<_Tp, Int>>;
 
     static_assert(std::is_same<Item, typename _Sequence::value_type>::value,
-          "value_type must be the same as the underlying container");
+        "value_type must be the same as the underlying container");
 
-    public:
-      typedef typename _Sequence::value_type            value_type;
-      typedef typename _Sequence::reference             reference;
-      typedef typename _Sequence::const_reference       const_reference;
-      typedef typename _Sequence::size_type             size_type;
-      typedef          _Sequence                        container_type;
+  public:
+    typedef typename _Sequence::value_type value_type;
+    typedef typename _Sequence::reference reference;
+    typedef typename _Sequence::const_reference const_reference;
+    typedef typename _Sequence::size_type size_type;
+    typedef _Sequence container_type;
 
   private:
-    Item sentinel{};          //!< sentinel */
+    Item sentinel {}; //!< sentinel */
 
-    _Sequence bucket;         //!< bucket, array of lists
-    Int max {};               //!< max value
-    Int offset;               //!< a - 1
-    Int high;                 //!< b - a + 1
+    _Sequence bucket; //!< bucket, array of lists
+    Int max {};       //!< max value
+    Int offset;       //!< a - 1
+    Int high;         //!< b - a + 1
 
     // using alloc_t = decltype(bucket.get_allocator());
 
@@ -78,11 +79,13 @@ class bpqueue
         bucket[0].append(this->sentinel); // sentinel
     }
 
-    bpqueue(const bpqueue&) = delete;                    // don't copy
+    bpqueue(const bpqueue&) = delete; // don't copy
     ~bpqueue() = default;
-    constexpr auto operator=(const bpqueue&) -> bpqueue& = delete; // don't assign
+    constexpr auto operator=(const bpqueue&)
+        -> bpqueue& = delete; // don't assign
     constexpr bpqueue(bpqueue&&) noexcept = default;
-    constexpr auto operator=(bpqueue&&) noexcept -> bpqueue& = default; // don't assign
+    constexpr auto operator=(bpqueue&&) noexcept
+        -> bpqueue& = default; // don't assign
 
     /*!
      * @brief whether the %bpqueue is empty.
@@ -347,7 +350,7 @@ class bpq_iterator
 
   private:
     bpqueue<_Tp, Int>& bpq; /*!< the priority queue */
-    Int curkey;           /*!< the current key value */
+    Int curkey;             /*!< the current key value */
     dll_iterator<std::pair<_Tp, Int>>
         curitem; /*!< list iterator pointed to the current item.
                   */
@@ -412,8 +415,8 @@ class bpq_iterator
      * @return true
      * @return false
      */
-    friend constexpr auto operator==(const bpq_iterator& lhs, const bpq_iterator& rhs)
-        -> bool
+    friend constexpr auto operator==(
+        const bpq_iterator& lhs, const bpq_iterator& rhs) -> bool
     {
         return lhs.curitem == rhs.curitem;
     }
@@ -425,8 +428,8 @@ class bpq_iterator
      * @return true
      * @return false
      */
-    friend constexpr auto operator!=(const bpq_iterator& lhs, const bpq_iterator& rhs)
-        -> bool
+    friend constexpr auto operator!=(
+        const bpq_iterator& lhs, const bpq_iterator& rhs) -> bool
     {
         return !(lhs == rhs);
     }
@@ -438,7 +441,8 @@ class bpq_iterator
  * @return bpq_iterator
  */
 template <typename _Tp, typename Int, class _Sequence>
-inline constexpr auto bpqueue<_Tp, Int, _Sequence>::begin() -> bpq_iterator<_Tp, Int>
+inline constexpr auto bpqueue<_Tp, Int, _Sequence>::begin()
+    -> bpq_iterator<_Tp, Int>
 {
     return {*this, this->max};
 }
@@ -449,7 +453,8 @@ inline constexpr auto bpqueue<_Tp, Int, _Sequence>::begin() -> bpq_iterator<_Tp,
  * @return bpq_iterator
  */
 template <typename _Tp, typename Int, class _Sequence>
-inline constexpr auto bpqueue<_Tp, Int, _Sequence>::end() -> bpq_iterator<_Tp, Int>
+inline constexpr auto bpqueue<_Tp, Int, _Sequence>::end()
+    -> bpq_iterator<_Tp, Int>
 {
     return {*this, 0};
 }

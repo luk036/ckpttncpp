@@ -1,9 +1,9 @@
 #pragma once
 
+#include "FMPmrConfig.hpp"
 #include "dllist.hpp"  // import dllink
 #include "netlist.hpp" // import Netlist
 #include <gsl/span>
-#include "FMPmrConfig.hpp"
 
 // struct FMBiGainMgr;
 
@@ -27,7 +27,7 @@ class FMBiGainCalc
     FMPmr::monotonic_buffer_resource rsrc;
 
   public:
-    int deltaGainW{};
+    int deltaGainW {};
     FMPmr::vector<node_t> IdVec;
     bool special_handle_2pin_nets {true};
 

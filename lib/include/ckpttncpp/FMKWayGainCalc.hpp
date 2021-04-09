@@ -1,10 +1,10 @@
 #pragma once
 
+#include "FMPmrConfig.hpp"
 #include "dllist.hpp"  // import dllink
 #include "netlist.hpp" // import Netlist
 #include "robin.hpp"   // import robin
 #include <gsl/span>
-#include "FMPmrConfig.hpp"
 
 // class FMKWayGainMgr;
 
@@ -25,8 +25,7 @@ class FMKWayGainCalc
     int totalcost {0};
     std::byte StackBuf[10000];
     FMPmr::monotonic_buffer_resource rsrc;
-    FMPmr::vector<std::vector<dllink<std::pair<node_t, int16_t>>>>
-        vertex_list;
+    FMPmr::vector<std::vector<dllink<std::pair<node_t, int16_t>>>> vertex_list;
     FMPmr::vector<int> deltaGainV;
 
   public:

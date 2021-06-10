@@ -205,7 +205,7 @@ FMKWayGainCalc::node_t FMKWayGainCalc::update_move_2pin_net(
     auto w = (*netCur != move_info.v) ? *netCur : *++netCur;
     std::fill(this->deltaGainW.begin(), this->deltaGainW.end(), 0);
 
-#pragma unroll
+// #pragma unroll
     for (auto&& l : {move_info.fromPart, move_info.toPart})
     {
         if (part[w] == l)
@@ -273,7 +273,7 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
 
     if (part_w == part_u)
     {
-#pragma unroll
+// #pragma unroll
         for (auto i = 0; i != 2; ++i)
         {
             if (part_w != l)
@@ -294,7 +294,7 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
         return deltaGain;
     }
 
-#pragma unroll
+// #pragma unroll
     for (auto i = 0; i != 2; ++i)
     {
         if (part_w == l)
@@ -367,7 +367,7 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_general_net(
     auto l = move_info.fromPart;
     auto u = move_info.toPart;
 
-#pragma unroll
+// #pragma unroll
     for (auto i = 0; i != 2; ++i)
     {
         if (num[l] == 0)

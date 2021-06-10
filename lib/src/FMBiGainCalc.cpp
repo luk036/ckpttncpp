@@ -110,7 +110,7 @@ void FMBiGainCalc::_init_gain_general_net(
     }
     const auto weight = this->H.get_net_weight(net);
 
-#pragma unroll
+// #pragma unroll
     for (auto&& k : {0, 1})
     {
         if (num[k] == 0)
@@ -255,7 +255,7 @@ std::vector<int> FMBiGainCalc::update_move_general_net(
     auto deltaGain = std::vector<int>(degree, 0);
     auto weight = this->H.get_net_weight(move_info.net);
 
-#pragma unroll
+// #pragma unroll
     for (auto&& l : {move_info.fromPart, move_info.toPart})
     {
         if (num[l] == 0)

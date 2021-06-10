@@ -45,11 +45,11 @@ class bpqueue
         "value_type must be the same as the underlying container");
 
   public:
-    typedef typename _Sequence::value_type value_type;
-    typedef typename _Sequence::reference reference;
-    typedef typename _Sequence::const_reference const_reference;
-    typedef typename _Sequence::size_type size_type;
-    typedef _Sequence container_type;
+    using value_type = typename _Sequence::value_type;
+    using reference = typename _Sequence::reference;
+    using const_reference = typename _Sequence::const_reference;
+    using size_type = typename _Sequence::size_type;
+    using container_type = _Sequence;
 
   private:
     Item sentinel {}; //!< sentinel */

@@ -147,8 +147,8 @@ void FMBiGainCalc::_init_gain_general_net(
  * @param[out] w
  * @return int
  */
-FMBiGainCalc::node_t FMBiGainCalc::update_move_2pin_net(
-    gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info)
+auto FMBiGainCalc::update_move_2pin_net(
+    gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info) -> FMBiGainCalc::node_t
 {
     auto netCur = this->H.G[move_info.net].begin();
     auto w = (*netCur != move_info.v) ? *netCur : *++netCur;
@@ -185,8 +185,8 @@ void FMBiGainCalc::init_IdVec(const node_t& v, const node_t& net)
  * @param[in] move_info
  * @return ret_info
  */
-std::vector<int> FMBiGainCalc::update_move_3pin_net(
-    gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info)
+auto FMBiGainCalc::update_move_3pin_net(
+    gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info) -> std::vector<int>
 {
     // const auto& [net, v, fromPart, _] = move_info;
     auto num = std::array<size_t, 2> {0U, 0U};
@@ -231,8 +231,8 @@ std::vector<int> FMBiGainCalc::update_move_3pin_net(
  * @param[in] move_info
  * @return ret_info
  */
-std::vector<int> FMBiGainCalc::update_move_general_net(
-    gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info)
+auto FMBiGainCalc::update_move_general_net(
+    gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info) -> std::vector<int>
 {
     // const auto& [net, v, fromPart, toPart] = move_info;
     auto num = std::array<std::uint8_t, 2> {0, 0};

@@ -7,7 +7,7 @@
  * @param[in] part
  * @return int
  */
-int FMKWayGainMgr::init(gsl::span<const std::uint8_t> part)
+auto FMKWayGainMgr::init(gsl::span<const std::uint8_t> part) -> int
 {
     auto totalcost = Base::init(part);
 

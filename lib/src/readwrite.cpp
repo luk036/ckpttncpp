@@ -61,7 +61,7 @@ void writeJSON(std::string_view jsonFileName, const SimpleNetlist& H)
 }
 
 // Read the IBM .netD/.net format. Precondition: Netlist is empty.
-SimpleNetlist readNetD(std::string_view netDFileName)
+auto readNetD(std::string_view netDFileName) -> SimpleNetlist
 {
     auto netD = ifstream {netDFileName.data()};
     if (netD.fail())

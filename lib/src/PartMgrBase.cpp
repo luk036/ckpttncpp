@@ -32,8 +32,8 @@ void PartMgrBase<GainMgr, ConstrMgr, Derived>::init(
  */
 template <typename GainMgr, typename ConstrMgr,
     template <typename _gainMgr, typename _constrMgr> class Derived> //
-LegalCheck PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
-    gsl::span<std::uint8_t> part)
+auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
+    gsl::span<std::uint8_t> part) -> LegalCheck
 {
     this->init(part);
 

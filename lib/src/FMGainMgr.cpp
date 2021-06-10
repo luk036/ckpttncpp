@@ -33,7 +33,7 @@ FMGainMgr<GainCalc, Derived>::FMGainMgr(const SimpleNetlist& H, std::uint8_t K)
  * @param[in] part
  */
 template <typename GainCalc, class Derived>
-int FMGainMgr<GainCalc, Derived>::init(gsl::span<const std::uint8_t> part)
+auto FMGainMgr<GainCalc, Derived>::init(gsl::span<const std::uint8_t> part) -> int
 {
     auto totalcost = this->gainCalc.init(part);
     // this->totalcost = this->gainCalc.totalcost;
@@ -48,8 +48,8 @@ int FMGainMgr<GainCalc, Derived>::init(gsl::span<const std::uint8_t> part)
  * @return std::tuple<MoveInfoV<node_t>, int>
  */
 template <typename GainCalc, class Derived>
-std::tuple<MoveInfoV<node_t>, int> FMGainMgr<GainCalc, Derived>::select(
-    gsl::span<const std::uint8_t> part)
+auto FMGainMgr<GainCalc, Derived>::select(
+    gsl::span<const std::uint8_t> part) -> std::tuple<MoveInfoV<node_t>, int>
 {
     const auto it =
         std::max_element(this->gainbucket.begin(), this->gainbucket.end(),
@@ -76,8 +76,8 @@ std::tuple<MoveInfoV<node_t>, int> FMGainMgr<GainCalc, Derived>::select(
  * @return std::tuple<node_t, int>
  */
 template <typename GainCalc, class Derived>
-std::tuple<node_t, int> FMGainMgr<GainCalc, Derived>::select_togo(
-    std::uint8_t toPart)
+auto FMGainMgr<GainCalc, Derived>::select_togo(
+    std::uint8_t toPart) -> std::tuple<node_t, int>
 {
     const auto gainmax = this->gainbucket[toPart].get_max();
     auto& vlink = this->gainbucket[toPart].popleft();

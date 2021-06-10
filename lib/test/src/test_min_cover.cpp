@@ -5,18 +5,18 @@
 #include <py2cpp/py2cpp.hpp>
 #include <string_view>
 
-extern SimpleNetlist create_test_netlist(); // import create_test_netlist
-extern SimpleNetlist create_dwarf();        // import create_dwarf
-extern SimpleNetlist readNetD(std::string_view netDFileName);
+extern auto create_test_netlist() -> SimpleNetlist; // import create_test_netlist
+extern auto create_dwarf() -> SimpleNetlist;        // import create_dwarf
+extern auto readNetD(std::string_view netDFileName) -> SimpleNetlist;
 extern void readAre(SimpleNetlist& H, std::string_view areFileName);
 // extern std::tuple<py::set<node_t>, int>
 // min_net_cover_pd(SimpleNetlist &, const std::vector<int> &);
 
 using node_t = SimpleNetlist::node_t;
-extern std::tuple<py::set<node_t>, int> max_independent_net(
-    const SimpleNetlist&, const std::vector<int>&, const py::set<node_t>&);
-extern std::unique_ptr<SimpleHierNetlist> create_contraction_subgraph(
-    const SimpleNetlist&, const py::set<node_t>&);
+extern auto max_independent_net(
+    const SimpleNetlist&, const std::vector<int>&, const py::set<node_t>&) -> std::tuple<py::set<node_t>, int>;
+extern auto create_contraction_subgraph(
+    const SimpleNetlist&, const py::set<node_t>&) -> std::unique_ptr<SimpleHierNetlist>;
 
 //
 // Primal-dual algorithm for minimum vertex cover problem

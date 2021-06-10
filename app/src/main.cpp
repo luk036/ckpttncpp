@@ -2,7 +2,7 @@
 //#include <spdlog/spdlog.h>
 //#include <spdlog/sinks/stdout_sinks.h>
 
-int main(int argc, char *argv[])
+auto main(int argc, char *argv[]) -> int
 {
     // auto parser = argparse::ArgumentParser("Multilevel Circuit Partitioning");
 

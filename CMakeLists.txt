@@ -58,16 +58,16 @@ else()
     add_compile_options(-fno-exceptions -Wall -Wnon-virtual-dtor -Wunused -pedantic)
 endif()
 
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-  # using GCC
-  add_compile_options(-fcoroutines -fno-exceptions -Wall -Wnon-virtual-dtor -Wunused -pedantic)
-elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-  # using clang
-  add_compile_options(-fcoroutines-ts -stdlib=libc++ -fno-exceptions -Wall -Wnon-virtual-dtor -Wunused -pedantic)
-elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-  # using Visual Studio C++
-  add_compile_options(/std:c++latest /await /W3 /WX )
-endif()
+# if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+#   # using GCC
+#   add_compile_options(-fcoroutines -fno-exceptions -Wall -Wnon-virtual-dtor -Wunused -pedantic)
+# elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+#   # using clang
+#   add_compile_options(-fcoroutines-ts -stdlib=libc++ -fno-exceptions -Wall -Wnon-virtual-dtor -Wunused -pedantic)
+# elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+#   # using Visual Studio C++
+#   add_compile_options(/std:c++latest /await /W3 /WX )
+# endif()
 
 
 # set(LIBS ${LIBS} "-L$ENV{CONDA_PREFIX}/lib")

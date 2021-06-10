@@ -192,8 +192,8 @@ void FMKWayGainCalc::_init_gain_general_net(
  * @param[out] w
  * @return ret_2pin_info
  */
-FMKWayGainCalc::node_t FMKWayGainCalc::update_move_2pin_net(
-    gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info)
+auto FMKWayGainCalc::update_move_2pin_net(
+    gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info) -> FMKWayGainCalc::node_t
 {
     // const auto& [net, v, fromPart, toPart] = move_info;
     if (part[move_info.v] != move_info.fromPart)
@@ -249,8 +249,8 @@ void FMKWayGainCalc::init_IdVec(const node_t& v, const node_t& net)
  * @param[in] move_info
  * @return ret_info
  */
-FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
-    gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info)
+auto FMKWayGainCalc::update_move_3pin_net(
+    gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info) -> FMKWayGainCalc::ret_info
 {
     // const auto& [net, v, fromPart, toPart] = move_info;
     // auto IdVec = std::vector<node_t> {};
@@ -337,8 +337,8 @@ FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_3pin_net(
  * @param[in] move_info
  * @return ret_info
  */
-FMKWayGainCalc::ret_info FMKWayGainCalc::update_move_general_net(
-    gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info)
+auto FMKWayGainCalc::update_move_general_net(
+    gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info) -> FMKWayGainCalc::ret_info
 {
     // const auto& [net, v, fromPart, toPart] = move_info;
     std::byte StackBuf[FM_MAX_NUM_PARTITIONS];

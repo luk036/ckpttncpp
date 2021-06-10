@@ -3,7 +3,7 @@
 #include <doctest/doctest.h>
 #include <string_view>
 
-extern SimpleNetlist readNetD(std::string_view netDFileName);
+extern auto readNetD(std::string_view netDFileName) -> SimpleNetlist;
 extern void readAre(SimpleNetlist& H, std::string_view areFileName);
 extern void writeJSON(std::string_view jsonFileName, const SimpleNetlist& H);
 

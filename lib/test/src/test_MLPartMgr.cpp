@@ -12,9 +12,9 @@
 
 // using std::experimental::randint;
 
-extern SimpleNetlist create_test_netlist(); // import create_test_netlist
-extern SimpleNetlist create_dwarf();        // import create_dwarf
-extern SimpleNetlist readNetD(std::string_view netDFileName);
+extern auto create_test_netlist() -> SimpleNetlist; // import create_test_netlist
+extern auto create_dwarf() -> SimpleNetlist;        // import create_dwarf
+extern auto readNetD(std::string_view netDFileName) -> SimpleNetlist;
 extern void readAre(SimpleNetlist& H, std::string_view areFileName);
 
 TEST_CASE("Test MLBiPartMgr dwarf")

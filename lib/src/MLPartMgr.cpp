@@ -15,8 +15,8 @@ using node_t = typename SimpleNetlist::node_t;
  * @return LegalCheck
  */
 template <typename PartMgr>
-LegalCheck MLPartMgr::run_FMPartition(
-    const SimpleNetlist& H, gsl::span<std::uint8_t> part, size_t limitsize)
+auto MLPartMgr::run_FMPartition(
+    const SimpleNetlist& H, gsl::span<std::uint8_t> part, size_t limitsize) -> LegalCheck
 {
     using GainMgr = typename PartMgr::GainMgr_;
     using ConstrMgr = typename PartMgr::ConstrMgr_;
@@ -76,8 +76,8 @@ LegalCheck MLPartMgr::run_FMPartition(
  * @return LegalCheck
  */
 template <typename PartMgr>
-LegalCheck MLPartMgr::run_Partition(
-    const SimpleNetlist& H, gsl::span<std::uint8_t> part, size_t limitsize)
+auto MLPartMgr::run_Partition(
+    const SimpleNetlist& H, gsl::span<std::uint8_t> part, size_t limitsize) -> LegalCheck
 {
     using GainMgr = typename PartMgr::GainMgr_;
     using ConstrMgr = typename PartMgr::ConstrMgr_;

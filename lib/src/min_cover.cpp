@@ -1,5 +1,6 @@
 #include <ckpttncpp/bpqueue.hpp>
 #include <ckpttncpp/netlist.hpp>
+#include <ckpttncpp/netlist_algo.hpp>
 #include <memory>
 #include <py2cpp/py2cpp.hpp>
 // #include <range/v3/view/enumerate.hpp>
@@ -62,94 +63,6 @@ auto max_independent_net(const SimpleNetlist& H,
         }
     }
     return std::make_tuple(std::move(S), total_cost);
-}
-
-/*!
- * @brief minimum maximal matching problem
- *
- *    This function solves minimum maximal independant set problem
- *    using primal-dual approximation algorithm:
- *
- * @tparam Graph
- * @tparam Container
- * @param[in] G
- * @param[in,out] cover
- * @param[in] weight
- * @return auto
- */
-template <typename Netlist, typename C1, typename C2>
-auto min_maximal_matching_pd(
-    const Netlist& H, C1& matchset, C1& dep, const C2& weight)
-{
-    auto cover = [&](const auto& net)
-    {
-        for (auto&& v : H.G[net])
-        {
-            dep[v] = true;
-        }
-    };
-
-    auto any_of_dep = [&](const auto& net)
-    {
-        return std::any_of(H.G[net].begin(), H.G[net].end(),
-            [&](const auto& v) { return dep[v]; });
-    };
-
-    using T = decltype(*weight.begin());
-
-    auto gap = weight;
-    [[maybe_unused]] auto total_dual_cost = T(0);
-    auto total_primal_cost = T(0);
-    for (auto&& net : H.nets)
-    {
-        if (any_of_dep(net))
-        {
-            continue;
-        }
-        if (matchset[net])
-        { // pre-define independant
-            cover(net);
-            continue;
-        }
-        auto min_val = gap[net];
-        auto min_net = net;
-        for (auto&& v : H.G[net])
-        {
-            for (auto&& net2 : H.G[v])
-            {
-                if (net2 == net || any_of_dep(net2))
-                {
-                    continue;
-                }
-                if (min_val > gap[net2])
-                {
-                    min_val = gap[net2];
-                    min_net = net2;
-                }
-            }
-        }
-        cover(min_net);
-        matchset[min_net] = true;
-        total_primal_cost += weight[min_net];
-        total_dual_cost += min_val;
-        if (min_net == net)
-        {
-            continue;
-        }
-        gap[net] -= min_val;
-        for (auto&& v : H.G[net])
-        {
-            for (auto&& net2 : H.G[v])
-            {
-                if (net2 == net)
-                {
-                    continue;
-                }
-                gap[net2] -= min_val;
-            }
-        }
-    }
-    return total_primal_cost;
 }
 
 
@@ -244,8 +157,24 @@ auto min_maximal_matching_pd(
 auto create_contraction_subgraph(const SimpleNetlist& H,
     const py::set<node_t>& DontSelect) -> std::unique_ptr<SimpleHierNetlist>
 {
-    auto rslt = max_independent_net(H, H.module_weight, DontSelect);
-    auto&& S = std::get<0>(rslt);
+    auto weight = py::dict<node_t, int>{};
+    for (auto&& net : H.nets)
+    {
+        auto sum = 0;
+        for (auto&& v : H.G[net])
+        {
+            sum += H.get_module_weight(v);
+        }
+        weight[net] = sum;
+    }
+
+    auto S = py::set<node_t>{};
+    auto dep = DontSelect.copy();
+    min_maximal_matching(H, weight, S, dep);
+
+
+    // auto rslt = max_independent_net(H, H.module_weight, DontSelect);
+    // auto&& S = std::get<0>(rslt);
 
     auto module_up_map = py::dict<node_t, node_t> {};
     module_up_map.reserve(H.number_of_modules());

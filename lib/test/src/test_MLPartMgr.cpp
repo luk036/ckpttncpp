@@ -104,7 +104,7 @@ TEST_CASE("Test MLBiPartMgr ibm03")
     std::chrono::duration<double> last =
         std::chrono::steady_clock::now() - begin;
     std::cout << "time: " << last.count() << std::endl;
-    CHECK(partMgr.totalcost >= 1278);
+    CHECK(partMgr.totalcost >= 1104);
     CHECK(partMgr.totalcost <= 2041);
 }
 

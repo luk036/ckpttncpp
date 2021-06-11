@@ -1,5 +1,6 @@
 #include <ckpttncpp/HierNetlist.hpp> // import Netlist
 #include <ckpttncpp/netlist.hpp>     // import Netlist
+#include <ckpttncpp/netlist_algo.hpp>
 #include <doctest/doctest.h>
 #include <memory> //std::unique_ptr
 #include <py2cpp/py2cpp.hpp>

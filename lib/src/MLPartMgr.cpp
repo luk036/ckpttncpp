@@ -39,7 +39,7 @@ auto MLPartMgr::run_FMPartition(
     if (H.number_of_modules() >= limitsize)
     { // OK
         const auto H2 = create_contraction_subgraph(H, py::set<node_t> {});
-        if (5 * H2->number_of_modules() <= 3 * H.number_of_modules())
+        if (H2->number_of_modules() <= H.number_of_modules())
         {
             auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
             H2->projection_up(part, part2);
@@ -116,7 +116,7 @@ void MLPartMgr::run_Partition_recur(
       // try
       // {
         const auto H2 = create_contraction_subgraph(H, py::set<node_t> {});
-        if (5 * H2->number_of_modules() <= 3 * H.number_of_modules())
+        if (H2->number_of_modules() <= H.number_of_modules())
         {
             auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
             // auto extern_nets_ss = py::set<node_t>{};

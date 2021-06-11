@@ -196,8 +196,9 @@ auto FMKWayGainCalc::update_move_2pin_net(
     gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info) -> FMKWayGainCalc::node_t
 {
     // const auto& [net, v, fromPart, toPart] = move_info;
-    if (part[move_info.v] != move_info.fromPart)
+    if (part[move_info.v] != move_info.fromPart) {
         exit(1);
+    }
 
     auto weight = this->H.get_net_weight(move_info.net);
     // auto deltaGainW = std::vector<int>(this->K, 0);

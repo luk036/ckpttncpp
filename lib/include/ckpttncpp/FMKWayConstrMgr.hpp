@@ -3,6 +3,7 @@
 #include "FMConstrMgr.hpp"
 #include <gsl/span>
 #include <range/v3/view/zip.hpp>
+#include <range/v3/algorithm/min_element.hpp>
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
 
 /*!
@@ -35,8 +36,7 @@ class FMKWayConstrMgr : public FMConstrMgr
      */
     [[nodiscard]] auto select_togo() const -> std::uint8_t
     {
-        const auto it =
-            std::min_element(this->diff.cbegin(), this->diff.cend());
+        const auto it = ranges::min_element(this->diff);
         return std::uint8_t(std::distance(this->diff.cbegin(), it));
     }
 

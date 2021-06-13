@@ -5,6 +5,7 @@
 // Snapshot in the form of "interface"???
 #include "PartMgrBase.hpp"
 #include <gsl/span>
+#include <range/v3/algorithm/copy.hpp>
 
 /*!
  * @brief FM Partition Manager
@@ -72,10 +73,11 @@ class FMPartMgr : public PartMgrBase<GainMgr, ConstrMgr, FMPartMgr>
     auto restore_part(const std::vector<std::uint8_t>& snapshot,
         gsl::span<std::uint8_t> part) -> void
     {
-        const auto N = part.size();
-        for (auto i = 0U; i != N; ++i)
-        {
-            part[i] = snapshot[i];
-        }
+        ranges::copy(snapshot, part.begin());
+        // const auto N = part.size();
+        // for (auto i = 0U; i != N; ++i)
+        // {
+        //     part[i] = snapshot[i];
+        // }
     }
 };

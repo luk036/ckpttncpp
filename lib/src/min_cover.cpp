@@ -83,7 +83,7 @@ auto max_independent_net(const SimpleNetlist& H,
 //     auto total_dual_cost = 0;
 //     auto offset = H.number_of_modules();
 
-//     for (auto&& v : H.modules) {
+//     for (auto&& v : H) {
 //         if (is_covered.contains(v)) {
 //             continue;
 //         }
@@ -178,7 +178,7 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
 
     auto module_up_map = py::dict<node_t, node_t> {};
     module_up_map.reserve(H.number_of_modules());
-    for (auto&& v : H.modules)
+    for (auto&& v : H)
     {
         module_up_map[v] = v;
     }
@@ -219,7 +219,7 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
             }
         }
         modules.reserve(H.modules.size() - C.size() + clusters.size());
-        for (auto&& v : H.modules)
+        for (auto&& v : H)
         {
             if (C.contains(v))
             {
@@ -262,7 +262,7 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
 
         node_up_map.reserve(H.number_of_modules() + nets.size());
 
-        for (auto&& v : H.modules)
+        for (auto&& v : H)
         {
             node_up_map[v] = module_map[module_up_map[v]];
         }
@@ -276,7 +276,7 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
     // auto R = py::range<node_t>(0, num_vertices);
     auto g = graph_t {num_vertices};
     // G.add_nodes_from(nodes);
-    for (auto&& v : H.modules)
+    for (auto&& v : H)
     {
         for (auto&& net : H.G[v])
         {

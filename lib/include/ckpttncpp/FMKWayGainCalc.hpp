@@ -55,7 +55,7 @@ class FMKWayGainCalc
                 std::vector<dllink<std::pair<node_t, int16_t>>>(
                     H.number_of_modules()));
 
-            for (auto&& v : this->H.modules)
+            for (auto&& v : this->H)
             {
                 this->vertex_list[k][v].data = std::pair {v, int16_t(0)};
             }

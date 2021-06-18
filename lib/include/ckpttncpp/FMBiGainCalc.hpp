@@ -43,7 +43,7 @@ class FMBiGainCalc
         , rsrc(StackBuf, sizeof StackBuf)
         , IdVec(&rsrc)
     {
-        for (auto&& v : this->H.modules)
+        for (auto&& v : this->H)
         {
             this->vertex_list[v].data = std::pair {v, int16_t(0)};
         }

@@ -14,7 +14,7 @@ auto FMBiGainMgr::init(gsl::span<const std::uint8_t> part) -> int
         bckt.clear();
     }
 
-    for (auto&& v : this->H.modules)
+    for (auto&& v : this->H)
     {
         auto& vlink = this->gainCalc.vertex_list[v];
         // auto toPart = 1 - part[v];

@@ -9,7 +9,7 @@
 void FMConstrMgr::init(gsl::span<const std::uint8_t> part)
 {
     std::fill(this->diff.begin(), this->diff.end(), 0);
-    for (auto&& v : this->H.modules)
+    for (auto&& v : this->H)
     {
         // auto weight_v = this->H.get_module_weight(v);
         this->diff[part[v]] += this->H.get_module_weight(v);

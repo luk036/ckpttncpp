@@ -5,7 +5,7 @@ void HierNetlist<graph_t>::projection_up(
     gsl::span<const std::uint8_t> part, gsl::span<std::uint8_t> part_up) const
 {
     const auto& H = *this->parent;
-    for (auto&& v : H.modules)
+    for (auto&& v : H)
     {
         part_up[this->node_up_map.at(v)] = part[v];
     }

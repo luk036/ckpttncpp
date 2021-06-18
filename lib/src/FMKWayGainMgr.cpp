@@ -15,7 +15,7 @@ auto FMKWayGainMgr::init(gsl::span<const std::uint8_t> part) -> int
     {
         bckt.clear();
     }
-    for (auto&& v : this->H.modules)
+    for (auto&& v : this->H)
     {
         const auto pv = part[v];
         for (auto&& k : this->RR.exclude(pv))

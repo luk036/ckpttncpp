@@ -65,6 +65,16 @@ struct Netlist
      */
     Netlist(graph_t G, int numModules, int numNets);
 
+    auto begin() const 
+    { 
+        return this->modules.begin(); 
+    }
+
+    auto end() const 
+    { 
+        return this->modules.end(); 
+    }
+
     /**
      * @brief Get the number of modules
      *

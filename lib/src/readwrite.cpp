@@ -45,7 +45,7 @@ void writeJSON(std::string_view jsonFileName, const SimpleNetlist& H)
 
     json << R"( "links": [)"
          << "\n";
-    for (auto&& v : H.modules)
+    for (auto&& v : H)
     {
         for (auto&& net : H.G[v])
         {

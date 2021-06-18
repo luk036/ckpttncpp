@@ -59,7 +59,7 @@ class FMConstrMgr
         , diff(K, 0)
         , K {K}
     {
-        for (auto&& v : this->H.modules)
+        for (auto&& v : this->H)
         {
             weight = this->H.get_module_weight(v);
             this->totalweight += weight;

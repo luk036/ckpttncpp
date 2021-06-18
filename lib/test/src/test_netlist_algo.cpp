@@ -21,7 +21,7 @@ TEST_CASE("Test min_vertex_cover dwarf")
     const auto H = create_dwarf();
     auto weight = py::dict<node_t, int> {};
     auto covset = py::set<node_t> {};
-    for (auto node : H.modules)
+    for (auto node : H)
     {
         weight[node] = 1;
         // covset[node] = false;
@@ -46,7 +46,7 @@ TEST_CASE("Test min_maximal_matching dwarf")
         // matchset[net] = false;
         weight[net] = 1;
     }
-    // for (auto v : H.modules)
+    // for (auto v : H)
     // {
     //     dep[v] = false;
     // }

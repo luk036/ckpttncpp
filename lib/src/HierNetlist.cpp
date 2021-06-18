@@ -42,4 +42,4 @@ void HierNetlist<graph_t>::projection_down(
     // }
 }
 
-template struct HierNetlist<xn::SimpleGraph>;
+template class HierNetlist<xn::SimpleGraph>;

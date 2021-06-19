@@ -47,16 +47,16 @@ TEST_CASE("Test FMBiPartMgr p1")
     run_FMBiPartMgr(H);
 }
 
-TEST_CASE("Test FMBiPartMgr ibm01")
-{
-    auto H = readNetD("../../../testcases/ibm01.net");
-    readAre(H, "../../../testcases/ibm01.are");
-    run_FMBiPartMgr(H);
-}
+// TEST_CASE("Test FMBiPartMgr ibm01")
+// {
+//     auto H = readNetD("../../../testcases/ibm01.net");
+//     readAre(H, "../../../testcases/ibm01.are");
+//     run_FMBiPartMgr(H);
+// }
 
-TEST_CASE("Test FMBiPartMgr ibm18")
-{
-    auto H = readNetD("../../../testcases/ibm18.net");
-    readAre(H, "../../../testcases/ibm18.are");
-    run_FMBiPartMgr(H);
-}
+// TEST_CASE("Test FMBiPartMgr ibm18")
+// {
+//     auto H = readNetD("../../../testcases/ibm18.net");
+//     readAre(H, "../../../testcases/ibm18.are");
+//     run_FMBiPartMgr(H);
+// }

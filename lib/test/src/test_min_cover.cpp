@@ -61,54 +61,54 @@ TEST_CASE("Test contraction subgraph dwarf")
     // CHECK(H2->number_of_pins() < 14);
     CHECK(H2->get_max_net_degree() <= 3);
 
-    // auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
-    // auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
-    // auto part3 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
-    // part2[0] = part2[2] = 1;
-    // part2[1] = 2;
-    // // H2->project_down(part2, part);
-    // // H2->project_up(part, part3);
-    // CHECK(part2 == part3);
+    auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
+    auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
+    auto part3 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
+    part2[0] = part2[2] = 1;
+    part2[1] = 2;
+    H2->projection_down(part2, part);
+    H2->projection_up(part, part3);
+    CHECK(part2 == part3);
 }
 
-// TEST_CASE("Test contraction subgraph ibm01", "[test_contractio_subgraph]") {
-//     auto H = readNetD("../../../testcases/ibm01.net");
-//     readAre(H, "../../../testcases/ibm01.are");
-//     auto H2 = create_contraction_subgraph(H, py::set<node_t>{});
-//     auto H3 = create_contraction_subgraph(*H2, py::set<node_t>{});
-//     CHECK(H2->number_of_modules() < H.number_of_modules());
-//     CHECK(H2->number_of_nets() < H.number_of_nets());
-//     CHECK(H2->number_of_pins() < H.number_of_pins());
-//     CHECK(H2->get_max_net_degree() <= H.get_max_net_degree());
+TEST_CASE("Test contraction subgraph ibm01") {
+    auto H = readNetD("../../../testcases/ibm01.net");
+    readAre(H, "../../../testcases/ibm01.are");
+    auto H2 = create_contraction_subgraph(H, py::set<node_t>{});
+    auto H3 = create_contraction_subgraph(*H2, py::set<node_t>{});
+    CHECK(H2->number_of_modules() < H.number_of_modules());
+    CHECK(H2->number_of_nets() < H.number_of_nets());
+    // CHECK(H2->number_of_pins() < H.number_of_pins());
+    CHECK(H2->get_max_net_degree() <= H.get_max_net_degree());
 
-//     auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
-//     auto part3 = std::vector<std::uint8_t>(H3.number_of_modules(), 0);
-//     auto part4 = std::vector<std::uint8_t>(H3.number_of_modules(), 0);
-//     for (auto i = 0u; i != H3.number_of_modules(); ++i) {
-//         part3[i] = i;
-//     }
-//     H3.project_down(part3, part2);
-//     H3.project_up(part2, part4);
-//     CHECK(part3 == part4);
-// }
+    auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
+    auto part3 = std::vector<std::uint8_t>(H3->number_of_modules(), 0);
+    auto part4 = std::vector<std::uint8_t>(H3->number_of_modules(), 0);
+    for (auto i = 0u; i != H3->number_of_modules(); ++i) {
+        part3[i] = i;
+    }
+    H3->projection_down(part3, part2);
+    H3->projection_up(part2, part4);
+    CHECK(part3 == part4);
+}
 
-// TEST_CASE("Test contraction subgraph ibm18", "[test_contractio_subgraph]") {
-//     auto H = readNetD("../../../testcases/ibm18.net");
-//     readAre(H, "../../../testcases/ibm18.are");
-//     auto H2 = create_contraction_subgraph(H, py::set<node_t>{});
-//     auto H3 = create_contraction_subgraph(*H2, py::set<node_t>{});
-//     CHECK(H2->number_of_modules() < H.number_of_modules());
-//     CHECK(H2->number_of_nets() < H.number_of_nets());
-//     CHECK(H2->number_of_pins() < H.number_of_pins());
-//     CHECK(H2->get_max_net_degree() <= H.get_max_net_degree());
+TEST_CASE("Test contraction subgraph ibm18") {
+    auto H = readNetD("../../../testcases/ibm18.net");
+    readAre(H, "../../../testcases/ibm18.are");
+    auto H2 = create_contraction_subgraph(H, py::set<node_t>{});
+    auto H3 = create_contraction_subgraph(*H2, py::set<node_t>{});
+    CHECK(H2->number_of_modules() < H.number_of_modules());
+    CHECK(H2->number_of_nets() < H.number_of_nets());
+    // CHECK(H2->number_of_pins() < H.number_of_pins());
+    CHECK(H2->get_max_net_degree() <= H.get_max_net_degree());
 
-//     auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
-//     auto part3 = std::vector<std::uint8_t>(H3.number_of_modules(), 0);
-//     auto part4 = std::vector<std::uint8_t>(H3.number_of_modules(), 0);
-//     for (auto i = 0u; i != H3.number_of_modules(); ++i) {
-//         part3[i] = i;
-//     }
-//     H3.project_down(part3, part2);
-//     H3.project_up(part2, part4);
-//     CHECK(part3 == part4);
-// }
+    auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
+    auto part3 = std::vector<std::uint8_t>(H3->number_of_modules(), 0);
+    auto part4 = std::vector<std::uint8_t>(H3->number_of_modules(), 0);
+    for (auto i = 0u; i != H3->number_of_modules(); ++i) {
+        part3[i] = i;
+    }
+    H3->projection_down(part3, part2);
+    H3->projection_up(part2, part4);
+    CHECK(part3 == part4);
+}

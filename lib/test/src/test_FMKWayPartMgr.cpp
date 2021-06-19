@@ -43,14 +43,14 @@ TEST_CASE("Test FMKWayPartMgr p1")
     run_FMKWayPartMgr(H, 3);
 }
 
-// TEST_CASE("Test FMKWayPartMgr ibm01", "[test_FMKWayPartMgr]") {
-//     const auto H = readNetD("../../../testcases/ibm01.net");
+// TEST_CASE("Test FMKWayPartMgr ibm01") {
+//     auto H = readNetD("../../../testcases/ibm01.net");
 //     readAre(H, "../../../testcases/ibm01.are");
 //     run_FMKWayPartMgr(H, 3);
 // }
 
-// TEST_CASE("Test FMKWayPartMgr ibm18", "[test_FMKWayPartMgr]") {
-//     const auto H = readNetD("../../../testcases/ibm18.net");
+// TEST_CASE("Test FMKWayPartMgr ibm18") {
+//     auto H = readNetD("../../../testcases/ibm18.net");
 //     readAre(H, "../../../testcases/ibm18.are");
 //     run_FMKWayPartMgr(H, 3);
 // }

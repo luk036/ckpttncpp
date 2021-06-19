@@ -34,6 +34,32 @@ TEST_CASE("Test Read p1")
     CHECK(H.get_module_weight(1) == 1);
 }
 
+TEST_CASE("Test Read ibm01")
+{
+    const auto H = readNetD("../../../testcases/ibm01.net");
+
+    CHECK(H.number_of_modules() == 12752);
+    CHECK(H.number_of_nets() == 14111);
+    // CHECK(H.number_of_pins() == 2908);
+    CHECK(H.get_max_degree() == 39);
+    CHECK(H.get_max_net_degree() == 42);
+    CHECK(!H.has_fixed_modules);
+    CHECK(H.get_module_weight(1) == 1);
+}
+
+TEST_CASE("Test Read ibm18")
+{
+    const auto H = readNetD("../../../testcases/ibm18.net");
+
+    CHECK(H.number_of_modules() == 210613);
+    CHECK(H.number_of_nets() == 201920);
+    // CHECK(H.number_of_pins() == 2908);
+    CHECK(H.get_max_degree() == 97);
+    CHECK(H.get_max_net_degree() == 66);
+    CHECK(!H.has_fixed_modules);
+    CHECK(H.get_module_weight(1) == 1);
+}
+
 TEST_CASE("Test Write Dwarf")
 {
     auto H = readNetD("../../../testcases/dwarf1.netD");

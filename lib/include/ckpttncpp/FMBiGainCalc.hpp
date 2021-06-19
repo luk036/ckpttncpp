@@ -23,7 +23,7 @@ class FMBiGainCalc
     std::vector<dllink<std::pair<node_t, int16_t>>> vertex_list;
     int totalcost {0};
     uint16_t MAX_DEGREE {FM_MAX_DEGREE};
-    std::byte StackBuf[4096];
+    std::byte StackBuf[4096]; // ???
     FMPmr::monotonic_buffer_resource rsrc;
 
   public:

@@ -20,10 +20,10 @@ class FMBiGainCalc
 
   private:
     const SimpleNetlist& H;
-    std::vector<dllink<std::pair<node_t, int16_t>>> vertex_list;
+    std::vector<dllink<std::pair<node_t, int32_t>>> vertex_list;
     int totalcost {0};
-    uint16_t MAX_DEGREE {FM_MAX_DEGREE};
-    std::byte StackBuf[4096]; // ???
+    uint32_t MAX_DEGREE {FM_MAX_DEGREE};
+    std::byte StackBuf[8192]; // ???
     FMPmr::monotonic_buffer_resource rsrc;
 
   public:
@@ -45,7 +45,7 @@ class FMBiGainCalc
     {
         for (auto&& v : this->H)
         {
-            this->vertex_list[v].data = std::pair {v, int16_t(0)};
+            this->vertex_list[v].data = std::pair {v, int32_t(0)};
         }
     }
 
@@ -77,7 +77,7 @@ class FMBiGainCalc
      * @deprecated
      */
     auto start_ptr(std::uint8_t /*toPart*/)
-        -> dllink<std::pair<node_t, int16_t>>*
+        -> dllink<std::pair<node_t, int32_t>>*
     {
         return &this->vertex_list[0];
     }

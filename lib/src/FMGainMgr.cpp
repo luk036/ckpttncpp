@@ -162,7 +162,7 @@ template <typename GainCalc, class Derived>
 void FMGainMgr<GainCalc, Derived>::_update_move_3pin_net(
     gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info)
 {
-    // std::byte StackBuf[4096];
+    // std::byte StackBuf[8192];
     // FMPmr::monotonic_buffer_resource rsrc(StackBuf, sizeof StackBuf);
     // auto IdVec = FMPmr::vector<node_t>(&rsrc);
 

@@ -23,9 +23,9 @@ class FMKWayGainCalc
     robin<std::uint8_t> RR;
     // size_t num_modules;
     int totalcost {0};
-    std::byte StackBuf[10000];
+    std::byte StackBuf[20000];
     FMPmr::monotonic_buffer_resource rsrc;
-    FMPmr::vector<std::vector<dllink<std::pair<node_t, int16_t>>>> vertex_list;
+    std::vector<std::vector<dllink<std::pair<node_t, int32_t>>>> vertex_list;
     FMPmr::vector<int> deltaGainV;
 
   public:
@@ -44,7 +44,7 @@ class FMKWayGainCalc
         , K {K}
         , RR {K}
         , rsrc(StackBuf, sizeof StackBuf)
-        , vertex_list(&rsrc)
+        , vertex_list{}
         , deltaGainV(K, 0, &rsrc)
         , deltaGainW(K, 0, &rsrc)
         , IdVec(&rsrc)
@@ -52,12 +52,12 @@ class FMKWayGainCalc
         for (auto k = 0U; k != this->K; ++k)
         {
             this->vertex_list.emplace_back(
-                std::vector<dllink<std::pair<node_t, int16_t>>>(
+                std::vector<dllink<std::pair<node_t, int32_t>>>(
                     H.number_of_modules()));
 
             for (auto&& v : this->H)
             {
-                this->vertex_list[k][v].data = std::pair {v, int16_t(0)};
+                this->vertex_list[k][v].data = std::pair {v, int32_t(0)};
             }
         }
     }
@@ -68,7 +68,7 @@ class FMKWayGainCalc
      * @param[in] toPart
      * @return dllink*
      */
-    auto start_ptr(uint8_t toPart) -> dllink<std::pair<node_t, int16_t>>*
+    auto start_ptr(uint8_t toPart) -> dllink<std::pair<node_t, int32_t>>*
     {
         return &this->vertex_list[toPart][0];
     }

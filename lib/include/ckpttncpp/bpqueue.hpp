@@ -32,7 +32,7 @@ class bpq_iterator;
  *
  * @TODO: support std::pmr
  */
-template <typename _Tp, typename Int = int16_t,
+template <typename _Tp, typename Int = int32_t,
     typename _Sequence = std::vector<dllink<std::pair<_Tp, Int>>>>
 //          class Allocator = typename std::allocator<dllink<std::pair<_Tp,
 //          Int>> > >
@@ -341,7 +341,7 @@ class bpqueue
  * order. Detaching queue items may invalidate the iterator because
  * the iterator makes a copy of current key.
  */
-template <typename _Tp, typename Int = int16_t>
+template <typename _Tp, typename Int = int32_t>
 class bpq_iterator
 {
     // using value_type = _Tp;

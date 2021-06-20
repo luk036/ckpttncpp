@@ -110,28 +110,28 @@ inline constexpr auto range2(T start, T stop)
     return iterable_wrapper {start, stop};
 }
 
-using iota_return_type = decltype(ranges::views::iota(0, 1));
-
-struct iterable_wrapper : public iota_return_type
+template <typename T>
+inline auto range(T start, T stop)
 {
-  public:
-    using value_type [[maybe_unused]] = int; // luk:
-    using key_type [[maybe_unused]] = int;   // luk:
+    using iota_return_type = decltype(ranges::views::iota(start, stop));
 
-    template <typename... Args>
-    iterable_wrapper(Args&&... args)
-        : iota_return_type(std::forward<Args>(args)...)
+    struct iterable_wrapper : public iota_return_type
     {
-    }
+      public:
+        using value_type [[maybe_unused]] = int; // luk:
+        using key_type [[maybe_unused]] = int;   // luk:
 
-    [[nodiscard]] auto contains(int n) const -> bool
-    {
-        return !(n < *this->begin()) && n < *this->end();
-    }
-};
+        iterable_wrapper(iota_return_type&& base)
+            : iota_return_type{std::forward<iota_return_type>(base)}
+        {
+        }
 
-inline auto range(int start, int stop)
-{
+        [[nodiscard]] auto contains(int n) const -> bool
+        {
+            return !(n < *this->begin()) && n < *this->end();
+        }
+    };
+    
     return iterable_wrapper {ranges::views::iota(start, stop)};
 }
 

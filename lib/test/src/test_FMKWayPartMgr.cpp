@@ -51,9 +51,9 @@ TEST_CASE("Test FMKWayPartMgr ibm01")
     run_FMKWayPartMgr(H, 3);
 }
 
-TEST_CASE("Test FMKWayPartMgr ibm18")
-{
-    auto H = readNetD("../../../testcases/ibm18.net");
-    readAre(H, "../../../testcases/ibm18.are");
-    run_FMKWayPartMgr(H, 3);
-}
+// TEST_CASE("Test FMKWayPartMgr ibm18")
+// {
+//     auto H = readNetD("../../../testcases/ibm18.net");
+//     readAre(H, "../../../testcases/ibm18.are");
+//     run_FMKWayPartMgr(H, 3);
+// }

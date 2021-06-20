@@ -16,141 +16,6 @@
 
 using node_t = typename SimpleNetlist::node_t;
 
-/**
- * @brief
- *
- * @param[in] H
- * @param[in] DontSelect
- * @return auto
- */
-auto max_independent_net(const SimpleNetlist& H,
-    const std::vector<int>& /*weight*/, const py::set<node_t>& DontSelect)
-{
-    // bpqueue bpq {-int(H.get_max_net_degree()), 0};
-    // auto nets = std::vector<dllink<int>>(H.nets.size());
-
-    // for (size_t i_net = 0U; i_net < H.nets.size(); ++i_net)
-    // {
-    //     auto net = H.nets[i_net];
-    //     bpq.append(nets[i_net], -H.G.degree(net));
-    // }
-
-    auto visited = py::set<node_t> {};
-    for (auto&& net : DontSelect)
-    {
-        visited.insert(net);
-    }
-
-    auto S = py::set<node_t> {};
-    int total_cost = 0;
-
-    // while (!bpq.is_empty())
-    for (auto&& net : H.nets)
-    {
-        // dllink<int>& item = bpq.popleft();
-
-        if (visited.contains(net))
-        {
-            continue;
-        }
-        if (H.G.degree(net) < 2)
-        {
-            continue;
-        }
-        S.insert(net);
-        total_cost += H.get_net_weight(net);
-        for (auto&& v : H.G[net])
-        {
-            for (auto&& net2 : H.G[v])
-            {
-                visited.insert(net2);
-            }
-        }
-    }
-    return std::make_tuple(std::move(S), total_cost);
-}
-
-
-// /**
-//  * @brief
-//  *
-//  * @param[in] H
-//  * @return auto
-//  */
-// auto min_net_cover_pd(SimpleNetlist &H, const std::vector<int> & /*weight*/)
-// {
-//     // auto S = py::set<node_t>{};
-//     auto L = std::vector<node_t>{};
-//     auto is_covered = py::set<node_t>{};
-//     auto gap = H.net_weight.empty() ? std::vector<int>(H.number_of_nets(), 1)
-//                                     : H.net_weight;
-//     auto total_primal_cost = 0;
-//     auto total_dual_cost = 0;
-//     auto offset = H.number_of_modules();
-
-//     for (auto&& v : H) {
-//         if (is_covered.contains(v)) {
-//             continue;
-//         }
-//         auto s = *H.G[v].begin();
-//         auto min_gap = gap[H.net_map[s]];
-//         for (auto&& net : H.G[v]) {
-//             auto i_net = H.net_map[net];
-//             if (min_gap > gap[i_net]) {
-//                 s = net;
-//                 min_gap = gap[i_net];
-//             }
-//         }
-
-//         // is_net_cover[i_s] = True
-//         // S.append(i_s)
-//         // S.insert(s);
-//         L.push_back(s);
-//         for (auto&& net : H.G[v]) {
-//             auto i_net = H.net_map[net];
-//             gap[i_net] -= min_gap;
-//         }
-//         assert(gap[H.net_map[s]] == 0);
-//         for (auto&& v2 : H.G[s]) {
-//             is_covered.insert(v2);
-//         }
-//         total_primal_cost += H.get_net_weight(s);
-//         total_dual_cost += min_gap;
-//     }
-
-//     assert(total_primal_cost >= total_dual_cost);
-//     // std::unordered_set<node_t> S(L.cbegin(), L.cend());
-
-//     // auto S2 = py::set<node_t>{S.copy()};
-//     py::set<node_t> S(L.cbegin(), L.cend());
-//     // for (auto&& net : S2) {
-//     for (auto&& net : L) {
-//         auto found = false;
-//         for (auto&& v : H.G[net]) {
-//             auto covered = false;
-//             for (auto&& net2 : H.G[v]) {
-//                 if (net2 == net) {
-//                     continue;
-// }
-//                 if (S.contains(net2)) {
-//                     covered = true;
-//                     break;
-//                 }
-//             }
-//             if (!covered) {
-//                 found = true;
-//                 break;
-//             }
-//         }
-//         if (found) {
-//             continue;
-// }
-//         total_primal_cost -= H.get_net_weight(net);
-//         S.erase(net);
-//     }
-
-//     return std::tuple{std::move(S), total_primal_cost};
-// }
 
 /**
  * @brief Create a contraction subgraph object
@@ -165,12 +30,6 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
     auto weight = py::dict<node_t, int> {};
     for (auto&& net : H.nets)
     {
-        // auto sum = 0;
-        // for (auto&& v : H.G[net])
-        // {
-        //     sum += H.get_module_weight(v);
-        // }
-        // weight[net] = sum;
         auto r_weight = H.G[net] |
             ranges::views::transform(
                 [&](auto v) { return H.get_module_weight(v); });
@@ -180,10 +39,6 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
     auto S = py::set<node_t> {};
     auto dep = DontSelect.copy();
     min_maximal_matching(H, weight, S, dep);
-
-
-    // auto rslt = max_independent_net(H, H.module_weight, DontSelect);
-    // auto&& S = std::get<0>(rslt);
 
     auto module_up_map = py::dict<node_t, node_t> {};
     module_up_map.reserve(H.number_of_modules());
@@ -302,7 +157,7 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
     auto G = std::move(g);
 
     auto H2 = std::make_unique<SimpleHierNetlist>(std::move(G),
-        py::range<int>(numModules), py::range<int>(numModules, num_vertices));
+        py::range<int>(0, numModules), py::range<int>(numModules, num_vertices));
 
     auto node_down_map = py::dict<index_t, node_t> {};
     node_down_map.reserve(num_vertices);
@@ -325,7 +180,7 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
 
     auto module_weight = std::vector<int> {};
     module_weight.reserve(numModules);
-    for (auto&& i_v : py::range<int>(numModules))
+    for (auto&& i_v : py::range<int>(0, numModules))
     {
         if (cluster_down_map.contains(i_v))
         {

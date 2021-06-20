@@ -15,8 +15,6 @@ extern void readAre(SimpleNetlist& H, std::string_view areFileName);
 // min_net_cover_pd(SimpleNetlist &, const std::vector<int> &);
 
 using node_t = SimpleNetlist::node_t;
-extern auto max_independent_net(const SimpleNetlist&, const std::vector<int>&,
-    const py::set<node_t>&) -> std::tuple<py::set<node_t>, int>;
 extern auto create_contraction_subgraph(const SimpleNetlist&,
     const py::set<node_t>&) -> std::unique_ptr<SimpleHierNetlist>;
 
@@ -35,21 +33,6 @@ extern auto create_contraction_subgraph(const SimpleNetlist&,
 //     readAre(H, "../../../testcases/ibm01.are");
 //     auto [S, cost] = min_net_cover_pd(H, H.net_weight);
 //     CHECK(cost == 4053);
-// }
-
-TEST_CASE("Test max_independent_net dwarf")
-{
-    const auto H = create_dwarf();
-    const auto rslt =
-        max_independent_net(H, H.module_weight, py::set<node_t> {});
-    CHECK(std::get<1>(rslt) == 3);
-}
-
-// TEST_CASE("Test max_independent_net ibm01", "[test_max_independent_net]") {
-//     auto H = readNetD("../../../testcases/ibm01.net");
-//     readAre(H, "../../../testcases/ibm01.are");
-//     auto [S, cost] = max_independent_net(H, H.net_weight);
-//     CHECK(cost == 3157);
 // }
 
 TEST_CASE("Test contraction subgraph dwarf")

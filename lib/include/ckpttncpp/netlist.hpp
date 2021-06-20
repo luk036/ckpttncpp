@@ -212,7 +212,7 @@ Netlist<graph_t>::Netlist(
 
 template <typename graph_t>
 Netlist<graph_t>::Netlist(graph_t G, int numModules, int numNets)
-    : Netlist {std::move(G), py::range<int>(numModules),
+    : Netlist {std::move(G), py::range<int>(0, numModules),
           py::range<int>(numModules, numModules + numNets)}
 {
 }

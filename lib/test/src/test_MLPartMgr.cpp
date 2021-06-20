@@ -12,8 +12,9 @@
 
 // using std::experimental::randint;
 
-extern auto create_test_netlist() -> SimpleNetlist; // import create_test_netlist
-extern auto create_dwarf() -> SimpleNetlist;        // import create_dwarf
+extern auto create_test_netlist()
+    -> SimpleNetlist;                        // import create_test_netlist
+extern auto create_dwarf() -> SimpleNetlist; // import create_dwarf
 extern auto readNetD(std::string_view netDFileName) -> SimpleNetlist;
 extern void readAre(SimpleNetlist& H, std::string_view areFileName);
 
@@ -45,7 +46,7 @@ TEST_CASE("Test MLBiPartMgr p1")
     {
         auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
         auto whichPart = 0U;
-        for (auto&& elem : part)
+        for (auto& elem : part)
         {
             whichPart ^= 1;
             elem = whichPart;
@@ -73,7 +74,7 @@ TEST_CASE("Test MLBiPartMgr ibm01")
     {
         auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
         auto whichPart = 0U;
-        for (auto&& elem : part)
+        for (auto& elem : part)
         {
             whichPart ^= 1;
             elem = whichPart;

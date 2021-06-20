@@ -5,6 +5,9 @@
 #include <cinttypes>
 #include <cmath>
 #include <gsl/span>
+#include <range/v3/core.hpp>
+#include <range/v3/numeric/accumulate.hpp>
+#include <range/v3/view/transform.hpp>
 #include <vector>
 
 /*!
@@ -27,7 +30,7 @@ class FMConstrMgr
   private:
     const SimpleNetlist& H;
     double BalTol;
-    int totalweight {};
+    int totalweight;
     int weight {}; // cache value
 
   protected:
@@ -59,11 +62,15 @@ class FMConstrMgr
         , diff(K, 0)
         , K {K}
     {
+        this->totalweight = 0;
         for (auto&& v : this->H)
         {
             weight = this->H.get_module_weight(v);
             this->totalweight += weight;
         }
+        // auto r_weight = this->H | ranges::views::transform([&](auto v){return
+        // this->H.get_module_weight(v);}); this->totalweight =
+        // ranges::accumulate(r_weight, 0);
         const auto totalweightK = this->totalweight * (2. / this->K);
         this->lowerbound = int(std::round(totalweightK * this->BalTol));
     }

@@ -2,8 +2,9 @@
 #include <ckpttncpp/netlist.hpp>     // import Netlist
 #include <doctest/doctest.h>
 
-extern auto create_test_netlist() -> SimpleNetlist; // import create_test_netlist
-extern auto create_dwarf() -> SimpleNetlist;        // import create_dwarf
+extern auto create_test_netlist()
+    -> SimpleNetlist;                        // import create_test_netlist
+extern auto create_dwarf() -> SimpleNetlist; // import create_dwarf
 
 /**
  * @brief

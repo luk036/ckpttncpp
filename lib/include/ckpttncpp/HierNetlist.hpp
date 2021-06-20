@@ -38,7 +38,7 @@ class HierNetlist : public Netlist<graph_t>
     py::dict<index_t, node_t> node_down_map;
     py::dict<index_t, node_t> cluster_down_map;
 
-  
+
     /*!
      * @brief Construct a new HierNetlist object
      *

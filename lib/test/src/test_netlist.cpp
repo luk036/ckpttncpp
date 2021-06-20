@@ -124,7 +124,7 @@ TEST_CASE("Test Netlist")
 
 TEST_CASE("Test dwarf")
 {
-    static_assert(sizeof(double*) == 8 );
+    static_assert(sizeof(double*) == 8);
     const auto H = create_dwarf();
 
     CHECK(H.number_of_modules() == 7);

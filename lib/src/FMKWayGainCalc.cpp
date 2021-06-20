@@ -192,11 +192,12 @@ void FMKWayGainCalc::_init_gain_general_net(
  * @param[out] w
  * @return ret_2pin_info
  */
-auto FMKWayGainCalc::update_move_2pin_net(
-    gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info) -> FMKWayGainCalc::node_t
+auto FMKWayGainCalc::update_move_2pin_net(gsl::span<const std::uint8_t> part,
+    const MoveInfo<node_t>& move_info) -> FMKWayGainCalc::node_t
 {
     // const auto& [net, v, fromPart, toPart] = move_info;
-    if (part[move_info.v] != move_info.fromPart) {
+    if (part[move_info.v] != move_info.fromPart)
+    {
         exit(1);
     }
 
@@ -206,7 +207,7 @@ auto FMKWayGainCalc::update_move_2pin_net(
     auto w = (*netCur != move_info.v) ? *netCur : *++netCur;
     std::fill(this->deltaGainW.begin(), this->deltaGainW.end(), 0);
 
-// #pragma unroll
+    // #pragma unroll
     for (auto&& l : {move_info.fromPart, move_info.toPart})
     {
         if (part[w] == l)
@@ -250,8 +251,8 @@ void FMKWayGainCalc::init_IdVec(const node_t& v, const node_t& net)
  * @param[in] move_info
  * @return ret_info
  */
-auto FMKWayGainCalc::update_move_3pin_net(
-    gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info) -> FMKWayGainCalc::ret_info
+auto FMKWayGainCalc::update_move_3pin_net(gsl::span<const std::uint8_t> part,
+    const MoveInfo<node_t>& move_info) -> FMKWayGainCalc::ret_info
 {
     // const auto& [net, v, fromPart, toPart] = move_info;
     // auto IdVec = std::vector<node_t> {};
@@ -274,7 +275,7 @@ auto FMKWayGainCalc::update_move_3pin_net(
 
     if (part_w == part_u)
     {
-// #pragma unroll
+        // #pragma unroll
         for (auto i = 0; i != 2; ++i)
         {
             if (part_w != l)
@@ -295,7 +296,7 @@ auto FMKWayGainCalc::update_move_3pin_net(
         return deltaGain;
     }
 
-// #pragma unroll
+    // #pragma unroll
     for (auto i = 0; i != 2; ++i)
     {
         if (part_w == l)
@@ -338,8 +339,8 @@ auto FMKWayGainCalc::update_move_3pin_net(
  * @param[in] move_info
  * @return ret_info
  */
-auto FMKWayGainCalc::update_move_general_net(
-    gsl::span<const std::uint8_t> part, const MoveInfo<node_t>& move_info) -> FMKWayGainCalc::ret_info
+auto FMKWayGainCalc::update_move_general_net(gsl::span<const std::uint8_t> part,
+    const MoveInfo<node_t>& move_info) -> FMKWayGainCalc::ret_info
 {
     // const auto& [net, v, fromPart, toPart] = move_info;
     std::byte StackBuf[FM_MAX_NUM_PARTITIONS];
@@ -368,7 +369,7 @@ auto FMKWayGainCalc::update_move_general_net(
     auto l = move_info.fromPart;
     auto u = move_info.toPart;
 
-// #pragma unroll
+    // #pragma unroll
     for (auto i = 0; i != 2; ++i)
     {
         if (num[l] == 0)

@@ -44,7 +44,7 @@ class FMKWayGainCalc
         , K {K}
         , RR {K}
         , rsrc(StackBuf, sizeof StackBuf)
-        , vertex_list{}
+        , vertex_list {}
         , deltaGainV(K, 0, &rsrc)
         , deltaGainW(K, 0, &rsrc)
         , IdVec(&rsrc)

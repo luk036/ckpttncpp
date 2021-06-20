@@ -3,6 +3,10 @@
 #include <ckpttncpp/netlist_algo.hpp>
 #include <memory>
 #include <py2cpp/py2cpp.hpp>
+// #include <range/v3/all.hpp>
+#include <range/v3/core.hpp>
+#include <range/v3/numeric/accumulate.hpp>
+#include <range/v3/view/transform.hpp>
 // #include <range/v3/view/enumerate.hpp>
 #include <tuple>
 #include <vector>
@@ -157,18 +161,22 @@ auto max_independent_net(const SimpleNetlist& H,
 auto create_contraction_subgraph(const SimpleNetlist& H,
     const py::set<node_t>& DontSelect) -> std::unique_ptr<SimpleHierNetlist>
 {
-    auto weight = py::dict<node_t, int>{};
+    auto weight = py::dict<node_t, int> {};
     for (auto&& net : H.nets)
     {
-        auto sum = 0;
-        for (auto&& v : H.G[net])
-        {
-            sum += H.get_module_weight(v);
-        }
-        weight[net] = sum;
+        // auto sum = 0;
+        // for (auto&& v : H.G[net])
+        // {
+        //     sum += H.get_module_weight(v);
+        // }
+        // weight[net] = sum;
+        auto r_weight = H.G[net] |
+            ranges::views::transform(
+                [&](auto v) { return H.get_module_weight(v); });
+        weight[net] = ranges::accumulate(r_weight, 0);
     }
 
-    auto S = py::set<node_t>{};
+    auto S = py::set<node_t> {};
     auto dep = DontSelect.copy();
     min_maximal_matching(H, weight, S, dep);
 
@@ -319,11 +327,16 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
         if (cluster_down_map.contains(i_v))
         {
             const auto net = cluster_down_map[i_v];
-            auto cluster_weight = 0U;
-            for (auto&& v2 : H.G[net])
-            {
-                cluster_weight += H.get_module_weight(v2);
-            }
+            // auto cluster_weight = 0U;
+            // for (auto&& v2 : H.G[net])
+            // {
+            //     cluster_weight += H.get_module_weight(v2);
+            // }
+            auto r_weight = H.G[net] |
+                ranges::views::transform(
+                    [&](auto v) { return H.get_module_weight(v); });
+            auto cluster_weight = ranges::accumulate(r_weight, 0);
+
             module_weight.push_back(cluster_weight);
         }
         else

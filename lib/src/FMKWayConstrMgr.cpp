@@ -22,7 +22,8 @@ struct identity
  * @param[in] move_info_v
  * @return LegalCheck
  */
-auto FMKWayConstrMgr::check_legal(const MoveInfoV<node_t>& move_info_v) -> LegalCheck
+auto FMKWayConstrMgr::check_legal(const MoveInfoV<node_t>& move_info_v)
+    -> LegalCheck
 {
     const auto status = FMConstrMgr::check_legal(move_info_v);
     if (status != LegalCheck::allsatisfied)

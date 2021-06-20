@@ -4,8 +4,9 @@
 #include <doctest/doctest.h>
 #include <string_view>
 
-extern auto create_test_netlist() -> SimpleNetlist; // import create_test_netlist
-extern auto create_dwarf() -> SimpleNetlist;        // import create_dwarf
+extern auto create_test_netlist()
+    -> SimpleNetlist;                        // import create_test_netlist
+extern auto create_dwarf() -> SimpleNetlist; // import create_dwarf
 extern auto readNetD(std::string_view netDFileName) -> SimpleNetlist;
 extern void readAre(SimpleNetlist& H, std::string_view areFileName);
 
@@ -43,14 +44,16 @@ TEST_CASE("Test FMKWayPartMgr p1")
     run_FMKWayPartMgr(H, 3);
 }
 
-// TEST_CASE("Test FMKWayPartMgr ibm01") {
-//     auto H = readNetD("../../../testcases/ibm01.net");
-//     readAre(H, "../../../testcases/ibm01.are");
-//     run_FMKWayPartMgr(H, 3);
-// }
+TEST_CASE("Test FMKWayPartMgr ibm01")
+{
+    auto H = readNetD("../../../testcases/ibm01.net");
+    readAre(H, "../../../testcases/ibm01.are");
+    run_FMKWayPartMgr(H, 3);
+}
 
-// TEST_CASE("Test FMKWayPartMgr ibm18") {
-//     auto H = readNetD("../../../testcases/ibm18.net");
-//     readAre(H, "../../../testcases/ibm18.are");
-//     run_FMKWayPartMgr(H, 3);
-// }
+TEST_CASE("Test FMKWayPartMgr ibm18")
+{
+    auto H = readNetD("../../../testcases/ibm18.net");
+    readAre(H, "../../../testcases/ibm18.are");
+    run_FMKWayPartMgr(H, 3);
+}

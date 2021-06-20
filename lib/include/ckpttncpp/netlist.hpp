@@ -65,14 +65,14 @@ struct Netlist
      */
     Netlist(graph_t G, int numModules, int numNets);
 
-    auto begin() const 
-    { 
-        return this->modules.begin(); 
+    auto begin() const
+    {
+        return this->modules.begin();
     }
 
-    auto end() const 
-    { 
-        return this->modules.end(); 
+    auto end() const
+    {
+        return this->modules.end();
     }
 
     /**

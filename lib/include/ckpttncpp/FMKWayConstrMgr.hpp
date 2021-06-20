@@ -2,8 +2,8 @@
 
 #include "FMConstrMgr.hpp"
 #include <gsl/span>
-#include <range/v3/view/zip.hpp>
 #include <range/v3/algorithm/min_element.hpp>
+#include <range/v3/view/zip.hpp>
 // Check if (the move of v can satisfied, makebetter, or notsatisfied
 
 /*!

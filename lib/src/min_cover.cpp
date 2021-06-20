@@ -6,8 +6,9 @@
 // #include <range/v3/all.hpp>
 #include <range/v3/core.hpp>
 #include <range/v3/numeric/accumulate.hpp>
+#include <range/v3/view/remove_if.hpp>
 #include <range/v3/view/transform.hpp>
-// #include <range/v3/view/enumerate.hpp>
+#include <range/v3/view/enumerate.hpp>
 #include <tuple>
 #include <vector>
 
@@ -248,24 +249,24 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
     { // localize module_map and net_map
         auto module_map = py::dict<node_t, index_t> {};
         module_map.reserve(numModules);
-        // for (auto&& [i_v, v] : ranges::views::enumerate(modules))
-        auto i_v = 0U;
-        for (auto&& v : modules)
+        for (auto&& [i_v, v] : ranges::views::enumerate(modules))
+        // auto i_v = 0U;
+        // for (auto&& v : modules)
         {
             // const auto& v = modules[i_v];
             module_map[v] = index_t(i_v);
-            ++i_v;
+            // ++i_v;
         }
 
         auto net_map = py::dict<node_t, index_t> {};
         net_map.reserve(numNets);
-        // for (auto&& [i_net, net] : ranges::views::enumerate(nets))
-        auto i_net = 0U;
-        for (auto&& net : nets)
+        for (auto&& [i_net, net] : ranges::views::enumerate(nets))
+        // auto i_net = 0U;
+        // for (auto&& net : nets)
         {
             // const auto& net = nets[i_net];
             net_map[net] = index_t(i_net);
-            ++i_net;
+            // ++i_net;
         }
 
         node_up_map.reserve(H.number_of_modules() + nets.size());
@@ -286,12 +287,14 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
     // G.add_nodes_from(nodes);
     for (auto&& v : H)
     {
-        for (auto&& net : H.G[v])
+        for (auto&& net : H.G[v] |
+                ranges::views::remove_if(
+                    [&](auto net) { return S.contains(net); }))
         {
-            if (S.contains(net))
-            {
-                continue;
-            }
+            // if (S.contains(net))
+            // {
+            //     continue;
+            // }
             g.add_edge(node_up_map[v], node_up_map[net]);
         }
     }

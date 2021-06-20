@@ -45,7 +45,7 @@ auto create_dwarf() -> SimpleNetlist
         Edge(p3, n5), Edge(a0, n6)};
     // std::index_t indices[] = {0, 1, 2, 3, 4, 5};
     // int num_arcs = sizeof(edge_array) / sizeof(Edge);
-    // auto R = py::range<int>(0, num_nodes);
+    // auto R = py::range(0, num_nodes);
     // graph_t g{R, R};
     auto g = xn::SimpleGraph(num_nodes);
     for (auto&& e : edge_array)
@@ -97,7 +97,7 @@ auto create_test_netlist() -> SimpleNetlist
     // auto num_arcs = sizeof(edge_array) / sizeof(Edge);
     // auto g = graph_t{edge_array, edge_array + num_arcs, num_nodes};
     // auto G = xn::grAdaptor<graph_t>{std::move(g)};
-    // const auto R = py::range<int>(0, num_nodes);
+    // const auto R = py::range(0, num_nodes);
     graph_t g {num_nodes};
     for (auto&& e : edge_array)
     {

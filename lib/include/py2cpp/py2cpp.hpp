@@ -2,6 +2,7 @@
 
 #include <algorithm> // std::max
 #include <initializer_list>
+#include <range/v3/view/iota.hpp>
 #include <tuple>
 #include <type_traits>
 #include <unordered_map>
@@ -44,7 +45,7 @@ namespace py
 // }
 
 template <typename T>
-inline constexpr auto range(T start, T stop)
+inline constexpr auto range2(T start, T stop)
 {
     struct _iterator
     {
@@ -107,6 +108,31 @@ inline constexpr auto range(T start, T stop)
     //     stop = start;
     // }
     return iterable_wrapper {start, stop};
+}
+
+using iota_return_type = decltype(ranges::views::iota(0, 1));
+
+struct iterable_wrapper : public iota_return_type
+{
+  public:
+    using value_type [[maybe_unused]] = int; // luk:
+    using key_type [[maybe_unused]] = int;   // luk:
+
+    template <typename... Args>
+    iterable_wrapper(Args&&... args)
+        : iota_return_type(std::forward<Args>(args)...)
+    {
+    }
+
+    [[nodiscard]] auto contains(int n) const -> bool
+    {
+        return !(n < *this->begin()) && n < *this->end();
+    }
+};
+
+inline auto range(int start, int stop)
+{
+    return iterable_wrapper {ranges::views::iota(start, stop)};
 }
 
 // template <typename T>

@@ -2,6 +2,7 @@
 #include <ckpttncpp/FMPmrConfig.hpp>
 // #include <range/v3/view/enumerate.hpp>
 #include <range/v3/view/zip.hpp>
+#include <range/v3/view/remove_if.hpp>
 #include <vector>
 
 using namespace ranges;
@@ -234,12 +235,13 @@ auto FMKWayGainCalc::update_move_2pin_net(gsl::span<const std::uint8_t> part,
 void FMKWayGainCalc::init_IdVec(const node_t& v, const node_t& net)
 {
     this->IdVec.clear();
-    for (auto&& w : this->H.G[net])
+    for (auto&& w : this->H.G[net] |
+            ranges::views::remove_if([&](auto w) { return w == v; }))
     {
-        if (w == v)
-        {
-            continue;
-        }
+        // if (w == v)
+        // {
+        //     continue;
+        // }
         this->IdVec.push_back(w);
     }
 }

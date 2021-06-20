@@ -3,12 +3,12 @@
 #include <any>
 #include <cassert>
 #include <py2cpp/py2cpp.hpp>
+#include <range/v3/view/enumerate.hpp>
 #include <string_view>
 #include <type_traits>
 #include <vector>
 #include <xnetwork/classes/coreviews.hpp> // import AtlasView, AdjacencyView
 #include <xnetwork/classes/reportviews.hpp> // import NodeView, EdgeView, DegreeView
-#include <range/v3/view/enumerate.hpp>
 
 namespace xn
 {
@@ -265,7 +265,7 @@ class Graph : public object
     }
 
     explicit Graph(int num_nodes)
-        : _node {py::range<int>(0, num_nodes)}
+        : _node {py::range(0, num_nodes)}
         , _adj(num_nodes) // std::vector
     {
     }
@@ -861,10 +861,10 @@ class Graph : public object
 };
 
 using SimpleGraph =
-    Graph<decltype(py::range<int>(0, 1)), py::set<int>, std::vector<py::set<int>>>;
+    Graph<decltype(py::range(0, 1)), py::set<int>, std::vector<py::set<int>>>;
 
 // template <typename nodeview_t,
 //           typename adjlist_t> Graph(int )
-// -> Graph<decltype(py::range<int>(0, 1)), py::set<int>>;
+// -> Graph<decltype(py::range(0, 1)), py::set<int>>;
 
 } // namespace xn

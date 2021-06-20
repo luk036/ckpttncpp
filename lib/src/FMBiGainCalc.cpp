@@ -1,6 +1,7 @@
 #include <ckpttncpp/FMBiGainCalc.hpp>
 #include <ckpttncpp/FMPmrConfig.hpp>
 #include <vector>
+#include <range/v3/view/remove_if.hpp>
 
 /**
  * @brief
@@ -168,12 +169,9 @@ auto FMBiGainCalc::update_move_2pin_net(gsl::span<const std::uint8_t> part,
 void FMBiGainCalc::init_IdVec(const node_t& v, const node_t& net)
 {
     this->IdVec.clear();
-    for (auto&& w : this->H.G[net])
+    for (auto&& w : this->H.G[net] |
+            ranges::views::remove_if([&](auto w) { return w == v; }))
     {
-        if (w == v)
-        {
-            continue;
-        }
         this->IdVec.push_back(w);
     }
 }

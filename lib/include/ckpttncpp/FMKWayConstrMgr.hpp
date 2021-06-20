@@ -48,10 +48,9 @@ class FMKWayConstrMgr : public FMConstrMgr
     auto init(gsl::span<const std::uint8_t> part) -> void
     {
         FMConstrMgr::init(part);
-        // for (auto k = 0U; k != this->K; ++k)
-        for (auto&& [il, d] : ranges::views::zip(this->illegal, this->diff))
+        for (auto k = 0U; k != this->K; ++k)
         {
-            il = (d < this->lowerbound);
+            this->illegal[k] = (this->diff[k] < this->lowerbound); // ???
         }
     }
 

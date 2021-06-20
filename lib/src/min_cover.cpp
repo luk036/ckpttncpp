@@ -6,9 +6,9 @@
 // #include <range/v3/all.hpp>
 #include <range/v3/core.hpp>
 #include <range/v3/numeric/accumulate.hpp>
+#include <range/v3/view/enumerate.hpp>
 #include <range/v3/view/remove_if.hpp>
 #include <range/v3/view/transform.hpp>
-#include <range/v3/view/enumerate.hpp>
 #include <tuple>
 #include <vector>
 
@@ -83,12 +83,13 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
             }
         }
         modules.reserve(H.modules.size() - C.size() + clusters.size());
-        for (auto&& v : H)
+        for (auto&& v :
+            H | ranges::views::remove_if([&](auto v) { return C.contains(v); }))
         {
-            if (C.contains(v))
-            {
-                continue;
-            }
+            // if (C.contains(v))
+            // {
+            //     continue;
+            // }
             modules.push_back(v);
         }
         modules.insert(modules.end(), clusters.begin(), clusters.end());
@@ -157,7 +158,7 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
     auto G = std::move(g);
 
     auto H2 = std::make_unique<SimpleHierNetlist>(std::move(G),
-        py::range<int>(0, numModules), py::range<int>(numModules, num_vertices));
+        py::range(0, numModules), py::range(numModules, num_vertices));
 
     auto node_down_map = py::dict<index_t, node_t> {};
     node_down_map.reserve(num_vertices);
@@ -180,7 +181,7 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
 
     auto module_weight = std::vector<int> {};
     module_weight.reserve(numModules);
-    for (auto&& i_v : py::range<int>(0, numModules))
+    for (auto&& i_v : py::range(0, numModules))
     {
         if (cluster_down_map.contains(i_v))
         {

@@ -49,7 +49,8 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
 
     auto cluster_map = py::dict<node_t, node_t> {};
     cluster_map.reserve(S.size());
-    auto node_up_map = py::dict<node_t, index_t> {};
+    auto node_up_dict = py::dict<node_t, index_t> {};
+    auto net_up_map = py::dict<node_t, index_t> {};
     int numModules {};
     int numNets {};
 
@@ -114,27 +115,27 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
             // ++i_v;
         }
 
-        auto net_map = py::dict<node_t, index_t> {};
-        net_map.reserve(numNets);
+        // auto net_map = py::dict<node_t, index_t> {};
+        net_up_map.reserve(numNets);
         for (auto&& [i_net, net] : ranges::views::enumerate(nets))
         // auto i_net = 0U;
         // for (auto&& net : nets)
         {
             // const auto& net = nets[i_net];
-            net_map[net] = index_t(i_net);
+            net_up_map[net] = index_t(i_net) + numModules;;
             // ++i_net;
         }
 
-        node_up_map.reserve(H.number_of_modules() + nets.size());
+        node_up_dict.reserve(H.number_of_modules());
 
         for (auto&& v : H)
         {
-            node_up_map[v] = module_map[module_up_map[v]];
+            node_up_dict[v] = module_map[module_up_map[v]];
         }
-        for (auto&& net : nets)
-        {
-            node_up_map[net] = net_map[net] + numModules;
-        }
+        // for (auto&& net : nets)
+        // {
+        //     node_up_dict[net] = net_map[net] + numModules;
+        // }
     }
 
     auto num_vertices = numModules + numNets;
@@ -151,7 +152,7 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
             // {
             //     continue;
             // }
-            g.add_edge(node_up_map[v], node_up_map[net]);
+            g.add_edge(node_up_dict[v], net_up_map[net]);
         }
     }
     // auto G = xn::grAdaptor<graph_t>(std::move(g));
@@ -161,9 +162,9 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
         py::range(0, numModules), py::range(numModules, num_vertices));
 
     auto node_down_map = std::vector<node_t> {};
-    node_down_map.resize(num_vertices);
-    // for (auto&& [v1, v2] : node_up_map.items())
-    for (auto&& keyvalue : node_up_map.items())
+    node_down_map.resize(numModules);
+    // for (auto&& [v1, v2] : node_up_dict.items())
+    for (auto&& keyvalue : node_up_dict.items())
     {
         auto&& v1 = std::get<0>(keyvalue);
         auto&& v2 = std::get<1>(keyvalue);
@@ -176,7 +177,7 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
     {
         auto&& v = std::get<0>(keyvalue);
         auto&& net = std::get<1>(keyvalue);
-        cluster_down_map[node_up_map[v]] = net;
+        cluster_down_map[node_up_dict[v]] = net;
     }
 
     auto module_weight = std::vector<int> {};
@@ -204,6 +205,19 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
             module_weight.push_back(H.get_module_weight(v2));
         }
     }
+
+    // if isinstance(H.modules, range):
+    //     node_up_map = [0 for _ in H.modules]
+    // elif isinstance(H.modules, list):
+    //     node_up_map = {}
+    // else:
+    //     raise NotImplementedError
+    auto node_up_map = std::vector<node_t>(H.modules.size());
+    for (auto&& v : H.modules)
+    {
+        node_up_map[v] = node_up_dict[v];
+    }
+
     H2->node_up_map = std::move(node_up_map);
     H2->node_down_map = std::move(node_down_map);
     H2->cluster_down_map = std::move(cluster_down_map);

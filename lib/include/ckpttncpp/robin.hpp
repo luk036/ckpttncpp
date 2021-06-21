@@ -59,14 +59,24 @@ class robin
     explicit robin(T K)
         : cycle(K, &rsrc)
     {
-        K -= 1;
-        for (auto k = 0U; k != K; ++k)
+        // K -= 1;
+        // for (auto k = 0U; k != K; ++k)
+        // {
+        //     this->cycle[k].next = &this->cycle[k + 1];
+        //     this->cycle[k].key = k;
+        // }
+        // this->cycle[K].next = &this->cycle[0];
+        // this->cycle[K].key = K;
+
+        auto* slptr = &this->cycle[K-1];
+        auto k = 0;
+        for (auto& sl : this->cycle)
         {
-            this->cycle[k].next = &this->cycle[k + 1];
-            this->cycle[k].key = k;
+            sl.key = k;
+            slptr->next = &sl;
+            slptr = slptr->next;
+            ++k;
         }
-        this->cycle[K].next = &this->cycle[0];
-        this->cycle[K].key = K;
     }
 
     auto exclude(T fromPart)

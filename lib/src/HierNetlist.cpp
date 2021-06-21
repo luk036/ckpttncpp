@@ -7,7 +7,7 @@ void HierNetlist<graph_t>::projection_up(
     const auto& H = *this->parent;
     for (auto&& v : H)
     {
-        part_up[this->node_up_map.at(v)] = part[v];
+        part_up[this->node_up_map[v]] = part[v];
     }
 }
 

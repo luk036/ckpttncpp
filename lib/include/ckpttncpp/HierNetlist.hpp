@@ -35,7 +35,7 @@ class HierNetlist : public Netlist<graph_t>
     /* For multi-level algorithms */
     const Netlist<graph_t>* parent;
     py::dict<node_t, index_t> node_up_map;
-    py::dict<index_t, node_t> node_down_map;
+    std::vector<node_t> node_down_map;
     py::dict<index_t, node_t> cluster_down_map;
 
 

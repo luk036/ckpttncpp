@@ -160,8 +160,8 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
     auto H2 = std::make_unique<SimpleHierNetlist>(std::move(G),
         py::range(0, numModules), py::range(numModules, num_vertices));
 
-    auto node_down_map = py::dict<index_t, node_t> {};
-    node_down_map.reserve(num_vertices);
+    auto node_down_map = std::vector<node_t> {};
+    node_down_map.resize(num_vertices);
     // for (auto&& [v1, v2] : node_up_map.items())
     for (auto&& keyvalue : node_up_map.items())
     {

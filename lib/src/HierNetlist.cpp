@@ -28,7 +28,7 @@ void HierNetlist<graph_t>::projection_down(
         }
         else
         {
-            const auto v2 = this->node_down_map.at(v);
+            const auto v2 = this->node_down_map[v];
             part_down[v2] = part[v];
         }
     }

@@ -27,12 +27,12 @@ auto min_vertex_cover(const Netlist& H, const C1& weight, C2& coverset) ->
     auto gap = weight;
     for (auto&& net : H.nets)
     {
-        if (ranges::any_of(H.G[net], in_coverset))
+        if (std::any_of(H.G[net].begin(), H.G[net].end(), in_coverset))
         {
             continue;
         }
 
-        auto min_vtx = *ranges::min_element(H.G[net],
+        auto min_vtx = *std::min_element(H.G[net].begin(), H.G[net].end(),
             [&](const auto& v1, const auto& v2) { return gap[v1] < gap[v2]; });
         auto min_val = gap[min_vtx];
         coverset.insert(min_vtx);
@@ -89,7 +89,7 @@ auto min_maximal_matching(const Netlist& H, const C1& weight, C2&& matchset,
     auto total_primal_cost = T(0);
     for (auto&& net : H.nets)
     {
-        if (ranges::any_of(H.G[net], in_dep))
+        if (std::any_of(H.G[net].begin(), H.G[net].end(), in_dep))
         {
             continue;
         }
@@ -104,7 +104,7 @@ auto min_maximal_matching(const Netlist& H, const C1& weight, C2&& matchset,
         {
             for (auto&& net2 : H.G[v])
             {
-                if (ranges::any_of(H.G[net2], in_dep))
+                if (std::any_of(H.G[net2].begin(), H.G[net2].end(), in_dep))
                 {
                     continue;
                 }

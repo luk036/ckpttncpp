@@ -30,11 +30,14 @@ auto FMKWayConstrMgr::check_legal(const MoveInfoV<node_t>& move_info_v)
     {
         return status;
     }
-    this->illegal[move_info_v.fromPart] = false;
-    this->illegal[move_info_v.toPart] = false;
-    if (ranges::any_of(this->illegal, identity {}))
+    this->illegal[move_info_v.fromPart] = 0;
+    this->illegal[move_info_v.toPart] = 0;
+    for (auto&& value : this->illegal)
     {
-        return LegalCheck::getbetter; // get better, but still illegal
+        if (value == 1)
+        {
+            return LegalCheck::getbetter; // get better, but still illegal
+        }
     }
     return LegalCheck::allsatisfied; // all satisfied
 }

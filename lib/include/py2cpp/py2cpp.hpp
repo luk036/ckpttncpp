@@ -115,7 +115,7 @@ inline auto range(T start, T stop)
 {
     using iota_return_type = decltype(ranges::views::iota(start, stop));
 
-    struct iterable_wrapper : public iota_return_type
+    class iterable_wrapper : public iota_return_type
     {
       public:
         using value_type [[maybe_unused]] = int; // luk:
@@ -129,6 +129,12 @@ inline auto range(T start, T stop)
         [[nodiscard]] auto contains(int n) const -> bool
         {
             return !(n < *this->begin()) && n < *this->end();
+        }
+
+        // temp fix windows version
+        [[nodiscard]] auto size() const -> size_t
+        {
+            return std::distance(this->begin(), this->end());
         }
     };
     

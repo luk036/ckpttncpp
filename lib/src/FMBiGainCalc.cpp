@@ -168,16 +168,19 @@ auto FMBiGainCalc::update_move_2pin_net(gsl::span<const std::uint8_t> part,
  */
 void FMBiGainCalc::init_IdVec(const node_t& v, const node_t& net)
 {
-    auto rng = this->H.G[net] |
-            ranges::views::remove_if([&](auto w) { return w == v; });
-    this->IdVec = FMPmr::vector<node_t>(rng.begin(), rng.end(), &this->rsrc);
+    // auto rng = this->H.G[net] |
+    //         ranges::views::remove_if([&](auto w) { return w == v; });
+    // this->IdVec = FMPmr::vector<node_t>(rng.begin(), rng.end(), &this->rsrc);
 
-    // this->IdVec.clear();
-    // for (auto&& w : this->H.G[net] |
-    //         ranges::views::remove_if([&](auto w) { return w == v; }))
-    // {
-    //     this->IdVec.push_back(w);
-    // }
+    this->IdVec.clear();
+    for (auto&& w : this->H.G[net])
+    {
+        if (w == v)
+        {
+            continue;
+        }
+        this->IdVec.push_back(w);
+    }
 }
 
 /**

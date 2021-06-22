@@ -30,10 +30,17 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
     auto weight = py::dict<node_t, int> {};
     for (auto&& net : H.nets)
     {
-        auto r_weight = H.G[net] |
-            ranges::views::transform(
-                [&](auto v) { return H.get_module_weight(v); });
-        weight[net] = ranges::accumulate(r_weight, 0);
+        // auto r_weight = H.G[net] |
+        //     ranges::views::transform(
+        //         [&](auto v) { return H.get_module_weight(v); });
+        // weight[net] = ranges::accumulate(r_weight, 0);
+
+        auto sum = 0;
+        for (auto&& v : H.G[net])
+        {
+            sum += H.get_module_weight(v);
+        }
+        weight[net] = sum;
     }
 
     auto S = py::set<node_t> {};
@@ -84,13 +91,12 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
             }
         }
         modules.reserve(H.modules.size() - C.size() + clusters.size());
-        for (auto&& v :
-            H | ranges::views::remove_if([&](auto v) { return C.contains(v); }))
+        for (auto&& v : H)
         {
-            // if (C.contains(v))
-            // {
-            //     continue;
-            // }
+            if (C.contains(v))
+            {
+                continue;
+            }
             modules.push_back(v);
         }
         modules.insert(modules.end(), clusters.begin(), clusters.end());
@@ -106,24 +112,24 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
     { // localize module_map and net_map
         auto module_map = py::dict<node_t, index_t> {};
         module_map.reserve(numModules);
-        for (auto&& [i_v, v] : ranges::views::enumerate(modules))
-        // auto i_v = 0U;
-        // for (auto&& v : modules)
+        // for (auto&& [i_v, v] : ranges::views::enumerate(modules))
+        auto i_v = 0U;
+        for (auto&& v : modules)
         {
             // const auto& v = modules[i_v];
             module_map[v] = index_t(i_v);
-            // ++i_v;
+            ++i_v;
         }
 
         // auto net_map = py::dict<node_t, index_t> {};
         net_up_map.reserve(numNets);
-        for (auto&& [i_net, net] : ranges::views::enumerate(nets))
-        // auto i_net = 0U;
-        // for (auto&& net : nets)
+        // for (auto&& [i_net, net] : ranges::views::enumerate(nets))
+        auto i_net = 0U;
+        for (auto&& net : nets)
         {
             // const auto& net = nets[i_net];
             net_up_map[net] = index_t(i_net) + numModules;;
-            // ++i_net;
+            ++i_net;
         }
 
         node_up_dict.reserve(H.number_of_modules());
@@ -144,14 +150,12 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
     // G.add_nodes_from(nodes);
     for (auto&& v : H)
     {
-        for (auto&& net : H.G[v] |
-                ranges::views::remove_if(
-                    [&](auto net) { return S.contains(net); }))
+        for (auto&& net : H.G[v])
         {
-            // if (S.contains(net))
-            // {
-            //     continue;
-            // }
+            if (S.contains(net))
+            {
+                continue;
+            }
             g.add_edge(node_up_dict[v], net_up_map[net]);
         }
     }
@@ -192,11 +196,11 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
             // {
             //     cluster_weight += H.get_module_weight(v2);
             // }
-            auto r_weight = H.G[net] |
-                ranges::views::transform(
-                    [&](auto v) { return H.get_module_weight(v); });
-            auto cluster_weight = ranges::accumulate(r_weight, 0);
-
+            // auto r_weight = H.G[net] |
+            //     ranges::views::transform(
+            //         [&](auto v) { return H.get_module_weight(v); });
+            // auto cluster_weight = ranges::accumulate(r_weight, 0);
+            auto&& cluster_weight = weight[net];
             module_weight.push_back(cluster_weight);
         }
         else

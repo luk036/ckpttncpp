@@ -13,7 +13,7 @@
 class FMKWayConstrMgr : public FMConstrMgr
 {
   private:
-    std::vector<bool> illegal;
+    std::vector<int> illegal;
 
   public:
     /*!
@@ -25,7 +25,7 @@ class FMKWayConstrMgr : public FMConstrMgr
      */
     FMKWayConstrMgr(const SimpleNetlist& H, double BalTol, std::uint8_t K)
         : FMConstrMgr {H, BalTol, K}
-        , illegal(K, true)
+        , illegal(K, 1)
     {
     }
 
@@ -36,7 +36,7 @@ class FMKWayConstrMgr : public FMConstrMgr
      */
     [[nodiscard]] auto select_togo() const -> std::uint8_t
     {
-        const auto it = ranges::min_element(this->diff);
+        auto it = std::min_element(this->diff.begin(), this->diff.end());
         return std::uint8_t(std::distance(this->diff.cbegin(), it));
     }
 

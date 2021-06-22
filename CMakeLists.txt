@@ -53,7 +53,7 @@ set (CMAKE_CXX_STANDARD_REQUIRED ON)
 # Don't use e.g. GNU extension (like -std=gnu++11) for portability
 set(CMAKE_CXX_EXTENSIONS OFF)
 if(MSVC)
-    add_compile_options(/std:c++latest /W3 /WX )
+    add_compile_options(/permissive- /std:c++latest /W3 /WX )
 else()
     add_compile_options(-fno-exceptions -Wall -Wnon-virtual-dtor -Wunused -pedantic)
 endif()

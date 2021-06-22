@@ -1,11 +1,20 @@
 #include <array>
 #include <doctest/doctest.h>
 #include <py2cpp/py2cpp.hpp>
+#include <range/v3/view/all.hpp>
+#include <range/v3/view/remove_if.hpp>
+#include <unordered_set>
+#include <vector>
 
 TEST_CASE("Test Range")
 {
     const auto R = py::range(0, 10);
-
+    auto S = std::vector<int>{1, 2, 3, 4};
+    auto rng = S | ranges::views::remove_if([](int a) { return a % 2 == 1; });
+    for (auto& e : S | ranges::views::remove_if([](int a) { return a % 2 == 1; }))
+    {
+        e += 1;
+    }
     // CHECK(!R.empty());
     // CHECK(R.contains(4U));
     // CHECK(R[3] == 3);
@@ -22,7 +31,7 @@ TEST_CASE("Test Range2")
 {
     const auto R = py::range(-10, 10);
 
-    // CHECK(!R.empty());
+    CHECK(!R.empty());
     CHECK(R.contains(4));
     // CHECK(R[3] == -7);
 

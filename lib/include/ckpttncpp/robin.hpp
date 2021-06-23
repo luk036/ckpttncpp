@@ -69,7 +69,7 @@ class robin
         // this->cycle[K].key = K;
 
         auto* slptr = &this->cycle[K-1];
-        auto k = 0;
+        auto k = T(0);
         for (auto& sl : this->cycle)
         {
             sl.key = k;

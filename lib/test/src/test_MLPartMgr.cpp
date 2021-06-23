@@ -49,7 +49,7 @@ TEST_CASE("Test MLBiPartMgr p1")
         for (auto& elem : part)
         {
             whichPart ^= 1;
-            elem = whichPart;
+            elem = std::uint8_t(whichPart);
         }
         partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(
             H, part, 100);
@@ -77,7 +77,7 @@ TEST_CASE("Test MLBiPartMgr ibm01")
         for (auto& elem : part)
         {
             whichPart ^= 1;
-            elem = whichPart;
+            elem = std::uint8_t(whichPart);
         }
         partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(
             H, part, 400);

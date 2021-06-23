@@ -36,7 +36,7 @@ class FMKWayConstrMgr : public FMConstrMgr
      */
     [[nodiscard]] auto select_togo() const -> std::uint8_t
     {
-        auto it = std::min_element(this->diff.begin(), this->diff.end());
+        auto it = ranges::min_element(this->diff);
         return std::uint8_t(std::distance(this->diff.cbegin(), it));
     }
 
@@ -48,9 +48,11 @@ class FMKWayConstrMgr : public FMConstrMgr
     auto init(gsl::span<const std::uint8_t> part) -> void
     {
         FMConstrMgr::init(part);
-        for (auto k = 0U; k != this->K; ++k)
+        auto it = this->diff.begin();
+        for (auto& il : this->illegal)
         {
-            this->illegal[k] = (this->diff[k] < this->lowerbound); // ???
+            il = (*it < this->lowerbound);
+            ++it;
         }
     }
 

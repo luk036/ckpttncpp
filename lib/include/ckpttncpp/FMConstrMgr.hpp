@@ -65,8 +65,7 @@ class FMConstrMgr
         this->totalweight = 0;
         for (const auto& v : this->H)
         {
-            weight = this->H.get_module_weight(v);
-            this->totalweight += weight;
+            this->totalweight += this->H.get_module_weight(v);
         }
         // auto r_weight = this->H | ranges::views::transform([&](auto v){return
         // this->H.get_module_weight(v);}); this->totalweight =

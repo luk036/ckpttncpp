@@ -668,11 +668,11 @@ class Graph : public object
     template <typename C1, typename C2>
     auto add_edges_from(const C1& edges, const C2& data)
     {
-        auto N = edges.size();
-        for (auto i = 0U; i != N; ++i)
+        auto it = data.begin();
+        for (const auto& e : edges)
         {
-            const auto& e = edges[i];
-            this->add_edge(e.first, e.second, data[i]);
+            this->add_edge(e.first, e.second, *it);
+            ++it;
         }
     }
 

@@ -3,6 +3,7 @@
 #include <range/v3/view/repeat_n.hpp>
 #include <vector>
 #include <any>
+#include <type_traits>
 
 template <typename Val>
 inline auto get_repeat_array(const Val& a, std::ptrdiff_t n)
@@ -34,9 +35,10 @@ template <typename C>
 class shift_array : public C
 {
   using value_type = typename C::value_type;
+  using Index = std::make_signed_t<size_t>;
 
   private:
-    int _start {0};
+    Index _start {0};
 
   public:
     shift_array(C&& base)
@@ -44,19 +46,19 @@ class shift_array : public C
     {
     }
 
-    void set_start(int start)
+    void set_start(const Index& start)
     {
         this->_start = start;
     }
 
-    [[nodiscard]] auto operator[](size_t index) const -> const value_type&
+    auto operator[](const Index& index) const -> const value_type&
     {
-        return C::operator[](index - this-> start);
+        return C::operator[](static_cast<size_t>(index - this->_start));
     }
 
-    [[nodiscard]] auto operator[](size_t index) -> value_type&
+    [[nodiscard]] auto operator[](const Index& index) -> value_type&
     {
-        return C::operator[](index - this->_start);
+        return C::operator[](static_cast<size_t>(index - this->_start));
     }
 };
     

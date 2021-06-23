@@ -69,9 +69,11 @@ TEST_CASE("Test contraction subgraph ibm01")
     auto part2 = std::vector<std::uint8_t>(H2->number_of_modules(), 0);
     auto part3 = std::vector<std::uint8_t>(H3->number_of_modules(), 0);
     auto part4 = std::vector<std::uint8_t>(H3->number_of_modules(), 0);
-    for (auto i = 0u; i != H3->number_of_modules(); ++i)
+    auto i = std::uint8_t(0);
+
+    for (auto& item : part3)
     {
-        part3[i] = std::uint8_t(i);
+        item = ++i % 6;
     }
     H3->projection_down(part3, part2);
     H3->projection_up(part2, part4);

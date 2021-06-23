@@ -51,14 +51,13 @@ class FMKWayGainCalc
     {
         for (auto k = 0U; k != this->K; ++k)
         {
-            this->vertex_list.emplace_back(
-                std::vector<dllink<std::pair<node_t, int32_t>>>(
-                    H.number_of_modules()));
-
+            auto vec = std::vector<dllink<std::pair<node_t, int32_t>>>{};
+            vec.reserve(H.number_of_modules());
             for (const auto& v : this->H)
             {
-                this->vertex_list[k][v].data = std::pair {v, int32_t(0)};
+                vec.emplace_back(dllink{std::pair {v, int32_t(0)}});
             }
+            this->vertex_list.emplace_back(std::move(vec));
         }
     }
 
@@ -81,9 +80,9 @@ class FMKWayGainCalc
     auto init(gsl::span<const std::uint8_t> part) -> int
     {
         this->totalcost = 0;
-        for (auto k = 0U; k != this->K; ++k)
+        for (auto& vec : this->vertex_list)
         {
-            for (auto& vlink : this->vertex_list[k])
+            for (auto& vlink : vec)
             {
                 vlink.data.second = 0;
             }

@@ -15,10 +15,10 @@ auto FMKWayGainMgr::init(gsl::span<const std::uint8_t> part) -> int
     {
         bckt.clear();
     }
-    for (auto&& v : this->H)
+    for (const auto& v : this->H)
     {
         const auto pv = part[v];
-        for (auto&& k : this->RR.exclude(pv))
+        for (const auto& k : this->RR.exclude(pv))
         {
             auto& vlink = this->gainCalc.vertex_list[k][v];
             this->gainbucket[k].append_direct(vlink);
@@ -27,7 +27,7 @@ auto FMKWayGainMgr::init(gsl::span<const std::uint8_t> part) -> int
         this->gainbucket[pv].set_key(vlink, 0);
         this->waitinglist.append(vlink);
     }
-    for (auto&& v : this->H.module_fixed)
+    for (const auto& v : this->H.module_fixed)
     {
         this->lock_all(part[v], v);
     }

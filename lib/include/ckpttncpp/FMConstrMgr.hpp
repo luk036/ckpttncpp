@@ -63,7 +63,7 @@ class FMConstrMgr
         , K {K}
     {
         this->totalweight = 0;
-        for (auto&& v : this->H)
+        for (const auto& v : this->H)
         {
             weight = this->H.get_module_weight(v);
             this->totalweight += weight;

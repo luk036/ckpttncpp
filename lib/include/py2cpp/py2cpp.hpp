@@ -338,7 +338,7 @@ class dict : public std::unordered_map<Key, T>
     // template <class Sequence>
     // explicit dict(const Sequence &S) {
     //     this->reserve(S.size());
-    //     for (auto&& [i_v, v] : py::enumerate(S)) {
+    //     for (const auto& [i_v, v] : py::enumerate(S)) {
     //         (*this)[v] = i_v;
     //     }
     // }

@@ -55,7 +55,7 @@ class FMKWayGainCalc
                 std::vector<dllink<std::pair<node_t, int32_t>>>(
                     H.number_of_modules()));
 
-            for (auto&& v : this->H)
+            for (const auto& v : this->H)
             {
                 this->vertex_list[k][v].data = std::pair {v, int32_t(0)};
             }
@@ -83,12 +83,12 @@ class FMKWayGainCalc
         this->totalcost = 0;
         for (auto k = 0U; k != this->K; ++k)
         {
-            for (auto&& vlink : this->vertex_list[k])
+            for (auto& vlink : this->vertex_list[k])
             {
                 vlink.data.second = 0;
             }
         }
-        for (auto&& net : this->H.nets)
+        for (const auto& net : this->H.nets)
         {
             this->_init_gain(net, part);
         }
@@ -149,7 +149,7 @@ class FMKWayGainCalc
      */
     auto _modify_gain(const node_t& v, std::uint8_t part_v, int weight) -> void
     {
-        for (auto&& k : this->RR.exclude(part_v))
+        for (const auto& k : this->RR.exclude(part_v))
         {
             this->vertex_list[k][v].data.second += weight;
         }
@@ -226,7 +226,7 @@ class FMKWayGainCalc
     template <typename... Ts>
     auto _modify_gain_va(int weight, std::uint8_t part_v, Ts... v) -> void
     {
-        for (auto&& k : this->RR.exclude(part_v))
+        for (const auto& k : this->RR.exclude(part_v))
         {
             _modify_vertex_va(weight, k, v...);
         }

@@ -166,7 +166,7 @@ class bpqueue
      */
     constexpr auto appendfrom(gsl::span<Item> nodes) noexcept -> void
     {
-        for (auto&& it : nodes)
+        for (auto& it : nodes)
         {
             it.data.second -= this->offset;
             assert(it.data.second > 0);
@@ -323,7 +323,7 @@ class bpqueue
     //         auto curkey = this->max;
     //         while (curkey > 0)
     //         {
-    //             for (auto&& item : this->bucket[curkey].items())
+    //             for (const auto& item : this->bucket[curkey].items())
     //             {
     //                 yield(item);
     //             }

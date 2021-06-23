@@ -362,7 +362,7 @@ class Graph : public object
         this->graph["name"] = std::any(s);
     }
 
-    /*! Iterate over the nodes. Use: "for (auto&& n : G)".
+    /*! Iterate over the nodes. Use: "for (const auto& n : G)".
      *
     Returns
     -------

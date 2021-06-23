@@ -43,7 +43,7 @@ class FMBiGainCalc
         , rsrc(StackBuf, sizeof StackBuf)
         , IdVec(&rsrc)
     {
-        for (auto&& v : this->H)
+        for (const auto& v : this->H)
         {
             this->vertex_list[v].data = std::pair {v, int32_t(0)};
         }
@@ -57,11 +57,11 @@ class FMBiGainCalc
     auto init(gsl::span<const std::uint8_t> part) -> int
     {
         this->totalcost = 0;
-        for (auto&& vlink : this->vertex_list)
+        for (auto& vlink : this->vertex_list)
         {
             vlink.data.second = 0;
         }
-        for (auto&& net : this->H.nets)
+        for (const auto& net : this->H.nets)
         {
             this->_init_gain(net, part);
         }

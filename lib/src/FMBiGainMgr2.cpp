@@ -14,13 +14,13 @@ auto FMBiGainMgr::init(gsl::span<const std::uint8_t> part) -> int
         bckt.clear();
     }
 
-    for (auto&& v : this->H)
+    for (const auto& v : this->H)
     {
         auto& vlink = this->gainCalc.vertex_list[v];
         // auto toPart = 1 - part[v];
         this->gainbucket[1 - part[v]].append_direct(vlink);
     }
-    for (auto&& v : this->H.module_fixed)
+    for (const auto& v : this->H.module_fixed)
     {
         this->lock_all(part[v], v);
     }

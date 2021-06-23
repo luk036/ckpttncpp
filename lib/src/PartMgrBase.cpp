@@ -38,7 +38,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
     this->init(part);
 
     // Zero-weighted modules does not contribute legalization
-    for (auto&& v : this->H)
+    for (const auto& v : this->H)
     {
         if (this->H.get_module_weight(v) != 0)
         {
@@ -108,7 +108,7 @@ void PartMgrBase<GainMgr, ConstrMgr, Derived>::_optimize_1pass(
     while (!this->gainMgr.is_empty())
     {
         // Take the gainmax with v from gainbucket
-        const auto rslt = this->gainMgr.select(part);
+        auto&& rslt = this->gainMgr.select(part);
         auto&& move_info_v = std::get<0>(rslt);
         auto&& gainmax = std::get<1>(rslt);
 

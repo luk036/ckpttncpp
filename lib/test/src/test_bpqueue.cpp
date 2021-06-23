@@ -34,7 +34,7 @@ TEST_CASE("Test BPQueue")
     auto nodelist = std::vector<dllink<std::pair<int, int32_t>>>(10);
 
     auto i = 0U;
-    for (auto&& it : nodelist)
+    for (auto& it : nodelist)
     {
         it.data.second = 2 * i - 10;
         i += 1;

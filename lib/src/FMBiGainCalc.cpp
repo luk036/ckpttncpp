@@ -2,6 +2,7 @@
 #include <ckpttncpp/FMPmrConfig.hpp>
 #include <vector>
 #include <range/v3/view/remove_if.hpp>
+#include <range/v3/view/all.hpp>
 
 /**
  * @brief
@@ -105,25 +106,25 @@ void FMBiGainCalc::_init_gain_general_net(
     const node_t& net, gsl::span<const std::uint8_t> part)
 {
     auto num = std::array<size_t, 2> {0U, 0U};
-    for (auto&& w : this->H.G[net])
+    for (const auto& w : this->H.G[net])
     {
         num[part[w]] += 1;
     }
     const auto weight = this->H.get_net_weight(net);
 
     // #pragma unroll
-    for (auto&& k : {0, 1})
+    for (const auto& k : {0, 1})
     {
         if (num[k] == 0)
         {
-            for (auto&& w : this->H.G[net])
+            for (const auto& w : this->H.G[net])
             {
                 this->_modify_gain(w, -weight);
             }
         }
         else if (num[k] == 1)
         {
-            for (auto&& w : this->H.G[net])
+            for (const auto& w : this->H.G[net])
             {
                 if (part[w] == k)
                 {
@@ -173,7 +174,7 @@ void FMBiGainCalc::init_IdVec(const node_t& v, const node_t& net)
     // this->IdVec = FMPmr::vector<node_t>(rng.begin(), rng.end(), &this->rsrc);
 
     this->IdVec.clear();
-    for (auto&& w : this->H.G[net])
+    for (const auto& w : ranges::views::all(this->H.G[net]))
     {
         if (w == v)
         {
@@ -195,11 +196,11 @@ auto FMBiGainCalc::update_move_3pin_net(gsl::span<const std::uint8_t> part,
 {
     // const auto& [net, v, fromPart, _] = move_info;
     auto num = std::array<size_t, 2> {0U, 0U};
-    for (auto&& w : this->IdVec)
+    for (const auto& w : this->IdVec)
     {
         num[part[w]] += 1;
     }
-    // for (auto&& w : this->H.G[move_info.net])
+    // for (const auto& w : this->H.G[move_info.net])
     // {
     //     if (w == move_info.v)
     //     {
@@ -242,12 +243,12 @@ auto FMBiGainCalc::update_move_general_net(gsl::span<const std::uint8_t> part,
     // const auto& [net, v, fromPart, toPart] = move_info;
     auto num = std::array<std::uint8_t, 2> {0, 0};
     // auto IdVec = std::vector<node_t> {};
-    for (auto&& w : this->IdVec)
+    for (const auto& w : this->IdVec)
     {
         num[part[w]] += 1;
     }
 
-    // for (auto&& w : this->H.G[move_info.net])
+    // for (const auto& w : this->H.G[move_info.net])
     // {
     //     if (w == move_info.v)
     //     {
@@ -261,7 +262,7 @@ auto FMBiGainCalc::update_move_general_net(gsl::span<const std::uint8_t> part,
     auto weight = this->H.get_net_weight(move_info.net);
 
     // #pragma unroll
-    for (auto&& l : {move_info.fromPart, move_info.toPart})
+    for (const auto& l : {move_info.fromPart, move_info.toPart})
     {
         if (num[l] == 0)
         {

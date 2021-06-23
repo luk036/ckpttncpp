@@ -25,7 +25,7 @@ auto min_vertex_cover(const Netlist& H, const C1& weight, C2& coverset) ->
     [[maybe_unused]] auto total_dual_cost = T(0);
     auto total_primal_cost = T(0);
     auto gap = weight;
-    for (auto&& net : H.nets)
+    for (const auto& net : H.nets)
     {
         if (std::any_of(H.G[net].begin(), H.G[net].end(), in_coverset))
         {
@@ -38,7 +38,7 @@ auto min_vertex_cover(const Netlist& H, const C1& weight, C2& coverset) ->
         coverset.insert(min_vtx);
         total_primal_cost += weight[min_vtx];
         total_dual_cost += min_val;
-        for (auto&& u : H.G[net])
+        for (const auto& u : H.G[net])
         {
             gap[u] -= min_val;
         }
@@ -69,7 +69,7 @@ auto min_maximal_matching(const Netlist& H, const C1& weight, C2&& matchset,
 {
     auto cover = [&](const auto& net)
     {
-        for (auto&& v : H.G[net])
+        for (const auto& v : H.G[net])
         {
             dep.insert(v);
         }
@@ -87,7 +87,7 @@ auto min_maximal_matching(const Netlist& H, const C1& weight, C2&& matchset,
     auto gap = weight;
     [[maybe_unused]] auto total_dual_cost = T(0);
     auto total_primal_cost = T(0);
-    for (auto&& net : H.nets)
+    for (const auto& net : H.nets)
     {
         if (std::any_of(H.G[net].begin(), H.G[net].end(), in_dep))
         {
@@ -100,9 +100,9 @@ auto min_maximal_matching(const Netlist& H, const C1& weight, C2&& matchset,
         }
         auto min_val = gap[net];
         auto min_net = net;
-        for (auto&& v : H.G[net])
+        for (const auto& v : H.G[net])
         {
-            for (auto&& net2 : H.G[v])
+            for (const auto& net2 : H.G[v])
             {
                 if (std::any_of(H.G[net2].begin(), H.G[net2].end(), in_dep))
                 {
@@ -122,9 +122,9 @@ auto min_maximal_matching(const Netlist& H, const C1& weight, C2&& matchset,
         if (min_net != net)
         {
             gap[net] -= min_val;
-            for (auto&& v : H.G[net])
+            for (const auto& v : H.G[net])
             {
-                for (auto&& net2 : H.G[v])
+                for (const auto& net2 : H.G[v])
                 {
                     gap[net2] -= min_val;
                 }

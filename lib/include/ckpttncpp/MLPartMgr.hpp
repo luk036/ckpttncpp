@@ -36,7 +36,7 @@ class MLPartMgr
     std::uint8_t LIMIT_SIZE {7};
 
   public:
-    int totalcost {};
+    unsigned int totalcost {};
 
     /*!
      * @brief Construct a new MLPartMgr object

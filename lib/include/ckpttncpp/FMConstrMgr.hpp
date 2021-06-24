@@ -30,12 +30,12 @@ class FMConstrMgr
   private:
     const SimpleNetlist& H;
     double BalTol;
-    int totalweight;
-    int weight {}; // cache value
+    unsigned int totalweight {};
+    unsigned int weight {}; // cache value
 
   protected:
-    std::vector<int> diff;
-    int lowerbound {};
+    std::vector<unsigned int> diff;
+    unsigned int lowerbound {};
     std::uint8_t K;
 
     /*!
@@ -62,7 +62,7 @@ class FMConstrMgr
         , diff(K, 0)
         , K {K}
     {
-        this->totalweight = 0;
+        this->totalweight = 0U;
         for (const auto& v : this->H)
         {
             this->totalweight += this->H.get_module_weight(v);
@@ -70,7 +70,7 @@ class FMConstrMgr
         // auto r_weight = this->H | ranges::views::transform([&](auto v){return
         // this->H.get_module_weight(v);}); this->totalweight =
         // ranges::accumulate(r_weight, 0);
-        const auto totalweightK = this->totalweight * (2. / this->K);
+        const auto totalweightK = this->totalweight * (2.0 / this->K);
         this->lowerbound = int(std::round(totalweightK * this->BalTol));
     }
 

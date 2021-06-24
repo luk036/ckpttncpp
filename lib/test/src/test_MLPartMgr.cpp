@@ -24,7 +24,7 @@ TEST_CASE("Test MLBiPartMgr dwarf")
     auto partMgr = MLPartMgr {0.3};
     auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
     partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(H, part);
-    CHECK(partMgr.totalcost == 2);
+    CHECK(partMgr.totalcost == 2U);
 }
 
 TEST_CASE("Test MLKWayPartMgr dwarf")
@@ -33,7 +33,7 @@ TEST_CASE("Test MLKWayPartMgr dwarf")
     auto partMgr = MLPartMgr {0.4, 3}; // 0.3???
     auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
     partMgr.run_FMPartition<FMPartMgr<FMKWayGainMgr, FMKWayConstrMgr>>(H, part);
-    CHECK(partMgr.totalcost == 4);
+    CHECK(partMgr.totalcost == 4U);
 }
 
 TEST_CASE("Test MLBiPartMgr p1")
@@ -41,7 +41,7 @@ TEST_CASE("Test MLBiPartMgr p1")
     const auto H = readNetD("../../../testcases/p1.net");
     auto partMgr = MLPartMgr {0.3};
 
-    auto mincost = 1000;
+    auto mincost = 1000U;
     for (auto i = 0; i != 10; ++i)
     {
         auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
@@ -60,8 +60,8 @@ TEST_CASE("Test MLBiPartMgr p1")
     }
     // CHECK(partMgr.totalcost >= 50);
     // CHECK(partMgr.totalcost <= 50);
-    CHECK(mincost >= 29);
-    CHECK(mincost <= 73);
+    CHECK(mincost >= 29U);
+    CHECK(mincost <= 73U);
 }
 
 TEST_CASE("Test MLBiPartMgr ibm01")
@@ -69,7 +69,7 @@ TEST_CASE("Test MLBiPartMgr ibm01")
     auto H = readNetD("../../../testcases/ibm01.net");
     readAre(H, "../../../testcases/ibm01.are");
     auto partMgr = MLPartMgr {0.4};
-    auto mincost = 1000;
+    auto mincost = 1000U;
     for (auto i = 0; i != 10; ++i)
     {
         auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
@@ -88,8 +88,8 @@ TEST_CASE("Test MLBiPartMgr ibm01")
     }
     // CHECK(partMgr.totalcost >= 650);
     // CHECK(partMgr.totalcost <= 650);
-    CHECK(mincost >= 221);
-    CHECK(mincost <= 695);
+    CHECK(mincost >= 221U);
+    CHECK(mincost <= 695U);
 }
 
 TEST_CASE("Test MLBiPartMgr ibm03")
@@ -105,8 +105,8 @@ TEST_CASE("Test MLBiPartMgr ibm03")
     std::chrono::duration<double> last =
         std::chrono::steady_clock::now() - begin;
     std::cout << "time: " << last.count() << std::endl;
-    CHECK(partMgr.totalcost >= 1104);
-    CHECK(partMgr.totalcost <= 2041);
+    CHECK(partMgr.totalcost >= 1104U);
+    CHECK(partMgr.totalcost <= 2041U);
 }
 
 TEST_CASE("Test MLBiPartMgr ibm18")
@@ -122,8 +122,8 @@ TEST_CASE("Test MLBiPartMgr ibm18")
     std::chrono::duration<double> last =
         std::chrono::steady_clock::now() - begin;
     std::cout << "time: " << last.count() << std::endl;
-    CHECK(partMgr.totalcost >= 1104);
-    CHECK(partMgr.totalcost <= 5289);
+    CHECK(partMgr.totalcost >= 1104U);
+    CHECK(partMgr.totalcost <= 5289U);
 }
 
 /*

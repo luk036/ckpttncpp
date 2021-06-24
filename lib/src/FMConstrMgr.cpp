@@ -26,13 +26,13 @@ auto FMConstrMgr::check_legal(const MoveInfoV<node_t>& move_info_v)
     -> LegalCheck
 {
     this->weight = this->H.get_module_weight(move_info_v.v);
-    const auto diffFrom = this->diff[move_info_v.fromPart] - this->weight;
-    if (diffFrom < this->lowerbound)
+    const auto diffFrom = this->diff[move_info_v.fromPart];
+    if (diffFrom < this->lowerbound + this->weight)
     {
         return LegalCheck::notsatisfied; // not ok, don't move
     }
-    const auto diffTo = this->diff[move_info_v.toPart] + this->weight;
-    if (diffTo < this->lowerbound)
+    const auto diffTo = this->diff[move_info_v.toPart];
+    if (diffTo + this->weight < this->lowerbound)
     {
         return LegalCheck::getbetter; // get better, but still illegal
     }
@@ -53,8 +53,8 @@ auto FMConstrMgr::check_constraints(const MoveInfoV<node_t>& move_info_v)
 
     this->weight = this->H.get_module_weight(move_info_v.v);
     // auto diffTo = this->diff[toPart] + this->weight;
-    const auto diffFrom = this->diff[move_info_v.fromPart] - this->weight;
-    return diffFrom >= this->lowerbound;
+    const auto diffFrom = this->diff[move_info_v.fromPart];
+    return diffFrom >= this->lowerbound + this->weight;
 }
 
 /**

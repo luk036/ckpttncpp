@@ -40,7 +40,7 @@ class FMKWayGainMgr : public FMGainMgr<FMKWayGainCalc, FMKWayGainMgr>
      *
      * @param[in] part
      */
-    auto init(gsl::span<const std::uint8_t> part) -> int;
+    auto init(gsl::span<const std::uint8_t> part) -> unsigned int;
 
     /*!
      * @brief (needed by base class)

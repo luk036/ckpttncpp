@@ -12,9 +12,9 @@ TEST_CASE("Test BPQueue")
 
     CHECK(bpq1.is_empty());
 
-    auto d = dllink {std::pair {0, int32_t(0)}};
-    auto e = dllink {std::pair {0, int32_t(0)}};
-    auto f = dllink {std::pair {0, int32_t(0)}};
+    auto d = dllink {std::pair {0, uint32_t(0)}};
+    auto e = dllink {std::pair {0, uint32_t(0)}};
+    auto f = dllink {std::pair {0, uint32_t(0)}};
 
     CHECK(d.data.second == 0);
 
@@ -31,7 +31,7 @@ TEST_CASE("Test BPQueue")
     CHECK(bpq1.is_empty());
     CHECK(bpq2.get_max() == 6);
 
-    auto nodelist = std::vector<dllink<std::pair<int, int32_t>>>(10);
+    auto nodelist = std::vector<dllink<std::pair<int, uint32_t>>>(10);
 
     auto i = 0U;
     for (auto& it : nodelist)

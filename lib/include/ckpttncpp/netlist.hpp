@@ -139,7 +139,7 @@ struct Netlist
      * @param[in] v
      * @return int
      */
-    auto get_module_weight(const node_t& v) const -> int
+    auto get_module_weight(const node_t& v) const -> unsigned int
     {
         return this->module_weight.empty() ? 1 : this->module_weight[v];
     }
@@ -149,7 +149,7 @@ struct Netlist
      *
      * @return int
      */
-    auto get_net_weight(const node_t& /*net*/) const -> int
+    auto get_net_weight(const node_t& /*net*/) const -> unsigned int
     {
         // return this->net_weight.is_empty() ? 1
         //                                 :

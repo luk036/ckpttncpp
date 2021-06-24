@@ -17,11 +17,12 @@ class FMBiGainCalc
 
   public:
     using node_t = typename SimpleNetlist::node_t;
+    using Item = dllink<std::pair<node_t, uint32_t>>;
 
   private:
     const SimpleNetlist& H;
-    std::vector<dllink<std::pair<node_t, int32_t>>> vertex_list;
-    int totalcost {0};
+    std::vector<Item> vertex_list;
+    unsigned int totalcost {0};
     uint32_t MAX_DEGREE {FM_MAX_DEGREE};
     std::byte StackBuf[8192]; // ???
     FMPmr::monotonic_buffer_resource rsrc;
@@ -54,7 +55,7 @@ class FMBiGainCalc
      *
      * @param[in] part
      */
-    auto init(gsl::span<const std::uint8_t> part) -> int
+    auto init(gsl::span<const std::uint8_t> part) -> unsigned int
     {
         this->totalcost = 0;
         for (auto& vlink : this->vertex_list)
@@ -66,20 +67,6 @@ class FMBiGainCalc
             this->_init_gain(net, part);
         }
         return this->totalcost;
-    }
-
-    /*!
-     * @brief
-     *
-     * @deprecated
-     * @param[in] toPart
-     * @return dllink*
-     * @deprecated
-     */
-    auto start_ptr(std::uint8_t /*toPart*/)
-        -> dllink<std::pair<node_t, int32_t>>*
-    {
-        return &this->vertex_list[0];
     }
 
     /*!
@@ -131,7 +118,7 @@ class FMBiGainCalc
      * @param[in] w
      * @param[in] weight
      */
-    auto _modify_gain(const node_t& w, int weight) -> void
+    auto _modify_gain(const node_t& w, unsigned int weight) -> void
     {
         this->vertex_list[w].data.second += weight;
     }
@@ -144,7 +131,7 @@ class FMBiGainCalc
      * @param w
      */
     template <typename... Ts>
-    auto _modify_gain_va(int weight, Ts... w) -> void
+    auto _modify_gain_va(unsigned int weight, Ts... w) -> void
     {
         ((this->vertex_list[w].data.second += weight), ...);
     }
@@ -156,7 +143,7 @@ class FMBiGainCalc
     //  * @param weight
     //  * @param w
     //  */
-    // auto _modify_gain_va(int weight, const node_t& w1) -> void
+    // auto _modify_gain_va(unsigned int weight, const node_t& w1) -> void
     // {
     //     this->vertex_list[w1].data.second += weight;
     // }
@@ -168,7 +155,7 @@ class FMBiGainCalc
     //  * @param weight
     //  * @param w
     //  */
-    // auto _modify_gain_va(int weight, const node_t& w1, const node_t& w2) ->
+    // auto _modify_gain_va(unsigned int weight, const node_t& w1, const node_t& w2) ->
     // void
     // {
     //     this->vertex_list[w1].data.second += weight;
@@ -182,7 +169,7 @@ class FMBiGainCalc
     //  * @param weight
     //  * @param w
     //  */
-    // auto _modify_gain_va(int weight, const node_t& w1, const node_t& w2,
+    // auto _modify_gain_va(unsigned int weight, const node_t& w1, const node_t& w2,
     //     const node_t& w3) -> void
     // {
     //     this->vertex_list[w1].data.second += weight;

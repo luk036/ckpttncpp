@@ -21,10 +21,10 @@ class FMGainMgr
     Derived& self = *static_cast<Derived*>(this);
     using node_t = typename SimpleNetlist::node_t;
     // friend Derived;
+    using Item = dllink<std::pair<node_t, uint32_t>>;
 
   protected:
-    dllink<std::pair<node_t, int32_t>> waitinglist {
-        std::pair {node_t {}, int32_t(0)}};
+    Item waitinglist {std::pair {node_t {}, uint32_t(0)}};
     const SimpleNetlist& H;
     std::vector<bpqueue<node_t>> gainbucket;
     // size_t pmax;
@@ -33,7 +33,7 @@ class FMGainMgr
   public:
     GainCalc gainCalc;
 
-    // int totalcost;
+    // unsigned int totalcost;
 
     // FMGainMgr(FMGainMgr&&) = default;
 
@@ -50,7 +50,7 @@ class FMGainMgr
      *
      * @param[in] part
      */
-    auto init(gsl::span<const std::uint8_t> part) -> int;
+    auto init(gsl::span<const std::uint8_t> part) -> unsigned int;
 
     /*!
      * @brief

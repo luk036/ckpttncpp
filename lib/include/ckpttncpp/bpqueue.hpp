@@ -33,15 +33,17 @@ class bpq_iterator;
  * @TODO: support std::pmr
  */
 template <typename _Tp, typename Int = int32_t,
-    typename _Sequence = std::vector<dllink<std::pair<_Tp, Int>>>>
+    typename _Sequence = std::vector<dllink<std::pair<_Tp, std::make_unsigned_t<Int>>>>>
 //          class Allocator = typename std::allocator<dllink<std::pair<_Tp,
 //          Int>> > >
 class bpqueue
 {
+    using UInt = std::make_unsigned_t<Int>;
+    
     friend bpq_iterator<_Tp, Int>;
-    using Item = dllink<std::pair<_Tp, Int>>;
+    using Item = dllink<std::pair<_Tp, UInt>>;
 
-    static_assert(std::is_same<Item, typename _Sequence::value_type>::value,
+    static_assert(std::is_same_v<Item, typename _Sequence::value_type>,
         "value_type must be the same as the underlying container");
 
   public:
@@ -55,9 +57,9 @@ class bpqueue
     Item sentinel {}; //!< sentinel */
 
     _Sequence bucket; //!< bucket, array of lists
-    Int max {};       //!< max value
-    Int offset;       //!< a - 1
-    Int high;         //!< b - a + 1
+    UInt max {};       //!< max value
+    Int offset;          //!< a - 1
+    UInt high;         //!< b - a + 1
 
     // using alloc_t = decltype(bucket.get_allocator());
 
@@ -69,9 +71,9 @@ class bpqueue
      * @param[in] b upper bound
      */
     constexpr bpqueue(Int a, Int b)
-        : bucket(b - a + 2)
+        : bucket(static_cast<UInt>(b - a) + 2U)
         , offset(a - 1)
-        , high(b - offset)
+        , high(static_cast<UInt>(b - offset))
     {
         assert(a <= b);
         static_assert(
@@ -106,7 +108,7 @@ class bpqueue
      */
     constexpr auto set_key(Item& it, Int gain) noexcept -> void
     {
-        it.data.second = gain - this->offset;
+        it.data.second = static_cast<UInt>(gain - this->offset);
     }
 
     /*!
@@ -116,7 +118,7 @@ class bpqueue
      */
     [[nodiscard]] constexpr auto get_max() const noexcept -> Int
     {
-        return this->max + this->offset;
+        return this->offset + this->max;
     }
 
     /*!
@@ -344,14 +346,16 @@ class bpqueue
 template <typename _Tp, typename Int = int32_t>
 class bpq_iterator
 {
+    using UInt = std::make_unsigned_t<Int>;
+
     // using value_type = _Tp;
     // using key_type = Int;
-    using Item = dllink<std::pair<_Tp, Int>>;
+    using Item = dllink<std::pair<_Tp, UInt>>;
 
   private:
     bpqueue<_Tp, Int>& bpq; /*!< the priority queue */
-    Int curkey;             /*!< the current key value */
-    dll_iterator<std::pair<_Tp, Int>>
+    UInt curkey;             /*!< the current key value */
+    dll_iterator<std::pair<_Tp, UInt>>
         curitem; /*!< list iterator pointed to the current item.
                   */
 
@@ -372,7 +376,7 @@ class bpq_iterator
      * @param[in] bpq
      * @param[in] curkey
      */
-    constexpr bpq_iterator(bpqueue<_Tp, Int>& bpq, Int curkey)
+    constexpr bpq_iterator(bpqueue<_Tp, Int>& bpq, UInt curkey)
         : bpq {bpq}
         , curkey {curkey}
         , curitem {bpq.bucket[curkey].begin()}

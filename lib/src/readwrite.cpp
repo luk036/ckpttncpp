@@ -188,7 +188,7 @@ void readAre(SimpleNetlist& H, std::string_view areFileName)
 
     char c;
     node_t w;
-    int weight;
+    unsigned int weight;
     // auto totalWeight = 0;
     // xxx index_t smallestWeight = UINT_MAX;
     auto numModules = H.number_of_modules();

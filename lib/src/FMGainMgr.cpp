@@ -34,7 +34,7 @@ FMGainMgr<GainCalc, Derived>::FMGainMgr(const SimpleNetlist& H, std::uint8_t K)
  */
 template <typename GainCalc, class Derived>
 auto FMGainMgr<GainCalc, Derived>::init(gsl::span<const std::uint8_t> part)
-    -> int
+    -> unsigned int
 {
     auto totalcost = this->gainCalc.init(part);
     // this->totalcost = this->gainCalc.totalcost;

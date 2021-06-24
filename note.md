@@ -3,7 +3,7 @@
 - Min-hash
 - move contract_subgraph() inside HeirNetlist
 - restrict weight, key (gain) to int32_t
-
+- restrict weight unsigned
 
 The package range-v3:x86-windows provides CMake targets:
 

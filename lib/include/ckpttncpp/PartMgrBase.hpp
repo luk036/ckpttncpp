@@ -69,7 +69,7 @@ class PartMgrBase
     // std::vector<std::uint8_t> part;
 
   public:
-    int totalcost {};
+    unsigned int totalcost {};
 
     /*!
      * @brief Construct a new FDPartMgr object

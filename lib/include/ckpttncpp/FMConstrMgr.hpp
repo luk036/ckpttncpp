@@ -1,13 +1,13 @@
 #pragma once
 
 #include "netlist.hpp"
-#include <algorithm>
+// #include <algorithm>
 #include <cinttypes>
 #include <cmath>
 #include <gsl/span>
-#include <range/v3/core.hpp>
-#include <range/v3/numeric/accumulate.hpp>
-#include <range/v3/view/transform.hpp>
+// #include <range/v3/core.hpp>
+// #include <range/v3/numeric/accumulate.hpp>
+// #include <range/v3/view/transform.hpp>
 #include <vector>
 
 /*!
@@ -30,7 +30,7 @@ class FMConstrMgr
   private:
     const SimpleNetlist& H;
     double BalTol;
-    unsigned int totalweight {};
+    unsigned int totalweight {0};
     unsigned int weight {}; // cache value
 
   protected:
@@ -62,7 +62,7 @@ class FMConstrMgr
         , diff(K, 0)
         , K {K}
     {
-        this->totalweight = 0U;
+        // this->totalweight = 0U;
         for (const auto& v : this->H)
         {
             this->totalweight += this->H.get_module_weight(v);

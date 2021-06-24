@@ -3,8 +3,7 @@
 #include "dllist.hpp" // import dllink
 #include <cassert>
 #include <gsl/span>
-#include <tuple>
-#include <type_traits>
+// #include <type_traits>
 #include <vector>
 
 // Forward declaration for begin() end()

@@ -4,12 +4,12 @@
 // Take a snapshot when a move make **negative** gain.
 // Snapshot in the form of "interface"???
 // #include "netlist.hpp"
-#include <cinttypes>
+// #include <cinttypes>
 #include <gsl/span>
-#include <iterator>
-#include <py2cpp/py2cpp.hpp>
-#include <type_traits>
-#include <vector>
+// #include <iterator>
+// #include <py2cpp/py2cpp.hpp>
+// #include <type_traits>
+// #include <vector>
 #include <xnetwork/classes/graph.hpp>
 
 // forward declare

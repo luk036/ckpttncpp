@@ -1,7 +1,7 @@
-#include <algorithm> // import std::any_of()
+// #include <algorithm> // import std::any_of()
 #include <ckpttncpp/FMKWayConstrMgr.hpp>
-#include <functional> // import std::identity
-#include <range/v3/algorithm/any_of.hpp>
+// #include <functional> // import std::identity
+// #include <range/v3/algorithm/any_of.hpp>
 
 /**
  * @brief identity function object (coming in C++20)

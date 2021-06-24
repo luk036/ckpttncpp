@@ -1,6 +1,5 @@
 #pragma once
 
-#include <algorithm> // std::max
 #include <initializer_list>
 #include <range/v3/view/iota.hpp>
 #include <tuple>
@@ -103,10 +102,9 @@ inline constexpr auto range2(T start, T stop)
         }
     };
 
-    stop = std::max(stop, start);
-    // if (stop < start) {
-    //     stop = start;
-    // }
+    if (stop < start) {
+        stop = start;
+    }
     return iterable_wrapper {start, stop};
 }
 

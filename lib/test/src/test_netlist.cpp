@@ -1,7 +1,7 @@
 // -*- coding: utf-8 -*-
 #include <ckpttncpp/netlist.hpp>
 #include <doctest/doctest.h>
-#include <py2cpp/py2cpp.hpp>
+// #include <py2cpp/py2cpp.hpp>
 #include <utility> // for std::pair
 #include <vector>
 

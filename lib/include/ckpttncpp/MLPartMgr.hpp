@@ -9,7 +9,6 @@
 #include <ckpttncpp/HierNetlist.hpp>
 #include <gsl/span>
 #include <memory> // std::unique_ptr
-#include <vector>
 // #include <ckpttncpp/FMConstrMgr.hpp>   // import LegalCheck
 
 // forward declare

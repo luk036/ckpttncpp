@@ -1,9 +1,8 @@
 #pragma once
 
 #include <range/v3/view/repeat_n.hpp>
-#include <vector>
 #include <any>
-#include <type_traits>
+// #include <type_traits>
 
 template <typename Val>
 inline auto get_repeat_array(const Val& a, std::ptrdiff_t n)

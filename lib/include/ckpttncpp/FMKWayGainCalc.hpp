@@ -80,12 +80,12 @@ class FMKWayGainCalc
      */
     auto init(gsl::span<const std::uint8_t> part) -> unsigned int
     {
-        this->totalcost = 0;
+        this->totalcost = 0U;
         for (auto& vec : this->vertex_list)
         {
             for (auto& vlink : vec)
             {
-                vlink.data.second = 0;
+                vlink.data.second = 0U;
             }
         }
         for (const auto& net : this->H.nets)

@@ -23,7 +23,6 @@ class FMBiGainCalc
     const SimpleNetlist& H;
     std::vector<Item> vertex_list;
     unsigned int totalcost {0};
-    uint32_t MAX_DEGREE {FM_MAX_DEGREE};
     std::byte StackBuf[8192]; // ???
     FMPmr::monotonic_buffer_resource rsrc;
 

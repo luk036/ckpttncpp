@@ -5,6 +5,17 @@
 - restrict weight, key (gain) to int32_t
 - restrict weight unsigned
 
+
+K = 2
+2 buckets
+1 vertex_list
+1 waiting_list
+
+general K
+K buckets
+K vertex_lists ???
+1 waiting_list
+
 The package range-v3:x86-windows provides CMake targets:
 
     find_package(range-v3 CONFIG REQUIRED)

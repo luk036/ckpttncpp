@@ -105,7 +105,7 @@ void FMGainMgr<GainCalc, Derived>::update_move(
     for (const node_t& net : this->H.G[move_info_v.v])
     {
         const auto degree = this->H.G.degree(net);
-        if (degree < 2) // [[unlikely]]
+        if (degree < 2 || degree > FM_MAX_DEGREE) // [[unlikely]]
         {
             continue; // does not provide any gain change when
                       // moving

@@ -44,7 +44,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
         {
             continue;
         }
-        if (this->H.module_fixed.contains(v))
+        if (!this->H.module_fixed.contains(v))
         {
             continue;
         }
@@ -108,9 +108,7 @@ void PartMgrBase<GainMgr, ConstrMgr, Derived>::_optimize_1pass(
     while (!this->gainMgr.is_empty())
     {
         // Take the gainmax with v from gainbucket
-        auto&& rslt = this->gainMgr.select(part);
-        auto&& move_info_v = std::get<0>(rslt);
-        auto&& gainmax = std::get<1>(rslt);
+        auto [move_info_v, gainmax] = this->gainMgr.select(part);
 
         // Check if the move of v can satisfied or notsatisfied
         const auto satisfiedOK = this->validator.check_constraints(move_info_v);

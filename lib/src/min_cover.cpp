@@ -6,15 +6,17 @@
 // #include <range/v3/all.hpp>
 // #include <range/v3/core.hpp>
 // #include <range/v3/numeric/accumulate.hpp>
-// #include <range/v3/view/enumerate.hpp>
+#include <range/v3/view/enumerate.hpp>
 // #include <range/v3/view/remove_if.hpp>
 // #include <range/v3/view/transform.hpp>
+#include <transrangers.hpp>
 #include <tuple>
 #include <vector>
 
 #include <ckpttncpp/HierNetlist.hpp>
 
 using node_t = typename SimpleNetlist::node_t;
+using namespace transrangers;
 
 
 /**
@@ -30,17 +32,8 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
     auto weight = py::dict<node_t, int> {};
     for (const auto& net : H.nets)
     {
-        // auto r_weight = H.G[net] |
-        //     ranges::views::transform(
-        //         [&](auto v) { return H.get_module_weight(v); });
-        // weight[net] = ranges::accumulate(r_weight, 0);
-
-        auto sum = 0;
-        for (const auto& v : H.G[net])
-        {
-            sum += H.get_module_weight(v);
-        }
-        weight[net] = sum;
+        weight[net] = accumulate(transform([&](const auto& v){
+            return H.get_module_weight(v); }, all(H.G[net])), 0);
     }
 
     auto S = py::set<node_t> {};
@@ -112,24 +105,16 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
     { // localize module_map and net_map
         auto module_map = py::dict<node_t, index_t> {};
         module_map.reserve(numModules);
-        // for (const auto& [i_v, v] : ranges::views::enumerate(modules))
-        auto i_v = 0U;
-        for (const auto& v : modules)
+        for (const auto& [i_v, v] : ranges::views::enumerate(modules))
         {
-            // const auto& v = modules[i_v];
             module_map[v] = index_t(i_v);
-            ++i_v;
         }
 
         // auto net_map = py::dict<node_t, index_t> {};
         net_up_map.reserve(numNets);
-        // for (const auto& [i_net, net] : ranges::views::enumerate(nets))
-        auto i_net = 0U;
-        for (const auto& net : nets)
+        for (const auto& [i_net, net] : ranges::views::enumerate(nets))
         {
-            // const auto& net = nets[i_net];
             net_up_map[net] = index_t(i_net) + numModules;;
-            ++i_net;
         }
 
         node_up_dict.reserve(H.number_of_modules());
@@ -191,17 +176,7 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
         if (cluster_down_map.contains(i_v))
         {
             const auto net = cluster_down_map[i_v];
-            // auto cluster_weight = 0U;
-            // for (const auto& v2 : H.G[net])
-            // {
-            //     cluster_weight += H.get_module_weight(v2);
-            // }
-            // auto r_weight = H.G[net] |
-            //     ranges::views::transform(
-            //         [&](auto v) { return H.get_module_weight(v); });
-            // auto cluster_weight = ranges::accumulate(r_weight, 0);
-            auto&& cluster_weight = weight[net];
-            module_weight.push_back(cluster_weight);
+            module_weight.push_back(weight[net]);
         }
         else
         {

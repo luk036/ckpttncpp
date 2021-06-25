@@ -1,13 +1,9 @@
 #pragma once
 
 #include "netlist.hpp"
-// #include <algorithm>
 #include <cinttypes>
 #include <cmath>
 #include <gsl/span>
-// #include <range/v3/core.hpp>
-// #include <range/v3/numeric/accumulate.hpp>
-// #include <range/v3/view/transform.hpp>
 #include <vector>
 
 /*!
@@ -56,23 +52,7 @@ class FMConstrMgr
      * @param[in] BalTol
      * @param[in] K
      */
-    FMConstrMgr(const SimpleNetlist& H, double BalTol, std::uint8_t K)
-        : H {H}
-        , BalTol {BalTol}
-        , diff(K, 0)
-        , K {K}
-    {
-        // this->totalweight = 0U;
-        for (const auto& v : this->H)
-        {
-            this->totalweight += this->H.get_module_weight(v);
-        }
-        // auto r_weight = this->H | ranges::views::transform([&](auto v){return
-        // this->H.get_module_weight(v);}); this->totalweight =
-        // ranges::accumulate(r_weight, 0);
-        const auto totalweightK = this->totalweight * (2.0 / this->K);
-        this->lowerbound = int(std::round(totalweightK * this->BalTol));
-    }
+    FMConstrMgr(const SimpleNetlist& H, double BalTol, std::uint8_t K);
 
   public:
     using node_t = typename SimpleNetlist::node_t;

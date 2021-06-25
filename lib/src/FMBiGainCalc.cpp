@@ -1,7 +1,8 @@
 #include <ckpttncpp/FMBiGainCalc.hpp>
 #include <ckpttncpp/FMPmrConfig.hpp>
 #include <vector>
-#include <range/v3/view/remove_if.hpp>
+// #include <range/v3/view/remove_if.hpp>
+// #include <transrangers.hpp>
 // #include <range/v3/view/all.hpp>
 
 /**
@@ -169,19 +170,23 @@ auto FMBiGainCalc::update_move_2pin_net(gsl::span<const std::uint8_t> part,
  */
 void FMBiGainCalc::init_IdVec(const node_t& v, const node_t& net)
 {
-    auto rng = this->H.G[net] |
-            ranges::views::remove_if([&](auto w) { return w == v; });
-    this->IdVec = FMPmr::vector<node_t>(rng.begin(), rng.end(), &this->rsrc);
+    // auto rng = this->H.G[net] |
+    //         ranges::views::remove_if([&](auto w) { return w == v; });
+    // using namespace transrangers;
+    // auto rng = filter([&](const auto& w) { return w != v; }, all(this->H.G[net]));
+    // this->IdVec = FMPmr::vector<node_t>(rng.begin(), rng.end(), &this->rsrc);
 
-    // this->IdVec.clear();
-    // for (const auto& w : ranges::views::all(this->H.G[net]))
-    // {
-    //     if (w == v)
-    //     {
-    //         continue;
-    //     }
-    //     this->IdVec.push_back(w);
-    // }
+    this->IdVec.clear();
+    auto&& rng = this->H.G[net];
+    this->IdVec.reserve(rng.size() - 1);
+    for (const auto& w : rng)
+    {
+        if (w == v)
+        {
+            continue;
+        }
+        this->IdVec.push_back(w);
+    }
 }
 
 /**

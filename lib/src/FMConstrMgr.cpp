@@ -1,5 +1,19 @@
 #include <ckpttncpp/FMConstrMgr.hpp>
 #include <ckpttncpp/netlist.hpp> // import Netlist
+#include <transrangers.hpp>
+
+FMConstrMgr::FMConstrMgr(const SimpleNetlist& H, double BalTol, std::uint8_t K)
+    : H {H}
+    , BalTol {BalTol}
+    , diff(K, 0)
+    , K {K}
+{
+    using namespace transrangers;
+    this->totalweight = accumulate(transform([&](const auto& v){
+        return H.get_module_weight(v); }, all(H)), 0);
+    const auto totalweightK = this->totalweight * (2.0 / this->K);
+    this->lowerbound = int(std::round(totalweightK * this->BalTol));
+}
 
 /**
  * @brief

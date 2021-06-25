@@ -131,7 +131,7 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
 
     auto num_vertices = numModules + numNets;
     // auto R = py::range<node_t>(0, num_vertices);
-    auto g = graph_t {num_vertices};
+    auto g = graph_t(num_vertices);
     // G.add_nodes_from(nodes);
     for (const auto& v : H)
     {

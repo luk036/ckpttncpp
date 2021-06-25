@@ -264,7 +264,7 @@ class Graph : public object
     {
     }
 
-    explicit Graph(uint32_t num_nodes)
+    explicit Graph(int num_nodes)
         : _node {py::range(num_nodes)}
         , _adj(num_nodes) // std::vector
     {

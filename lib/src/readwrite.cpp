@@ -85,7 +85,7 @@ auto readNetD(std::string_view netDFileName) -> SimpleNetlist
 
     const auto num_vertices = numModules + numNets;
     // const auto R = py::range<node_t>(0, num_vertices);
-    auto g = graph_t {num_vertices};
+    auto g = graph_t(num_vertices);
 
     constexpr index_t bufferSize = 100;
     char lineBuffer[bufferSize]; // Does it work for other compiler?

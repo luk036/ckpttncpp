@@ -10,7 +10,7 @@ FMConstrMgr::FMConstrMgr(const SimpleNetlist& H, double BalTol, std::uint8_t K)
 {
     using namespace transrangers;
     this->totalweight = accumulate(transform([&](const auto& v){
-        return H.get_module_weight(v); }, all(H)), 0);
+        return H.get_module_weight(v); }, all(H)), 0U);
     const auto totalweightK = this->totalweight * (2.0 / this->K);
     this->lowerbound = int(std::round(totalweightK * this->BalTol));
 }

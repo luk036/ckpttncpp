@@ -29,11 +29,11 @@ using namespace transrangers;
 auto create_contraction_subgraph(const SimpleNetlist& H,
     const py::set<node_t>& DontSelect) -> std::unique_ptr<SimpleHierNetlist>
 {
-    auto weight = py::dict<node_t, int> {};
+    auto weight = py::dict<node_t, unsigned int> {};
     for (const auto& net : H.nets)
     {
         weight[net] = accumulate(transform([&](const auto& v){
-            return H.get_module_weight(v); }, all(H.G[net])), 0);
+            return H.get_module_weight(v); }, all(H.G[net])), 0U);
     }
 
     auto S = py::set<node_t> {};
@@ -148,7 +148,7 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
     auto G = std::move(g);
 
     auto H2 = std::make_unique<SimpleHierNetlist>(std::move(G),
-        py::range(0, numModules), py::range(numModules, num_vertices));
+        py::range(numModules), py::range(numModules, num_vertices));
 
     auto node_down_map = std::vector<node_t> {};
     node_down_map.resize(numModules);
@@ -169,9 +169,9 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
         cluster_down_map[node_up_dict[v]] = net;
     }
 
-    auto module_weight = std::vector<int> {};
+    auto module_weight = std::vector<unsigned int> {};
     module_weight.reserve(numModules);
-    for (const auto& i_v : py::range(0, numModules))
+    for (const auto& i_v : py::range(numModules))
     {
         if (cluster_down_map.contains(i_v))
         {

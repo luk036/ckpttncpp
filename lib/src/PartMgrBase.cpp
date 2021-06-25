@@ -40,7 +40,7 @@ auto PartMgrBase<GainMgr, ConstrMgr, Derived>::legalize(
     // Zero-weighted modules does not contribute legalization
     for (const auto& v : this->H)
     {
-        if (this->H.get_module_weight(v) != 0)
+        if (this->H.get_module_weight(v) != 0U)
         {
             continue;
         }

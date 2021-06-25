@@ -14,7 +14,7 @@
 // forward declare
 // template <typename nodeview_t, typename nodemap_t>
 // struct Netlist;
-// using RngIter = decltype(py::range(0, 1));
+// using RngIter = decltype(py::range(1));
 // using SimpleNetlist = Netlist<RngIter, RngIter>;
 
 using node_t = typename SimpleNetlist::node_t;

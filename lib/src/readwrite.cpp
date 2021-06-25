@@ -193,7 +193,7 @@ void readAre(SimpleNetlist& H, std::string_view areFileName)
     // xxx index_t smallestWeight = UINT_MAX;
     auto numModules = H.number_of_modules();
     auto padOffset = numModules - H.num_pads - 1;
-    auto module_weight = std::vector<int>(numModules);
+    auto module_weight = std::vector<unsigned int>(numModules);
 
     size_t lineno = 1;
     for (size_t i = 0; i < numModules; i++)

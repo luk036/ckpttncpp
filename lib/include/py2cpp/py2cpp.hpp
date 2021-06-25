@@ -124,26 +124,20 @@ inline auto range(T start, T stop)
         {
         }
 
-        [[nodiscard]] auto contains(int n) const -> bool
+        [[nodiscard]] auto contains(T n) const -> bool
         {
             return !(n < *this->begin()) && n < *this->end();
-        }
-
-        // temp fix windows version
-        [[nodiscard]] auto size() const -> size_t
-        {
-            return std::distance(this->begin(), this->end());
         }
     };
     
     return iterable_wrapper {ranges::views::iota(start, stop)};
 }
 
-// template <typename T>
-// inline constexpr auto range(T stop)
-// {
-//     return range(T(0), stop);
-// }
+template <typename T>
+inline auto range(T stop)
+{
+    return range(T(0), stop);
+}
 
 /*!
  * @brief

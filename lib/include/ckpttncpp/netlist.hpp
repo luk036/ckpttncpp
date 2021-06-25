@@ -40,8 +40,8 @@ struct Netlist
     size_t max_degree {};
     size_t max_net_degree {};
     // std::uint8_t cost_model = 0;
-    std::vector<int> module_weight;
-    std::vector<int> net_weight;
+    std::vector<unsigned int> module_weight;
+    std::vector<unsigned int> net_weight;
     bool has_fixed_modules {};
     py::set<node_t> module_fixed;
 
@@ -141,7 +141,7 @@ struct Netlist
      */
     auto get_module_weight(const node_t& v) const -> unsigned int
     {
-        return this->module_weight.empty() ? 1 : this->module_weight[v];
+        return this->module_weight.empty() ? 1U : this->module_weight[v];
     }
 
     /**
@@ -149,12 +149,12 @@ struct Netlist
      *
      * @return int
      */
-    auto get_net_weight(const node_t& /*net*/) const -> unsigned int
+    constexpr auto get_net_weight(const node_t& /*net*/) const noexcept -> unsigned int
     {
         // return this->net_weight.is_empty() ? 1
         //                                 :
         //                                 this->net_weight[this->net_map[net]];
-        return 1;
+        return 1U;
     }
 };
 
@@ -212,12 +212,12 @@ Netlist<graph_t>::Netlist(
 
 template <typename graph_t>
 Netlist<graph_t>::Netlist(graph_t G, int numModules, int numNets)
-    : Netlist {std::move(G), py::range(0, numModules),
+    : Netlist {std::move(G), py::range(numModules),
           py::range(numModules, numModules + numNets)}
 {
 }
 
-// using RngIter = decltype(py::range(0, 1));
+// using RngIter = decltype(py::range(1));
 using graph_t = xn::SimpleGraph;
 using index_t = int;
 using SimpleNetlist = Netlist<graph_t>;

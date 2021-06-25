@@ -95,7 +95,7 @@ HierNetlist<graph_t>::HierNetlist(
 
 template <typename graph_t>
 HierNetlist<graph_t>::HierNetlist(graph_t G, int numModules, int numNets)
-    : Netlist<graph_t> {std::move(G), py::range(0, numModules),
+    : Netlist<graph_t> {std::move(G), py::range(numModules),
           py::range(numModules, numModules + numNets)}
 {
 }

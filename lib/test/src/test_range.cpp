@@ -22,7 +22,7 @@ TEST_CASE("Test Range")
         total += e;
     }
 
-    const auto R = py::range(0, 10);
+    const auto R = py::range(10);
 
     // CHECK(!R.empty());
     // CHECK(R.contains(4U));

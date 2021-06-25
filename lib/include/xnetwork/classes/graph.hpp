@@ -264,8 +264,8 @@ class Graph : public object
     {
     }
 
-    explicit Graph(int num_nodes)
-        : _node {py::range(0, num_nodes)}
+    explicit Graph(uint32_t num_nodes)
+        : _node {py::range(num_nodes)}
         , _adj(num_nodes) // std::vector
     {
     }
@@ -861,10 +861,10 @@ class Graph : public object
 };
 
 using SimpleGraph =
-    Graph<decltype(py::range(0, 1)), py::set<int>, std::vector<py::set<int>>>;
+    Graph<decltype(py::range(1)), py::set<int>, std::vector<py::set<int>>>;
 
 // template <typename nodeview_t,
 //           typename adjlist_t> Graph(int )
-// -> Graph<decltype(py::range(0, 1)), py::set<int>>;
+// -> Graph<decltype(py::range(1)), py::set<int>>;
 
 } // namespace xn

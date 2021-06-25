@@ -15,7 +15,7 @@
 // forward declare
 template <typename graph_t>
 struct Netlist;
-// using RngIter = decltype(py::range(0, 1));
+// using RngIter = decltype(py::range(1));
 // //using graph_t = xn::SimpleGraph;
 using SimpleNetlist = Netlist<xn::SimpleGraph>;
 

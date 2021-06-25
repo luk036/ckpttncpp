@@ -96,7 +96,7 @@ class bpqueue
      */
     [[nodiscard]] constexpr auto is_empty() const noexcept -> bool
     {
-        return this->max == 0;
+        return this->max == 0U;
     }
 
     /*!
@@ -139,7 +139,7 @@ class bpqueue
      */
     constexpr auto append_direct(Item& it) noexcept -> void
     {
-        assert(it.data.second > this->offset);
+        assert(static_cast<Int>(it.data.second) > this->offset);
         this->append(it, it.data.second);
     }
 

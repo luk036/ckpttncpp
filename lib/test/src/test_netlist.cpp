@@ -45,7 +45,7 @@ auto create_dwarf() -> SimpleNetlist
         Edge(p3, n5), Edge(a0, n6)};
     // std::index_t indices[] = {0, 1, 2, 3, 4, 5};
     // int num_arcs = sizeof(edge_array) / sizeof(Edge);
-    // auto R = py::range(0, num_nodes);
+    // auto R = py::range(num_nodes);
     // graph_t g{R, R};
     auto g = xn::SimpleGraph(num_nodes);
     for (const auto& e : edge_array)
@@ -60,7 +60,7 @@ auto create_dwarf() -> SimpleNetlist
 
     // std::vector<node_t> module_list(7);
     // std::vector<node_t> net_list(5);
-    std::vector<int> module_weight = {1, 3, 4, 2, 0, 0, 0};
+    std::vector<unsigned int> module_weight = {1, 3, 4, 2, 0, 0, 0};
     // auto H = Netlist{std::move(g), py::range(7), py::range(7, 13),
     // py::range(7),
     //                  py::range(-7, 6)};
@@ -97,14 +97,14 @@ auto create_test_netlist() -> SimpleNetlist
     // auto num_arcs = sizeof(edge_array) / sizeof(Edge);
     // auto g = graph_t{edge_array, edge_array + num_arcs, num_nodes};
     // auto G = xn::grAdaptor<graph_t>{std::move(g)};
-    // const auto R = py::range(0, num_nodes);
+    // const auto R = py::range(num_nodes);
     graph_t g {num_nodes};
     for (const auto& e : edge_array)
     {
         g.add_edge(e.first, e.second);
     }
 
-    auto module_weight = std::vector<int> {3, 4, 2};
+    auto module_weight = std::vector<unsigned int> {3, 4, 2};
     auto H = SimpleNetlist {std::move(g), 3, 3};
     H.module_weight = std::move(module_weight);
     return H;
@@ -133,5 +133,5 @@ TEST_CASE("Test dwarf")
     CHECK(H.get_max_degree() == 3);
     CHECK(H.get_max_net_degree() == 3);
     CHECK(!H.has_fixed_modules);
-    CHECK(H.get_module_weight(1) == 3);
+    CHECK(H.get_module_weight(1) == 3U);
 }

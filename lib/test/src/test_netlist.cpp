@@ -18,7 +18,7 @@
 auto create_dwarf() -> SimpleNetlist
 {
     using Edge = std::pair<int, int>;
-    const int num_nodes = 13;
+    const auto num_nodes = 13U;
     enum nodes
     {
         a0,
@@ -64,7 +64,7 @@ auto create_dwarf() -> SimpleNetlist
     // auto H = Netlist{std::move(g), py::range(7), py::range(7, 13),
     // py::range(7),
     //                  py::range(-7, 6)};
-    auto H = SimpleNetlist {std::move(g), 7, 6};
+    auto H = SimpleNetlist (std::move(g), 7, 6);
 
     H.module_weight = module_weight;
     H.num_pads = 3;
@@ -79,7 +79,7 @@ auto create_dwarf() -> SimpleNetlist
 auto create_test_netlist() -> SimpleNetlist
 {
     using Edge = std::pair<int, int>;
-    auto num_nodes = 6;
+    auto num_nodes = 6U;
     enum nodes
     {
         a1,
@@ -98,7 +98,7 @@ auto create_test_netlist() -> SimpleNetlist
     // auto g = graph_t{edge_array, edge_array + num_arcs, num_nodes};
     // auto G = xn::grAdaptor<graph_t>{std::move(g)};
     // const auto R = py::range(num_nodes);
-    graph_t g {num_nodes};
+    graph_t g (num_nodes);
     for (const auto& e : edge_array)
     {
         g.add_edge(e.first, e.second);

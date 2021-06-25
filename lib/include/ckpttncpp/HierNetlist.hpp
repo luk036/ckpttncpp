@@ -56,7 +56,7 @@ class HierNetlist : public Netlist<graph_t>
      * @param[in] num_modules
      * @param[in] num_nets
      */
-    HierNetlist(graph_t G, int numModules, int numNets);
+    HierNetlist(graph_t G, uint32_t numModules, uint32_t numNets);
 
     /*!
      * @brief projection down
@@ -94,7 +94,7 @@ HierNetlist<graph_t>::HierNetlist(
 }
 
 template <typename graph_t>
-HierNetlist<graph_t>::HierNetlist(graph_t G, int numModules, int numNets)
+HierNetlist<graph_t>::HierNetlist(graph_t G, uint32_t numModules, uint32_t numNets)
     : Netlist<graph_t> {std::move(G), py::range(numModules),
           py::range(numModules, numModules + numNets)}
 {

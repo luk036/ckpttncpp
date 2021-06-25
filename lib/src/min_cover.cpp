@@ -51,8 +51,6 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
     cluster_map.reserve(S.size());
     auto node_up_dict = py::dict<node_t, index_t> {};
     auto net_up_map = py::dict<node_t, index_t> {};
-    int numModules {};
-    int numNets {};
 
     auto modules = std::vector<node_t> {};
     auto nets = std::vector<node_t> {};
@@ -99,8 +97,8 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
 
     // nodes.insert(nodes.end(), modules.begin(), modules.end());
     // nodes.insert(nodes.end(), nets.begin(), nets.end());
-    numModules = int(modules.size());
-    numNets = int(nets.size());
+    uint32_t numModules(modules.size());
+    uint32_t numNets(nets.size());
 
     { // localize module_map and net_map
         auto module_map = py::dict<node_t, index_t> {};

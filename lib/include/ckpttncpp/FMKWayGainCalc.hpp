@@ -56,7 +56,7 @@ class FMKWayGainCalc
             vec.reserve(H.number_of_modules());
             for (const auto& v : this->H)
             {
-                vec.emplace_back(dllink{std::pair {v, uint32_t(0)}});
+                vec.emplace_back(Item(std::pair {v, uint32_t(0)}));
             }
             this->vertex_list.emplace_back(std::move(vec));
         }

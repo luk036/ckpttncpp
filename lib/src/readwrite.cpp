@@ -70,12 +70,12 @@ auto readNetD(std::string_view netDFileName) -> SimpleNetlist
         exit(1);
     }
 
-    using node_t = int;
+    using node_t = uint32_t;
 
     char t;
-    int numPins;
-    int numNets;
-    int numModules;
+    uint32_t numPins;
+    uint32_t numNets;
+    uint32_t numModules;
     index_t padOffset;
 
     netD >> t; // eat 1st 0
@@ -94,7 +94,7 @@ auto readNetD(std::string_view netDFileName) -> SimpleNetlist
     node_t w;
     index_t e = numModules - 1;
     char c;
-    int i = 0;
+    uint32_t i = 0;
     for (; i < numPins; ++i)
     {
         if (netD.eof())

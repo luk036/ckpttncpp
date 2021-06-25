@@ -63,7 +63,7 @@ struct Netlist
      * @param[in] num_modules
      * @param[in] num_nets
      */
-    Netlist(graph_t G, int numModules, int numNets);
+    Netlist(graph_t G, uint32_t numModules, uint32_t numNets);
 
     auto begin() const
     {
@@ -211,7 +211,7 @@ Netlist<graph_t>::Netlist(
 }
 
 template <typename graph_t>
-Netlist<graph_t>::Netlist(graph_t G, int numModules, int numNets)
+Netlist<graph_t>::Netlist(graph_t G, uint32_t numModules, uint32_t numNets)
     : Netlist {std::move(G), py::range(numModules),
           py::range(numModules, numModules + numNets)}
 {
@@ -219,7 +219,7 @@ Netlist<graph_t>::Netlist(graph_t G, int numModules, int numNets)
 
 // using RngIter = decltype(py::range(1));
 using graph_t = xn::SimpleGraph;
-using index_t = int;
+using index_t = uint32_t;
 using SimpleNetlist = Netlist<graph_t>;
 
 template <typename Node>

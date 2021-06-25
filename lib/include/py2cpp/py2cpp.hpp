@@ -116,8 +116,8 @@ inline auto range(T start, T stop)
     class iterable_wrapper : public iota_return_type
     {
       public:
-        using value_type [[maybe_unused]] = int; // luk:
-        using key_type [[maybe_unused]] = int;   // luk:
+        using value_type [[maybe_unused]] = T; // luk:
+        using key_type [[maybe_unused]] = T;   // luk:
 
         iterable_wrapper(iota_return_type&& base)
             : iota_return_type{std::forward<iota_return_type>(base)}

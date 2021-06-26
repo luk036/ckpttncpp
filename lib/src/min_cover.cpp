@@ -47,8 +47,8 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
         module_up_map[v] = v;
     }
 
-    auto cluster_map = py::dict<node_t, node_t> {};
-    cluster_map.reserve(S.size());
+    // auto cluster_map = py::dict<node_t, node_t> {};
+    // cluster_map.reserve(S.size());
     auto node_up_dict = py::dict<node_t, index_t> {};
     auto net_up_map = py::dict<node_t, index_t> {};
 
@@ -66,15 +66,15 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
         {
             if (S.contains(net))
             {
-                auto netCur = H.G[net].begin();
-                auto master = *netCur;
-                clusters.push_back(master);
+                // auto netCur = H.G[net].begin();
+                // auto master = *netCur;
+                clusters.push_back(net);
                 for (const auto& v : H.G[net])
                 {
-                    module_up_map[v] = master;
+                    module_up_map[v] = net;
                     C.insert(v);
                 }
-                cluster_map[master] = net;
+                // cluster_map[master] = net;
             }
             else
             {
@@ -97,8 +97,8 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
 
     // nodes.insert(nodes.end(), modules.begin(), modules.end());
     // nodes.insert(nodes.end(), nets.begin(), nets.end());
-    uint32_t numModules(modules.size());
-    uint32_t numNets(nets.size());
+    auto numModules = uint32_t (modules.size());
+    auto numNets = uint32_t (nets.size());
 
     { // localize module_map and net_map
         auto module_map = py::dict<node_t, index_t> {};
@@ -146,7 +146,7 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
     auto G = std::move(g);
 
     auto H2 = std::make_unique<SimpleHierNetlist>(std::move(G),
-        py::range(numModules), py::range(numModules, num_vertices));
+        numModules, numNets);
 
     auto node_down_map = std::vector<node_t> {};
     node_down_map.resize(numModules);
@@ -158,13 +158,20 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
         node_down_map[v2] = v1;
     }
     auto cluster_down_map = py::dict<index_t, node_t> {};
-    cluster_down_map.reserve(cluster_map.size()); // ???
-    // for (const auto& [v, net] : cluster_map.items())
-    for (const auto& keyvalue : cluster_map.items())
+    // cluster_down_map.reserve(cluster_map.size()); // ???
+    // // for (const auto& [v, net] : cluster_map.items())
+    // for (const auto& keyvalue : cluster_map.items())
+    // {
+    //     auto&& v = std::get<0>(keyvalue);
+    //     auto&& net = std::get<1>(keyvalue);
+    //     cluster_down_map[node_up_dict[v]] = net;
+    // }
+    for (auto&& net : S)
     {
-        auto&& v = std::get<0>(keyvalue);
-        auto&& net = std::get<1>(keyvalue);
-        cluster_down_map[node_up_dict[v]] = net;
+        for (auto&& v : H.G[net])
+        {
+            cluster_down_map[node_up_dict[v]] = net;
+        }
     }
 
     auto module_weight = std::vector<unsigned int> {};

@@ -41,7 +41,6 @@ struct Netlist
     size_t max_net_degree {};
     // std::uint8_t cost_model = 0;
     std::vector<unsigned int> module_weight;
-    std::vector<unsigned int> net_weight;
     bool has_fixed_modules {};
     py::set<node_t> module_fixed;
 
@@ -149,7 +148,7 @@ struct Netlist
      *
      * @return int
      */
-    constexpr auto get_net_weight(const node_t& /*net*/) const noexcept -> unsigned int
+    auto get_net_weight(const node_t& /*net*/) const -> unsigned int
     {
         // return this->net_weight.is_empty() ? 1
         //                                 :

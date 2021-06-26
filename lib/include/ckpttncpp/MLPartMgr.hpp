@@ -32,7 +32,7 @@ class MLPartMgr
   private:
     double BalTol;
     std::uint8_t K;
-    std::uint8_t LIMIT_SIZE {7};
+    size_t limitsize {7U};
 
   public:
     int totalcost {};
@@ -59,50 +59,11 @@ class MLPartMgr
     {
     }
 
-    /*!
-     * @brief run_Partition
-     *
-     * @tparam GainMgr
-     * @tparam ConstrMgr
-     * @param[in] H
-     * @param[in,out] part
-     * @param[in] limitsize
-     * @return LegalCheck
-     */
-    template <typename PartMgr>
-    auto run_FMPartition(const SimpleNetlist& H, gsl::span<std::uint8_t> part,
-        size_t limitsize) -> LegalCheck;
-
-    /*!
-     * @brief run_Partition
-     *
-     * @tparam GainMgr
-     * @tparam ConstrMgr
-     * @param[in] H
-     * @param[in,out] part
-     * @param[in] limitsize
-     * @return LegalCheck
-     */
-    template <typename PartMgr>
-    auto run_Partition(const SimpleNetlist& H, gsl::span<std::uint8_t> part,
-        size_t limitsize) -> LegalCheck;
-
-    /*!
-     * @brief run_Partition
-     *
-     * @tparam GainMgr
-     * @tparam ConstrMgr
-     * @param[in] H
-     * @param[in,out] part
-     * @return LegalCheck
-     */
-    template <typename PartMgr>
-    auto run_FMPartition(const SimpleNetlist& H, gsl::span<std::uint8_t> part)
-        -> LegalCheck
+    void set_limitsize(size_t limit)
     {
-        return this->run_FMPartition<PartMgr>(H, part, this->LIMIT_SIZE);
+        this->limitsize = limit;
     }
-
+    
     /*!
      * @brief run_Partition
      *
@@ -113,23 +74,6 @@ class MLPartMgr
      * @return LegalCheck
      */
     template <typename PartMgr>
-    auto run_Partition(const SimpleNetlist& H, gsl::span<std::uint8_t> part)
-        -> LegalCheck
-    {
-        return this->run_Partition<PartMgr>(H, part, this->LIMIT_SIZE);
-    }
+    auto run_FMPartition(const SimpleNetlist& H, gsl::span<std::uint8_t> part) -> LegalCheck;
 
-    /*!
-     * @brief run_Partition_recur
-     *
-     * @tparam GainMgr
-     * @tparam ConstrMgr
-     * @param[in] H
-     * @param[in,out] part
-     * @param[in] limitsize
-     * @return size_t self.take_snapshot(part)
-     */
-    template <typename PartMgr>
-    void run_Partition_recur(
-        const SimpleNetlist& H, gsl::span<std::uint8_t> part, size_t limitsize);
 };

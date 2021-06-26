@@ -40,6 +40,7 @@ TEST_CASE("Test MLBiPartMgr p1")
 {
     const auto H = readNetD("../../../testcases/p1.net");
     auto partMgr = MLPartMgr {0.3};
+    partMgr.set_limitsize(500);
 
     auto mincost = 1000;
     for (auto i = 0; i != 10; ++i)
@@ -52,7 +53,7 @@ TEST_CASE("Test MLBiPartMgr p1")
             elem = std::uint8_t(whichPart);
         }
         partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(
-            H, part, 100);
+            H, part);
         if (mincost > partMgr.totalcost)
         {
             mincost = partMgr.totalcost;
@@ -69,6 +70,8 @@ TEST_CASE("Test MLBiPartMgr ibm01")
     auto H = readNetD("../../../testcases/ibm01.net");
     readAre(H, "../../../testcases/ibm01.are");
     auto partMgr = MLPartMgr {0.4};
+    partMgr.set_limitsize(400);
+
     auto mincost = 1000;
     for (auto i = 0; i != 10; ++i)
     {
@@ -80,7 +83,7 @@ TEST_CASE("Test MLBiPartMgr ibm01")
             elem = std::uint8_t(whichPart);
         }
         partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(
-            H, part, 400);
+            H, part);
         if (mincost > partMgr.totalcost)
         {
             mincost = partMgr.totalcost;
@@ -97,11 +100,12 @@ TEST_CASE("Test MLBiPartMgr ibm03")
     auto H = readNetD("../../../testcases/ibm03.net");
     readAre(H, "../../../testcases/ibm03.are");
     auto partMgr = MLPartMgr {0.45};
+    partMgr.set_limitsize(300);
     auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
     // auto part_info = PartInfo{std::move(part), py::set<node_t>()};
     auto begin = std::chrono::steady_clock::now();
     partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(
-        H, part, 300);
+        H, part);
     std::chrono::duration<double> last =
         std::chrono::steady_clock::now() - begin;
     std::cout << "time: " << last.count() << std::endl;
@@ -114,16 +118,17 @@ TEST_CASE("Test MLBiPartMgr ibm18")
     auto H = readNetD("../../../testcases/ibm18.net");
     readAre(H, "../../../testcases/ibm18.are");
     auto partMgr = MLPartMgr {0.45};
+    partMgr.set_limitsize(24000);
     auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
     // auto part_info = PartInfo{std::move(part), py::set<node_t>()};
     auto begin = std::chrono::steady_clock::now();
     partMgr.run_FMPartition<FMPartMgr<FMBiGainMgr, FMBiConstrMgr>>(
-        H, part, 25000);
+        H, part);
     std::chrono::duration<double> last =
         std::chrono::steady_clock::now() - begin;
     std::cout << "time: " << last.count() << std::endl;
     CHECK(partMgr.totalcost >= 1104U);
-    CHECK(partMgr.totalcost <= 5289U);
+    CHECK(partMgr.totalcost <= 3000U);
 }
 
 /*

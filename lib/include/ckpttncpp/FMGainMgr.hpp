@@ -33,7 +33,7 @@ class FMGainMgr
   public:
     GainCalc gainCalc;
 
-    // unsigned int totalcost;
+    // int totalcost;
 
     // FMGainMgr(FMGainMgr&&) = default;
 
@@ -50,7 +50,7 @@ class FMGainMgr
      *
      * @param[in] part
      */
-    auto init(gsl::span<const std::uint8_t> part) -> unsigned int;
+    auto init(gsl::span<const std::uint8_t> part) -> int;
 
     /*!
      * @brief

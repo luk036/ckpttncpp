@@ -39,14 +39,14 @@ TEST_CASE("Test BPQueue")
         it.data.second = 2 * i - 10;
         i += 1;
     }
-    bpq1.appendfrom(nodelist);
+    // bpq1.appendfrom(nodelist);
 
-    auto count = 0U;
-    for ([[maybe_unused]] auto& _ : bpq1)
-    {
-        count += 1;
-    }
-    CHECK(count == 10);
+    // auto count = 0U;
+    // for ([[maybe_unused]] auto& _ : bpq1)
+    // {
+    //     count += 1;
+    // }
+    // CHECK(count == 10);
 
     // const std::vector<std::uint8_t> a {3, 4, 5, 6};
     // gsl::span<const std::uint8_t> s {a};

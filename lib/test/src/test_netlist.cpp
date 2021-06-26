@@ -17,7 +17,7 @@
  */
 auto create_dwarf() -> SimpleNetlist
 {
-    using Edge = std::pair<int, int>;
+    using Edge = std::pair<uint32_t, uint32_t>;
     const auto num_nodes = 13U;
     enum nodes
     {
@@ -78,7 +78,7 @@ auto create_dwarf() -> SimpleNetlist
  */
 auto create_test_netlist() -> SimpleNetlist
 {
-    using Edge = std::pair<int, int>;
+    using Edge = std::pair<uint32_t, uint32_t>;
     auto num_nodes = 6U;
     enum nodes
     {

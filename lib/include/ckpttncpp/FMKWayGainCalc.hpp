@@ -23,7 +23,7 @@ class FMKWayGainCalc
     std::uint8_t K;
     robin<std::uint8_t> RR;
     // size_t num_modules;
-    unsigned int totalcost {0};
+    int totalcost {0};
     std::byte StackBuf[20000];
     FMPmr::monotonic_buffer_resource rsrc;
     std::vector<std::vector<Item>> vertex_list;
@@ -78,9 +78,9 @@ class FMKWayGainCalc
      *
      * @param[in] part
      */
-    auto init(gsl::span<const std::uint8_t> part) -> unsigned int
+    auto init(gsl::span<const std::uint8_t> part) -> int
     {
-        this->totalcost = 0U;
+        this->totalcost = 0;
         for (auto& vec : this->vertex_list)
         {
             for (auto& vlink : vec)

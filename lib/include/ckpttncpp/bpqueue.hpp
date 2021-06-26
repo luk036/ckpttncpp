@@ -117,7 +117,7 @@ class bpqueue
      */
     [[nodiscard]] constexpr auto get_max() const noexcept -> Int
     {
-        return this->offset + this->max;
+        return this->offset + Int(this->max);
     }
 
     /*!
@@ -140,7 +140,7 @@ class bpqueue
     constexpr auto append_direct(Item& it) noexcept -> void
     {
         assert(static_cast<Int>(it.data.second) > this->offset);
-        this->append(it, it.data.second);
+        this->append(it, Int(it.data.second));
     }
 
     /*!
@@ -152,7 +152,7 @@ class bpqueue
     constexpr auto append(Item& it, Int k) noexcept -> void
     {
         assert(k > this->offset);
-        it.data.second = k - this->offset;
+        it.data.second = UInt(k - this->offset);
         if (this->max < it.data.second)
         {
             this->max = it.data.second;
@@ -165,20 +165,20 @@ class bpqueue
      *
      * @param[in,out] nodes
      */
-    constexpr auto appendfrom(gsl::span<Item> nodes) noexcept -> void
-    {
-        for (auto& it : nodes)
-        {
-            it.data.second -= this->offset;
-            assert(it.data.second > 0);
-            this->bucket[it.data.second].append(it);
-        }
-        this->max = this->high;
-        while (this->bucket[this->max].is_empty())
-        {
-            this->max -= 1;
-        }
-    }
+    // constexpr auto appendfrom(gsl::span<Item> nodes) noexcept -> void
+    // {
+    //     for (auto& it : nodes)
+    //     {
+    //         it.data.second -= this->offset;
+    //         assert(it.data.second > 0);
+    //         this->bucket[it.data.second].append(it);
+    //     }
+    //     this->max = this->high;
+    //     while (this->bucket[this->max].is_empty())
+    //     {
+    //         this->max -= 1;
+    //     }
+    // }
 
     /*!
      * @brief pop node with the highest key
@@ -204,11 +204,11 @@ class bpqueue
      * Note that the order of items with same key will not be preserved.
      * For FM algorithm, this is a prefered behavior.
      */
-    constexpr auto decrease_key(Item& it, Int delta) noexcept -> void
+    constexpr auto decrease_key(Item& it, UInt delta) noexcept -> void
     {
         // this->bucket[it.data.second].detach(it)
         it.detach();
-        it.data.second += delta;
+        it.data.second -= delta;
         assert(it.data.second > 0);
         assert(it.data.second <= this->high);
         this->bucket[it.data.second].append(it); // FIFO
@@ -232,7 +232,7 @@ class bpqueue
      * Note that the order of items with same key will not be preserved.
      * For FM algorithm, this is a prefered behavior.
      */
-    constexpr auto increase_key(Item& it, Int delta) noexcept -> void
+    constexpr auto increase_key(Item& it, UInt delta) noexcept -> void
     {
         // this->bucket[it.data.second].detach(it)
         it.detach();
@@ -263,11 +263,11 @@ class bpqueue
         }
         if (delta > 0)
         {
-            this->increase_key(it, delta);
+            this->increase_key(it, UInt(delta));
         }
         else if (delta < 0)
         {
-            this->decrease_key(it, delta);
+            this->decrease_key(it, UInt(-delta));
         }
     }
 

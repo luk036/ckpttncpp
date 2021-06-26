@@ -6,7 +6,7 @@
  *
  * @param[in] part
  */
-auto FMBiGainMgr::init(gsl::span<const std::uint8_t> part) -> unsigned int
+auto FMBiGainMgr::init(gsl::span<const std::uint8_t> part) -> int
 {
     auto totalcost = Base::init(part);
     for (auto& bckt : this->gainbucket)

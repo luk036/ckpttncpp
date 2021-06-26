@@ -182,7 +182,7 @@ void readAre(SimpleNetlist& H, std::string_view areFileName)
         exit(1);
     }
 
-    using node_t = int;
+    using node_t = uint32_t;
     constexpr index_t bufferSize = 100;
     char lineBuffer[bufferSize];
 

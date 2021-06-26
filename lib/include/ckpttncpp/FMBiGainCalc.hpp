@@ -22,7 +22,7 @@ class FMBiGainCalc
   private:
     const SimpleNetlist& H;
     std::vector<Item> vertex_list;
-    unsigned int totalcost {0};
+    int totalcost {0};
     std::byte StackBuf[8192]; // ???
     FMPmr::monotonic_buffer_resource rsrc;
 
@@ -54,7 +54,7 @@ class FMBiGainCalc
      *
      * @param[in] part
      */
-    auto init(gsl::span<const std::uint8_t> part) -> unsigned int
+    auto init(gsl::span<const std::uint8_t> part) -> int
     {
         this->totalcost = 0;
         for (auto& vlink : this->vertex_list)

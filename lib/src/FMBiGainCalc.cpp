@@ -114,7 +114,7 @@ void FMBiGainCalc::_init_gain_general_net(
     const auto weight = this->H.get_net_weight(net);
 
     // #pragma unroll
-    for (const auto& k : {0, 1})
+    for (const auto& k : {0U, 1U})
     {
         if (num[k] == 0)
         {
@@ -156,7 +156,7 @@ auto FMBiGainCalc::update_move_2pin_net(gsl::span<const std::uint8_t> part,
     auto netCur = this->H.G[move_info.net].begin();
     auto w = (*netCur != move_info.v) ? *netCur : *++netCur;
     const auto weight = this->H.get_net_weight(move_info.net);
-    const auto delta = (part[w] == move_info.fromPart) ? weight : -weight;
+    const int delta = (part[w] == move_info.fromPart) ? int(weight) : -int(weight);
     this->deltaGainW = 2 * delta;
     return w;
 }

@@ -41,7 +41,7 @@ TEST_CASE("Test MLBiPartMgr p1")
     const auto H = readNetD("../../../testcases/p1.net");
     auto partMgr = MLPartMgr {0.3};
 
-    auto mincost = 1000U;
+    auto mincost = 1000;
     for (auto i = 0; i != 10; ++i)
     {
         auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);
@@ -69,7 +69,7 @@ TEST_CASE("Test MLBiPartMgr ibm01")
     auto H = readNetD("../../../testcases/ibm01.net");
     readAre(H, "../../../testcases/ibm01.are");
     auto partMgr = MLPartMgr {0.4};
-    auto mincost = 1000U;
+    auto mincost = 1000;
     for (auto i = 0; i != 10; ++i)
     {
         auto part = std::vector<std::uint8_t>(H.number_of_modules(), 0);

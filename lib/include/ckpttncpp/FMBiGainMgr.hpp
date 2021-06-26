@@ -38,7 +38,7 @@ class FMBiGainMgr : public FMGainMgr<FMBiGainCalc, FMBiGainMgr>
      * @param[in] part
      * @return int
      */
-    auto init(gsl::span<const std::uint8_t> part) -> unsigned int;
+    auto init(gsl::span<const std::uint8_t> part) -> int;
 
     /*!
      * @brief (needed by base class)

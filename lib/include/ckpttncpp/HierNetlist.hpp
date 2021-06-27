@@ -38,7 +38,7 @@ class HierNetlist : public Netlist<graph_t>
     std::vector<node_t> node_up_map;
     std::vector<node_t> node_down_map;
     py::dict<index_t, node_t> cluster_down_map;
-    shift_array<std::vector<unsigned int>> net_weight{};
+    shift_array<std::vector<int>> net_weight{};
 
 
     /*!
@@ -83,9 +83,9 @@ class HierNetlist : public Netlist<graph_t>
      *
      * @return int
      */
-    auto get_net_weight(const node_t& net) const -> unsigned int
+    auto get_net_weight(const node_t& net) const -> int
     {
-        return this->net_weight.empty() ? 1U
+        return this->net_weight.empty() ? 1
                                         :
                                         this->net_weight[net];
     }

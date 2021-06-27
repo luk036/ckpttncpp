@@ -148,12 +148,12 @@ struct Netlist
      *
      * @return int
      */
-    auto get_net_weight(const node_t& /*net*/) const -> unsigned int
+    auto get_net_weight(const node_t& /*net*/) const -> int
     {
         // return this->net_weight.is_empty() ? 1
         //                                 :
         //                                 this->net_weight[this->net_map[net]];
-        return 1U;
+        return 1;
     }
 };
 

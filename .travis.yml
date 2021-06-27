@@ -8,23 +8,6 @@ cache: # see https://docs.travis-ci.com/user/caching/
 matrix:
   include:
     - os: linux
-      addons: &gcc9
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-9
-            - doctest-dev
-            - librange-v3-dev
-            - lcov
-      env: COMPILER=gcc GCC=9 BUILD_TYPE='Debug'
-    - os: linux
-      addons: *gcc9
-      env: COMPILER=gcc GCC=9 BUILD_TYPE='Release'
-    - os: linux
-      addons: *gcc9
-      env: COMPILER=gcc GCC=9 BUILD_TYPE='Coverage'
-    - os: linux
       addons: &gcc10
         apt:
           sources:
@@ -39,17 +22,8 @@ matrix:
       addons: *gcc10
       env: COMPILER=gcc GCC=10 BUILD_TYPE='Release'
     - os: linux
-      addons: &clang9
-        apt:
-          packages:
-            - clang-9
-            - doctest-dev
-            - librange-v3-dev
-            - lcov
-      env: COMPILER=clang CLANG=9 BUILD_TYPE='Debug'
-    - os: linux
-      addons: *clang9
-      env: COMPILER=clang CLANG=9 BUILD_TYPE='Release'
+      addons: *gcc10
+      env: COMPILER=gcc GCC=10 BUILD_TYPE='Coverage'
     - os: linux
       addons: &clang10
         apt:

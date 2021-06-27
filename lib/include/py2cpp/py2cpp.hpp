@@ -44,7 +44,7 @@ namespace py
 // }
 
 template <typename T>
-inline constexpr auto range2(T start, T stop)
+inline constexpr auto range(T start, T stop)
 {
     struct _iterator
     {
@@ -65,6 +65,12 @@ inline constexpr auto range2(T start, T stop)
         {
             ++this->i;
             return *this;
+        }
+        constexpr auto operator++(int) -> _iterator
+        {
+            auto temp = *this;
+            ++*this;
+            return temp;
         }
     };
 
@@ -90,7 +96,7 @@ inline constexpr auto range2(T start, T stop)
         }
         [[nodiscard]] constexpr auto size() const -> size_t
         {
-            return this->stop - this->start;
+            return static_cast<size_t>(this->stop - this->start);
         }
         constexpr auto operator[](size_t n) const -> T
         {
@@ -108,30 +114,30 @@ inline constexpr auto range2(T start, T stop)
     return iterable_wrapper {start, stop};
 }
 
-template <typename T>
-inline auto range(T start, T stop)
-{
-    using iota_return_type = decltype(ranges::views::iota(start, stop));
+// template <typename T>
+// inline auto range(T start, T stop)
+// {
+//     using iota_return_type = decltype(ranges::views::iota(start, stop));
 
-    class iterable_wrapper : public iota_return_type
-    {
-      public:
-        using value_type [[maybe_unused]] = T; // luk:
-        using key_type [[maybe_unused]] = T;   // luk:
+//     class iterable_wrapper : public iota_return_type
+//     {
+//       public:
+//         using value_type [[maybe_unused]] = T; // luk:
+//         using key_type [[maybe_unused]] = T;   // luk:
 
-        iterable_wrapper(iota_return_type&& base)
-            : iota_return_type{std::forward<iota_return_type>(base)}
-        {
-        }
+//         iterable_wrapper(iota_return_type&& base)
+//             : iota_return_type{std::forward<iota_return_type>(base)}
+//         {
+//         }
 
-        [[nodiscard]] auto contains(T n) const -> bool
-        {
-            return !(n < *this->begin()) && n < *this->end();
-        }
-    };
+//         [[nodiscard]] auto contains(T n) const -> bool
+//         {
+//             return !(n < *this->begin()) && n < *this->end();
+//         }
+//     };
     
-    return iterable_wrapper {ranges::views::iota(start, stop)};
-}
+//     return iterable_wrapper {ranges::views::iota(start, stop)};
+// }
 
 template <typename T>
 inline auto range(T stop)

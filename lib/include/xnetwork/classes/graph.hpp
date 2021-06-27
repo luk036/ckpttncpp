@@ -861,7 +861,7 @@ class Graph : public object
 };
 
 using SimpleGraph =
-    Graph<decltype(py::range(uint32_t{})), py::set<uint32_t>, std::vector<py::set<uint32_t>>>;
+    Graph<decltype(py::range<uint32_t>(uint32_t{})), py::set<uint32_t>, std::vector<py::set<uint32_t>>>;
 
 // template <typename nodeview_t,
 //           typename adjlist_t> Graph(int )

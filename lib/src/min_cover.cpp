@@ -146,7 +146,7 @@ auto create_contraction_subgraph(const SimpleNetlist& H,
     auto G = std::move(g);
 
     auto H2 = std::make_unique<SimpleHierNetlist>(std::move(G),
-        numModules, numNets);
+        py::range(numModules), py::range(numModules, numModules + numNets));
 
     auto node_down_map = std::vector<node_t> {};
     node_down_map.resize(numModules);

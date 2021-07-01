@@ -1,0 +1,11 @@
+name: ckpttncpp
+channels:
+  - conda-forge
+dependencies:
+  # - cmake
+  - nlohmann_json
+  - fmt
+  - spdlog
+  - boost
+  - doctest
+  - benchmark

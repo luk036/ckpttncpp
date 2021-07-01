@@ -36,4 +36,4 @@ To run CTest:
 
 Limits:
 
-    Maximum #partitions = 256
+    Maximum #partitions = 255

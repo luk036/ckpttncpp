@@ -1,4 +1,4 @@
-name: CMake CodeCov
+name: CMake CodeCov auto build
 
 on:
   push:
